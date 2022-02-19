@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="project.spring.web.review.WriteReviewVO" alias="myreview" />
+		<typeAlias type="project.spring.web.tapPage.TapPageVO" alias="mytap" />
+		<typeAlias type="project.spring.web.tag.TagVO" alias="mytag" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappings/review-mapping.xml" />
+		<mapper resource="mappings/tap-mapping.xml" />
+		<mapper resource="mappings/tag-mapping.xml" />
+	</mappers>
+</configuration>

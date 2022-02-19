@@ -1,0 +1,24 @@
+package project.spring.web.tapPage.impl;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import project.spring.web.tapPage.TapPageVO;
+
+@Repository
+public class TapPageDAO {
+
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	public List<TapPageVO> getItemInfo01(TapPageVO vo){
+		 return sqlSessionTemplate.selectList("TapPageDAO.getItemInfoList01", vo);
+	}
+	
+	public List<TapPageVO> getItemInfo02(TapPageVO vo){
+		return sqlSessionTemplate.selectList("TapPageDAO.getItemInfoList02", vo);
+	}
+}

@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+::-webkit-scrollbar {width: 18px; height: 8px; border: 3px solid #fff; }
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {display: block; height: 10px; background: url('./images/bg.png') #efefef}
+::-webkit-scrollbar-track {background: #efefef; -webkit-border-radius: 10px; border-radius:10px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}
+::-webkit-scrollbar-thumb {height: 50px; width: 50px; background: rgba(0,0,0,.2); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)}
+
+@media ( max-width : 1023px) {
+	#slide01_1, #slide02_1, #slide03_1, #slide04_1, #slide05_1, #MD01_1,
+		#MD02_1, #MD03_1, #MD04_1, #MD05_1, #MD06_1, #MD07_1, #MD08_1, #MD09_1
+		{
+		display: block;
+	}
+	#slide01, #slide02, #slide03, #slide04, #slide05, #MD01, #MD02, #MD03,
+		#MD04, #MD05, #MD06, #MD07, #MD08, #MD09 {
+		display: none;
+	}
+	#home {
+		padding-top: 107px;
+	}
+	#bottom-banner[data-v-75a55e4e] {
+		background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/footer_banner_mobile.png);
+		background-size: cover;
+		height: 32vw;
+	}
+}
+
+@media ( min-width :1024px) {
+	#slide01_1, #slide02_1, #slide03_1, #slide04_1, #slide05_1, #MD01_1,
+		#MD02_1, #MD03_1, #MD04_1, #MD05_1, #MD06_1, #MD07_1, #MD08_1, #MD09_1
+		{
+		display: none;
+	}
+	#slide01, #slide02, #slide03, #slide04, #slide05, #MD01, #MD02, #MD03,
+		#MD04, #MD05, #MD06, #MD07, #MD08, #MD09 {
+		display: block;
+	}
+	#home {
+		padding-top: 182px;
+	}
+	#bottom-banner[data-v-75a55e4e] {
+		height: 240px;
+		max-width: 1200px;
+		margin: 0 auto;
+		background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/footer_banner.png);
+	}
+	#sa03, #sa04 {
+		width: 400px;
+	}
+	.header__menus .dropdown>div[data-v-30697495]{
+		left : 10px;
+	}
+	
+	.header__logo a[data-v-30697495] {
+		height : 50px;
+	}
+	
+	.check0{
+		display: inline-block;
+	    font-size: 14px;
+	    color: #333;
+	    margin-left: 8px;
+	    padding-left: 11px;
+	    height: 16px;
+	    line-height: 15px;
+	    border-left: 1px solid #d5e0db;
+	    cursor: pointer;
+	}
+}
+
+.header__logo a[data-v-30697495]{
+	background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG);
+}
+
+del {
+	font-size: 16px;
+	color: #ddd;
+	margin-left: 8px;
+	text-decoration: line-through;
+}
+
+.carousel-control {
+	height: 370px;
+}
+
+#a1, #a4, #a7 {
+	padding-right: 0px;
+	padding-left: 0px;
+	position: relative;
+}
+
+#a2, #a5, #a8 {
+	padding-left: 9px;
+	position: relative;
+}
+
+#a3, #a6, #a9 {
+	padding-left: 19px;
+	position: relative;
+}
+.footer--logo {
+	width: 140px;
+}
+
+.rest{
+	width:5%;
+}

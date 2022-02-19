@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+@media ( max-width : 1023px) {
+	 .container {
+      padding-top: 91px;
+   }
+}
+
+@media ( min-width :1024px) {
+	.container {
+      padding-top: 182px;
+   }
+}
+
+.item__body .info-wrap .star-info[data-v-15082832] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/starinfo.PNG);
+    margin-right: 4px;
+}
+
+.item__body .info-wrap .review-info[data-v-15082832] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/reviewinfo.PNG);
+}
+
+b{
+    color: #35ad73;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    font-family: Roboto,sans-serif;
+    margin-right: 1px;
+}
+
+.item__body .options>dl dd span[data-v-15082832] {
+    text-decoration: line-through;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ddd;
+    margin-left: 5px;
+}

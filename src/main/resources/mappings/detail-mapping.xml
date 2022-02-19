@@ -6,22 +6,36 @@
 <mapper namespace="DetailDAO">
 	<resultMap type="mydetail" id="detailResult">
 		<id property="item_code" column="item_code" />
-		<result property="item_avg_star" column="round(avg(star),1)"/>
-		<result property="count" column="count(content)"/>
+		<result property="item_code" column="item_code" />
+		<result property="item_tag_main" column="item_tag_main" />
+		<result property="item_tag_sub" column="item_tag_sub" />
+		<result property="item_tag_event" column="item_tag_event" />
+		<result property="item_name" column="item_name" />
+		<result property="item_summary" column="item_summary" />
+		<result property="item_explain" column=" item_explain" />
+		<result property="item_price_m" column="item_price_m" />
+		<result property="item_price_m_sub" column="item_price_m_sub" />
+		<result property="item_price_l" column="item_price_l" />
+		<result property="item_price_l_sub" column="item_price_l_sub" />
+		<result property="item_nut" column="item_nut" />
+		<result property="item_image" column="item_image" />
+		<result property="item_info_image" column="item_info_image" />
+		<result property="item_delinfo_image" column="item_delinfo_image" />
 	</resultMap>
 	
-<!-- 	<resultMap type="myInfo" id="infoResult"> -->
-<!-- 		<id property="item_code" column="item_code" /> -->
-<!-- 		<result property="item_info" column="item_info"/> -->
-<!-- 	</resultMap> -->
+	<resultMap type="mydetail" id="detailInfo">
+		<id property="item_code" column="item_code" />
+		<result property="item_info" column="item_info"  />
+	</resultMap>
 	
-	<select id="getDetail" parameterType="mydetail" resultMap="detailResult">
-		SELECT item_code, round(avg(star),1), count(content) 
-		  FROM reviewboard WHERE item_code = #{item_code};
+	<select id="getItem" resultType="mydetail" resultMap="detailResult">
+		SELECT * FROM item WHERE item_code = #{item_code}
 	</select>
 	
-<!-- 	<select id="getInfo" parameterType="myinfo" resultMap="infoResult"> -->
-<!-- 		select * from item_info where item_code = #{item_code}; -->
-<!-- 	</select> -->
+	<select id="getInfo" resultType="mydetail" resultMap="detailInfo">
+		select * from item_info where item_code = #{item_code}
+	</select>
+	
+
 
 </mapper>

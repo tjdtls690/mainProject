@@ -52,7 +52,7 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 	var tag = $(this).children('#tagMain').attr('value')
 	f.tagMain01.value = tag;
 	f.itemCode01.value = code;
-	f.action="test01.do"; // 상세페이지 url 로 연결만 시키기
+	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
 	f.method="post";
 	f.submit();
 })

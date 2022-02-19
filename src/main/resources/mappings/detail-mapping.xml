@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="DetailDAO">
+	<resultMap type="mydetail" id="detailResult">
+		<id property="item_code" column="item_code" />
+		<result property="item_avg_star" column="round(avg(star),1)"/>
+		<result property="count" column="count(content)"/>
+	</resultMap>
+	
+<!-- 	<resultMap type="myInfo" id="infoResult"> -->
+<!-- 		<id property="item_code" column="item_code" /> -->
+<!-- 		<result property="item_info" column="item_info"/> -->
+<!-- 	</resultMap> -->
+	
+	<select id="getDetail" parameterType="mydetail" resultMap="detailResult">
+		SELECT item_code, round(avg(star),1), count(content) 
+		  FROM reviewboard WHERE item_code = #{item_code};
+	</select>
+	
+<!-- 	<select id="getInfo" parameterType="myinfo" resultMap="infoResult"> -->
+<!-- 		select * from item_info where item_code = #{item_code}; -->
+<!-- 	</select> -->
+
+</mapper>

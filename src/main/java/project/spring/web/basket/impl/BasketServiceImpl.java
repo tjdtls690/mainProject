@@ -12,7 +12,7 @@ import project.spring.web.basket.BasketVO;
 public class BasketServiceImpl implements BasketService {
 	
 	@Autowired
-	private BasketDAO basketDAO;
+	BasketDAO basketDAO;
 	
 	@Override
 	public List<BasketVO> getBasketList(BasketVO vo) {

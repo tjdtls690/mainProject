@@ -1,6 +1,7 @@
 package project.spring.web.basket;
 
 public class BasketVO {
+	private int seq;
 	private String itemImage;
 	private String itemName;
 	private int tagMain;
@@ -10,6 +11,12 @@ public class BasketVO {
 	private int priceSub;
 	private String userName;
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getItemImage() {
 		return itemImage;
 	}
@@ -61,10 +68,10 @@ public class BasketVO {
 	
 	@Override
 	public String toString() {
-		return "BasketVO [itemImage=" + itemImage + ", itemName=" + itemName + ", tagMain=" + tagMain + ", tagSub="
-				+ tagSub + ", amount=" + amount + ", price=" + price + ", priceSub=" + priceSub + ", userName="
-				+ userName + "]";
+		return "BasketVO [seq=" + seq + ", itemImage=" + itemImage + ", itemName=" + itemName + ", tagMain=" + tagMain
+				+ ", tagSub=" + tagSub + ", amount=" + amount + ", price=" + price + ", priceSub=" + priceSub
+				+ ", userName=" + userName + "]";
 	}
-	
+
 	
 }

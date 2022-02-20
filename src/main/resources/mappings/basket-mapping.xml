@@ -2,3 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<mapper namespace="BasketDAO">
+	<resultMap type="mybakset" id="baksetResult">
+		<id property="seq" column="seq" />
+		<result property="itemImage" column="item_image" />
+		<result property="itemName" column="item_name" />
+		<result property="tagMain" column="tag_main" />
+		<result property="tagSub" column="tag_sub" />
+		<result property="amount" column="amount" />
+		<result property="price" column="priceSub" />
+		<result property="userName" column="user_name" />
+	</resultMap>
+	
+	<select id="getBasketList" resultType="mybakset" resultMap="basketResult" >
+		SELECT * FROM basket WHERE user_name=#{user_name}
+	</select>
+</mapper>

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="BasketDAO">
-	<resultMap type="mybakset" id="baksetResult">
+	<resultMap type="mybasket" id="baksetResult">
 		<id property="seq" column="seq" />
 		<result property="itemImage" column="item_image" />
 		<result property="itemName" column="item_name" />
@@ -14,7 +14,7 @@
 		<result property="userName" column="user_name" />
 	</resultMap>
 	
-	<select id="getBasketList" resultType="mybakset" resultMap="basketResult" >
-		SELECT * FROM basket WHERE user_name=#{user_name}
+	<select id="getBasketList" resultType="mybasket" resultMap="basketResult" >
+		SELECT * FROM basket
 	</select>
 </mapper>

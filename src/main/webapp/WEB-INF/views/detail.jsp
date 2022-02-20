@@ -8,11 +8,11 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="${path }/style.css">
    <link rel="stylesheet" href="${path }/hmm2.css">
    <link rel="stylesheet" href="${path }/style2.css?ver=2">
-   <!-- Bootstrap CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
       $(function() { 
@@ -1040,7 +1040,7 @@
                                         <img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_half%402x.png" class="review-stars-star">
                                      </div>
                                      <div data-v-f8b893b0="" class="review-rating-counts">
-                                        4.8 후기 (2,847)</div>
+                                        ${avgCount.starAvg }(후기 ${avgCount.reviewCount})</div>
                                   </div>
                                </div>
                             </section>
@@ -1049,50 +1049,48 @@
                                
                                
                                
-                               	  <c:forEach var="board" items="${boardList }">
-	                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
-	                                     <div data-v-22105fb8="" class="review-item__head">
-	                                        <div data-v-22105fb8="" class="head-rating">
-	                                           <img data-v-22105fb8=""
-	                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" 
-	                                              class="rating-img">
-	                                           <div data-v-22105fb8="" class="rating-count">${board.star }</div>
-	                                        </div>
-	                                        <div data-v-22105fb8="" class="head-summary">
-	                                           <div data-v-22105fb8="" class="head-summary-left">
-	                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png"
-	                                                  class="summary-photo">
-	                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
-	                                           </div>
-	                                           <!---->
-	                                        </div>
-	                                        <div data-v-22105fb8="" class="head-text">
-	                                           <div data-v-22105fb8="" class="text-name">${board.userName }</div>
-	                                           <div data-v-22105fb8="" class="text-date">${board.writeDate }</div>
-	                                        </div>
-	                                     </div>
-	                                     <div data-v-22105fb8=""
-	                                        class="review-desktop-toggle review-hide">
-	                                        <div data-v-22105fb8="" class="review-item__body">
-	                                           <div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
-	                                           <div data-v-22105fb8="" class="review-item__photos">
-	                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-	                                                 <div data-v-22105fb8="" class="review-item__photo"
-	                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
-	                                              </div>
-	                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-	                                                 <div data-v-22105fb8="" class="review-item__photo"
-	                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
-	                                              </div>
-	                                           </div>
-	                                        </div>
-	                                        <!---->
-	                                     </div>
-	                                  </li>
-                                  </c:forEach>
-													
-														
-													
+	                               	  <c:forEach var="board" items="${boardList }">
+		                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
+		                                     <div data-v-22105fb8="" class="review-item__head">
+		                                        <div data-v-22105fb8="" class="head-rating">
+		                                           <img data-v-22105fb8=""
+		                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" 
+		                                              class="rating-img">
+		                                           <div data-v-22105fb8="" class="rating-count">${board.star }</div>
+		                                        </div>
+		                                        <div data-v-22105fb8="" class="head-summary">
+		                                           <div data-v-22105fb8="" class="head-summary-left">
+		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png"
+		                                                  class="summary-photo">
+		                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
+		                                           </div>
+		                                           <!---->
+		                                        </div>
+		                                        <div data-v-22105fb8="" class="head-text">
+		                                           <div data-v-22105fb8="" class="text-name">${board.user_name }</div>
+		                                           <div data-v-22105fb8="" class="text-date">${board.write_date }</div>
+		                                        </div>
+		                                     </div>
+		                                     <div data-v-22105fb8=""
+		                                        class="review-desktop-toggle review-hide">
+		                                        <div data-v-22105fb8="" class="review-item__body">
+		                                           <div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
+		                                           <div data-v-22105fb8="" class="review-item__photos">
+		                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
+		                                                 <div data-v-22105fb8="" class="review-item__photo"
+		                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
+		                                              </div>
+		                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
+		                                                 <div data-v-22105fb8="" class="review-item__photo"
+		                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
+		                                              </div>
+		                                           </div>
+		                                        </div>
+		                                        <!---->
+		                                     </div>
+		                                  </li>
+	                                  </c:forEach>
+												
                                   <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
                                      <div data-v-22105fb8="" class="review-item__head">
                                         <div data-v-22105fb8="" class="head-rating">

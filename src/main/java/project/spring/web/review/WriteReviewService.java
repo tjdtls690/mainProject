@@ -12,4 +12,5 @@ public interface WriteReviewService {
 	WriteReviewVO getReview(WriteReviewVO vo);
 
 	List<WriteReviewVO> getReviewList(WriteReviewVO vo);
+
 }

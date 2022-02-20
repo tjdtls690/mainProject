@@ -16,9 +16,9 @@ public class WriteReviewDAO {
 	public void insertReview(WriteReviewVO vo) {
 		System.out.println("---> MyBatis로 insertReview() 기능 처리");
 		System.out.println(vo.getStar());
-		System.out.println(vo.getUserName());
+		System.out.println(vo.getUser_name());
 		System.out.println(vo.getContent());
-		sqlSessionTemplate.insert("WriteReview.insertReview", vo);
+		sqlSessionTemplate.insert("WriteReviewDAO.insertReview", vo);
 	}
 
 	public void updateReview(WriteReviewVO vo) {
@@ -36,8 +36,12 @@ public class WriteReviewDAO {
 		return (WriteReviewVO) sqlSessionTemplate.selectOne("WriteReviewDAO.getReview", vo);
 	}
 
-	public List<WriteReviewVO> getReviewList(WriteReviewVO vo) {
-		System.out.println("---> MyBatis로 getReviewList() 기능 처리");
-		return sqlSessionTemplate.selectList("WriteReviewDAO.getReviewList", vo);
+	public List<WriteReviewVO> getReviewList01(WriteReviewVO vo) {
+		System.out.println("---> DAO에서 item_code맞는 리뷰 가져오기");
+		return sqlSessionTemplate.selectList("WriteReviewDAO.getReviewList01", vo);
+	}
+	public List<WriteReviewVO> getReviewList02(WriteReviewVO vo) {
+		System.out.println("---> DAO에서 subscribe_code맞는 리뷰 가져오기");
+		return sqlSessionTemplate.selectList("WriteReviewDAO.getReviewList02", vo);
 	}
 }

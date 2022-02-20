@@ -9,6 +9,7 @@
 		<typeAlias type="project.spring.web.tag.TagVO" alias="mytag" />
 		<typeAlias type="project.spring.web.detail.DetailVO" alias="mydetail" />
 		<typeAlias type="project.spring.web.basket.BasketVO" alias="mybasket" />
+		<typeAlias type="project.spring.web.mapping.MappingVO" alias="mymapping" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -16,5 +17,6 @@
 		<mapper resource="mappings/tag-mapping.xml" />
 		<mapper resource="mappings/detail-mapping.xml" />
 		<mapper resource="mappings/basket-mapping.xml" />
+		<mapper resource="mappings/map-mapping.xml" />
 	</mappers>
 </configuration>

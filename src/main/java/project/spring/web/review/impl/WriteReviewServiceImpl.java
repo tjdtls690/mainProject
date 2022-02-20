@@ -33,10 +33,13 @@ public class WriteReviewServiceImpl implements WriteReviewService{
 	public WriteReviewVO getReview(WriteReviewVO vo) {
 		return writeReviewDAO.getReview(vo);
 	}
-
+	
 	@Override
 	public List<WriteReviewVO> getReviewList(WriteReviewVO vo) {
-		return writeReviewDAO.getReviewList(vo);
+		System.out.println(vo.getTagMain());
+		System.out.println(vo.getItem_code());
+		if(vo.getTagMain() / 100 != 1 && vo.getTagMain() / 100 != 6) return writeReviewDAO.getReviewList01(vo);
+		return writeReviewDAO.getReviewList02(vo);
 	}
-
+	
 }

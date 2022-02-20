@@ -8,12 +8,19 @@ import project.spring.web.detail.DetailVO;
 
 @Repository
 public class DetailDAO {
-	@Autowired
+	
+	@Autowired 
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public DetailVO getDetail(DetailVO vo) {
-		System.out.println("-->myBatis getDetail");
-		return sqlSessionTemplate.selectOne("DetailDAO.getDetail",vo);
-		
+	public DetailVO getItem(DetailVO vo) {
+		System.out.println("-->myBatis getItem");
+		return sqlSessionTemplate.selectOne("DetailDAO.getItem",vo);
 	}
+	
+	public DetailVO getInfo(DetailVO vo) {
+		System.out.println("-->myBatis getInfo");
+		return sqlSessionTemplate.selectOne("DetailDAO.getInfo", vo);
+	}
+
+
 }

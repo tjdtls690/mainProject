@@ -62,4 +62,9 @@
 			group by a.subscribe_code
 			order by a.subscribe_code asc;
 	</select>
+	
+	<select id="getAvgCount" resultMap="tapResult01">
+		SELECT item_code, round(avg(b.star), 1), count(b.content) 
+		  FROM reviewboard b WHERE item_code = #{itemCode};
+	</select>
 </mapper>

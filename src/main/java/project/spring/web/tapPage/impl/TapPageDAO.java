@@ -21,4 +21,8 @@ public class TapPageDAO {
 	public List<TapPageVO> getItemInfo02(TapPageVO vo){
 		return sqlSessionTemplate.selectList("TapPageDAO.getItemInfoList02", vo);
 	}
+	
+	public TapPageVO getAvgCount(TapPageVO vo) {
+		return sqlSessionTemplate.selectOne("TapPageDAO.getAvgCount",vo);
+	}
 }

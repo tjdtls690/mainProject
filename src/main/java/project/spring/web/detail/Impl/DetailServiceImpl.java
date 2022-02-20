@@ -10,10 +10,17 @@ import project.spring.web.detail.DetailVO;
 public class DetailServiceImpl implements DetailService {
 	@Autowired
 	DetailDAO detailDAO;
+	
+	@Override
+	public DetailVO getItem(DetailVO vo) {
+		System.out.println("getAvgCount 실행");
+		return detailDAO.getItem(vo);
+	}
 
 	@Override
-	public DetailVO getDetail(DetailVO vo) {
-		System.out.println("getDetail 실행");
-		return detailDAO.getDetail(vo);
+	public DetailVO getInfo(DetailVO vo) {
+		System.out.println("getInfo 실행");
+		return detailDAO.getInfo(vo);
 	}
+
 }

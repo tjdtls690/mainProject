@@ -19,5 +19,11 @@ public class TapPageServiceImpl implements TapPageService{
 			if(vo.getTagMain() / 100 != 1 && vo.getTagMain() / 100 != 6) return tapPageDAO.getItemInfo01(vo);
 			else return tapPageDAO.getItemInfo02(vo);
 	}
+
+	@Override
+	public TapPageVO getAvgCount(TapPageVO vo) {
+		System.out.println("getAvgCount 실행");
+		return tapPageDAO.getAvgCount(vo);
+	}
 	
 }

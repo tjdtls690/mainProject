@@ -20,18 +20,20 @@
          delta = 90;
          $(window).scroll(function(event){
          var st = $(this).scrollTop();
-         if(Math.abs(lastScrollTop - st) <= delta) return;
+         if(Math.abs(lastScrollTop - st) > delta) return;
          if((st > lastScrollTop) && (lastScrollTop > 0)){
-            if(window.innerWidth > 1023){
+        	 if(window.innerWidth > 1023){
                $(".header").css("top","-130px");
-            }else{
-               $(".header").css("top","-50px");
-            }
+        	 }else{
+        		 $(".header").css("top","0px");
+        	 }
          }else{
             $(".header").css("top","0px");
          }
          lastScrollTop = st;
-         });
+       	});
+    	 
+    	 
          
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  

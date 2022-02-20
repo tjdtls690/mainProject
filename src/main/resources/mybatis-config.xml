@@ -8,11 +8,13 @@
 		<typeAlias type="project.spring.web.tapPage.TapPageVO" alias="mytap" />
 		<typeAlias type="project.spring.web.tag.TagVO" alias="mytag" />
 		<typeAlias type="project.spring.web.detail.DetailVO" alias="mydetail" />
+		<typeAlias type="project.spring.web.basket.BasketVO" alias="mybasket" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
 		<mapper resource="mappings/tap-mapping.xml" />
 		<mapper resource="mappings/tag-mapping.xml" />
 		<mapper resource="mappings/detail-mapping.xml" />
+		<mapper resource="mappings/basket-mapping.xml" />
 	</mappers>
 </configuration>

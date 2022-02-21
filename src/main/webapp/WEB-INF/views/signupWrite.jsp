@@ -37,6 +37,23 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function emailCheck(){
+	var email = $('#f_email').val();
+	$.ajax({
+		url : 'emailCheck.do',
+		type : 'post',
+		dataType : 'text',
+		data : {
+			'email' : email
+		},
+		success : function(data){
+			alert(data);
+		}
+	})
+}
+</script>
 </head>
 <body class="" style="padding-right: 0px;">
 	<noscript data-n-head="ssr" data-hid="gtm-noscript" data-pbody="true">
@@ -172,7 +189,7 @@
 											</div>
 											<div data-v-5781a129="" class="col-4">
 												<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-													title="" class="button">
+													title="" class="button" onclick="emailCheck();">
 													<span data-v-a1c889e0="" class="button__wrap">중복 확인</span>
 												</button>
 											</div>

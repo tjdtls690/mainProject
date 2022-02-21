@@ -156,9 +156,8 @@
 								<ul data-v-7aa1f9b4="" class="mobile-nav-contents">
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
 										data-v-7aa1f9b4="" href="/menu" class=""> 전체 메뉴 </a></li>
-									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
-										data-v-7aa1f9b4="" href="/menu/subscription" class="">
-											정기구독 </a></li>
+									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item">
+									<a data-v-7aa1f9b4="" href="/menu/subscription" class="">정기구독 </a></li>
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
 										data-v-7aa1f9b4="" href="/menu/event" class=""> 초코베리머치 </a></li>
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
@@ -289,8 +288,7 @@
 								<section data-v-7f39deaa="" class="desktop-body-table-wrap">
 									<header data-v-7f39deaa="" class="desktop-body-table-header">
 										<div data-v-7f39deaa="" class="desktop-body-table-header-left">
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-check-all-wrap">
+											<div data-v-7f39deaa="" class="desktop-body-table-check-all-wrap">
 												<input data-v-7f39deaa="" id="header-check-all"
 													type="checkbox" value="check-all" checked="checked"
 													name="check-all" disabled="disabled"
@@ -315,26 +313,88 @@
 										</div>
 									</header>
 									<main data-v-7f39deaa="" class="desktop-body-table-body">
-										<section data-v-7f39deaa="" class="desktop-body-no-item-wrap">
-											<div data-v-7f39deaa=""
-												class="desktop-body-no-item-content-wrap">
-												<div data-v-7f39deaa=""
-													class="desktop-body-no-item-img-wrap">
-													<img data-v-7f39deaa=""
-														src="/images/cart-no-item-web@2x.png" alt="장바구니가 비었습니다."
-														class="desktop-body-no-item-img">
-												</div>
-												<span data-v-7f39deaa="" class="desktop-body-no-item-text">장바구니에
-													담긴 상품이 없습니다 :(</span> <span data-v-7f39deaa=""
-													class="desktop-body-no-item-text"></span>
-											</div>
-											<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
-												title=""
-												class="button desktop-body-no-item-btn button--outline2">
-												<span data-v-a1c889e0="" class="button__wrap">상품 담으러
-													가기</span>
-											</button>
-										</section>
+										<ul data-v-7f39deaa="" class="desktop-body-table-list">
+										
+											<li data-v-7f39deaa="" class="desktop-body-table-item"><section
+													data-v-7f39deaa="" class="desktop-body-table-item-left">
+													<div data-v-7f39deaa=""
+														class="desktop-body-table-item-checkbox-wrap">
+														<input data-v-7f39deaa="" id="table-item-checkbox-0"
+															checked="checked" name="selected-item" type="checkbox"
+															class="desktop-body-table-item-checkbox js-check-one"
+															value="3604"> <label data-v-7f39deaa=""
+															for="table-item-checkbox-0"
+															class="desktop-body-table-item-checkbox-label"></label>
+													</div>
+													<div data-v-7f39deaa=""
+														class="desktop-body-table-item-img-wrap">
+														<img data-v-7f39deaa=""
+															src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/872_20220121183820"
+															alt="데스크탑 장바구니 이미지" class="desktop-body-table-item-img">
+													</div>
+													<div data-v-7f39deaa=""
+														class="desktop-body-table-item-title">[올가니카]플랜트 왕교자
+														/ 1ea</div>
+												</section>
+												<section data-v-7f39deaa=""
+													class="desktop-body-table-item-right">
+													<div data-v-7f39deaa=""
+														class="desktop-body-table-item-spinner-wrap">
+														<nav data-v-4ba0dee4="" data-v-7f39deaa=""
+															class="form-number">
+															<button data-v-4ba0dee4="" type="button"
+																class="form-number__control">
+																<svg data-v-4ba0dee4=""
+																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																	<path data-v-4ba0dee4="" fill="currentColor"
+																		d="M7 11.5h10v1H7z"></path></g></svg>
+															</button>
+															<span data-v-4ba0dee4="" class="form-number__input"><input
+																data-v-4ba0dee4="" id="3604" type="number" min="1"
+																max="9999" step="1" readonly="readonly"></span>
+															<button data-v-4ba0dee4="" type="button"
+																class="form-number__control">
+																<svg data-v-4ba0dee4=""
+																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																	<path data-v-4ba0dee4="" fill="currentColor"
+																		d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z"></path></g></svg>
+															</button>
+														</nav>
+													</div>
+													<div data-v-7f39deaa=""
+														class="desktop-body-table-item-price-wrap">
+														<!---->
+														<div data-v-7f39deaa=""
+															class="desktop-body-table-item-discounted-price">
+															4,990원</div>
+													</div>
+													<div data-v-7f39deaa=""
+														class="desktop-body-table-item-total-price">4,990원</div>
+												</section></li>
+												
+										</ul>
+										<!-- 										<section data-v-7f39deaa="" class="desktop-body-no-item-wrap"> -->
+<!-- 											<div data-v-7f39deaa="" -->
+<!-- 												class="desktop-body-no-item-content-wrap"> -->
+<!-- 												<div data-v-7f39deaa="" -->
+<!-- 													class="desktop-body-no-item-img-wrap"> -->
+<!-- 													<img data-v-7f39deaa="" -->
+<!-- 														src="/images/cart-no-item-web@2x.png" alt="장바구니가 비었습니다." -->
+<!-- 														class="desktop-body-no-item-img"> -->
+<!-- 												</div> -->
+<!-- 												<span data-v-7f39deaa="" class="desktop-body-no-item-text">장바구니에 -->
+<!-- 													담긴 상품이 없습니다 :(</span> <span data-v-7f39deaa="" -->
+<!-- 													class="desktop-body-no-item-text"></span> -->
+<!-- 											</div> -->
+<!-- 											<button data-v-a1c889e0="" data-v-7f39deaa="" type="button" -->
+<!-- 												title="" -->
+<!-- 												class="button desktop-body-no-item-btn button--outline2"> -->
+<!-- 												<span data-v-a1c889e0="" class="button__wrap">상품 담으러 -->
+<!-- 													가기</span> -->
+<!-- 											</button> -->
+<!-- 										</section> -->
 									</main>
 									<footer data-v-7f39deaa="" class="desktop-body-table-footer">
 										<div data-v-7f39deaa="" class="desktop-body-table-footer-left">

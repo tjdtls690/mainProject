@@ -38,6 +38,8 @@
 	href="/fc-favicon-196.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css?ver=1">
 <link rel="stylesheet" href="${path }/style2.css">
+
+
 </head>
 <body>
 	<div id="__nuxt">
@@ -163,7 +165,7 @@
 								<span data-v-932ef6fa="">OR</span>
 							</div>
 							<button data-v-a1c889e0="" data-v-932ef6fa="" type="button"
-								title="" class="button signup__register-btn">
+								title="" class="button signup__register-btn" onClick="location.href='signupWrite.do'">
 								<span data-v-a1c889e0="" class="button__wrap">이메일로 가입하기</span>
 							</button>
 							<button data-v-932ef6fa="" id="login-apple" type="button"

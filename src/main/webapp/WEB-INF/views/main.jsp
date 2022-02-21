@@ -168,7 +168,7 @@ $(function() {
 									<a href="/fcospot" class="item" data-v-30697495>프코스팟</a>
 								</div> 
 								<div class="header__menus-side" data-v-30697495>
-									<a href="/search" class="search-logo" data-v-30697495>
+									<a href="search.do" class="search-logo" data-v-30697495>
 										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/search.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495> 
 										<div data-v-30697495>검색</div>
 									</a> 

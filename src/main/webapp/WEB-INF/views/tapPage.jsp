@@ -35,7 +35,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 	<link href="${path}/style1.css" rel="stylesheet" type="text/css" />
-	<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
+	<link href="${path}/style2.css?ver=2" rel="stylesheet" type="text/css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
@@ -77,6 +77,33 @@ $(function() {
         	},
         	success : function(htmlOut){
         		$('.row').html(htmlOut);
+        	}
+        })
+    });
+	
+	$('.category-tab-content00').children().on('click', function(){
+		$(this).addClass('active-category00');
+		$(this).siblings().removeClass('active-category00');
+	});
+	
+	// ajax 태그기능 넣을 함수
+	$(document).on("click", ".active-category00", function(event){
+        // 동적으로 여러 태그가 생성된 경우라면 이런식으로 클릭된 객체를 this 키워드를 이용해서 잡아올 수 있다.
+        var tagNum = $(this).attr('id');
+        var tagMainNum = $(this).next().attr('value');
+        $.ajax({
+        	url : 'tag.do',
+        	type : 'post',
+        	dataType : 'html',
+        	data : {
+        		"tagNum" : tagNum
+        	},
+        	success : function(htmlOut){
+        		if(tagNum % 100 != 0){
+        			$('.row' + tagMainNum).html(htmlOut);
+        		}else{
+        			$('.row' + tagNum).html(htmlOut);
+        		}
         	}
         })
     });
@@ -298,92 +325,196 @@ $(function() {
 						</div>
 						<article data-v-4c9a9e82="" class="menus">
 							<div data-v-4c9a9e82="" class="menus__body">
-								<section data-v-4c9a9e82="" id="content_salad"
-									class="menus__section">
-										<h3 data-v-4c9a9e82="" class="category-title">${tagInfo[0].tagNameMain }</h3>
-										<c:if test="${itemInfo[0].tagMain != 700 && itemInfo[0].tagMain != 800 && itemInfo[0].tagMain != 1}">
-											<div data-v-0ca25db4="" data-v-4c9a9e82="" class="category-tab">
-												<div data-v-0ca25db4="" class="category-tab-content">
-													<div data-v-0ca25db4="" class="active-category" id="${itemInfo[0].tagMain }">전체</div>
-													<c:forEach var="tag" items="${tagInfo }">
-														<div data-v-0ca25db4="" class="" id="${tag.tagSub }">${tag.tagNameSub }</div>
-													</c:forEach>
+							
+							
+								<c:if test="${tagMain != 0 }">
+									<section data-v-4c9a9e82="" id="content_salad"
+										class="menus__section">
+											<h3 data-v-4c9a9e82="" class="category-title">${tagInfo[0].tagNameMain }</h3>
+											<c:if test="${itemInfo[0].tagMain != 700 && itemInfo[0].tagMain != 800 && itemInfo[0].tagMain != 1}">
+												<div data-v-0ca25db4="" data-v-4c9a9e82="" class="category-tab">
+													<div data-v-0ca25db4="" class="category-tab-content">
+														<div data-v-0ca25db4="" class="active-category" id="${itemInfo[0].tagMain }">전체</div>
+														<c:forEach var="tag" items="${tagInfo }">
+															<div data-v-0ca25db4="" id="${tag.tagSub }">${tag.tagNameSub }</div>
+														</c:forEach>
+													</div>
 												</div>
-											</div>
-										</c:if>
-									<div data-v-4c9a9e82="" class="menus-index">
-										<ul data-v-4c9a9e82="" class="row">
-										
-										
-										<c:forEach var="item" items="${itemInfo }">
-											<li data-v-4c9a9e82="" class="col-6 col--lg-3">
-											<article
-													data-v-15082832="" data-v-4c9a9e82=""
-													class="item for-loop-cloned-item-244">
-													<input type="hidden" value="${item.itemCode }" id="itemCode">
-													<input type="hidden" value="${item.tagMain }" id="tagMain">
-													<div data-v-15082832="" class="for-loop-cloned-item-244">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-244">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-244">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="${item.itemImage }"
-																alt="${item.itemName } " title="${item.itemName } "
-																class="for-loop-cloned-item-244">
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-244">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-244">${item.itemName }</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-244 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-244 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-244">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-244"><b>${item.itemPriceM }원</b></em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-244">
-																			<c:if test="${item.itemPriceMSub ne ''}">
-																					${item.itemPriceMSub }
-																			</c:if>
-																			</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-244">${item.itemSummary }</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-244 row--v-center row--h-between">
+											</c:if>
+										<div data-v-4c9a9e82="" class="menus-index">
+											<ul data-v-4c9a9e82="" class="row">
+											
+											<c:forEach var="item" items="${itemInfo }">
+												<li data-v-4c9a9e82="" class="col-6 col--lg-3">
+												<article
+														data-v-15082832="" data-v-4c9a9e82=""
+														class="item for-loop-cloned-item-244">
+														<input type="hidden" value="${item.itemCode }" id="itemCode">
+														<input type="hidden" value="${item.tagMain }" id="tagMain">
+														<div data-v-15082832="" class="for-loop-cloned-item-244">
+															<figure data-v-15082832=""
+																class="item__image for-loop-cloned-item-244">
 																<div data-v-15082832=""
-																	class="for-loop-cloned-item-244 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-244 star-info">${item.starAvg }</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-244 review-info">${item.reviewCount }</span>
+																	class="item-badge for-loop-cloned-item-244">
+																	<!---->
 																</div>
+																<img data-v-15082832=""
+																	src="${item.itemImage }"
+																	alt="${item.itemName } " title="${item.itemName } "
+																	class="for-loop-cloned-item-244">
+															</figure>
+															<div data-v-15082832=""
+																class="item__body for-loop-cloned-item-244">
+																<!---->
+																<strong data-v-15082832=""
+																	class="for-loop-cloned-item-244">${item.itemName }</strong>
 																<div data-v-15082832=""
-																	class="row--v-center for-loop-cloned-item-244 tag-wrap">
+																	class="for-loop-cloned-item-244 options">
+																	<dl data-v-15082832=""
+																		class="for-loop-cloned-item-244 row--v">
+																		<dd data-v-15082832="" class="for-loop-cloned-item-244">
+																			<em data-v-15082832=""
+																				class="for-loop-cloned-item-244"><b>${item.itemPriceM }원</b></em>~ <span
+																				data-v-15082832="" class="for-loop-cloned-item-244">
+																				<c:if test="${item.itemPriceMSub ne ''}">
+																						${item.itemPriceMSub }
+																				</c:if>
+																				</span>
+																		</dd>
+																	</dl>
+																</div>
+																<span data-v-15082832="" class="for-loop-cloned-item-244">${item.itemSummary }</span>
+																<div data-v-15082832=""
+																	class="item-bottom for-loop-cloned-item-244 row--v-center row--h-between">
 																	<div data-v-15082832=""
-																		class="for-loop-cloned-item-244 row--v-center">
-<!-- 																		<div data-v-15082832="" -->
-<!-- 																			class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag"> -->
-<!-- 																			락토베지테리언</div> -->
+																		class="for-loop-cloned-item-244 info-wrap">
+																		<span data-v-15082832=""
+																			class="for-loop-cloned-item-244 star-info">${item.starAvg }</span>
+																		<span data-v-15082832=""
+																			class="for-loop-cloned-item-244 review-info">${item.reviewCount }</span>
+																	</div>
+																	<div data-v-15082832=""
+																		class="row--v-center for-loop-cloned-item-244 tag-wrap">
+																		<div data-v-15082832=""
+																			class="for-loop-cloned-item-244 row--v-center">
+	<!-- 																		<div data-v-15082832="" -->
+	<!-- 																			class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag"> -->
+	<!-- 																			락토베지테리언</div> -->
+																		</div>
 																	</div>
 																</div>
 															</div>
 														</div>
+													</article>
+												</li>
+												</c:forEach>
+												
+											</ul>
+										</div>
+									</section>
+								</c:if>
+								
+								
+								
+								<c:if test="${tagMain == 0 }">
+									<c:forEach var="itemList" items="${itemInfo }" varStatus="i">
+										<section data-v-4c9a9e82="" id="content_salad" class="menus__section">
+										<article data-v-4c9a9e82="" class="menus">
+											<div data-v-4c9a9e82="" class="menus__body">
+											<section data-v-4c9a9e82="" id="content_salad" class="menus__section">
+											<h3 data-v-4c9a9e82="" class="category-title">${tagInfo[i.index][0].tagNameMain }</h3>
+											
+											<c:if test="${tagInfo[i.index][0].tagMain != 700 && tagInfo[i.index][0].tagMain != 800}">
+												<div data-v-0ca25db4="" data-v-4c9a9e82="" class="category-tab">
+													<div data-v-0ca25db4="" class="category-tab-content00">
+														<div data-v-0ca25db4="" class="active-category00" id="${tagInfo[i.index][0].tagMain }">전체</div>
+														<c:forEach var="tag" items="${tagInfo[i.index] }">
+															<div data-v-0ca25db4="" class="" id="${tag.tagSub }">${tag.tagNameSub }</div>
+															<input type="hidden" value="${tag.tagMain }">
+														</c:forEach>
 													</div>
-												</article>
-											</li>
-											</c:forEach>
-												
-												
-										</ul>
-									</div>
-								</section>
+												</div>
+											</c:if>
+										<div data-v-4c9a9e82="" class="menus-index">
+											<ul data-v-4c9a9e82="" class="row${tagInfo[i.index][0].tagMain }">
+											
+											<c:forEach var="item" items="${itemList }">
+												<li data-v-4c9a9e82="" class="col-6 col--lg-3">
+												<article
+														data-v-15082832="" data-v-4c9a9e82=""
+														class="item for-loop-cloned-item-244">
+														<input type="hidden" value="${item.itemCode }" id="itemCode">
+														<input type="hidden" value="${item.tagMain }" id="tagMain">
+														<div data-v-15082832="" class="for-loop-cloned-item-244">
+															<figure data-v-15082832=""
+																class="item__image for-loop-cloned-item-244">
+																<div data-v-15082832=""
+																	class="item-badge for-loop-cloned-item-244">
+																	<!---->
+																</div>
+																<img data-v-15082832=""
+																	src="${item.itemImage }"
+																	alt="${item.itemName } " title="${item.itemName } "
+																	class="for-loop-cloned-item-244">
+															</figure>
+															<div data-v-15082832=""
+																class="item__body for-loop-cloned-item-244">
+																<!---->
+																<strong data-v-15082832=""
+																	class="for-loop-cloned-item-244">${item.itemName }</strong>
+																<div data-v-15082832=""
+																	class="for-loop-cloned-item-244 options">
+																	<dl data-v-15082832=""
+																		class="for-loop-cloned-item-244 row--v">
+																		<dd data-v-15082832="" class="for-loop-cloned-item-244">
+																			<em data-v-15082832=""
+																				class="for-loop-cloned-item-244"><b>${item.itemPriceM }원</b></em>~ <span
+																				data-v-15082832="" class="for-loop-cloned-item-244">
+																				<c:if test="${item.itemPriceMSub ne ''}">
+																						${item.itemPriceMSub }
+																				</c:if>
+																				</span>
+																		</dd>
+																	</dl>
+																</div>
+																<span data-v-15082832="" class="for-loop-cloned-item-244">${item.itemSummary }</span>
+																<div data-v-15082832=""
+																	class="item-bottom for-loop-cloned-item-244 row--v-center row--h-between">
+																	<div data-v-15082832=""
+																		class="for-loop-cloned-item-244 info-wrap">
+																		<span data-v-15082832=""
+																			class="for-loop-cloned-item-244 star-info">${item.starAvg }</span>
+																		<span data-v-15082832=""
+																			class="for-loop-cloned-item-244 review-info">${item.reviewCount }</span>
+																	</div>
+																	<div data-v-15082832=""
+																		class="row--v-center for-loop-cloned-item-244 tag-wrap">
+																		<div data-v-15082832=""
+																			class="for-loop-cloned-item-244 row--v-center">
+	<!-- 																		<div data-v-15082832="" -->
+	<!-- 																			class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag"> -->
+	<!-- 																			락토베지테리언</div> -->
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</article>
+												</li>
+												</c:forEach>
+													
+													
+											</ul>
+										</div>
+										</section>
+										</div>
+										</article>
+									</section>
+									</c:forEach>
+								</c:if>
+								
+								
+								
 							</div>
 						</article>
 						<!---->

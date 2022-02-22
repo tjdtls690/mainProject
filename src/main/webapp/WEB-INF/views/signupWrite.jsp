@@ -41,18 +41,94 @@
 <script type="text/javascript">
 function emailCheck(){
 	var email = $('#f_email').val();
+	if(email.length == 0) return "";
 	$.ajax({
 		url : 'emailCheck.do',
 		type : 'post',
-		dataType : 'text',
+		dataType : 'html',
 		data : {
 			'email' : email
 		},
-		success : function(data){
-			alert(data);
+		success : function(htmlOut){
+			$('.email_field').children('.validation').detach();
+			$('.email_field').append(htmlOut);
 		}
 	})
 }
+
+$(function(){
+	$('#f_email').keyup(function(){
+		$('.email_field').children('.validation').detach();
+		$('.email_field').append('<input type="hidden" class="validation" name="emailCheck" id="emailCheck" value="-1">');
+	})
+	
+	$('#f_password').keyup(function(){
+		var password = $('#f_password').val().length;
+		$('.password_field').children('.validation').detach();
+		if(password == 0){
+			$('.password_field').append('<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="-1">')
+		}else if(password >= 8){
+			$('.password_field').append('<p data-v-5781a129="" class="validation">사용할 수 있는 비밀번호입니다.</p>')
+			$('.password_field').append('<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="1">')
+		}else{
+			$('.password_field').append('<p data-v-5781a129="" class="validation error">비밀번호를 8자 이상 입력해주세요.</p>')
+			$('.password_field').append('<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="0">')
+		}
+	});
+	
+	$('#f_re_password').keyup(function(){
+		var password = $('#f_password').val().length;
+		var passwordRe = $('#f_re_password').val().length;
+		var passwordStr = $('#f_password').val();
+		var passwordReStr = $('#f_re_password').val();
+		$('.password_re_field').children('.validation').detach();
+		if(passwordRe >= password){
+			if(passwordStr == passwordReStr){
+				$('.password_re_field').append('<p data-v-5781a129="" class="validation">비밀번호가 일치합니다.</p>')
+				$('.password_re_field').append('<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="1">')
+			}else{
+				$('.password_re_field').append('<p data-v-5781a129="" class="validation error">비밀번호가 일치하지 않습니다.</p>')
+				$('.password_re_field').append('<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="0">')
+			}
+		}else if(passwordRe == 0){
+			$('.password_re_field').append('<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="-1">')
+		}else{
+			$('.password_re_field').append('<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="0">')
+		}
+	});
+	
+	$('#f_name').keyup(function(){
+		var name = $('#f_name').val().length;
+		$('.name_field').children('.validation').detach();
+		if(name > 0){
+			$('.name_field').append('<input type="hidden" class="validation" name="nameCheck" id="nameCheck" value="1">');
+		}else{
+			$('.name_field').append('<input type="hidden" class="validation" name="nameCheck" id="nameCheck" value="0">');
+		}
+	});
+	
+	$('.female').trigger("click");
+	$('.male').on('click', function(){
+		$('.gender_field').children('.validation').detach();
+		$('.gender_field').append('<input type="hidden" class="validation" name="genderCheck" id="genderCheck" value="1">')
+	});
+	$('.female').on('click', function(){
+		$('.gender_field').children('.validation').detach();
+		$('.gender_field').append('<input type="hidden" class="validation" name="genderCheck" id="genderCheck" value="0">')
+	});
+	$('.xxxx').on('click', function(){
+		$('.gender_field').children('.validation').detach();
+		$('.gender_field').append('<input type="hidden" class="validation" name="genderCheck" id="genderCheck" value="-1">')
+	});
+	
+	// 생년월일 select 값 구하는 법
+	// 연도 값 : $("#f_birth1").val();
+	// 월 값 : $("#f_birth2").val();
+	// 일 값 : $("#f_birth3").val();
+	// 들어오고 아무짓 안한 상태면 null, 선택 안함 선택시 ""
+	
+})
+
 </script>
 </head>
 <body class="" style="padding-right: 0px;">
@@ -170,375 +246,408 @@ function emailCheck(){
 							</h2>
 							<p data-v-5781a129="">프리미엄 샐러드 배송</p>
 						</header>
-						<div data-v-5781a129="" class="register__form">
-							<fieldset data-v-5781a129=""
-								class="form-fieldset register-section">
-								<legend data-v-5781a129="">회원가입 기본정보 입력폼</legend>
-								<div data-v-5781a129="" class="register-section__field-group">
-									<h3 data-v-5781a129="">계정 정보</h3>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_email" class="required">이메일(아이디)</label>
-										</p>
-										<div data-v-5781a129="" class="row">
-											<div data-v-5781a129="" class="col">
-												<input data-v-8bb17226="" data-v-5781a129="" id="f_email"
-													type="email" name="f_email" placeholder="이메일 입력"
+						<form >
+							<div data-v-5781a129="" class="register__form">
+								<fieldset data-v-5781a129=""
+									class="form-fieldset register-section">
+									<legend data-v-5781a129="">회원가입 기본정보 입력폼</legend>
+									<div data-v-5781a129="" class="register-section__field-group">
+										<h3 data-v-5781a129="">계정 정보</h3>
+										<div data-v-5781a129=""
+											class="form-field register-section__field email_field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_email" class="required">이메일(아이디)</label>
+											</p>
+											<c:choose>
+												<c:when test="${empty member.name}">
+													<div data-v-5781a129="" class="row">
+														<div data-v-5781a129="" class="col">
+															<input data-v-8bb17226="" data-v-5781a129="" id="f_email"
+																type="email" name="f_email" placeholder="이메일 입력"
+																autocorrect="off" autocapitalize="off" class="form-text">
+														</div>
+														<div data-v-5781a129="" class="col-4">
+															<button data-v-a1c889e0="" data-v-5781a129="" type="button"
+																title="" class="button" onclick="emailCheck();">
+																<span data-v-a1c889e0="" class="button__wrap">중복 확인</span>
+															</button>
+														</div>
+													</div>
+													<input type="hidden" class="validation" name="emailCheck" id="emailCheck" value="-1">
+												</c:when>
+												<c:otherwise>
+													<div data-v-5781a129="" class="row">
+														<div data-v-5781a129="" class="col">
+															<input data-v-8bb17226="" data-v-5781a129="" id="f_email" value="${member.email }"
+																type="email" name="f_email" placeholder="이메일 입력"
+																autocorrect="off" autocapitalize="off" class="form-text" readonly>
+														</div>
+														<input type="hidden" class="validation" name="emailCheck" id="emailCheck" value="1">
+													</div>
+												</c:otherwise>
+											</c:choose>
+											<!---->
+										</div>
+										<div data-v-5781a129=""
+											class="form-field register-section__field password_field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_password" class="required">비밀번호</label>
+											</p>
+											<div data-v-5781a129="" class="form-field-group">
+												<input data-v-8bb17226="" data-v-5781a129="" id="f_password"
+													type="password" name="f_password"
+													placeholder="비밀번호 8자 이상 입력(영문 대/소문자, 숫자포함)"
 													autocorrect="off" autocapitalize="off" class="form-text">
 											</div>
-											<div data-v-5781a129="" class="col-4">
-												<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-													title="" class="button" onclick="emailCheck();">
-													<span data-v-a1c889e0="" class="button__wrap">중복 확인</span>
-												</button>
-											</div>
+											<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="-1">
+											<!---->
 										</div>
-										<!---->
-									</div>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_password" class="required">비밀번호</label>
-										</p>
-										<div data-v-5781a129="" class="form-field-group">
-											<input data-v-8bb17226="" data-v-5781a129="" id="f_password"
-												type="password" name="f_password"
-												placeholder="비밀번호 8자 이상 입력(영문 대/소문자, 숫자포함)"
-												autocorrect="off" autocapitalize="off" class="form-text">
-										</div>
-										<!---->
-									</div>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_password" class="required">비밀번호
-												재확인</label>
-										</p>
-										<div data-v-5781a129="" class="form-field-group">
-											<input data-v-8bb17226="" data-v-5781a129="" type="password"
-												name="f_re_password" placeholder="비밀번호 재입력"
-												autocorrect="off" autocapitalize="off" class="form-text">
-										</div>
-										<!---->
-									</div>
-								</div>
-								<div data-v-5781a129="" class="register-section__field-group">
-									<h3 data-v-5781a129="">개인 정보</h3>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_name" class="required">이름</label>
-										</p>
-										<div data-v-5781a129="" class="form-field-group">
-											<input data-v-8bb17226="" data-v-5781a129="" id="f_name"
-												type="text" name="f_name" placeholder="이름 입력"
-												autocorrect="off" autocapitalize="off" class="form-text">
-										</div>
-										<!---->
-									</div>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_nickname">닉네임</label>
-										</p>
-										<input data-v-8bb17226="" data-v-5781a129="" id="f_nickname"
-											type="text" name="f_nickname"
-											placeholder="닉네임 입력(미입력시 이름 자동 입력)" autocorrect="off"
-											autocapitalize="off" class="form-text">
-									</div>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_tel" class="required">휴대폰
-												번호</label>
-										</p>
-										<div data-v-5781a129="" class="row">
-											<div data-v-5781a129="" class="col">
-												<input data-v-8bb17226="" data-v-5781a129="" id="f_tel"
-													type="tel" name="f_tel" placeholder="휴대폰 번호 입력(-제외)"
-													maxlength="11" autocorrect="off" autocapitalize="off"
-													class="form-text">
-											</div>
-											<div data-v-5781a129="" class="col-4">
-												<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-													title="" class="button">
-													<span data-v-a1c889e0="" class="button__wrap">인증 요청</span>
-												</button>
-											</div>
-										</div>
-									</div>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_birth">생년월일</label>
-										</p>
-										<div data-v-5781a129="" class="row">
-											<span data-v-615e9308="" data-v-5781a129=""
-												class="form-select row--v-center"><select
-												data-v-615e9308="" id="f_birth1"><option
-														data-v-615e9308="" value="" disabled="disabled"
-														selected="selected">YYYY</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2009">2009</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2008">2008</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2007">2007</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2006">2006</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2005">2005</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2004">2004</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2003">2003</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2002">2002</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2001">2001</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="2000">2000</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1999">1999</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1998">1998</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1997">1997</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1996">1996</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1995">1995</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1994">1994</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1993">1993</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1992">1992</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1991">1991</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1990">1990</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1989">1989</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1988">1988</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1987">1987</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1986">1986</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1985">1985</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1984">1984</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1983">1983</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1982">1982</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1981">1981</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1980">1980</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1979">1979</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1978">1978</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1977">1977</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1976">1976</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1975">1975</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1974">1974</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1973">1973</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1972">1972</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1971">1971</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1970">1970</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1969">1969</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1968">1968</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1967">1967</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1966">1966</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1965">1965</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1964">1964</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1963">1963</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1962">1962</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1961">1961</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1960">1960</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1959">1959</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1958">1958</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1957">1957</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1956">1956</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1955">1955</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1954">1954</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1953">1953</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1952">1952</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1951">1951</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1950">1950</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1949">1949</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1948">1948</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1947">1947</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1946">1946</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1945">1945</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1944">1944</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1943">1943</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1942">1942</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1941">1941</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1940">1940</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1939">1939</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1938">1938</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1937">1937</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1936">1936</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1935">1935</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1934">1934</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1933">1933</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1932">1932</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="1931">1931</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="">선택
-														안 함</option></select> <svg data-v-615e9308="" viewBox="0 0 12 7"
-													xmlns="http://www.w3.org/2000/svg">
-													<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
-														points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span> <span
-												data-v-615e9308="" data-v-5781a129=""
-												class="form-select row--v-center birth"><select
-												data-v-615e9308="" id="f_birth2"><option
-														data-v-615e9308="" value="" disabled="disabled"
-														selected="selected">MM</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="01">1</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="02">2</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="03">3</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="04">4</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="05">5</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="06">6</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="07">7</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="08">8</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="09">9</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="10">10</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="11">11</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="12">12</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="">선택
-														안 함</option></select> <svg data-v-615e9308="" viewBox="0 0 12 7"
-													xmlns="http://www.w3.org/2000/svg">
-													<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
-														points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span> <span
-												data-v-615e9308="" data-v-5781a129=""
-												class="form-select row--v-center birth"><select
-												data-v-615e9308="" id="f_birth3"><option
-														data-v-615e9308="" value="" disabled="disabled"
-														selected="selected">DD</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="01">1</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="02">2</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="03">3</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="04">4</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="05">5</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="06">6</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="07">7</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="08">8</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="09">9</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="10">10</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="11">11</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="12">12</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="13">13</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="14">14</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="15">15</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="16">16</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="17">17</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="18">18</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="19">19</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="20">20</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="21">21</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="22">22</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="23">23</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="24">24</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="25">25</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="26">26</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="27">27</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="28">28</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="29">29</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="30">30</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="31">31</option>
-													<option data-v-5781a129="" data-v-615e9308="" value="">선택
-														안 함</option></select> <svg data-v-615e9308="" viewBox="0 0 12 7"
-													xmlns="http://www.w3.org/2000/svg">
-													<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
-														points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span>
-										</div>
-									</div>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="" for="f_gender">성별</label>
-										</p>
-										<div data-v-5781a129="" class="row">
-											<label data-v-5781a129="" class="row--v-center"><label
-												data-v-12d1ffd0="" data-v-5781a129="" class="form-radio"><input
-													data-v-12d1ffd0="" type="radio" name="spot-search-radio"
-													value="female"> <span data-v-12d1ffd0=""><i
-														data-v-12d1ffd0=""></i></span></label> <span data-v-5781a129="">여성</span></label>
-											<label data-v-5781a129="" class="row--v-center"><label
-												data-v-12d1ffd0="" data-v-5781a129="" class="form-radio"><input
-													data-v-12d1ffd0="" type="radio" name="spot-search-radio"
-													value="male"> <span data-v-12d1ffd0=""><i
-														data-v-12d1ffd0=""></i></span></label> <span data-v-5781a129="">남성</span></label>
-											<label data-v-5781a129="" class="row--v-center"><label
-												data-v-12d1ffd0="" data-v-5781a129="" class="form-radio"><input
-													data-v-12d1ffd0="" type="radio" name="spot-search-radio"
-													value=""> <span data-v-12d1ffd0=""><i
-														data-v-12d1ffd0=""></i></span></label> <span data-v-5781a129="">선택
-													안 함</span></label>
-										</div>
-									</div>
-								</div>
-								<div data-v-5781a129="" class="register-section__field-group">
-									<h3 data-v-5781a129="">추가 정보</h3>
-									<div data-v-5781a129=""
-										class="form-field register-section__field">
-										<p data-v-5781a129="" class="form-label">
-											<label data-v-5781a129="">마케팅 알림 수신</label> <span
-												data-v-5781a129="">이메일, SMS 모두 수신 동의시 2,000원 할인 쿠폰
-												지급! <span data-v-5781a129="" class="mobile">(1인 최대 1회
-													지급)</span>
-											</span>
-										</p>
 										<div data-v-5781a129=""
-											class="row register-extra__body register-extra__notification">
-											<label data-v-5781a129="" class="row--v-center"><label
-												data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-													data-v-2673f877="" type="checkbox" value="false"> <span
-													data-v-2673f877=""><svg data-v-2673f877=""
-															xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-															<path data-v-2673f877="" fill="currentColor"
-																fill-rule="nonzero"
-																d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-												<span data-v-5781a129="">이메일 수신</span></label> <label
-												data-v-5781a129="" class="row--v-center"><label
-												data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-													data-v-2673f877="" type="checkbox" value="false"> <span
-													data-v-2673f877=""><svg data-v-2673f877=""
-															xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-															<path data-v-2673f877="" fill="currentColor"
-																fill-rule="nonzero"
-																d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-												<span data-v-5781a129="">SMS수신</span></label>
+											class="form-field register-section__field password_re_field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_password" class="required">비밀번호
+													재확인</label>
+											</p>
+											<div data-v-5781a129="" class="form-field-group">
+												<input data-v-8bb17226="" data-v-5781a129="" type="password" id="f_re_password"
+													name="f_re_password" placeholder="비밀번호 재입력"
+													autocorrect="off" autocapitalize="off" class="form-text">
+											</div>
+											<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="-1">
+											<!---->
 										</div>
 									</div>
-								</div>
-							</fieldset>
-							<fieldset data-v-5781a129=""
-								class="form-fieldset register-section register-section__field-group">
-								<legend data-v-5781a129="">이용약관 확인폼</legend>
-								<h3 data-v-5781a129="">이용 약관</h3>
-								<div data-v-5781a129="" class="form-terms">
-									<label data-v-5781a129="" class="row--v-center"><label
-										data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-											data-v-2673f877="" type="checkbox" value="false"> <span
-											data-v-2673f877=""><svg data-v-2673f877=""
-													xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-													<path data-v-2673f877="" fill="currentColor"
-														fill-rule="nonzero"
-														d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-										<div data-v-5781a129="">
-											<span data-v-5781a129=""><strong data-v-5781a129="">전체
-													동의</strong></span>
-										</div></label> <label data-v-5781a129="" class="row--v-center"><label
-										data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-											data-v-2673f877="" type="checkbox" value="false"> <span
-											data-v-2673f877=""><svg data-v-2673f877=""
-													xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-													<path data-v-2673f877="" fill="currentColor"
-														fill-rule="nonzero"
-														d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-										<div data-v-5781a129="">
-											<span data-v-5781a129="">(필수)이용약관에 동의합니다.</span> <a
-												data-v-5781a129="" href="#"><small data-v-5781a129="">자세히
-													보기</small></a>
-										</div></label> <label data-v-5781a129="" class="row--v-center"><label
-										data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-											data-v-2673f877="" type="checkbox" value="false"> <span
-											data-v-2673f877=""><svg data-v-2673f877=""
-													xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-													<path data-v-2673f877="" fill="currentColor"
-														fill-rule="nonzero"
-														d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-										<div data-v-5781a129="">
-											<span data-v-5781a129="">(필수)개인정보처리방침에 동의합니다.</span> <a
-												data-v-5781a129="" href="#"><small data-v-5781a129="">자세히
-													보기</small></a>
-										</div></label>
-								</div>
-							</fieldset>
-							<nav data-v-5781a129="" class="register__nav">
-								<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-									title="" class="button register_gtm button--size-large">
-									<span data-v-a1c889e0="" class="button__wrap">가입하기</span>
-								</button>
-							</nav>
-						</div>
+									<div data-v-5781a129="" class="register-section__field-group">
+										<h3 data-v-5781a129="">개인 정보</h3>
+										<div data-v-5781a129=""
+											class="form-field register-section__field name_field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_name" class="required">이름</label>
+											</p>
+											<c:choose>
+												<c:when test="${empty member.name}">
+													<div data-v-5781a129="" class="form-field-group">
+														<input data-v-8bb17226="" data-v-5781a129="" id="f_name"
+															type="text" name="f_name" placeholder="이름 입력"
+															autocorrect="off" autocapitalize="off" class="form-text">
+													</div>
+													<input type="hidden" class="validation" name="nameCheck" id="nameCheck" value="0">
+												</c:when>
+												<c:otherwise>
+													<div data-v-5781a129="" class="form-field-group">
+														<input data-v-8bb17226="" data-v-5781a129="" id="f_name" value="${member.name }"
+															type="text" name="f_name" placeholder="이름 입력"
+															autocorrect="off" autocapitalize="off" class="form-text" readonly>
+													</div>
+													<input type="hidden" class="validation" name="nameCheck" id="nameCheck" value="1">
+												</c:otherwise>
+											</c:choose>
+											<!---->
+										</div>
+										<div data-v-5781a129=""
+											class="form-field register-section__field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_nickname">닉네임</label>
+											</p>
+											<input data-v-8bb17226="" data-v-5781a129="" id="f_nickname"
+												type="text" name="f_nickname"
+												placeholder="닉네임 입력(미입력시 이름 자동 입력)" autocorrect="off"
+												autocapitalize="off" class="form-text">
+										</div>
+										<div data-v-5781a129=""
+											class="form-field register-section__field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_tel" class="required">휴대폰
+													번호</label>
+											</p>
+											<div data-v-5781a129="" class="row">
+												<div data-v-5781a129="" class="col">
+													<input data-v-8bb17226="" data-v-5781a129="" id="f_tel"
+														type="tel" name="f_tel" placeholder="휴대폰 번호 입력(-제외)"
+														maxlength="11" autocorrect="off" autocapitalize="off"
+														class="form-text">
+												</div>
+												<div data-v-5781a129="" class="col-4">
+													<button data-v-a1c889e0="" data-v-5781a129="" type="button"
+														title="" class="button">
+														<span data-v-a1c889e0="" class="button__wrap">인증 요청</span>
+													</button>
+												</div>
+											</div>
+										</div>
+										<div data-v-5781a129=""
+											class="form-field register-section__field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_birth">생년월일</label>
+											</p>
+											<div data-v-5781a129="" class="row">
+												<span data-v-615e9308="" data-v-5781a129=""
+													class="form-select row--v-center"><select
+													data-v-615e9308="" id="f_birth1"><option
+															data-v-615e9308="" value="" disabled="disabled"
+															selected="selected">YYYY</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2009">2009</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2008">2008</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2007">2007</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2006">2006</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2005">2005</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2004">2004</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2003">2003</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2002">2002</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2001">2001</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="2000">2000</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1999">1999</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1998">1998</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1997">1997</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1996">1996</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1995">1995</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1994">1994</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1993">1993</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1992">1992</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1991">1991</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1990">1990</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1989">1989</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1988">1988</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1987">1987</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1986">1986</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1985">1985</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1984">1984</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1983">1983</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1982">1982</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1981">1981</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1980">1980</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1979">1979</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1978">1978</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1977">1977</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1976">1976</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1975">1975</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1974">1974</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1973">1973</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1972">1972</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1971">1971</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1970">1970</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1969">1969</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1968">1968</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1967">1967</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1966">1966</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1965">1965</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1964">1964</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1963">1963</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1962">1962</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1961">1961</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1960">1960</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1959">1959</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1958">1958</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1957">1957</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1956">1956</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1955">1955</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1954">1954</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1953">1953</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1952">1952</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1951">1951</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1950">1950</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1949">1949</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1948">1948</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1947">1947</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1946">1946</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1945">1945</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1944">1944</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1943">1943</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1942">1942</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1941">1941</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1940">1940</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1939">1939</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1938">1938</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1937">1937</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1936">1936</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1935">1935</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1934">1934</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1933">1933</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1932">1932</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="1931">1931</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="">선택
+															안 함</option></select> <svg data-v-615e9308="" viewBox="0 0 12 7"
+														xmlns="http://www.w3.org/2000/svg">
+														<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
+															points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span> <span
+													data-v-615e9308="" data-v-5781a129=""
+													class="form-select row--v-center birth"><select
+													data-v-615e9308="" id="f_birth2"><option
+															data-v-615e9308="" value="" disabled="disabled"
+															selected="selected">MM</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="01">1</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="02">2</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="03">3</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="04">4</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="05">5</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="06">6</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="07">7</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="08">8</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="09">9</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="10">10</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="11">11</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="12">12</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="">선택
+															안 함</option></select> <svg data-v-615e9308="" viewBox="0 0 12 7"
+														xmlns="http://www.w3.org/2000/svg">
+														<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
+															points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span> <span
+													data-v-615e9308="" data-v-5781a129=""
+													class="form-select row--v-center birth"><select
+													data-v-615e9308="" id="f_birth3"><option
+															data-v-615e9308="" value="" disabled="disabled"
+															selected="selected">DD</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="01">1</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="02">2</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="03">3</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="04">4</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="05">5</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="06">6</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="07">7</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="08">8</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="09">9</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="10">10</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="11">11</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="12">12</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="13">13</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="14">14</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="15">15</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="16">16</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="17">17</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="18">18</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="19">19</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="20">20</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="21">21</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="22">22</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="23">23</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="24">24</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="25">25</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="26">26</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="27">27</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="28">28</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="29">29</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="30">30</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="31">31</option>
+														<option data-v-5781a129="" data-v-615e9308="" value="">선택
+															안 함</option></select> <svg data-v-615e9308="" viewBox="0 0 12 7"
+														xmlns="http://www.w3.org/2000/svg">
+														<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
+															points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span>
+											</div>
+										</div>
+										<div data-v-5781a129=""
+											class="form-field register-section__field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="" for="f_gender">성별</label>
+											</p>
+											<div data-v-5781a129="" class="row gender_field">
+												<label data-v-5781a129="" class="row--v-center"><label
+													data-v-12d1ffd0="" data-v-5781a129="" class="form-radio female"><input
+														data-v-12d1ffd0="" type="radio" name="spot-search-radio"
+														value="female"> <span data-v-12d1ffd0=""><i
+															data-v-12d1ffd0=""></i></span></label> <span data-v-5781a129="">여성</span></label>
+												<label data-v-5781a129="" class="row--v-center"><label
+													data-v-12d1ffd0="" data-v-5781a129="" class="form-radio male"><input
+														data-v-12d1ffd0="" type="radio" name="spot-search-radio"
+														value="male"> <span data-v-12d1ffd0=""><i
+															data-v-12d1ffd0=""></i></span></label> <span data-v-5781a129="">남성</span></label>
+												<label data-v-5781a129="" class="row--v-center"><label
+													data-v-12d1ffd0="" data-v-5781a129="" class="form-radio xxxx"><input
+														data-v-12d1ffd0="" type="radio" name="spot-search-radio"
+														value=""> <span data-v-12d1ffd0=""><i
+															data-v-12d1ffd0=""></i></span></label> <span data-v-5781a129="">선택
+														안 함</span></label>
+												<input type="hidden" class="validation" name="genderCheck" id="genderCheck" value="0">
+											</div>
+										</div>
+									</div>
+									<div data-v-5781a129="" class="register-section__field-group">
+										<h3 data-v-5781a129="">추가 정보</h3>
+										<div data-v-5781a129=""
+											class="form-field register-section__field">
+											<p data-v-5781a129="" class="form-label">
+												<label data-v-5781a129="">마케팅 알림 수신</label> <span
+													data-v-5781a129="">이메일, SMS 모두 수신 동의시 2,000원 할인 쿠폰
+													지급! <span data-v-5781a129="" class="mobile">(1인 최대 1회
+														지급)</span>
+												</span>
+											</p>
+											<div data-v-5781a129=""
+												class="row register-extra__body register-extra__notification">
+												<label data-v-5781a129="" class="row--v-center"><label
+													data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
+														data-v-2673f877="" type="checkbox" value="false"> <span
+														data-v-2673f877=""><svg data-v-2673f877=""
+																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																<path data-v-2673f877="" fill="currentColor"
+																	fill-rule="nonzero"
+																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+													<span data-v-5781a129="">이메일 수신</span></label> <label
+													data-v-5781a129="" class="row--v-center"><label
+													data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
+														data-v-2673f877="" type="checkbox" value="false"> <span
+														data-v-2673f877=""><svg data-v-2673f877=""
+																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																<path data-v-2673f877="" fill="currentColor"
+																	fill-rule="nonzero"
+																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+													<span data-v-5781a129="">SMS수신</span></label>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+								<fieldset data-v-5781a129=""
+									class="form-fieldset register-section register-section__field-group">
+									<legend data-v-5781a129="">이용약관 확인폼</legend>
+									<h3 data-v-5781a129="">이용 약관</h3>
+									<div data-v-5781a129="" class="form-terms">
+										<label data-v-5781a129="" class="row--v-center"><label
+											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
+												data-v-2673f877="" type="checkbox" value="false"> <span
+												data-v-2673f877=""><svg data-v-2673f877=""
+														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+														<path data-v-2673f877="" fill="currentColor"
+															fill-rule="nonzero"
+															d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+											<div data-v-5781a129="">
+												<span data-v-5781a129=""><strong data-v-5781a129="">전체
+														동의</strong></span>
+											</div></label> <label data-v-5781a129="" class="row--v-center"><label
+											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
+												data-v-2673f877="" type="checkbox" value="false"> <span
+												data-v-2673f877=""><svg data-v-2673f877=""
+														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+														<path data-v-2673f877="" fill="currentColor"
+															fill-rule="nonzero"
+															d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+											<div data-v-5781a129="">
+												<span data-v-5781a129="">(필수)이용약관에 동의합니다.</span> <a
+													data-v-5781a129="" href="#"><small data-v-5781a129="">자세히
+														보기</small></a>
+											</div></label> <label data-v-5781a129="" class="row--v-center"><label
+											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
+												data-v-2673f877="" type="checkbox" value="false"> <span
+												data-v-2673f877=""><svg data-v-2673f877=""
+														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+														<path data-v-2673f877="" fill="currentColor"
+															fill-rule="nonzero"
+															d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+											<div data-v-5781a129="">
+												<span data-v-5781a129="">(필수)개인정보처리방침에 동의합니다.</span> <a
+													data-v-5781a129="" href="#"><small data-v-5781a129="">자세히
+														보기</small></a>
+											</div></label>
+									</div>
+								</fieldset>
+								<nav data-v-5781a129="" class="register__nav">
+									<button data-v-a1c889e0="" data-v-5781a129="" type="button"
+										title="" class="button register_gtm button--size-large">
+										<span data-v-a1c889e0="" class="button__wrap">가입하기</span>
+									</button>
+								</nav>
+							</div>
 						<!---->
+						</form>
 					</article>
 				</div>
 				<!---->

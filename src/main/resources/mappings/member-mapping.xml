@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberDAO">
+	<resultMap type="mymember" id="getMemberMapping">
+		<id property="memberCode" column="member_code" />
+		<result property="email" column="member_email" />
+		<result property="password" column="member_password" />
+		<result property="name" column="member_name" />
+		<result property="nickname" column="member_nickname" />
+		<result property="birthday" column="member_birthday" />
+		<result property="phone" column="member_phone" />
+		<result property="gender" column="member_gender" />
+	</resultMap>
+
+	<select id="emailCheck" resultType="int">
+		SELECT COUNT(c.member_email) AS count 
+		FROM (
+			SELECT member_email FROM member WHERE member_email = #{email}
+		) AS c
+	</select>
+	
+	<select id="getMember" resultMap="getMemberMapping">
+		SELECT * FROM member WHERE member_email = #{email}
+	</select>
+</mapper>

@@ -46,12 +46,13 @@
 	</select>
 		
 	<select id="getSub" resultMap="detailResult02">
-		SELECT * FROM sub_item_mapping WHERE subscribe_code = ${subscribe_code}
+		SELECT * FROM sub_item_mapping WHERE subscribe_code = #{subscribe_code}
 	</select>
 	<select id="getInfo" resultMap="detailInfo">
 		select * from item_info where item_code = #{item_code}
 	</select>
-	
-
+	<select id="getSubItem" resultMap="detailResult02">
+		select * from subscribe WHERE subscribe_code = #{item_code}
+	</select>
 
 </mapper>

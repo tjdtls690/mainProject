@@ -52,4 +52,13 @@
 		SELECT * FROM reviewboard where subscribe_code = ${subscribe_code}
 		ORDER BY seq DESC
 	</select>
+<!-- 	페이징처리 -->
+	<select id="selectBoardList" resultType="hashmap" parameterType="hashmap">
+        SELECT * FROM reviewboard 
+        ORDER BY seq DESC LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	<select id="countBoardList" resultType="Integer">
+        SELECT count(*) FROM reviewboard 
+	</select>
+	
 </mapper>

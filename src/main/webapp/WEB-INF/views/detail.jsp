@@ -348,8 +348,10 @@
                                                                     <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
                                                                 </div>
                                                             </div>
+                                                            
                                                             <!-- 상품선택 옵션 토글다운 주석처리 나중에 부트스트랩 드롭다운으로 구현-->
-                                                            <!--
+                                                            
+                                                            <!-- 
                                                             <ul data-v-5b7f52e9 class="toggle-drop-down">
                                                                 <li data-v-5b7f52e9>
                                                                     <div data-v-5b7f52e9 class="detail-wrap">
@@ -600,7 +602,15 @@
                             </h3>
 						<!-- <div>~~~ 생겨야됨. -->
 							<div data-v-32a18372="" class="menu-info-content-wrap" id="item_info_show">
-								${detailInfo.item_info }
+								<c:if test="${detail.item_tag_main ne 100 && detail.item_tag_main ne 600 }">
+	                      			${detailInfo.item_info }
+	                      		</c:if>
+	                      		<c:if test="${detail.item_tag_main eq 100 || detail.item_tag_main eq 600 }">
+	                      			<h2>TEST</h2>
+	                      			<c:forEach var="detailInfo2" items="${detailInfo2}">
+	                      				${detailInfo2.item_info}
+	                      			</c:forEach>
+	                      		</c:if>
 							</div>
 						<!-- </div> -->
                         </div>
@@ -609,11 +619,21 @@
                                 <span data-v-32a18372>영양 정보 고시</span>
                                 <div data-v-32a18372 class="info-title-img"></div>
                             </h3>
+                            
                          <!--<div>~~~ 생겨야됨.  --> 
 	                        <div data-v-32a18372="" class="menu-info-content-wrap" id="item_nut_show">
-	                        	${detail.item_nut}
+	                      		<c:if test="${detail.item_tag_main ne 100 && detail.item_tag_main ne 600 }">
+	                      			${detail.item_nut}
+	                      		</c:if>
+	                      		<c:if test="${detail.item_tag_main eq 100 || detail.item_tag_main eq 600 }">
+	                      			<h2>TEST</h2>
+	                      			<c:forEach var="detailnut" items="${detailnut}">
+	                      				${detailnut.item_nut}
+	                      			</c:forEach>
+	                      		</c:if>
 	                        </div>
                         <!-- <div>-->  
+                        
                         </div>
                         <div data-v-32a18372 id="faq" class="menu__tab-info tab_menu_detail">
                             <p data-v-32a18372 class="menu__tab-info-title faq">FAQ</p>
@@ -1230,6 +1250,32 @@
                 </article>
             </div>
         </div>
+        <h1> 여기부터</h1>
+        <ul class="btn-group pagination">
+    <c:if test="${pageMaker.prev }">
+    <li>
+        <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'>
+        <i class="fa fa-chevron-left">이전</i>
+        </a>
+    </li>
+    </c:if>
+    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+    <li>
+<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
+		<a href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
+        <i class="fa">${pageNum }  </i> 
+        </a>
+    </li>
+    </c:forEach>
+    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+    <li>
+        <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'>
+        <i class="fa fa-chevron-right">다음</i>
+        </a>
+    </li>
+    </c:if>
+</ul>
+<h3>여기까지</h3>
         <footer class="footer" data-v-438b4fe4 data-v-0f5971ec>
             <div class="footer__wrap" data-v-438b4fe4 >
                <h2 class="footer--logo" data-v-438b4fe4>

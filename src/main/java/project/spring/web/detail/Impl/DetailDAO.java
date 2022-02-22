@@ -21,6 +21,11 @@ public class DetailDAO {
 		System.out.println("-->myBatis getInfo");
 		return sqlSessionTemplate.selectOne("DetailDAO.getInfo", vo);
 	}
+	
+	public DetailVO getSubItem(DetailVO vo) {
+		System.out.println("---?myBatis getSubItem");
+		return sqlSessionTemplate.selectOne("DetailDAO.getSubItem", vo);
+	}
 
 
 }

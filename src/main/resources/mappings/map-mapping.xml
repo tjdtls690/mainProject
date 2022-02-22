@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MappingDAO">
-	<select id="getItemCode" resultType="mymapping">
+	<select id="getItemCodeList" resultType="mymapping">
 		SELECT item_code FROM sub_item_mapping WHERE subscribe_code = #{subscribe_code}
 	</select>
 </mapper>

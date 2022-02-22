@@ -39,7 +39,7 @@
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-function emailCheck(){
+function emailCheck01(){
 	var email = $('#f_email').val();
 	if(email.length == 0) return "";
 	$.ajax({
@@ -268,7 +268,7 @@ $(function(){
 														</div>
 														<div data-v-5781a129="" class="col-4">
 															<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-																title="" class="button" onclick="emailCheck();">
+																title="" class="button" onclick="emailCheck01();">
 																<span data-v-a1c889e0="" class="button__wrap">중복 확인</span>
 															</button>
 														</div>

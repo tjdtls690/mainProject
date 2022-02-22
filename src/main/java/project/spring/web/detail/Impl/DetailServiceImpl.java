@@ -23,4 +23,10 @@ public class DetailServiceImpl implements DetailService {
 		return detailDAO.getInfo(vo);
 	}
 
+	@Override
+	public DetailVO getSubItem(DetailVO vo) {
+		System.out.println("getSubItem 실행");
+		return detailDAO.getSubItem(vo);
+	}
+
 }

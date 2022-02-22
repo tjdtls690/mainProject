@@ -13,7 +13,7 @@ public class MappingDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<MappingVO> getItemCode(MappingVO vo) {
-		return sqlSessionTemplate.selectList("MappingDAO.getItemCode", vo);
+	public List<MappingVO> getItemCodeList(MappingVO vo) {
+		return sqlSessionTemplate.selectList("MappingDAO.getItemCodeList", vo);
 	}
 }

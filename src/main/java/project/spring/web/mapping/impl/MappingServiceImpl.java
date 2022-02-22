@@ -14,8 +14,8 @@ public class MappingServiceImpl implements MappingService {
 	@Autowired
 	MappingDAO mappingDAO;
 	@Override
-	public List<MappingVO> getItemCode(MappingVO vo) {
-		return mappingDAO.getItemCode(vo);
+	public List<MappingVO> getItemCodeList(MappingVO vo) {
+		return mappingDAO.getItemCodeList(vo);
 	}
 
 }

@@ -3,6 +3,7 @@ package project.spring.web.mapping;
 public class MappingVO {
 	private int item_code;
 	private int subscribe_code;
+	
 	public int getItem_code() {
 		return item_code;
 	}

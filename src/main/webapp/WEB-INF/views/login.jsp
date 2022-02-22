@@ -65,7 +65,24 @@
            name = googleUser.getBasicProfile().getName() // 얘네들이 반환 값
 	       email = googleUser.getBasicProfile().getEmail()
           console.log(googleUser);
-           location.href = "googleLogin.do?name=" + name + "&email=" + email;
+           var form = document.createElement('form'); // 폼객체 생성
+           var objs;
+           objs = document.createElement('input'); // 값이 들어있는 녀석의 형식
+           objs.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+           objs.setAttribute('name', 'name'); // 객체이름
+           objs.setAttribute('value', name); //객체값
+           form.appendChild(objs);
+           var objs1;
+           objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+           objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+           objs1.setAttribute('name', 'email'); // 객체이름
+           objs1.setAttribute('value', email); //객체값
+           form.appendChild(objs1);
+           form.setAttribute('method', 'post'); //get,post 가능
+           form.setAttribute('action', "googleLogin.do"); //보내는 url
+           document.body.appendChild(form);
+           form.submit();
+
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });

@@ -95,12 +95,12 @@ $(function() {
 								<a href="/info" class="header__top-left" data-v-30697495></a> 
 								<div class="header__top-right" data-v-30697495>
 									<c:choose>
-										<c:when test="${empty name}">
+										<c:when test="${empty member.name}">
 											<a href="signup.do" data-v-30697495="">회원가입</a>
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/mypage/orders" id="nickname" data-v-30697495>${name } <span data-v-30697495>님</span></a>
+											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
 									<span data-v-30697495>1:1문의</span> 
@@ -164,8 +164,8 @@ $(function() {
 									<a href="javascript:page_move(200);" class="item" data-v-30697495>샐러드</a>
 									<a href="javascript:page_move(300);" class="item" data-v-30697495>랩·샌드위치</a>
 									<a href="javascript:page_move(1);" class="item" data-v-30697495>초코베리머치</a>
-									<a href="/event" class="item" data-v-30697495>이벤트</a>
-									<a href="/fcospot" class="item" data-v-30697495>프코스팟</a>
+									<a href="order.do" class="item" data-v-30697495>이벤트</a>
+									<a href="purchase.do" class="item" data-v-30697495>프코스팟</a>
 								</div> 
 								<div class="header__menus-side" data-v-30697495>
 									<a href="search.do" class="search-logo" data-v-30697495>

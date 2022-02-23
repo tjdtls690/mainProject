@@ -70,13 +70,15 @@ public class DetailController {
 				mav.addObject("itemNut", nut);
 			}
 			DetailVO itemInfo = detailService.getInfo(VO1);
-			if(itemInfo.getItem_info() != null) {
-				StringTokenizer st1 = new StringTokenizer(itemInfo.getItem_info().replace(":;:", "\\"), "\\");
-				List<String> info = new ArrayList<String>();
-				while(st1.hasMoreTokens()) {
-					info.add(st1.nextToken());
+			if(itemInfo != null) {
+				if(itemInfo.getItem_info() != null) {
+					StringTokenizer st1 = new StringTokenizer(itemInfo.getItem_info().replace(":;:", "\\"), "\\");
+					List<String> info = new ArrayList<String>();
+					while(st1.hasMoreTokens()) {
+						info.add(st1.nextToken());
+					}
+					mav.addObject("detailInfo", info);
 				}
-				mav.addObject("detailInfo", info);
 			}
 //			아이템 평균별점/게시글카운트
 			TapPageVO VO2 = new TapPageVO();

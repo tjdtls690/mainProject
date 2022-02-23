@@ -60,21 +60,24 @@ public class DetailController {
 			VO1.setItem_code(menuNum);
 			DetailVO itemNut = detailService.getItem(VO1);
 			mav.addObject("detail", itemNut);
-			StringTokenizer st = new StringTokenizer(itemNut.getItem_nut(), ":;:");
-			List<String> nut = new ArrayList<String>();
-			while(st.hasMoreTokens()) {
-				nut.add(st.nextToken());
+			if(itemNut.getItem_nut() != null) {
+				StringTokenizer st = new StringTokenizer(itemNut.getItem_nut().replace(":;:", "\\"), "\\");
+				List<String> nut = new ArrayList<String>();
+				while(st.hasMoreTokens()) {
+					String str1 = st.nextToken();
+					nut.add(str1);
+				}
+				mav.addObject("itemNut", nut);
 			}
-			mav.addObject("itemNut", nut);
-			
 			DetailVO itemInfo = detailService.getInfo(VO1);
-			StringTokenizer st1 = new StringTokenizer(itemInfo.getItem_info(), ":;:");
-			List<String> info = new ArrayList<String>();
-			while(st1.hasMoreTokens()) {
-				info.add(st1.nextToken());
+			if(itemInfo.getItem_info() != null) {
+				StringTokenizer st1 = new StringTokenizer(itemInfo.getItem_info().replace(":;:", "\\"), "\\");
+				List<String> info = new ArrayList<String>();
+				while(st1.hasMoreTokens()) {
+					info.add(st1.nextToken());
+				}
+				mav.addObject("detailInfo", info);
 			}
-			mav.addObject("detailInfo", info);
-			
 //			아이템 평균별점/게시글카운트
 			TapPageVO VO2 = new TapPageVO();
 			VO2.setItemCode(menuNum);
@@ -107,9 +110,15 @@ public class DetailController {
             	if(vo.getItem_nut() == null) {
             		continue;
             	}
-            	StringTokenizer st = new StringTokenizer(vo.getItem_nut(), ":;:");
+            	
+            	StringTokenizer st = new StringTokenizer(vo.getItem_nut().replace(":;:", "\\"), "\\");
             	while(st.hasMoreTokens()) {
-            		itemNut.add(st.nextToken());
+            		String str1 = st.nextToken();
+            		if(!str1.contains("영양성분")) {
+            			continue;
+            		}
+//            		System.out.println(str1);
+            		itemNut.add(str1);
             	}
             	
             }
@@ -123,9 +132,16 @@ public class DetailController {
             
             List<String> itemInfo = new ArrayList<String>();
             for(DetailVO vo : itemcodes2) {
-            	StringTokenizer st = new StringTokenizer(vo.getItem_info(), ":;:");
+            	if(vo.getItem_info() == null) {
+            		continue;
+            	}
+            	StringTokenizer st = new StringTokenizer(vo.getItem_info().replace(":;:", "\\"), "\\");
             	while(st.hasMoreTokens()) {
-            		itemInfo.add(st.nextToken());
+            		String str1 = st.nextToken();
+            		if(!str1.contains("내용량")) {
+            			continue;
+            		}
+            		itemInfo.add(str1);
             	}
             }
             mav.addObject("detailInfo2", itemInfo);

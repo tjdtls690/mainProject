@@ -8,6 +8,9 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- for slide -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>   
    <!-- Bootstrap CSS -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="${path }/style.css">
@@ -15,7 +18,11 @@
    <link rel="stylesheet" href="${path }/style2.css?ver=2">
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
+   
+
+	 
       $(function() { 
+// 헤더 패딩
          var lastScrollTop = 0,
          delta = 100;
          $(window).scroll(function(event){
@@ -32,8 +39,19 @@
          }
          lastScrollTop = st;
        	});
-    	 
-    	 
+         
+// 이미지 슬라이드 아이템 클릭시 상세페이지로 이동         
+         $(document).on('click', '.swiper-slide', function(){ 
+     		var f = document.paging;
+     		var code = $(this).children('#itemCode').attr('value');
+     		var tag = $(this).children('#tagMain').attr('value');
+     		f.tagMain01.value = tag;
+     		f.itemCode01.value = code;
+     		alert(code);
+     		f.action="detail.do"; 
+     		f.method="post";
+     		f.submit();
+     	})
          
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
@@ -66,31 +84,71 @@
 			p.method="post";
 			p.submit();
 		})
+
+// 리뷰, faq 클릭 이벤트
+      $(function(){
+          $('.review-item').on('click', function(){
+	            $(this).children('.review-item__head').toggleClass("border-bottom-desktop-show");
+	            $(this).children('.review-desktop-toggle').toggleClass("review-hide");
+          });
+          
+          $('.menu-info-table-wrap').on('click',function(){
+              $(this).children('.menu-info-table-opener').toggleClass("border-bottom-desktop-show");
+              $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
+           });
+       });
 // 페이징 처리
 		$(document).on('clik','',function(){
-		
-			
+
 			
 		})
+// 드롭 다운
+
+		$(document).ready(function(){			
+			  $(".dropdown-btn").click(function(){
+				  alert("드롭 숨기기");
+					$(this).toggleClass('dropdwon-open');
+		            $(this).children("ul").toggleClass("toggle-drop-down");
+		        });
 		
+		});
+
+		
+		$(document).ready(function(){
+			$("#test!").click(function(){
+				alert("li 클릭");
+				
+			});
+		});
 		
 		
 		
       });
     </script>
-    <script>
-         $(function(){
-            $('.review-item').on('click', function(){
-	            $(this).children('.review-item__head').toggleClass("border-bottom-desktop-show");
-	            $(this).children('.review-desktop-toggle').toggleClass("review-hide");
-            });
-            
-            $('.menu-info-table-wrap').on('click',function(){
-                $(this).children('.menu-info-table-opener').toggleClass("border-bottom-desktop-show");
-                $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
-             });
-         });
-    </script>
+
+<!--     for slide   -->
+    <style type="text/css">
+    
+    .dropdown-btn .toggle-drop-down{display:none;} 
+
+	.swiper-container {
+		height:420px;
+	
+	}
+	.swiper-slide {
+		text-align:center;
+		display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+		align-items:center; /* 위아래 기준 중앙정렬 */
+		justify-content:center; /* 좌우 기준 중앙정렬 */
+	}
+	.swiper-slide img {
+		box-shadow:0 0 5px #555;
+		max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
+		/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
+	}
+
+	</style>
+	
     <title>Saladit!</title>
 </head>
 <body>
@@ -118,6 +176,10 @@
 					<input type="hidden" name="tagMain" value="">
 					<input type="hidden" name="itemCode" value="">
 			 	</form>
+			 	<form name="paging">
+					<input type="hidden" name="tagMain01" value="">
+					<input type="hidden" name="itemCode01" value="">
+				</form>
                <nav class="header__menus" data-v-30697495>
                   <div data-v-30697495>
                      <div class="dropdown" data-v-30697495>
@@ -204,29 +266,19 @@
                   <div class="mobile-nav-scroll" data-v-30697495>
                      <ul class="mobile-nav-contents" data-v-30697495>
                         <li class="mobile-nav-contents-item" data-v-30697495>
-                           <a href="/menu" data-v-30697495>
-                                전체 메뉴
-                              </a>
+                           <a href="/menu" data-v-30697495>전체 메뉴</a>
                           </li>
                           <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/menu/subscription" data-v-30697495>
-                                정기배송
-                              </a>
+                             <a href="/menu/subscription" data-v-30697495>정기배송</a>
                           </li>
                           <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/menu/event" data-v-30697495>
-                                할인기획전
-                              </a>
+                             <a href="/menu/event" data-v-30697495>할인기획전</a>
                           </li>
                           <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/info" data-v-30697495>
-                                배송안내
-                              </a>
+                             <a href="/info" data-v-30697495>배송안내</a>
                           </li>
                           <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/fcospot" data-v-30697495>
-                                프코스팟
-                              </a>
+                             <a href="/fcospot" data-v-30697495>프코스팟</a>
                           </li>
                       </ul>
                   </div> 
@@ -235,48 +287,37 @@
                         <ul class="all-menus-list js-all-menus-list" data-v-30697495>
                            <li class="all-menus-item" data-v-30697495>
                               <a href="/menu" class="js-all-menus-item-link-0 all-menus-item-link" data-v-30697495>
-                                    전체보기
-                                  </a>
+                                    전체보기</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/subscription" class="js-all-menus-item-link-1 all-menus-item-link" data-v-30697495>
-                                    정기배송
-                                  </a>
+                                    정기배송</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/salad" class="js-all-menus-item-link-2 all-menus-item-link" data-v-30697495>
-                                    샐러드
-                                  </a>
+                                    샐러드</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/salad-wrap" class="js-all-menus-item-link-3 all-menus-item-link" data-v-30697495>
-                                    랩·샌드위치
-                                  </a>
+                                    랩·샌드위치</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/meal" class="js-all-menus-item-link-4 all-menus-item-link" data-v-30697495>
-                                    도시락·간편식
-                                  </a>
+                                    도시락·간편식</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/set" class="js-all-menus-item-link-5 all-menus-item-link" data-v-30697495>
-                                    세트상품
-                                  </a>
+                                    세트상품</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/snack" class="js-all-menus-item-link-6 all-menus-item-link" data-v-30697495>
-                                    간식
-                                  </a>
+                                    간식</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/drink" class="js-all-menus-item-link-7 all-menus-item-link" data-v-30697495>
-                                    음료
-                                  </a>
+                                    음료</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/event" class="js-all-menus-item-link-8 all-menus-item-link" data-v-30697495>
-                                    할인기획전
-                                  </a>
+                                    할인기획전</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/soon" class="js-all-menus-item-link-9 all-menus-item-link" data-v-30697495>
-                                    오픈예정
-                                  </a>
+                                    오픈예정</a>
                               </li>
                               <li class="all-menus-item" data-v-30697495><a href="/menu/soup" class="js-all-menus-item-link-10 all-menus-item-link" data-v-30697495>
-                                    죽·스프
-                                  </a>
+                                    죽·스프</a>
                               </li>
                           </ul>
                       </div> 
@@ -342,7 +383,7 @@
                                         <ul data-v-2706028c class="menu__select-size-list">
                                             <li data-v-2706028c>
                                                 <label data-v-2706028c class="menu__label only-desktop">상품선택</label>
-                                                <div data-v-2706028c class="dropdown-btn-wrap">
+ <!--  여기가 버튼 -->                                 <div data-v-2706028c class="dropdown-btn-wrap">
                                                     <div data-v-5b7f52e9 data-v-2706028c>
                                                         <div data-v-5b7f52e9 class="dropdown-btn">
                                                             <div data-v-5b7f52e9 class="button dropdown">
@@ -353,7 +394,32 @@
                                                                     <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
                                                                 </div>
                                                             </div>
-                                                            
+                                                            <ul data-v-5b7f52e9="" class="toggle-drop-down"><!----> 
+                                                            	<li data-v-5b7f52e9="" id="test!">
+                                                            		<div data-v-5b7f52e9="" class="detail-wrap">
+                                                            			<div data-v-5b7f52e9="" class="detail-name-and-badge">
+                                                            				<span data-v-5b7f52e9="">미디움 (M) 
+                                                            				</span> <!----> <span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span>
+                                                            			</div> 
+                                                            			<div data-v-5b7f52e9="" class="detail-price">
+                                                            				<span data-v-5b7f52e9="" class="discount-price">8,900</span> 
+                                                            				<span data-v-5b7f52e9="">8,270원</span>
+                                                            			</div>
+                                                            		</div>
+                                                            	</li><!----> 
+<!--                                                             	<li data-v-5b7f52e9=""> -->
+<!--                                                             		<div data-v-5b7f52e9="" class="detail-wrap"> -->
+<!--                                                             			<div data-v-5b7f52e9="" class="detail-name-and-badge"> -->
+<!--                                                             				<span data-v-5b7f52e9="">라지 (L) </span>  -->
+<!--                                                             				<span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span> -->
+<!--                                                             			</div>  -->
+<!-- 	                                                            		<div data-v-5b7f52e9="" class="detail-price"> -->
+<!-- 	                                                            		<span data-v-5b7f52e9="" class="discount-price">12,900</span>  -->
+<!-- 	                                                            		<span data-v-5b7f52e9="">12,000원</span> -->
+<!-- 	                                                            		</div> -->
+<!--                                                             		</div> -->
+<!--                                                             	</li> -->
+                                                            </ul>
                                                             <!-- 상품선택 옵션 토글다운 주석처리 나중에 부트스트랩 드롭다운으로 구현-->
                                                             
                                                             <!-- 
@@ -417,31 +483,95 @@
                                 <!--이 nav 태그 뭐에 쓰이는건 모르겠어서 생략..-->
                             </nav>
                         </header>
-                        <!--다른 고객들이 함께 본 상품-->
-                        <!--메인의 md추천에서 자동 넘기기 효과만 없애면 될듯..-->
-					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active" data-bs-interval="1000">
-								<img src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/490_20211221111518" class="d-block w-100" alt="..." width="50">
-							</div>
-							<div class="carousel-item" data-bs-interval="1000">
-								<img src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/490_20211221111518" class="d-block w-100" alt="..." width="50">
-							</div>
-							<div class="carousel-item" data-bs-interval="1000">
-								<img src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/490_20211221111518" class="d-block w-100" alt="..." width="50">
-							</div>
+                   <!--  -->
+                   <!--  -->
+                   <!--  -->
+                   <!--다른 고객들이 함께 본 상품-->
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+	
+								<c:forEach var="item" items="${random }">
+									<div class="swiper-slide">
+										<input type="hidden" value="${item.itemCode }" id="itemCode">
+										<input type="hidden" value="${item.tagMain }" id="tagMain">
+										<ul>
+											<li data-v-4c9a9e82="" class="col-6 col--lg-3">
+												<article
+													data-v-15082832="" data-v-4c9a9e82=""
+													class="item for-loop-cloned-item-244">
+
+													<div data-v-15082832="" class="for-loop-cloned-item-244">
+														<figure data-v-15082832=""
+															class="item__image for-loop-cloned-item-244">
+															<div data-v-15082832=""
+																class="item-badge for-loop-cloned-item-244">
+																<!---->
+															</div>
+															<img data-v-15082832=""
+																src="${item.itemImage }"
+																alt="${item.itemName } " title="${item.itemName } "
+																class="for-loop-cloned-item-244">
+														</figure>
+														<div data-v-15082832=""
+															class="item__body for-loop-cloned-item-244">
+															<!---->
+															<strong data-v-15082832=""
+																class="for-loop-cloned-item-244">${item.itemName }</strong>
+															<div data-v-15082832=""
+																class="for-loop-cloned-item-244 options">
+																<dl data-v-15082832=""
+																	class="for-loop-cloned-item-244 row--v">
+																	<dd data-v-15082832="" class="for-loop-cloned-item-244">
+																		<em data-v-15082832=""
+																			class="for-loop-cloned-item-244"><b>${item.itemPriceM }원</b></em>~ <span
+																			data-v-15082832="" class="for-loop-cloned-item-244">
+																			<c:if test="${item.itemPriceMSub ne ''}">
+																					${item.itemPriceMSub }
+																			</c:if>
+																			</span>
+																	</dd>
+																</dl>
+															</div>
+															<span data-v-15082832="" class="for-loop-cloned-item-244">${item.itemSummary }</span>
+															<div data-v-15082832=""
+																class="item-bottom for-loop-cloned-item-244 row--v-center row--h-between">
+																<div data-v-15082832=""
+																	class="for-loop-cloned-item-244 info-wrap">
+																	<span data-v-15082832=""
+																		class="for-loop-cloned-item-244 star-info">${item.starAvg }</span>
+																	<span data-v-15082832=""
+																		class="for-loop-cloned-item-244 review-info">${item.reviewCount }</span>
+																</div>
+																<div data-v-15082832=""
+																	class="row--v-center for-loop-cloned-item-244 tag-wrap">
+																	<div data-v-15082832=""
+																		class="for-loop-cloned-item-244 row--v-center">
+											<!-- 																		<div data-v-15082832="" -->
+											<!-- 																			class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag"> -->
+											<!-- 																			락토베지테리언</div> -->
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</article>
+										</li>
+									</ul>
+								</div>
+							</c:forEach>
+
 						</div>
-						<button class="carousel-control-prev" type="button"
-							data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-								class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-bs-target="#carouselExampleControls" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-								class="visually-hidden">Next</span>
-						</button>
-					</div>                   
+					
+						<!-- 네비게이션 -->
+						<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+						<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+					
+						<!-- 페이징 -->
+						<div class="swiper-pagination"></div>
+					</div>   
+					<!--  -->             
+					<!--  -->             
+					<!--  -->                        
                     </article>
                     <div data-v-32a18372 class="menu__tab">
                         <nav data-v-61e19c34 data-v-32a18372 class="menu-tab unit">
@@ -608,7 +738,7 @@
 						<!-- <div>~~~ 생겨야됨. -->
 							<div data-v-32a18372="" class="menu-info-content-wrap" id="item_info_show">
 								<section data-v-32a18372="" class="menu-info-content-header">
-									<img data-v-32a18372="" src="/images/exit@2x.png"
+									<img data-v-32a18372="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/Logo_close.png"
 										alt="상품정보 고시 닫기 버튼" class="content-header-close">
 									<h3 data-v-32a18372="" class="content-header-title">상품 정보 고시</h3>
 								</section>
@@ -637,7 +767,7 @@
                          <!--<div>~~~ 생겨야됨.  --> 
 	                        <div data-v-32a18372="" class="menu-info-content-wrap" id="item_nut_show">
 								<section data-v-32a18372="" class="menu-info-content-header">
-									<img data-v-32a18372="" src="/images/exit@2x.png"
+									<img data-v-32a18372="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/Logo_close.png"
 										alt="영양 정보 고시 닫기 버튼" class="content-header-close">
 									<h3 data-v-32a18372="" class="content-header-title">영양 정보
 										고시</h3>
@@ -1391,6 +1521,30 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
+	<script>
+// 슬라이드 이미지 용
+	new Swiper('.swiper-container', {
+	
+		slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
+		spaceBetween : 30, // 슬라이드간 간격
+		slidesPerGroup : 4, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+	
+		// 그룹수가 맞지 않을 경우 빈칸으로 메우기
+		// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
+		loopFillGroupWithBlank : true,
+	
+		loop : true, // 무한 반복
+	
+		pagination : { // 페이징
+			el : '.swiper-pagination',
+			clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+		},
+		navigation : { // 네비게이션
+			nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+			prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+		},
+	});
+	</script>
     
 </body>
 </html>

@@ -25,4 +25,8 @@ public class TapPageDAO {
 	public TapPageVO getAvgCount(TapPageVO vo) {
 		return sqlSessionTemplate.selectOne("TapPageDAO.getAvgCount",vo);
 	}
+//	슬라이드용 랜덤 정보 추출	
+	public List<TapPageVO> getRandom(TapPageVO vo) {
+		return sqlSessionTemplate.selectList("TapPageDAO.getRandom",vo);
+	}
 }

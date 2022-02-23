@@ -1,5 +1,7 @@
 package project.spring.web.detail.Impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,8 +25,13 @@ public class DetailDAO {
 	}
 	
 	public DetailVO getSubItem(DetailVO vo) {
-		System.out.println("---?myBatis getSubItem");
+		System.out.println("--->myBatis getSubItem");
 		return sqlSessionTemplate.selectOne("DetailDAO.getSubItem", vo);
+	}
+	
+	public List<DetailVO> getRandom(DetailVO vo){
+		System.out.println("--->MyBatis getRandom");
+		return sqlSessionTemplate.selectList("DetailDAO.getRandom", vo);
 	}
 
 

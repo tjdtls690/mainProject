@@ -54,5 +54,8 @@
 	<select id="getSubItem" resultMap="detailResult02">
 		select * from subscribe WHERE subscribe_code = #{item_code}
 	</select>
+	<select id="getRandom" resultMap="detailResult">
+		select * from item where item_tag_main= #{item_tag_main} order by rand() Limit 9;
+	</select>
 
 </mapper>

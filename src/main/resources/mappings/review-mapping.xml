@@ -54,11 +54,11 @@
 	</select>
 <!-- 	페이징처리 -->
 	<select id="selectBoardList" resultType="hashmap" parameterType="hashmap">
-        SELECT * FROM reviewboard 
+        SELECT * FROM reviewboard WHERE item_code = #{item_code}
         ORDER BY seq DESC LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	<select id="countBoardList" resultType="Integer">
-        SELECT count(*) FROM reviewboard 
+        SELECT count(*) FROM reviewboard WHERE item_code = #{item_code}
 	</select>
 	
 </mapper>

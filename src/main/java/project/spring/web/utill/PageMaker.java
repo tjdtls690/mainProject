@@ -9,6 +9,7 @@ public class PageMaker {
 	private boolean prev;	// 이전 버튼 생성 여부
 	private boolean next;	// 다음 버튼 생성 여부
 	private int displayPageNum = 5;	// 화면 하단에 보여지는 페이지의 버튼 수
+	private int item_code;
 	
 	public Criteria getCri() {
 		return cri;
@@ -74,6 +75,13 @@ public class PageMaker {
 	public void setDisplayPageNum(int displayPageNum) {
 		this.displayPageNum = displayPageNum;
 	}
+	public int getItem_code() {
+		return item_code;
+	}
+	public void setItem_code(int item_code) {
+		this.item_code = item_code;
+	}
+	
 	
 	
 	

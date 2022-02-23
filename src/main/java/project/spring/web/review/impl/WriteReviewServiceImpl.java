@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import project.spring.web.review.WriteReviewService;
 import project.spring.web.review.WriteReviewVO;
 import project.spring.web.utill.Criteria;
+import project.spring.web.utill.PageMaker;
 
 @Service
 public class WriteReviewServiceImpl implements WriteReviewService{
@@ -50,9 +51,9 @@ public class WriteReviewServiceImpl implements WriteReviewService{
 	}
 
 	@Override
-	public int countBoardListTotal() {
+	public int countBoardListTotal(PageMaker pageMaker) {
 		System.out.println("countBoardListTotal serviceImpl");
-		return writeReviewDAO.countBoardList();
+		return writeReviewDAO.countBoardList(pageMaker);
 
 	}
 	

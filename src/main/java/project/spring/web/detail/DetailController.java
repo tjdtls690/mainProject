@@ -93,12 +93,12 @@ public class DetailController {
             
             for(MappingVO vo2 : aa ) {
             	dvo.setItem_code(vo2.getItem_code());
-            	itemcodes.add(detailService.getInfo(dvo));
+            	itemcodes2.add(detailService.getInfo(dvo));
             	
             }
-            mav.addObject("detailInfo2", itemcodes);
+            mav.addObject("detailInfo2", itemcodes2);
             
-            mav.addObject("detailnut", itemcodes);
+            mav.addObject("detailnut", itemcodes2);
           
             // 세트 or 구독상품 info
             
@@ -110,26 +110,36 @@ public class DetailController {
 //		VO3.setItem_code(menuNum);
 //		VO3.setTagMain(tagMain01);
 //		mav.addObject("boardList", writeReviewService.getReviewList(VO3));
-//		리뷰보드
+		
+//		리뷰보드( 각 품목 불러오기 )
+		cri.setItem_code(menuNum);
 	    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
 	    mav.addObject("boardList", list);
 //		페이징 처리
 		System.out.println("페이징 처리");
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
-	    pageMaker.setTotalCount(writeReviewService.countBoardListTotal());
+	    pageMaker.setItem_code(menuNum);
+	    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
 	    mav.addObject("pageMaker", pageMaker);
-		
+	    System.out.println("cri.getItem_code : "+cri.getItem_code());
+	    System.out.println("");
+	    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+
 		mav.setViewName("detail");
 		return mav;
 	}
 
+	
 	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
 	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("itemCode");
 		int num = Integer.parseInt(str);
 		System.out.println("넘어온 item_code 값 : " +num);
-		
+
+		String a = request.getParameter("tagMain01");
+		int tagMain01 = Integer.parseInt(a);
+		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
 		mav.setViewName("basket");
 		return mav;
 	}

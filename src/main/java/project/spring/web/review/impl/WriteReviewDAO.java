@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import project.spring.web.review.WriteReviewVO;
 import project.spring.web.utill.Criteria;
+import project.spring.web.utill.PageMaker;
 
 @Repository
 public class WriteReviewDAO {
@@ -53,8 +54,8 @@ public class WriteReviewDAO {
 	    return sqlSessionTemplate.selectList("WriteReviewDAO.selectBoardList", cri);
 	}
 
-	public int countBoardList(){
+	public int countBoardList(PageMaker pageMaker){
 		System.out.println("--->MyBatis countBoardList 실행");
-	    return sqlSessionTemplate.selectOne("WriteReviewDAO.countBoardList");
+	    return sqlSessionTemplate.selectOne("WriteReviewDAO.countBoardList", pageMaker);
 	}
 }

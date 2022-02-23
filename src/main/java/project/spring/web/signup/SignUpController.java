@@ -38,4 +38,26 @@ public class SignUpController {
 		mav.setViewName("emailCheck");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/phoneBeforeCheck.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String phoneBeforeCheckDo(String phone) {
+		String regExp = "^01(?:0|1|[6-9])(\\d{3}|\\d{4})(\\d{4})$";
+		if(phone.matches(regExp) == true) {
+			return "1";
+		}
+		return "0";
+	}
+	
+	@RequestMapping("/phoneCheck.do")
+	public ModelAndView phoneCheckDo(ModelAndView mav) {
+		mav.setViewName("phoneCheck");
+		return mav;
+	}
+	
+	@RequestMapping("/checkBox.do")
+	public ModelAndView checkBoxDo(ModelAndView mav) {
+		mav.setViewName("checkBox");
+		return mav;
+	}
 }

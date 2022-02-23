@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +24,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/googleLogin.do")
-	public ModelAndView googleLoginDo(@ModelAttribute MemberVO vo, HttpServletRequest request, ModelAndView mav) {
+	public ModelAndView googleLoginDo(MemberVO vo, HttpServletRequest request, ModelAndView mav) {
 		System.out.println("googleLoginDo 실행");
 		HttpSession session = request.getSession();
 		int emailCheck = memberService.checkEmail(vo);
@@ -49,7 +48,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/kakaoData.do")
-	public ModelAndView kakaoDataDo(@ModelAttribute MemberVO vo, HttpServletRequest request, ModelAndView mav) {
+	public ModelAndView kakaoDataDo(MemberVO vo, HttpServletRequest request, ModelAndView mav) {
 		System.out.println("kakaoDataDo 실행");
 		HttpSession session = request.getSession();
 		int emailCheck = memberService.checkEmail(vo);

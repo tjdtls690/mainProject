@@ -3,6 +3,7 @@ package project.spring.web.detail;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,9 +58,23 @@ public class DetailController {
 //			아이템 상품정보			
 		
 			VO1.setItem_code(menuNum);
+			DetailVO itemNut = detailService.getItem(VO1);
+			mav.addObject("detail", itemNut);
+			StringTokenizer st = new StringTokenizer(itemNut.getItem_nut(), ":;:");
+			List<String> nut = new ArrayList<String>();
+			while(st.hasMoreTokens()) {
+				nut.add(st.nextToken());
+			}
+			mav.addObject("itemNut", nut);
 			
-			mav.addObject("detail", detailService.getItem(VO1));
-			mav.addObject("detailInfo", detailService.getInfo(VO1));
+			DetailVO itemInfo = detailService.getInfo(VO1);
+			StringTokenizer st1 = new StringTokenizer(itemInfo.getItem_info(), ":;:");
+			List<String> info = new ArrayList<String>();
+			while(st1.hasMoreTokens()) {
+				info.add(st1.nextToken());
+			}
+			mav.addObject("detailInfo", info);
+			
 //			아이템 평균별점/게시글카운트
 			TapPageVO VO2 = new TapPageVO();
 			VO2.setItemCode(menuNum);
@@ -82,11 +97,21 @@ public class DetailController {
 			List<DetailVO> itemcodes = new ArrayList<DetailVO>();
 			
             for(MappingVO vo : aa) { // 12 15 19
+            	System.out.println("itemcodes 담는중");
             	dvo.setItem_code(vo.getItem_code());
-            	System.out.println("vo.getItem_code 실행 :"+vo.getItem_code());
             	itemcodes.add(detailService.getItem(dvo));
-            	System.out.println("dvo.setItem_code 실행 :"+ dvo.getItem_code());          	
-            	System.out.println("dvo getItem_price 실행 :"+vo.getSubscribe_code());
+            }
+            
+            List<String> itemNut = new ArrayList<String>();
+            for(DetailVO vo : itemcodes) {
+            	if(vo.getItem_nut() == null) {
+            		continue;
+            	}
+            	StringTokenizer st = new StringTokenizer(vo.getItem_nut(), ":;:");
+            	while(st.hasMoreTokens()) {
+            		itemNut.add(st.nextToken());
+            	}
+            	
             }
             // 상품 정보 고시
             List<DetailVO> itemcodes2 = new ArrayList<DetailVO>();
@@ -94,15 +119,23 @@ public class DetailController {
             for(MappingVO vo2 : aa ) {
             	dvo.setItem_code(vo2.getItem_code());
             	itemcodes2.add(detailService.getInfo(dvo));
-            	
             }
-            mav.addObject("detailInfo2", itemcodes2);
             
-            mav.addObject("detailnut", itemcodes2);
+            List<String> itemInfo = new ArrayList<String>();
+            for(DetailVO vo : itemcodes2) {
+            	StringTokenizer st = new StringTokenizer(vo.getItem_info(), ":;:");
+            	while(st.hasMoreTokens()) {
+            		itemInfo.add(st.nextToken());
+            	}
+            }
+            mav.addObject("detailInfo2", itemInfo);
+            
+            mav.addObject("detailNut", itemNut);
           
-            // 세트 or 구독상품 info
-            
-            
+//			아이템 평균별점/게시글카운트
+			TapPageVO VO2 = new TapPageVO();
+			VO2.setItemCode(menuNum);
+			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
 		}
 		
 //		리뷰보드

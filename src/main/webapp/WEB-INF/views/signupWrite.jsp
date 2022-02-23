@@ -56,6 +56,10 @@ function emailCheck01(){
 	})
 }
 
+function closeBtn(){
+	$('.swal2-backdrop-show').detach();
+}
+
 $(function(){
 	$('#f_email').keyup(function(){
 		$('.email_field').children('.validation').detach();
@@ -108,6 +112,7 @@ $(function(){
 	});
 	
 	$('.female').trigger("click");
+	$('html').scrollTop(0);
 	$('.male').on('click', function(){
 		$('.gender_field').children('.validation').detach();
 		$('.gender_field').append('<input type="hidden" class="validation" name="genderCheck" id="genderCheck" value="1">')
@@ -127,8 +132,74 @@ $(function(){
 	// 일 값 : $("#f_birth3").val();
 	// 들어오고 아무짓 안한 상태면 null, 선택 안함 선택시 ""
 	
-})
+	$('#phoneCheck').on('click', function(){
+		var tel = $('#f_tel').val();
+		var check;
+		$.ajax({
+			url : 'phoneBeforeCheck.do',
+			type : 'post',
+			data : {
+				'phone' : tel
+			},
+			success : function(data){
+				if(data == "1"){
+					$.ajax({
+						url : 'phoneCheck.do',
+						type : 'post',
+						dataType : 'html',
+						success : function(htmlOut){
+							$('.phone_check_field').children('.row').detach();
+							$('.phone_check_field').append(htmlOut);
+							$.ajax({
+								url : 'checkBox.do',
+								type : 'post',
+								dataType : 'html',
+								success : function(htmlOut01){
+									$('body').append(htmlOut01);
+								}
+							});
+						}
+					});
+				}else{
+					alert("번호를 다시 입력해주세요.");
+				}
+			}
+		})
+	});
+	
+// 	$(document).on("click", ".swal2-backdrop-show", function(e){
+// 		if (!$(e.target).is('.swal2-show')) {
+// // 			$('.swal2-backdrop-show').detach();
+// 			alert("zz");
+// 		}
+// // 		alert("zz");
+// 	});
 
+// 	$(document).click(function(e){
+// 	    if (!$(e.target).is('.swal2-show')) {
+// 	       	alert("zzz");
+// 	    }
+
+// 	});
+});
+
+// $(document).on("click", ".swal2-backdrop-show", function(e){
+// 	var $tgPoint = $(e.target);
+//     var $popArea = $tgPoint.hasClass('.swal2-show');
+ 
+//     if ( !$popArea ) {
+// //         $('.popup-box').removeClass('view');
+// 		alert('zz');
+//     }
+	
+	
+	
+// // 	var cc = document.getElementById ("swal2-show");
+// 	if (!$(e.target).is(document.getElementById ("swal2-show"))) {
+// //			$('.swal2-backdrop-show').detach();
+// 		alert("zz");
+// 	}
+// });
 </script>
 </head>
 <body class="" style="padding-right: 0px;">
@@ -355,7 +426,7 @@ $(function(){
 												autocapitalize="off" class="form-text">
 										</div>
 										<div data-v-5781a129=""
-											class="form-field register-section__field">
+											class="form-field register-section__field phone_check_field">
 											<p data-v-5781a129="" class="form-label">
 												<label data-v-5781a129="" for="f_tel" class="required">휴대폰
 													번호</label>
@@ -369,7 +440,7 @@ $(function(){
 												</div>
 												<div data-v-5781a129="" class="col-4">
 													<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-														title="" class="button">
+														title="" class="button" id="phoneCheck">
 														<span data-v-a1c889e0="" class="button__wrap">인증 요청</span>
 													</button>
 												</div>

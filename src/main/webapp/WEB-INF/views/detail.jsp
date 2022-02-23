@@ -607,15 +607,24 @@
                             </h3>
 						<!-- <div>~~~ 생겨야됨. -->
 							<div data-v-32a18372="" class="menu-info-content-wrap" id="item_info_show">
-								<c:if test="${detail.item_tag_main ne 100 && detail.item_tag_main ne 600 }">
-	                      			${detailInfo.item_info }
-	                      		</c:if>
-	                      		<c:if test="${detail.item_tag_main eq 100 || detail.item_tag_main eq 600 }">
-	                      			<h2>TEST</h2>
-	                      			<c:forEach var="detailInfo2" items="${detailInfo2}">
-	                      				${detailInfo2.item_info}
-	                      			</c:forEach>
-	                      		</c:if>
+								<section data-v-32a18372="" class="menu-info-content-header">
+									<img data-v-32a18372="" src="/images/exit@2x.png"
+										alt="상품정보 고시 닫기 버튼" class="content-header-close">
+									<h3 data-v-32a18372="" class="content-header-title">상품 정보 고시</h3>
+								</section>
+								<section data-v-32a18372="" class="menu-info-content-body">
+
+									<c:if test="${detail.item_tag_main ne 100 && detail.item_tag_main ne 600 }">
+										<c:forEach var="detailInfo" items="${detailInfo }">
+			                      			${detailInfo }
+			                      		</c:forEach>
+		                      		</c:if>
+		                      		<c:if test="${detail.item_tag_main eq 100 || detail.item_tag_main eq 600 }">
+		                      			<c:forEach var="detailInfo2" items="${detailInfo2}">
+		                      				${detailInfo2}
+		                      			</c:forEach>
+		                      		</c:if>
+	                      		</section>
 							</div>
 						<!-- </div> -->
                         </div>
@@ -627,15 +636,25 @@
                             
                          <!--<div>~~~ 생겨야됨.  --> 
 	                        <div data-v-32a18372="" class="menu-info-content-wrap" id="item_nut_show">
-	                      		<c:if test="${detail.item_tag_main ne 100 && detail.item_tag_main ne 600 }">
-	                      			${detail.item_nut}
-	                      		</c:if>
-	                      		<c:if test="${detail.item_tag_main eq 100 || detail.item_tag_main eq 600 }">
-	                      			<h2>TEST</h2>
-	                      			<c:forEach var="detailnut" items="${detailnut}">
-	                      				${detailnut.item_nut}
-	                      			</c:forEach>
-	                      		</c:if>
+								<section data-v-32a18372="" class="menu-info-content-header">
+									<img data-v-32a18372="" src="/images/exit@2x.png"
+										alt="영양 정보 고시 닫기 버튼" class="content-header-close">
+									<h3 data-v-32a18372="" class="content-header-title">영양 정보
+										고시</h3>
+								</section>
+								
+								<section data-v-32a18372="" class="menu-info-content-body">
+									<c:if test="${detail.item_tag_main ne 100 && detail.item_tag_main ne 600 }">
+										<c:forEach var="itemNut" items="${itemNut}">
+		                      				${itemNut}
+		                      			</c:forEach>
+		                      		</c:if>
+		                      		<c:if test="${detail.item_tag_main eq 100 || detail.item_tag_main eq 600 }">
+		                      			<c:forEach var="detailNut" items="${detailNut}">
+		                      				${detailNut}
+		                      			</c:forEach>
+		                      		</c:if>
+	                      		</section>
 	                        </div>
                         <!-- <div>-->  
                         

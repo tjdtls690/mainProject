@@ -1,5 +1,6 @@
 package project.spring.web.detail;
 
+import java.util.List;
 
 public interface DetailService {
 	
@@ -8,4 +9,6 @@ public interface DetailService {
 	DetailVO getInfo(DetailVO vo);
 
 	DetailVO getSubItem(DetailVO vo);
+	
+	List<DetailVO> getRandom(DetailVO vo);
 }

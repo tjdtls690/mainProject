@@ -51,6 +51,7 @@ public class DetailController {
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
+		
 		DetailVO VO1 = new DetailVO();
 		//단품상품일때
 		if(tagMain01 != 100 && tagMain01 != 600) {
@@ -84,6 +85,16 @@ public class DetailController {
 			TapPageVO VO2 = new TapPageVO();
 			VO2.setItemCode(menuNum);
 			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
+			
+//			이미지 슬라이드를 위한 tag_main으로 DB에서 랜덤으로 가져와서 리턴
+//			DetailVO VO3 = new DetailVO();
+//			VO3.setItem_tag_main(tagMain01);
+//			List<DetailVO> random = detailService.getRandom(VO3);
+//			mav.addObject("random",random);
+			TapPageVO VO3 = new TapPageVO();
+			VO3.setTagMain(tagMain01);
+			List<TapPageVO> random = tapPageService.getRandom(VO3);
+			mav.addObject("random",random);
 		} else {
 			//[세트 or 구독상품일때]
 			// 세트 or 구독상품 화면.

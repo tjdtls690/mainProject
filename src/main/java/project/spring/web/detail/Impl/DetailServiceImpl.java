@@ -1,5 +1,7 @@
 package project.spring.web.detail.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,12 @@ public class DetailServiceImpl implements DetailService {
 	public DetailVO getSubItem(DetailVO vo) {
 		System.out.println("getSubItem 실행");
 		return detailDAO.getSubItem(vo);
+	}
+
+	@Override
+	public List<DetailVO> getRandom(DetailVO vo) {
+		System.out.println("getRandom 실행");
+		return detailDAO.getRandom(vo);
 	}
 
 }

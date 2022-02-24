@@ -9,7 +9,8 @@ public class BasketVO {
 	private int amount;
 	private int price;
 	private int priceSub;
-	private String userName;
+	private int userCode;
+	private int itemCode;
 	
 	public int getSeq() {
 		return seq;
@@ -59,19 +60,26 @@ public class BasketVO {
 	public void setPriceSub(int priceSub) {
 		this.priceSub = priceSub;
 	}
-	public String getUserName() {
-		return userName;
+
+	public int getUserCode() {
+		return userCode;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserCode(int userCode) {
+		this.userCode = userCode;
+	}
+	public int getItemCode() {
+		return itemCode;
+	}
+	public void setItemCode(int itemCode) {
+		this.itemCode = itemCode;
 	}
 	
 	@Override
 	public String toString() {
 		return "BasketVO [seq=" + seq + ", itemImage=" + itemImage + ", itemName=" + itemName + ", tagMain=" + tagMain
 				+ ", tagSub=" + tagSub + ", amount=" + amount + ", price=" + price + ", priceSub=" + priceSub
-				+ ", userName=" + userName + "]";
+				+ ", userCode=" + userCode + ", itemCode=" + itemCode + "]";
 	}
 
-	
+
 }

@@ -60,6 +60,36 @@ function closeBtn(){
 	$('.swal2-backdrop-show').detach();
 }
 
+function detailModal01(){
+	$.ajax({
+		url : 'detailModal01.do',
+		type : 'post',
+		dataType : 'html',
+		success : function(htmlOut){
+			$('.check1').parent().trigger("click");
+			$('.check01').trigger("click");
+			$('.container').children('.register').append(htmlOut);
+		}
+	})
+}
+
+function detailModal02(){
+	$.ajax({
+		url : 'detailModal02.do',
+		type : 'post',
+		dataType : 'html',
+		success : function(htmlOut){
+			$('.check2').parent().trigger("click");
+			$('.check02').trigger("click");
+			$('.container').children('.register').append(htmlOut);
+		}
+	})
+}
+
+function closeModal(){
+	$('.modal').detach();
+}
+
 $(function(){
 	$('#f_email').keyup(function(){
 		$('.email_field').children('.validation').detach();
@@ -167,39 +197,122 @@ $(function(){
 		})
 	});
 	
-// 	$(document).on("click", ".swal2-backdrop-show", function(e){
-// 		if (!$(e.target).is('.swal2-show')) {
-// // 			$('.swal2-backdrop-show').detach();
-// 			alert("zz");
-// 		}
-// // 		alert("zz");
-// 	});
-
-// 	$(document).click(function(e){
-// 	    if (!$(e.target).is('.swal2-show')) {
-// 	       	alert("zzz");
-// 	    }
-
-// 	});
+	$('.check0').on('click', function(){
+		var check = $(this).prev().children('input').val();
+		var check1 = $('.check01').prev().val();
+		var check2 = $('.check02').prev().val();
+		if(check == 'true'){
+			$(this).prev().children('input').val('false');
+		}else{
+			$(this).prev().children('input').val('true');
+		}
+		var check0 = $(this).prev().children('input').val();
+		if(check0 != check1){
+			$('.check01').trigger("click");
+		}
+		if(check0 != check2){
+			$('.check02').trigger("click");
+		}
+	});
+	
+	$('.check00').on('click', function(){
+		var check = $(this).prev().val();
+		var check1 = $('.check01').prev().val();
+		var check2 = $('.check02').prev().val();
+		if(check == 'true'){
+			$(this).prev().val('false');
+		}else{
+			$(this).prev().val('true');
+		}
+		var check0 = $(this).prev().val();
+		if(check0 != check1){
+			$('.check01').trigger("click");
+		}
+		if(check0 != check2){
+			$('.check02').trigger("click");
+		}
+	});
+	
+	$('.check1').click(function(e){
+		var check = $('.check00').prev().val();
+		var check1 = $(this).prev().children('input').val();
+		var check2 = $('.check02').prev().val();
+		if(check1 == 'true'){
+			$(this).prev().children('input').val('false');
+			if(check == 'true'){
+				$('.check00').trigger("click");
+				$('.check02').trigger("click");
+			}
+		}else{
+			$(this).prev().children('input').val('true');
+			if(check2 == 'true'){
+				if(check == 'false'){
+					$('.check00').trigger("click");
+				}
+			}
+		}
+	});
+	
+	$('.check01').on('click', function(){
+		var check = $('.check00').prev().val();
+		var check1 = $(this).prev().val();
+		var check2 = $('.check02').prev().val();
+		if(check1 == 'true'){
+			$(this).prev().val('false');
+			if(check == 'true'){
+				$('.check00').trigger("click");
+				$('.check02').trigger("click");
+			}
+		}else{
+			$(this).prev().val('true');
+			if(check2 == 'true'){
+				if(check == 'false'){
+					$('.check00').trigger("click");
+				}
+			}
+		}
+	});
+	
+	$('.check2').on('click', function(){
+		var check = $('.check00').prev().val();
+		var check1 = $('.check01').prev().val();
+		var check2 = $(this).prev().children('input').val();
+		if(check2 == 'true'){
+			$(this).prev().children('input').val('false');
+			if(check == 'true'){
+				$('.check00').trigger("click");
+				$('.check01').trigger("click");
+			}
+		}else{
+			$(this).prev().children('input').val('true');
+			if(check1 == 'true'){
+				if(check == 'false'){
+					$('.check00').trigger("click");
+				}
+			}
+		}
+	});
+	
+	$('.check02').on('click', function(){
+		var check = $('.check00').prev().val();
+		var check1 = $('.check01').prev().val();
+		var check2 = $(this).prev().val();
+		if(check2 == 'true'){
+			$(this).prev().val('false');
+			if(check == 'true'){
+				$('.check00').trigger("click");
+				$('.check01').trigger("click");
+			}
+		}else{
+			$(this).prev().val('true');
+			if(check1 == 'true'){
+				if(check == 'false'){
+					$('.check00').trigger("click");
+				}
+			}
+		}
+	});
 });
-
-// $(document).on("click", ".swal2-backdrop-show", function(e){
-// 	var $tgPoint = $(e.target);
-//     var $popArea = $tgPoint.hasClass('.swal2-show');
- 
-//     if ( !$popArea ) {
-// //         $('.popup-box').removeClass('view');
-// 		alert('zz');
-//     }
-	
-	
-	
-// // 	var cc = document.getElementById ("swal2-show");
-// 	if (!$(e.target).is(document.getElementById ("swal2-show"))) {
-// //			$('.swal2-backdrop-show').detach();
-// 		alert("zz");
-// 	}
-// });
 </script>
 </head>
 <body class="" style="padding-right: 0px;">
@@ -220,7 +333,7 @@ $(function(){
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/user/signup" class="">회원가입</a> <a
+								<a data-v-7aa1f9b4="" href="/user/signup" class="bbbb">회원가입</a> <a
 									data-v-7aa1f9b4="" href="/user/login" class="">로그인</a> <span
 									data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
@@ -632,82 +745,90 @@ $(function(){
 											</div>
 										</div>
 									</div>
-									<div data-v-5781a129="" class="register-section__field-group">
-										<h3 data-v-5781a129="">추가 정보</h3>
-										<div data-v-5781a129=""
-											class="form-field register-section__field">
-											<p data-v-5781a129="" class="form-label">
-												<label data-v-5781a129="">마케팅 알림 수신</label> <span
-													data-v-5781a129="">이메일, SMS 모두 수신 동의시 2,000원 할인 쿠폰
-													지급! <span data-v-5781a129="" class="mobile">(1인 최대 1회
-														지급)</span>
-												</span>
-											</p>
-											<div data-v-5781a129=""
-												class="row register-extra__body register-extra__notification">
-												<label data-v-5781a129="" class="row--v-center"><label
-													data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-														data-v-2673f877="" type="checkbox" value="false"> <span
-														data-v-2673f877=""><svg data-v-2673f877=""
-																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor"
-																	fill-rule="nonzero"
-																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-													<span data-v-5781a129="">이메일 수신</span></label> <label
-													data-v-5781a129="" class="row--v-center"><label
-													data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-														data-v-2673f877="" type="checkbox" value="false"> <span
-														data-v-2673f877=""><svg data-v-2673f877=""
-																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor"
-																	fill-rule="nonzero"
-																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-													<span data-v-5781a129="">SMS수신</span></label>
-											</div>
-										</div>
-									</div>
+<!-- 									<div data-v-5781a129="" class="register-section__field-group"> -->
+<!-- 										<h3 data-v-5781a129="">추가 정보</h3> -->
+<!-- 										<div data-v-5781a129="" -->
+<!-- 											class="form-field register-section__field"> -->
+<!-- 											<p data-v-5781a129="" class="form-label"> -->
+<!-- 												<label data-v-5781a129="">마케팅 알림 수신</label> <span -->
+<!-- 													data-v-5781a129="">이메일, SMS 모두 수신 동의시 2,000원 할인 쿠폰 -->
+<!-- 													지급! <span data-v-5781a129="" class="mobile">(1인 최대 1회 -->
+<!-- 														지급)</span> -->
+<!-- 												</span> -->
+<!-- 											</p> -->
+<!-- 											<div data-v-5781a129="" -->
+<!-- 												class="row register-extra__body register-extra__notification"> -->
+<!-- 												<label data-v-5781a129="" class="row--v-center"><label -->
+<!-- 													data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input -->
+<!-- 														data-v-2673f877="" type="checkbox" value="false"> <span -->
+<!-- 														data-v-2673f877=""><svg data-v-2673f877="" -->
+<!-- 																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> -->
+<!-- 																<path data-v-2673f877="" fill="currentColor" -->
+<!-- 																	fill-rule="nonzero" -->
+<!-- 																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label> -->
+<!-- 													<span data-v-5781a129="">이메일 수신</span></label> <label -->
+<!-- 													data-v-5781a129="" class="row--v-center"><label -->
+<!-- 													data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input -->
+<!-- 														data-v-2673f877="" type="checkbox" value="false"> <span -->
+<!-- 														data-v-2673f877=""><svg data-v-2673f877="" -->
+<!-- 																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> -->
+<!-- 																<path data-v-2673f877="" fill="currentColor" -->
+<!-- 																	fill-rule="nonzero" -->
+<!-- 																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label> -->
+<!-- 													<span data-v-5781a129="">SMS수신</span></label> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 								</fieldset>
 								<fieldset data-v-5781a129=""
 									class="form-fieldset register-section register-section__field-group">
 									<legend data-v-5781a129="">이용약관 확인폼</legend>
 									<h3 data-v-5781a129="">이용 약관</h3>
 									<div data-v-5781a129="" class="form-terms">
-										<label data-v-5781a129="" class="row--v-center"><label
-											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
+										   <label data-v-5781a129="" class="row--v-center">
+										   <label data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
 												data-v-2673f877="" type="checkbox" value="false"> <span
-												data-v-2673f877=""><svg data-v-2673f877=""
+												data-v-2673f877="" class="check00"><svg data-v-2673f877=""
 														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 														<path data-v-2673f877="" fill="currentColor"
 															fill-rule="nonzero"
 															d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-											<div data-v-5781a129="">
+											<div data-v-5781a129="" class="check0">
 												<span data-v-5781a129=""><strong data-v-5781a129="">전체
 														동의</strong></span>
-											</div></label> <label data-v-5781a129="" class="row--v-center"><label
+											</div></label>
+<!-- 											<input type="hidden" id="termsCheck" name="termsCheck" value=""> -->
+											
+											<label data-v-5781a129="" class="row--v-center"><label
 											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
 												data-v-2673f877="" type="checkbox" value="false"> <span
-												data-v-2673f877=""><svg data-v-2673f877=""
+												data-v-2673f877="" class="check01"><svg data-v-2673f877=""
 														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 														<path data-v-2673f877="" fill="currentColor"
 															fill-rule="nonzero"
 															d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-											<div data-v-5781a129="">
+											<div data-v-5781a129="" class="check1">
 												<span data-v-5781a129="">(필수)이용약관에 동의합니다.</span> <a
-													data-v-5781a129="" href="#"><small data-v-5781a129="">자세히
+													data-v-5781a129="" href='javascript:void(0);' onclick="detailModal01();">
+													<small data-v-5781a129="">자세히
 														보기</small></a>
-											</div></label> <label data-v-5781a129="" class="row--v-center"><label
+											</div></label> 
+<!-- 											<input type="hidden" id="termsCheck01" name="termsCheck01" value=""> -->
+											
+											<label data-v-5781a129="" class="row--v-center"><label
 											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
 												data-v-2673f877="" type="checkbox" value="false"> <span
-												data-v-2673f877=""><svg data-v-2673f877=""
+												data-v-2673f877="" class="check02"><svg data-v-2673f877=""
 														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 														<path data-v-2673f877="" fill="currentColor"
 															fill-rule="nonzero"
 															d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-											<div data-v-5781a129="">
+											<div data-v-5781a129="" class="check2">
 												<span data-v-5781a129="">(필수)개인정보처리방침에 동의합니다.</span> <a
-													data-v-5781a129="" href="#"><small data-v-5781a129="">자세히
+													data-v-5781a129="" href='javascript:void(0);' onclick="detailModal02();"><small data-v-5781a129="">자세히
 														보기</small></a>
 											</div></label>
+<!-- 											<input type="hidden" id="termsCheck02" name="termsCheck02" value=""> -->
 									</div>
 								</fieldset>
 								<nav data-v-5781a129="" class="register__nav">

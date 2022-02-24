@@ -60,4 +60,16 @@ public class SignUpController {
 		mav.setViewName("checkBox");
 		return mav;
 	}
+	
+	@RequestMapping("/detailModal01.do")
+	public ModelAndView detailModal01Do(ModelAndView mav) {
+		mav.setViewName("detailModal01");
+		return mav;
+	}
+	
+	@RequestMapping("/detailModal02.do")
+	public ModelAndView detailModal02Do(ModelAndView mav) {
+		mav.setViewName("detailModal02");
+		return mav;
+	}
 }

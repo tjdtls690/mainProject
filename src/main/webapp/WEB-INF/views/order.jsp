@@ -369,14 +369,16 @@ $(function() {
 									<div data-v-064d23aa="" class="row--v-center "
 										style="flex-basis: 100%;">
 										<div data-v-064d23aa="" class="col">
-											<button data-v-a1c889e0="" data-v-064d23aa="" type="button"
-												title="" disabled="disabled"
-												class="button button--size-large"
-												style="width: 100%; height: 50px; margin: 0px auto; border-radius: 2px; font-size: 16px; font-weight: 400;">
-												<!-- 버튼 비활성 속성 : background-color: rgb(184, 212, 198);" -->
-												<!-- 버튼 비활성 클래스 : button--disabled -->
-												<span data-v-a1c889e0="" class="button__wrap"> 구매하기 </span>
-											</button>
+											<a href="purchase.do">
+												<button data-v-a1c889e0="" data-v-064d23aa="" type="button"
+													title="" disabled="disabled"
+													class="button button--size-large"
+													style="width: 100%; height: 50px; margin: 0px auto; border-radius: 2px; font-size: 16px; font-weight: 400;">
+													<!-- 버튼 비활성 속성 : background-color: rgb(184, 212, 198);" -->
+													<!-- 버튼 비활성 클래스 : button--disabled -->
+													<span data-v-a1c889e0="" class="button__wrap"> 구매하기 </span>
+												</button>
+											</a>
 										</div>
 									</div>
 								</div>

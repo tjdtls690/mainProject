@@ -176,7 +176,7 @@ $(function() {
 										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/baguni.PNG" alt="프레시코드 장바구니" class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
 							          장바구니
 							        </a> 
-							        <a href="/order" class="item" data-v-30697495>
+							        <a href="order.do" class="item" data-v-30697495>
 							        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/pay.PNG" class="icon-order" style="width: 24px; height: 24px;" data-v-30697495>
 							          바로주문
 							        </a>

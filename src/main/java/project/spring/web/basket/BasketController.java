@@ -13,7 +13,7 @@ public class BasketController {
 	@Autowired
 	private BasketService basketService;
 	
-	@RequestMapping("/basket.do")
+	@RequestMapping("basket.do")
 	public ModelAndView basketDo(ModelAndView mav) {
 		BasketVO vo = new BasketVO();
 		List<BasketVO> BasketList = basketService.getBasketList(vo);

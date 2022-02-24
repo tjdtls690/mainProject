@@ -187,18 +187,17 @@ public class DetailController {
 	    System.out.println("cri.getItem_code : "+cri.getItem_code());
 	    System.out.println("");
 	    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
-
 		mav.setViewName("detail");
 		return mav;
 	}
 
-// 장바구니로 바꿔지는 테스트용 메서드.	
+// 장바구니로 바꿔지는 테스트용 메서드.	  // 아이템코드.태그메인,수량,사이즈
 	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
 	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("itemCode");
 		int num = Integer.parseInt(str);
 		System.out.println("넘어온 item_code 값 : " +num);
-
+		
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);

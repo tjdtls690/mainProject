@@ -11,6 +11,7 @@
 		<typeAlias type="project.spring.web.basket.BasketVO" alias="mybasket" />
 		<typeAlias type="project.spring.web.mapping.MappingVO" alias="mymapping" />
 		<typeAlias type="project.spring.web.member.MemberVO" alias="mymember" />
+		<typeAlias type="project.spring.web.order.OrderVO" alias="myorder"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -20,5 +21,6 @@
 		<mapper resource="mappings/basket-mapping.xml" />
 		<mapper resource="mappings/map-mapping.xml" />
 		<mapper resource="mappings/member-mapping.xml" />
+		<mapper resource="mappings/order-mapping.xml"/>
 	</mappers>
 </configuration>

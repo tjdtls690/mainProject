@@ -192,7 +192,7 @@ public class DetailController {
 		return mav;
 	}
 
-	
+// 장바구니로 바꿔지는 테스트용 메서드.	
 	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
 	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("itemCode");
@@ -204,6 +204,34 @@ public class DetailController {
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
 		mav.setViewName("basket");
 		return mav;
+	}
+	
+// 선택시 드롭다운 보여주기	
+	@RequestMapping("/test2.do")
+	public ModelAndView test2(HttpServletRequest request, ModelAndView mav) {
+		String str = request.getParameter("codeNum");
+		int menuNum = Integer.parseInt(str);
+		System.out.println("넘어온 code값 :" + menuNum);
+		String str2 = request.getParameter("tagNum");
+		int tagMain01 = Integer.parseInt(str2);
+		System.out.println("넘어온 tag값 :" + tagMain01);
+		
+		if(tagMain01 != 100 && tagMain01 != 600) {
+			// 단품 상세정보에서 넘어왔을때..
+			DetailVO VO = new DetailVO();
+			VO.setItem_code(menuNum);
+			
+			DetailVO ListItem = detailService.getItem(VO);
+			mav.addObject("detail", ListItem);
+		}else {
+			// 셋트/구독 상세정보에서 넘어왔을때...
+			
+		}
+		
+		
+		mav.setViewName("selectItem");
+		return mav;
+		
 	}
 	
 }

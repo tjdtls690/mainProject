@@ -103,33 +103,42 @@
 			
 		})
 // 드롭 다운
-
-		$(document).ready(function(){			
-			  $(".dropdown-btn").click(function(){
-				  alert("드롭 숨기기");
-					$(this).toggleClass('dropdwon-open');
-		            $(this).children("ul").toggleClass("toggle-drop-down");
-		        });
+		$(document).on('click','.button.dropdown',function(event){			
+			var code =$('#mobCart').children('#itemCode').attr('value');	  // 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
+			var tag = $('#mobCart').children('#tagMain').attr('value');
+			
+			if($('.dropdown-btn').hasClass('dropdown-open')){
+				$('ul').remove('.toggle-drop-down');
+			}else{
+				$.ajax({
+					url : 'test2.do',
+					type : 'post',
+					datatype : 'html',
+					data : {
+						"codeNum" : code ,
+						"tagNum"  : tag
+					},
+					success : function(htmlOut){
+						$('.dropdown-btn').append(htmlOut);
+					}
+				}); // ajax 끝
+			} //else 끝
+			$('.dropdown-btn').toggleClass('dropdown-open');
+		}); // 드롭 다운 끝
 		
+// 드롭 다운 아이템 클릭
+		$(document).on('click','.toggle-drop-down',function(){
+			$('ul').remove('.toggle-drop-down');
+			$('.dropdown-btn').toggleClass('dropdown-open');
+			// 여기까지는 기본 깔아둬야함 밑에 에이작스로 값을 받아옴.
+			
 		});
-
-		
-		$(document).ready(function(){
-			$("#test!").click(function(){
-				alert("li 클릭");
-				
-			});
-		});
-		
-		
 		
       });
     </script>
 
 <!--     for slide   -->
     <style type="text/css">
-    
-    .dropdown-btn .toggle-drop-down{display:none;} 
 
 	.swiper-container {
 		height:420px;
@@ -394,50 +403,8 @@
                                                                     <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
                                                                 </div>
                                                             </div>
-                                                            <ul data-v-5b7f52e9="" class="toggle-drop-down"><!----> 
-                                                            	<li data-v-5b7f52e9="" id="test!">
-                                                            		<div data-v-5b7f52e9="" class="detail-wrap">
-                                                            			<div data-v-5b7f52e9="" class="detail-name-and-badge">
-                                                            				<span data-v-5b7f52e9="">미디움 (M) 
-                                                            				</span> <!----> <span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span>
-                                                            			</div> 
-                                                            			<div data-v-5b7f52e9="" class="detail-price">
-                                                            				<span data-v-5b7f52e9="" class="discount-price">8,900</span> 
-                                                            				<span data-v-5b7f52e9="">8,270원</span>
-                                                            			</div>
-                                                            		</div>
-                                                            	</li><!----> 
-<!--                                                             	<li data-v-5b7f52e9=""> -->
-<!--                                                             		<div data-v-5b7f52e9="" class="detail-wrap"> -->
-<!--                                                             			<div data-v-5b7f52e9="" class="detail-name-and-badge"> -->
-<!--                                                             				<span data-v-5b7f52e9="">라지 (L) </span>  -->
-<!--                                                             				<span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span> -->
-<!--                                                             			</div>  -->
-<!-- 	                                                            		<div data-v-5b7f52e9="" class="detail-price"> -->
-<!-- 	                                                            		<span data-v-5b7f52e9="" class="discount-price">12,900</span>  -->
-<!-- 	                                                            		<span data-v-5b7f52e9="">12,000원</span> -->
-<!-- 	                                                            		</div> -->
-<!--                                                             		</div> -->
-<!--                                                             	</li> -->
-                                                            </ul>
-                                                            <!-- 상품선택 옵션 토글다운 주석처리 나중에 부트스트랩 드롭다운으로 구현-->
-                                                            
-                                                            <!-- 
-                                                            <ul data-v-5b7f52e9 class="toggle-drop-down">
-                                                                <li data-v-5b7f52e9>
-                                                                    <div data-v-5b7f52e9 class="detail-wrap">
-                                                                        <div data-v-5b7f52e9 class="detail-name-and-badge">
-                                                                            <span data-v-5b7f52e9>미디움 (M)</span>
-                                                                            <span data-v-5b7f52e9 class="detail-badge">(런칭기념 10% 할인!)</span>
-                                                                        </div>
-                                                                        <div data-v-5b7f52e9 class="detail-price">
-                                                                            <span data-v-5b7f52e9 class="discount-price">8,900</span>
-                                                                            <span data-v-5b7f52e9>8,010원</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                            -->
+<!--  클릭시 나올 선택 드롭다운은 selectitem.jsp 로 옮김 -->
+ 
                                                         </div>
                                                     </div>
                                                 </div>

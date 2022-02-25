@@ -191,7 +191,7 @@ public class DetailController {
 		return mav;
 	}
 
-// 장바구니로 바꿔지는 테스트용 메서드.	  // 아이템코드.태그메인,수량,사이즈
+// 장바구니로 바꿔지는 테스트용 메서드.	  // 아이템코드.태그메인,수량,사이즈,넘겨 줘야함
 	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
 	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("itemCode");
@@ -206,7 +206,7 @@ public class DetailController {
 	}
 	
 // 선택시 드롭다운 보여주기	
-	@RequestMapping("/test2.do")
+	@RequestMapping("/dropDown.do")
 	public ModelAndView test2(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("codeNum");
 		int menuNum = Integer.parseInt(str);
@@ -225,12 +225,27 @@ public class DetailController {
 		}else {
 			// 셋트/구독 상세정보에서 넘어왔을때...
 			
-		}
-		
-		
+		}	
 		mav.setViewName("selectItem");
-		return mav;
+		return mav;	
+	}
+// 드롭다운 리스트 클릭시 목록 찍기
+	@RequestMapping("/test3.do")
+	public ModelAndView test3(HttpServletRequest request, ModelAndView mav) {
+		String size = request.getParameter("size");
+		String num = request.getParameter("price");
+		int price = Integer.parseInt(num);
+		String name = request.getParameter("name");
 		
+		System.out.println("size"+size);
+		System.out.println("price"+price);
+		System.out.println("name"+name);
+		
+		mav.addObject("name",name);
+		mav.addObject("price",price);
+		mav.addObject("size",size);
+		mav.setViewName("selectedItem");
+		return mav;		
 	}
 	
 }

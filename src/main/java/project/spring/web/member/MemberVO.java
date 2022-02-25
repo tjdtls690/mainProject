@@ -11,6 +11,7 @@ public class MemberVO {
 	private LocalDate birthday;
 	private String phone;
 	private String gender;
+	private String smsCheck;
 
 	public int getMemberCode() {
 		return memberCode;
@@ -76,10 +77,19 @@ public class MemberVO {
 		this.gender = gender;
 	}
 
+	public String getSmsCheck() {
+		return smsCheck;
+	}
+
+	public void setSmsCheck(String smsCheck) {
+		this.smsCheck = smsCheck;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [memberCode=" + memberCode + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", nickname=" + nickname + ", birthday=" + birthday + ", phone=" + phone + ", gender=" + gender + "]";
+				+ ", nickname=" + nickname + ", birthday=" + birthday + ", phone=" + phone + ", gender=" + gender
+				+ ", smsCheck=" + smsCheck + "]";
 	}
 
 }

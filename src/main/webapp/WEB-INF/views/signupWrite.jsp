@@ -186,6 +186,15 @@ $(function(){
 								dataType : 'html',
 								success : function(htmlOut01){
 									$('body').append(htmlOut01);
+									$.ajax({
+										url : 'smsCheck.do',
+										type : 'post',
+										data : {
+											'phone' : tel
+										},
+										success : function(){
+										}
+									});
 								}
 							});
 						}
@@ -194,7 +203,7 @@ $(function(){
 					alert("번호를 다시 입력해주세요.");
 				}
 			}
-		})
+		});
 	});
 	
 	$('.check0').on('click', function(){

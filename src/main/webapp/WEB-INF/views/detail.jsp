@@ -132,16 +132,29 @@
 		}); // 드롭 다운 끝
 		
 // 드롭 다운 아이템 클릭
-		$(document).on('click','.toggle-drop-down',function(){
-			$('ul').remove('.toggle-drop-down');						
-			$('.dropdown-btn').toggleClass('dropdown-open');
+		$(document).on('click','.detail-wrap',function(){
+
 			// 여기까지는 기본 깔아둬야함 밑에 에이작스로 값을 받아옴.
+// 			var str= $('.menu__name').text();
+// 			str +="/ 미디움 M";
+
+			var str = $(this).children().first().first().text();	
+			var price = $(this).children().last().last().text();
+// 			alert(price);
+			price = Number(price.replace('원', '').replace(',', ''));
+// 			alert(price);
+			var name = $('.menu__name').text();
+
+// 			alert("last 클릭 : "+ price +"+원" );
+ 			alert("이름 출력 : " +name+" / "+str );
+
+			
+
+			$('ul').detach('.toggle-drop-down');						
+			$('.dropdown-btn').toggleClass('dropdown-open');
 			
 		});
-		
-		$('#abc').on('click',function(){
-			alert("test");
-		});
+
 		
 //  - 버튼 처리
 		$('.form-number').children().first().on('click',function(){

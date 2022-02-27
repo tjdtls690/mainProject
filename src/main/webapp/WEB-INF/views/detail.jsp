@@ -105,14 +105,15 @@
 		})
 // 드롭 다운
 		$(document).on('click','.button.dropdown',function(event){			
-			var code =$('#mobCart').children('#itemCode').attr('value');	  // 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
+			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
+			var code =$('#mobCart').children('#itemCode').attr('value');			
 			var tag = $('#mobCart').children('#tagMain').attr('value');
 			var str ="";
 			if($('.dropdown-btn').hasClass('dropdown-open')){
 				$('ul').remove('.toggle-drop-down');
 			}else{
 				$.ajax({
-					url : 'test2.do',
+					url : 'dropDown.do',
 					type : 'post',
 					datatype : 'html',
 					data : {
@@ -126,76 +127,127 @@
 						$('.dropdown-btn').append(str);
 						
 					}
-				}); // ajax 끝
+				}); // ajax 끝								
 			} //else 끝
 			$('.dropdown-btn').toggleClass('dropdown-open');
 		}); // 드롭 다운 끝
 		
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-wrap',function(){
-
-			// 여기까지는 기본 깔아둬야함 밑에 에이작스로 값을 받아옴.
-// 			var str= $('.menu__name').text();
-// 			str +="/ 미디움 M";
-
-			var str = $(this).children().first().first().text();	
-			var price = $(this).children().last().last().text();
-// 			alert(price);
-			price = Number(price.replace('원', '').replace(',', ''));
-// 			alert(price);
+			// 미디움(M) / 라지(L) 를 가져옴
+			var size = $(this).children().first().children().first().text();
+			// 가격 에서 '원',','을 빼고 가져옴
+			var priceM = $(this).children().last().last().text();
+			priceM = Number(priceM.replace('원', '').replace(',', ''));
+			// 판매중인 아이템의 이름을 가져옴.
 			var name = $('.menu__name').text();
+			var sizeM = $('#미디움').attr('id');
+			var sizeL = $('#라지').attr('id');
 
-// 			alert("last 클릭 : "+ price +"+원" );
- 			alert("이름 출력 : " +name+" / "+str );
+			// ajax를 통해 보여줄예정.
+			var html ="";
+			$.ajax({
+				url : 'test3.do',
+				type : 'post',
+				datatype : 'html',
+				data :{
+					"size" : size,
+					"price" : priceM,
+					"name" : name
+				},
+				success : function(htmlOut){
+					if(sizeM ==null && sizeL ==null){
+						html +="<ul class='selected-detail-list' data-v-2706028c=''>";
+	 					html += htmlOut;
+	 					html +="</ul>";
+	 					$('.menu__select-size').append(html);
+					}
+					else if(sizeM != null && sizeL == null){
+					    if( size == sizeM){
+					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
+					    	$('#미디움:eq(1)').next().children().children().last().trigger('click');
+					    }else{
+					    	html +="<ul class='selected-detail-list' data-v-2706028c=''>";
+		 					html += htmlOut;
+		 					html +="</ul>";
+		 					$('.menu__select-size').append(html);
+					    }
+					}
+					else if(sizeM == null && sizeL !=null){
+					    if( size == sizeM){
+					    	html +="<ul class='selected-detail-list' data-v-2706028c=''>";
+		 					html += htmlOut;
+		 					html +="</ul>";
+		 					$('.menu__select-size').append(html);
+					    }else{
+					    	$('.menu__select-size')
+					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
+					    	$('#라지:eq(1)').next().children().children().last().trigger('click');
+					    }
+					}
+					else if(sizeM != null && sizeL !=null){
+					    if( size == sizeM){
+					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
+					    	$('#미디움:eq(1)').next().children().children().last().trigger('click');
+					    }else{
+					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
+					    	$('#라지:eq(1)').next().children().children().last().trigger('click');
+					    }
+					} 		
+				} // success 끝	
+			}); // ajax 끝
 
 			
-
+			// 클릭시 드롭 다운 아이템 사라짐
 			$('ul').detach('.toggle-drop-down');						
 			$('.dropdown-btn').toggleClass('dropdown-open');
 			
+		}); // 드롭 다운 아이템 끝
+		
+		//  - 버튼 처리
+			$(document).on('click','#minus-button',function(){
+				// val값을 가져와서 val값 -후 val값 저장
+				var val = Number($(this).next().children().val());
+				alert(val);
+				if(val >1){
+					val -=1;
+// 					var price = $('.menu__price-current-price__wrapper').children().first().text();
+// 					price = Number(price.slice(0, -1));
+// 					price -= 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+// 					$('.menu__price-current-price__wrapper').children().text(price+"원");
+				}else{
+					val =1;
+				}
+				$(this).next().children().val(val);
+ 			});	 // - 버튼 처리 끝	
+
+		//  + 버튼 처리		
+			$(document).on('click','#plus-button',function(){
+				// val값을 가져와서 val값 +후 val값 저장
+				var val = Number($(this).prev().children().val());
+				
+				val +=1;
+				$(this).prev().children().val(val);
+				
+				// 합산 가격 넣기.
+				// .menu__price-current-price__wrapper 가 2개가있어 둘중 처음꺼 하나를 받고  first()지우고 모두에 저장하겠다..
+//				var price = $('.menu__price-current-price__wrapper').children().first().text();
+//				price = Number(price.slice(0, -1));
+//				price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+//				price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+//				price= price.toLocaleString('ko-KR');   --> , 찍기
+//				$('.menu__price-current-price__wrapper').children().text(price+"원");
+				
+			});	// + 버튼 처리 끝
+			
+// 상품 이미지 더보기
+		$(document).on('click','.more-btn',function(){
+			$(this).prev().children().toggleClass('img-wrapper');
+					
 		});
-
-		
-//  - 버튼 처리
-		$('.form-number').children().first().on('click',function(){
-			// val값을 가져와서 val값 -후 val값 저장
-			var val = Number($(this).next().children().val());
-			if(val >1){
-				val -=1;
-				var price = $('.menu__price-current-price__wrapper').children().first().text();
-				price = Number(price.slice(0, -1));
-				price -= 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-				$('.menu__price-current-price__wrapper').children().text(price+"원");
-			}else{
-				val =1;
-			}
-			$(this).next().children().val(val);
-
-
-			
-		});		
-		
-//  + 버튼 처리		
-		$('.form-number').children().last().on('click',function(){
-			// val값을 가져와서 val값 +후 val값 저장
-			var val = Number($(this).prev().children().val());
-			val +=1;
-			$(this).prev().children().val(val);
-			
-			// 합산 가격 넣기.
-			// .menu__price-current-price__wrapper 가 2개가있어 둘중 처음꺼 하나를 받고  first()지우고 모두에 저장하겠다..
-			var price = $('.menu__price-current-price__wrapper').children().first().text();
-			price = Number(price.slice(0, -1));
- //			price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-			price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-//			price= price.toLocaleString('ko-KR');   --> , 찍기
-			$('.menu__price-current-price__wrapper').children().text(price+"원");
-			
-		});		
 		
 		
-
-      });
+     }); //function 끝
 
 
 
@@ -476,39 +528,42 @@
                                             <!--li class="menu-option" 없애봄 -->
                                         </ul>
 <!--  선택된 아이템 보여주는 곳 -->
-                                        <ul class="selected-detail-list" data-v-2706028c=""> 
-											<article data-v-2706028c="" class="selected-detail-wrap">
-												<div data-v-2706028c="" class="selected-detail">
-													<img data-v-2706028c="" src="/images/exit@2x.png" class="selected-detail__close"> 
-													<div data-v-2706028c="" class="selected-detail__title">
-										              			[맛꾼푸드] 아이스 엿구마 1봉
-													</div>
-													<div data-v-2706028c="" class="form-selected-detail-number-wrap">
-														<nav data-v-4ba0dee4="" data-v-2706028c="" class="form-number" readonly="readonly" style="box-sizing: border-box; width: 120px; height: 32px;">
-															<button data-v-4ba0dee4="" type="button" class="form-number__control">
-																<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
-																		<path data-v-4ba0dee4="" fill="currentColor" d="M7 11.5h10v1H7z">
-																		</path>
-																	</g>   
-																</svg>     
-															</button> 
-															<span data-v-4ba0dee4="" class="form-number__input">
-																<input data-v-4ba0dee4="" id="508" type="number" min="1" max="9999" step="1" value="1">
-															</span> 
-															<button data-v-4ba0dee4="" type="button" class="form-number__control" >
-																<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
-																		<path data-v-4ba0dee4="" fill="currentColor" d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z">
-																		</path>
-																	</g>
-																</svg>
-															</button>
-														</nav>
-													</div>
-												</div>
-											</article>
-										</ul>
+<!--                                         <ul class="selected-detail-list" data-v-2706028c="">  -->
+<!-- 											<article data-v-2706028c="" class="selected-detail-wrap"> -->
+<!-- 												<div data-v-2706028c="" class="selected-detail"> -->
+<!-- 													<img data-v-2706028c="" src="/images/exit@2x.png" class="selected-detail__close">  -->
+
+<!-- 													<div data-v-2706028c="" class="selected-detail__title"> -->
+<!-- 										              			[맛꾼푸드] 아이스 엿구마 1봉 -->
+<!-- 													</div> -->
+<!-- 													<div data-v-2706028c="" class="form-selected-detail-number-wrap"> -->
+<!-- 														<nav data-v-4ba0dee4="" data-v-2706028c="" class="form-number" readonly="readonly" style="box-sizing: border-box; width: 120px; height: 32px;"> -->
+<!-- 															<button data-v-4ba0dee4="" type="button" class="form-number__control"> -->
+<!-- 																<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> -->
+<!-- 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd"> -->
+<!-- 																		<path data-v-4ba0dee4="" fill="currentColor" d="M7 11.5h10v1H7z"> -->
+<!-- 																		</path> -->
+<!-- 																	</g>    -->
+<!-- 																</svg>      -->
+<!-- 															</button>  -->
+<!-- 															<span data-v-4ba0dee4="" class="form-number__input"> -->
+<!-- 																<input data-v-4ba0dee4="" id="508" type="number" min="1" max="9999" step="1" value="1"> -->
+<!-- 															</span>  -->
+<!-- 															<button data-v-4ba0dee4="" type="button" class="form-number__control" > -->
+<!-- 																<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> -->
+<!-- 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd"> -->
+<!-- 																		<path data-v-4ba0dee4="" fill="currentColor" d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z"> -->
+<!-- 																		</path> -->
+<!-- 																	</g> -->
+<!-- 																</svg> -->
+<!-- 															</button> -->
+<!-- 														</nav> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</article> -->
+<!-- 										</ul> -->
+										
+										
                                     </div>
                                     <div data-v-2706028c class="menu__price">
                                         <label data-v-2706028c class="menu__label menu__price-label"> 상품 금액 </label>
@@ -687,7 +742,7 @@
                                                     <div data-v-79f00ef9>
                                                         <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/4766_20210111105602" class="img-fade">
                                                     </div>
-                                                    <div data-v-79f00ef9 class="shadow"></div>
+<!--                                                     <div data-v-79f00ef9 class="shadow"></div> -->
                                                 </div>
                                             </div>
                                             <div data-v-79f00ef9 class="more-btn">

@@ -95,7 +95,7 @@ $(function() {
 								<a href="/info" class="header__top-left" data-v-30697495></a> 
 								<div class="header__top-right" data-v-30697495>
 									<c:choose>
-										<c:when test="${empty member.name}">
+										<c:when test="${empty member.gender}">
 											<a href="signup.do" data-v-30697495="">회원가입</a>
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>

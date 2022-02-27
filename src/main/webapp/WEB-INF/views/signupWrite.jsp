@@ -91,6 +91,95 @@ function closeModal(){
 }
 
 $(function(){
+	$(document).on('click', '#sign_up_btn', function(){
+		var check = $('#f_password').val(); // api라면 null, 이메일 회원가입이면 값이 뭐라도 있음
+		var email = $('#f_email').val();
+		var tel = $('#f_tel').val();
+		
+		var emailCheck = $('#emailCheck').val();
+		var passwordCheck = $('#passwordCheck').val();
+		var passwordReCheck = $('#passwordReCheck').val();
+		var nameCheck = $('#nameCheck').val();
+		var phoneCheck = $('#phoneCheckValue').val();
+		var termsCheck = $('#termsCheck').val();
+		
+		if(emailCheck != 1){
+			$.ajax({
+				url : 'emailFinalCheck.do',
+				type : 'post',
+				dataType : 'html',
+				data : {
+					'email' : email
+				},
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}else if(passwordCheck != 1){
+			$.ajax({
+				url : 'passwordFinalCheck.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}else if(passwordReCheck != 1){
+			$.ajax({
+				url : 'passwordReFinalCheck.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}else if(nameCheck != 1){
+			$.ajax({
+				url : 'nameFinalCheck.do',
+				dataType : 'html',
+				data : {
+					'nameCheck' : nameCheck
+				},
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}else if(tel.length < 10){
+			$.ajax({
+				url : 'phoneFirstCheck.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}else if(phoneCheck != 1){
+			$.ajax({
+				url : 'phoneLastCheck.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}else if(termsCheck == 'false'){
+			$.ajax({
+				url : 'termsCheck.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+			return false;
+		}
+	})
+	
+	$(document).on('click', '#closeFinalCheck', function(){
+		$('.swal2-container').detach();
+	})
+	
 	$('#f_email').keyup(function(){
 		$('.email_field').children('.validation').detach();
 		$('.email_field').append('<input type="hidden" class="validation" name="emailCheck" id="emailCheck" value="-1">');
@@ -98,12 +187,25 @@ $(function(){
 	
 	$('#f_password').keyup(function(){
 		var password = $('#f_password').val().length;
+		var passwordRe = $('#f_re_password').val().length;
+		var passwordVal = $('#f_password').val();
+		var passwordReVal = $('#f_re_password').val();
 		$('.password_field').children('.validation').detach();
 		if(password == 0){
 			$('.password_field').append('<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="-1">')
 		}else if(password >= 8){
 			$('.password_field').append('<p data-v-5781a129="" class="validation">사용할 수 있는 비밀번호입니다.</p>')
 			$('.password_field').append('<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="1">')
+			if(passwordRe >= 8){
+				$('.password_re_field').children('.validation').detach();
+				if(passwordVal == passwordReVal){
+					$('.password_re_field').append('<p data-v-5781a129="" class="validation">비밀번호가 일치합니다.</p>')
+					$('.password_re_field').append('<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="1">')
+				}else{
+					$('.password_re_field').append('<p data-v-5781a129="" class="validation error">비밀번호가 일치하지 않습니다.</p>')
+					$('.password_re_field').append('<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="0">')
+				}
+			}
 		}else{
 			$('.password_field').append('<p data-v-5781a129="" class="validation error">비밀번호를 8자 이상 입력해주세요.</p>')
 			$('.password_field').append('<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="0">')
@@ -132,6 +234,19 @@ $(function(){
 	});
 	
 	$('#f_name').keyup(function(){
+		var check_num = /[0-9]/; // 숫자 
+		var check_eng = /[a-zA-Z]/; // 문자 
+		var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자 
+		var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+		var nameCheck = $('#f_name').val();
+		
+		if( check_num.test(nameCheck) || check_spc.test(nameCheck) ) {
+			$('.name_field').children('.validation.error').detach();
+			$('.name_field').append('<p data-v-5781a129="" class="validation error">이름은 한글/영문만 입력 가능합니다.</p>')
+			$('#nameCheck').val('-1');
+			return false; 
+		}
+
 		var name = $('#f_name').val().length;
 		$('.name_field').children('.validation').detach();
 		if(name > 0){
@@ -162,7 +277,7 @@ $(function(){
 	// 일 값 : $("#f_birth3").val();
 	// 들어오고 아무짓 안한 상태면 null, 선택 안함 선택시 ""
 	
-	$('#phoneCheck').on('click', function(){
+	$(document).on('click', '#phoneCheck', function(){
 		var tel = $('#f_tel').val();
 		var check;
 		$.ajax({
@@ -173,19 +288,27 @@ $(function(){
 			},
 			success : function(data){
 				if(data == "1"){
+					
 					$.ajax({
 						url : 'phoneCheck.do',
 						type : 'post',
 						dataType : 'html',
+						data : {
+							'phone' : tel
+						},
 						success : function(htmlOut){
 							$('.phone_check_field').children('.row').detach();
+							$('.phone_check_field').children('.validation').detach();
+							$('.phone_check_field').children('.form-field-group').detach();
 							$('.phone_check_field').append(htmlOut);
+							
 							$.ajax({
 								url : 'checkBox.do',
 								type : 'post',
 								dataType : 'html',
 								success : function(htmlOut01){
 									$('body').append(htmlOut01);
+									
 									$.ajax({
 										url : 'smsCheck.do',
 										type : 'post',
@@ -205,6 +328,35 @@ $(function(){
 			}
 		});
 	});
+	
+	$(document).on('click', '#certificationBtn', function(){
+		var certification = $('#certification').val();
+		if(certification.length == 0){
+			alert("인증번호를 입력해주세요.");
+			return false;
+		}
+		$.ajax({
+			url : 'certificationCheck.do',
+			type : 'post',
+			data : {
+				'certification' : certification
+			},
+			success : function(data){
+				if(data == "1"){
+					$('.phone_check_field').children('.form-field-group').children('p.validation').detach();
+					$('.phone_check_field').children('.form-field-group').append('<p data-v-5781a129="" class="validation">인증번호가 확인 되었습니다.</p>');
+					$('.phone_check_field').children('input.validation').attr('value', '1');
+					$('#certificationBtn').attr('disabled', 'disabled');
+					$('#certificationBtn').attr('class', 'button button--disabled');
+					$('#certification').attr('disabled', 'disabled');
+				}else{
+					$('.phone_check_field').children('.form-field-group').children('p.validation').detach();
+					$('.phone_check_field').children('.form-field-group').append('<p data-v-5781a129="" class="validation error">유효한 인증번호가 아닙니다. 다시 한 번 확인해주세요</p>');
+					$('.phone_check_field').children('input.validation').attr('value', '0');
+				}
+			}
+		})
+	})
 	
 	$('.check0').on('click', function(){
 		var check = $(this).prev().children('input').val();
@@ -427,6 +579,7 @@ $(function(){
 					<!---->
 					<!---->
 					<!---->
+					<input type=hidden value="${memberType }" id="member_type">
 				</header>
 				<!---->
 				<div data-v-1739428d="" class="container"
@@ -481,34 +634,39 @@ $(function(){
 											</c:choose>
 											<!---->
 										</div>
-										<div data-v-5781a129=""
-											class="form-field register-section__field password_field">
-											<p data-v-5781a129="" class="form-label">
-												<label data-v-5781a129="" for="f_password" class="required">비밀번호</label>
-											</p>
-											<div data-v-5781a129="" class="form-field-group">
-												<input data-v-8bb17226="" data-v-5781a129="" id="f_password"
-													type="password" name="f_password"
-													placeholder="비밀번호 8자 이상 입력(영문 대/소문자, 숫자포함)"
-													autocorrect="off" autocapitalize="off" class="form-text">
+										
+										<c:if test="${empty member.email }">
+											<div data-v-5781a129=""
+												class="form-field register-section__field password_field">
+												<p data-v-5781a129="" class="form-label">
+													<label data-v-5781a129="" for="f_password" class="required">비밀번호</label>
+												</p>
+												<div data-v-5781a129="" class="form-field-group">
+													<input data-v-8bb17226="" data-v-5781a129="" id="f_password"
+														type="password" name="f_password"
+														placeholder="비밀번호 8자 이상 입력(영문 대/소문자, 숫자포함)"
+														autocorrect="off" autocapitalize="off" class="form-text">
+												</div>
+												<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="-1">
+												<!---->
 											</div>
-											<input type="hidden" class="validation" name="passwordCheck" id="passwordCheck" value="-1">
-											<!---->
-										</div>
-										<div data-v-5781a129=""
-											class="form-field register-section__field password_re_field">
-											<p data-v-5781a129="" class="form-label">
-												<label data-v-5781a129="" for="f_password" class="required">비밀번호
-													재확인</label>
-											</p>
-											<div data-v-5781a129="" class="form-field-group">
-												<input data-v-8bb17226="" data-v-5781a129="" type="password" id="f_re_password"
-													name="f_re_password" placeholder="비밀번호 재입력"
-													autocorrect="off" autocapitalize="off" class="form-text">
+											<div data-v-5781a129=""
+												class="form-field register-section__field password_re_field">
+												<p data-v-5781a129="" class="form-label">
+													<label data-v-5781a129="" for="f_password" class="required">비밀번호
+														재확인</label>
+												</p>
+												<div data-v-5781a129="" class="form-field-group">
+													<input data-v-8bb17226="" data-v-5781a129="" type="password" id="f_re_password"
+														name="f_re_password" placeholder="비밀번호 재입력"
+														autocorrect="off" autocapitalize="off" class="form-text">
+												</div>
+												<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="-1">
+												<!---->
 											</div>
-											<input type="hidden" class="validation" name="passwordReCheck" id="passwordReCheck" value="-1">
-											<!---->
-										</div>
+										</c:if>
+										
+										
 									</div>
 									<div data-v-5781a129="" class="register-section__field-group">
 										<h3 data-v-5781a129="">개인 정보</h3>
@@ -567,6 +725,7 @@ $(function(){
 													</button>
 												</div>
 											</div>
+											<input type="hidden" class="validation" name="phoneCheckValue" id="phoneCheckValue" value="0">
 										</div>
 										<div data-v-5781a129=""
 											class="form-field register-section__field">
@@ -796,7 +955,7 @@ $(function(){
 									<div data-v-5781a129="" class="form-terms">
 										   <label data-v-5781a129="" class="row--v-center">
 										   <label data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
-												data-v-2673f877="" type="checkbox" value="false"> <span
+												data-v-2673f877="" type="checkbox" id="termsCheck" value="false"> <span
 												data-v-2673f877="" class="check00"><svg data-v-2673f877=""
 														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 														<path data-v-2673f877="" fill="currentColor"
@@ -806,7 +965,6 @@ $(function(){
 												<span data-v-5781a129=""><strong data-v-5781a129="">전체
 														동의</strong></span>
 											</div></label>
-<!-- 											<input type="hidden" id="termsCheck" name="termsCheck" value=""> -->
 											
 											<label data-v-5781a129="" class="row--v-center"><label
 											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
@@ -822,7 +980,6 @@ $(function(){
 													<small data-v-5781a129="">자세히
 														보기</small></a>
 											</div></label> 
-<!-- 											<input type="hidden" id="termsCheck01" name="termsCheck01" value=""> -->
 											
 											<label data-v-5781a129="" class="row--v-center"><label
 											data-v-2673f877="" data-v-5781a129="" class="form-checkbox"><input
@@ -837,12 +994,11 @@ $(function(){
 													data-v-5781a129="" href='javascript:void(0);' onclick="detailModal02();"><small data-v-5781a129="">자세히
 														보기</small></a>
 											</div></label>
-<!-- 											<input type="hidden" id="termsCheck02" name="termsCheck02" value=""> -->
 									</div>
 								</fieldset>
 								<nav data-v-5781a129="" class="register__nav">
 									<button data-v-a1c889e0="" data-v-5781a129="" type="button"
-										title="" class="button register_gtm button--size-large">
+										title="" class="button register_gtm button--size-large" id="sign_up_btn">
 										<span data-v-a1c889e0="" class="button__wrap">가입하기</span>
 									</button>
 								</nav>

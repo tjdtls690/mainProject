@@ -9,13 +9,13 @@ import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.Random;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -68,11 +68,17 @@ public class NaverSensSMS {
     public void sendMessage(/*List<String> phoneList, */HttpServletRequest request, String phone ) {
     	HttpSession session = request.getSession();
     	MemberVO vo = (MemberVO)session.getAttribute("member");
+    	int ranNum = generateAuthNo3();
+    	String contentMessge = "[샐러딧] 인증번호 [" + ranNum + "]를 입력해주세요.";
     	if(vo == null) {
-    		
+    		System.out.println("그냥 이메일 회원가입이네");
+    		vo = new MemberVO();
+    		vo.setSmsCheck(ranNum);
+    		session.setAttribute("member", vo);
+    	}else {
+    		System.out.println("api 로그인 했네");
+    		vo.setSmsCheck(ranNum);
     	}
-    	int ranNum = Integer.parseInt(numberGen(6, 1));
-    	String contentMessge = "[샐러딧] 인증번호 [" + ranNum + "]를 입력해주세요."; 
     	
         logger.debug("SMS 전송 시작");
         logger.debug("contentMessge :" +contentMessge);
@@ -264,37 +270,14 @@ public class NaverSensSMS {
      
     */
     
-	public static String numberGen(int len, int dupCd) {
-
-		Random rand = new Random();
-		String numStr = ""; // 난수가 저장될 변수
-
-		for (int i = 0; i < len; i++) {
-
-			// 0~9 까지 난수 생성
-			String ran = Integer.toString(rand.nextInt(10));
-
-			if (dupCd == 1) {
-				// 중복 허용시 numStr에 append
-				numStr += ran;
-			} else if (dupCd == 2) {
-				// 중복을 허용하지 않을시 중복된 값이 있는지 검사한다
-				if (!numStr.contains(ran)) {
-					// 중복된 값이 없으면 numStr에 append
-					numStr += ran;
-				} else {
-					// 생성된 난수가 중복되면 루틴을 다시 실행한다
-					i -= 1;
-				}
-			}
-		}
-		return numStr;
-	}
+    public static int generateAuthNo3() {
+        return RandomUtils.nextInt(100000, 1000000);
+    }
 
 //	public static void main(String[] args) {
-//		NaverSensSMS s = new NaverSensSMS();
-//		s.sendMessage("01033724653");
-//		System.out.println(numberGen(6, 1));
+////		NaverSensSMS s = new NaverSensSMS();
+////		s.sendMessage("01033724653");
+//		System.out.println(generateAuthNo3());
 //	}
      
 }

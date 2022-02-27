@@ -11,7 +11,16 @@ public class MemberVO {
 	private LocalDate birthday;
 	private String phone;
 	private String gender;
-	private String smsCheck;
+	private String memberType;
+	private int smsCheck;
+
+	public String getMemberType() {
+		return memberType;
+	}
+
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
 
 	public int getMemberCode() {
 		return memberCode;
@@ -77,11 +86,11 @@ public class MemberVO {
 		this.gender = gender;
 	}
 
-	public String getSmsCheck() {
+	public int getSmsCheck() {
 		return smsCheck;
 	}
 
-	public void setSmsCheck(String smsCheck) {
+	public void setSmsCheck(int smsCheck) {
 		this.smsCheck = smsCheck;
 	}
 
@@ -89,7 +98,7 @@ public class MemberVO {
 	public String toString() {
 		return "MemberVO [memberCode=" + memberCode + ", email=" + email + ", password=" + password + ", name=" + name
 				+ ", nickname=" + nickname + ", birthday=" + birthday + ", phone=" + phone + ", gender=" + gender
-				+ ", smsCheck=" + smsCheck + "]";
+				+ ", memberType=" + memberType + ", smsCheck=" + smsCheck + "]";
 	}
 
 }

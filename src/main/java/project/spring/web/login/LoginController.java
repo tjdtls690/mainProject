@@ -18,7 +18,10 @@ public class LoginController {
 	MemberService memberService;
 	
 	@RequestMapping("/login.do")
-	public ModelAndView loginDo(ModelAndView mav) {
+	public ModelAndView loginDo(ModelAndView mav, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("member");
+		session.removeAttribute("memberType");
 		mav.setViewName("login");
 		return mav;
 	}
@@ -35,6 +38,7 @@ public class LoginController {
 		}else {
 			session.removeAttribute("member");
 			session.setAttribute("member", vo);
+			mav.addObject("memberType", "g");
 			mav.setViewName("signupWrite");
 		}
 		return mav;
@@ -57,6 +61,7 @@ public class LoginController {
 			session.setAttribute("member", memberService.getMember(vo));
 			mav.setViewName("main");
 		}else {
+			mav.addObject("memberType", "k");
 			session.removeAttribute("member");
 			session.setAttribute("member", vo);
 			mav.setViewName("signupWrite");

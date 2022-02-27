@@ -5,6 +5,7 @@
 <mapper namespace="MemberDAO">
 	<resultMap type="mymember" id="getMemberMapping">
 		<id property="memberCode" column="member_code" />
+		<result property="memberType" column="member_type" />
 		<result property="email" column="member_email" />
 		<result property="password" column="member_password" />
 		<result property="name" column="member_name" />

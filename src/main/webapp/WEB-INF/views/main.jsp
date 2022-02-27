@@ -164,7 +164,7 @@ $(function() {
 									<a href="javascript:page_move(200);" class="item" data-v-30697495>샐러드</a>
 									<a href="javascript:page_move(300);" class="item" data-v-30697495>랩·샌드위치</a>
 									<a href="javascript:page_move(1);" class="item" data-v-30697495>초코베리머치</a>
-									<a href="order.do" class="item" data-v-30697495>이벤트</a>
+									<a href="event.do" class="item" data-v-30697495>이벤트</a>
 									<a href="purchase.do" class="item" data-v-30697495>프코스팟</a>
 								</div> 
 								<div class="header__menus-side" data-v-30697495>

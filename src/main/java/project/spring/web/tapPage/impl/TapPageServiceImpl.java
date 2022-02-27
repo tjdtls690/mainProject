@@ -31,5 +31,11 @@ public class TapPageServiceImpl implements TapPageService{
 		System.out.println("getRandom 실행");
 		return tapPageDAO.getRandom(vo);
 	}
+
+	@Override
+	public List<TapPageVO> getRandom2(TapPageVO vo) {
+		System.out.println("getRandom2 실행");
+		return tapPageDAO.getRandom2(vo);
+	}
 	
 }

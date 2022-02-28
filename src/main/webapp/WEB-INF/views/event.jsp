@@ -35,6 +35,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
     var f = document.paging; //폼 name
@@ -288,25 +289,13 @@ $(function() {
 								style="background-image: url(&quot;https://saladits3.s3.ap-northeast-2.amazonaws.com/event/event_banner/event_banner05.png&quot;);"></span></a>
 						</div>
 						<div data-v-fb1b6ea2="" class="event-banner">
-							<a data-v-fb1b6ea2=""><span data-v-fb1b6ea2=""
-								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/mobile/1065_20220218112213&quot;);"></span>
-								<span data-v-fb1b6ea2=""
-								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/web/1065_20220218112213&quot;);"></span></a>
-						</div>
-						<div data-v-fb1b6ea2="" class="event-banner">
-							<a data-v-fb1b6ea2=""><span data-v-fb1b6ea2=""
-								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/mobile/1055_20220210043121&quot;);"></span>
-								<span data-v-fb1b6ea2=""
-								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/web/1055_20220210043121&quot;);"></span></a>
-						</div>
-						<div data-v-fb1b6ea2="" class="event-banner">
-							<a data-v-fb1b6ea2=""><span data-v-fb1b6ea2=""
+							<a data-v-fb1b6ea2="" href="fourthEvent.do"><span data-v-fb1b6ea2=""
 								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/mobile/1037_20220125162558&quot;);"></span>
 								<span data-v-fb1b6ea2=""
 								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/web/1037_20220125162558&quot;);"></span></a>
 						</div>
 						<div data-v-fb1b6ea2="" class="event-banner">
-							<a data-v-fb1b6ea2=""><span data-v-fb1b6ea2=""
+							<a data-v-fb1b6ea2="" href="fifthEvent.do"><span data-v-fb1b6ea2=""
 								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/mobile/601_20210806103926&quot;);"></span>
 								<span data-v-fb1b6ea2=""
 								style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/banner/web/601_20210806103926&quot;);"></span></a>

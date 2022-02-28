@@ -140,7 +140,7 @@ $(function() {
 							<div class="header__top-right" data-v-7aa1f9b4="">
 								<c:choose>
 									<c:when test="${empty name}">
-										<a href="/user/signup" data-v-7aa1f9b4="">회원가입</a>
+										<a href="signup.do" data-v-7aa1f9b4="">회원가입</a>
 										<a data-v-7aa1f9b4="" href="login.do">로그인</a>
 									</c:when>
 									<c:otherwise>
@@ -199,7 +199,7 @@ $(function() {
 									data-v-7aa1f9b4="" aria-current="page">샐러드 </a><a
 									href="javascript:page_move(300);" class="item" data-v-7aa1f9b4="">샌드위치·랩
 								</a><a href="javascript:page_move(1);" class="item" data-v-7aa1f9b4="">초코베리머치
-								</a><a href="/event" class="item" data-v-7aa1f9b4="">이벤트 </a><a
+								</a><a href="event.do" class="item" data-v-7aa1f9b4="">이벤트 </a><a
 									href="/fcospot" class="item" data-v-7aa1f9b4="">프코스팟 </a>
 							</div>
 							<div class="header__menus-side" data-v-7aa1f9b4="">

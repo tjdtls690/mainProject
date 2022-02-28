@@ -24,4 +24,16 @@ public class EventController {
 		mav.setViewName("secondEvent");
 		return mav;
 	}
+	
+	@RequestMapping("fourthEvent.do")
+	public ModelAndView fourthEventDo(ModelAndView mav) {
+		mav.setViewName("fourthEvent");
+		return mav;
+	}
+	
+	@RequestMapping("fifthEvent.do")
+	public ModelAndView fifthEventDo(ModelAndView mav) {
+		mav.setViewName("fifthEvent");
+		return mav;
+	}
 }

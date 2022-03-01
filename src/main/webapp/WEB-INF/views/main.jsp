@@ -183,7 +183,7 @@ $(function() {
 							    </div>
 							   </nav> 
 							   <div class="header__side" data-v-30697495>
-							   		<a href="/search" class="search-logo" data-v-30697495>
+							   		<a href="/search.do" class="search-logo" data-v-30697495>
 							   			<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/search.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495></a>
 							   		</a> 
 							   		<a href="basket.do" class="cart-logo-wrap item" data-v-30697495>

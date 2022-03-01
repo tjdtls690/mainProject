@@ -116,7 +116,7 @@ $(function(){
 				}
 			})
 			return false;
-		}else if(passwordCheck != 1){
+		}else if(passwordCheck != 1 && check != null){
 			$.ajax({
 				url : 'passwordFinalCheck.do',
 				dataType : 'html',
@@ -125,7 +125,7 @@ $(function(){
 				}
 			})
 			return false;
-		}else if(passwordReCheck != 1){
+		}else if(passwordReCheck != 1 && check != null){
 			$.ajax({
 				url : 'passwordReFinalCheck.do',
 				dataType : 'html',
@@ -174,6 +174,7 @@ $(function(){
 			})
 			return false;
 		}
+		alert("가입 완료 (기능 미구현)");
 	})
 	
 	$(document).on('click', '#closeFinalCheck', function(){

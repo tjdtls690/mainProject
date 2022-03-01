@@ -134,19 +134,18 @@
 
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-wrap',function(){
-			// 미디움(M) / 라지(L) / 세트일경우 이름을 가져옴
+			// 미디움(M) / 라지(L) 를 가져옴
 			var size = $(this).children().first().children().first().text();
-			// 가격을 가져옴
-			var priceM = $(this).children().last().children().last().text();
 			// 가격 에서 '원',','을 빼고 가져옴
+			var priceM = $(this).children().last().children().last().text();
 			priceM = Number(priceM.replace('원', '').replace(',', ''));
-//			var test = $(this).children().last().children().last().attr('') 
 			
-			
+
 			// 판매중인 아이템의 이름을 가져옴.
 			var name = $('.menu__name').text();
 			var sizeM = $('#미디움').attr('id');
 			var sizeL = $('#라지').attr('id');
+
 			// ajax를 통해 보여줄예정.
 			$.ajax({
 				url : 'test3.do',
@@ -536,44 +535,78 @@
                                 <ul data-v-32a18372 class="menu-detail">
                                     ${detail.item_explain }
                                 </ul>
-	                                <div data-v-2706028c class="menu-select-panel">
-	                                    <div data-v-2706028c class="menu__select-size">
-	                                        <ul data-v-2706028c class="menu__select-size-list">
-	                                            <li data-v-2706028c>
-	                                                <label data-v-2706028c class="menu__label only-desktop">상품선택</label>
-	 <!--  여기가 버튼 -->                                 <div data-v-2706028c class="dropdown-btn-wrap">
-	                                                    <div data-v-5b7f52e9 data-v-2706028c>
-	                                                        <div data-v-5b7f52e9 class="dropdown-btn">
-	                                                            <div data-v-5b7f52e9 class="button dropdown">
-	                                                                <div data-v-5b7f52e9 class="dropdown-content">
-	                                                                    <span data-v-5b7f52e9>선택</span>
-	                                                                </div>
-	                                                                <div data-v-5b7f52e9 class="dropdown-icon">
-	                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
-	                                                                </div>
-	                                                            </div>
-	<!--  클릭시 나올 선택 드롭다운은 selectitem.jsp 로 옮김 -->
-	 
-	                                                        </div>
-	                                                    </div>
-	                                                </div>
-	                                            </li>
-	                                            <!--li class="menu-option" 없애봄 -->
-	                                        </ul>
-											 <ul class="selected-detail-list" data-v-2706028c="">
-	<!--  선택된 아이템 보여주는 곳 -->
-											 </ul>
-			
-	                                    </div>
-	                                    <div data-v-2706028c class="menu__price">
-	                                        <label data-v-2706028c class="menu__label menu__price-label"> 상품 금액 </label>
-	                                        <div data-v-2706028c class="menu__price-right">
-	                                            <div data-v-2706028c class="menu__price-current-price__wrapper">
-	                                                <div data-v-2706028c class="menu__price-current-price">0원</div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                </div>
+
+									<!-- 시작 -->
+								
+									<div data-v-2706028c="" data-v-32a18372="" class="menu-select-panel">
+										<div data-v-2706028c="" class="menu__select-size">
+											<ul data-v-2706028c="" class="menu__select-size-list normal">
+												<li data-v-2706028c="" class="menu__options"><label
+													data-v-2706028c="" class="menu__label">사이즈 선택</label>
+													<div data-v-2706028c="" class="row--v-center">
+														<div data-v-2706028c="" class="row--v-center radio-label">
+															<label data-v-3f971378="" data-v-2706028c="" class="form-radio"><input
+																data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth"
+																class="form-radio-input" value="Medium"> <span
+																data-v-3f971378="" class="form-radio-circle"><i
+																	data-v-3f971378="" class="form-radio-circle-interior"></i></span>
+																Medium </label> <label data-v-2706028c="" for="Medium"
+																class="radio-side-text">Medium</label>
+														</div>
+														<div data-v-2706028c="" class="row--v-center radio-label">
+															<label data-v-3f971378="" data-v-2706028c="" class="form-radio"><input
+																data-v-3f971378="" id="Large" type="radio" name="menu-sizeboth"
+																class="form-radio-input" value="Large"> <span
+																data-v-3f971378="" class="form-radio-circle"><i
+																	data-v-3f971378="" class="form-radio-circle-interior"></i></span>
+																Medium </label> <label data-v-2706028c="" for="Large"
+																class="radio-side-text">Large</label>
+														</div>
+													</div></li>
+												<li data-v-2706028c="" class="menu__period-select"><label
+													data-v-2706028c="" class="menu__label only-desktop">기간 선택</label>
+													<div data-v-4837bb91="" data-v-2706028c=""
+														class="dropdown-btn-flex-wrap both-style">
+														<div data-v-4837bb91="" class="dropdown-btn">
+															<div data-v-4837bb91="" class="button dropdown">
+																<div data-v-4837bb91="" class="">기간 선택(기간이 길수록 더 많이 할인됩니다)
+																</div>
+															</div>
+															<!---->
+														</div>
+													</div></li>
+												<li data-v-2706028c="" class="menu__date-select"><label
+													data-v-2706028c="" class="menu__label only-desktop">시작일(수령일)
+														선택</label>
+													<div data-v-2706028c="" class="date-picker-with-icon">
+														<span data-v-56ae83be="" data-v-2706028c="" disabled="disabled"
+															class="v-date-custom"><input data-v-2706028c=""
+															data-v-56ae83be="" disabled="disabled" placeholder="시작일 선택"
+															readonly="readonly" type="input" class="date-picker-input">
+														<div data-v-7605e1b2="" data-v-56ae83be=""
+																class="vc-popover-content-wrapper">
+																<!---->
+															</div></span> <img data-v-2706028c=""
+															src="/images/icon-calendar-active@3x.png" 
+															class="date-select-calendar-icon" style="cursor: pointer;">
+													</div></li>
+											</ul>
+											<!---->
+										</div>
+										<div data-v-2706028c="" class="menu__price">
+											<label data-v-2706028c="" class="menu__label menu__price-label">
+												상품 금액 </label>
+											<div data-v-2706028c="" class="menu__price-right">
+												<!---->
+												<div data-v-2706028c="" class="menu__price-current-price__wrapper">
+													<!---->
+													<div data-v-2706028c="" class="menu__price-current-price">0원
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--  끝 -->	
                                                  
                             </header>
                             <nav data-v-32a18372 class="menu__button-order-body">

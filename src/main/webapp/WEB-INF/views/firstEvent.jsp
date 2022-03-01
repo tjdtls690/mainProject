@@ -39,22 +39,70 @@
 <script type="text/javascript">
 $(function() {
 	
-	var lastScrollTop = 0, delta = 100;
-		$(window).scroll(function(event) {
-			var st = $(this).scrollTop();
-			if (Math.abs(lastScrollTop - st) > delta)
-				return;
-			if ((st > lastScrollTop) && (lastScrollTop > 0)) {
-				if (window.innerWidth > 1023) {
-					$(".header").css("top", "-120px");
-				} else {
-					$(".header").css("top", "0px");
+		var lastScrollTop = 0,
+	    delta = 100;
+	    $(window).scroll(function(event){
+	    var st = $(this).scrollTop();
+	    if(Math.abs(lastScrollTop - st) > delta) return;
+	    if((st > lastScrollTop) && (lastScrollTop > 0)){
+	   	 if(window.innerWidth > 1023){
+	          $(".header").css("top","-130px");
+	   	 }else{
+	   		 $(".header").css("top","0px");
+	   	 }
+	    }else{
+	       $(".header").css("top","0px");
+	    }
+	    lastScrollTop = st;
+	  	});
+		
+	    var coupon = ${coupon};
+	    for(var i = 0; i < coupon.lengthl i++) {
+	    	console.log(coupon[i]+ " ");
+	    }
+		
+		$('#btn01, #btn02').click(function(){
+			$.ajax({
+				url : 'coupon01.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
 				}
-			} else {
-				$(".header").css("top", "0px");
-			}
-			lastScrollTop = st;
-		});
+			}) 
+		})
+		
+		$(document).on('click', '#closeModal', function(){
+			$('.swal2-container').detach();
+		})
+		
+		$('.btn.half-menu.left').click(function(){
+			$.ajax({
+				url : 'coupon02.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})  
+		})
+		$('.btn.half-menu.right').click(function(){
+			$.ajax({
+				url : 'coupon02.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})  
+		})
+		
+		$('.btn.coupon.left, .btn.coupon.right').click(function(){
+			$.ajax({
+				url : 'coupon02.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})  
+		})
 	});
 </script>
 </head>
@@ -76,10 +124,17 @@ $(function() {
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/mypage/orders" class="">신준혁 <span
-									data-v-7aa1f9b4="">님</span></a> <span data-v-7aa1f9b4="">1:1문의</span>
-								<a data-v-7aa1f9b4="" href="https://forms.gle/92o1ctx6U4CYe2yF9"
-									target="_blank">B2B 신청</a>
+								<c:choose>
+									<c:when test="${empty member.gender}">
+										<a href="signup.do" data-v-30697495="">회원가입</a>
+										<a data-v-30697495="" href="login.do">로그인</a>
+									</c:when>
+									<c:otherwise>
+										<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name }
+											<span data-v-30697495>님</span>
+										</a>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						<!---->
@@ -244,17 +299,17 @@ $(function() {
 						<nav data-v-6c57d82e="" class="nav">
 							<ul data-v-6c57d82e="" class="nav-container">
 								<li data-v-6c57d82e="" class="nav-item-wrapper active"><div
-										data-v-6c57d82e="" class="nav-item">
+										data-v-6c57d82e="" class="nav-item" onclick="location.href='#section-01';" >
 										<span data-v-6c57d82e="" class="nav-item-number">01</span> <span
 											data-v-6c57d82e="" class="nav-item-text">첫주문 혜택</span>
 									</div></li>
 								<li data-v-6c57d82e="" class="nav-item-wrapper"><div
-										data-v-6c57d82e="" class="nav-item">
+										data-v-6c57d82e="" class="nav-item" onclick="location.href='#section-02';" >
 										<span data-v-6c57d82e="" class="nav-item-number">02</span> <span
 											data-v-6c57d82e="" class="nav-item-text">1만원 쿠폰팩</span>
 									</div></li>
 								<li data-v-6c57d82e="" class="nav-item-wrapper"><div
-										data-v-6c57d82e="" class="nav-item">
+										data-v-6c57d82e="" class="nav-item" onclick="location.href='#section-03';" >
 										<span data-v-6c57d82e="" class="nav-item-number">03</span> <span
 											data-v-6c57d82e="" class="nav-item-text">스페셜 추가 혜택</span>
 									</div></li>
@@ -267,7 +322,7 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/02.jpg">
-								<div data-v-6c57d82e="" class="btn"></div>
+								<div data-v-6c57d82e="" class="btn" id="btn01"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/03.jpg">
@@ -282,8 +337,8 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/06.jpg">
-								<div data-v-6c57d82e="" class="btn half-menu left"></div>
-								<div data-v-6c57d82e="" class="btn half-menu right"></div>
+								<div data-v-6c57d82e="" class="btn half-menu left" ></div>
+								<div data-v-6c57d82e="" class="btn half-menu right" ></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/07.jpg">
@@ -327,7 +382,7 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/17.jpg">
-								<div data-v-6c57d82e="" class="btn"></div>
+								<div data-v-6c57d82e="" class="btn" id="btn02"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/18.jpg">
@@ -348,7 +403,7 @@ $(function() {
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/22.jpg">
 						</section>
-						<section data-v-6c57d82e="" id="section-02"
+						<section data-v-6c57d82e="" id="section-03"
 							class="section section-03">
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/23.jpg">

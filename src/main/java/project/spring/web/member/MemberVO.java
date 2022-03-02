@@ -9,10 +9,19 @@ public class MemberVO {
 	private String name;
 	private String nickname;
 	private LocalDate birthday;
+	private String birthdayTmp;
 	private String phone;
 	private String gender;
 	private String memberType;
 	private int smsCheck;
+
+	public String getBirthdayTmp() {
+		return birthdayTmp;
+	}
+
+	public void setBirthdayTmp(String birthdayTmp) {
+		this.birthdayTmp = birthdayTmp;
+	}
 
 	public String getMemberType() {
 		return memberType;
@@ -97,8 +106,8 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [memberCode=" + memberCode + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", nickname=" + nickname + ", birthday=" + birthday + ", phone=" + phone + ", gender=" + gender
-				+ ", memberType=" + memberType + ", smsCheck=" + smsCheck + "]";
+				+ ", nickname=" + nickname + ", birthday=" + birthday + ", birthdayTmp=" + birthdayTmp + ", phone="
+				+ phone + ", gender=" + gender + ", memberType=" + memberType + ", smsCheck=" + smsCheck + "]";
 	}
 
 }

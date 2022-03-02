@@ -23,6 +23,9 @@
 		background-size: cover;
 		height: 32vw;
 	}
+	.header__logo a[data-v-30697495] {
+    	height : 31px;
+	}
 }
 
 @media ( min-width :1024px) {
@@ -65,6 +68,19 @@
 	    line-height: 15px;
 	    border-left: 1px solid #d5e0db;
 	    cursor: pointer;
+	}
+	
+	.header__menus .dropdown[data-v-30697495]:hover {
+	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/Icon_list_green.png);
+	}
+	
+	.header__menus .dropdown[data-v-30697495] {
+	    height : 100%;
+	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/Icon_list_black.png);
+	    background-repeat : no-repeat;
+	    background-position : 0;
+	    background-size : 25px;
+	    padding-left : 30px;
 	}
 }
 

@@ -90,11 +90,40 @@ function closeModal(){
 	$('.modal').detach();
 }
 
+function page_move(tagNum){
+    var f = document.paging; //폼 name
+    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+    f.action="tapPage.do";//이동할 페이지
+    f.method="post";//POST방식
+    f.submit();
+}
+
 $(function(){
 	$(document).on('click', '#sign_up_btn', function(){
 		var check = $('#f_password').val(); // api라면 null, 이메일 회원가입이면 값이 뭐라도 있음
 		var email = $('#f_email').val();
 		var tel = $('#f_tel').val();
+		var nickname = $('#f_nickname').val();
+		var name = $('#f_name').val();
+		var birth1 = $('#f_birth1').val();
+		var birth2 = $('#f_birth2').val();
+		var birth3 = $('#f_birth3').val();
+		var genderTmp = $('#genderCheck').val();
+		var gender = "";
+		if(genderTmp == 0){
+			gender = "여자";
+		}else if(genderTmp == 1){
+			gender = "남자";
+		}else{
+			gender = "미선택";
+		}
+		var memberType = $('#member_type').val();
+		
+		// 생년월일 select 값 구하는 법
+		// 연도 값 : $("#f_birth1").val();
+		// 월 값 : $("#f_birth2").val();
+		// 일 값 : $("#f_birth3").val();
+		// 들어오고 아무짓 안한 상태면 null, 선택 안함 선택시 ""
 		
 		var emailCheck = $('#emailCheck').val();
 		var passwordCheck = $('#passwordCheck').val();
@@ -173,8 +202,37 @@ $(function(){
 				}
 			})
 			return false;
+		}else{
+			alert("가입 완료");
+			var f = document.signupSuccess; //폼 name
+		    f.email.value = email; //POST방식으로 넘기고 싶은 값
+		    if(check == null){
+		    	f.password.value = "";
+		    }else{
+		    	f.password.value = check;
+		    }
+		    f.name.value = name;
+		    if(nickname == null){
+		    	f.nickname.value = "";
+		    }else{
+		    	f.nickname.value = nickname;
+		    }
+		    if(birth1 == null || birth2 == null || birth3 == null){
+		    	f.birthdayTmp.value = "0000-00-00";
+		    }else{
+		    	f.birthdayTmp.value = birth1 + "-" + birth2 + "-" + birth3;
+		    }
+		    f.phone.value = tel;
+		    if(gender == null){
+		    	f.gender.value = "";
+		    }else{
+		    	f.gender.value = gender;
+		    }
+		    f.memberType.value = memberType;
+		    f.action="signupSuccess.do";//이동할 페이지
+		    f.method="post";//POST방식
+		    f.submit();	
 		}
-		alert("가입 완료 (기능 미구현)");
 	})
 	
 	$(document).on('click', '#closeFinalCheck', function(){
@@ -272,12 +330,6 @@ $(function(){
 		$('.gender_field').append('<input type="hidden" class="validation" name="genderCheck" id="genderCheck" value="-1">')
 	});
 	
-	// 생년월일 select 값 구하는 법
-	// 연도 값 : $("#f_birth1").val();
-	// 월 값 : $("#f_birth2").val();
-	// 일 값 : $("#f_birth3").val();
-	// 들어오고 아무짓 안한 상태면 null, 선택 안함 선택시 ""
-	
 	$(document).on('click', '#phoneCheck', function(){
 		var tel = $('#f_tel').val();
 		var check;
@@ -324,7 +376,17 @@ $(function(){
 						}
 					});
 				}else{
-					alert("번호를 다시 입력해주세요.");
+					$.ajax({
+						url : 'phoneCheckFail.do',
+						type : 'post',
+						dataType : 'html',
+						data : {
+							'phone' : tel
+						},
+						success : function(htmlOut){
+							$('body').append(htmlOut);
+						}
+					});
 				}
 			}
 		});
@@ -507,6 +569,16 @@ $(function(){
 							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
 							<!---->
 						</div>
+						<form name="signupSuccess">
+							<input type="hidden" name="email" value="">
+							<input type="hidden" name="password" value="">
+							<input type="hidden" name="name" value="">
+							<input type="hidden" name="nickname" value="">
+							<input type="hidden" name="birthdayTmp" value="">
+							<input type="hidden" name="phone" value="">
+							<input type="hidden" name="gender" value="">
+							<input type="hidden" name="memberType" value="">
+						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -593,7 +665,6 @@ $(function(){
 							</h2>
 							<p data-v-5781a129="">프리미엄 샐러드 배송</p>
 						</header>
-						<form >
 							<div data-v-5781a129="" class="register__form">
 								<fieldset data-v-5781a129=""
 									class="form-fieldset register-section">
@@ -1005,7 +1076,6 @@ $(function(){
 								</nav>
 							</div>
 						<!---->
-						</form>
 					</article>
 				</div>
 				<!---->

@@ -37,9 +37,72 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css?ver=1">
-<link rel="stylesheet" href="${path }/style2.css">
+<link rel="stylesheet" href="${path }/style2.css?ver=4">
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
+<meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/api:client.js"></script>
+  <script type="text/javascript">
+  function page_move(tagNum){
+	    var f = document.paging; //폼 name
+	    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+	    f.action="tapPage.do";//이동할 페이지
+	    f.method="post";//POST방식
+	    f.submit();
+	}
+  
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
 
+  function attachSignin(element) {
+	var name = "";
+	var email = "";
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+           name = googleUser.getBasicProfile().getName() // 얘네들이 반환 값
+	       email = googleUser.getBasicProfile().getEmail()
+          console.log(googleUser);
+           var form = document.createElement('form'); // 폼객체 생성
+           var objs;
+           objs = document.createElement('input'); // 값이 들어있는 녀석의 형식
+           objs.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+           objs.setAttribute('name', 'name'); // 객체이름
+           objs.setAttribute('value', name); //객체값
+           form.appendChild(objs);
+           var objs1;
+           objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+           objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+           objs1.setAttribute('name', 'email'); // 객체이름
+           objs1.setAttribute('value', email); //객체값
+           form.appendChild(objs1);
+           form.setAttribute('method', 'post'); //get,post 가능
+           form.setAttribute('action', "googleLogin.do"); //보내는 url
+           document.body.appendChild(form);
+           form.submit();
 
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+  
+  function enterKey(){ 
+	loginForm.submit();
+  }
+
+	  
+  </script>
 </head>
 <body>
 	<div id="__nuxt">
@@ -50,21 +113,31 @@
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
+					<form name="paging">
+								<input type="hidden" name="tagMain01" value="">
+							</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/user/signup" aria-current="page"
-									class="nuxt-link-exact-active nuxt-link-active">회원가입</a> <a
-									data-v-7aa1f9b4="" href="/user/login" class="">로그인</a> <span
-									data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
+							
+								<c:choose>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
 									신청</a>
 							</div>
 						</div>
 						<!---->
 						<div data-v-7aa1f9b4="" class="header__logo">
-							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
 							<!---->
 						</div>
 						<nav data-v-7aa1f9b4="" class="header__menus">
@@ -74,42 +147,40 @@
 									<div data-v-7aa1f9b4="" class="dropdown">
 										<ul data-v-7aa1f9b4="">
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu" class=""> 전체보기 </a></li>
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad" class=""> 샐러드 </a></li>
+												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/subscription" class="new"> 정기구독 </a></li>
+												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad-wrap" class="new"> 샌드위치·랩 </a></li>
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/meal" class="new"> 도시락·간편식 </a></li>
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soup" class=""> 죽·스프 </a></li>
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/set" class="new"> 세트상품 </a></li>
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/snack" class="new"> 간식 </a></li>
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/drink" class="new"> 음료 </a></li>
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/event" class="new"> 초코베리머치 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soon" class=""> 오픈예정 </a></li>
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="/menu/subscription" class="item">정기구독
-								</a><a data-v-7aa1f9b4="" href="/menu/salad" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="/menu/salad-wrap" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="/event" class="item">이벤트 </a><a
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-									data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
-									style="width: 24px; height: 24px;">
+									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
 									href="/cart" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
@@ -120,18 +191,18 @@
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
 							<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-								data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
-								style="width: 24px; height: 24px;"></a> <a data-v-7aa1f9b4=""
-								href="/cart" class="cart-logo-wrap item"><div
+								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
+								href="/cart" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
 									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 									<!---->
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="/images/header-img/menu_new@2x.png" alt="user-menu"
-										style="width: 24px; height: 24px;">
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
 								</button>
 							</nav>
 						</div>
@@ -142,23 +213,22 @@
 					<!---->
 				</header>
 				<!---->
-				<div data-v-1739428d="" class="container"
-					style="padding-top: 182px;">
+				<div data-v-1739428d="" class="container">
 					<article data-v-932ef6fa="" data-v-1739428d="" class="signup">
 						<header data-v-932ef6fa="" class="signup__header">
 							<h2 data-v-932ef6fa="">
-								<img data-v-932ef6fa="" src="/images/logo/logo_new@2x.png"
+								<img data-v-932ef6fa="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG"
 									alt="FRESHCODE">
 							</h2>
 							<p data-v-932ef6fa="">프리미엄 샐러드 배송</p>
 						</header>
 						<nav data-v-932ef6fa="">
-							<button data-v-932ef6fa="" type="button"
-								class="signup__kakao-login-btn">
-								<div data-v-932ef6fa="" class="kakao-logo"></div>
-								<span data-v-932ef6fa="">카카오로 3초만에 시작하기</span>
+							<button data-v-d3dff3a6="" id="login-gtm-kakao" type="button"
+								class="kakao-login-custom-btn" onclick="location.href='kakaoLogin.do' ">
+								<div data-v-d3dff3a6="" class="kakao-logo"></div>
+								<span data-v-d3dff3a6="">카카오로 3초만에 시작하기</span>
 							</button>
-							<img data-v-932ef6fa=""
+							<img data-v-d3dff3a6=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/banner.jpg"
 								alt="첫 주문 혜택 페이지로 가기" class="first-order-banner">
 							<div data-v-932ef6fa="" class="divider">
@@ -168,11 +238,13 @@
 								title="" class="button signup__register-btn" onClick="location.href='signupWrite.do'">
 								<span data-v-a1c889e0="" class="button__wrap">이메일로 가입하기</span>
 							</button>
-							<button data-v-932ef6fa="" id="login-apple" type="button"
-								class="signup__apple-login-btn">
-								<div data-v-932ef6fa="" class="apple-logo"></div>
-								Apple로 계속하기
-							</button>
+							<!-- In the callback, you would hide the gSignInWrapper element on a successful sign in -->
+							<div id="gSignInWrapper">
+								<div id="customBtn" class="customGPlusSignIn">
+									<span class="icon"></span> <span class="buttonText">Google</span>
+								</div>
+								<script>startApp();</script>
+							</div>
 						</nav>
 					</article>
 				</div>

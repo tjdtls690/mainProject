@@ -19,4 +19,16 @@ public class MemberDAO {
 	public MemberVO getMember(MemberVO vo) {
 		return sqlSessionTemplate.selectOne("MemberDAO.getMember", vo);
 	}
+	
+	public int insertMember(MemberVO vo) {
+		return sqlSessionTemplate.insert("MemberDAO.insertMember", vo);
+	}
+	
+	public int checkPhone(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.phoneCheck", vo);
+	}
+	
+	public MemberVO getMemberPhone(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.getMemberPhone", vo);
+	}
 }

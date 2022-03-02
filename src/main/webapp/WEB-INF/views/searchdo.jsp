@@ -13,9 +13,12 @@
 			<div data-v-6e61822c="">
 				<ul data-v-6e61822c="" class="search-result-list">
 					<c:forEach var="item" items="${itemInfo}">
-						<li data-v-6e61822c="" class="search-result-item"><article
+						<li data-v-6e61822c="" class="search-result-item">
+						<article
 								data-v-15082832="" data-v-6e61822c=""
 								class="item for-loop-cloned-item-601">
+								<input type="hidden" value="${item.itemCode }" id="itemCode">
+								<input type="hidden" value="${item.tagMain }" id="tagMain">
 								<div data-v-15082832="" class="for-loop-cloned-item-601">
 									<figure data-v-15082832=""
 										class="item__image for-loop-cloned-item-601">
@@ -37,7 +40,12 @@
 											<dl data-v-15082832=""
 												class="for-loop-cloned-item-601 row--v">
 												<dd data-v-15082832="" class="for-loop-cloned-item-601">
-													<em data-v-15082832="" class="for-loop-cloned-item-601">${item.itemPriceM }원</em>~
+													<em data-v-15082832="" class="for-loop-cloned-item-601">${item.itemPriceM }원</em>~<span
+														data-v-15082832="" class="for-loop-cloned-item-244">
+														<c:if test="${item.itemPriceMSub ne ''}">
+																${item.itemPriceMSub }
+														</c:if>
+														</span>
 													<!---->
 												</dd>
 											</dl>

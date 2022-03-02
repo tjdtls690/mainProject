@@ -49,7 +49,7 @@ function page_move(tagNum){
 $(document).on('click', 'article.item', function(){ // 상세페이지와 연계되는 기능
 	var f = document.paging;
 	var code = $(this).children('#itemCode').attr('value');
-	var tag = $(this).children('#tagMain').attr('value')
+	var tag = $(this).children('#tagMain').attr('value');
 	f.tagMain01.value = tag;
 	f.itemCode01.value = code;
 	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기

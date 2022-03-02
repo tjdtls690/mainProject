@@ -38,6 +38,17 @@
 <link rel="stylesheet" href="${path }/style2.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).on('click', 'article.item', function(){ // 상세페이지와 연계되는 기능
+	var f = document.paging;
+	var code = $(this).children('#itemCode').attr('value');
+	var tag = $(this).children('#tagMain').attr('value');
+	f.tagMain01.value = tag;
+	f.itemCode01.value = code;
+	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
+	f.method="post";
+	f.submit();
+})
+
 
 //ajax 태그기능 넣을 함수
 $(function(){
@@ -138,6 +149,10 @@ $(function(){
 							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
 							<!---->
 						</div>
+						<form name="paging">
+							<input type="hidden" name="tagMain01" value="">
+							<input type="hidden" name="itemCode01" value="">
+						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">

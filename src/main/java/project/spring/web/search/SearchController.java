@@ -28,6 +28,7 @@ public class SearchController {
 		int check1 = searchService.getSearchItemNum(vo);
 		int check2 = searchService.getSearchSubscribeNum(vo);
 		int check = check1 + check2;
+		System.out.println("갯수 : " + check);
 		mav.addObject("check", check);
 		mav.addObject("itemInfo",itemInfo);
 		mav.setViewName("searchdo");

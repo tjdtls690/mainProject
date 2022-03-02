@@ -36,12 +36,20 @@
 	href="/fc-favicon-196.png" sizes="196x196">
 
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=2">
+<link rel="stylesheet" href="${path }/style2.css?ver=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
 <meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/api:client.js"></script>
-  <script>
+  <script type="text/javascript">
+  function page_move(tagNum){
+	    var f = document.paging; //폼 name
+	    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+	    f.action="tapPage.do";//이동할 페이지
+	    f.method="post";//POST방식
+	    f.submit();
+	}
+  
   var googleUser = {};
   var startApp = function() {
     gapi.load('auth2', function(){
@@ -110,19 +118,28 @@
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/user/signup" class="">회원가입</a> <a
-									data-v-7aa1f9b4="" href="/user/login" aria-current="page"
-									class="nuxt-link-exact-active nuxt-link-active">로그인</a> <span
-									data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
+								<c:choose>
+									<c:when test="${empty member.gender}">
+										<a href="signup.do" data-v-30697495="">회원가입</a>
+										<a data-v-30697495="" href="login.do">로그인</a>
+									</c:when>
+									<c:otherwise>
+										<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+									</c:otherwise>
+								</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
 									신청</a>
 							</div>
 						</div>
 						<!---->
 						<div data-v-7aa1f9b4="" class="header__logo">
-							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
 							<!---->
 						</div>
+						<form name="paging">
+								<input type="hidden" name="tagMain01" value="">
+							</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -130,35 +147,33 @@
 									<div data-v-7aa1f9b4="" class="dropdown">
 										<ul data-v-7aa1f9b4="">
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu" class=""> 전체보기 </a></li>
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad" class=""> 샐러드 </a></li>
+												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/subscription" class="new"> 정기구독 </a></li>
+												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad-wrap" class="new"> 샌드위치·랩 </a></li>
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/meal" class="new"> 도시락·간편식 </a></li>
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soup" class=""> 죽·스프 </a></li>
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/set" class="new"> 세트상품 </a></li>
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/snack" class="new"> 간식 </a></li>
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/drink" class="new"> 음료 </a></li>
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/event" class="new"> 초코베리머치 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soon" class=""> 오픈예정 </a></li>
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="/menu/subscription" class="item">정기구독
-								</a><a data-v-7aa1f9b4="" href="/menu/salad" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="/menu/salad-wrap" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="/event" class="item">이벤트 </a><a
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
@@ -202,7 +217,7 @@
 					<article data-v-d3dff3a6="" data-v-1739428d="" class="login">
 						<header data-v-d3dff3a6="" class="login__header">
 							<h2 data-v-d3dff3a6="">
-								<img data-v-d3dff3a6="" src="/images/logo/logo_new@2x.png"
+								<img data-v-d3dff3a6="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG"
 									alt="FRESHCODE">
 							</h2>
 							<p data-v-d3dff3a6="">프리미엄 샐러드 배송</p>

@@ -5,6 +5,7 @@
 <mapper namespace="MemberDAO">
 	<resultMap type="mymember" id="getMemberMapping">
 		<id property="memberCode" column="member_code" />
+		<result property="memberType" column="member_type" />
 		<result property="email" column="member_email" />
 		<result property="password" column="member_password" />
 		<result property="name" column="member_name" />
@@ -13,6 +14,12 @@
 		<result property="phone" column="member_phone" />
 		<result property="gender" column="member_gender" />
 	</resultMap>
+	
+	<insert id="insertMember">
+		INSERT INTO member(member_email, member_type, member_name, member_nickname, member_password, 
+		member_birthday, member_gender, member_phone)
+		VALUES (#{email}, #{memberType}, #{name}, #{nickname}, password(#{password}), #{birthday}, #{gender}, #{phone});
+	</insert>
 
 	<select id="emailCheck" resultType="int">
 		SELECT COUNT(c.member_email) AS count 
@@ -23,5 +30,16 @@
 	
 	<select id="getMember" resultMap="getMemberMapping">
 		SELECT * FROM member WHERE member_email = #{email}
+	</select>
+	
+	<select id="phoneCheck" resultType="int">
+		SELECT COUNT(c.member_email) AS count 
+		FROM (
+			SELECT member_email FROM member WHERE member_phone = #{phone}
+		) AS c
+	</select>
+	
+	<select id="getMemberPhone" resultMap="getMemberMapping">
+		SELECT * FROM member WHERE member_phone = #{phone}
 	</select>
 </mapper>

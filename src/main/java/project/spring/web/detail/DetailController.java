@@ -47,7 +47,6 @@ public class DetailController {
 		String str = request.getParameter("itemCode01");
 		int menuNum = Integer.parseInt(str);
 		System.out.println("넘어온 Num의 값 :"+menuNum);
-		
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
@@ -55,9 +54,8 @@ public class DetailController {
 		DetailVO VO1 = new DetailVO();
 		//단품상품일때
 		if(tagMain01 != 100 && tagMain01 != 600) {
-			//단품상품일때
-//			아이템 상품정보			
-		
+			//단품상품일때 아이템 상품정보			
+			System.out.println(" --단품 상세 정보-- ");
 			VO1.setItem_code(menuNum);
 			DetailVO itemNut = detailService.getItem(VO1);
 			mav.addObject("detail", itemNut);
@@ -87,17 +85,32 @@ public class DetailController {
 			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
 			
 //			이미지 슬라이드를 위한 tag_main으로 DB에서 랜덤으로 가져와서 리턴
-//			DetailVO VO3 = new DetailVO();
-//			VO3.setItem_tag_main(tagMain01);
-//			List<DetailVO> random = detailService.getRandom(VO3);
-//			mav.addObject("random",random);
 			TapPageVO VO3 = new TapPageVO();
+
 			VO3.setTagMain(tagMain01);
 			List<TapPageVO> random = tapPageService.getRandom(VO3);
 			mav.addObject("random",random);
-		} else {
-			//[세트 or 구독상품일때]
-			// 세트 or 구독상품 화면.
+
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
+			System.out.println("페이징 처리");
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setItem_code(menuNum);
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+		    mav.addObject("pageMaker", pageMaker);
+		    System.out.println("cri.getItem_code : "+cri.getItem_code());
+		    System.out.println("");
+		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+			mav.setViewName("detail");
+			return mav;
+		}else if(tagMain01 == 600) {
+//세트 상품일때
+
+			System.out.println(" --구독/세트 상세 정보-- ");
         	DetailVO dvo = new DetailVO();
         	dvo.setItem_code(menuNum);
         	System.out.println("----> dvo.getItem_code(menuNum) :" + dvo.getItem_code());
@@ -130,7 +143,6 @@ public class DetailController {
             		if(!str1.contains("영양성분")) {
             			continue;
             		}
-//            		System.out.println(str1);
             		itemNut.add(str1);
             	}
             	
@@ -160,50 +172,218 @@ public class DetailController {
             mav.addObject("detailInfo2", itemInfo);
             
             mav.addObject("detailNut", itemNut);
+            
+//			이미지 슬라이드를 위한 tag_main으로 DB에서 랜덤으로 가져와서 리턴
+			TapPageVO VO3 = new TapPageVO();
+
+			VO3.setTagMain(tagMain01);
+			List<TapPageVO> random = tapPageService.getRandom2(VO3);
+			mav.addObject("random",random);
           
 //			아이템 평균별점/게시글카운트
 			TapPageVO VO2 = new TapPageVO();
 			VO2.setItemCode(menuNum);
 			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
+			System.out.println("페이징 처리");
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setItem_code(menuNum);
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+		    mav.addObject("pageMaker", pageMaker);
+		    System.out.println("cri.getItem_code : "+cri.getItem_code());
+		    System.out.println("");
+		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+			mav.setViewName("detail");
+			return mav;
+			
 		}
 		
-//		리뷰보드
-//		WriteReviewVO VO3 = new WriteReviewVO();
-//		VO3.setItem_code(menuNum);
-//		VO3.setTagMain(tagMain01);
-//		mav.addObject("boardList", writeReviewService.getReviewList(VO3));
-		
-//		리뷰보드( 각 품목 불러오기 )
-		cri.setItem_code(menuNum);
-	    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
-	    mav.addObject("boardList", list);
-//		페이징 처리
-		System.out.println("페이징 처리");
-		PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setItem_code(menuNum);
-	    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
-	    mav.addObject("pageMaker", pageMaker);
-	    System.out.println("cri.getItem_code : "+cri.getItem_code());
-	    System.out.println("");
-	    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+		else {
+// 구독 상품 일때
+			System.out.println(" --구독/세트 상세 정보-- ");
+        	DetailVO dvo = new DetailVO();
+        	dvo.setItem_code(menuNum);
+        	System.out.println("----> dvo.getItem_code(menuNum) :" + dvo.getItem_code());
+        	mav.addObject("detail", detailService.getSubItem(dvo));
+        	
+        	// 세트 or 구독상품 상품정보 가져오기 필요한것들
+			MappingVO mapVO = new MappingVO();
+			mapVO.setSubscribe_code(menuNum); // Subscribe_code == item_code 가 됨.
+			System.out.println("mapVO로 넘어갈 code값 :" +menuNum);
+			List<MappingVO> aa = mappingService.getItemCodeList(mapVO);
+			
+			// 영양 정보 고시
+			List<DetailVO> itemcodes = new ArrayList<DetailVO>();
+			
+            for(MappingVO vo : aa) { // 12 15 19
+            	System.out.println("itemcodes 담는중");
+            	dvo.setItem_code(vo.getItem_code());
+            	itemcodes.add(detailService.getItem(dvo));
+            }
+            
+            List<String> itemNut = new ArrayList<String>();
+            for(DetailVO vo : itemcodes) {
+            	if(vo.getItem_nut() == null) {
+            		continue;
+            	}
+            	
+            	StringTokenizer st = new StringTokenizer(vo.getItem_nut().replace(":;:", "\\"), "\\");
+            	while(st.hasMoreTokens()) {
+            		String str1 = st.nextToken();
+            		if(!str1.contains("영양성분")) {
+            			continue;
+            		}
+            		itemNut.add(str1);
+            	}
+            	
+            }
+            // 상품 정보 고시
+            List<DetailVO> itemcodes2 = new ArrayList<DetailVO>();
+            
+            for(MappingVO vo2 : aa ) {
+            	dvo.setItem_code(vo2.getItem_code());
+            	itemcodes2.add(detailService.getInfo(dvo));
+            }
+            
+            List<String> itemInfo = new ArrayList<String>();
+            for(DetailVO vo : itemcodes2) {
+            	if(vo.getItem_info() == null) {
+            		continue;
+            	}
+            	StringTokenizer st = new StringTokenizer(vo.getItem_info().replace(":;:", "\\"), "\\");
+            	while(st.hasMoreTokens()) {
+            		String str1 = st.nextToken();
+            		if(!str1.contains("내용량")) {
+            			continue;
+            		}
+            		itemInfo.add(str1);
+            	}
+            }
+            mav.addObject("detailInfo2", itemInfo);
+            
+            mav.addObject("detailNut", itemNut);
+//			이미지 슬라이드를 위한 tag_main으로 DB에서 랜덤으로 가져와서 리턴
+			TapPageVO VO3 = new TapPageVO();
 
-		mav.setViewName("detail");
-		return mav;
+			VO3.setTagMain(tagMain01);
+			List<TapPageVO> random = tapPageService.getRandom2(VO3);
+			mav.addObject("random",random);
+          
+//			아이템 평균별점/게시글카운트
+			TapPageVO VO2 = new TapPageVO();
+			VO2.setItemCode(menuNum);
+			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
+			System.out.println("페이징 처리");
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setItem_code(menuNum);
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+		    mav.addObject("pageMaker", pageMaker);
+		    System.out.println("cri.getItem_code : "+cri.getItem_code());
+		    System.out.println("");
+		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+			mav.setViewName("detailSub");
+			return mav;
+		}
+
+////		리뷰보드( 각 품목 불러오기 )
+//		cri.setItem_code(menuNum);
+//	    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+//	    mav.addObject("boardList", list);
+////		페이징 처리
+//		System.out.println("페이징 처리");
+//		PageMaker pageMaker = new PageMaker();
+//	    pageMaker.setCri(cri);
+//	    pageMaker.setItem_code(menuNum);
+//	    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+//	    mav.addObject("pageMaker", pageMaker);
+//	    System.out.println("cri.getItem_code : "+cri.getItem_code());
+//	    System.out.println("");
+//	    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+//		mav.setViewName("detail");
+//		return mav;
 	}
 
-	
+
+// 장바구니로 바꿔지는 테스트용 메서드.	  // 아이템코드.태그메인,수량,사이즈,넘겨 줘야함
 	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
 	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("itemCode");
 		int num = Integer.parseInt(str);
 		System.out.println("넘어온 item_code 값 : " +num);
-
+		
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
 		mav.setViewName("basket");
 		return mav;
+	}
+	
+// 선택시 드롭다운 보여주기	
+	@RequestMapping("/dropDown.do")
+	public ModelAndView test2(HttpServletRequest request, ModelAndView mav) {
+		String str = request.getParameter("codeNum");
+		int menuNum = Integer.parseInt(str);
+		System.out.println("넘어온 code값 :" + menuNum);
+		String str2 = request.getParameter("tagNum");
+		int tagMain01 = Integer.parseInt(str2);
+		System.out.println("넘어온 tag값 :" + tagMain01);
+		
+		if(tagMain01 != 100 && tagMain01 != 600) {// 단품 상세정보에서 넘어왔을때..
+			System.out.println("단품 상세 정보로 넘어가기");
+			DetailVO VO = new DetailVO();
+			VO.setItem_code(menuNum);
+			
+			DetailVO ListItem = detailService.getItem(VO);
+			mav.addObject("detail", ListItem);
+			mav.setViewName("selectItem");
+		
+		}else if(tagMain01 == 600){ // 셋트 상품일때.
+			System.out.println("세트 상세 정보로 넘어가기");
+        	DetailVO dvo = new DetailVO();
+        	dvo.setItem_code(menuNum);
+        	System.out.println("----> dvo.getItem_code(menuNum) :" + dvo.getItem_code());
+        	mav.addObject("detail", detailService.getSubItem(dvo));
+			mav.setViewName("selectSet");
+			
+		}else if(tagMain01 == 100) { // 구독 상품일때.
+			System.out.println("구독 상세 정보로 넘어가기");
+			
+		}
+		else {
+			// ...?
+			
+		}	
+
+		return mav;	
+	}
+// 드롭다운 리스트 클릭시 목록 찍기
+	@RequestMapping("/test3.do")
+	public ModelAndView test3(HttpServletRequest request, ModelAndView mav) {
+		String size = request.getParameter("size");
+		String num = request.getParameter("price");
+		int price = Integer.parseInt(num);
+		String name = request.getParameter("name");
+		
+		System.out.println("size"+size);
+		System.out.println("price"+price);
+		System.out.println("name"+name);
+		
+		mav.addObject("name",name);
+		mav.addObject("price",price);
+		mav.addObject("size",size);
+		mav.setViewName("selectedItem");
+		return mav;		
 	}
 	
 }

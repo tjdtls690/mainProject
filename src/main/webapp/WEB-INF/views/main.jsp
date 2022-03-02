@@ -52,7 +52,7 @@
   
   <link href="${path}/css1/style.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="${path}/css/bootstrap.css?ver=1">
-  <link href="${path}/css1/style2.css?ver=1" rel="stylesheet" type="text/css" />
+  <link href="${path}/css1/style2.css?ver=2" rel="stylesheet" type="text/css" />
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -95,7 +95,7 @@ $(function() {
 								<a href="/info" class="header__top-left" data-v-30697495></a> 
 								<div class="header__top-right" data-v-30697495>
 									<c:choose>
-										<c:when test="${empty member.name}">
+										<c:when test="${empty member.gender}">
 											<a href="signup.do" data-v-30697495="">회원가입</a>
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
@@ -119,7 +119,6 @@ $(function() {
 								<div data-v-30697495>
 									<div class="dropdown" data-v-30697495>
 										<span class="item" data-v-30697495>
-											<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/menuGray.PNG" alt="메뉴 검색" class="search-logo-img" style="width:24px;height:24px;" data-v-30697495>
 											전체 카테고리
 										</span> 
 										<div class="dropdown" data-v-30697495>
@@ -164,20 +163,20 @@ $(function() {
 									<a href="javascript:page_move(200);" class="item" data-v-30697495>샐러드</a>
 									<a href="javascript:page_move(300);" class="item" data-v-30697495>랩·샌드위치</a>
 									<a href="javascript:page_move(1);" class="item" data-v-30697495>초코베리머치</a>
-									<a href="order.do" class="item" data-v-30697495>이벤트</a>
+									<a href="event.do" class="item" data-v-30697495>이벤트</a>
 									<a href="purchase.do" class="item" data-v-30697495>프코스팟</a>
 								</div> 
 								<div class="header__menus-side" data-v-30697495>
 									<a href="search.do" class="search-logo" data-v-30697495>
-										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/search.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495> 
+										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495> 
 										<div data-v-30697495>검색</div>
 									</a> 
 									<a href="basket.do" class="cart-logo-wrap item" data-v-30697495>
-										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/baguni.PNG" alt="프레시코드 장바구니" class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
+										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_baguni.PNG" alt="프레시코드 장바구니" class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
 							          장바구니
 							        </a> 
 							        <a href="order.do" class="item" data-v-30697495>
-							        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/pay.PNG" class="icon-order" style="width: 24px; height: 24px;" data-v-30697495>
+							        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pay.PNG" class="icon-order" style="width: 24px; height: 24px;" data-v-30697495>
 							          바로주문
 							        </a>
 							    </div>

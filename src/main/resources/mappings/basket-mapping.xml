@@ -10,11 +10,13 @@
 		<result property="tagMain" column="tag_main" />
 		<result property="tagSub" column="tag_sub" />
 		<result property="amount" column="amount" />
-		<result property="price" column="priceSub" />
-		<result property="userName" column="user_name" />
+		<result property="price" column="price" />
+		<result property="priceSub" column="price_sub" />
+		<result property="userCode" column="user_code" />
+		<result property="itemCode" column="item_code" />
 	</resultMap>
 	<!-- resultType : 같을떄 resultMap : 다를떄 -->
 	<select id="getBasketList" resultMap="basketResult" >
-		SELECT * FROM basket
+		SELECT * FROM basket ORDER BY seq DESC
 	</select>
 </mapper>

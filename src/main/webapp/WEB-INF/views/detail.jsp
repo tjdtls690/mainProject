@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/detail"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,33 +104,190 @@
 			
 		})
 // 드롭 다운
+		$(document).on('click','.button.dropdown',function(event){			
+			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
+			var code =$('#mobCart').children('#itemCode').attr('value');			
+			var tag = $('#mobCart').children('#tagMain').attr('value');
+			var str ="";
+			if($('.dropdown-btn').hasClass('dropdown-open')){
+				$('ul').remove('.toggle-drop-down');
+			}else{
+				$.ajax({
+					url : 'dropDown.do',
+					type : 'post',
+					datatype : 'html',
+					data : {
+						"codeNum" : code ,
+						"tagNum"  : tag
+					},
+					success : function(htmlOut){
+						str += "<ul data-v-5b7f52e9='' class='toggle-drop-down'>";
+						str += htmlOut;
+						str += "</ul>";
+						$('.dropdown-btn').append(str);
+						
+					}
+				}); // ajax 끝								
+			} //else 끝
+			$('.dropdown-btn').toggleClass('dropdown-open');
+		}); // 드롭 다운 끝
 
-		$(document).ready(function(){			
-			  $(".dropdown-btn").click(function(){
-				  alert("드롭 숨기기");
-					$(this).toggleClass('dropdwon-open');
-		            $(this).children("ul").toggleClass("toggle-drop-down");
-		        });
-		
-		});
+// 드롭 다운 아이템 클릭
+		$(document).on('click','.detail-wrap',function(){
+			// 미디움(M) / 라지(L) / 세트일경우 이름을 가져옴
+			var size = $(this).children().first().children().first().text();
+			// 가격을 가져옴
+			var priceM = $(this).children().last().children().last().text();
+			// 가격 에서 '원',','을 빼고 가져옴
+			priceM = Number(priceM.replace('원', '').replace(',', ''));
+//			var test = $(this).children().last().children().last().attr('') 
+			
+			
+			// 판매중인 아이템의 이름을 가져옴.
+			var name = $('.menu__name').text();
+			var sizeM = $('#미디움').attr('id');
+			var sizeL = $('#라지').attr('id');
+			// ajax를 통해 보여줄예정.
+			$.ajax({
+				url : 'test3.do',
+				type : 'post',
+				datatype : 'html',
+				data :{
+					"size" : size,
+					"price" : priceM,
+					"name" : name
+				},
+				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
+					if(sizeM ==null && sizeL ==null){
 
+	 					$('.selected-detail-list').append(htmlOut); 					
+	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
+	 					price = Number(price.slice(0, -1));
+//	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+	 					price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+//	 					price= price.toLocaleString('ko-KR');   --> , 찍기
+	 					$('.menu__price-current-price__wrapper').children().text(price+"원");
+	 					
+					}
+					else if(sizeM != null && sizeL == null){
+					    if( size == sizeM){
+					    	
+					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
+
+					    }else{
+
+		 					$('.selected-detail-list').append(htmlOut);				
+		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
+		 					price = Number(price.slice(0, -1));
+//		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+		 					price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+//		 					price= price.toLocaleString('ko-KR');   --> , 찍기
+		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
+					    }
+					}
+					else if(sizeM == null && sizeL !=null){
+					    if( size == sizeM){
+
+		 					$('.selected-detail-list').append(htmlOut);
+		 					
+					    }else{
+
+					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
+
+					    }
+					}
+					else if(sizeM != null && sizeL !=null){
+					    if( size == sizeM){
+					    	
+					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
+					    	
+					    }else{
+					    	
+					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
+					    	
+					    }
+					} 		
+				} // success 끝	
+			}); // ajax 끝
+
+			
+			// 클릭시 드롭 다운 아이템 사라짐
+			$('ul').detach('.toggle-drop-down');						
+			$('.dropdown-btn').toggleClass('dropdown-open');
+			
+		}); // 드롭 다운 아이템 끝
+// 이페이지의 이름값을 얻어서 현재 단품은 미디움/라지 로 +.-를 관리하지만
+// 셋트,구독은 이름값으로 ( 위치가 단품에서 미디움 고정적으로 찍혀있는 자리에 이름값이 들어갈것임 ) 구분을하자
+// ex if(val2 =='미디움 ' or val3 == '이름값')
+		//  - 버튼 처리
+			$(document).on('click','#minus-button',function(){
+				// val값을 가져와서 val값 -후 val값 저장
+				var val = Number($(this).next().children().val());
+				var val2 = $(this).parent().parent().prev().attr('id');
+				if(val >1){
+					val -=1;
+					var price = $('.menu__price-current-price__wrapper').children().first().text();
+					price = Number(price.slice(0, -1));
+					price -= 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+					$('.menu__price-current-price__wrapper').children().text(price+"원");
+
+				}else{
+					val = 1;
+				}
+				if(val2=='미디움'){
+					$(this).prev().children().val(val);//nav			
+					$('#미디움:eq(1)').next().children().children().eq(1).children().val(val);
 		
-		$(document).ready(function(){
-			$("#test!").click(function(){
-				alert("li 클릭");
+				}else{
+					$(this).prev().children().val(val);//nav			
+					$('#라지:eq(1)').next().children().children().eq(1).children().val(val);
+				}
 				
-			});
+
+				$(this).next().children().val(val);
+ 			});	 // - 버튼 처리 끝	
+
+		//  + 버튼 처리		
+			$(document).on('click','#plus-button',function(){
+				// val값을 가져와서 val값 +후 val값 저장
+				var val = Number($(this).prev().children().val());
+				var val2 = $(this).parent().parent().prev().attr('id');
+				val +=1;
+				if(val2=='미디움'){
+					$(this).prev().children().val(val);//nav			
+					$('#미디움:eq(1)').next().children().children().eq(1).children().val(val);
+		
+				}else{
+					$(this).prev().children().val(val);//nav			
+					$('#라지:eq(1)').next().children().children().eq(1).children().val(val);
+				}
+
+				// 합산 가격 넣기.
+				// .menu__price-current-price__wrapper 가 2개가있어 둘중 처음꺼 하나를 받고  first()지우고 모두에 저장하겠다..
+				var price = $('.menu__price-current-price__wrapper').children().first().text();
+				price = Number(price.slice(0, -1));
+//				price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+				price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+//				price= price.toLocaleString('ko-KR');   --> , 찍기
+				$('.menu__price-current-price__wrapper').children().text(price+"원");
+				
+			});	// + 버튼 처리 끝
+			
+// 상품 이미지 더보기
+		$(document).on('click','.more-btn',function(){
+			$(this).prev().children().toggleClass('img-wrapper');
+					
 		});
 		
 		
-		
-      });
+     }); //function 끝
+
+
+
     </script>
 
 <!--     for slide   -->
     <style type="text/css">
-    
-    .dropdown-btn .toggle-drop-down{display:none;} 
 
 	.swiper-container {
 		height:420px;
@@ -378,82 +536,45 @@
                                 <ul data-v-32a18372 class="menu-detail">
                                     ${detail.item_explain }
                                 </ul>
-                                <div data-v-2706028c class="menu-select-panel">
-                                    <div data-v-2706028c class="menu__select-size">
-                                        <ul data-v-2706028c class="menu__select-size-list">
-                                            <li data-v-2706028c>
-                                                <label data-v-2706028c class="menu__label only-desktop">상품선택</label>
- <!--  여기가 버튼 -->                                 <div data-v-2706028c class="dropdown-btn-wrap">
-                                                    <div data-v-5b7f52e9 data-v-2706028c>
-                                                        <div data-v-5b7f52e9 class="dropdown-btn">
-                                                            <div data-v-5b7f52e9 class="button dropdown">
-                                                                <div data-v-5b7f52e9 class="dropdown-content">
-                                                                    <span data-v-5b7f52e9>선택</span>
-                                                                </div>
-                                                                <div data-v-5b7f52e9 class="dropdown-icon">
-                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
-                                                                </div>
-                                                            </div>
-                                                            <ul data-v-5b7f52e9="" class="toggle-drop-down"><!----> 
-                                                            	<li data-v-5b7f52e9="" id="test!">
-                                                            		<div data-v-5b7f52e9="" class="detail-wrap">
-                                                            			<div data-v-5b7f52e9="" class="detail-name-and-badge">
-                                                            				<span data-v-5b7f52e9="">미디움 (M) 
-                                                            				</span> <!----> <span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span>
-                                                            			</div> 
-                                                            			<div data-v-5b7f52e9="" class="detail-price">
-                                                            				<span data-v-5b7f52e9="" class="discount-price">8,900</span> 
-                                                            				<span data-v-5b7f52e9="">8,270원</span>
-                                                            			</div>
-                                                            		</div>
-                                                            	</li><!----> 
-<!--                                                             	<li data-v-5b7f52e9=""> -->
-<!--                                                             		<div data-v-5b7f52e9="" class="detail-wrap"> -->
-<!--                                                             			<div data-v-5b7f52e9="" class="detail-name-and-badge"> -->
-<!--                                                             				<span data-v-5b7f52e9="">라지 (L) </span>  -->
-<!--                                                             				<span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span> -->
-<!--                                                             			</div>  -->
-<!-- 	                                                            		<div data-v-5b7f52e9="" class="detail-price"> -->
-<!-- 	                                                            		<span data-v-5b7f52e9="" class="discount-price">12,900</span>  -->
-<!-- 	                                                            		<span data-v-5b7f52e9="">12,000원</span> -->
-<!-- 	                                                            		</div> -->
-<!--                                                             		</div> -->
-<!--                                                             	</li> -->
-                                                            </ul>
-                                                            <!-- 상품선택 옵션 토글다운 주석처리 나중에 부트스트랩 드롭다운으로 구현-->
-                                                            
-                                                            <!-- 
-                                                            <ul data-v-5b7f52e9 class="toggle-drop-down">
-                                                                <li data-v-5b7f52e9>
-                                                                    <div data-v-5b7f52e9 class="detail-wrap">
-                                                                        <div data-v-5b7f52e9 class="detail-name-and-badge">
-                                                                            <span data-v-5b7f52e9>미디움 (M)</span>
-                                                                            <span data-v-5b7f52e9 class="detail-badge">(런칭기념 10% 할인!)</span>
-                                                                        </div>
-                                                                        <div data-v-5b7f52e9 class="detail-price">
-                                                                            <span data-v-5b7f52e9 class="discount-price">8,900</span>
-                                                                            <span data-v-5b7f52e9>8,010원</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                            -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--li class="menu-option" 없애봄 -->
-                                        </ul>
-                                    </div>
-                                    <div data-v-2706028c class="menu__price">
-                                        <label data-v-2706028c class="menu__label menu__price-label"> 상품 금액 </label>
-                                        <div data-v-2706028c class="menu__price-right">
-                                            <div data-v-2706028c class="menu__price-current-price__wrapper">
-                                                <div data-v-2706028c class="menu__price-current-price">0원</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+	                                <div data-v-2706028c class="menu-select-panel">
+	                                    <div data-v-2706028c class="menu__select-size">
+	                                        <ul data-v-2706028c class="menu__select-size-list">
+	                                            <li data-v-2706028c>
+	                                                <label data-v-2706028c class="menu__label only-desktop">상품선택</label>
+	 <!--  여기가 버튼 -->                                 <div data-v-2706028c class="dropdown-btn-wrap">
+	                                                    <div data-v-5b7f52e9 data-v-2706028c>
+	                                                        <div data-v-5b7f52e9 class="dropdown-btn">
+	                                                            <div data-v-5b7f52e9 class="button dropdown">
+	                                                                <div data-v-5b7f52e9 class="dropdown-content">
+	                                                                    <span data-v-5b7f52e9>선택</span>
+	                                                                </div>
+	                                                                <div data-v-5b7f52e9 class="dropdown-icon">
+	                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
+	                                                                </div>
+	                                                            </div>
+	<!--  클릭시 나올 선택 드롭다운은 selectitem.jsp 로 옮김 -->
+	 
+	                                                        </div>
+	                                                    </div>
+	                                                </div>
+	                                            </li>
+	                                            <!--li class="menu-option" 없애봄 -->
+	                                        </ul>
+											 <ul class="selected-detail-list" data-v-2706028c="">
+	<!--  선택된 아이템 보여주는 곳 -->
+											 </ul>
+			
+	                                    </div>
+	                                    <div data-v-2706028c class="menu__price">
+	                                        <label data-v-2706028c class="menu__label menu__price-label"> 상품 금액 </label>
+	                                        <div data-v-2706028c class="menu__price-right">
+	                                            <div data-v-2706028c class="menu__price-current-price__wrapper">
+	                                                <div data-v-2706028c class="menu__price-current-price">0원</div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+                                                 
                             </header>
                             <nav data-v-32a18372 class="menu__button-order-body">
                                 <div data-v-32a18372 class="row--v-center" style="width: 100%; flex-wrap: nowrap;">
@@ -622,7 +743,7 @@
                                                     <div data-v-79f00ef9>
                                                         <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/4766_20210111105602" class="img-fade">
                                                     </div>
-                                                    <div data-v-79f00ef9 class="shadow"></div>
+<!--                                                     <div data-v-79f00ef9 class="shadow"></div> -->
                                                 </div>
                                             </div>
                                             <div data-v-79f00ef9 class="more-btn">
@@ -703,7 +824,12 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <ul data-v-2706028c class="selected-detail-list isDesktop"></ul>
+                                        <ul data-v-2706028c class="selected-detail-list isDesktop">
+  <!--  여기에 추가되어야함  -->                                      
+                                        
+                                        
+                                        
+                                        </ul>
                                     </div>
                                     <div data-v-2706028c class="menu__price isDesktop">
                                         <label data-v-2706028c class="menu__label menu__price-label" style="width: 108px;">상품 금액</label>
@@ -1242,7 +1368,7 @@
 		                                        </div>
 		                                        <div data-v-22105fb8="" class="head-text">
 		                                           <div data-v-22105fb8="" class="text-name">${board.user_name }</div>
-		                                           <div data-v-22105fb8="" class="text-date">${board.write_date }</div>
+		                                           <div data-v-22105fb8="" class="text-date">${fn:substring(board.write_date, 0, 10)}</div>
 		                                        </div>
 		                                     </div>
 		                                     <div data-v-22105fb8=""

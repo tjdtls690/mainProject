@@ -11,7 +11,9 @@
 		<typeAlias type="project.spring.web.basket.BasketVO" alias="mybasket" />
 		<typeAlias type="project.spring.web.mapping.MappingVO" alias="mymapping" />
 		<typeAlias type="project.spring.web.member.MemberVO" alias="mymember" />
-		<typeAlias type="project.spring.web.order.OrderVO" alias="myorder"/>		
+		<typeAlias type="project.spring.web.order.OrderVO" alias="myorder"/>
+		<typeAlias type="project.spring.web.event.CouponVO" alias="mycoupon"/>
+		<typeAlias type="project.spring.web.search.SearchVO" alias="mysearch"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -22,5 +24,7 @@
 		<mapper resource="mappings/map-mapping.xml" />
 		<mapper resource="mappings/member-mapping.xml" />
 		<mapper resource="mappings/order-mapping.xml"/>
+		<mapper resource="mappings/coupon-mapping.xml"/>
+		<mapper resource="mappings/search-mapping.xml"/>
 	</mappers>
 </configuration>

@@ -77,4 +77,14 @@
             group by a.item_code
 			order by rand() Limit 9;
 	</select>
+	
+	<select id="getRandom2" resultMap="tapResult02">
+		select a.subscribe_code, a.subscribe_tag_main, a.subscribe_image, a.subscribe_name, a.subscribe_summary, 
+			a.subscribe_price_m, a.subscribe_price_m_sub, round(avg(b.star), 1), count(b.content) 
+			from subscribe a left join reviewboard b
+			on a.subscribe_code = b.subscribe_code 
+            where a.subscribe_tag_main = #{tagMain}
+            group by a.subscribe_code
+            order by rand() limit 9;
+	</select>
 </mapper>

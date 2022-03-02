@@ -137,6 +137,10 @@
   }
   
   $(function(){
+	  $('.first-order-banner').on('click', function(){
+			$(location).attr( "href" , "firstEvent01.do" );
+		})
+	  
 	  $('#login-gtm-normal').on('click', function(){
 		  var email = $('.form-text.email').val();
 		  var password = $('.form-text.password').val();
@@ -368,7 +372,7 @@
 									찾기</a>
 							</div>
 							<div data-v-d3dff3a6="" class="col--auto">
-								<a data-v-d3dff3a6="" href="/user/signup" class="">회원가입</a>
+								<a data-v-d3dff3a6="" href="signup.do" class="">회원가입</a>
 							</div>
 						</nav>
 					</article>

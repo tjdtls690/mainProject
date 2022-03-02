@@ -90,6 +90,14 @@
 	}
 }
 
+.kakao-login-custom-btn div[data-v-d3dff3a6] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_logo_kakao.png);
+}
+
+span.icon {
+    background: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_logo_google.PNG) transparent 5px 50% no-repeat;
+}
+
 .empty[data-v-7aa1f9b4] {
     background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_baguni.PNG);
 }
@@ -136,7 +144,6 @@
       font-weight: normal;
     }
     span.icon {
-      background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
       display: inline-block;
       vertical-align: middle;
       width: 42px;

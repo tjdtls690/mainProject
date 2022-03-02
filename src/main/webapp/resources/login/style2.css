@@ -82,6 +82,19 @@
 /* 	 } */
 }
 
+.auto-login-checkbox:checked+label[data-v-d3dff3a6]:before {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_auto-login.png);
+}
+
+.kakao-login-custom-btn div[data-v-d3dff3a6] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_logo_kakao.png);
+}
+
+span.icon {
+    background: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_logo_google.PNG) 
+    transparent 5px 50% no-repeat;
+}
+
 .header__logo a[data-v-7aa1f9b4] {
     background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG);
 }
@@ -116,37 +129,36 @@
     position: relative;
 }
 
- #customBtn {
-      background: white;
-      color: #444;
-      width: 100%;
-      border-radius: 5px;
-      border: thin solid #888;
-      box-shadow: 1px 1px 1px grey;
-      white-space: nowrap;
-    }
-    #customBtn:hover {
-      cursor: pointer;
-    }
-    span.label {
-      font-family: serif;
-      font-weight: normal;
-    }
-    span.icon {
-      background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 42px;
-      height: 42px;
-    }
-    span.buttonText {
-      display: inline-block;
-      vertical-align: middle;
-      font-size: 14px;
-      font-weight: bold;
-      /* Use the Roboto font that is loaded in the <head> */
-      font-family: 'Roboto', sans-serif;
-    }
+#customBtn {
+  background: white;
+  color: #444;
+  width: 100%;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+}
+#customBtn:hover {
+  cursor: pointer;
+}
+span.label {
+  font-family: serif;
+  font-weight: normal;
+}
+span.icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
+}
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
+}
 
 .apple-login-custom-btn[data-v-d3dff3a6]{
 	cursor: pointer;
@@ -180,8 +192,4 @@ del {
 }
 .footer--logo {
    width: 140px;
-}
-
-.kakao-login-custom-btn div[data-v-d3dff3a6]{
-	background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/8e0a419.png);
 }

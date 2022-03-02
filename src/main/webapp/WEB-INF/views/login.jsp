@@ -36,7 +36,7 @@
 	href="/fc-favicon-196.png" sizes="196x196">
 
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=1">
+<link rel="stylesheet" href="${path }/style2.css?ver=6">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
 <meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
@@ -97,8 +97,105 @@
   }
   
   function enterKey(){ 
-	loginForm.submit();
+	  var email = $('.form-text.email').val();
+	  var password = $('.form-text.password').val();
+	  if(email.length == 0){
+		  $.ajax({
+			  url : 'loginEmailCheck.do',
+			  type : 'post',
+			  success : function(htmlOut){
+				  $('body').append(htmlOut);
+			  }
+		  })
+		  return false;
+	  }
+	  $.ajax({
+		  url : 'emailLoginCheck1.do',
+		  type : 'post',
+		  data : {
+			  'email' : email,
+			  'password' : password
+		  },
+		  success : function(data){
+			  if(data != 3){
+				  $.ajax({
+					  url : 'emailLoginCheck2.do',
+					  type : 'post',
+					  dataType : 'html',
+					  data : {
+						  'check' : data
+					  },
+					  success : function(htmlOut){
+						  $('body').append(htmlOut);
+					  }
+				  })
+			  }else if(data == 3){
+				  loginForm.submit();
+			  }
+		  }
+	  })
   }
+  
+  $(function(){
+	  $('#login-gtm-normal').on('click', function(){
+		  var email = $('.form-text.email').val();
+		  var password = $('.form-text.password').val();
+		  if(email.length == 0){
+			  $.ajax({
+				  url : 'loginEmailCheck.do',
+				  type : 'post',
+				  success : function(htmlOut){
+					  $('body').append(htmlOut);
+				  }
+			  })
+			  return false;
+		  }
+		  $.ajax({
+			  url : 'emailLoginCheck1.do',
+			  type : 'post',
+			  data : {
+				  'email' : email,
+				  'password' : password
+			  },
+			  success : function(data){
+				  if(data != 3){
+					  $.ajax({
+						  url : 'emailLoginCheck2.do',
+						  type : 'post',
+						  dataType : 'html',
+						  data : {
+							  'check' : data
+						  },
+						  success : function(htmlOut){
+							  $('body').append(htmlOut);
+						  }
+					  })
+				  }else if(data == 3){
+					  loginForm.submit();
+				  }
+			  }
+		  })
+	  })
+	  
+	  $(document).on('click', '#closeFinalCheck', function(){
+		$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+		$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+		setTimeout(function() {
+			$('.swal2-container').detach();
+		}, 100);
+	})
+	
+	$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+		if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+				&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+		}
+	});
+  })
 
 	  
   </script>
@@ -222,14 +319,14 @@
 							</h2>
 							<p data-v-d3dff3a6="">프리미엄 샐러드 배송</p>
 						</header>
-						<form data-v-d3dff3a6="" class="login__form" action="main.do" name="loginForm">
+						<form data-v-d3dff3a6="" class="login__form" action="loginSuccess.do" name="loginForm" method="post">
 							<button data-v-d3dff3a6="" id="login-gtm-kakao" type="button"
 								class="kakao-login-custom-btn" onclick="location.href='kakaoLogin.do' ">
 								<div data-v-d3dff3a6="" class="kakao-logo"></div>
 								<span data-v-d3dff3a6="">카카오로 3초만에 시작하기</span>
 							</button>
 							<img data-v-d3dff3a6=""
-								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/banner.jpg"
+								src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_login_event_logo.jpg"
 								alt="첫 주문 혜택 페이지로 가기" class="first-order-banner">
 							<div data-v-d3dff3a6="" class="divider">
 								<span data-v-d3dff3a6="">OR</span>
@@ -237,7 +334,7 @@
 							<div data-v-d3dff3a6="" class="text">
 								<input data-v-8bb17226="" data-v-d3dff3a6="" type="text"
 									name="email" placeholder="이메일(아이디) 입력" autocorrect="off"
-									autocapitalize="off" class="form-text" onkeypress="if( event.keyCode == 13 ){enterKey();}">
+									autocapitalize="off" class="form-text email" onkeypress="if( event.keyCode == 13 ){enterKey();}">
 								<input
 									data-v-8bb17226="" data-v-d3dff3a6="" type="password"
 									name="password" placeholder="비밀번호 입력" required="required"

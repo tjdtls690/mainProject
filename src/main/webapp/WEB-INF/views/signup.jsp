@@ -37,7 +37,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css?ver=1">
-<link rel="stylesheet" href="${path }/style2.css?ver=5">
+<link rel="stylesheet" href="${path }/style2.css?ver=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
 <meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
@@ -103,6 +103,18 @@ var email = "";
 
 
 $(function(){
+	$('.first-order-banner').on('click', function(){
+		$(location).attr( "href" , "firstEvent01.do" );
+	})
+	
+	$(document).on('click', '#sideEvent', function(){
+		$(location).attr("href", "event.do");
+	});
+	
+	$(document).on('click', '#sideBasket', function(){
+		$(location).attr("href", "basket.do");
+	})
+	
 	$(document).on('click', '.header__toggle-button', function(){
 		$('html').attr('class', 'mode-popup');
 		$.ajax({
@@ -251,7 +263,7 @@ $(function(){
 								<span data-v-d3dff3a6="">카카오로 3초만에 시작하기</span>
 							</button>
 							<img data-v-d3dff3a6=""
-								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/banner.jpg"
+								src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_login_event_logo.jpg"
 								alt="첫 주문 혜택 페이지로 가기" class="first-order-banner">
 							<div data-v-932ef6fa="" class="divider">
 								<span data-v-932ef6fa="">OR</span>

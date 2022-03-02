@@ -33,10 +33,9 @@
 			<nav data-v-1fc516f9="" data-v-2f05bf52=""
 				class="nav-menus side-nav__menus">
 				<ul data-v-1fc516f9="">
-					<li data-v-1fc516f9=""><span data-v-1fc516f9="">이벤트</span></li>
-					<li data-v-1fc516f9=""><span data-v-1fc516f9="">장바구니</span></li>
-					<li data-v-1fc516f9=""><span data-v-1fc516f9="">1:1
-							문의하기</span></li>
+					<li data-v-1fc516f9="" id="sideEvent"><span data-v-1fc516f9="">이벤트</span></li>
+					<li data-v-1fc516f9="" id="sideBasket"><span data-v-1fc516f9="">장바구니</span></li>
+<!-- 					<li data-v-1fc516f9=""><span data-v-1fc516f9="">1:1 문의하기</span></li> -->
 					<!---->
 				</ul>
 			</nav>

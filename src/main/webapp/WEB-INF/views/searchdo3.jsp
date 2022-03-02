@@ -11,7 +11,7 @@
          <div data-v-6e61822c="" class="search-result-wrap">
             <div data-v-6e61822c="">
                <div data-v-6e61822c="" class="search-result-zero-wrap">
-                  <img data-v-6e61822c="" src="/images/img-empty-produt@3x.png"
+                  <img data-v-6e61822c="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_empty-produt%403x.png"
                      alt="검색결과 없음" class="search-result-zero-img"> <span
                      data-v-6e61822c="" class="search-result-zero-desc">검색하신
                      상품을 찾을 수 없어요 :(<br>단어의 철자와 띄어쓰기를 확인해보시거나<br>다른 검색어를

@@ -45,6 +45,9 @@ $(function(){
 	 $("#search-input").keydown(function(key) {
         if (key.keyCode == 13) {
         	var search = $(this).val(); //val이 검색창에 값 넣은것
+        	if(search == ""){
+        		return false;
+        	}
     	    $.ajax({
     	    	url : 'searchDo.do',
     	    	type : 'post',
@@ -54,10 +57,61 @@ $(function(){
     	    	},
     	    	success : function(htmlOut){
     	    		$('.mobile-body-wrap').html(htmlOut);
+    	    	    $.ajax({
+    	    	    	url : 'searchDo2.do',
+    	    	    	type : 'post',
+    	    	    	data : {
+    	    	    		"search" : search
+    	    	    	},
+    	    	    	success : function(check){
+    	    	    		if(check == 1){
+    	    	    			$.ajax({
+    	    	    				url : 'searchDo3.do',
+    	    	    				type : 'post',
+    	    	    				dataType : 'html',
+    	    	    				data : {
+    	    	    					"search" : search,
+    	    	    					"check" : check
+    	    	    				},
+    	    	    				success : function(htmlOut){
+    	    	    					$('.mobile-body-wrap').detach();
+    	    	    					$('.search-container').append(htmlOut);
+    	    	    				}
+    	    	    			})
+    	    	    		}else if(check == 2){
+    	    	    			$.ajax({
+    	    	    				url : 'searchDo3.do',
+    	    	    				type : 'post',
+    	    	    				dataType : 'html',
+    	    	    				data : {
+    	    	    					"search" : search,
+    	    	    					"check" : check
+    	    	    				},
+    	    	    				success : function(htmlOut){
+    	    	    					$('.content-wrap').detach();
+    	    	    					$('.mobile-body-wrap').append(htmlOut);
+    	    	    				}
+    	    	    			})
+    	    	    		}else if(check == 4){
+    	    	    			$.ajax({
+    	    	    				url : 'searchDo3.do',
+    	    	    				type : 'post',
+    	    	    				dataType : 'html',
+    	    	    				data : {
+    	    	    					"search" : search,
+    	    	    					"check" : check
+    	    	    				},
+    	    	    				success : function(htmlOut){
+    	    	    					$('.search-result-list').append(htmlOut);
+    	    	    				}
+    	    	    			})
+    	    	    		}
+    	    	    	}
+    	    	    });
     	    	}
     	    })
         }
-    });  
+    });
 })  
 </script>
 <body class="" style="padding-right: 0px;">

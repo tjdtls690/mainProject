@@ -20,4 +20,19 @@ public class SearchServiceImpl implements SearchService{
 		return searchDAO.getSearchItem(vo);
 	}
 
+	@Override
+	public List<SearchVO> getSearchSubscribe(SearchVO vo) {
+		return searchDAO.getSearchSubscribe(vo);
+	}
+
+	@Override
+	public int getSearchItemNum(SearchVO vo) {
+		return searchDAO.getSearchItemNum(vo);
+	}
+
+	@Override
+	public int getSearchSubscribeNum(SearchVO vo) {
+		return searchDAO.getSearchSubscribeNum(vo);
+	}
+
 }

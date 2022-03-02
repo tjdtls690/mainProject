@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/signup" />
 <!DOCTYPE html>
-<html>
+<html class="">
 <head>
 
 <title>salad:it-signup</title>
@@ -37,72 +37,94 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css?ver=1">
-<link rel="stylesheet" href="${path }/style2.css?ver=4">
+<link rel="stylesheet" href="${path }/style2.css?ver=5">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
 <meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/api:client.js"></script>
-  <script type="text/javascript">
-  function page_move(tagNum){
-	    var f = document.paging; //폼 name
-	    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
-	    f.action="tapPage.do";//이동할 페이지
-	    f.method="post";//POST방식
-	    f.submit();
-	}
-  
-  var googleUser = {};
-  var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      attachSignin(document.getElementById('customBtn'));
-    });
-  };
+<script type="text/javascript">
+ function page_move(tagNum){
+    var f = document.paging; //폼 name
+    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+    f.action="tapPage.do";//이동할 페이지
+    f.method="post";//POST방식
+    f.submit();
+}
+ 
+ var googleUser = {};
+ var startApp = function() {
+   gapi.load('auth2', function(){
+     // Retrieve the singleton for the GoogleAuth library and set up the client.
+     auth2 = gapi.auth2.init({
+       client_id: '913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com',
+       cookiepolicy: 'single_host_origin',
+       // Request scopes in addition to 'profile' and 'email'
+       //scope: 'additional_scope'
+     });
+     attachSignin(document.getElementById('customBtn'));
+   });
+ };
 
-  function attachSignin(element) {
-	var name = "";
-	var email = "";
-    console.log(element.id);
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-           name = googleUser.getBasicProfile().getName() // 얘네들이 반환 값
-	       email = googleUser.getBasicProfile().getEmail()
-          console.log(googleUser);
-           var form = document.createElement('form'); // 폼객체 생성
-           var objs;
-           objs = document.createElement('input'); // 값이 들어있는 녀석의 형식
-           objs.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-           objs.setAttribute('name', 'name'); // 객체이름
-           objs.setAttribute('value', name); //객체값
-           form.appendChild(objs);
-           var objs1;
-           objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
-           objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-           objs1.setAttribute('name', 'email'); // 객체이름
-           objs1.setAttribute('value', email); //객체값
-           form.appendChild(objs1);
-           form.setAttribute('method', 'post'); //get,post 가능
-           form.setAttribute('action', "googleLogin.do"); //보내는 url
-           document.body.appendChild(form);
-           form.submit();
+ function attachSignin(element) {
+var name = "";
+var email = "";
+   console.log(element.id);
+   auth2.attachClickHandler(element, {},
+       function(googleUser) {
+          name = googleUser.getBasicProfile().getName() // 얘네들이 반환 값
+       email = googleUser.getBasicProfile().getEmail()
+         console.log(googleUser);
+          var form = document.createElement('form'); // 폼객체 생성
+          var objs;
+          objs = document.createElement('input'); // 값이 들어있는 녀석의 형식
+          objs.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+          objs.setAttribute('name', 'name'); // 객체이름
+          objs.setAttribute('value', name); //객체값
+          form.appendChild(objs);
+          var objs1;
+          objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+          objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+          objs1.setAttribute('name', 'email'); // 객체이름
+          objs1.setAttribute('value', email); //객체값
+          form.appendChild(objs1);
+          form.setAttribute('method', 'post'); //get,post 가능
+          form.setAttribute('action', "googleLogin.do"); //보내는 url
+          document.body.appendChild(form);
+          form.submit();
 
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-  }
-  
-  function enterKey(){ 
+       }, function(error) {
+         alert(JSON.stringify(error, undefined, 2));
+       });
+ }
+ 
+ function enterKey(){ 
 	loginForm.submit();
-  }
+ }
 
-	  
-  </script>
+
+$(function(){
+	$(document).on('click', '.header__toggle-button', function(){
+		$('html').attr('class', 'mode-popup');
+		$.ajax({
+			url : 'sideMune.do',
+			dataType : 'html',
+			success : function(htmlOut){
+				$('#header-area').after(htmlOut);
+			}
+		})
+	});
+	
+	$(document).on('click', '.side-nav__overlay', function(e){
+		if (!$(e.target).hasClass(".side-nav__wrap")) {
+			$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+			$('html').removeClass('mode-popup');
+			setTimeout(function() {
+				$('.side-nav').detach();
+			}, 350);
+		}
+	});
+})
+</script>
 </head>
 <body>
 	<div id="__nuxt">
@@ -177,24 +199,24 @@
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
-								<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
 									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
 									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
-									href="/cart" class="cart-logo-wrap item"><div
+									href="basket.do" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 										<!---->
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="/order" class="item"><div
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
 										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
-							<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
 								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
 								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
-								href="/cart" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
 									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 									<!---->
 								</div></a>

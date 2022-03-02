@@ -6,6 +6,11 @@ import project.spring.web.tapPage.TapPageVO;
 
 public interface SearchService {
 	List<SearchVO> getSearchItem(SearchVO vo);
-	// ÀÌ¸§ÀÌ °°À¸¸é ¾Æ¸¶ ¸Þ¼Òµå ½ÇÇàÇÒ ‹š ¿À·ù ³¯¼öµµ ÀÖÀ½  getSearchItem 
+	// ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¸ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  getSearchItem 
+	List<SearchVO> getSearchSubscribe(SearchVO vo);
+	
+	int getSearchItemNum(SearchVO vo);
+	
+	int getSearchSubscribeNum(SearchVO vo);
 }
 

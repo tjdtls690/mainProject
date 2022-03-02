@@ -35,7 +35,7 @@
 	href="/fc-favicon-152.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
-<link rel="stylesheet" href="${path }/style.css">
+<link rel="stylesheet" href="${path }/style2.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
@@ -53,7 +53,7 @@ $(function(){
     	    		"search" : search
     	    	},
     	    	success : function(htmlOut){
-    	    		$('.content-wrap').html(htmlOut);
+    	    		$('.mobile-body-wrap').html(htmlOut);
     	    	}
     	    })
         }

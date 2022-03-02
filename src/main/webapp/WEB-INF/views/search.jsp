@@ -36,7 +36,30 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+//ajax 태그기능 넣을 함수
+$(function(){
+	
+	 $("#search-input").keydown(function(key) {
+        if (key.keyCode == 13) {
+        	var search = $(this).val(); //val이 검색창에 값 넣은것
+    	    $.ajax({
+    	    	url : 'searchDo.do',
+    	    	type : 'post',
+    	    	dataType : 'html',
+    	    	data : {
+    	    		"search" : search
+    	    	},
+    	    	success : function(htmlOut){
+    	    		$('.content-wrap').html(htmlOut);
+    	    	}
+    	    })
+        }
+    });  
+})  
+</script>
 <body class="" style="padding-right: 0px;">
 	<div id="__nuxt">
 		<div id="__layout">

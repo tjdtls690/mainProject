@@ -6,7 +6,7 @@
 <html class="">
 <head>
 
-<title>salad:it-login</title>
+<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
@@ -21,19 +21,19 @@
 <meta data-n-head="ssr" data-hid="og:type" property="og:type"
 	content="website">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-16.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-24.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-32.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-57.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-120.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-152.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-196.png" sizes="196x196">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 
 <link rel="stylesheet" href="${path }/style.css">
 <link rel="stylesheet" href="${path }/style2.css?ver=7">

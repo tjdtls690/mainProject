@@ -54,4 +54,10 @@ public class TapPageController {
 		mav.setViewName("tapPage");
 		return mav;
 	}
+	
+	@RequestMapping("/dropDownAllMenu.do")
+	public ModelAndView dropDownAllMenuDo(ModelAndView mav) {
+		mav.setViewName("dropDownAllMenu");
+		return mav;
+	}
 }

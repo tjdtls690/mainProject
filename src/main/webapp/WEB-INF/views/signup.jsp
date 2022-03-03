@@ -6,7 +6,7 @@
 <html class="">
 <head>
 
-<title>salad:it-signup</title>
+<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
@@ -23,19 +23,19 @@
 <meta data-n-head="ssr" data-hid="og:url" property="og:url"
 	content="https://www.freshcode.me">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-16.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-24.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-32.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-57.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-120.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-152.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-196.png" sizes="196x196">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css?ver=1">
 <link rel="stylesheet" href="${path }/style2.css?ver=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -148,8 +148,8 @@ $(function(){
 						<!---->
 					</div>
 					<form name="paging">
-								<input type="hidden" name="tagMain01" value="">
-							</form>
+						<input type="hidden" name="tagMain01" value="">
+					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>

@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-<title>프레시코드 - 샐러드 구독·건강간편식 프리미엄 배송 서비스</title>
+<title>샐러딧 - 샐러드 구독·건강간편식 프리미엄 배송 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
 <meta data-n-head="ssr" data-hid="subject" name="subject" content="프레시코드 - 프리미엄 샐러드 배달 서비스">
@@ -34,25 +34,25 @@
 <meta data-n-head="ssr" data-hid="fb:app_id" property="fb:app_id"
 	content="323001348061168">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-16.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-24.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-32.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-57.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-120.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-152.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-196.png" sizes="196x196">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
   
   <link href="${path}/css1/style.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="${path}/css/bootstrap.css?ver=1">
-  <link href="${path}/css1/style2.css?ver=2" rel="stylesheet" type="text/css" />
+  <link href="${path}/css1/style2.css?ver=4" rel="stylesheet" type="text/css" />
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -74,13 +74,61 @@ $(function() {
     		if(window.innerWidth > 1023){
     			$(".header").css("top","-130px");
     		}else{
-    			$(".header").css("top","-50px");
+    			$(".header").css("top","0px");
     		}
     	}else{
     		$(".header").css("top","0px");
     	}
     	lastScrollTop = st;
     });
+    
+    $(document).on('click', '#closeFinalCheck', function(){
+		$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+		$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+		setTimeout(function() {
+			$('.swal2-container').detach();
+		}, 100);
+	})
+	
+	$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+		if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+				&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+		}
+	});
+
+
+	$(document).on('click', '#sideEvent', function(){
+		$(location).attr("href", "event.do");
+	});
+	
+	$(document).on('click', '#sideBasket', function(){
+		$(location).attr("href", "basket.do");
+	})
+	
+	$(document).on('click', '.header__toggle-button', function(){
+		$('html').attr('class', 'mode-popup');
+		$.ajax({
+			url : 'sideMune.do',
+			dataType : 'html',
+			success : function(htmlOut){
+				$('#header-area').after(htmlOut);
+			}
+		})
+	});
+	$(document).on('click', '.side-nav__overlay', function(e){
+		if (!$(e.target).hasClass(".side-nav__wrap")) {
+			$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+			$('html').removeClass('mode-popup');
+			setTimeout(function() {
+				$('.side-nav').detach();
+			}, 350);
+		}
+	});
 });
 </script>
 </head>
@@ -114,6 +162,8 @@ $(function() {
 							</div> 
 							<form name="paging">
 								<input type="hidden" name="tagMain01" value="">
+								<input type="hidden" name="itemCode01" value="">
+								<input type="hidden" name="tagSub01" value="">
 							</form>
 							<nav class="header__menus" data-v-30697495>
 								<div data-v-30697495>
@@ -168,7 +218,7 @@ $(function() {
 								</div> 
 								<div class="header__menus-side" data-v-30697495>
 									<a href="search.do" class="search-logo" data-v-30697495>
-										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495> 
+										<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 30px; height: 30px;" data-v-30697495> 
 										<div data-v-30697495>검색</div>
 									</a> 
 									<a href="basket.do" class="cart-logo-wrap item" data-v-30697495>
@@ -176,21 +226,21 @@ $(function() {
 							          장바구니
 							        </a> 
 							        <a href="order.do" class="item" data-v-30697495>
-							        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pay.PNG" class="icon-order" style="width: 24px; height: 24px;" data-v-30697495>
+							        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pay.PNG" class="icon-order" style="width: 30px; height: 30px;" data-v-30697495>
 							          바로주문
 							        </a>
 							    </div>
 							   </nav> 
 							   <div class="header__side" data-v-30697495>
-							   		<a href="/search.do" class="search-logo" data-v-30697495>
-							   			<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/search.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495></a>
+							   		<a href="search.do" class="search-logo" data-v-30697495>
+							   			<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 30px; height: 30px;" data-v-30697495></a>
 							   		</a> 
 							   		<a href="basket.do" class="cart-logo-wrap item" data-v-30697495>
-							   			<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/baguni.PNG" alt="프레시코드 장바구니" class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
+							   			<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_baguni.PNG" alt="프레시코드 장바구니" class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
 							   		</a> 
 							   		<nav class="header__toggle-button" data-v-30697495>
 							   			<button type="button" data-v-30697495>
-							   				<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/main/menu.PNG" alt="user-menu" style="width: 24px; height: 24px;" data-v-30697495>
+							   				<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu" style="width: 30px; height: 30px;" data-v-30697495>
 							   			</button>
 							   		</nav>
 								</div>
@@ -477,7 +527,7 @@ $(function() {
 									</header>
 									<div class="home-fcospot__guide" data-v-cadb2ac2>
 										<a href="/fcospot" data-v-cadb2ac2>
-											<div id="search-fcospot" class="row item" data-v-cadb2ac2>
+											<div id="search-fcospot" class="row item" style="margin-right: 0px; margin-left: 0px;" data-v-cadb2ac2>
 												<span class="search-fcospot-placeholder" data-v-cadb2ac2>0개의
 													무료배송 프코스팟 찾기</span>
 											</div>

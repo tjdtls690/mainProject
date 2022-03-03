@@ -10,12 +10,23 @@ public class SearchVO {
 	private double starAvg;
 	private int reviewCount;
 	private int tagMain;
+	private int tagSub;
 	private int itemTagsub;
 	private String search;
-	// item_Tag_sub Ãß°¡
+	// item_Tag_sub ï¿½ß°ï¿½
+	
+	
 
 	public int getItemTagsub() {
 		return itemTagsub;
+	}
+
+	public int getTagSub() {
+		return tagSub;
+	}
+
+	public void setTagSub(int tagSub) {
+		this.tagSub = tagSub;
 	}
 
 	public String getSearch() {
@@ -106,8 +117,10 @@ public class SearchVO {
 	public String toString() {
 		return "SearchVO [itemCode=" + itemCode + ", itemImage=" + itemImage + ", itemName=" + itemName
 				+ ", itemSummary=" + itemSummary + ", itemPriceM=" + itemPriceM + ", itemPriceMSub=" + itemPriceMSub
-				+ ", starAvg=" + starAvg + ", reviewCount=" + reviewCount + ", tagMain=" + tagMain + ", itemTagsub="
-				+ itemTagsub + ", search=" + search + "]";
+				+ ", starAvg=" + starAvg + ", reviewCount=" + reviewCount + ", tagMain=" + tagMain + ", tagSub="
+				+ tagSub + ", itemTagsub=" + itemTagsub + ", search=" + search + "]";
 	}
+
+	
 
 }

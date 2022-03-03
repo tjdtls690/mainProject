@@ -42,8 +42,10 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 	var f = document.paging;
 	var code = $(this).children('#itemCode').attr('value');
 	var tag = $(this).children('#tagMain').attr('value');
+	var tagSub = $(this).children('#tagSub').attr('value');
 	f.tagMain01.value = tag;
 	f.itemCode01.value = code;
+	f.tagSub01.value = tagSub;
 	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
 	f.method="post";
 	f.submit();
@@ -152,6 +154,7 @@ $(function(){
 						<form name="paging">
 							<input type="hidden" name="tagMain01" value="">
 							<input type="hidden" name="itemCode01" value="">
+							<input type="hidden" name="tagSub01" value="">
 						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">

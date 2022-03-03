@@ -14,6 +14,7 @@
 	<resultMap type="mysearch" id="searchresult01">
 		<id property="itemCode" column="item_code" />
 		<result property="tagMain" column="item_tag_main" />
+		<result property="tagSub" column="item_tag_sub" />
 		<result property="itemImage" column="item_image" />
 		<result property="itemName" column="item_name" />
 		<result property="itemSummary" column="item_summary" />
@@ -25,6 +26,7 @@
 	<resultMap type="mysearch" id="searchresult02">
 		<id property="itemCode" column="subscribe_code" />
 		<result property="tagMain" column="subscribe_tag_main" />
+		<result property="tagSub" column="subscribe_tag_sub" />
 		<result property="itemImage" column="subscribe_image" />
 		<result property="itemName" column="subscribe_name" />
 		<result property="itemSummary" column="subscribe_summary" />
@@ -34,7 +36,7 @@
 		<result property="reviewCount" column="count(b.content)" />
 	</resultMap>
 	<select id="getSearchItem" resultMap="searchresult01">
-		select a.item_code,a.item_tag_main, a.item_image, a.item_name,
+		select a.item_code,a.item_tag_main, a.item_tag_sub, a.item_image, a.item_name,
 		a.item_summary,
 		a.item_price_m, a.item_price_m_sub, round(avg(b.star), 1), count(b.content)
 		from item a left join reviewboard b
@@ -45,7 +47,7 @@
 	</select>
 	
 	<select id="getSearchSubscribe" resultMap="searchresult02">
-		select a.subscribe_code, a.subscribe_tag_main, a.subscribe_image, a.subscribe_name, a.subscribe_summary, 
+		select a.subscribe_code, a.subscribe_tag_main, a.subscribe_tag_sub, a.subscribe_image, a.subscribe_name, a.subscribe_summary, 
 		a.subscribe_price_m, a.subscribe_price_m_sub, round(avg(b.star), 1), 
 		count(b.content) 
 		from subscribe a left join reviewboard b

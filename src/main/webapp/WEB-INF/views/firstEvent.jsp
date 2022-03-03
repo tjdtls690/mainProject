@@ -56,10 +56,6 @@ $(function() {
 	    lastScrollTop = st;
 	  	});
 		
-	    var coupon = ${coupon};
-	    for(var i = 0; i < coupon.lengthl i++) {
-	    	console.log(coupon[i]+ " ");
-	    }
 		
 		$('#btn01, #btn02').click(function(){
 			$.ajax({
@@ -68,22 +64,48 @@ $(function() {
 				success : function(htmlOut){
 					$('body').append(htmlOut);
 				}
-			}) 
+			})
 		})
 		
 		$(document).on('click', '#closeModal', function(){
 			$('.swal2-container').detach();
 		})
 		
-		$('.btn.half-menu.left').click(function(){
+		$('.btn.half-menu.left.01').click(function(){			
+			var userCode = $('#userCode').val();
+			console.log(userCode);
+			var coupon_code = $(this).attr('id');
+			console.log(coupon_code);
 			$.ajax({
 				url : 'coupon02.do',
 				dataType : 'html',
+				data : {
+					"userCode" : userCode,
+					"coupon_code" : coupon_code
+				},
 				success : function(htmlOut){
 					$('body').append(htmlOut);
 				}
-			})  
+			})		
 		})
+		$('.btn.half-menu.right.02').click(function(){			
+			var userCode = $('#userCode').val();
+			console.log(userCode);
+			var coupon_code = $(this).attr('id');
+			console.log(coupon_code);
+			$.ajax({
+				url : 'coupon02.do',
+				dataType : 'html',
+				data : {
+					"userCode" : userCode,
+					"coupon_code" : coupon_code
+				},
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})		
+		})
+		
 		$('.btn.half-menu.right').click(function(){
 			$.ajax({
 				url : 'coupon02.do',
@@ -101,8 +123,9 @@ $(function() {
 				success : function(htmlOut){
 					$('body').append(htmlOut);
 				}
-			})  
+			})
 		})
+		
 	});
 </script>
 </head>
@@ -112,6 +135,7 @@ $(function() {
 			height="0" width="0" style="display: none; visibility: hidden"
 			title="gtm"></iframe>
 	</noscript>
+	<input type="hidden" value="${member.memberCode }" id="userCode">
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-0f5971ec="" class="viewport">
@@ -135,6 +159,8 @@ $(function() {
 										</a>
 									</c:otherwise>
 								</c:choose>
+								<span data-v-30697495>1:1문의</span> 
+								<a href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank" data-v-30697495>B2B 신청</a>
 							</div>
 						</div>
 						<!---->
@@ -337,8 +363,8 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/06.jpg">
-								<div data-v-6c57d82e="" class="btn half-menu left" ></div>
-								<div data-v-6c57d82e="" class="btn half-menu right" ></div>
+								<div data-v-6c57d82e="" class="btn half-menu left 01" id="1"></div>
+								<div data-v-6c57d82e="" class="btn half-menu right 02" id="2"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/07.jpg">
@@ -353,7 +379,7 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/10-1.jpg">
-								<div data-v-6c57d82e="" class="btn half-menu left"></div>
+								<div data-v-6c57d82e="" class="btn half-menu left 03" id="3"></div>
 								<div data-v-6c57d82e="" class="btn half-menu right"></div>
 							</div>
 							<img data-v-6c57d82e=""

@@ -140,73 +140,83 @@
 			var priceM = $(this).children().last().children().last().text();
 			// 가격 에서 '원',','을 빼고 가져옴
 			priceM = Number(priceM.replace('원', '').replace(',', ''));
-//			var test = $(this).children().last().children().last().attr('') 
-			
-			
+			alert(priceM);
 			// 판매중인 아이템의 이름을 가져옴.
 			var name = $('.menu__name').text();
-			var sizeM = $('#미디움').attr('id');
-			var sizeL = $('#라지').attr('id');
+
+			// 리스트 아이템을 누를시 클래를 가져옴	
+			var test = $(this).children().last().children().last().attr('id');
+			var testM = $('.1001').val();
+ 			var testL = $('.1002').val();
 			// ajax를 통해 보여줄예정.
 			$.ajax({
 				url : 'test3.do',
 				type : 'post',
 				datatype : 'html',
 				data :{
+					"test" : test,
 					"size" : size,
 					"price" : priceM,
 					"name" : name
 				},
 				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
-					if(sizeM ==null && sizeL ==null){
-
+//				test = 리스트의 id .. testM/testL = 목록 M/L 의 class
+					if(testM ==null && testL ==null){
+						alert("M / L 둘다 없다");
 	 					$('.selected-detail-list').append(htmlOut); 					
 	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 	 					price = Number(price.slice(0, -1));
 //	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-	 					price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+	 					price += priceM;  
 //	 					price= price.toLocaleString('ko-KR');   --> , 찍기
 	 					$('.menu__price-current-price__wrapper').children().text(price+"원");
 	 					
 					}
-					else if(sizeM != null && sizeL == null){
-					    if( size == sizeM){
-					    	
-					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
-
+					else if(testM != null && testL == null){
+					    if( test == '1001'){
+					    // 클릭시 미디움이 이미 있을때
+					    alert("M은 있고 L은 없는데 M을 클릭했다.");
+							$('.1001:eq(0)').parent().next().trigger('click');
 					    }else{
-
+						alert("M은 있고 L은 없는데 L을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);				
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 		 					price = Number(price.slice(0, -1));
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-		 					price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
+		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기
 		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
 					    }
 					}
-					else if(sizeM == null && sizeL !=null){
-					    if( size == sizeM){
-
+					else if(testM == null && testL !=null){
+					    if( test == '1001'){
+							alert("L는 있고 M은없는데 M을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);
+		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
+		 					price = Number(price.slice(0, -1));
+//		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+		 					price += priceM;  
+//		 					price= price.toLocaleString('ko-KR');   --> , 찍기
+		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
 		 					
 					    }else{
-
-					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
+							alert("L는 있고 L를 클릭했다");
+							$('.1002:eq(0)').parent().next().trigger('click');
 
 					    }
 					}
-					else if(sizeM != null && sizeL !=null){
-					    if( size == sizeM){
-					    	
-					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
-					    	
+					else if(testM != null && testL !=null){
+					    if( test == '1001'){
+					    	alert("둘다있는데 M을 클릭");
+					    	$('.1001:eq(0)').parent().next().trigger('click');
+					    	 
 					    }else{
-					    	
-					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
+					    	alert("둘다있는데 L을 클릭")
+					    	$('.1002:eq(0)').parent().next().trigger('click');
 					    	
 					    }
-					} 		
+					} 				
+					
 				} // success 끝	
 			}); // ajax 끝
 
@@ -223,53 +233,66 @@
 			$(document).on('click','#minus-button',function(){
 				// val값을 가져와서 val값 -후 val값 저장
 				var val = Number($(this).next().children().val());
-				var val2 = $(this).parent().parent().prev().attr('id');
-				if(val >1){
-					val -=1;
-					var price = $('.menu__price-current-price__wrapper').children().first().text();
-					price = Number(price.slice(0, -1));
-					price -= 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-					$('.menu__price-current-price__wrapper').children().text(price+"원");
+				var val2 = $(this).next().children().attr('class');
+				var price = Number($(this).next().children().attr('id'));
+				var strPrice = $('.menu__price-current-price__wrapper:eq(0)').children().text();
+				var realPrice = Number(strPrice.replace('원', '').replace(',', ''));
 
+				if(val >1){
+					if(val2== 1001){
+						val -=1;
+						$('.1001:eq(0)').val(val);
+						$('.1001:eq(1)').val(val);
+						// 합산 가격 넣기.
+//						price = Number(price.slice(0, -1));
+//						price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+						realPrice -= price;  
+						$('.menu__price-current-price__wrapper').children().text(realPrice+"원");
+						
+					}else{
+						val -=1;
+						$('.1002:eq(0)').val(val);
+						$('.1002:eq(1)').val(val);
+						// 합산 가격 넣기.
+//						price = Number(price.slice(0, -1));
+//						price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
+						realPrice -= price;  
+						$('.menu__price-current-price__wrapper').children().text(realPrice+"원");
+					}
+					
 				}else{
 					val = 1;
 				}
-				if(val2=='미디움'){
-					$(this).prev().children().val(val);//nav			
-					$('#미디움:eq(1)').next().children().children().eq(1).children().val(val);
-		
-				}else{
-					$(this).prev().children().val(val);//nav			
-					$('#라지:eq(1)').next().children().children().eq(1).children().val(val);
-				}
-				
 
-				$(this).next().children().val(val);
  			});	 // - 버튼 처리 끝	
 
 		//  + 버튼 처리		
 			$(document).on('click','#plus-button',function(){
-				// val값을 가져와서 val값 +후 val값 저장
+				// val값을 가져와서 val값 +후 val값 저장  
 				var val = Number($(this).prev().children().val());
-				var val2 = $(this).parent().parent().prev().attr('id');
-				val +=1;
-				if(val2=='미디움'){
-					$(this).prev().children().val(val);//nav			
-					$('#미디움:eq(1)').next().children().children().eq(1).children().val(val);
-		
+				var val2 = $(this).prev().children().attr('class');
+				var price = Number($(this).prev().children().attr('id'));
+				var strPrice = $('.menu__price-current-price__wrapper:eq(0)').children().text();
+				var realPrice = Number(strPrice.replace('원', '').replace(',', ''));
+
+				if(val2== 1001){
+					val +=1;
+					$('.1001:eq(0)').val(val);
+					$('.1001:eq(1)').val(val);
+	
 				}else{
-					$(this).prev().children().val(val);//nav			
-					$('#라지:eq(1)').next().children().children().eq(1).children().val(val);
+					val +=1;
+					$('.1002:eq(0)').val(val);
+					$('.1002:eq(1)').val(val);
 				}
 
 				// 합산 가격 넣기.
 				// .menu__price-current-price__wrapper 가 2개가있어 둘중 처음꺼 하나를 받고  first()지우고 모두에 저장하겠다..
-				var price = $('.menu__price-current-price__wrapper').children().first().text();
-				price = Number(price.slice(0, -1));
+//				var price = $('.menu__price-current-price__wrapper').children().first().text();
+//				price = Number(price.slice(0, -1));
 //				price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-				price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-//				price= price.toLocaleString('ko-KR');   --> , 찍기
-				$('.menu__price-current-price__wrapper').children().text(price+"원");
+				realPrice += price;  
+				$('.menu__price-current-price__wrapper').children().text(realPrice+"원");
 				
 			});	// + 버튼 처리 끝
 			
@@ -277,6 +300,46 @@
 		$(document).on('click','.more-btn',function(){
 			$(this).prev().children().toggleClass('img-wrapper');
 					
+		});
+			
+// 상세 명세서 이미지 클릭시 삭제
+		$(document).on('click','.selected-detail__close',function(){
+			alert("삭제");
+			var val = Number($(this).next().next().children().children().eq(1).children().val());
+				// 현재개수
+ 			var val2 = $(this).next().next().children().children().eq(1).children().attr('class'); 
+				// 삭제버튼의 구분값( M or L )
+			var strPrice = $('.menu__price-current-price__wrapper:eq(0)').children().text();
+				// 현재 가격
+			var numPrice = Number(strPrice.replace('원', '').replace(',', ''));
+				// 현재 가격 숫자형
+			alert("현재가격 :"+ numPrice);
+
+
+			if(val2==1001){ //미디움 삭제
+				var price = Number($('.1001:eq(0)').attr('id'));
+				// 개당 가격
+				numPrice -= price*val;
+				alert("numPrice : " + numPrice);
+
+				// 아이템 가격
+				$('.1001:eq(0)').parent().parent().parent().parent().parent().detach();
+				$('.1001:eq(0)').parent().parent().parent().parent().parent().detach();
+				
+				$('.menu__price-current-price__wrapper').children().text(numPrice+"원");
+				
+			}else{ // 라지 삭제
+				var price = Number($('.1002:eq(0)').attr('id'));
+				// 개당 가격
+				numPrice -= price*val;
+				alert("numPrice : " + numPrice);
+				
+				$('.1002:eq(0)').parent().parent().parent().parent().parent().detach();
+				$('.1002:eq(0)').parent().parent().parent().parent().parent().detach();
+				
+				$('.menu__price-current-price__wrapper').children().text(numPrice+"원");
+				
+			}					
 		});
 		
 		
@@ -560,7 +623,7 @@
 	                                            </li>
 	                                            <!--li class="menu-option" 없애봄 -->
 	                                        </ul>
-											 <ul class="selected-detail-list" data-v-2706028c="">
+											 <ul class="selected-detail-list" data-v-2706028c="" id="aaa">
 	<!--  선택된 아이템 보여주는 곳 -->
 											 </ul>
 			
@@ -824,7 +887,7 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <ul data-v-2706028c class="selected-detail-list isDesktop">
+                                        <ul data-v-2706028c class="selected-detail-list isDesktop" id='abcd'>
   <!--  여기에 추가되어야함  -->                                      
                                         
                                         

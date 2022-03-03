@@ -104,11 +104,11 @@
 			
 		})
 // 드롭 다운
-		$(document).on('click','.button.dropdown',function(event){			
-			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
+		$(document).on('click','.button.dropdown',function(event){	
 			var code =$('#mobCart').children('#itemCode').attr('value');			
 			var tag = $('#mobCart').children('#tagMain').attr('value');
 			var str ="";
+			alert("클릭");
 			if($('.dropdown-btn').hasClass('dropdown-open')){
 				$('ul').remove('.toggle-drop-down');
 			}else{
@@ -126,6 +126,8 @@
 						str += "</ul>";
 						$('.dropdown-btn').append(str);
 						
+						$('.date-picker-input').removeAttr('disabled');
+															
 					}
 				}); // ajax 끝								
 			} //else 끝
@@ -133,144 +135,30 @@
 		}); // 드롭 다운 끝
 
 // 드롭 다운 아이템 클릭
-		$(document).on('click','.detail-wrap',function(){
-			// 미디움(M) / 라지(L) 를 가져옴
-			var size = $(this).children().first().children().first().text();
-			// 가격 에서 '원',','을 빼고 가져옴
-			var priceM = $(this).children().last().children().last().text();
-			priceM = Number(priceM.replace('원', '').replace(',', ''));
-			
-
-			// 판매중인 아이템의 이름을 가져옴.
-			var name = $('.menu__name').text();
-			var sizeM = $('#미디움').attr('id');
-			var sizeL = $('#라지').attr('id');
-
+		$(document).on('click','.detail-name-and-badge',function(){
+			var test = $(this).text();
+			alert("선택하 주 : "+test);
+/*
 			// ajax를 통해 보여줄예정.
 			$.ajax({
-				url : 'test3.do',
-				type : 'post',
-				datatype : 'html',
+				url : 
+				type :
+				datatype :
 				data :{
-					"size" : size,
-					"price" : priceM,
-					"name" : name
+				
 				},
 				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
-					if(sizeM ==null && sizeL ==null){
-
-	 					$('.selected-detail-list').append(htmlOut); 					
-	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-	 					price = Number(price.slice(0, -1));
-//	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-	 					price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-//	 					price= price.toLocaleString('ko-KR');   --> , 찍기
-	 					$('.menu__price-current-price__wrapper').children().text(price+"원");
-	 					
-					}
-					else if(sizeM != null && sizeL == null){
-					    if( size == sizeM){
-					    	
-					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
-
-					    }else{
-
-		 					$('.selected-detail-list').append(htmlOut);				
-		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-		 					price = Number(price.slice(0, -1));
-//		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-		 					price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-//		 					price= price.toLocaleString('ko-KR');   --> , 찍기
-		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
-					    }
-					}
-					else if(sizeM == null && sizeL !=null){
-					    if( size == sizeM){
-
-		 					$('.selected-detail-list').append(htmlOut);
-		 					
-					    }else{
-
-					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
-
-					    }
-					}
-					else if(sizeM != null && sizeL !=null){
-					    if( size == sizeM){
-					    	
-					    	$('#미디움:eq(0)').next().children().children().last().trigger('click');
-					    	
-					    }else{
-					    	
-					    	$('#라지:eq(0)').next().children().children().last().trigger('click');
-					    	
-					    }
-					} 		
+ 		
 				} // success 끝	
 			}); // ajax 끝
-
+*/
 			
 			// 클릭시 드롭 다운 아이템 사라짐
-			$('ul').detach('.toggle-drop-down');						
-			$('.dropdown-btn').toggleClass('dropdown-open');
+//			$('ul').detach('.toggle-drop-down');						
+//			$('.dropdown-btn').toggleClass('dropdown-open');
 			
 		}); // 드롭 다운 아이템 끝
-// 이페이지의 이름값을 얻어서 현재 단품은 미디움/라지 로 +.-를 관리하지만
-// 셋트,구독은 이름값으로 ( 위치가 단품에서 미디움 고정적으로 찍혀있는 자리에 이름값이 들어갈것임 ) 구분을하자
-// ex if(val2 =='미디움 ' or val3 == '이름값')
-		//  - 버튼 처리
-			$(document).on('click','#minus-button',function(){
-				// val값을 가져와서 val값 -후 val값 저장
-				var val = Number($(this).next().children().val());
-				var val2 = $(this).parent().parent().prev().attr('id');
-				if(val >1){
-					val -=1;
-					var price = $('.menu__price-current-price__wrapper').children().first().text();
-					price = Number(price.slice(0, -1));
-					price -= 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-					$('.menu__price-current-price__wrapper').children().text(price+"원");
 
-				}else{
-					val = 1;
-				}
-				if(val2=='미디움'){
-					$(this).prev().children().val(val);//nav			
-					$('#미디움:eq(1)').next().children().children().eq(1).children().val(val);
-		
-				}else{
-					$(this).prev().children().val(val);//nav			
-					$('#라지:eq(1)').next().children().children().eq(1).children().val(val);
-				}
-				
-
-				$(this).next().children().val(val);
- 			});	 // - 버튼 처리 끝	
-
-		//  + 버튼 처리		
-			$(document).on('click','#plus-button',function(){
-				// val값을 가져와서 val값 +후 val값 저장
-				var val = Number($(this).prev().children().val());
-				var val2 = $(this).parent().parent().prev().attr('id');
-				val +=1;
-				if(val2=='미디움'){
-					$(this).prev().children().val(val);//nav			
-					$('#미디움:eq(1)').next().children().children().eq(1).children().val(val);
-		
-				}else{
-					$(this).prev().children().val(val);//nav			
-					$('#라지:eq(1)').next().children().children().eq(1).children().val(val);
-				}
-
-				// 합산 가격 넣기.
-				// .menu__price-current-price__wrapper 가 2개가있어 둘중 처음꺼 하나를 받고  first()지우고 모두에 저장하겠다..
-				var price = $('.menu__price-current-price__wrapper').children().first().text();
-				price = Number(price.slice(0, -1));
-//				price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-				price += 3000;  // 3000은 이제 db에서 가져올 아이템 가격.
-//				price= price.toLocaleString('ko-KR');   --> , 찍기
-				$('.menu__price-current-price__wrapper').children().text(price+"원");
-				
-			});	// + 버튼 처리 끝
 			
 // 상품 이미지 더보기
 		$(document).on('click','.more-btn',function(){
@@ -534,6 +422,34 @@
                                 </div>
                                 <ul data-v-32a18372 class="menu-detail">
                                     ${detail.item_explain }
+<!-- 택배 배송 일때 -->                 <c:if test="${sub01 == 101}">
+                                   		<li data-v-32a18372="" class="menu-detail__deliveryType">
+                                   			<div data-v-32a18372="" class="menu-detail__deliveryType-text">
+												<label data-v-32a18372="" class="menu__label">배송 방법</label>
+													<div data-v-32a18372="" class="menu-text-wrap">
+														<span data-v-32a18372="" class="menu__text" style="color: rgb(74, 144, 226);"> 택배배송 
+															<span data-v-32a18372="" class="menu__sub-text"> (도서산간지역 제외) </span>
+														</span> 
+														<span data-v-32a18372="" class="subs-desc-bold">오전 8시까지 주문 시 당일 발송</span>
+														<span data-v-32a18372="" class="subs-desc">화요일부터 토요일까지 배송됩니다.</span>
+													</div>
+											</div>
+										</li>
+                                    </c:if>
+ <!-- 새벽 배송 일때 -->                <c:if test="${sub02 == 102 }">
+                                    	<li data-v-32a18372="" class="menu-detail__deliveryType">
+                                    		<div data-v-32a18372="" class="menu-detail__deliveryType-text">
+												<label data-v-32a18372="" class="menu__label">배송 방법</label>
+													<div data-v-32a18372="" class="menu-text-wrap">
+														<span data-v-32a18372="" class="menu__text" style="color: rgb(46, 58, 130);"> 새벽배송 
+															<span data-v-32a18372="" class="menu__sub-text"> (서울 전체, 경기/인천 일부) </span>
+														</span> 
+														<span data-v-32a18372="" class="subs-desc-bold">밤 12시 - 새벽 7시 이내 도착</span> 
+														<span data-v-32a18372="" class="subs-desc">월요일부터토요일까지 배송됩니다.</span>
+													</div>
+											</div>
+										</li>
+                                    </c:if>
                                 </ul>
 
 									<!-- 시작 -->
@@ -545,51 +461,62 @@
 													data-v-2706028c="" class="menu__label">사이즈 선택</label>
 													<div data-v-2706028c="" class="row--v-center">
 														<div data-v-2706028c="" class="row--v-center radio-label">
-															<label data-v-3f971378="" data-v-2706028c="" class="form-radio"><input
-																data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth"
-																class="form-radio-input" value="Medium"> <span
-																data-v-3f971378="" class="form-radio-circle"><i
-																	data-v-3f971378="" class="form-radio-circle-interior"></i></span>
-																Medium </label> <label data-v-2706028c="" for="Medium"
-																class="radio-side-text">Medium</label>
+															<label data-v-3f971378="" data-v-2706028c="" class="form-radio">
+																<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth" class="form-radio-input" value="Medium"> 
+																	<span data-v-3f971378="" class="form-radio-circle">
+																		<i data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span>
+																Medium 
+															</label> 
+															<label data-v-2706028c="" for="Medium" class="radio-side-text">Medium</label>
 														</div>
 														<div data-v-2706028c="" class="row--v-center radio-label">
-															<label data-v-3f971378="" data-v-2706028c="" class="form-radio"><input
-																data-v-3f971378="" id="Large" type="radio" name="menu-sizeboth"
-																class="form-radio-input" value="Large"> <span
-																data-v-3f971378="" class="form-radio-circle"><i
-																	data-v-3f971378="" class="form-radio-circle-interior"></i></span>
-																Medium </label> <label data-v-2706028c="" for="Large"
-																class="radio-side-text">Large</label>
+															<label data-v-3f971378="" data-v-2706028c="" class="form-radio">
+																<input data-v-3f971378="" id="Large" type="radio" name="menu-sizeboth" class="form-radio-input" value="Large"> 
+																	<span data-v-3f971378="" class="form-radio-circle">
+																		<i data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span>
+																Medium 
+															</label> 
+															<label data-v-2706028c="" for="Large" class="radio-side-text">Large</label>
 														</div>
-													</div></li>
-												<li data-v-2706028c="" class="menu__period-select"><label
-													data-v-2706028c="" class="menu__label only-desktop">기간 선택</label>
-													<div data-v-4837bb91="" data-v-2706028c=""
-														class="dropdown-btn-flex-wrap both-style">
+													</div>
+												</li>
+												<li data-v-2706028c="" class="menu__period-select">
+													<label data-v-2706028c="" class="menu__label only-desktop">
+														기간 선택
+													</label>
+													<div data-v-4837bb91="" data-v-2706028c="" class="dropdown-btn-flex-wrap both-style">
 														<div data-v-4837bb91="" class="dropdown-btn">
 															<div data-v-4837bb91="" class="button dropdown">
-																<div data-v-4837bb91="" class="">기간 선택(기간이 길수록 더 많이 할인됩니다)
-																</div>
+																<div data-v-4837bb91="" class="">기간 선택(기간이 길수록 더 많이 할인됩니다)</div>
 															</div>
-															<!---->
+												<!---->
+												<!-- 여기에 리스트 나옴-->
+												<!---->
 														</div>
-													</div></li>
-												<li data-v-2706028c="" class="menu__date-select"><label
-													data-v-2706028c="" class="menu__label only-desktop">시작일(수령일)
-														선택</label>
+													</div>
+												</li>
+												<li data-v-2706028c="" class="menu__date-select">
+													<label data-v-2706028c="" class="menu__label only-desktop">
+													시작일(수령일) 선택
+													</label>
 													<div data-v-2706028c="" class="date-picker-with-icon">
-														<span data-v-56ae83be="" data-v-2706028c="" disabled="disabled"
-															class="v-date-custom"><input data-v-2706028c=""
-															data-v-56ae83be="" disabled="disabled" placeholder="시작일 선택"
-															readonly="readonly" type="input" class="date-picker-input">
-														<div data-v-7605e1b2="" data-v-56ae83be=""
-																class="vc-popover-content-wrapper">
-																<!---->
-															</div></span> <img data-v-2706028c=""
-															src="/images/icon-calendar-active@3x.png" 
-															class="date-select-calendar-icon" style="cursor: pointer;">
-													</div></li>
+														<span data-v-56ae83be="" data-v-2706028c="" disabled="disabled" class="v-date-custom">
+															<input data-v-2706028c="" data-v-56ae83be="" disabled="disabled" placeholder="시작일 선택" readonly="readonly" type="input" class="date-picker-input">
+	<!---->															
+	<!---->															
+															
+															<div data-v-7605e1b2="" data-v-56ae83be="" class="vc-popover-content-wrapper">
+																	<!---->
+															</div>
+	<!---->															
+	<!---->															
+															
+														</span> 
+														<img data-v-2706028c="" src="/images/icon-calendar-active@3x.png"  class="date-select-calendar-icon" style="cursor: pointer;">
+													</div>
+												</li>
 											</ul>
 											<!---->
 										</div>

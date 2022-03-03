@@ -50,6 +50,7 @@ public class DetailController {
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
+
 		
 		DetailVO VO1 = new DetailVO();
 		//단품상품일때
@@ -206,6 +207,8 @@ public class DetailController {
 		else {
 // 구독 상품 일때
 			System.out.println(" --구독/세트 상세 정보-- ");
+
+			
         	DetailVO dvo = new DetailVO();
         	dvo.setItem_code(menuNum);
         	System.out.println("----> dvo.getItem_code(menuNum) :" + dvo.getItem_code());
@@ -358,27 +361,27 @@ public class DetailController {
 			
 		}else if(tagMain01 == 100) { // 구독 상품일때.
 			System.out.println("구독 상세 정보로 넘어가기");
-			
+			mav.setViewName("selectSub");
 		}
-		else {
-			// ...?
-			
-		}	
 
 		return mav;	
 	}
-// 드롭다운 리스트 클릭시 목록 찍기
+// 드롭다운 리스트 클릭시 목록 찍기 ( 단품/세트 )
 	@RequestMapping("/test3.do")
 	public ModelAndView test3(HttpServletRequest request, ModelAndView mav) {
 		String size = request.getParameter("size");
 		String num = request.getParameter("price");
 		int price = Integer.parseInt(num);
 		String name = request.getParameter("name");
+		String getTest = request.getParameter("test");
+		int test = Integer.parseInt(getTest);
 		
 		System.out.println("size"+size);
 		System.out.println("price"+price);
 		System.out.println("name"+name);
+		System.out.println("test"+test);
 		
+		mav.addObject("test",test);
 		mav.addObject("name",name);
 		mav.addObject("price",price);
 		mav.addObject("size",size);

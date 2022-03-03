@@ -35,4 +35,12 @@ public class MemberDAO {
 	public int passwordCheck(MemberVO vo) {
 		return sqlSessionTemplate.selectOne("MemberDAO.passwordCheck", vo);
 	}
+	
+	public int findEmail(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.findEmail", vo);
+	}
+	
+	public MemberVO phoneNameGetMember(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.phoneNameGetMember", vo);
+	}
 }

@@ -36,7 +36,7 @@
 	href="/fc-favicon-196.png" sizes="196x196">
 
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=6">
+<link rel="stylesheet" href="${path }/style2.css?ver=7">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
 <meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
@@ -199,6 +199,33 @@
 			}, 100);
 		}
 	});
+	  $(document).on('click', '#sideEvent', function(){
+			$(location).attr("href", "event.do");
+		});
+		
+		$(document).on('click', '#sideBasket', function(){
+			$(location).attr("href", "basket.do");
+		})
+		
+		$(document).on('click', '.header__toggle-button', function(){
+			$('html').attr('class', 'mode-popup');
+			$.ajax({
+				url : 'sideMune.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('#header-area').after(htmlOut);
+				}
+			})
+		});
+		$(document).on('click', '.side-nav__overlay', function(e){
+			if (!$(e.target).hasClass(".side-nav__wrap")) {
+				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+				$('html').removeClass('mode-popup');
+				setTimeout(function() {
+					$('.side-nav').detach();
+				}, 350);
+			}
+		});
   })
 
 	  
@@ -210,24 +237,28 @@
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-1739428d="" class="viewport-none-footer">
-				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
+					<form name="paging">
+								<input type="hidden" name="tagMain01" value="">
+							</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
+							
 								<c:choose>
-									<c:when test="${empty member.gender}">
-										<a href="signup.do" data-v-30697495="">회원가입</a>
-										<a data-v-30697495="" href="login.do">로그인</a>
-									</c:when>
-									<c:otherwise>
-										<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
-									</c:otherwise>
-								</c:choose>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
 								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
 									신청</a>
@@ -238,9 +269,6 @@
 							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
 							<!---->
 						</div>
-						<form name="paging">
-								<input type="hidden" name="tagMain01" value="">
-							</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -278,32 +306,32 @@
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
-								<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-									data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
-									style="width: 24px; height: 24px;">
+									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
-									href="/cart" class="cart-logo-wrap item"><div
+									href="basket.do" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 										<!---->
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="/order" class="item"><div
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
 										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
-							<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-								data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
-								style="width: 24px; height: 24px;"></a> <a data-v-7aa1f9b4=""
-								href="/cart" class="cart-logo-wrap item"><div
+								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
 									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 									<!---->
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="/images/header-img/menu_new@2x.png" alt="user-menu"
-										style="width: 24px; height: 24px;">
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
 								</button>
 							</nav>
 						</div>
@@ -367,7 +395,7 @@
 						</form>
 						<nav data-v-d3dff3a6="" class="row--v-center login__etc-menus">
 							<div data-v-d3dff3a6="" class="col--auto  row--v-center">
-								<a data-v-d3dff3a6="" href="https://developers.kakao.com/logout" class="">이메일(아이디)
+								<a data-v-d3dff3a6="" href="findId.do" class="">이메일(아이디)
 									찾기</a> <a data-v-d3dff3a6="" href="/user/find-pw" class="">비밀번호
 									찾기</a>
 							</div>

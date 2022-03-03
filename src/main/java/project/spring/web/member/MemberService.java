@@ -7,4 +7,6 @@ public interface MemberService {
 	public int checkPhone(MemberVO vo);
 	public MemberVO getMemberPhone(MemberVO vo);
 	public int passwordCheck(MemberVO vo);
+	public int findEmail(MemberVO vo);
+	public MemberVO phoneNameGetMember(MemberVO vo);
 }

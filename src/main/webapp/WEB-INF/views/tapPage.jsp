@@ -50,8 +50,10 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 	var f = document.paging;
 	var code = $(this).children('#itemCode').attr('value');
 	var tag = $(this).children('#tagMain').attr('value');
+	var tagSub = $(this).children('#tagSub').attr('value');
 	f.tagMain01.value = tag;
 	f.itemCode01.value = code;
+	f.tagSub01.value = tagSub;
 	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
 	f.method="post";
 	f.submit();
@@ -159,6 +161,7 @@ $(function() {
 						</div>
 						<form name="paging">
 							<input type="hidden" name="tagMain01" value="">
+							<input type="hidden" name="tagSub01" value="">
 							<input type="hidden" name="itemCode01" value="">
 						</form>
 						<nav class="header__menus" data-v-7aa1f9b4="">
@@ -351,6 +354,7 @@ $(function() {
 														class="item for-loop-cloned-item-244">
 														<input type="hidden" value="${item.itemCode }" id="itemCode">
 														<input type="hidden" value="${item.tagMain }" id="tagMain">
+														<input type="hidden" value="${item.tagSub }" id="tagSub">
 														<div data-v-15082832="" class="for-loop-cloned-item-244">
 															<figure data-v-15082832=""
 																class="item__image for-loop-cloned-item-244">
@@ -445,6 +449,7 @@ $(function() {
 														class="item for-loop-cloned-item-244">
 														<input type="hidden" value="${item.itemCode }" id="itemCode">
 														<input type="hidden" value="${item.tagMain }" id="tagMain">
+														<input type="hidden" value="${item.tagSub }" id="tagSub">
 														<div data-v-15082832="" class="for-loop-cloned-item-244">
 															<figure data-v-15082832=""
 																class="item__image for-loop-cloned-item-244">

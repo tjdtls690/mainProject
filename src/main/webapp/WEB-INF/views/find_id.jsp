@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}/resources/signup" />
+<c:set var="path" value="${pageContext.request.contextPath}/resources/find_id" />
 <!DOCTYPE html>
 <html class="">
 <head>
 
-<title>salad:it-signup</title>
+<title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
-<meta data-n-head="ssr" name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
 <meta data-n-head="ssr" data-hid="subject" name="subject"
 	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
 <meta data-n-head="ssr" data-hid="author" name="author"
@@ -20,8 +18,6 @@
 	content="323001348061168">
 <meta data-n-head="ssr" data-hid="og:type" property="og:type"
 	content="website">
-<meta data-n-head="ssr" data-hid="og:url" property="og:url"
-	content="https://www.freshcode.me">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-16.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
@@ -36,12 +32,9 @@
 	href="/fc-favicon-152.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="/fc-favicon-196.png" sizes="196x196">
-<link rel="stylesheet" href="${path }/style.css?ver=1">
-<link rel="stylesheet" href="${path }/style2.css?ver=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
-<meta name ="google-signin-client_id" content="913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/api:client.js"></script>
+<link rel="stylesheet" href="${path }/style.css">
+<link rel="stylesheet" href="${path }/style2.css?ver=1">
 <script type="text/javascript">
 function page_move(tagNum){
    var f = document.paging; //폼 name
@@ -49,63 +42,68 @@ function page_move(tagNum){
    f.action="tapPage.do";//이동할 페이지
    f.method="post";//POST방식
    f.submit();
+};
+
+function request(){
+// 	var f = document.requestForm;
+// 	f.submit();
+
+	var name = $('#name').val();
+	var phone = $('#phone').val();
+
+	$.ajax({
+		url : 'requestInfoBefore.do',
+		type : 'post',
+		dataType : 'html',
+		data : {
+			'name' : name,
+			'phone' : phone
+		},
+		success : function(data){
+			if(data == 0){
+				alert("회원 정보가 일치하지 않습니다.");
+				$.ajax({
+					url : 'requestInfo.do',
+					dataType : 'html',
+					success : function(htmlOut){
+						$('.form-note.form-note--error').detach();
+						$('.form-fieldset').append(htmlOut);
+					}
+				})
+			}else if(data == 1){
+				alert("카카오로 가입된 계정입니다. 카카오로 로그인해 주세요.");
+				$(location).attr( "href" , "login.do" );
+			}else if(data == 2){
+				alert("구글로 가입된 계정입니다. 구글로 로그인해 주세요.");
+				$(location).attr( "href" , "login.do" );
+			}else{
+				// 여기부터 시작해야 함 
+				// 1. 에이작스로 문자로 이메일 보내주기
+				// 2. 문자 전송 완료 페이지로 이동
+			}
+		}
+	})
 }
- 
- var googleUser = {};
- var startApp = function() {
-   gapi.load('auth2', function(){
-     // Retrieve the singleton for the GoogleAuth library and set up the client.
-     auth2 = gapi.auth2.init({
-       client_id: '913977077783-na046o5f1kj357fl44qnt29vcljft4ht.apps.googleusercontent.com',
-       cookiepolicy: 'single_host_origin',
-       // Request scopes in addition to 'profile' and 'email'
-       //scope: 'additional_scope'
-     });
-     attachSignin(document.getElementById('customBtn'));
-   });
- };
-
- function attachSignin(element) {
-var name = "";
-var email = "";
-   console.log(element.id);
-   auth2.attachClickHandler(element, {},
-       function(googleUser) {
-          name = googleUser.getBasicProfile().getName() // 얘네들이 반환 값
-       email = googleUser.getBasicProfile().getEmail()
-         console.log(googleUser);
-          var form = document.createElement('form'); // 폼객체 생성
-          var objs;
-          objs = document.createElement('input'); // 값이 들어있는 녀석의 형식
-          objs.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-          objs.setAttribute('name', 'name'); // 객체이름
-          objs.setAttribute('value', name); //객체값
-          form.appendChild(objs);
-          var objs1;
-          objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
-          objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-          objs1.setAttribute('name', 'email'); // 객체이름
-          objs1.setAttribute('value', email); //객체값
-          form.appendChild(objs1);
-          form.setAttribute('method', 'post'); //get,post 가능
-          form.setAttribute('action', "googleLogin.do"); //보내는 url
-          document.body.appendChild(form);
-          form.submit();
-
-       }, function(error) {
-         alert(JSON.stringify(error, undefined, 2));
-       });
- }
- 
- function enterKey(){ 
-	loginForm.submit();
- }
-
 
 $(function(){
-	$('.first-order-banner').on('click', function(){
-		$(location).attr( "href" , "firstEvent01.do" );
+	$(document).on('click', '#closeFinalCheck', function(){
+		$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+		$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+		setTimeout(function() {
+			$('.swal2-container').detach();
+		}, 100);
 	})
+	
+	$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+		if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+				&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+		}
+	});
 	
 	$(document).on('click', '#sideEvent', function(){
 		$(location).attr("href", "event.do");
@@ -113,7 +111,7 @@ $(function(){
 	
 	$(document).on('click', '#sideBasket', function(){
 		$(location).attr("href", "basket.do");
-	})
+	});
 	
 	$(document).on('click', '.header__toggle-button', function(){
 		$('html').attr('class', 'mode-popup');
@@ -125,7 +123,6 @@ $(function(){
 			}
 		})
 	});
-	
 	$(document).on('click', '.side-nav__overlay', function(e){
 		if (!$(e.target).hasClass(".side-nav__wrap")) {
 			$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
@@ -139,6 +136,11 @@ $(function(){
 </script>
 </head>
 <body>
+	<noscript data-n-head="ssr" data-hid="gtm-noscript" data-pbody="true">
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWVZF4F&"
+			height="0" width="0" style="display: none; visibility: hidden"
+			title="gtm"></iframe>
+	</noscript>
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-1739428d="" class="viewport-none-footer">
@@ -247,49 +249,46 @@ $(function(){
 					<!---->
 				</header>
 				<!---->
-				<div data-v-1739428d="" class="container">
-					<article data-v-932ef6fa="" data-v-1739428d="" class="signup">
-						<header data-v-932ef6fa="" class="signup__header">
-							<h2 data-v-932ef6fa="">
-								<img data-v-932ef6fa="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG"
-									alt="FRESHCODE">
-							</h2>
-							<p data-v-932ef6fa="">프리미엄 샐러드 배송</p>
-						</header>
-						<nav data-v-932ef6fa="">
-							<button data-v-d3dff3a6="" id="login-gtm-kakao" type="button"
-								class="kakao-login-custom-btn" onclick="location.href='kakaoLogin.do' ">
-								<div data-v-d3dff3a6="" class="kakao-logo"></div>
-								<span data-v-d3dff3a6="">카카오로 3초만에 시작하기</span>
-							</button>
-							<img data-v-d3dff3a6=""
-								src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_login_event_logo.jpg"
-								alt="첫 주문 혜택 페이지로 가기" class="first-order-banner">
-							<div data-v-932ef6fa="" class="divider">
-								<span data-v-932ef6fa="">OR</span>
-							</div>
-							<button data-v-a1c889e0="" data-v-932ef6fa="" type="button"
-								title="" class="button signup__register-btn" onClick="location.href='signupWrite.do'">
-								<span data-v-a1c889e0="" class="button__wrap">이메일로 가입하기</span>
-							</button>
-							<!-- In the callback, you would hide the gSignInWrapper element on a successful sign in -->
-							<div id="gSignInWrapper">
-								<div id="customBtn" class="customGPlusSignIn">
-									<span class="icon"></span> <span class="buttonText">Google</span>
-								</div>
-								<script>startApp();</script>
-							</div>
-						</nav>
+				<div data-v-1739428d="" class="container"
+					style="padding-top: 182px;">
+					<article data-v-64c929d0="" data-v-1739428d="" class="find-idpw">
+						<div data-v-64c929d0="" class="find-idpw__wrap">
+							<header data-v-64c929d0="" class="find-idpw__header">
+								<h2 data-v-64c929d0="">아이디(이메일) 찾기</h2>
+								<p data-v-64c929d0="">
+									등록된 핸드폰 번호를 입력해 주시면<br data-v-64c929d0=""> 해당 번호로 이메일 주소를
+									보내드립니다.
+								</p>
+							</header>
+							<form data-v-64c929d0="" class="find-idpw__form" action="requestInfo.do" method="post" name="requestForm">
+								<fieldset data-v-64c929d0="" class="form-fieldset">
+									<legend data-v-64c929d0="">입력 폼</legend>
+									<div data-v-64c929d0="">
+										<input data-v-8bb17226="" data-v-64c929d0="" type="text" id="name" name="name"
+											placeholder="이름" autocorrect="off" autocapitalize="off" onkeypress="if( event.keyCode == 13 ){request();}"
+											class="input form-text"> <input data-v-8bb17226="" id="phone" name="phone"
+											data-v-64c929d0="" type="tel" placeholder="핸드폰 번호를 입력해주세요"
+											autocorrect="off" autocapitalize="off" onkeypress="if( event.keyCode == 13 ){request();}"
+											class="input form-text">
+									</div>
+									<!---->
+									<!---->
+									<!---->
+								</fieldset>
+								<nav data-v-64c929d0="">
+									<button data-v-a1c889e0="" data-v-64c929d0="" type="button"
+										title="" class="button" onclick="request();">
+										<span data-v-a1c889e0="" class="button__wrap">요청하기</span>
+									</button>
+								</nav>
+							</form>
+						</div>
 					</article>
 				</div>
 				<!---->
 			</main>
 		</div>
 	</div>
-	
-
-
-
 	<a class="custom-ch-btn" style="display: none">문의하기</a>
 </body>
 </html>

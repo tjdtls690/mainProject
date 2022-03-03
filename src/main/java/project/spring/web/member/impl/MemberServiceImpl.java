@@ -41,5 +41,15 @@ public class MemberServiceImpl implements MemberService {
 	public int passwordCheck(MemberVO vo) {
 		return memberDAO.passwordCheck(vo);
 	}
+
+	@Override
+	public int findEmail(MemberVO vo) {
+		return memberDAO.findEmail(vo);
+	}
+
+	@Override
+	public MemberVO phoneNameGetMember(MemberVO vo) {
+		return memberDAO.phoneNameGetMember(vo);
+	}
 	
 }

@@ -35,7 +35,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 	<link href="${path}/style1.css" rel="stylesheet" type="text/css" />
-	<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
+	<link href="${path}/style2.css?ver=2" rel="stylesheet" type="text/css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
@@ -224,7 +224,7 @@ $(function() {
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
 								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""

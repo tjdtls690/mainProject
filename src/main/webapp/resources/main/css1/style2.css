@@ -595,3 +595,58 @@ span.buttonText {
 	line-height: 16px;
 	font-weight: 300
 }
+
+.button__wrap[data-v-a1c889e0] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size : 15px;
+}
+
+.button[data-v-a1c889e0] {
+    display: block;
+    height: 48px;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #fff;
+    background: #35ad73;
+    border: 1px solid transparent;
+    transition: opacity .24s ease-out;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+button {
+    box-sizing: border-box;
+    overflow: visible;
+    padding: 0;
+    background: transparent;
+    border: 0 solid transparent;
+    text-shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent;
+}
+
+.button[type=button][data-v-a1c889e0], .button[type=reset][data-v-a1c889e0], .button[type=submit][data-v-a1c889e0] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.button--outline2[data-v-a1c889e0] {
+    background-color: transparent;
+    border-color: #35ad73;
+    color: #35ad73;
+}

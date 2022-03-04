@@ -409,3 +409,15 @@ span.buttonText {
 	border-radius: 2.5px;
 	margin-bottom: 7px
 }
+
+.button__wrap[data-v-a1c889e0] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size : 15px;
+}

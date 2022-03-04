@@ -52,7 +52,7 @@
   
   <link href="${path}/css1/style.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="${path}/css/bootstrap.css?ver=1">
-  <link href="${path}/css1/style2.css?ver=4" rel="stylesheet" type="text/css" />
+  <link href="${path}/css1/style2.css?ver=7" rel="stylesheet" type="text/css" />
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -65,6 +65,23 @@ function page_move(tagNum){
 }
 
 $(function() {
+// 	setTimeout(function() {
+// 		$('#rightButton01').trigger("click");
+// 	}, 4000);
+	
+	setInterval(function() {
+		$('#rightButton01').trigger("click");
+	}, 5000);
+	
+	setInterval(function() {
+		$('#rightButton02').trigger("click");
+	}, 5000);
+	
+// 	setTimeout(function() {
+// 		$('#rightButton02').trigger("click");
+// 	}, 4000);
+	
+	
     var lastScrollTop = 0,
     delta = 90;
     $(window).scroll(function(event){
@@ -144,11 +161,11 @@ $(function() {
 								<div class="header__top-right" data-v-30697495>
 									<c:choose>
 										<c:when test="${empty member.gender}">
-											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a href="aa.do" data-v-30697495="">회원가입</a>
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
 									<span data-v-30697495>1:1문의</span> 
@@ -338,7 +355,7 @@ $(function() {
 						<!---->
 					</header> 
 						<div class="home" id="home" data-v-75a55e4e data-v-0f5971ec>
-							<div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="500">
+							<div id="myCarousel" class="carousel slide" data-bs-interval="false" data-bs-wrap="true">
 						      <ol class="carousel-indicators">
 						          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -372,7 +389,7 @@ $(function() {
 						         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 						         <span class="sr-only">Previous</span>
 						      </a>
-						      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						      <a class="right carousel-control" id="rightButton01" href="#myCarousel" role="button" data-slide="next">
 						         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						         <span class="sr-only">Next</span>
 						      </a>
@@ -383,7 +400,7 @@ $(function() {
 										data-v-7b0f70b9>
 										<h2 data-v-7b0f70b9>MD 추천</h2>
 									</header>
-								   <div id="pCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-wrap="true">
+								   <div id="pCarousel" class="carousel slide" data-bs-interval="false" data-bs-wrap="true">
 								      <div class="carousel-inner">
 								         <div class="item active">
 								            <div class="section">
@@ -510,7 +527,7 @@ $(function() {
 								               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 								               <span class="sr-only">Previous</span>
 								            </a> 
-								            <a class="right carousel-control" href="#pCarousel" role="button" data-slide="next"> 
+								            <a class="right carousel-control" id="rightButton02" href="#pCarousel" role="button" data-slide="next"> 
 								               <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 								               <span class="sr-only">Next</span>
 								            </a>

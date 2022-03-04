@@ -76,14 +76,14 @@
 					<div data-v-93cadc98="" class="side-nav-member__nav">
 						<nav data-v-93cadc98="" class="row--v-center items">
 							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/orders" class=""><figure
+								<a data-v-93cadc98="" href="myPayInfo.do" class=""><figure
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
 											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Order+List.png" alt="history">
 									</figure> <span data-v-93cadc98="">주문내역</span></a>
 							</div>
 							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/delivery" class=""><figure
+								<a data-v-93cadc98="" href="myDelivery.do" class=""><figure
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
 											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Delivery+State.png"

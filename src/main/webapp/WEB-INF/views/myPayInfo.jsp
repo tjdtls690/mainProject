@@ -106,7 +106,7 @@ function page_move(tagNum){
     			if(window.innerWidth > 1023){
     				$(".header").css("top","-130px");
     			}else{
-    				$(".header").css("top","-50px");
+    				$(".header").css("top","0px");
     			}
     		}else{
     			$(".header").css("top","0px");
@@ -322,9 +322,9 @@ function page_move(tagNum){
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myCouponSearch.do" class="">쿠폰 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/review" class="">나의 후기</a></li>
+												href="myReviewSearch.do" class="">나의 후기</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/user/password" class="">회원정보 수정</a></li>
+												href="myMemberModify.do" class="">회원정보 수정</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#">로그아웃</a></li>
 										</ul>
 									</aside>

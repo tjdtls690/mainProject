@@ -19,10 +19,6 @@
    .header__logo a[data-v-7aa1f9b4] {
 	    height : 31px;
 	}
-	
-	.modal-header-slot .modal-header-slot-close[data-v-064d23aa] {
-	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_order-exit%402x.png);
-	}
 }
 
 @media ( min-width :1024px) {
@@ -66,14 +62,6 @@
 	.side-nav[data-v-2f05bf52] {
 		display: none
 	}
-	
-	.modal-header-slot .modal-header-slot-close[data-v-064d23aa] {
-	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_orderModal-exit-white%402x.png);
-	}
-}
-
-.hidden-div{
-	display : none;
 }
 
 span.icon {
@@ -87,13 +75,6 @@ span.icon {
 .header__logo a[data-v-7aa1f9b4] {
     background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG);
 }
-
-/* .delivery-desc-btn[data-v-064d23aa] { */
-/*     width: 24px; */
-/*     height: 24px; */
-/*     margin: 0 0 0 2px; */
-/*     cursor: pointer; */
-/* } */
 span.label {
   font-family: serif;
   font-weight: normal;

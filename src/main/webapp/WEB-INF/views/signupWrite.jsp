@@ -37,6 +37,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
+<link href="${path}/style2.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function emailCheck01(){
@@ -551,6 +552,51 @@ $(function(){
 			}, 100);
 		}
 	});
+	
+	$(document).on('click', '#sideEvent', function(){
+		$(location).attr("href", "event.do");
+	});
+	
+	$(document).on('click', '#sideBasket', function(){
+		$(location).attr("href", "basket.do");
+	})
+	
+	$(document).on('click', '.header__toggle-button', function(){
+		$('html').attr('class', 'mode-popup');
+		$.ajax({
+			url : 'sideMune.do',
+			dataType : 'html',
+			success : function(htmlOut){
+				$('#header-area').after(htmlOut);
+			}
+		})
+	});
+	$(document).on('click', '.side-nav__overlay', function(e){
+		if (!$(e.target).hasClass(".side-nav__wrap")) {
+			$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+			$('html').removeClass('mode-popup');
+			setTimeout(function() {
+				$('.side-nav').detach();
+			}, 350);
+		}
+	});
+
+	var lastScrollTop = 0,
+    	delta = 90;
+    	$(window).scroll(function(event){
+    		var st = $(this).scrollTop();
+    		if(Math.abs(lastScrollTop - st) <= delta) return;
+    		if((st > lastScrollTop) && (lastScrollTop > 0)){
+    			if(window.innerWidth > 1023){
+    				$(".header").css("top","-130px");
+    			}else{
+    				$(".header").css("top","-50px");
+    			}
+    		}else{
+    			$(".header").css("top","0px");
+    		}
+    		lastScrollTop = st;
+    	});
 });
 </script>
 </head>
@@ -563,37 +609,40 @@ $(function(){
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-1739428d="" class="viewport-none-footer">
-				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
+					<form name="paging">
+						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
+					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/user/signup" class="bbbb">회원가입</a> <a
-									data-v-7aa1f9b4="" href="/user/login" class="">로그인</a> <span
-									data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
+							
+								<c:choose>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
 									신청</a>
 							</div>
 						</div>
 						<!---->
 						<div data-v-7aa1f9b4="" class="header__logo">
-							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
 							<!---->
 						</div>
-						<form name="signupSuccess">
-							<input type="hidden" name="email" value="">
-							<input type="hidden" name="password" value="">
-							<input type="hidden" name="name" value="">
-							<input type="hidden" name="nickname" value="">
-							<input type="hidden" name="birthdayTmp" value="">
-							<input type="hidden" name="phone" value="">
-							<input type="hidden" name="gender" value="">
-							<input type="hidden" name="memberType" value="">
-						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -601,64 +650,62 @@ $(function(){
 									<div data-v-7aa1f9b4="" class="dropdown">
 										<ul data-v-7aa1f9b4="">
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu" class=""> 전체보기 </a></li>
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad" class=""> 샐러드 </a></li>
+												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/subscription" class="new"> 정기구독 </a></li>
+												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad-wrap" class="new"> 샌드위치·랩 </a></li>
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/meal" class="new"> 도시락·간편식 </a></li>
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soup" class=""> 죽·스프 </a></li>
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/set" class="new"> 세트상품 </a></li>
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/snack" class="new"> 간식 </a></li>
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/drink" class="new"> 음료 </a></li>
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/event" class="new"> 초코베리머치 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soon" class=""> 오픈예정 </a></li>
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="/menu/subscription" class="item">정기구독
-								</a><a data-v-7aa1f9b4="" href="/menu/salad" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="/menu/salad-wrap" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="/event" class="item">이벤트 </a><a
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
-								<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-									data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
-									style="width: 24px; height: 24px;">
+									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
-									href="/cart" class="cart-logo-wrap item"><div
+									href="basket.do" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 										<!---->
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="/order" class="item"><div
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
 										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
-							<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-								data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
-								style="width: 24px; height: 24px;"></a> <a data-v-7aa1f9b4=""
-								href="/cart" class="cart-logo-wrap item"><div
+								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
 									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 									<!---->
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="/images/header-img/menu_new@2x.png" alt="user-menu"
-										style="width: 24px; height: 24px;">
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
 								</button>
 							</nav>
 						</div>
@@ -670,12 +717,11 @@ $(function(){
 					<input type=hidden value="${memberType }" id="member_type">
 				</header>
 				<!---->
-				<div data-v-1739428d="" class="container"
-					style="padding-top: 182px;">
+				<div data-v-1739428d="" class="container">
 					<article data-v-5781a129="" data-v-1739428d="" class="register">
 						<header data-v-5781a129="" class="register__header">
 							<h2 data-v-5781a129="">
-								<img data-v-5781a129="" src="/images/logo/logo_new@2x.png"
+								<img data-v-5781a129="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG"
 									alt="FRESHCODE">
 							</h2>
 							<p data-v-5781a129="">프리미엄 샐러드 배송</p>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}/resources/myPayInfo"/>
+<c:set var="path" value="${pageContext.request.contextPath}/resources/myReviewSearch"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,14 +14,14 @@
 	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
 <meta data-n-head="ssr" data-hid="author" name="author"
 	content="https://www.freshcode.me">
-<meta data-n-head="ssr" data-hid="og:type" property="og:type"
-	content="website">
-<meta data-n-head="ssr" data-hid="og:url" property="og:url"
-	content="https://www.freshcode.me">
 <meta data-n-head="ssr" data-hid="og:site_name" property="og:site_name"
 	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
 <meta data-n-head="ssr" data-hid="fb:app_id" property="fb:app_id"
 	content="323001348061168">
+<meta data-n-head="ssr" data-hid="og:type" property="og:type"
+	content="website">
+<meta data-n-head="ssr" data-hid="og:url" property="og:url"
+	content="https://www.freshcode.me">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
@@ -41,79 +41,79 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
-   var f = document.paging; //폼 name
-   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
-   f.action="tapPage.do";//이동할 페이지
-   f.method="post";//POST방식
-   f.submit();
-}
+	   var f = document.paging; //폼 name
+	   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+	   f.action="tapPage.do";//이동할 페이지
+	   f.method="post";//POST방식
+	   f.submit();
+	}
 
-	$(function(){
-		$(document).on('click', '#closeFinalCheck', function(){
-			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
-			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
-			setTimeout(function() {
-				$('.swal2-container').detach();
-			}, 100);
-		})
-		
-		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
-			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
-					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+		$(function(){
+			$(document).on('click', '#closeFinalCheck', function(){
 				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
 				setTimeout(function() {
 					$('.swal2-container').detach();
 				}, 100);
-			}
-		});
-
-
-		$(document).on('click', '#sideEvent', function(){
-			$(location).attr("href", "event.do");
-		});
-		
-		$(document).on('click', '#sideBasket', function(){
-			$(location).attr("href", "basket.do");
-		})
-		
-		$(document).on('click', '.header__toggle-button', function(){
-			$('html').attr('class', 'mode-popup');
-			$.ajax({
-				url : 'sideMune.do',
-				dataType : 'html',
-				success : function(htmlOut){
-					$('#header-area').after(htmlOut);
-				}
 			})
-		});
-		$(document).on('click', '.side-nav__overlay', function(e){
-			if (!$(e.target).hasClass(".side-nav__wrap")) {
-				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
-				$('html').removeClass('mode-popup');
-				setTimeout(function() {
-					$('.side-nav').detach();
-				}, 350);
-			}
-		});
+			
+			$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+				if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+						&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+					$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+					$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+					setTimeout(function() {
+						$('.swal2-container').detach();
+					}, 100);
+				}
+			});
 
-		var lastScrollTop = 0,
-    	delta = 90;
-    	$(window).scroll(function(event){
-    		var st = $(this).scrollTop();
-    		if(Math.abs(lastScrollTop - st) <= delta) return;
-    		if((st > lastScrollTop) && (lastScrollTop > 0)){
-    			if(window.innerWidth > 1023){
-    				$(".header").css("top","-130px");
-    			}else{
-    				$(".header").css("top","0px");
-    			}
-    		}else{
-    			$(".header").css("top","0px");
-    		}
-    		lastScrollTop = st;
-    	});
-	})
+
+			$(document).on('click', '#sideEvent', function(){
+				$(location).attr("href", "event.do");
+			});
+			
+			$(document).on('click', '#sideBasket', function(){
+				$(location).attr("href", "basket.do");
+			})
+			
+			$(document).on('click', '.header__toggle-button', function(){
+				$('html').attr('class', 'mode-popup');
+				$.ajax({
+					url : 'sideMune.do',
+					dataType : 'html',
+					success : function(htmlOut){
+						$('#header-area').after(htmlOut);
+					}
+				})
+			});
+			$(document).on('click', '.side-nav__overlay', function(e){
+				if (!$(e.target).hasClass(".side-nav__wrap")) {
+					$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+					$('html').removeClass('mode-popup');
+					setTimeout(function() {
+						$('.side-nav').detach();
+					}, 350);
+				}
+			});
+
+			var lastScrollTop = 0,
+	    	delta = 90;
+	    	$(window).scroll(function(event){
+	    		var st = $(this).scrollTop();
+	    		if(Math.abs(lastScrollTop - st) <= delta) return;
+	    		if((st > lastScrollTop) && (lastScrollTop > 0)){
+	    			if(window.innerWidth > 1023){
+	    				$(".header").css("top","-130px");
+	    			}else{
+	    				$(".header").css("top","0px");
+	    			}
+	    		}else{
+	    			$(".header").css("top","0px");
+	    		}
+	    		lastScrollTop = st;
+	    	});
+		})
 </script>
 </head>
 <body>
@@ -229,8 +229,9 @@ function page_move(tagNum){
 					<!---->
 					<!---->
 				</header>
-				<div class="container" data-v-0f5971ec="">
-					<div data-v-421abad8="" data-v-2e392260="" data-v-0f5971ec=""
+				<div class="container" style="padding-top: 182px;"
+					data-v-0f5971ec="">
+					<div data-v-421abad8="" data-v-d06869c8="" data-v-0f5971ec=""
 						class="mypage-layout">
 						<div data-v-3e2784be="" data-v-421abad8=""
 							class="mypage-header mypage-layout__header">
@@ -330,135 +331,49 @@ function page_move(tagNum){
 									</aside>
 								</aside>
 								<div data-v-421abad8="" class="mypage-layout__body">
-									<article data-v-2e392260="" data-v-421abad8="" class="orders">
-										<header data-v-2c0651a8="" data-v-2e392260=""
+									<article data-v-d06869c8="" data-v-421abad8=""
+										class="review-index">
+										<header data-v-2c0651a8="" data-v-d06869c8=""
 											class="row--v-center page-header" data-v-421abad8="">
 											<!---->
 											<!---->
-											<h2 data-v-2c0651a8="" class="col">주문/결제 내역</h2>
+											<h2 data-v-2c0651a8="" class="col">나의 후기</h2>
 											<!---->
 										</header>
-										<nav data-v-610ea6d8="" data-v-2e392260=""
-											class="nav-tab mypage-destination__tab" data-v-421abad8="">
+										<p data-v-d06869c8="" data-v-421abad8="" id="page-description"
+											class="page-description">
+											[일반상품] 텍스트후기: 100 포인트 / 이미지후기: 300 포인트<br data-v-d06869c8=""
+												data-v-421abad8=""> [정기배송] 텍스트후기: 1,000 포인트 / 이미지후기:
+											3,000 포인트
+										</p>
+										<nav data-v-610ea6d8="" data-v-d06869c8=""
+											class="nav-tab review-index__tab" data-v-421abad8="">
 											<div data-v-610ea6d8="" class="nav-tab__wrap">
 												<div data-v-610ea6d8="" class="on">
 													<button data-v-610ea6d8="" type="button">
-														<span data-v-610ea6d8="">일반주문</span>
+														<span data-v-610ea6d8="">후기작성 <em
+															style="font-size: 14px; font-family: Roboto"></em></span>
 													</button>
 												</div>
 												<div data-v-610ea6d8="" class="">
 													<button data-v-610ea6d8="" type="button">
-														<span data-v-610ea6d8="">정기배송주문</span>
+														<span data-v-610ea6d8="">작성한 후기 <em></em></span>
 													</button>
 												</div>
 											</div>
 										</nav>
-										<!---->
-										<ul data-v-2e392260="" data-v-421abad8="" class="orders__body">
-											<li data-v-2e392260="" data-v-421abad8=""><div
-													data-v-72acf1f8="" data-v-2e392260="" class="orders-item"
-													data-v-421abad8="">
-													<div data-v-72acf1f8="" class="orders-item__wrap">
-														<figure data-v-72acf1f8="" class="orders-item__image">
-															<a data-v-72acf1f8="" href="/mypage/order/810829"
-																class=""><i data-v-72acf1f8=""
-																style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/601_20220222112331.png&quot;);"></i></a>
-														</figure>
-														<div data-v-72acf1f8="" class="orders-item__top">
-															<div data-v-72acf1f8="" class="row--v-center">
-																<span data-v-72acf1f8=""
-																	style="font-family: Roboto, sans-serif;">2022/01/25</span>
-																<div data-v-72acf1f8="" class="row--v-center">
-																	<span data-v-7f86e76e="" data-v-72acf1f8=""
-																		class="round-text round-text--color-parcel">택배배송</span>
-																	<!---->
-																</div>
-															</div>
-															<a data-v-72acf1f8="" href="/mypage/order/810829"
-																class="row--v-center"><span data-v-72acf1f8="">주문상세보기</span>
-																<svg data-v-72acf1f8=""
-																	xmlns="http://www.w3.org/2000/svg" width="24"
-																	height="24" viewBox="0 0 24 24"
-																	aria-labelledby="arrow-right-1" role="presentation"
-																	class="icon">
-																	<g fill="none" fill-rule="evenodd"> <path
-																		stroke="currentColor" stroke-linecap="round"
-																		stroke-linejoin="round" d="M10 6l5.964 5.964-5.964 6"></path></g></svg></a>
-														</div>
-														<div data-v-72acf1f8=""
-															class="order-item-contents-container">
-															<div data-v-72acf1f8=""
-																class="order-item-contents-wrapper">
-																<a data-v-72acf1f8="" href="/mypage/order/810829"
-																	class="orders-item__head"><strong
-																	data-v-72acf1f8="">[프코메이드] 더블 다크 초코칩 쿠키(1개) 1개
-																		외 2개</strong> <span data-v-72acf1f8=""
-																	class="orders-item__info-price only-desktop"><em
-																		data-v-72acf1f8="">14,900</em>원</span></a>
-																<div data-v-72acf1f8=""
-																	class="order-item-complete-text-container">
-																	<div data-v-72acf1f8=""
-																		class="complete-order-text-wrapper">
-																		<span data-v-72acf1f8=""
-																			class="complete-order-text only-desktop complete">배송완료</span>
-																	</div>
-																</div>
-															</div>
-															<div data-v-72acf1f8=""
-																class="orders-item__info only-mobile">
-																<span data-v-72acf1f8="" class="orders-item__info-price"><em
-																	data-v-72acf1f8="">14,900</em>원</span>
-																<div data-v-72acf1f8="">
-																	<div data-v-72acf1f8=""
-																		class="order-item-complete-text-container">
-																		<div data-v-72acf1f8=""
-																			class="complete-order-text-wrapper">
-																			<span data-v-72acf1f8=""
-																				class="complete-order-text complete">배송완료</span>
-																			<!---->
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<!---->
-												</div></li>
-										</ul>
-										<!---->
-										<div data-v-20ad18c6="" data-v-2e392260=""
-											class="nav-paginate-wrap" data-v-421abad8="">
-											<div data-v-20ad18c6="" class="nav-paginate-wrap__mobile">
-												<nav data-v-43f58a9c="" data-v-20ad18c6=""
-													class="nav-paginate">
-													<a data-v-43f58a9c="" href="#"
-														class="nav-paginate__dir nav-paginate-dir-prev"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-left@2x.png" alt="이전 페이지"
-														class="nav-arrow arrow-left"></a> <strong
-														data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
-														href="#" class="nav-paginate__dir nav-paginate-dir-next"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-right@2x.png" alt="다음 페이지"
-														class="nav-arrow arrow-right"></a>
-												</nav>
-											</div>
-											<div data-v-20ad18c6="" class="nav-paginate-wrap__desktop">
-												<nav data-v-43f58a9c="" data-v-20ad18c6=""
-													class="nav-paginate">
-													<a data-v-43f58a9c="" href="#"
-														class="nav-paginate__dir nav-paginate-dir-prev"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-left@2x.png" alt="이전 페이지"
-														class="nav-arrow arrow-left"></a> <strong
-														data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
-														href="#" class="nav-paginate__dir nav-paginate-dir-next"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-right@2x.png" alt="다음 페이지"
-														class="nav-arrow arrow-right"></a>
-												</nav>
-											</div>
+										<div data-v-6b53621a="" data-v-d06869c8="" class="error-list"
+											data-v-421abad8="">
+											<p data-v-6b53621a="">작성가능한 후기가 없습니다.</p>
 										</div>
+										<nav data-v-d06869c8="" data-v-421abad8=""
+											class="review-index__more">
+											<button data-v-a1c889e0="" data-v-d06869c8="" type="button"
+												title="" class="button button--color-none"
+												data-v-421abad8="">
+												<span data-v-a1c889e0="" class="button__wrap">더보기</span>
+											</button>
+										</nav>
 									</article>
 								</div>
 							</div>

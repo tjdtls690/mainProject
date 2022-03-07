@@ -92,35 +92,14 @@
 									</figure> <span data-v-93cadc98="">배송현황</span></a>
 							</div>
 							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/destination" class=""><figure
-										data-v-93cadc98="">
-										<img data-v-93cadc98=""
-											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Locate+Mng.png" alt="spot">
-									</figure> <span data-v-93cadc98="">배송지 관리</span></a>
-							</div>
-							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/spot-req" class=""><figure
-										data-v-93cadc98="">
-										<img data-v-93cadc98=""
-											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Spot.png" alt="spot-req">
-									</figure> <span data-v-93cadc98="">스팟신청 현황</span></a>
-							</div>
-							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/cards" class=""><figure
-										data-v-93cadc98="">
-										<img data-v-93cadc98=""
-											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Card+Mng.png" alt="card">
-									</figure> <span data-v-93cadc98="">카드 관리</span></a>
-							</div>
-							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/points" class=""><figure
+								<a data-v-93cadc98="" href="myPointSearch.do" class=""><figure
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
 											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Point.png" alt="point">
 									</figure> <span data-v-93cadc98="">포인트 조회</span></a>
 							</div>
 							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/coupons" class=""><figure
+								<a data-v-93cadc98="" href="myCouponSearch.do" class=""><figure
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
 											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Coupon.png" alt="coupon">
@@ -128,7 +107,7 @@
 									</figure> <span data-v-93cadc98="">쿠폰 조회</span></a>
 							</div>
 							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/review" class=""><figure
+								<a data-v-93cadc98="" href="myReviewSearch.do" class=""><figure
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
 											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Review.png" alt="review">
@@ -157,7 +136,7 @@
 						<li data-v-1fc516f9="" onclick="location.href='basket.do'"><span data-v-1fc516f9="">장바구니</span></li>
 <!-- 						<li data-v-1fc516f9="" onclick="location.href='kakaoLogin.do'"><span data-v-1fc516f9="">1:1 -->
 <!-- 								문의하기</span></li> -->
-						<li data-v-1fc516f9=""><span data-v-1fc516f9="" class="">
+						<li data-v-1fc516f9="" onclick="location.href='myMemberModify.do'"><span data-v-1fc516f9="">
 								회원정보 수정 </span></li>
 						<li data-v-1fc516f9="" class="logout"><span
 							data-v-1fc516f9="">로그아웃</span></li>

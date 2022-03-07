@@ -32,4 +32,10 @@ public class TapPageDAO {
 	public List<TapPageVO> getRandom2(TapPageVO vo) {
 		return sqlSessionTemplate.selectList("TapPageDAO.getRandom2",vo);
 	}
+	public TapPageVO getItemInfoOne01(TapPageVO vo) {
+		return sqlSessionTemplate.selectOne("TapPageDAO.getItemInfoOne01",vo);
+	}
+	public TapPageVO getItemInfoOne02(TapPageVO vo) {
+		return sqlSessionTemplate.selectOne("TapPageDAO.getItemInfoOne02",vo);
+	}
 }

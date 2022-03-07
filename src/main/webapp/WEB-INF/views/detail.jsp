@@ -17,6 +17,7 @@
    <link rel="stylesheet" href="${path }/style.css">
    <link rel="stylesheet" href="${path }/hmm2.css">
    <link rel="stylesheet" href="${path }/style2.css?ver=2">
+   
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
    
@@ -393,14 +394,14 @@
 <!--                form태그 -->
 <!--                form태그 -->
 <!--                form태그 -->
-               	<form name="passNum">
-					<input type="hidden" name="tagMain" value="">
-					<input type="hidden" name="itemCode" value="">
-			 	</form>
-			 	<form name="paging">
-					<input type="hidden" name="tagMain01" value="">
-					<input type="hidden" name="itemCode01" value="">
-				</form>
+<!--                	<form name="passNum"> -->
+<!-- 					<input type="hidden" name="tagMain" value=""> -->
+<!-- 					<input type="hidden" name="itemCode" value=""> -->
+<!-- 			 	</form> -->
+<!-- 			 	<form name="paging"> -->
+<!-- 					<input type="hidden" name="tagMain01" value=""> -->
+<!-- 					<input type="hidden" name="itemCode01" value=""> -->
+<!-- 				</form> -->
                <nav class="header__menus" data-v-30697495>
                   <div data-v-30697495>
                      <div class="dropdown" data-v-30697495>
@@ -791,21 +792,13 @@
                                         <div data-v-79f00ef9 class="detail-wrapper">
                                             <div data-v-79f00ef9 id="bundle-detail" class="detail">
                                                 <div data-v-79f00ef9 class="img-wrapper">
+                                                <c:forEach var="showImage" items="${showImage }">
                                                     <div data-v-79f00ef9 id>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11633_20220105113601" class="img-fade">
+                                                        <img data-v-79f00ef9 src="${showImage }" class="img-fade">
                                                     </div>
-                                                    <div data-v-79f00ef9 id>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11634_20220105113601" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9 id>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11635_20220105113602" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11636_20220105113611" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/4766_20210111105602" class="img-fade">
-                                                    </div>
+                                                </c:forEach>
+                                        
+                                                    
 <!--                                                     <div data-v-79f00ef9 class="shadow"></div> -->
                                                 </div>
                                             </div>

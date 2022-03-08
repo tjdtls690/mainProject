@@ -7,7 +7,7 @@
 <html class="">
 <head>
 
-<title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
+<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
@@ -22,22 +22,31 @@
 <meta data-n-head="ssr" data-hid="fb:app_id" property="fb:app_id"
 	content="323001348061168">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-16.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-24.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-32.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-57.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-120.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-152.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-196.png" sizes="196x196">
-<link rel="stylesheet" href="${path }/style2.css">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
+<link rel="stylesheet" href="${path }/style.css">
+<link rel="stylesheet" href="${path }/style3.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+function page_move(tagNum){
+   var f = document.paging; //폼 name
+   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+   f.action="tapPage.do";//이동할 페이지
+   f.method="post";//POST방식
+   f.submit();
+}
+
 $(document).on('click', 'article.item', function(){ // 상세페이지와 연계되는 기능
 	var f = document.paging;
 	var code = $(this).children('#itemCode').attr('value');
@@ -125,37 +134,120 @@ $(function(){
     	    })
         }
     });
+	 
+	 $('.text-clear-btn').on('click', function(){
+		 $('#search-input').val('');
+	 })
+	 
+	 $('.back-btn').on('click', function(){
+		 $(location).attr("href", "main.do");
+	 })
+	 
+	 $(document).on('click', '#closeFinalCheck', function(){
+			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+		})
+		
+		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+				setTimeout(function() {
+					$('.swal2-container').detach();
+				}, 100);
+			}
+		});
+
+
+		$(document).on('click', '#sideEvent', function(){
+			$(location).attr("href", "event.do");
+		});
+		
+		$(document).on('click', '#sideBasket', function(){
+			$(location).attr("href", "basket.do");
+		})
+		
+		$(document).on('click', '.header__toggle-button', function(){
+			$('html').attr('class', 'mode-popup');
+			$.ajax({
+				url : 'sideMune.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('#header-area').after(htmlOut);
+				}
+			})
+		});
+		$(document).on('click', '.side-nav__overlay', function(e){
+			if (!$(e.target).hasClass(".side-nav__wrap")) {
+				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+				$('html').removeClass('mode-popup');
+				setTimeout(function() {
+					$('.side-nav').detach();
+				}, 350);
+			}
+		});
+
+		var lastScrollTop = 0,
+	    	delta = 90;
+	    	$(window).scroll(function(event){
+	    		var st = $(this).scrollTop();
+	    		if(Math.abs(lastScrollTop - st) <= delta) return;
+	    		if((st > lastScrollTop) && (lastScrollTop > 0)){
+	    			if(window.innerWidth > 1023){
+	    				$(".header").css("top","-130px");
+	    			}else{
+	    				$(".header").css("top","0px");
+	    			}
+	    		}else{
+	    			$(".header").css("top","0px");
+	    		}
+	    		lastScrollTop = st;
+	    	});
+	 
 })  
 </script>
 <body class="" style="padding-right: 0px;">
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-0f5971ec="" class="viewport">
-				<header data-v-7aa1f9b4="" data-v-0f5971ec="" id="header-area"
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
+					<form name="paging">
+						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
+					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/mypage/orders" class="">신준혁 <span
-									data-v-7aa1f9b4="">님</span></a> <span data-v-7aa1f9b4="">1:1문의</span>
-								<a data-v-7aa1f9b4="" href="https://forms.gle/92o1ctx6U4CYe2yF9"
-									target="_blank">B2B 신청</a>
+							
+								<c:choose>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
+									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
+									신청</a>
 							</div>
 						</div>
 						<!---->
 						<div data-v-7aa1f9b4="" class="header__logo">
-							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
 							<!---->
 						</div>
-						<form name="paging">
-							<input type="hidden" name="tagMain01" value="">
-							<input type="hidden" name="itemCode01" value="">
-							<input type="hidden" name="tagSub01" value="">
-						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -163,66 +255,62 @@ $(function(){
 									<div data-v-7aa1f9b4="" class="dropdown">
 										<ul data-v-7aa1f9b4="">
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu" class=""> 전체보기 </a></li>
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad" class=""> 샐러드 </a></li>
+												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/subscription" class="new"> 정기구독 </a></li>
+												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad-wrap" class="new"> 샌드위치·랩 </a></li>
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/meal" class="new"> 도시락·간편식 </a></li>
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soup" class=""> 죽·스프 </a></li>
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/set" class="new"> 세트상품 </a></li>
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/snack" class="new"> 간식 </a></li>
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/drink" class="new"> 음료 </a></li>
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/event" class="new"> 초코베리머치 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soon" class=""> 오픈예정 </a></li>
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="/menu/subscription" class="item">정기구독
-								</a><a data-v-7aa1f9b4="" href="/menu/salad" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="/menu/salad-wrap" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="/event" class="item">이벤트 </a><a
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
-								<a data-v-7aa1f9b4="" href="/search"
-									class="search-logo nuxt-link-exact-active nuxt-link-active"
-									aria-current="page"><img data-v-7aa1f9b4=""
-									src="/images/ic-navi-search@3x.png" alt="메뉴 검색"
-									class="search-logo-img" style="width: 24px; height: 24px;">
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+									alt="메뉴 검색" class="search-logo-img"
+									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
-									href="/cart" class="cart-logo-wrap item"><div
-										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo">
-										<div data-v-7aa1f9b4="" class="cart-logo-count">3</div>
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="/order" class="item"><div
+									href="basket.do" class="cart-logo-wrap item"><div
+										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+										<!---->
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
 										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
-							<a data-v-7aa1f9b4="" href="/search"
-								class="search-logo nuxt-link-exact-active nuxt-link-active"
-								aria-current="page"><img data-v-7aa1f9b4=""
-								src="/images/ic-navi-search@3x.png" alt="메뉴 검색"
-								class="search-logo-img" style="width: 24px; height: 24px;"></a>
-							<a data-v-7aa1f9b4="" href="/cart" class="cart-logo-wrap item"><div
-									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo">
-									<div data-v-7aa1f9b4="" class="cart-logo-count">3</div>
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+								alt="메뉴 검색" class="search-logo-img"
+								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
+									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+									<!---->
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="/images/header-img/menu_new@2x.png" alt="user-menu"
-										style="width: 24px; height: 24px;">
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
 								</button>
 							</nav>
 						</div>
@@ -232,18 +320,16 @@ $(function(){
 					<!---->
 					<!---->
 				</header>
-				<div data-v-0f5971ec="" class="container"
-					style="padding-top: 182px;">
 					<div data-v-6e61822c="" data-v-0f5971ec="" class="container">
 						<div data-v-6e61822c="" class="search-container">
 							<header data-v-6e61822c="" class="header-wrap">
 								<div data-v-6e61822c="" class="desktop-header-title">검색</div>
 								<div data-v-6e61822c="" class="input-wrap">
-									<img data-v-6e61822c="" src="/images/ic-navi-arrow-left@3x.png"
+									<img data-v-6e61822c="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search-arrow-left.png"
 										alt="뒤로가기" class="back-btn"> <input data-v-6e61822c=""
 										id="search-input" placeholder="원하시는 상품을 검색해보세요." type="text"
 										class="search-input"> <img data-v-6e61822c=""
-										src="/images/ic-search-delete@3x.png" alt="검색어 지우기"
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_close.png" alt="검색어 지우기"
 										class="text-clear-btn">
 								</div>
 							</header>
@@ -253,668 +339,68 @@ $(function(){
 									<div data-v-6e61822c="" class="md-reco-wrap">
 										<div data-v-6e61822c="" class="md-reco-title">MD추천</div>
 										<ul data-v-6e61822c="" class="md-reco-list">
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-825">
-													<div data-v-15082832="" class="for-loop-cloned-item-825">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-825">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-825">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/825_20211227173835"
-																alt=" [새벽/정기구독] 600kcal 유지어터"
-																title=" [새벽/정기구독] 600kcal 유지어터"
-																class="for-loop-cloned-item-825">
-															<!---->
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-825">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-825"> [새벽/정기구독]
-																600kcal 유지어터</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-825 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-825 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-825">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-825">68,352원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-825">71,200</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-825">[기간]
-																1주-8주 / [배송] 주 2회 / [사이즈] M L Size</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-825 row--v-center row--h-between">
+										
+											<c:forEach var="item" items="${mdInfo }">
+												<li data-v-6e61822c="" class="md-reco-item"><article
+														data-v-15082832="" data-v-6e61822c=""
+														class="item for-loop-cloned-item-825">
+														<input type="hidden" value="${item.itemCode }" id="itemCode">
+														<input type="hidden" value="${item.tagMain }" id="tagMain">
+														<input type="hidden" value="${item.tagSub }" id="tagSub">
+														<div data-v-15082832="" class="for-loop-cloned-item-825">
+															<figure data-v-15082832=""
+																class="item__image for-loop-cloned-item-825">
 																<div data-v-15082832=""
-																	class="for-loop-cloned-item-825 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-825 star-info">4.8</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-825 review-info">2,823</span>
+																	class="item-badge for-loop-cloned-item-825">
+																	<!---->
 																</div>
+																<img data-v-15082832=""
+																	src="${item.itemImage }"
+																	alt=" ${item.itemName }"
+																	title=" ${item.itemName }"
+																	class="for-loop-cloned-item-825">
 																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-818">
-													<div data-v-15082832="" class="for-loop-cloned-item-818">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-818">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-818">
 																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/818_20211227174326"
-																alt="[새벽/정기구독] 한끼 샐러드/샌드위치 교차"
-																title="[새벽/정기구독] 한끼 샐러드/샌드위치 교차"
-																class="for-loop-cloned-item-818">
-															<!---->
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-818">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-818">[새벽/정기구독] 한끼
-																샐러드/샌드위치 교차</strong>
+															</figure>
 															<div data-v-15082832=""
-																class="for-loop-cloned-item-818 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-818 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-818">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-818">38,606원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-818">39,800</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-818">[기간]
-																1주-8주 / [배송] 주 2회 / [사이즈] M L Size</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-818 row--v-center row--h-between">
+																class="item__body for-loop-cloned-item-825">
+																<!---->
+																<strong data-v-15082832=""
+																	class="for-loop-cloned-item-825"> ${item.itemName }</strong>
 																<div data-v-15082832=""
-																	class="for-loop-cloned-item-818 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-818 star-info">4.8</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-818 review-info">2,881</span>
+																	class="for-loop-cloned-item-825 options">
+																	<dl data-v-15082832=""
+																		class="for-loop-cloned-item-825 row--v">
+																		<dd data-v-15082832="" class="for-loop-cloned-item-825">
+																			<em data-v-15082832=""
+																				class="for-loop-cloned-item-825">${item.itemPriceM }원</em>~ <span
+																				data-v-15082832="" class="for-loop-cloned-item-825">
+																				<c:if test="${item.itemPriceMSub ne ''}">
+																						${item.itemPriceMSub }
+																				</c:if>
+																			</span>
+																		</dd>
+																	</dl>
 																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-441">
-													<div data-v-15082832="" class="for-loop-cloned-item-441">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-441">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-441">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/441_20211227174934"
-																alt="[스팟/정기구독] 한끼 샐러드 주4일" title="[스팟/정기구독] 한끼 샐러드 주4일"
-																class="for-loop-cloned-item-441">
-															<!---->
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-441">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-441">[스팟/정기구독] 한끼
-																샐러드 주4일</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-441 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-441 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-441">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-441">25,220원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-441">26,000</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-441">[기간]
-																1주-8주 / [배송] 주 2회 / [사이즈] M or L Size</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-441 row--v-center row--h-between">
+																<span data-v-15082832="" class="for-loop-cloned-item-825">${item.itemSummary }</span>
 																<div data-v-15082832=""
-																	class="for-loop-cloned-item-441 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-441 star-info">4.8</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-441 review-info">3,206</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-823">
-													<div data-v-15082832="" class="for-loop-cloned-item-823">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-823">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-823">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/823_20211227173920"
-																alt=" [스팟/정기구독] 두끼 샐러드+샌드위치"
-																title=" [스팟/정기구독] 두끼 샐러드+샌드위치"
-																class="for-loop-cloned-item-823">
-															<!---->
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-823">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-823"> [스팟/정기구독] 두끼
-																샐러드+샌드위치</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-823 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-823 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-823">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-823">38,592원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-823">40,200</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-823">[기간]
-																1주-8주 / [배송] 주 5회 / [사이즈] M L Size</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-823 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-823 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-823 star-info">4.8</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-823 review-info">2,824</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-181">
-													<div data-v-15082832="" class="for-loop-cloned-item-181">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-181">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-181">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/181_20220217145549.jpg"
-																alt="샐러드와 고구마 든든세트" title="샐러드와 고구마 든든세트"
-																class="for-loop-cloned-item-181">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-181"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-181">
-															<div data-v-29c2185a="" data-v-15082832=""
-																style="position: relative; z-index: 1;">
-																<div data-v-29c2185a="" class="move-balloon">
-																	<span data-v-29c2185a="" class="tooltip-text-orange"
-																		style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">리뉴얼
-																		5% 쿠폰</span>
-																</div>
-															</div>
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-181">샐러드와 고구마 든든세트</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-181 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-181 row--v">
-																	<dd data-v-15082832=""
-																		class="for-loop-cloned-item-181 col-12">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-181">10,130원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-181">10,900</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-181">샐러드와
-																고구마로 챙기는 든든한 한 끼 </span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-181 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-181 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-181 star-info">4.7</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-181 review-info">304</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-172">
-													<div data-v-15082832="" class="for-loop-cloned-item-172">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-172">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-172">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/172_20220217150447.jpg"
-																alt="샐러드와 계란 촉촉세트" title="샐러드와 계란 촉촉세트"
-																class="for-loop-cloned-item-172">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-172"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-172">
-															<div data-v-29c2185a="" data-v-15082832=""
-																style="position: relative; z-index: 1;">
-																<div data-v-29c2185a="" class="move-balloon">
-																	<span data-v-29c2185a="" class="tooltip-text-orange"
-																		style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">리뉴얼
-																		5% 쿠폰</span>
-																</div>
-															</div>
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-172">샐러드와 계란 촉촉세트</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-172 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-172 row--v">
-																	<dd data-v-15082832=""
-																		class="for-loop-cloned-item-172 col-12">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-172">9,760원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-172">10,500</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-172">샐러드와
-																계란으로 챙기는 건강한 한 끼</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-172 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-172 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-172 star-info">4.8</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-172 review-info">323</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-782">
-													<div data-v-15082832="" class="for-loop-cloned-item-782">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-782">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-782">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/782_20220124095906"
-																alt="프리미엄 샐러드 3종 세트" title="프리미엄 샐러드 3종 세트"
-																class="for-loop-cloned-item-782">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-782"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-782">
-															<div data-v-29c2185a="" data-v-15082832=""
-																style="position: relative; z-index: 1;">
-																<div data-v-29c2185a="" class="move-balloon">
-																	<span data-v-29c2185a="" class="tooltip-text-orange"
-																		style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">리뉴얼
-																		5% 쿠폰</span>
-																</div>
-															</div>
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-782">프리미엄 샐러드 3종 세트</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-782 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-782 row--v">
-																	<dd data-v-15082832=""
-																		class="for-loop-cloned-item-782 col-12">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-782">23,900원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-782">25,700</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-782">훈제연어,
-																갈릭쉬림프, 파인애플 한번에 만나보기</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-782 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-782 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-782 star-info">4.8</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-782 review-info">32</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-875">
-													<div data-v-15082832="" class="for-loop-cloned-item-875">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-875">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-875">
-																<div data-v-15082832="" class="for-loop-cloned-item-875">
-																	NEW</div>
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/875_20220204103748.png"
-																alt="버라이어티팩 3종 세트" title="버라이어티팩 3종 세트"
-																class="for-loop-cloned-item-875">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-875"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-875">
-															<div data-v-29c2185a="" data-v-15082832=""
-																style="position: relative; z-index: 1;">
-																<div data-v-29c2185a="" class="move-balloon">
-																	<span data-v-29c2185a="" class="tooltip-text-orange"
-																		style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">리뉴얼
-																		5% 쿠폰</span>
-																</div>
-															</div>
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-875">버라이어티팩 3종 세트</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-875 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-875 row--v">
-																	<dd data-v-15082832=""
-																		class="for-loop-cloned-item-875 col-12">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-875">18,880원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-875">20,300</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-875">프레시코드
-																시그니처 메뉴 3종을 한번에!</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-875 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-875 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-875 star-info">5</span> <span
-																		data-v-15082832=""
-																		class="for-loop-cloned-item-875 review-info">7</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-872">
-													<div data-v-15082832="" class="for-loop-cloned-item-872">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-872">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-872">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/872_20220121183820"
-																alt="[올가니카]플랜트 왕교자" title="[올가니카]플랜트 왕교자"
-																class="for-loop-cloned-item-872">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-872"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-872">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-872">[올가니카]플랜트 왕교자</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-872 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-872 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-872">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-872">4,990원</em>~
-																		<!---->
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-872">
-																맛과 영양 가득 담은 채식 만두</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-872 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-872 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-872 star-info">5</span> <span
-																		data-v-15082832=""
-																		class="for-loop-cloned-item-872 review-info">4</span>
-																</div>
-																<div data-v-15082832=""
-																	class="row--v-center for-loop-cloned-item-872 tag-wrap">
+																	class="item-bottom for-loop-cloned-item-825 row--v-center row--h-between">
 																	<div data-v-15082832=""
-																		class="for-loop-cloned-item-872 row--v-center">
-																		<div data-v-15082832=""
-																			class="for-loop-cloned-item-872 vegi-tag md-item-vegi-tag">
-																			비건</div>
+																		class="for-loop-cloned-item-825 info-wrap">
+																		<span data-v-15082832=""
+																			class="for-loop-cloned-item-825 star-info">${item.starAvg }</span>
+																		<span data-v-15082832=""
+																			class="for-loop-cloned-item-825 review-info">${item.reviewCount }</span>
 																	</div>
+																	<!---->
 																</div>
 															</div>
 														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-898">
-													<div data-v-15082832="" class="for-loop-cloned-item-898">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-898">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-898">
-																<div data-v-15082832="" class="for-loop-cloned-item-898">
-																	NEW</div>
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/898_20220221112057.png"
-																alt="[쿠캣]티라미수쏙 찹쌀떡" title="[쿠캣]티라미수쏙 찹쌀떡"
-																class="for-loop-cloned-item-898">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-898"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-898">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-898">[쿠캣]티라미수쏙 찹쌀떡</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-898 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-898 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-898">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-898">1,440원</em>~ <span
-																			data-v-15082832="" class="for-loop-cloned-item-898">1,600</span>
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-898">티라미수
-																케익이 떡 안으로 쏙</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-898 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-898 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-898 star-info">0</span> <span
-																		data-v-15082832=""
-																		class="for-loop-cloned-item-898 review-info">0</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-731">
-													<div data-v-15082832="" class="for-loop-cloned-item-731">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-731">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-731">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/731_20211007190400"
-																alt="[달차] 페이크 커피 2종" title="[달차] 페이크 커피 2종"
-																class="for-loop-cloned-item-731">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-731"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-731">
-															<!---->
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-731">[달차] 페이크 커피 2종</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-731 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-731 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-731">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-731">2,300원</em>~
-																		<!---->
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-731">카페인
-																0%, 보리로 만든 커피 대용 음료!</span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-731 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-731 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-731 star-info">4.7</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-731 review-info">40</span>
-																</div>
-																<!---->
-															</div>
-														</div>
-													</div>
-												</article></li>
-											<li data-v-6e61822c="" class="md-reco-item"><article
-													data-v-15082832="" data-v-6e61822c=""
-													class="item for-loop-cloned-item-641">
-													<div data-v-15082832="" class="for-loop-cloned-item-641">
-														<figure data-v-15082832=""
-															class="item__image for-loop-cloned-item-641">
-															<div data-v-15082832=""
-																class="item-badge for-loop-cloned-item-641">
-																<!---->
-															</div>
-															<img data-v-15082832=""
-																src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/641_20220217095835.png"
-																alt="[그리팅] 방풍나물&amp;고구마 스프"
-																title="[그리팅] 방풍나물&amp;고구마 스프"
-																class="for-loop-cloned-item-641">
-															<div data-v-15082832=""
-																class="btn-cart js-btn-cart js-btn-cart-641"></div>
-															<!---->
-														</figure>
-														<div data-v-15082832=""
-															class="item__body for-loop-cloned-item-641">
-															<div data-v-29c2185a="" data-v-15082832=""
-																style="position: relative; z-index: 1;">
-																<div data-v-29c2185a="" class="move-balloon">
-																	<span data-v-29c2185a="" class="tooltip-text-orange"
-																		style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">쿠폰
-																		할인</span>
-																</div>
-															</div>
-															<strong data-v-15082832=""
-																class="for-loop-cloned-item-641">[그리팅]
-																방풍나물&amp;고구마 스프</strong>
-															<div data-v-15082832=""
-																class="for-loop-cloned-item-641 options">
-																<dl data-v-15082832=""
-																	class="for-loop-cloned-item-641 row--v">
-																	<dd data-v-15082832="" class="for-loop-cloned-item-641">
-																		<em data-v-15082832=""
-																			class="for-loop-cloned-item-641">5,000원</em>~
-																		<!---->
-																	</dd>
-																</dl>
-															</div>
-															<span data-v-15082832="" class="for-loop-cloned-item-641">은은한
-																향을 담은 방풍나물과 달달한 고구마의 이색 만남! </span>
-															<div data-v-15082832=""
-																class="item-bottom for-loop-cloned-item-641 row--v-center row--h-between">
-																<div data-v-15082832=""
-																	class="for-loop-cloned-item-641 info-wrap">
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-641 star-info">4.7</span>
-																	<span data-v-15082832=""
-																		class="for-loop-cloned-item-641 review-info">12</span>
-																</div>
-																<div data-v-15082832=""
-																	class="row--v-center for-loop-cloned-item-641 tag-wrap">
-																	<div data-v-15082832=""
-																		class="for-loop-cloned-item-641 row--v-center">
-																		<div data-v-15082832=""
-																			class="for-loop-cloned-item-641 vegi-tag md-item-vegi-tag">
-																			플렉시테리언</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</article></li>
+													</article>
+												</li>
+											</c:forEach>
+												
+											
 										</ul>
 									</div>
 								</div>
@@ -922,7 +408,6 @@ $(function(){
 						</div>
 						<!---->
 					</div>
-				</div>
 				<div data-v-0f5971ec="" class="btn-order-wrap">
 					<p data-v-0f5971ec="" class="tooltip">'바로 주문'으로 간편하게!</p>
 					<div data-v-0f5971ec="" class="btn-order"></div>

@@ -38,4 +38,10 @@ public class TapPageServiceImpl implements TapPageService{
 		return tapPageDAO.getRandom2(vo);
 	}
 	
+	@Override
+	public TapPageVO getItemInfoOne(TapPageVO vo) {
+			if(vo.getTagMain() / 100 != 1 && vo.getTagMain() / 100 != 6) return tapPageDAO.getItemInfoOne01(vo);
+			else return tapPageDAO.getItemInfoOne02(vo);
+	}
+	
 }

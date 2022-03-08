@@ -37,7 +37,7 @@ public class LoginController {
 		if(emailCheck == 1) {
 			session.removeAttribute("member");
 			session.setAttribute("member", memberService.getMember(vo));
-			mav.setViewName("main");
+			mav.setViewName("index");
 		}else {
 			session.removeAttribute("member");
 			session.setAttribute("member", vo);
@@ -62,7 +62,7 @@ public class LoginController {
 		if(emailCheck == 1) {
 			session.removeAttribute("member");
 			session.setAttribute("member", memberService.getMember(vo));
-			mav.setViewName("main");
+			mav.setViewName("index");
 		}else {
 			mav.addObject("memberType", "k");
 			session.removeAttribute("member");

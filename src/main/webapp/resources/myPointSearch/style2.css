@@ -33,6 +33,10 @@
     border-left: 1px solid #d5e0db;
     cursor: pointer;
 	}
+	
+	.header__top-right>* span[data-v-30697495] {
+	    color: #333;
+	}
 
    .container {
       padding-top: 182px;

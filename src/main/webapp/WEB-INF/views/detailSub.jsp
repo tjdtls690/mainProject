@@ -22,7 +22,7 @@
    
 
 	 
-      $(function() { 
+$(function() { 
 // 헤더 패딩
          var lastScrollTop = 0,
          delta = 100;
@@ -64,6 +64,7 @@
     	        $('#item_nut_show').hide();  
     	    }  
     	}); 
+     	
 // 상품 정보 고시 숨기기
      	$(document).on('click','#product-info',function(){  
     		alert("상품 정보 숨기기");
@@ -73,6 +74,7 @@
     	        $('#item_info_show').hide();  
     	    }  
     	});
+    	
 // 장바구니 담기
 		$(document).on('click','#mobCart',function(){
 			var p = document.passNum;
@@ -98,18 +100,26 @@
               $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
            });
        });
+       
 // 페이징 처리
 		$(document).on('clik','',function(){
 
 			
 		})
+		
+// 사이즈 선택
+		$(document).on('click','.form-radio-input',function(){
+			var size = $(this).val();
+			$('.setSize').val(size);
+			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.			
+		});
+
 // 드롭 다운
-		$(document).on('click','.button.dropdown',function(event){	
+		$(document).on('click','.dropdown-btn-flex-wrap',function(event){	
 			var code =$('#mobCart').children('#itemCode').attr('value');			
 			var tag = $('#mobCart').children('#tagMain').attr('value');
 			var str ="";
-			alert("클릭");
-			if($('.dropdown-btn').hasClass('dropdown-open')){
+			if($('.dropdown-btn-flex-wrap').hasClass('dropdown-open')){
 				$('ul').remove('.toggle-drop-down');
 			}else{
 				$.ajax({
@@ -125,40 +135,191 @@
 						str += htmlOut;
 						str += "</ul>";
 						$('.dropdown-btn').append(str);
-						
-						$('.date-picker-input').removeAttr('disabled');
-															
+																			
 					}
 				}); // ajax 끝								
 			} //else 끝
-			$('.dropdown-btn').toggleClass('dropdown-open');
+			$('.dropdown-btn-flex-wrap').toggleClass('dropdown-open');
 		}); // 드롭 다운 끝
-
+		
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-name-and-badge',function(){
-			var test = $(this).text();
-			alert("선택하 주 : "+test);
-/*
-			// ajax를 통해 보여줄예정.
-			$.ajax({
-				url : 
-				type :
-				datatype :
-				data :{
+			var week = $(this).text();
+			var selectedWeek = Number(week.replace('주', '').replace(',', ''));
+			$('.setWeek').val(selectedWeek);
+			// 선택한 주를 숫자로 표시.
+			
+			// M 가격 
+			var subPriceM = $('.subPrcieM').val(); 
+			subPriceM = Number(subPriceM.replace('원', '').replace(',', ''));
+			// L 가격 
+			var subPriceL = $('.subPrcieL').val(); 
+			subPriceL = Number(subPriceL.replace('원', '').replace(',', ''));
+			// 사이즈 불러오기
+			var size = $('.setSize').val();
+
+	//미디움 클릭후 가격 셋팅		
+			if(size =='Medium'){ 			
+				alert("미디움일때");
+				$('.setPrice').val(subPriceM);
+				var setPrice = $('.setPrice').val();
+				var totalPrice = setPrice*selectedWeek;
+				$('.setTotal').val(totalPrice);
+			
+				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+			
+	// 라지 클릭후 가격 셋팅					
+			}else if(size =="Large"){							
+				alert("라지일때");
+				$('.setPrice').val(subPriceL);
+				var setPrice = $('.setPrice').val();
+				var totalPrice = setPrice*selectedWeek;
+				$('.setTotal').val(totalPrice);
 				
-				},
-				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
- 		
-				} // success 끝	
-			}); // ajax 끝
-*/
+				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+				
+			}else{
+				alert("사이즈를 먼저 선택해주세요");
+			}
+			
+
 			
 			// 클릭시 드롭 다운 아이템 사라짐
-//			$('ul').detach('.toggle-drop-down');						
-//			$('.dropdown-btn').toggleClass('dropdown-open');
+			$('ul').detach('.toggle-drop-down');						
+//			$('.dropdown-btn-flex-wrap').toggleClass('dropdown-open');
+			
+			// 날짜 선택 기능 On
+			$('.date-picker-input').removeAttr('disabled');
 			
 		}); // 드롭 다운 아이템 끝
 
+// 날짜 선택 클릭 시
+		$(document).on('click','.v-date-custom',function(){
+			
+			// css 변경을 원본 홈피와 그대로 하겠다.
+			$(".vc-popover-content-wrapper").css({
+				'position': 'absolute',
+				'transform': 'translate3d(0px, -279px, 0px)', 
+				'top': '0px', 
+				'left': '0px', 
+				'will-change': 'transform'
+			    });
+			
+			var test = "test";
+			
+			if($('.vc-popover-content-wrapper').hasClass('is-interactive')){
+				$('div').detach('.vc-popover-content-wrapper:eq(1)'); // 이름이 같아서 2번째인 달력을 detach
+				$('.vc-popover-content-wrapper').removeAttr('style'); //스타일을 다지워줌
+			}else{	
+				alert("없음");
+				$.ajax({
+					url : 'calendar.do',
+					type : 'post',
+					datatype : 'html',
+					data : {
+						"test" : test
+					},
+					success : function(htmlOut){
+						alert("success");
+						$('.v-date-custom').append(htmlOut);
+						
+					}
+				}); // ajax 끝		
+				
+			} // if문 끝
+			$('.vc-text-gray-400').attr("disabled", disabled);
+			$('.vc-popover-content-wrapper').toggleClass('is-interactive');
+			
+		});// 날짜 선택 클릭 끝
+
+// 날짜 선택
+		$(document).on('click','.vc-day-content.vc-focusable',function(){
+			alert("날짜 클릭");
+			//이름
+			var name = $('.menu__name').text();
+//			alert("name : "+name);
+			//사이즈
+			var size = $('.setSize').val();
+//			alert("size : "+size);
+			//몇주
+			var week = $('.setWeek').val();
+//			alert("week : "+week);
+			//날짜
+			var setDate = $(this).attr('aria-label');
+			$('.startDate').val(setDate);
+			var start = $('.startDate').val();
+//			alert("setDate : "+setDate);
+			
+			$.ajax({
+				url : 'selectedSub.do',
+				type : 'post',
+				datatype : 'html',
+				data :{
+					"name" : name,
+					"size" : size,
+					"week" : week,
+					"start": start
+				},
+				success : function(htmlOut){
+					alert("성공!");
+					$('.menu__select-size').append(htmlOut);
+					
+					
+				}// success 끝
+				
+			});// ajax 끝
+
+	// disable
+			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
+			$('.menu__label').toggleClass('disabled-style');
+			$('.menu__label.menu__price-label').toggleClass('disabled-style');
+			// M / L 버튼 disabled
+			$('.row--v-center.radio-label').toggleClass('disabled-style');
+			$('.form-radio').toggleClass('form-radio--disabled');
+			$('.radio-side-text').toggleClass('disabled-style');
+			// 원하는주 disable
+			$('.dropdown-btn-flex-wrap').toggleClass('disabled');
+			// 달력 disabled
+			
+		
+		});
+		
+// 구독 상세명서 삭제 버튼		
+		$(document).on('click','.selected-detail__close',function(){
+			alert("삭제버튼");
+			$('.selected-detail-wrap').detach();
+		// 현재 저장되어있는 값 초기화.
+			var nothing ="";
+			$('.setPrice').val(nothing);
+			$('.setSize').val(nothing);
+			$('.setTotal').val(nothing);
+			$('.startDate').val(nothing);
+		
+			
+		})
+		
+// 식단확인 및 변경 클릭
+		$(document).on('click','.selected-detail__btn',function(){
+			alert("식단변경");
+			var test ="";
+			$.ajax({
+				url : 'modal.do',
+				type : 'post',
+				datatype : 'html',
+				data :{
+					'test' : test
+				},
+				success : function(htmlOut){
+					alert("ajax들어옴");
+					$('.menu').append(htmlOut);
+					alert("성공!");
+				}
+			}); // ajax 끝
+			
+		})
+
+		
+		
 			
 // 상품 이미지 더보기
 		$(document).on('click','.more-btn',function(){
@@ -167,7 +328,7 @@
 		});
 		
 		
-     }); //function 끝
+ }); //function 끝
 
 
 
@@ -214,17 +375,18 @@
                      <!--<img id="logoim" src="images/logo.PNG" width="200px">-->
                   </a> <!---->
                </div>
-<!--                form태그 -->
-<!--                form태그 -->
-<!--                form태그 -->
-               	<form name="passNum">
-					<input type="hidden" name="tagMain" value="">
-					<input type="hidden" name="itemCode" value="">
-			 	</form>
-			 	<form name="paging">
-					<input type="hidden" name="tagMain01" value="">
-					<input type="hidden" name="itemCode01" value="">
-				</form>
+<!--                input hidden 태그 -->
+<!--                input hidden 태그 -->
+<!--                input hidden 태그 -->
+				<input type="hidden" class="setPrice" value="">
+				<input type="hidden" class="setSize" value="">
+				<input type="hidden" class="setTotal" value="">
+				<input type="hidden" class="startDate" value="">
+				<input type="hidden" class="setWeek" value="">
+			
+<!--                input hidden 태그 -->
+<!--                input hidden 태그 -->
+<!--                input hidden 태그 -->				
                <nav class="header__menus" data-v-30697495>
                   <div data-v-30697495>
                      <div class="dropdown" data-v-30697495>
@@ -422,7 +584,7 @@
                                 </div>
                                 <ul data-v-32a18372 class="menu-detail">
                                     ${detail.item_explain }
-<!-- 택배 배송 일때 -->                 <c:if test="${sub01 == 101}">
+<!-- 택배 배송 일때 -->                 <c:if test="${tagSub == 102}">
                                    		<li data-v-32a18372="" class="menu-detail__deliveryType">
                                    			<div data-v-32a18372="" class="menu-detail__deliveryType-text">
 												<label data-v-32a18372="" class="menu__label">배송 방법</label>
@@ -436,7 +598,7 @@
 											</div>
 										</li>
                                     </c:if>
- <!-- 새벽 배송 일때 -->                <c:if test="${sub02 == 102 }">
+ <!-- 새벽 배송 일때 -->                <c:if test="${tagSub == 101 }">
                                     	<li data-v-32a18372="" class="menu-detail__deliveryType">
                                     		<div data-v-32a18372="" class="menu-detail__deliveryType-text">
 												<label data-v-32a18372="" class="menu__label">배송 방법</label>
@@ -460,6 +622,20 @@
 												<li data-v-2706028c="" class="menu__options"><label
 													data-v-2706028c="" class="menu__label">사이즈 선택</label>
 													<div data-v-2706028c="" class="row--v-center">
+	<!--  -->												
+													<c:if test="${ empty detail.item_price_l  }">
+														<div data-v-2706028c="" class="row--v-center radio-label">
+															<label data-v-3f971378="" data-v-2706028c="" class="form-radio">
+																<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth" class="form-radio-input" value="Medium"> 
+																	<span data-v-3f971378="" class="form-radio-circle">
+																		<i data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span>
+																Medium 
+															</label> 
+															<label data-v-2706028c="" for="Medium" class="radio-side-text">Medium</label>
+														</div>
+													</c:if>
+													<c:if test="${ not empty detail.item_price_l }">
 														<div data-v-2706028c="" class="row--v-center radio-label">
 															<label data-v-3f971378="" data-v-2706028c="" class="form-radio">
 																<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth" class="form-radio-input" value="Medium"> 
@@ -480,10 +656,12 @@
 															</label> 
 															<label data-v-2706028c="" for="Large" class="radio-side-text">Large</label>
 														</div>
+													</c:if>	
+														
 													</div>
 												</li>
 												<li data-v-2706028c="" class="menu__period-select">
-													<label data-v-2706028c="" class="menu__label only-desktop">
+													<label data-v-2706028c="" class="menu__label only-desktop ">
 														기간 선택
 													</label>
 													<div data-v-4837bb91="" data-v-2706028c="" class="dropdown-btn-flex-wrap both-style">
@@ -507,7 +685,7 @@
 	<!---->															
 	<!---->															
 															
-															<div data-v-7605e1b2="" data-v-56ae83be="" class="vc-popover-content-wrapper">
+															<div data-v-7605e1b2="" data-v-56ae83be="" class="vc-popover-content-wrapper" style>
 																	<!---->
 															</div>
 	<!---->															
@@ -568,7 +746,7 @@
                    <!--  -->
                    <!--  -->
                    <!--다른 고객들이 함께 본 상품-->
-						<div class="swiper-container">
+						<div class="swiper-container" >
 							<div class="swiper-wrapper">
 	
 								<c:forEach var="item" items="${random }">
@@ -640,38 +818,39 @@
 									</ul>
 								</div>
 							</c:forEach>
-
 						</div>
-					
-						<!-- 네비게이션 -->
+					<!-- 이동을위한 div  -->
+						<div id="section01"></div>  
+					<!-- 네비게이션 -->
 						<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 						<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 					
-						<!-- 페이징 -->
+					<!-- 페이징 -->
 						<div class="swiper-pagination"></div>
 					</div>   
-					<!--  -->             
+					<!--  --> 
+					          
 					<!--  -->             
 					<!--  -->                        
                     </article>
                     <div data-v-32a18372 class="menu__tab">
                         <nav data-v-61e19c34 data-v-32a18372 class="menu-tab unit">
-                            <div data-v-61e19c34 class="menu-tab-btn-wrap on">
+                            <div data-v-61e19c34 class="menu-tab-btn-wrap on" onclick="location.href='#section01';">
                                 <button data-v-61e19c34 type="button">
                                     <span data-v-61e19c34>상품정보</span>
                                 </button>
                             </div>
-                            <div data-v-61e19c34 class="menu-tab-btn-wrap">
+                            <div data-v-61e19c34 class="menu-tab-btn-wrap" onclick="location.href='#section02';">
                                 <button data-v-61e19c34 type="button">
                                     <span data-v-61e19c34>상세정보</span>
                                 </button>
                             </div>
-                            <div data-v-61e19c34 class="menu-tab-btn-wrap">
+                            <div data-v-61e19c34 class="menu-tab-btn-wrap" onclick="location.href='#product-info';">
                                 <button data-v-61e19c34 type="button">
                                     <span data-v-61e19c34>FAQ</span>
                                 </button>
                             </div>
-                            <div data-v-61e19c34 class="menu-tab-btn-wrap">
+                            <div data-v-61e19c34 class="menu-tab-btn-wrap" onclick="location.href='#section03';">
                                 <button data-v-61e19c34 type="button">
                                     <span data-v-61e19c34>고객후기</span>
                                 </button>
@@ -680,7 +859,7 @@
                             </div>
                         </nav>
                     </div>
-                    <div data-v-32a18372 class="menu-description-container">
+                    <div data-v-32a18372 class="menu-description-container" >
                         <div data-v-32a18372 class="menu-description">
                             <div data-v-32a18372 class="menu-description-left">
                                 <div data-v-32a18372 id="menu-detail" class="menu__tab-info">
@@ -688,21 +867,12 @@
                                         <div data-v-79f00ef9 class="detail-wrapper">
                                             <div data-v-79f00ef9 id="bundle-detail" class="detail">
                                                 <div data-v-79f00ef9 class="img-wrapper">
-                                                    <div data-v-79f00ef9 id>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11633_20220105113601" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9 id>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11634_20220105113601" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9 id>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11635_20220105113602" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/11636_20220105113611" class="img-fade">
-                                                    </div>
-                                                    <div data-v-79f00ef9>
-                                                        <img data-v-79f00ef9 src="https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/content/origin/4766_20210111105602" class="img-fade">
-                                                    </div>
+                                                     <c:forEach var="showImage" items="${showImage }">
+                                                   		<div data-v-79f00ef9 id>
+                                                        	<img data-v-79f00ef9 src="${showImage }" class="img-fade">
+                                                    	</div>
+                                                	</c:forEach>
+                                                    
 <!--                                                     <div data-v-79f00ef9 class="shadow"></div> -->
                                                 </div>
                                             </div>
@@ -816,6 +986,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="section02"></div>
                         <div data-v-32a18372 id="product-info">
                             <h3 data-v-32a18372 class="menu__tab-info-title menu-info">
                                 <span data-v-32a18372>상품 정보 고시</span>
@@ -875,10 +1046,10 @@
                         <!-- <div>-->  
                         
                         </div>
-                        <div data-v-32a18372 id="faq" class="menu__tab-info tab_menu_detail">
-                            <p data-v-32a18372 class="menu__tab-info-title faq">FAQ</p>
+                        <div data-v-32a18372 id="faq" class="menu__tab-info tab_menu_detail" >
+                            <p data-v-32a18372 class="menu__tab-info-title faq" >FAQ</p>
                             <div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
-                                <div data-v-e3f957fc class="menu-info-table-opener">
+                                <div data-v-e3f957fc class="menu-info-table-opener" id="section03">
                                     <div data-v-e3f957fc class="menu-info-table-title-wrapper">
                                         <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png"  class="menu-info-table-img question">
                                         <p data-v-e3f957fc class="menu-info-table-title">[결제 안내]</p>
@@ -1511,6 +1682,9 @@
                             </section>
                             <!---->
                          </div>
+                    </div>
+                    <div data-v-32a18372="" class="notify-register-modal">
+                    <!---->
                     </div>
                 </article>
             </div>

@@ -50,9 +50,13 @@ public class DetailController {
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
-
+		String sub = request.getParameter("tagSub01");
+		int tagSub01 = Integer.parseInt(sub);
+		System.out.println("넘어온 tagSub01 값 : "+tagSub01);
+		
 		
 		DetailVO VO1 = new DetailVO();
+		
 		//단품상품일때
 		if(tagMain01 != 100 && tagMain01 != 600) {
 			//단품상품일때 아이템 상품정보			
@@ -78,6 +82,18 @@ public class DetailController {
 						info.add(st1.nextToken());
 					}
 					mav.addObject("detailInfo", info);
+				}
+			}
+// 			상세이미지 보여주기
+			DetailVO image = detailService.getItem(VO1);
+			if(image != null) {
+				if(image.getItem_info_image() != null) {
+					StringTokenizer st1 = new StringTokenizer(image.getItem_info_image().replace(":;:", "\\"), "\\");
+					List<String> showImage = new ArrayList<String>();
+					while(st1.hasMoreTokens()) {
+						showImage.add(st1.nextToken());
+					}
+					mav.addObject("showImage", showImage);
 				}
 			}
 //			아이템 평균별점/게시글카운트
@@ -112,6 +128,7 @@ public class DetailController {
 //세트 상품일때
 
 			System.out.println(" --구독/세트 상세 정보-- ");
+			
         	DetailVO dvo = new DetailVO();
         	dvo.setItem_code(menuNum);
         	System.out.println("----> dvo.getItem_code(menuNum) :" + dvo.getItem_code());
@@ -122,6 +139,20 @@ public class DetailController {
 			mapVO.setSubscribe_code(menuNum); // Subscribe_code == item_code 가 됨.
 			System.out.println("mapVO로 넘어갈 code값 :" +menuNum);
 			List<MappingVO> aa = mappingService.getItemCodeList(mapVO);
+			
+// 			상세이미지 보여주기
+			VO1.setItem_code(menuNum);
+			DetailVO image = detailService.getSubItem(VO1);
+			if(image != null) {
+				if(image.getItem_info_image() != null) {
+					StringTokenizer st1 = new StringTokenizer(image.getItem_info_image().replace(":;:", "\\"), "\\");
+					List<String> showImage = new ArrayList<String>();
+					while(st1.hasMoreTokens()) {
+						showImage.add(st1.nextToken());
+					}
+					mav.addObject("showImage", showImage);
+				}
+			}
 			
 			// 영양 정보 고시
 			List<DetailVO> itemcodes = new ArrayList<DetailVO>();
@@ -207,7 +238,7 @@ public class DetailController {
 		else {
 // 구독 상품 일때
 			System.out.println(" --구독/세트 상세 정보-- ");
-
+			mav.addObject("tagSub",tagSub01);
 			
         	DetailVO dvo = new DetailVO();
         	dvo.setItem_code(menuNum);
@@ -219,6 +250,23 @@ public class DetailController {
 			mapVO.setSubscribe_code(menuNum); // Subscribe_code == item_code 가 됨.
 			System.out.println("mapVO로 넘어갈 code값 :" +menuNum);
 			List<MappingVO> aa = mappingService.getItemCodeList(mapVO);
+			
+// 			상세이미지 보여주기
+			VO1.setItem_code(menuNum);
+			DetailVO image = detailService.getSubItem(VO1);
+			System.out.println("null 체크");
+			if(image != null) {
+				System.out.println("image null 아님");
+				if(image.getItem_info_image() != null) {
+					System.out.println("image.getItem_info_image Null 아님");
+					StringTokenizer st1 = new StringTokenizer(image.getItem_info_image().replace(":;:", "\\"), "\\");
+					List<String> showImage = new ArrayList<String>();
+					while(st1.hasMoreTokens()) {
+						showImage.add(st1.nextToken());
+					}
+					mav.addObject("showImage", showImage);
+				}
+			}
 			
 			// 영양 정보 고시
 			List<DetailVO> itemcodes = new ArrayList<DetailVO>();
@@ -341,6 +389,7 @@ public class DetailController {
 		String str2 = request.getParameter("tagNum");
 		int tagMain01 = Integer.parseInt(str2);
 		System.out.println("넘어온 tag값 :" + tagMain01);
+
 		
 		if(tagMain01 != 100 && tagMain01 != 600) {// 단품 상세정보에서 넘어왔을때..
 			System.out.println("단품 상세 정보로 넘어가기");
@@ -361,6 +410,11 @@ public class DetailController {
 			
 		}else if(tagMain01 == 100) { // 구독 상품일때.
 			System.out.println("구독 상세 정보로 넘어가기");
+			DetailVO dvo = new DetailVO();
+        	dvo.setItem_code(menuNum);
+        	System.out.println("----> dvo.getItem_code(menuNum) :" + dvo.getItem_code());
+        	mav.addObject("detail", detailService.getSubItem(dvo));
+			
 			mav.setViewName("selectSub");
 		}
 
@@ -387,6 +441,50 @@ public class DetailController {
 		mav.addObject("size",size);
 		mav.setViewName("selectedItem");
 		return mav;		
+	}
+// 달력 보여주기	
+	@RequestMapping("/calendar.do")
+	public ModelAndView calendar(HttpServletRequest request,ModelAndView mav) {
+		
+		mav.setViewName("detailCal");
+		return mav;	
+	}
+// 구독 상세명세서
+	@RequestMapping("/selectedSub.do")
+	public ModelAndView selectedSub(HttpServletRequest request,ModelAndView mav) {
+		String name = request.getParameter("name");
+		System.out.println("넘어온 name 값 : "+name);
+		
+		String size = request.getParameter("size");
+		System.out.println("넘어온 size 값 : "+size);
+		
+		String week = request.getParameter("week");
+		System.out.println("넘어온 week 값 : "+week);
+		
+		String start2 = request.getParameter("start");
+		System.out.println("넘어온 start 값 : "+start2);
+		String start = start2.substring(0,12);
+		System.out.println("자른 날짜 :"+start);
+		
+		char day = start2.charAt(start2.length()-3);
+		System.out.println("뽑은 char형 :"+day);
+	    String day2 = Character.toString(day);
+		
+		mav.addObject("name",name);
+		mav.addObject("size",size);
+		mav.addObject("week",week);
+		mav.addObject("start",start);
+		mav.addObject("day",day2);
+		mav.setViewName("selectedSub");
+		return mav;		
+	}
+
+// 모달창
+	@RequestMapping("/modal.do")
+	public ModelAndView modal(HttpServletRequest request,ModelAndView mav) {
+		
+		mav.setViewName("detailSubModal");
+		return mav;
 	}
 	
 }

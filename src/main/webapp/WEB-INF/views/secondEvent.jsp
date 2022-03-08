@@ -55,6 +55,22 @@ $(function() {
 		lastScrollTop = st;
 	});
 });
+function page_move(tagNum){
+    var f = document.paging; //폼 name
+    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+    f.action="tapPage.do";//이동할 페이지
+    f.method="post";//POST방식
+    f.submit();
+    console.log("tagNum");
+}
+function coupon_page(){
+	var f = document.couponPage;
+	f.couponName.value = "신선하게샐러드구독";
+	f.action="myCouponSearch.do"
+	f.method="post";
+	f.submit();
+	console.log(f.couponPage.value);
+}
 </script>
 </head>
 <body class="" style="padding-right: 0px;">
@@ -86,6 +102,12 @@ $(function() {
 							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
 							<!---->
 						</div>
+						<form name="paging">
+							<input type="hidden" name="tagMain01" value="">
+						</form>
+						<form name="couponPage">
+							<input type="hidden" name="couponName" value="">
+						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -259,7 +281,7 @@ $(function() {
 						<div data-v-25f49d6b="" class="btn-wrap">
 							<img data-v-25f49d6b=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/05.png">
-							<div data-v-25f49d6b="" class="btn lt"></div>
+							<div data-v-25f49d6b="" class="btn lt" onclick="coupon_page()"></div>
 							<div data-v-25f49d6b="" class="btn rt"></div>
 						</div>
 						<img data-v-25f49d6b=""
@@ -283,7 +305,7 @@ $(function() {
 						<div data-v-25f49d6b="" class="btn-wrap">
 							<img data-v-25f49d6b=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/11.png">
-							<div data-v-25f49d6b="" class="btn-bar"></div>
+							<div data-v-25f49d6b="" class="btn-bar" onclick="page_move(100)"></div>
 						</div>
 						<img data-v-25f49d6b=""
 							src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/12.png">

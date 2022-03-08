@@ -144,6 +144,10 @@
 	    		lastScrollTop = st;
 	    	});
 	})
+$(document).ready(function(){
+	console.log("${couponName}");
+	$('.form-text').val('${couponName}');
+});
 </script>
 </head>
 <body>
@@ -162,7 +166,7 @@
 					</div>
 					<form name="paging">
 								<input type="hidden" name="tagMain01" value="">
-							</form>
+					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -176,7 +180,7 @@
 										<c:otherwise>
 											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
-									</c:choose>
+								</c:choose>
 								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
 									신청</a>
@@ -346,26 +350,18 @@
 										<h2 data-v-e99f4992="">마이페이지</h2>
 										<ul data-v-e99f4992="">
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/orders" class="">주문/결제 내역</a></li>
+												href="myPayInfo.do" aria-current="page"
+												class="nuxt-link-exact-active nuxt-link-active">주문/결제 내역</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/delivery" class="">배송현황</a></li>
+												href="myDelivery.do" class="">배송현황</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/destination" class="">배송지 관리</a></li>
+												href="myPointSearch.do" class="">포인트 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/spot-req" class="">프코스팟신청 현황</a></li>
+												href="myCouponSearch.do" class="">쿠폰 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/cards" class="">카드 관리</a></li>
+												href="myReviewSearch.do" class="">나의 후기</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/invite" class="">친구 초대</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/points" class="">포인트 조회</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/coupons" aria-current="page"
-												class="nuxt-link-exact-active nuxt-link-active">쿠폰 조회</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/review" class="">나의 후기</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/user/password" class="">회원정보 수정</a></li>
+												href="myMemberModify.do" class="">회원정보 수정</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#">로그아웃</a></li>
 										</ul>
 									</aside>
@@ -410,10 +406,20 @@
 											<div data-v-31b582a4="" data-v-421abad8=""
 												class="row mypage-coupons-register__field">
 												<div data-v-31b582a4="" data-v-421abad8="" class="col">
+												<c:choose>
+													<c:when test="${empty couponName }">
 													<input data-v-8bb17226="" data-v-31b582a4=""
 														id="f_coupon_number" type="text" name="f_coupon_number"
 														placeholder="쿠폰번호를 입력해 주세요" autocorrect="off"
 														autocapitalize="off" class="form-text" data-v-421abad8="">
+													</c:when>
+													<c:otherwise>
+													<input data-v-8bb17226="" data-v-31b582a4="" value=""
+														id="f_coupon_number" type="text" name="f_coupon_number"
+														placeholder="쿠폰번호를 입력해 주세요" autocorrect="off"
+														autocapitalize="off" class="form-text" data-v-421abad8="">
+													</c:otherwise>
+												</c:choose>
 												</div>
 												<div data-v-31b582a4="" data-v-421abad8="">
 													<button data-v-a1c889e0="" data-v-31b582a4="" type="button"

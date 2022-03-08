@@ -5,6 +5,7 @@ public class CouponVO {
 	private String coupon_type;
 	private String coupon_explain;
 	private int user_code;
+	private int coupon_pack;
 	public int getCoupon_code() {
 		return coupon_code;
 	}
@@ -28,6 +29,12 @@ public class CouponVO {
 	}
 	public void setUser_code(int user_code) {
 		this.user_code = user_code;
+	}
+	public int getCoupon_pack() {
+		return coupon_pack;
+	}
+	public void setCoupon_pack(int coupon_pack) {
+		this.coupon_pack = coupon_pack;
 	}
 	@Override
 	public String toString() {

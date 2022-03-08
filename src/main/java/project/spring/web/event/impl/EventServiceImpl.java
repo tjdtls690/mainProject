@@ -25,5 +25,10 @@ public class EventServiceImpl implements EventService {
 		eventDAO.insertCoupon(vo);
 
 	}
+	
+	@Override
+	public List<CouponVO> getCouponPack(CouponVO vo) {
+		return eventDAO.getCouponPack(vo);
+	}
 
 }

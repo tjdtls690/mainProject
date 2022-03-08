@@ -21,4 +21,8 @@ public class EventDAO {
 	public void insertCoupon(CouponVO vo) {
 		sqlSessionTemplate.insert("EventDAO.insertCoupon", vo);
 	}
+	
+	public List<CouponVO> getCouponPack(CouponVO vo) {
+		return sqlSessionTemplate.selectList("EventDAO.getCouponPack", vo);
+	}
 }

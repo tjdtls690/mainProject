@@ -553,10 +553,12 @@ $(function() {
     			success : function(htmlOut){
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
+    				$('.info-content').eq(0).children().eq(2).val(0);
     			}
     		})
     	}else{
     		$('.info-content').eq(0).find('.min').detach();
+    		$('.info-content').eq(0).children().eq(2).val(1);
     	}
     	
     	if(realPrice < 35000){
@@ -571,10 +573,12 @@ $(function() {
     			success : function(htmlOut){
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
+    				$('.info-content').eq(1).children().eq(2).val(0);
     			}
     		})
     	}else{
     		$('.info-content').eq(1).find('.min').detach();
+    		$('.info-content').eq(1).children().eq(2).val(1);
     	}
     });
     
@@ -656,10 +660,12 @@ $(function() {
     			success : function(htmlOut){
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
+    				$('.info-content').eq(0).children().eq(2).val(0);
     			}
     		})
     	}else{
     		$('.info-content').eq(0).find('.min').detach();
+    		$('.info-content').eq(0).children().eq(2).val(1);
     	}
     	
     	if(realPrice < 35000){
@@ -674,10 +680,12 @@ $(function() {
     			success : function(htmlOut){
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
+    				$('.info-content').eq(1).children().eq(2).val(0);
     			}
     		})
     	}else{
     		$('.info-content').eq(1).find('.min').detach();
+    		$('.info-content').eq(1).children().eq(2).val(1);
     	}
     });
     
@@ -744,10 +752,12 @@ $(function() {
     			success : function(htmlOut){
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
+    				$('.info-content').eq(0).children().eq(2).val(0);
     			}
     		})
     	}else{
     		$('.info-content').eq(0).find('.min').detach();
+    		$('.info-content').eq(0).children().eq(2).val(1);
     	}
     	
     	if(realPrice < 35000){
@@ -762,12 +772,99 @@ $(function() {
     			success : function(htmlOut){
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
+    				$('.info-content').eq(1).children().eq(2).val(0);
     			}
     		})
     	}else{
     		$('.info-content').eq(1).find('.min').detach();
+    		$('.info-content').eq(1).children().eq(2).val(1);
     	}
     });
+    
+    $(document).on('change', '.form-number__input input', function(){
+    	if($(this).val() < 1){
+    		$(this).val(1);
+    	}
+    	var className = $(this).parent().siblings('input').eq(0).val();
+    	var Quantity = $(this).val();
+    	var price = $(this).parent().siblings('input').eq(1).val() * Quantity;
+    	var priceSub = $(this).parent().siblings('input').eq(2).val() * Quantity;
+    	
+    	// 수량, 가격, 할인 전 가격
+    	for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+    		var check = 0;
+	    	if($('.hidden-div-real').children('div').eq(i).attr('class') == className){
+	    		$('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val(Quantity);
+	    		$('.hidden-div-real').children('div').eq(i).children('.savePrice').val(price.toLocaleString('ko-KR'));
+	    		$('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val(priceSub.toLocaleString('ko-KR'));
+	    		
+	    		$(this).closest('.selected-item-header__body').find('em').text(price.toLocaleString('ko-KR') + "원");
+	    		$(this).closest('.selected-item-header__body').find('.selected-item-discount').text(priceSub.toLocaleString('ko-KR'));
+	    		
+	    		var realPrice = 0;
+	    	    var realPriceSub = 0;
+	    	    var realQuantity = 0;
+	    	    for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+	    	    	realPrice += Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    	    	if(Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', '')) > 0){
+	    	    		var tmp1 = Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', ''));
+	    	    		var tmp2 = Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    	    		realPriceSub += (tmp1 - tmp2);
+	    	    	}
+	    	    	realQuantity += Number($('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val());
+	    	    }
+	    	    $('#realPrice').val(realPrice);
+	        	$('#realPriceSub').val(realPriceSub);
+	        	$('#realQuantity').val(realQuantity);
+	        	
+	        	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
+	        	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+	    		
+	        	if(realPrice < 10000){
+	        		var remainPrice = 10000 - realPrice;
+	        		$.ajax({
+	        			url : 'orderMinPrice.do',
+	        			type : 'post',
+	        			dataType : 'html',
+	        			data : {
+	        				'remainPrice' : remainPrice
+	        			},
+	        			success : function(htmlOut){
+	        				$('.info-content').eq(0).find('.min').detach();
+	        				$('.info-content').eq(0).append(htmlOut);
+	        				$('.info-content').eq(0).children().eq(2).val(0);
+	        			}
+	        		})
+	        	}else{
+	        		$('.info-content').eq(0).find('.min').detach();
+	        		$('.info-content').eq(0).children().eq(2).val(1);
+	        	}
+	        	
+	        	if(realPrice < 35000){
+	        		var remainPrice = 35000 - realPrice;
+	        		$.ajax({
+	        			url : 'orderMinPriceDelivery.do',
+	        			type : 'post',
+	        			dataType : 'html',
+	        			data : {
+	        				'remainPrice' : remainPrice
+	        			},
+	        			success : function(htmlOut){
+	        				$('.info-content').eq(1).find('.min').detach();
+	        				$('.info-content').eq(1).append(htmlOut);
+	        				$('.info-content').eq(1).children().eq(2).val(0);
+	        			}
+	        		})
+	        	}else{
+	        		$('.info-content').eq(1).find('.min').detach();
+	        		$('.info-content').eq(1).children().eq(2).val(1);
+	        	}
+	        	
+	    		break;
+	    	}
+    	}
+    })
+
 });
 </script>
 </head>
@@ -1016,6 +1113,7 @@ $(function() {
 													<div class="info-content-title" data-v-064d23aa="">상품
 														수 / 금액</div>
 													<div data-v-064d23aa="">0개 / 0원</div>
+													<input type="hidden" value="0">
 													<!---->
 												</div>
 											</div>
@@ -1024,6 +1122,7 @@ $(function() {
 													<div class="info-content-title" data-v-064d23aa="">배송횟수
 														/ 배송비</div>
 													<div data-v-064d23aa="">0회 / 3,500원</div>
+													<input type="hidden" value="0">
 													<!---->
 												</div>
 											</div>
@@ -1033,6 +1132,7 @@ $(function() {
 														할인금액</div>
 													<div style="color: rgb(31, 95, 64); font-weight: bold;"
 														data-v-064d23aa="">- 0원</div>
+														<input type="hidden" value="0">
 												</div>
 											</div>
 											<div class="order-result-info-total" data-v-064d23aa="">
@@ -1042,6 +1142,7 @@ $(function() {
 												<div data-v-064d23aa="">
 													<em data-v-064d23aa="">0원</em>
 												</div>
+												<input type="hidden" value="0">
 											</div>
 										</div>
 									</div>

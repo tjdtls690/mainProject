@@ -8,17 +8,21 @@
 		<result property="coupon_type" column="coupon_type"/>
 		<result property="coupon_explain" column="coupon_explain"/>
 		<result property="user_code" column="user_code"/>
+		<result property="coupon_pack" column="coupon_pack"/>
 	</resultMap>
 	
 	<select id="getCoupon" resultMap="couponResult">
-		SELECT user_coupon.user_code, user_coupon.coupon_code
-		FROM user_coupon left join member
-		ON user_coupon.user_code = member.member_code
-		WHERE user_coupon.user_code = #{user_code}
+		SELECT * FROM user_coupon
+		WHERE user_code = #{user_code}
 	</select>
 	
 	<insert id="insertCoupon" parameterType="mycoupon">
 		INSERT INTO user_coupon(user_code, coupon_code)
 		VALUES(#{user_code}, #{coupon_code})
 	</insert>
+	
+	<select id="getCouponPack" resultMap="couponResult">
+		SELECT * FROM coupon
+		WHERE coupon_pack = #{coupon_pack}
+	</select>
 </mapper>

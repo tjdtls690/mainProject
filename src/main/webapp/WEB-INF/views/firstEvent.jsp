@@ -56,8 +56,14 @@ $(function() {
 	    lastScrollTop = st;
 	  	});
 		
+	    var userCode = $('#userCode').val();
+		if(userCode == ""){
+			$('.btn').click(function(){
+				location.href = "login.do";
+			})
+		}
 		
-		$('#btn01, #btn02').click(function(){
+		$('#newMemberCoupon').click(function(){
 			$.ajax({
 				url : 'coupon01.do',
 				dataType : 'html',
@@ -79,6 +85,7 @@ $(function() {
 			$.ajax({
 				url : 'coupon02.do',
 				dataType : 'html',
+				type : 'post',
 				data : {
 					"userCode" : userCode,
 					"coupon_code" : coupon_code
@@ -93,27 +100,68 @@ $(function() {
 			console.log(userCode);
 			var coupon_code = $(this).attr('id');
 			console.log(coupon_code);
-			$.ajax({
-				url : 'coupon02.do',
-				dataType : 'html',
-				data : {
-					"userCode" : userCode,
-					"coupon_code" : coupon_code
-				},
-				success : function(htmlOut){
-					$('body').append(htmlOut);
-				}
-			})		
+			if(userCode == "") {
+				location.href = "login.do";
+			}else {
+				$.ajax({
+					url : 'coupon02.do',
+					dataType : 'html',
+					type : 'post',
+					data : {
+						"userCode" : userCode,
+						"coupon_code" : coupon_code
+					},
+					success : function(htmlOut){
+						$('body').append(htmlOut);
+					}
+				})
+			}
 		})
 		
-		$('.btn.half-menu.right').click(function(){
-			$.ajax({
-				url : 'coupon02.do',
-				dataType : 'html',
-				success : function(htmlOut){
-					$('body').append(htmlOut);
-				}
-			})  
+		$('.btn.half-menu.left').click(function(){			
+			var userCode = $('#userCode').val();
+			console.log(userCode);
+			var coupon_code = $(this).attr('id');
+			console.log(coupon_code);
+			if(userCode == "") {
+				location.href = "login.do";
+			}else {
+				$.ajax({
+					url : 'coupon02.do',
+					dataType : 'html',
+					type : 'post',
+					data : {
+						"userCode" : userCode,
+						"coupon_code" : coupon_code
+					},
+					success : function(htmlOut){
+						$('body').append(htmlOut);
+					}
+				})
+			}
+		})
+		
+		$('.btn.half-menu.right').click(function(){			
+			var userCode = $('#userCode').val();
+			console.log(userCode);
+			var coupon_code = $(this).attr('id');
+			console.log(coupon_code);
+			if(userCode == "") {
+				location.href = "login.do";
+			}else {
+				$.ajax({
+					url : 'coupon02.do',
+					dataType : 'html',
+					type : 'post',
+					data : {
+						"userCode" : userCode,
+						"coupon_code" : coupon_code
+					},
+					success : function(htmlOut){
+						$('body').append(htmlOut);
+					}
+				})
+			}
 		})
 		
 		$('.btn.coupon.left, .btn.coupon.right').click(function(){
@@ -125,8 +173,8 @@ $(function() {
 				}
 			})
 		})
-		
 	});
+
 </script>
 </head>
 <body class="" style="padding-right: 0px;">
@@ -348,7 +396,7 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/02.jpg">
-								<div data-v-6c57d82e="" class="btn" id="btn01"></div>
+								<div data-v-6c57d82e="" class="btn" id="newMemberCoupon"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/03.jpg">
@@ -363,8 +411,8 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/06.jpg">
-								<div data-v-6c57d82e="" class="btn half-menu left 01" id="1"></div>
-								<div data-v-6c57d82e="" class="btn half-menu right 02" id="2"></div>
+								<div data-v-6c57d82e="" class="btn half-menu left" id="1"></div>
+								<div data-v-6c57d82e="" class="btn half-menu right" id="2"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/07.jpg">
@@ -379,8 +427,8 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/10-1.jpg">
-								<div data-v-6c57d82e="" class="btn half-menu left 03" id="3"></div>
-								<div data-v-6c57d82e="" class="btn half-menu right"></div>
+								<div data-v-6c57d82e="" class="btn half-menu left" id="3"></div>
+								<div data-v-6c57d82e="" class="btn half-menu right" id="4"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/11.jpg">
@@ -395,8 +443,8 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/14.jpg">
-								<div data-v-6c57d82e="" class="btn half-menu left"></div>
-								<div data-v-6c57d82e="" class="btn half-menu right"></div>
+								<div data-v-6c57d82e="" class="btn half-menu left" id="5"></div>
+								<div data-v-6c57d82e="" class="btn half-menu right" id="6"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/15.jpg">

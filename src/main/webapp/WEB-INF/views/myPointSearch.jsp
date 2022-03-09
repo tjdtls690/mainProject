@@ -67,7 +67,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style2.css" rel="stylesheet" type="text/css" />
+<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
@@ -137,7 +137,7 @@ function page_move(tagNum){
 	    			if(window.innerWidth > 1023){
 	    				$(".header").css("top","-130px");
 	    			}else{
-	    				$(".header").css("top","-50px");
+	    				$(".header").css("top","0px");
 	    			}
 	    		}else{
 	    			$(".header").css("top","0px");
@@ -347,26 +347,18 @@ function page_move(tagNum){
 										<h2 data-v-e99f4992="">마이페이지</h2>
 										<ul data-v-e99f4992="">
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/orders" class="">주문/결제 내역</a></li>
+												href="myPayInfo.do" aria-current="page"
+												class="nuxt-link-exact-active nuxt-link-active">주문/결제 내역</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/delivery" class="">배송현황</a></li>
+												href="myDelivery.do" class="">배송현황</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/destination" class="">배송지 관리</a></li>
+												href="myPointSearch.do" class="">포인트 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/spot-req" class="">프코스팟신청 현황</a></li>
+												href="myCouponSearch.do" class="">쿠폰 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/cards" class="">카드 관리</a></li>
+												href="myReviewSearch.do" class="">나의 후기</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/invite" class="">친구 초대</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/points" aria-current="page"
-												class="nuxt-link-exact-active nuxt-link-active">포인트 조회</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/coupons" class="">쿠폰 조회</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/mypage/review" class="">나의 후기</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="/user/password" class="">회원정보 수정</a></li>
+												href="myMemberModify.do" class="">회원정보 수정</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#">로그아웃</a></li>
 										</ul>
 									</aside>

@@ -55,7 +55,10 @@ $(function() {
 			}
 			lastScrollTop = st;
 		});
-	});
+	$('.btn.join').click(function(){
+		location.href = "firstEvent.do";
+	})	
+});
 </script>
 </head>
 <body>
@@ -250,7 +253,7 @@ $(function() {
 						<div data-v-b6a844b8="" class="btn-wrap">
 							<img data-v-b6a844b8=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2021-parcel/04.jpg">
-							<div data-v-b6a844b8="" class="btn"></div>
+							<div data-v-b6a844b8="" class="btn join"></div>
 						</div>
 						<img data-v-b6a844b8=""
 							src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2021-parcel/05.jpg">

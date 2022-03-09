@@ -10,16 +10,25 @@
 			<input type="hidden" value="m">
 			<input type="hidden" value="${item.item_code }">
 			<input type="hidden" value="${item.item_tag_main }">
+			<input type="hidden" value="${item.item_price_m_sub }">
 			<input type="hidden" value="${item.item_price_m }">
 			<div data-v-5b7f52e9="" class="detail-wrap">
 				<div data-v-5b7f52e9="" class="detail-name-and-badge">
-					<span data-v-5b7f52e9="">미디움 (M) </span>
+					<span data-v-5b7f52e9="" class="except1">미디움 (M) </span>
 					<!---->
 					<span data-v-5b7f52e9="" class="detail-badge"></span>
 				</div>
-				<div data-v-5b7f52e9="" class="detail-price">
-					<span data-v-5b7f52e9="">${item.item_price_m }원</span>
-				</div>
+				<c:if test="${empty item.item_price_m_sub }">
+					<div data-v-5b7f52e9="" class="detail-price">
+						<span data-v-5b7f52e9="" class="except1">${item.item_price_m }원</span>
+					</div>
+				</c:if>
+				<c:if test="${not empty item.item_price_m_sub }">
+					<div data-v-5b7f52e9="" class="detail-price">
+						<span data-v-5b7f52e9="" class="discount-price">${item.item_price_m_sub }</span> 
+						<span data-v-5b7f52e9="" class="except1">${item.item_price_m }원</span>
+					</div>
+				</c:if>
 			</div>
 		</li>
 		<!---->
@@ -29,16 +38,25 @@
 				<input type="hidden" value="l">
 				<input type="hidden" value="${item.item_code }">
 				<input type="hidden" value="${item.item_tag_main }">
+				<input type="hidden" value="${item.item_price_l_sub }">
 				<input type="hidden" value="${item.item_price_l }">
 				<div data-v-5b7f52e9="" class="detail-wrap">
 					<div data-v-5b7f52e9="" class="detail-name-and-badge">
-						<span data-v-5b7f52e9="">라지 (L) </span>
+						<span data-v-5b7f52e9="" class="except1">라지 (L) </span>
 						<!---->
 						<span data-v-5b7f52e9="" class="detail-badge"></span>
 					</div>
-					<div data-v-5b7f52e9="" class="detail-price">
-						<span data-v-5b7f52e9="">${item.item_price_l }원</span>
-					</div>
+					<c:if test="${empty item.item_price_l_sub }">
+						<div data-v-5b7f52e9="" class="detail-price">
+							<span data-v-5b7f52e9="" class="except1">${item.item_price_l }원</span>
+						</div>
+					</c:if>
+					<c:if test="${not empty item.item_price_l_sub }">
+						<div data-v-5b7f52e9="" class="detail-price">
+							<span data-v-5b7f52e9="" class="discount-price">${item.item_price_l_sub }</span> 
+							<span data-v-5b7f52e9="" class="except1">${item.item_price_l }원</span>
+						</div>
+					</c:if>
 				</div>
 			</li>
 		</c:if>
@@ -49,16 +67,25 @@
 			<input type="hidden" value="m">
 			<input type="hidden" value="${item.item_code }">
 			<input type="hidden" value="${item.item_tag_main }">
+			<input type="hidden" value="${item.item_price_m_sub }">
 			<input type="hidden" value="${item.item_price_m }">
 			<div data-v-5b7f52e9="" class="detail-wrap">
 				<div data-v-5b7f52e9="" class="detail-name-and-badge">
-					<span data-v-5b7f52e9="">1개 </span>
+					<span data-v-5b7f52e9="" class="except1">1개 </span>
 					<!---->
 					<span data-v-5b7f52e9="" class="detail-badge"></span>
 				</div>
-				<div data-v-5b7f52e9="" class="detail-price">
-					<span data-v-5b7f52e9="">${item.item_price_m }원</span>
-				</div>
+				<c:if test="${empty item.item_price_m_sub }">
+					<div data-v-5b7f52e9="" class="detail-price">
+						<span data-v-5b7f52e9="" class="except1">${item.item_price_m }원</span>
+					</div>
+				</c:if>
+				<c:if test="${not empty item.item_price_m_sub }">
+					<div data-v-5b7f52e9="" class="detail-price">
+						<span data-v-5b7f52e9="" class="discount-price">${item.item_price_m_sub }</span> 
+						<span data-v-5b7f52e9="" class="except1">${item.item_price_m }원</span>
+					</div>
+				</c:if>
 			</div>
 		</li>
 		<!---->
@@ -68,16 +95,25 @@
 				<input type="hidden" value="l">
 				<input type="hidden" value="${item.item_code }">
 				<input type="hidden" value="${item.item_tag_main }">
+				<input type="hidden" value="${item.item_price_l_sub }">
 				<input type="hidden" value="${item.item_price_l }">
 				<div data-v-5b7f52e9="" class="detail-wrap">
 					<div data-v-5b7f52e9="" class="detail-name-and-badge">
-						<span data-v-5b7f52e9="">1묶음 </span>
+						<span data-v-5b7f52e9="" class="except1">1묶음 </span>
 						<!---->
 						<span data-v-5b7f52e9="" class="detail-badge"></span>
 					</div>
-					<div data-v-5b7f52e9="" class="detail-price">
-						<span data-v-5b7f52e9="">${item.item_price_l }원</span>
-					</div>
+					<c:if test="${empty item.item_price_l_sub }">
+						<div data-v-5b7f52e9="" class="detail-price">
+							<span data-v-5b7f52e9="" class="except1">${item.item_price_l }원</span>
+						</div>
+					</c:if>
+					<c:if test="${not empty item.item_price_l_sub }">
+						<div data-v-5b7f52e9="" class="detail-price">
+							<span data-v-5b7f52e9="" class="discount-price">${item.item_price_l_sub }</span> 
+							<span data-v-5b7f52e9="" class="except1">${item.item_price_l }원</span>
+						</div>
+					</c:if>
 				</div>
 			</li>
 		</c:if>

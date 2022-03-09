@@ -7,7 +7,7 @@
 		<li data-v-3f3398e6=""><div data-v-3f3398e6=""
 				class="add-items-group-body-contents">
 				<div data-v-3f3398e6="" class="content-img-wrap">
-					<img data-v-3f3398e6=""
+					<img data-v-3f3398e6="" class="modal-list-img"
 						src="${item.item_image }">
 					<!---->
 				</div>
@@ -17,9 +17,16 @@
 						<p data-v-3f3398e6="" class="content-name">${item.item_name }
 						</p>
 						<div data-v-3f3398e6="" class="content-price-wrap">
-							<p data-v-3f3398e6="" class="content-discounted-price">
-								${item.item_price_m }원&nbsp;&nbsp;</p>
-							<!---->
+							<c:if test="${empty item.item_price_m_sub }">
+								<p data-v-3f3398e6="" class="content-discounted-price">
+									${item.item_price_m }원&nbsp;&nbsp;</p>
+							</c:if>
+							<c:if test="${not empty item.item_price_m_sub }">
+								<p data-v-3f3398e6="" class="content-discounted-price">
+									${item.item_price_m }원&nbsp;~&nbsp;</p>
+								<p data-v-3f3398e6="" class="content-price">${item.item_price_m_sub }원</p>
+								<!---->
+							</c:if>
 						</div>
 						<p data-v-3f3398e6="" class="content-info">
 							<!---->

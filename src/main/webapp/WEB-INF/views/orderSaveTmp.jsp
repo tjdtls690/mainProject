@@ -8,4 +8,6 @@
 	<input type="hidden" value="${itemInfo.item_name }" class="saveItemName">
 	<input type="hidden" value="${itemSize }" class="saveItemSize">
 	<input type="hidden" value="${itemSizeSummary }" class="saveitemSizeSummary">
+	<input type="hidden" value="${itemPriceSub }" class="savePriceSub">
+	<input type="hidden" value="1" class="saveitemQuantity">
 </div>

@@ -29,7 +29,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=2">
+<link rel="stylesheet" href="${path }/style2.css?ver=10">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
@@ -108,7 +108,7 @@ $(function() {
     
     $('#delivery-morning').trigger("click");
     
-    $('.delivery-desc-btn').on('click', function(){
+    $(document).on('click', '.delivery-desc-btn', function(){
     	$.ajax({
     		url : 'orderShippingAddressExplainModal.do',
     		dataType : 'html',
@@ -118,8 +118,11 @@ $(function() {
     	})
     });
     
-    $(document).on('click', '.button__wrap', function(){
-    	$('.modal-mask').detach();
+    $(document).on('click', '.modal-mask', function(e){
+    	if(!$(e.target).hasClass("modal-wrapper") && !$(e.target).hasClass("modal-header") && !$(e.target).hasClass("except") && !$(e.target).hasClass("desc-title")
+    			&& !$(e.target).hasClass("desc-wrap") && !$(e.target).hasClass("desc-text") && !$(e.target).hasClass("modal-body")){
+    		$('.modal-mask').detach();
+    	}
     });
     
     $(document).on('click', '.add', function(){
@@ -133,14 +136,49 @@ $(function() {
     		},
     		success : function(htmlOut){
     			$('.order').append(htmlOut);
+    			
+    			var oldPrice = $('#oldPrice').val();
+    			$('.count-and-price').text($('#oldQuantity').val() + '개' + ' / ' + Number(oldPrice).toLocaleString('ko-KR') + '원');
     		}
     	})
     });
     
-    $(document).on('click', '.modal-header-slot-close', function(){
-    	$('.modal-wrap').detach();
-    	$('html').attr('class', '');
-    });
+    $(document).on('click', '.modal-wrap', function(e){
+    	if(!$(e.target).hasClass("content-name") && !$(e.target).hasClass("content-price-wrap") && !$(e.target).hasClass("content-right") && 
+    			!$(e.target).hasClass("dropdown") && !$(e.target).hasClass("add-items-group-body-contents") && !$(e.target).hasClass("content-wrap") && 
+    			!$(e.target).hasClass("add-items-group") && !$(e.target).hasClass("content-discounted-price") && !$(e.target).hasClass("detail-wrap")
+    			&& !$(e.target).hasClass("modal-list-img") && !$(e.target).hasClass("order_modal_btn") && !$(e.target).hasClass("menu-tab")
+    			&& !$(e.target).hasClass("order-modal-tab-name") && !$(e.target).hasClass("dropdown-icon") && !$(e.target).hasClass("modal-header-slot-title")
+    			&& !$(e.target).hasClass("modal-header-slot") && !$(e.target).hasClass("add-items") && !$(e.target).hasClass("except1") && !$(e.target).hasClass("except2")
+    			&& !$(e.target).hasClass("add-items-selected") && !$(e.target).hasClass("add-items-selected-text") && !$(e.target).hasClass("count-and-price")
+    			&& !$(e.target).hasClass("button__wrap") && !$(e.target).hasClass("confirm-icon") && !$(e.target).hasClass("add-items-content-wrap")
+    			&& !$(e.target).hasClass("content-left") && !$(e.target).hasClass("dropdown-btn") && !$(e.target).hasClass("dropdown-content") && !$(e.target).hasClass("except3")
+    			&& !$(e.target).hasClass("confirm-list") && !$(e.target).hasClass("confirm-list-delete") && !$(e.target).hasClass("except4") && !$(e.target).hasClass("order-menu-temp-name")
+    			&& !$(e.target).hasClass("except5") && !$(e.target).hasClass("except6") && !$(e.target).hasClass("button button--size-large") && !$(e.target).hasClass("hidden-save-close")
+    			&& !$(e.target).hasClass("toggle-drop-down") && !$(e.target).hasClass("order-modal-select") && !$(e.target).hasClass("content-price") && !$(e.target).hasClass("order-menu-temp-discount")
+    			&& !$(e.target).hasClass("discount-price") && !$(e.target).hasClass("order-menu-temp-price")){
+    		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+        	for (let i = 0; i < TimeoutId; i++) {
+        	  clearTimeout(i);
+        	}
+        	$('.swal2-container').detach();
+    		$('html').attr('class', '');
+    		$('body').attr('class', '');
+    		
+    		
+    		$('.modal-wrap').detach();
+        	$('html').attr('class', '');
+        	
+        	var oldQuantity = $('#oldQuantity').val();
+        	var oldPrice = $('#oldPrice').val();
+        	$('#latelyQuantity').val(oldQuantity);
+        	$('#latelyPrice').val(oldPrice);
+        	
+        	var cloneElements = $('.hidden-div').children('div').clone();
+        	$('.hidden-div2').empty();
+        	cloneElements.appendTo('.hidden-div2');
+    	}
+    })
     
     $(document).on('click','.order_modal_btn', function(){
     	var tagMain = $(this).prev().val();
@@ -156,7 +194,11 @@ $(function() {
     		success : function(htmlOut){
     			$('.add-items-group-body').html(htmlOut);
     		}
-    	})
+    	});
+    	
+    	$( '.modal-content.modal-content-height-full' ).animate( {
+    		scrollTop : 0
+    	}, 400 );
     });
     
     $(document).on('click', '.button.dropdown', function(){
@@ -187,24 +229,57 @@ $(function() {
     });
     
     $(document).on('click', '.order-modal-select', function(){
+    	// 먼저 모든 타임아웃 동작 중지
+    	const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+    	for (let i = 0; i < TimeoutId; i++) {
+    	  clearTimeout(i);
+    	}
+    	$('.swal2-container').detach();
+		$('html').attr('class', 'mode-popup');
+		$('body').attr('class', '');
+    	
     	var itemName = $(this).children('input').first().val();
     	var itemPrice = $(this).children('input').last().val();
     	var itemSize = $(this).children('div').children('div').first().children('span').first().text();
     	var itemSizeSummary = $(this).children('input').eq(1).val();
     	var itemCode = $(this).children('input').eq(2).val();
     	var itemTagMain = $(this).children('input').eq(3).val();
+    	var itemPriceSub = $(this).children('input').eq(4).val();
     	
     	var oldQuantity = $('#oldQuantity').val();
     	var oldPrice = $('#oldPrice').val();
+    	var latelyQuantity = $('#latelyQuantity').val();
+    	var latelyPrice = $('#latelyPrice').val();
     	
     	$('.toggle-drop-down').detach();
     	$('.dropdown-btn.dropdown-open').attr('class', 'dropdown-btn');
+    	
+    	$('.swal2-container').remove();
     	// ${itemInfo.item_tag_main}/${itemInfo.item_code }/${itemSizeSummary}
     	if($('.' + itemTagMain + '\\/' + itemCode + '\\/' + itemSizeSummary).length > 0){
-    		
+    		$.ajax({
+    			url : 'orderSaveFail.do',
+    			dataType : 'html',
+    			success : function(htmlOut){
+    				$('body').append(htmlOut);
+    				$('html').attr('class', 'mode-popup swal2-toast-shown swal2-shown');
+    				$('body').attr('class', 'swal2-toast-shown swal2-shown');
+    				var timer1 = setTimeout(function() {
+    					$('.swal2-container').css('overflow-y', 'auto');
+    				}, 500);
+    				var timer2 = setTimeout(function() {
+    					$('.swal2-container').attr('class', 'swal2-container swal2-bottom toast-container-class swal2-backdrop-hidden');
+    				}, 2450);
+    				var timer3 = setTimeout(function() {
+    					$('.swal2-container').detach();
+    					$('html').attr('class', 'mode-popup');
+    					$('body').attr('class', '');
+    				}, 2500);
+    			}
+    		});
     	}else{
-    		$('#oldQuantity').val(Number(oldQuantity) + 1);
-        	$('#oldPrice').val(Number(oldPrice) + Number(itemPrice.replace(',', '')));
+        	$('#latelyQuantity').val(Number(latelyQuantity) + 1);
+        	$('#latelyPrice').val(Number(latelyPrice) + Number(itemPrice.replace(',', '')));
     		
     		$.ajax({
         		url : 'orderSaveTmp.do',
@@ -216,10 +291,10 @@ $(function() {
         			'itemPrice' : itemPrice,
         			'item_name' : itemName,
         			'itemSize' : itemSize,
-        			'itemSizeSummary' : itemSizeSummary
+        			'itemSizeSummary' : itemSizeSummary,
+        			'itemPriceSub' : itemPriceSub
         		},
         		success : function(htmlOut){
-        			$('.hidden-div').append(htmlOut);
         			$('.hidden-div2').append(htmlOut); 
         			// 모달창 꺼질 땐 hidden-div2 안은 지워야 한다.
         			// 선택 완료 말고 그냥 엑스버튼이나 공백을 눌러서 꺼버릴 시, 
@@ -232,19 +307,359 @@ $(function() {
     			type : 'post',
     			data : {
     				'price' : itemPrice,
-    				'oldPrice' : oldPrice
+    				'latelyPrice' : latelyPrice
     			},
     			success : function(data){
-    				$('.count-and-price').remove;
-    				$('.count-and-price').text($('#oldQuantity').val() + '개' + ' / ' + data + '원');
+    				$('.count-and-price').text($('#latelyQuantity').val() + '개' + ' / ' + data + '원');
     			}
-    		})
+    		});
+    		
+    		$.ajax({
+    			url : 'orderSaveSuccess.do',
+    			dataType : 'html',
+    			success : function(htmlOut){
+    				$('body').append(htmlOut);
+    				$('html').attr('class', 'mode-popup swal2-toast-shown swal2-shown');
+    				$('body').attr('class', 'swal2-toast-shown swal2-shown');
+    				var timer1 = setTimeout(function() {
+    					$('.swal2-container').css('overflow-y', 'auto');
+    				}, 500);
+    				var timer2 = setTimeout(function() {
+    					$('.swal2-container').attr('class', 'swal2-container swal2-bottom toast-container-class swal2-backdrop-hidden');
+    				}, 2450);
+    				var timer3 = setTimeout(function() {
+    					$('.swal2-container').detach();
+    					$('html').attr('class', 'mode-popup');
+    					$('body').attr('class', '');
+    				}, 2500);
+    			}
+    		});
     	}
     })
     
     $(document).on('click', '.hidden-save-open', function(){
+    	if($('.hidden-div2').children('div').length == 0) return false;
     	
+    	$('.modal-content.modal-content-height-full').css('overflow-y', 'hidden');
+    	$('.add-items-body').css('opacity', '0.3');
+    	$('.add-items-body').css('pointer-events', 'none');
+    	$.ajax({
+    		url : 'confirmIconChange2.do',
+    		dataType : 'html',
+    		success : function(htmlOut){
+    			$('.confirm-icon').append(htmlOut);
+    		}
+    	});
+    	$('.hidden-save-open').detach();
+    	
+//     	alert($('.hidden-div').children('div').eq(0).children('.savePrice').val() + " " + $('.hidden-div').children('div').eq(1).children('.savePrice').val());
+		var saveItemCode = [], data = {}; // {} 중괄호는 데이터 dictionary 선언, [] 대괄호는 배열 선언
+		var saveTagMain = [];
+		var savePrice = [];
+		var savePriceSub = [];
+		var saveItemName = [];
+		var saveItemSize = [];
+		var saveitemSizeSummary = [];
+	    for(var i = 0; i < $('.hidden-div2').children('div').length; i++){
+	    	saveItemCode[i] = $('.hidden-div2').children('div').eq(i).children('.saveItemCode').val();
+	    	saveTagMain[i] = $('.hidden-div2').children('div').eq(i).children('.saveTagMain').val();
+	    	savePrice[i] = $('.hidden-div2').children('div').eq(i).children('.savePrice').val();
+	    	savePriceSub[i] = $('.hidden-div2').children('div').eq(i).children('.savePriceSub').val();
+	    	saveItemName[i] = $('.hidden-div2').children('div').eq(i).children('.saveItemName').val();
+	    	saveItemSize[i] = $('.hidden-div2').children('div').eq(i).children('.saveItemSize').val();
+	    	saveitemSizeSummary[i] = $('.hidden-div2').children('div').eq(i).children('.saveitemSizeSummary').val();
+	    }
+	    
+	    data.saveItemCode = saveItemCode;
+	    data.saveTagMain = saveTagMain;
+	    data.savePrice = savePrice;
+	    data.savePriceSub = savePriceSub;
+	    data.saveItemName = saveItemName;
+	    data.saveItemSize = saveItemSize;
+	    data.saveitemSizeSummary = saveitemSizeSummary;
+	    jQuery.ajaxSettings.traditional = true;
+	    
+    	$.ajax({
+    		url : 'orderHiddenSavePresentation.do',
+    		dataType : 'html',
+    		type : 'post',
+    		data : data,
+    		success : function(htmlOut){
+    			$('.add-items-content-wrap').append(htmlOut);
+    		}
+    	});
+    });
+    
+    $(document).on('click', '.hidden-save-close', function(){
+    	$('.modal-content.modal-content-height-full').css('overflow-y', 'auto');
+    	$('.add-items-body').css('opacity', '1');
+    	$('.add-items-body').css('pointer-events', 'auto');
+    	$.ajax({
+    		url : 'confirmIconChange1.do',
+    		dataType : 'html',
+    		success : function(htmlOut){
+    			$('.confirm-icon').append(htmlOut);
+    		}
+    	});
+    	$('.hidden-save-close').detach();
+    	$('.add-items-confirm-list').detach();
     })
+    
+    // 삭제버튼 클릭시
+    $(document).on('click', '.except4', function(){
+    	var tmp = $(this).parent().siblings('input').eq(0).val();
+    	for(var i = 0; i < $('.hidden-div2').children('div').length; i++){
+    		var x2 = $('.hidden-div2').children('div').eq(i);
+    		if(x2.attr('class') == tmp){
+    			x2.detach();
+    			$(this).parent().parent().detach();
+    		}
+    	}
+    	
+    	var latelyQuantity = $('#latelyQuantity').val();
+    	var latelyPrice = $('#latelyPrice').val();
+    	var selectPrice = $(this).parent().siblings('input').eq(1).val();
+    	$('#latelyQuantity').val(Number(latelyQuantity) - 1);
+    	$('#latelyPrice').val(Number(latelyPrice) - Number(selectPrice.replace(',','')));
+    	var latelyPriceTmp = $('#latelyPrice').val();
+		$('.count-and-price').text($('#latelyQuantity').val() + '개' + ' / ' + Number(latelyPriceTmp).toLocaleString('ko-KR') + '원');
+    	
+    	if($('.hidden-div2').children('div').length == 0){
+    		$('.hidden-save-close').trigger('click');
+    	}
+    });
+    
+    $(document).on('click', '.button__wrap', function(){
+    	const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+    	for (let i = 0; i < TimeoutId; i++) {
+    	  clearTimeout(i);
+    	}
+    	$('.swal2-container').detach();
+		$('html').attr('class', '');
+		$('body').attr('class', '');
+		
+    	$('.modal-wrap').detach();
+    	
+    	var latelyQuantity = $('#latelyQuantity').val();
+    	var latelyPrice = $('#latelyPrice').val();
+    	$('#oldQuantity').val(latelyQuantity);
+    	$('#oldPrice').val(latelyPrice);
+    	
+    	var cloneElements = $('.hidden-div2').children('div').clone();
+    	$('.hidden-div').empty();
+    	cloneElements.appendTo('.hidden-div');
+    	
+    	if($('.hidden-div-real').children('div').length > 0){
+		    for(var i = 0; i < $('.hidden-div').children('div').length; i++){
+		    	var checkR = 0;
+		    	for(var j = 0; j < $('.hidden-div-real').children('div').length; j++){
+		    		if($('.hidden-div').children('div').eq(i).attr('class') == $('.hidden-div-real').children('div').eq(j).attr('class')){
+		    			checkR++;
+		    			break;
+		    		}
+		    	}
+		    	if(checkR == 0){
+		    		var cloneElements = $('.hidden-div').children('div').eq(i).clone();
+		        	cloneElements.appendTo('.hidden-div-real');
+		    	}
+		    }
+		    
+		    for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+		    	var checkR = 0;
+		    	for(var j = 0; j < $('.hidden-div').children('div').length; j++){
+		    		if($('.hidden-div-real').children('div').eq(i).attr('class') == $('.hidden-div').children('div').eq(j).attr('class')){
+		    			checkR++;
+		    			break;
+		    		}
+		    	}
+		    	if(checkR == 0){
+		    		var cloneElements = $('.hidden-div-real').children('div').eq(i).detach();
+		    	}
+		    }
+	    }else{
+	    	var cloneElements = $('.hidden-div').children('div').clone();
+        	cloneElements.appendTo('.hidden-div-real');
+	    }
+    	
+    	var saveItemCode = [], data = {};
+		var saveTagMain = [];
+		var savePrice = [];
+		var savePriceSub = [];
+		var saveItemName = [];
+		var saveItemSize = [];
+		var saveitemSizeSummary = [];
+		var saveitemQuantity = [];
+	    for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+	    	saveItemCode[i] = $('.hidden-div-real').children('div').eq(i).children('.saveItemCode').val();
+	    	saveTagMain[i] = $('.hidden-div-real').children('div').eq(i).children('.saveTagMain').val();
+	    	savePrice[i] = $('.hidden-div-real').children('div').eq(i).children('.savePrice').val();
+	    	savePriceSub[i] = $('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val();
+	    	saveItemName[i] = $('.hidden-div-real').children('div').eq(i).children('.saveItemName').val();
+	    	saveItemSize[i] = $('.hidden-div-real').children('div').eq(i).children('.saveItemSize').val();
+	    	saveitemSizeSummary[i] = $('.hidden-div-real').children('div').eq(i).children('.saveitemSizeSummary').val();
+	    	saveitemQuantity[i] = $('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val();
+	    }
+	    
+	    data.saveItemCode = saveItemCode;
+	    data.saveTagMain = saveTagMain;
+	    data.savePrice = savePrice;
+	    data.savePriceSub = savePriceSub;
+	    data.saveItemName = saveItemName;
+	    data.saveItemSize = saveItemSize;
+	    data.saveitemSizeSummary = saveitemSizeSummary;
+	    data.saveitemQuantity = saveitemQuantity;
+	    jQuery.ajaxSettings.traditional = true; // ajax로 리스트 형식을 보내기 위한 셋팅
+    	
+    	if($('.hidden-div').children('div').length > 0){
+    		$.ajax({
+    			url : 'orderSaveComplete.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : data,
+    			success : function(htmlOut){
+    				$('.order-selected-item-wrap').html(htmlOut);
+    			}
+    		});
+    	}
+	    
+	    var realPrice = 0;
+	    var realPriceSub = 0;
+	    var realQuantity = 0;
+	    for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+	    	realPrice += Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    	if(Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', '')) > 0){
+	    		var tmp1 = Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', ''));
+	    		var tmp2 = Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    		realPriceSub += (tmp1 - tmp2);
+	    	}
+	    	realQuantity += Number($('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val());
+	    }
+	    $('#realPrice').val(realPrice);
+    	$('#realPriceSub').val(realPriceSub);
+    	$('#realQuantity').val(realQuantity);
+    	
+    	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
+    	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+    });
+    
+    $(document).on('click', '.swal2-title', function(){
+    	$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').detach();
+    	const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+    	for (let i = 0; i < TimeoutId; i++) {
+    	  clearTimeout(i);
+    	}
+    	$('.swal2-container').detach();
+		$('html').attr('class', 'mode-popup');
+		$('body').attr('class', '');
+    });
+    
+    $(document).on('click', '.form-number__control:even', function(){
+    	if($(this).siblings('span').children('input').val() == 1){
+    		return false;
+    	}
+    	// 돔 요소 자체를 가져오고 싶으면 [] 를 써서 인덱스를 지정해야 한다. 
+		$(this).siblings('span').children('input')[0].stepDown();
+    	var onePrice = $(this).siblings('input').eq(1).val().replace(',', '');
+    	var oldPrice;
+    	var onePriceSub = $(this).siblings('input').eq(2).val().replace(',', '');
+    	var oldPriceSub;
+    	var oldQuantity;
+    	for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+    		var check = 0;
+	    	if($('.hidden-div-real').children('div').eq(i).attr('class') == $(this).siblings('input').eq(0).val()){
+	    		check++;
+	    	}
+	    	if(check != 0){
+	    		oldPrice = $('.hidden-div-real').children('div').eq(i).children('.savePrice').val();
+	    		oldPrice = oldPrice.replace(',', '');
+	    		var resultP = Number(oldPrice) - Number(onePrice);
+	    		$(this).parent().parent().parent().find('.selected-item-price').children().text(Number(resultP).toLocaleString('ko-KR') + '원');
+	    		$('.hidden-div-real').children('div').eq(i).children('.savePrice').val(Number(resultP).toLocaleString('ko-KR'));
+	    		
+	    		oldPriceSub = $('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val();
+	    		oldPriceSub = oldPriceSub.replace(',', '');
+	    		var resultPS = Number(oldPriceSub) - Number(onePriceSub);
+	    		$(this).parent().parent().parent().find('.selected-item-discount').text(Number(resultPS).toLocaleString('ko-KR'));
+	    		$('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val(Number(resultPS).toLocaleString('ko-KR'));
+	    		
+	    		oldQuantity = $('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val();
+	    		var resultQ = Number(oldQuantity) - 1;
+	    		$('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val(resultQ);
+	    		break;
+	    	}
+	    }
+    	
+    	var realPrice = 0;
+	    var realPriceSub = 0;
+	    var realQuantity = 0;
+	    for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+	    	realPrice += Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    	if(Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', '')) > 0){
+	    		var tmp1 = Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', ''));
+	    		var tmp2 = Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    		realPriceSub += (tmp1 - tmp2);
+	    	}
+	    	realQuantity += Number($('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val());
+	    }
+	    $('#realPrice').val(realPrice);
+    	$('#realPriceSub').val(realPriceSub);
+    	$('#realQuantity').val(realQuantity);
+    	
+    	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
+    	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+    });
+    
+    $(document).on('click', '.form-number__control:odd', function(){
+		$(this).siblings('span').children('input')[0].stepUp();
+		var onePrice = $(this).siblings('input').eq(1).val().replace(',', '');
+    	var oldPrice;
+    	var onePriceSub = $(this).siblings('input').eq(2).val().replace(',', '');
+    	var oldPriceSub;
+    	var oldQuantity;
+    	for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+    		var check = 0;
+	    	if($('.hidden-div-real').children('div').eq(i).attr('class') == $(this).siblings('input').eq(0).val()){
+	    		check++;
+	    	}
+	    	if(check != 0){
+	    		oldPrice = $('.hidden-div-real').children('div').eq(i).children('.savePrice').val();
+	    		oldPrice = oldPrice.replace(',', '');
+	    		var resultP = Number(oldPrice) + Number(onePrice);
+	    		$(this).parent().parent().parent().find('.selected-item-price').children().text(Number(resultP).toLocaleString('ko-KR') + '원');
+	    		$('.hidden-div-real').children('div').eq(i).children('.savePrice').val(Number(resultP).toLocaleString('ko-KR'));
+	    		
+	    		oldPriceSub = $('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val();
+	    		oldPriceSub = oldPriceSub.replace(',', '');
+	    		var resultPS = Number(oldPriceSub) + Number(onePriceSub);
+	    		$(this).parent().parent().parent().find('.selected-item-discount').text(Number(resultPS).toLocaleString('ko-KR'));
+	    		$('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val(Number(resultPS).toLocaleString('ko-KR'));
+	    		
+	    		oldQuantity = $('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val();
+	    		var resultQ = Number(oldQuantity) + 1;
+	    		$('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val(resultQ);
+	    		break;
+	    	}
+	    }
+    	
+    	var realPrice = 0;
+	    var realPriceSub = 0;
+	    var realQuantity = 0;
+	    for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+	    	realPrice += Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    	if(Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', '')) > 0){
+	    		var tmp1 = Number($('.hidden-div-real').children('div').eq(i).children('.savePriceSub').val().replace(',', ''));
+	    		var tmp2 = Number($('.hidden-div-real').children('div').eq(i).children('.savePrice').val().replace(',', ''));
+	    		realPriceSub += (tmp1 - tmp2);
+	    	}
+	    	realQuantity += Number($('.hidden-div-real').children('div').eq(i).children('.saveitemQuantity').val());
+	    }
+	    $('#realPrice').val(realPrice);
+    	$('#realPriceSub').val(realPriceSub);
+    	$('#realQuantity').val(realQuantity);
+    	
+    	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
+    	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+    });
 });
 </script>
 </head>
@@ -265,14 +680,19 @@ $(function() {
 						<input type="hidden" name="itemCode01" value="">
 						<input type="hidden" name="tagSub01" value="">
 					</form>
+					<div class="hidden-div-real">
+					</div>
 					<div class="hidden-div">
-						
 					</div>
 					<div class="hidden-div2">
-						
 					</div>
+					<input type="hidden" value="0" id="realQuantity">
+					<input type="hidden" value="0" id="realPrice">
+					<input type="hidden" value="0" id="realPriceSub">
 					<input type="hidden" value="0" id="oldQuantity">
 					<input type="hidden" value="0" id="oldPrice">
+					<input type="hidden" value="0" id="latelyQuantity">
+					<input type="hidden" value="0" id="latelyPrice">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>

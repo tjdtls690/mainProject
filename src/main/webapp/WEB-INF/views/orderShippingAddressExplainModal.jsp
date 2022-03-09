@@ -5,7 +5,7 @@
 	<div data-v-f36c80f2="" class="modal-container">
 		<div data-v-f36c80f2="" class="modal-wrapper">
 			<div data-v-f36c80f2="" class="modal-header">
-				<h1 data-v-064d23aa="" data-v-f36c80f2="">배송 안내</h1>
+				<h1 data-v-064d23aa="" data-v-f36c80f2="" class="except">배송 안내</h1>
 			</div>
 			<div data-v-f36c80f2="" class="modal-body">
 				<article data-v-064d23aa="" data-v-f36c80f2="" class="desc-wrap">

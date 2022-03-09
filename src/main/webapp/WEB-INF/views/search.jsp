@@ -36,7 +36,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style3.css">
+<link rel="stylesheet" href="${path }/style3.css?ver=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){

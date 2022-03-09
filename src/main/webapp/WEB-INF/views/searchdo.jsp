@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <c:if test="${check != 0 }">
 	<div data-v-6e61822c="" class="search-count-wrap">
@@ -41,10 +42,10 @@
 											<dl data-v-15082832=""
 												class="for-loop-cloned-item-601 row--v">
 												<dd data-v-15082832="" class="for-loop-cloned-item-601">
-													<em data-v-15082832="" class="for-loop-cloned-item-601">${item.itemPriceM }원</em>~<span
+													<em data-v-15082832="" class="for-loop-cloned-item-601"><fmt:formatNumber value="${item.itemPriceM }" pattern="#,###" />원</em>~<span
 														data-v-15082832="" class="for-loop-cloned-item-244">
 														<c:if test="${item.itemPriceMSub ne ''}">
-																${item.itemPriceMSub }
+																<fmt:formatNumber value="${item.itemPriceMSub }" pattern="#,###" />
 														</c:if>
 														</span>
 													<!---->

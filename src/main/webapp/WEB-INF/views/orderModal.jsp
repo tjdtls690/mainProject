@@ -26,49 +26,49 @@
 								<div data-v-412c0194="" class="on">
 									<input type="hidden" name="tagMain" value="200">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">샐러드</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">샐러드</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="1">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">초코베리머치</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">초코베리머치</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="300">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">샌드위치·랩</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">샌드위치·랩</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="400">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">도시락·간편식</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">도시락·간편식</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="500">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">죽·스프</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">죽·스프</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="600">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">세트상품</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">세트상품</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="700">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">간식</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">간식</span>
 									</button>
 								</div>
 								<div data-v-412c0194="" class="">
 									<input type="hidden" name="tagMain" value="800">
 									<button data-v-412c0194="" type="button" class="order_modal_btn">
-										<span data-v-412c0194="">음료</span>
+										<span data-v-412c0194="" class="order-modal-tab-name">음료</span>
 									</button>
 								</div>
 							</nav>
@@ -81,7 +81,7 @@
 									<li data-v-3f3398e6=""><div data-v-3f3398e6=""
 											class="add-items-group-body-contents">
 											<div data-v-3f3398e6="" class="content-img-wrap">
-												<img data-v-3f3398e6=""
+												<img data-v-3f3398e6="" class="modal-list-img"
 													src="${item.item_image }">
 												<!---->
 											</div>
@@ -91,9 +91,16 @@
 													<p data-v-3f3398e6="" class="content-name">${item.item_name }
 													</p>
 													<div data-v-3f3398e6="" class="content-price-wrap">
-														<p data-v-3f3398e6="" class="content-discounted-price">
-															${item.item_price_m }원&nbsp;&nbsp;</p>
-														<!---->
+														<c:if test="${empty item.item_price_m_sub }">
+															<p data-v-3f3398e6="" class="content-discounted-price">
+																${item.item_price_m }원&nbsp;&nbsp;</p>
+														</c:if>
+														<c:if test="${not empty item.item_price_m_sub }">
+															<p data-v-3f3398e6="" class="content-discounted-price">
+																${item.item_price_m }원&nbsp;~&nbsp;</p>
+															<p data-v-3f3398e6="" class="content-price">${item.item_price_m_sub }원</p>
+															<!---->
+														</c:if>
 													</div>
 													<p data-v-3f3398e6="" class="content-info">
 														<!---->
@@ -109,7 +116,7 @@
 															<input type="hidden" value="${item.item_code }">
 															<div data-v-5b7f52e9="" class="button dropdown">
 																<div data-v-5b7f52e9="" class="dropdown-content">
-																	<span data-v-5b7f52e9=""> 선택 </span>
+																	<span data-v-5b7f52e9="" class="except3"> 선택 </span>
 																</div>
 																<div data-v-5b7f52e9="" class="dropdown-icon">
 																	<img data-v-5b7f52e9="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"
@@ -137,9 +144,9 @@
 						<svg data-v-3f3398e6="" xmlns="http://www.w3.org/2000/svg"
 							width="81" height="22" viewBox="0 0 81 22" class="hidden-save-open">
 							<g data-v-3f3398e6="" fill="none" fill-rule="evenodd">
-							<path data-v-3f3398e6="" fill="#F0F0F0"
+							<path data-v-3f3398e6="" fill="#F0F0F0" class="except2"
 								d="M15.074 0h50.852a10 10 0 0 1 9.384 6.545L81 22H0L5.69 6.545A10 10 0 0 1 15.074 0z"></path> <path
-								data-v-3f3398e6="" fill="#9B9B9B" fill-rule="nonzero"
+								data-v-3f3398e6="" fill="#9B9B9B" fill-rule="nonzero" class="except1"
 								stroke="#979797"
 								d="M41 8.88l6.515 6.453a.58.58 0 0 0 .816 0 .568.568 0 0 0 0-.808l-6.923-6.858a.58.58 0 0 0-.816 0l-6.923 6.858a.568.568 0 0 0 0 .808.58.58 0 0 0 .816 0L41 8.88z"></path></g></svg>
 					</div>

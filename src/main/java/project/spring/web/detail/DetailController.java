@@ -54,6 +54,8 @@ public class DetailController {
 		int tagSub01 = Integer.parseInt(sub);
 		System.out.println("넘어온 tagSub01 값 : "+tagSub01);
 		
+		mav.addObject("tagSub",tagSub01);
+		
 		
 		DetailVO VO1 = new DetailVO();
 		
@@ -158,7 +160,7 @@ public class DetailController {
 			List<DetailVO> itemcodes = new ArrayList<DetailVO>();
 			
             for(MappingVO vo : aa) { // 12 15 19
-            	System.out.println("itemcodes 담는중");
+            	//System.out.println("itemcodes 담는중");
             	dvo.setItem_code(vo.getItem_code());
             	itemcodes.add(detailService.getItem(dvo));
             }
@@ -238,7 +240,7 @@ public class DetailController {
 		else {
 // 구독 상품 일때
 			System.out.println(" --구독/세트 상세 정보-- ");
-			mav.addObject("tagSub",tagSub01);
+			
 			
         	DetailVO dvo = new DetailVO();
         	dvo.setItem_code(menuNum);
@@ -248,7 +250,7 @@ public class DetailController {
         	// 세트 or 구독상품 상품정보 가져오기 필요한것들
 			MappingVO mapVO = new MappingVO();
 			mapVO.setSubscribe_code(menuNum); // Subscribe_code == item_code 가 됨.
-			System.out.println("mapVO로 넘어갈 code값 :" +menuNum);
+			//System.out.println("mapVO로 넘어갈 code값 :" +menuNum);
 			List<MappingVO> aa = mappingService.getItemCodeList(mapVO);
 			
 // 			상세이미지 보여주기
@@ -272,7 +274,7 @@ public class DetailController {
 			List<DetailVO> itemcodes = new ArrayList<DetailVO>();
 			
             for(MappingVO vo : aa) { // 12 15 19
-            	System.out.println("itemcodes 담는중");
+            	//System.out.println("itemcodes 담는중");
             	dvo.setItem_code(vo.getItem_code());
             	itemcodes.add(detailService.getItem(dvo));
             }
@@ -343,7 +345,7 @@ public class DetailController {
 		    System.out.println("cri.getItem_code : "+cri.getItem_code());
 		    System.out.println("");
 		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
-			mav.setViewName("detailSub");
+			mav.setViewName("subscribeDetail");
 			return mav;
 		}
 
@@ -371,11 +373,11 @@ public class DetailController {
 	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("itemCode");
 		int num = Integer.parseInt(str);
-		System.out.println("넘어온 item_code 값 : " +num);
+		//System.out.println("넘어온 item_code 값 : " +num);
 		
 		String a = request.getParameter("tagMain01");
 		int tagMain01 = Integer.parseInt(a);
-		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
+		//System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
 		mav.setViewName("basket");
 		return mav;
 	}
@@ -385,7 +387,7 @@ public class DetailController {
 	public ModelAndView test2(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("codeNum");
 		int menuNum = Integer.parseInt(str);
-		System.out.println("넘어온 code값 :" + menuNum);
+		//System.out.println("넘어온 code값 :" + menuNum);
 		String str2 = request.getParameter("tagNum");
 		int tagMain01 = Integer.parseInt(str2);
 		System.out.println("넘어온 tag값 :" + tagMain01);
@@ -395,8 +397,8 @@ public class DetailController {
 			System.out.println("단품 상세 정보로 넘어가기");
 			DetailVO VO = new DetailVO();
 			VO.setItem_code(menuNum);
-			
 			DetailVO ListItem = detailService.getItem(VO);
+			mav.addObject("tagMain",tagMain01);
 			mav.addObject("detail", ListItem);
 			mav.setViewName("selectItem");
 		
@@ -430,10 +432,10 @@ public class DetailController {
 		String getTest = request.getParameter("test");
 		int test = Integer.parseInt(getTest);
 		
-		System.out.println("size"+size);
-		System.out.println("price"+price);
-		System.out.println("name"+name);
-		System.out.println("test"+test);
+		//System.out.println("size"+size);
+		//System.out.println("price"+price);
+		//System.out.println("name"+name);
+		//System.out.println("test"+test);
 		
 		mav.addObject("test",test);
 		mav.addObject("name",name);
@@ -453,21 +455,21 @@ public class DetailController {
 	@RequestMapping("/selectedSub.do")
 	public ModelAndView selectedSub(HttpServletRequest request,ModelAndView mav) {
 		String name = request.getParameter("name");
-		System.out.println("넘어온 name 값 : "+name);
+		//System.out.println("넘어온 name 값 : "+name);
 		
 		String size = request.getParameter("size");
-		System.out.println("넘어온 size 값 : "+size);
+		//System.out.println("넘어온 size 값 : "+size);
 		
 		String week = request.getParameter("week");
-		System.out.println("넘어온 week 값 : "+week);
+		//System.out.println("넘어온 week 값 : "+week);
 		
 		String start2 = request.getParameter("start");
-		System.out.println("넘어온 start 값 : "+start2);
+		//System.out.println("넘어온 start 값 : "+start2);
 		String start = start2.substring(0,12);
-		System.out.println("자른 날짜 :"+start);
+		//System.out.println("자른 날짜 :"+start);
 		
 		char day = start2.charAt(start2.length()-3);
-		System.out.println("뽑은 char형 :"+day);
+		//System.out.println("뽑은 char형 :"+day);
 	    String day2 = Character.toString(day);
 		
 		mav.addObject("name",name);
@@ -482,6 +484,72 @@ public class DetailController {
 // 모달창
 	@RequestMapping("/modal.do")
 	public ModelAndView modal(HttpServletRequest request,ModelAndView mav) {
+
+		String size = request.getParameter("size");
+		//System.out.println("넘어온 size 값 : "+size);
+		
+		String week = request.getParameter("week");
+		//System.out.println("넘어온 week 값 : "+week);
+		
+		String start = request.getParameter("start");
+		//System.out.println("넘어온 start 값 : "+start); // 다보이게
+		
+		String day = start.substring(0,12);
+		//System.out.println("자른 날짜 :"+day); // 요일 안보이게
+		
+		char aaa = start.charAt(start.length()-3);
+	    String day3 = Character.toString(aaa); 
+	    //System.out.println("뽑은 char형 :"+day3); // 요일만 보이게
+		
+		String str = request.getParameter("price");
+		int price = Integer.parseInt(str);
+		//System.out.println("넘어온 price 값 : "+price);
+		
+		String getCode = request.getParameter("code");
+		int code = Integer.parseInt(getCode);
+		//System.out.println("넘어온 code 값 : "+code);
+		
+		String getTag = request.getParameter("tag");
+		int tagNum = Integer.parseInt(getTag);
+		//System.out.println("넘어온 tag 값 : "+tagNum);
+		
+// 넘어온 code 값에따라 모달창에서 보여줘야할 드롭다운 버튼이 다르다.		
+		// 샐러드만 보여주게끔
+//		if(code ==14 && code ==15 && code == 22 && code == 23 && code == 18 && code ==26 ) { 
+//			
+//		}
+//		// 여러가지 보여줄거임
+//		else if(code == 16 && code == 24 && code == 17 && code == 25) {
+//		
+//		}
+//		// 샐러드 / 도시락 택
+//		else if(code == 19 && code == 27 )	{
+//			
+//		}
+//		// 샐러드 / 샌드위치
+//		else if(code == 20 && code == 28) {
+//			
+//		}
+//		// 도시락만 보여줄거임
+//		else if(code == 21 && code == 29) {
+//			
+//		}
+		
+		
+//		TapPageVO vo = new TapPageVO();		
+//		vo.setTagMain(tagNum);
+//		List<TapPageVO> showList = tapPageService.getRandom2(vo);
+//		System.out.println("----> vo.setItemCode(tagNum) :" + vo.getTagMain());
+//
+//		mav.addObject("showList",showList);
+		
+		mav.addObject("size",size);
+		mav.addObject("week",week);
+		mav.addObject("start",start);
+		mav.addObject("day",day);
+		mav.addObject("day3",day3);
+		mav.addObject("price",price);		
+		mav.addObject("code",code);		
 		
 		mav.setViewName("detailSubModal");
 		return mav;

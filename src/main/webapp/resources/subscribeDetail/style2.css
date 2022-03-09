@@ -490,3 +490,45 @@ span.buttonText {
     text-overflow: ellipsis;
     font-size : 15px;
 }
+/* 추가 */
+/* 추가 */
+/* 추가 */
+/* 추가 */
+/* 추가 */
+/* 추가 */
+/* 추가 */
+.footer-logo {
+	width: 200px;
+}
+
+.review-hide{
+	display:none;
+}
+
+.answer-wrapper[data-v-e3f957fc]{
+	display:flex;
+}
+
+.menu-info-table-content-description[data-v-e3f957fc] {
+    white-space: pre-line;
+    word-wrap: break-word;
+    word-break: keep-all;
+    color: #333;
+}
+.swiper-container {
+	height:420px;
+
+}
+.swiper-slide {
+	text-align:center;
+	display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items:center; /* 위아래 기준 중앙정렬 */
+	justify-content:center; /* 좌우 기준 중앙정렬 */
+}
+.swiper-slide img {
+	box-shadow:0 0 5px #555;
+	max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
+	/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
+}
+
+

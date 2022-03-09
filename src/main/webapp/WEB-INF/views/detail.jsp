@@ -44,12 +44,14 @@
          
 // 이미지 슬라이드 아이템 클릭시 상세페이지로 이동         
          $(document).on('click', '.swiper-slide', function(){ 
+        	alert("클릭");
      		var f = document.paging;
      		var code = $(this).children('#itemCode').attr('value');
      		var tag = $(this).children('#tagMain').attr('value');
+     		var tagSub =$(this).children('#tagSub').attr('value');
+     		f.tagSub01.value = tagSub
      		f.tagMain01.value = tag;
      		f.itemCode01.value = code;
-     		alert(code);
      		f.action="detail.do"; 
      		f.method="post";
      		f.submit();
@@ -79,9 +81,10 @@
 			var p = document.passNum;
 			var code = $(this).children('#itemCode').attr('value');
 			var tag = $(this).children('#tagMain').attr('value');
-			alert("code의 값 :" +code);
+			var tagSub =$(this).children('#tagSub').attr('value');
 			p.itemCode.value = code;
 			p.tagMain.value = tag;
+			p.tagSub.value = tagSub;
 			p.action="test.do";
 			p.method="post";
 			p.submit();
@@ -136,7 +139,8 @@
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-wrap',function(){
 			// 미디움(M) / 라지(L) / 세트일경우 이름을 가져옴
-			var size = $(this).children().first().children().first().text();
+//			var size = $(this).children().first().children().first().text();
+			var size = $(this).children().first().children().first().attr('id');
 			// 가격을 가져옴
 			var priceM = $(this).children().last().children().last().text();
 			// 가격 에서 '원',','을 빼고 가져옴
@@ -164,11 +168,11 @@
 //				test = 리스트의 id .. testM/testL = 목록 M/L 의 class
 					if(testM ==null && testL ==null){
 						alert("M / L 둘다 없다");
-	 					$('.selected-detail-list').append(htmlOut); 					
+	 					$('.selected-detail-list').append(htmlOut);					
 	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 	 					price = Number(price.slice(0, -1));
 //	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
-	 					price += priceM;  
+	 					price += priceM; 
 //	 					price= price.toLocaleString('ko-KR');   --> , 찍기
 	 					$('.menu__price-current-price__wrapper').children().text(price+"원");
 	 					
@@ -397,11 +401,12 @@
 <!--                	<form name="passNum"> -->
 <!-- 					<input type="hidden" name="tagMain" value=""> -->
 <!-- 					<input type="hidden" name="itemCode" value=""> -->
-<!-- 			 	</form> -->
-<!-- 			 	<form name="paging"> -->
-<!-- 					<input type="hidden" name="tagMain01" value=""> -->
-<!-- 					<input type="hidden" name="itemCode01" value=""> -->
-<!-- 				</form> -->
+			 	</form>
+			 	<form name="paging">
+					<input type="hidden" name="tagMain01" value="">
+					<input type="hidden" name="itemCode01" value="">
+					<input type="hidden" name="tagSub01" value="">
+				</form>
                <nav class="header__menus" data-v-30697495>
                   <div data-v-30697495>
                      <div class="dropdown" data-v-30697495>
@@ -646,6 +651,7 @@
                                         <button data-v-a1c889e0 data-v-32a18372 type="button" title class="button button button--outline2" id="mobCart" style="margin-right: 5px;">
                                         	<input type="hidden" value="${detail.item_code }" id="itemCode">
 											<input type="hidden" value="${detail.item_tag_main }" id="tagMain">
+											<input type="hidden" value="${tagSub}" id="tagSub">
                                             <span data-v-a1c889e0 class="button__wrap">장바구니 담기</span>
                                         </button>
                                     </div>
@@ -679,6 +685,7 @@
 									<div class="swiper-slide">
 										<input type="hidden" value="${item.itemCode }" id="itemCode">
 										<input type="hidden" value="${item.tagMain }" id="tagMain">
+										<input type="hidden" value="${tagSub}" id="tagSub">
 										<ul>
 											<li data-v-4c9a9e82="" class="col-6 col--lg-3">
 												<article
@@ -901,6 +908,7 @@
                                         <button data-v-a1c889e0 data-v-32a18372 type="button" title class="button button button--outline2" id="mobCart" style="margin-right: 5px; height: 52px;">
                                         	<input type="hidden" value="${detail.item_code }" id="itemCode">
 											<input type="hidden" value="${detail.item_tag_main }" id="tagMain">
+												<input type="hidden" value="${tagSub}" id="tagSub">
                                             <span data-v-a1c889e0 class="button__wrap">장바구니 담기</span>
                                         </button>
                                     </div>
@@ -1446,89 +1454,6 @@
 		                                     </div>
 		                                  </li>
 	                                  </c:forEach>
-												
-                                  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
-                                     <div data-v-22105fb8="" class="review-item__head">
-                                        <div data-v-22105fb8="" class="head-rating">
-                                           <img data-v-22105fb8=""
-                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" 
-                                              class="rating-img">
-                                           <div data-v-22105fb8="" class="rating-count">5</div>
-                                        </div>
-                                        <div data-v-22105fb8="" class="head-summary">
-                                           <div data-v-22105fb8="" class="head-summary-left">
-                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png"
-                                                  class="summary-photo">
-                                              <div data-v-22105fb8="" class="summary-text">점심에
-                                                 간단히 먹으려고 샌드위치 하나랑 샐러드 두개 오는 정기배송 시켜서 먹어봤는데 너무 맛있어요. 배송도
-                                                 꼼꼼히 안전하게 잘 오고 잘 시킨것 같아요</div>
-                                           </div>
-                                           <!---->
-                                        </div>
-                                        <div data-v-22105fb8="" class="head-text">
-                                           <div data-v-22105fb8="" class="text-name">안*율</div>
-                                           <div data-v-22105fb8="" class="text-date">2022. 01.
-                                              24.</div>
-                                        </div>
-                                     </div>
-                                     <div data-v-22105fb8=""
-                                        class="review-desktop-toggle review-hide">
-                                        <div data-v-22105fb8="" class="review-item__body">
-                                           <div data-v-22105fb8="" class="review-item__comment">점심에
-                                              간단히 먹으려고 샌드위치 하나랑 샐러드 두개 오는 정기배송 시켜서 먹어봤는데 너무 맛있어요. 배송도
-                                              꼼꼼히 안전하게 잘 오고 잘 시킨것 같아요</div>
-                                           <div data-v-22105fb8="" class="review-item__photos">
-                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-                                                 <div data-v-22105fb8="" class="review-item__photo"
-                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
-                                              </div>
-                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-                                                 <div data-v-22105fb8="" class="review-item__photo"
-                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <!---->
-                                     </div>
-                                  </li>
-                                  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item"><div
-                                        data-v-22105fb8="" class="review-item__head">
-                                        <div data-v-22105fb8="" class="head-rating">
-                                           <img data-v-22105fb8=""
-                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" 
-                                              class="rating-img">
-                                           <div data-v-22105fb8="" class="rating-count">5</div>
-                                        </div>
-                                        <div data-v-22105fb8="" class="head-summary">
-                                           <div data-v-22105fb8="" class="head-summary-left">
-                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png"
-                                                  class="summary-photo">
-                                              <div data-v-22105fb8="" class="summary-text">정말
-                                                 맛있어요 자주시켜먹어요 ㅎ 정기배송이라 신경쓸게없엉ᆢㄷ</div>
-                                           </div>
-                                           <!---->
-                                        </div>
-                                        <div data-v-22105fb8="" class="head-text">
-                                           <div data-v-22105fb8="" class="text-name">허*수</div>
-                                           <div data-v-22105fb8="" class="text-date">2022. 01.
-                                              22.</div>
-                                        </div>
-                                     </div>
-                                     <div data-v-22105fb8=""
-                                        class="review-desktop-toggle review-hide">
-                                        <div data-v-22105fb8="" class="review-item__body">
-                                           <div data-v-22105fb8="" class="review-item__comment">
-                                              정말 맛있어요<br>자주시켜먹어요 ㅎ<br>정기배송이라 신경쓸게없엉ᆢㄷ
-                                           </div>
-                                           <div data-v-22105fb8="" class="review-item__photos">
-                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-                                                 <div data-v-22105fb8="" class="review-item__photo"
-                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <!---->
-                                     </div></li>
                                      <!-- 댓글 내용 열 시 추가 되어야 할 클래스 이름 :  review-item__head 부분에 border-bottom-desktop-show -->
                                      <!-- 댓글 내용 열 시 사라져야 할 클래스 이름 : review-desktop-toggle 부분에 review-hide -->
                                      <!-- 댓글 내용 닫을 시 사라져야 할 클래스 이름 :  review-item__head 부분에 border-bottom-desktop-show -->

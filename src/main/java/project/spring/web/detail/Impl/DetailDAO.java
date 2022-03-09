@@ -15,22 +15,22 @@ public class DetailDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public DetailVO getItem(DetailVO vo) {
-		System.out.println("-->myBatis getItem");
+//		System.out.println("-->myBatis getItem");
 		return sqlSessionTemplate.selectOne("DetailDAO.getItem",vo);
 	}
 	
 	public DetailVO getInfo(DetailVO vo) {
-		System.out.println("-->myBatis getInfo");
+//		System.out.println("-->myBatis getInfo");
 		return sqlSessionTemplate.selectOne("DetailDAO.getInfo", vo);
 	}
 	
 	public DetailVO getSubItem(DetailVO vo) {
-		System.out.println("--->myBatis getSubItem");
+//		System.out.println("--->myBatis getSubItem");
 		return sqlSessionTemplate.selectOne("DetailDAO.getSubItem", vo);
 	}
 	
 	public List<DetailVO> getRandom(DetailVO vo){
-		System.out.println("--->MyBatis getRandom");
+//		System.out.println("--->MyBatis getRandom");
 		return sqlSessionTemplate.selectList("DetailDAO.getRandom", vo);
 	}
 

@@ -14,6 +14,7 @@
 		<typeAlias type="project.spring.web.event.CouponVO" alias="mycoupon"/>
 		<typeAlias type="project.spring.web.search.SearchVO" alias="mysearch"/>
 		<typeAlias type="project.spring.web.md_recommand.MdRecommandVO" alias="mymd"/>
+		<typeAlias type="project.spring.web.modal.ModalVO" alias="modal"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -27,5 +28,6 @@
 		<mapper resource="mappings/coupon-mapping.xml"/>
 		<mapper resource="mappings/search-mapping.xml"/>
 		<mapper resource="mappings/md-mapping.xml"/>
+		<mapper resource="mappings/modal-mapping.xml" />
 	</mappers>
 </configuration>

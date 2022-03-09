@@ -126,4 +126,20 @@ public class OrderController {
 		mav.setViewName("orderSaveComplete");
 		return mav;
 	}
+	
+	@RequestMapping("/orderMinPrice.do")
+	public ModelAndView orderMinPriceDo(ModelAndView mav, String remainPrice) {
+		
+		mav.addObject("remainPrice", remainPrice);
+		mav.setViewName("orderMinPrice");
+		return mav;
+	}
+	
+	@RequestMapping("/orderMinPriceDelivery.do")
+	public ModelAndView orderMinPriceDeliveryDo(ModelAndView mav, String remainPrice) {
+		
+		mav.addObject("remainPrice", remainPrice);
+		mav.setViewName("orderMinPriceDelivery");
+		return mav;
+	}
 }

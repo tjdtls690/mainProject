@@ -540,6 +540,42 @@ $(function() {
     	
     	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
     	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+    	
+    	if(realPrice < 10000){
+    		var remainPrice = 10000 - realPrice;
+    		$.ajax({
+    			url : 'orderMinPrice.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(0).find('.min').detach();
+    				$('.info-content').eq(0).append(htmlOut);
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(0).find('.min').detach();
+    	}
+    	
+    	if(realPrice < 35000){
+    		var remainPrice = 35000 - realPrice;
+    		$.ajax({
+    			url : 'orderMinPriceDelivery.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(1).find('.min').detach();
+    				$('.info-content').eq(1).append(htmlOut);
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(1).find('.min').detach();
+    	}
     });
     
     $(document).on('click', '.swal2-title', function(){
@@ -607,6 +643,42 @@ $(function() {
     	
     	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
     	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+    	
+    	if(realPrice < 10000){
+    		var remainPrice = 10000 - realPrice;
+    		$.ajax({
+    			url : 'orderMinPrice.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(0).find('.min').detach();
+    				$('.info-content').eq(0).append(htmlOut);
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(0).find('.min').detach();
+    	}
+    	
+    	if(realPrice < 35000){
+    		var remainPrice = 35000 - realPrice;
+    		$.ajax({
+    			url : 'orderMinPriceDelivery.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(1).find('.min').detach();
+    				$('.info-content').eq(1).append(htmlOut);
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(1).find('.min').detach();
+    	}
     });
     
     $(document).on('click', '.form-number__control:odd', function(){
@@ -659,6 +731,42 @@ $(function() {
     	
     	$('.info-content').eq(0).children().eq(1).text(realQuantity + '개' + ' / ' + realPrice.toLocaleString('ko-KR') + '원');
     	$('.info-content').eq(2).children().eq(1).text('- ' + realPriceSub.toLocaleString('ko-KR') + '원');
+    	
+    	if(realPrice < 10000){
+    		var remainPrice = 10000 - realPrice;
+    		$.ajax({
+    			url : 'orderMinPrice.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(0).find('.min').detach();
+    				$('.info-content').eq(0).append(htmlOut);
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(0).find('.min').detach();
+    	}
+    	
+    	if(realPrice < 35000){
+    		var remainPrice = 35000 - realPrice;
+    		$.ajax({
+    			url : 'orderMinPriceDelivery.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(1).find('.min').detach();
+    				$('.info-content').eq(1).append(htmlOut);
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(1).find('.min').detach();
+    	}
     });
 });
 </script>

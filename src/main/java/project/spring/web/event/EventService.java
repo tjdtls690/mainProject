@@ -9,4 +9,6 @@ public interface EventService {
 	public void insertCoupon(CouponVO vo);
 	
 	public List<CouponVO> getCouponPack(CouponVO vo);
+	
+	public CouponVO getCouponDetail(CouponVO vo);
 }

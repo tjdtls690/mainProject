@@ -25,4 +25,9 @@
 		SELECT * FROM coupon
 		WHERE coupon_pack = #{coupon_pack}
 	</select>
+	
+	<select id="getCouponDetail" resultMap="couponResult">
+		SELECT * FROM coupon
+		WHERE coupon_code = #{coupon_code}
+	</select>
 </mapper>

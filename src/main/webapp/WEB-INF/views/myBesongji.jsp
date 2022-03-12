@@ -1,12 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}/resources/myDelivery"/>
+<c:set var="path" value="${pageContext.request.contextPath}/resources/myBesongji"/>
 <!DOCTYPE html>
 <html class="">
 <head>
+<style>
+.gm-style-moc {
+	background-color: rgba(0, 0, 0, 0.45);
+	pointer-events: none;
+	text-align: center;
+	transition: opacity ease-in-out
+}
 
-<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
+.gm-style-mot {
+	color: white;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: 22px;
+	margin: 0;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%)
+}
+</style>
+<style>
+.gm-style img {
+	max-width: none;
+}
+
+.gm-style {
+	font: 400 11px Roboto, Arial, sans-serif;
+	text-decoration: none;
+}
+</style>
+
+<title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
@@ -36,17 +66,18 @@
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
-<link href="${path}/style.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="${path }/style.css">
+<link rel="stylesheet" href="${path }/style2.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-function page_move(tagNum){
-   var f = document.paging; //폼 name
-   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
-   f.action="tapPage.do";//이동할 페이지
-   f.method="post";//POST방식
-   f.submit();
-}
+	function page_move(tagNum){
+	   var f = document.paging; //폼 name
+	   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+	   f.action="tapPage.do";//이동할 페이지
+	   f.method="post";//POST방식
+	   f.submit();
+	}
 
 	$(function(){
 		$(document).on('click', '#closeFinalCheck', function(){
@@ -106,7 +137,7 @@ function page_move(tagNum){
 	    			if(window.innerWidth > 1023){
 	    				$(".header").css("top","-130px");
 	    			}else{
-	    				$(".header").css("top","0px");
+	    				$(".header").css("top","-50px");
 	    			}
 	    		}else{
 	    			$(".header").css("top","0px");
@@ -115,7 +146,6 @@ function page_move(tagNum){
 	    	});
 	})
 </script>
-
 </head>
 <body>
 	<noscript data-n-head="ssr" data-hid="gtm-noscript" data-pbody="true">
@@ -132,8 +162,10 @@ function page_move(tagNum){
 						<!---->
 					</div>
 					<form name="paging">
-								<input type="hidden" name="tagMain01" value="">
-							</form>
+						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
+					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -230,9 +262,9 @@ function page_move(tagNum){
 					<!---->
 					<!---->
 				</header>
-				<div class="container" 
+				<div class="container" style="padding-top: 182px;"
 					data-v-0f5971ec="">
-					<div data-v-421abad8="" data-v-23e4825a="" data-v-0f5971ec=""
+					<div data-v-421abad8="" data-v-bb8d8f74="" data-v-0f5971ec=""
 						class="mypage-layout">
 						<div data-v-3e2784be="" data-v-421abad8=""
 							class="mypage-header mypage-layout__header">
@@ -250,9 +282,7 @@ function page_move(tagNum){
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">배송예정</span> <a data-v-3e2784be=""
-											href="/mypage/delivery" aria-current="page"
-											class="nuxt-link-exact-active nuxt-link-active"><em
-											data-v-3e2784be="">0</em></a>
+											href="/mypage/delivery" class=""><em data-v-3e2784be="">0</em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
@@ -264,7 +294,7 @@ function page_move(tagNum){
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">보유 쿠폰</span> <a data-v-3e2784be=""
-											href="/mypage/coupons" class=""><em data-v-3e2784be="">1</em></a>
+											href="/mypage/coupons" class=""><em data-v-3e2784be="">0</em></a>
 									</p>
 								</div>
 							</div>
@@ -337,138 +367,101 @@ function page_move(tagNum){
 									</aside>
 								</aside>
 								<div data-v-421abad8="" class="mypage-layout__body">
-									<article data-v-23e4825a="" data-v-421abad8=""
-										class="mypage-delivery">
-										<header data-v-2c0651a8="" data-v-23e4825a=""
+									<article data-v-bb8d8f74="" data-v-421abad8=""
+										class="mypage-destination">
+										<header data-v-2c0651a8="" data-v-bb8d8f74=""
 											class="row--v-center page-header" data-v-421abad8="">
 											<!---->
 											<!---->
-											<h2 data-v-2c0651a8="" class="col">배송 현황</h2>
+											<h2 data-v-2c0651a8="" class="col">배송지 관리</h2>
 											<!---->
 										</header>
-										<div data-v-23e4825a="" data-v-421abad8=""
-											class="delivery-soon-text">
-											<span data-v-23e4825a="" data-v-421abad8=""
-												class="delivery-soon-label">배송예정</span> <span
-												data-v-23e4825a="" data-v-421abad8=""
-												class="delivery-soon-count">0</span>
-										</div>
-										<div data-v-23e4825a="" data-v-421abad8=""
-											class="mypage-delivery__index">
-											<ul data-v-23e4825a="" data-v-421abad8="">
-												<li data-v-23e4825a="" data-v-421abad8=""><div
-														data-v-54beba30="" data-v-23e4825a=""
-														class="mypage-delivery-item" data-v-421abad8="">
-														<div data-v-54beba30="" class="mypage-delivery-item__body">
-															<div data-v-54beba30="" class="section-1">
-																<div data-v-54beba30="" class="section-1-left-wrap">
-																	<em data-v-54beba30="">2022/01/26</em> <span
-																		data-v-7f86e76e="" data-v-54beba30=""
-																		class="round-text round-text--color-parcel">
-																		택배배송 </span>
-																	<!---->
-																	<!---->
-																</div>
-																<span data-v-54beba30=""
-																	class="status-text desktop done">배송완료</span>
-															</div>
-															<p data-v-54beba30="" class="section-2">
-																<strong data-v-54beba30="">[프코메이드] 더블 다크 초코칩
-																	쿠키/1개 1개 외 2개</strong> <a data-v-54beba30=""
-																	href="myPayDetailInfo.do"
-																	class="show-order-info desktop">주문정보 보기</a> <span
-																	data-v-54beba30="" class="invoice-wrap"> 운송장번호<span
-																	data-v-54beba30="" class="invoice-number">
-																		510027550401 </span></span>
-															</p>
-														</div>
-														<div data-v-54beba30=""
-															class="row--h-end row--v-center mypage-delivery-item__nav">
-															<a data-v-54beba30="" href="myPayDetailInfo.do"
-																class="show-order-info mobile">주문정보 보기</a> <span
-																data-v-54beba30="" class="status-text mobile done">배송완료</span>
-														</div>
-														<div data-v-54beba30=""
-															class="mypage-delivery-item-invoice-container">
-															<div data-v-54beba30=""
-																class="mypage-delivery-item-invoice-wrap">
-																<div data-v-54beba30=""
-																	class="mypage-delivery-item-invoice-label">운송장번호
-																</div>
-																<div data-v-54beba30=""
-																	class="mypage-delivery-item-invoice-number">
-																	510027550401</div>
-															</div>
-														</div>
-													</div></li>
-											</ul>
-										</div>
-										<div data-v-20ad18c6="" data-v-23e4825a=""
-											class="nav-paginate-wrap" data-v-421abad8="">
-											<div data-v-20ad18c6="" class="nav-paginate-wrap__mobile">
-												<nav data-v-43f58a9c="" data-v-20ad18c6=""
-													class="nav-paginate">
-													<a data-v-43f58a9c="" href="#"
-														class="nav-paginate__dir nav-paginate-dir-prev"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-left@2x.png" alt="이전 페이지"
-														class="nav-arrow arrow-left"></a> <strong
-														data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
-														href="#" class="nav-paginate__dir nav-paginate-dir-next"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-right@2x.png" alt="다음 페이지"
-														class="nav-arrow arrow-right"></a>
-												</nav>
+										<nav data-v-610ea6d8="" data-v-bb8d8f74=""
+											class="nav-tab mypage-destination__tab" data-v-421abad8="">
+											<div data-v-610ea6d8="" class="nav-tab__wrap">
+												<div data-v-610ea6d8="" class="">
+													<button data-v-610ea6d8="" type="button">
+														<span data-v-610ea6d8="">스팟배송</span>
+													</button>
+												</div>
+												<div data-v-610ea6d8="" class="">
+													<button data-v-610ea6d8="" type="button">
+														<span data-v-610ea6d8="">퀵배송</span>
+													</button>
+												</div>
+												<div data-v-610ea6d8="" class="on">
+													<button data-v-610ea6d8="" type="button">
+														<span data-v-610ea6d8="">새벽배송</span>
+													</button>
+												</div>
+												<div data-v-610ea6d8="" class="">
+													<button data-v-610ea6d8="" type="button">
+														<span data-v-610ea6d8="">택배배송</span>
+													</button>
+												</div>
 											</div>
-											<div data-v-20ad18c6="" class="nav-paginate-wrap__desktop">
-												<nav data-v-43f58a9c="" data-v-20ad18c6=""
-													class="nav-paginate">
-													<a data-v-43f58a9c="" href="#"
-														class="nav-paginate__dir nav-paginate-dir-prev"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-left@2x.png" alt="이전 페이지"
-														class="nav-arrow arrow-left"></a> <strong
-														data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
-														href="#" class="nav-paginate__dir nav-paginate-dir-next"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-right@2x.png" alt="다음 페이지"
-														class="nav-arrow arrow-right"></a>
-												</nav>
+										</nav>
+										<div data-v-bb8d8f74="" data-v-421abad8=""
+											class="mypage-destination__body">
+											<div data-v-bb8d8f74="" data-v-421abad8=""
+												class="row--v-center row--h-between mypage-destination__body-head">
+												<strong data-v-bb8d8f74="" data-v-421abad8="">내
+													새벽배송지 0개</strong>
+												<div data-v-bb8d8f74="" data-v-421abad8=""
+													class="address-index__nav">
+													<button data-v-a1c889e0="" data-v-bb8d8f74="" type="button"
+														title=""
+														class="button button--size-small button--outline2"
+														data-v-421abad8="">
+														<span data-v-a1c889e0="" class="button__wrap">+ 배송지
+															추가</span>
+													</button>
+												</div>
+											</div>
+											<div data-v-bb8d8f74="" data-v-421abad8=""
+												class="mypage-destination__index">
+												<div data-v-6b53621a="" data-v-bb8d8f74=""
+													class="error-list" data-v-421abad8="">
+													<p data-v-6b53621a="">등록된 배송지가 없습니다.</p>
+												</div>
+											</div>
+											<div data-v-20ad18c6="" data-v-bb8d8f74=""
+												class="nav-paginate-wrap destination__paginate"
+												data-v-421abad8="">
+												<div data-v-20ad18c6="" class="nav-paginate-wrap__mobile">
+													<nav data-v-43f58a9c="" data-v-20ad18c6=""
+														class="nav-paginate">
+														<a data-v-43f58a9c="" href="#"
+															class="nav-paginate__dir nav-paginate-dir-prev"
+															style="opacity: 0.2;"><img data-v-43f58a9c=""
+															src="/images/arrow-left@2x.png" alt="이전 페이지"
+															class="nav-arrow arrow-left"></a> <strong
+															data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
+															href="#" class="nav-paginate__dir nav-paginate-dir-next"
+															style="opacity: 1;"><img data-v-43f58a9c=""
+															src="/images/arrow-right@2x.png" alt="다음 페이지"
+															class="nav-arrow arrow-right"></a>
+													</nav>
+												</div>
+												<div data-v-20ad18c6="" class="nav-paginate-wrap__desktop">
+													<nav data-v-43f58a9c="" data-v-20ad18c6=""
+														class="nav-paginate">
+														<a data-v-43f58a9c="" href="#"
+															class="nav-paginate__dir nav-paginate-dir-prev"
+															style="opacity: 0.2;"><img data-v-43f58a9c=""
+															src="/images/arrow-left@2x.png" alt="이전 페이지"
+															class="nav-arrow arrow-left"></a> <strong
+															data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
+															href="#" class="nav-paginate__dir nav-paginate-dir-next"
+															style="opacity: 1;"><img data-v-43f58a9c=""
+															src="/images/arrow-right@2x.png" alt="다음 페이지"
+															class="nav-arrow arrow-right"></a>
+													</nav>
+												</div>
 											</div>
 										</div>
-										<header data-v-2c0651a8="" data-v-23e4825a=""
-											class="row--v-center page-header" data-v-421abad8=""
-											style="margin-top: 35px;">
-											<!---->
-											<!---->
-											<h2 data-v-2c0651a8="" class="col">배송 변경 및 취소 안내</h2>
-											<!---->
-										</header>
-										<div data-v-23e4825a="" data-v-421abad8=""
-											class="mypage-delivery-info">
-											<dl data-v-23e4825a="" data-v-421abad8="">
-												<dt data-v-23e4825a="" data-v-421abad8="">스팟/퀵배송</dt>
-												<dd data-v-23e4825a="" data-v-421abad8="">
-													<b data-v-23e4825a="" data-v-421abad8="">당일 오전 7시까지 배송일
-														변경 및 취소 가능</b><br data-v-23e4825a="" data-v-421abad8="">
-													오전 7시 이후 주문은 5분이내 주문확정 및 생산을 시작하여 취소가 불가합니다.
-												</dd>
-												<dt data-v-23e4825a="" data-v-421abad8="">새벽/택배배송</dt>
-												<dd data-v-23e4825a="" data-v-421abad8="">
-													<b data-v-23e4825a="" data-v-421abad8="">수령일 하루 전 오후
-														3시까지 주문 변경 및 취소 가능</b><br data-v-23e4825a=""
-														data-v-421abad8=""> 수령일 당일 배송상품은 정상발송되며, 정상가로 차감(예정
-													배송상품 일괄 취소)
-												</dd>
-												<dt data-v-23e4825a="" data-v-421abad8="">정기배송</dt>
-												<dd data-v-23e4825a="" data-v-421abad8="">
-													<b data-v-23e4825a="" data-v-421abad8="">수령일 하루 전 오전
-														7시까지 주문 변경 및 취소 가능</b><br data-v-23e4825a=""
-														data-v-421abad8=""> 오전 7시에 일괄 생산을 시작하여 취소가 불가합니다. 이후
-													취소 시 당일 상품은 발송, 예정 상품만 취소됩니다.
-												</dd>
-											</dl>
-										</div>
+										
+										<!---->
 									</article>
 								</div>
 							</div>
@@ -484,7 +477,7 @@ function page_move(tagNum){
 						<h2 class="footer__logo" data-v-438b4fe4="">
 							<img src="/images/logo-20211111.png" alt="FRESHCODE"
 								data-v-438b4fe4="">
-							<div data-v-438b4fe4="" class="open"></div>
+							<div data-v-438b4fe4="" class=""></div>
 						</h2>
 						<div class="footer__body" data-v-438b4fe4="">
 							<nav class="footer__menus" data-v-438b4fe4="">
@@ -530,7 +523,7 @@ function page_move(tagNum){
 									</div>
 								</div>
 							</address>
-							<address class="footer__address" data-v-438b4fe4="">
+							<address class="footer__address hide" data-v-438b4fe4="">
 								<p data-v-438b4fe4="">
 									<b data-v-438b4fe4="">대표</b>정유석
 								</p>
@@ -545,7 +538,7 @@ function page_move(tagNum){
 									<b data-v-438b4fe4="">통신판매업신고</b>제 2016-서울용산-00657
 								</p>
 							</address>
-							<address class="footer__address help" data-v-438b4fe4="">
+							<address class="footer__address help hide" data-v-438b4fe4="">
 								<p data-v-438b4fe4="">
 									<b data-v-438b4fe4="">제휴문의</b><a href="mailto:biz@freshcode.me"
 										data-v-438b4fe4="">biz@freshcode.me</a>
@@ -559,7 +552,7 @@ function page_move(tagNum){
 								</p>
 							</address>
 							<aside class="footer__side" data-v-438b4fe4="">
-								<p class="footer__copyright" data-v-438b4fe4="">
+								<p class="footer__copyright hide" data-v-438b4fe4="">
 									ⓒ 2020. FreshCode, Inc. All Rights Reserved<br
 										data-v-438b4fe4="">프레시코드가 제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은
 									특허법, 저작권법, 부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-438b4fe4="">무단

@@ -191,7 +191,7 @@ public class DetailController {
             
             List<String> itemInfo = new ArrayList<String>();
             for(DetailVO vo : itemcodes2) {
-            	if(vo.getItem_info() == null) {
+            	if(vo == null) {
             		continue;
             	}
             	StringTokenizer st = new StringTokenizer(vo.getItem_info().replace(":;:", "\\"), "\\");

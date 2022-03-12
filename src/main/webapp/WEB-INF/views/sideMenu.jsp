@@ -92,6 +92,13 @@
 									</figure> <span data-v-93cadc98="">배송현황</span></a>
 							</div>
 							<div data-v-93cadc98="" class="col-4 item">
+								<a data-v-93cadc98="" href="myBesongji.do" class=""><figure
+										data-v-93cadc98="">
+										<img data-v-93cadc98=""
+											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Locate+Mng.png" alt="spot">
+									</figure> <span data-v-93cadc98="">배송지 관리</span></a>
+							</div>
+							<div data-v-93cadc98="" class="col-4 item">
 								<a data-v-93cadc98="" href="myPointSearch.do" class=""><figure
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
@@ -114,20 +121,13 @@
 										<!---->
 									</figure> <span data-v-93cadc98="">나의 후기</span></a>
 							</div>
-							<div data-v-93cadc98="" class="col-4 item">
-								<a data-v-93cadc98="" href="/mypage/invite" class=""><figure
-										data-v-93cadc98="">
-										<img data-v-93cadc98=""
-											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Frd+Invite.png" alt="invite">
-									</figure> <span data-v-93cadc98="">친구 초대</span></a>
-							</div>
 						</nav>
 					</div>
-					<a data-v-93cadc98="" href="/mypage/invite" class=""><div
-							data-v-93cadc98="" class="side-nav-member__banner">
-							<strong data-v-93cadc98="">친구 초대하고 </strong> <span
-								data-v-93cadc98="">3,000포인트 받자!</span>
-						</div></a>
+<!-- 					<a data-v-93cadc98="" href="#" class=""><div -->
+<!-- 							data-v-93cadc98="" class="side-nav-member__banner"> -->
+<!-- 							<strong data-v-93cadc98="">친구 초대하고 </strong> <span -->
+<!-- 								data-v-93cadc98="">3,000포인트 받자!</span> -->
+<!-- 						</div></a> -->
 				</div>
 				<nav data-v-1fc516f9="" data-v-2f05bf52=""
 					class="nav-menus side-nav__menus">

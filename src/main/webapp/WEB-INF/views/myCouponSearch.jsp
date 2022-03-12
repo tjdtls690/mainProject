@@ -355,6 +355,9 @@ $(document).ready(function(){
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myDelivery.do" class="">배송현황</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
+												href="myBesongji.do" aria-current="page"
+												class="nuxt-link-exact-active nuxt-link-active">배송지 관리</a></li>
+											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myPointSearch.do" class="">포인트 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myCouponSearch.do" class="">쿠폰 조회</a></li>

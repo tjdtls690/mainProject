@@ -54,6 +54,7 @@ $(function() {
 		}
 		lastScrollTop = st;
 	});
+	
 });
 function page_move(tagNum){
     var f = document.paging; //폼 name
@@ -63,6 +64,7 @@ function page_move(tagNum){
     f.submit();
     console.log("tagNum");
 }
+
 function coupon_page(){
 	var f = document.couponPage;
 	f.couponName.value = "신선하게샐러드구독";

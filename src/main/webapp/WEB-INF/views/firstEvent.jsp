@@ -73,29 +73,21 @@ $(function() {
 			})
 		})
 		
-		$(document).on('click', '#closeModal', function(){
-			$('.swal2-container').detach();
-		})
-		
-		$('.btn.half-menu.left.01').click(function(){			
-			var userCode = $('#userCode').val();
-			console.log(userCode);
-			var coupon_code = $(this).attr('id');
-			console.log(coupon_code);
+		$('#1manCouponPack').click(function(){
 			$.ajax({
-				url : 'coupon02.do',
+				url : 'coupon04.do',
 				dataType : 'html',
-				type : 'post',
-				data : {
-					"userCode" : userCode,
-					"coupon_code" : coupon_code
-				},
 				success : function(htmlOut){
 					$('body').append(htmlOut);
 				}
-			})		
+			})
 		})
-		$('.btn.half-menu.right.02').click(function(){			
+		
+		$(document).on('click', '#closeModal', function(){
+			$('.swal2-container').detach();
+		})
+
+		$('.btn.half-menu.right').click(function(){			
 			var userCode = $('#userCode').val();
 			console.log(userCode);
 			var coupon_code = $(this).attr('id');
@@ -141,7 +133,7 @@ $(function() {
 			}
 		})
 		
-		$('.btn.half-menu.right').click(function(){			
+		$('.btn.coupon.left, .btn.coupon.right').click(function(){
 			var userCode = $('#userCode').val();
 			console.log(userCode);
 			var coupon_code = $(this).attr('id');
@@ -150,7 +142,7 @@ $(function() {
 				location.href = "login.do";
 			}else {
 				$.ajax({
-					url : 'coupon02.do',
+					url : 'coupon03.do',
 					dataType : 'html',
 					type : 'post',
 					data : {
@@ -163,18 +155,10 @@ $(function() {
 				})
 			}
 		})
-		
-		$('.btn.coupon.left, .btn.coupon.right').click(function(){
-			$.ajax({
-				url : 'coupon02.do',
-				dataType : 'html',
-				success : function(htmlOut){
-					$('body').append(htmlOut);
-				}
-			})
-		})
 	});
-
+function memberModify_page() {
+	location.href = "myMemberModify.do";
+}
 </script>
 </head>
 <body class="" style="padding-right: 0px;">
@@ -456,23 +440,23 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/17.jpg">
-								<div data-v-6c57d82e="" class="btn" id="btn02"></div>
+								<div data-v-6c57d82e="" class="btn" id="1manCouponPack"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/18.jpg">
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/19.jpg">
-								<div data-v-6c57d82e="" class="btn coupon left"></div>
-								<div data-v-6c57d82e="" class="btn coupon right"></div>
+								<div data-v-6c57d82e="" class="btn coupon left" id="7"></div>
+								<div data-v-6c57d82e="" class="btn coupon right" id="8"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/20.jpg">
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/21.jpg">
-								<div data-v-6c57d82e="" class="btn coupon left"></div>
-								<div data-v-6c57d82e="" class="btn coupon right"></div>
+								<div data-v-6c57d82e="" class="btn coupon left" id="9"></div>
+								<div data-v-6c57d82e="" class="btn coupon right" id="10"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/22.jpg">
@@ -505,7 +489,7 @@ $(function() {
 							<div data-v-6c57d82e="" class="btn-wrap">
 								<img data-v-6c57d82e=""
 									src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/30.jpg">
-								<div data-v-6c57d82e="" class="btn"></div>
+								<div data-v-6c57d82e="" class="btn" onclick="memberModify_page()"></div>
 							</div>
 							<img data-v-6c57d82e=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/new_secret_coupon/20211001-renewal/31.jpg">

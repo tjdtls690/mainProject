@@ -62,7 +62,7 @@ public class EventController {
 		mav.setViewName("fifthEvent");
 		return mav;
 	}
-	
+	//신규가입쿠폰팩 한번에 받기 눌렀을때 실행되는 메서드
 	@RequestMapping("coupon01.do")
 	public ModelAndView coupon01Do(ModelAndView mav, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -77,37 +77,35 @@ public class EventController {
 		cvo2.setUser_code(memCode);
 		List<CouponVO> userCoupon = eventService.getCoupon(cvo2);
 		//getCoupon : SELECT * FROM user_coupon WHERE user_code = #{user_code}
-		List<CouponVO> addUserCoupon = new ArrayList<CouponVO>();
-		for(int i = 0; i < coupon.size(); i++){
-			int check = 0;
-			for(int j = 0; j < userCoupon.size(); j++){
-				if(coupon.get(i).getCoupon_code() != userCoupon.get(j).getCoupon_code()) {
-					check++;
-				};					
-			};
-			if(check == userCoupon.size()) {
-				CouponVO vo1 = new CouponVO();
-				vo1.setUser_code(memCode);
-				vo1.setCoupon_code(coupon.get(i).getCoupon_code());
-				addUserCoupon.add(vo1);
-			};
-		};
-
-		for(int i = 0; i < addUserCoupon.size(); i++){
-			CouponVO vo = addUserCoupon.get(i);
-			eventService.insertCoupon(vo);
-		};
 		
-		mav.setViewName("couponAvailable");
-		
-		CouponVO cvo3 = new CouponVO();
-		cvo3.setUser_code(memCode);	
-		if(eventService.getCoupon(cvo3) == addUserCoupon) {
+		if(coupon.size() == userCoupon.size()) {
 			mav.setViewName("downloadCouponModal");
+		}else {
+			List<CouponVO> addUserCoupon = new ArrayList<CouponVO>();
+			for(int i = 0; i < coupon.size(); i++){
+				int check = 0;
+				for(int j = 0; j < userCoupon.size(); j++){
+					if(coupon.get(i).getCoupon_code() != userCoupon.get(j).getCoupon_code()) {
+						check++;
+					};					
+				};
+				if(check == userCoupon.size()) {
+					CouponVO vo1 = new CouponVO();
+					vo1.setUser_code(memCode);
+					vo1.setCoupon_code(coupon.get(i).getCoupon_code());
+					addUserCoupon.add(vo1);
+				};
+			};	
+			for(int i = 0; i < addUserCoupon.size(); i++){
+				CouponVO vo = addUserCoupon.get(i);
+				eventService.insertCoupon(vo);
+			};		
+			mav.setViewName("couponAvailable");		
 		}
 		return mav;
 	}
 	
+	//신규가입쿠폰팩 낱개로 눌렀을때 실행되는 메서드
 	@RequestMapping(value = "coupon02.do", method = RequestMethod.POST)
 	public ModelAndView coupon02Do(ModelAndView mav, HttpServletRequest request) {
 		CouponVO cvo = new CouponVO();
@@ -122,6 +120,7 @@ public class EventController {
 		
 		List<CouponVO> coupon = eventService.getCoupon(cvo);
 		//getCoupon : SELECT * FROM user_coupon WHERE user_code = #{user_code}
+		
 		if(coupon.isEmpty()) {
 			CouponVO cvo2 = new CouponVO();
 			cvo2.setCoupon_code(coupon_code);
@@ -129,21 +128,103 @@ public class EventController {
 			eventService.insertCoupon(cvo2);
 			mav.setViewName("couponAvailable");
 		} else {
+			List<Integer> couponCode = new ArrayList<Integer>();
 			for(int i = 0; i < coupon.size(); i++) {
-				System.out.println(coupon.get(i).getCoupon_code());
-				if(coupon.get(i).getCoupon_code() == coupon_code){
-					mav.setViewName("downloadCouponModal");
-					break;
-				} else {
-					CouponVO cvo2 = new CouponVO();
-					cvo2.setCoupon_code(coupon_code);
-					cvo2.setUser_code(memCode);
-					eventService.insertCoupon(cvo2);
-					mav.setViewName("couponAvailable");
-					continue;
-				}
+				couponCode.add(coupon.get(i).getCoupon_code());
 			}
+			if(couponCode.contains(coupon_code)) {
+				mav.setViewName("downloadCouponModal");
+			} else {
+				CouponVO cvo2 = new CouponVO();
+				cvo2.setCoupon_code(coupon_code);
+				cvo2.setUser_code(memCode);
+				eventService.insertCoupon(cvo2);
+				mav.setViewName("couponAvailable");
+			}
+		}
+		
+		return mav;
+	}
+	//1만원 쿠폰팩에서 낱개로 눌렀을때 실행되는 메서드
+	@RequestMapping(value = "coupon03.do", method = RequestMethod.POST)
+	public ModelAndView coupon03Do(ModelAndView mav, HttpServletRequest request) {
+		CouponVO cvo = new CouponVO();
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("member");
+		int memCode = mvo.getMemberCode();
+		String b = request.getParameter("coupon_code");
+		int coupon_code = Integer.parseInt(b);
+		System.out.println(memCode);
+		System.out.println(coupon_code);
+		cvo.setUser_code(memCode);
+		
+		List<CouponVO> coupon = eventService.getCoupon(cvo);
+		//getCoupon : SELECT * FROM user_coupon WHERE user_code = #{user_code}
+		
+		if(coupon.isEmpty()) {
+			CouponVO cvo2 = new CouponVO();
+			cvo2.setCoupon_code(coupon_code);
+			cvo2.setUser_code(memCode);
+			eventService.insertCoupon(cvo2);
+			mav.setViewName("couponAvailable");
+		} else {
+			List<Integer> couponCode = new ArrayList<Integer>();
+			for(int i = 0; i < coupon.size(); i++) {
+				couponCode.add(coupon.get(i).getCoupon_code());
+			}
+			if(couponCode.contains(coupon_code)) {
+				mav.setViewName("downloadCouponModal");
+			} else {
+				CouponVO cvo2 = new CouponVO();
+				cvo2.setCoupon_code(coupon_code);
+				cvo2.setUser_code(memCode);
+				eventService.insertCoupon(cvo2);
+				mav.setViewName("couponAvailable");
+			}
+		}
+		
+		return mav;
+	}
+	@RequestMapping("coupon04.do")
+	public ModelAndView coupon04Do(ModelAndView mav, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("member");
+		int memCode = mvo.getMemberCode();
+		CouponVO cvo = new CouponVO();
+		cvo.setCoupon_pack(200);
+		
+		List<CouponVO> coupon = eventService.getCouponPack(cvo);
+		//getCouponPack : SELECT * FROM coupon WHERE coupon_pack = #{coupon_pack}
+		CouponVO cvo2 = new CouponVO();
+		cvo2.setUser_code(memCode);
+		List<CouponVO> userCoupon = eventService.getCoupon(cvo2);
+		//getCoupon : SELECT * FROM user_coupon WHERE user_code = #{user_code}
+		
+		if(coupon.size() == userCoupon.size()) {
+			mav.setViewName("downloadCouponModal");
+		}else {
+			List<CouponVO> addUserCoupon = new ArrayList<CouponVO>();
+			for(int i = 0; i < coupon.size(); i++){
+				int check = 0;
+				for(int j = 0; j < userCoupon.size(); j++){
+					if(coupon.get(i).getCoupon_code() != userCoupon.get(j).getCoupon_code()) {
+						check++;
+					};					
+				};
+				if(check == userCoupon.size()) {
+					CouponVO vo1 = new CouponVO();
+					vo1.setUser_code(memCode);
+					vo1.setCoupon_code(coupon.get(i).getCoupon_code());
+					addUserCoupon.add(vo1);
+				};
+			};	
+			for(int i = 0; i < addUserCoupon.size(); i++){
+				CouponVO vo = addUserCoupon.get(i);
+				eventService.insertCoupon(vo);
+			};		
+			mav.setViewName("couponAvailable");		
 		}
 		return mav;
 	}
+	
 }

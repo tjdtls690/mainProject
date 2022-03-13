@@ -8,6 +8,7 @@ public class MemberZipcodeVO {
 	private String member_detail_address;
 	private String member_shipping_address;
 	private String member_default_address;
+	private int member_delivery_type;
 
 	public int getMember_zipcode_code() {
 		return member_zipcode_code;
@@ -65,12 +66,21 @@ public class MemberZipcodeVO {
 		this.member_default_address = member_default_address;
 	}
 
+	public int getMember_delivery_type() {
+		return member_delivery_type;
+	}
+
+	public void setMember_delivery_type(int member_delivery_type) {
+		this.member_delivery_type = member_delivery_type;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberZipcodeVO [member_zipcode_code=" + member_zipcode_code + ", member_code=" + member_code
 				+ ", member_zipcode=" + member_zipcode + ", member_address=" + member_address
 				+ ", member_detail_address=" + member_detail_address + ", member_shipping_address="
-				+ member_shipping_address + ", member_default_address=" + member_default_address + "]";
+				+ member_shipping_address + ", member_default_address=" + member_default_address
+				+ ", member_delivery_type=" + member_delivery_type + "]";
 	}
 
 }

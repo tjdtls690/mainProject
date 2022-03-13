@@ -20,6 +20,10 @@
 		member_birthday, member_gender, member_phone)
 		VALUES (#{email}, #{memberType}, #{name}, #{nickname}, password(#{password}), #{birthday}, #{gender}, #{phone});
 	</insert>
+	
+	<update id="updatePassword">
+		update member set member_password = password(#{password}) where member_phone = #{phone}
+	</update>
 
 	<select id="emailCheck" resultType="int">
 		SELECT COUNT(c.member_email) AS count 
@@ -56,5 +60,14 @@
 	</select>
 	<select id="phoneNameGetMember" resultMap="getMemberMapping">
 		SELECT * FROM member WHERE member_phone = #{phone} AND member_name = #{name}
+	</select>
+	<select id="findPassword" resultType="int">
+		SELECT COUNT(c.member_email) AS count 
+		FROM (
+			SELECT member_email FROM member WHERE member_email = #{email} AND member_phone = #{phone}
+		) AS c
+	</select>
+	<select id="EmailPhoneGetMember" resultMap="getMemberMapping">
+		SELECT * FROM member WHERE member_email = #{email} AND member_phone = #{phone}
 	</select>
 </mapper>

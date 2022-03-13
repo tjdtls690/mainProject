@@ -43,4 +43,16 @@ public class MemberDAO {
 	public MemberVO phoneNameGetMember(MemberVO vo) {
 		return sqlSessionTemplate.selectOne("MemberDAO.phoneNameGetMember", vo);
 	}
+	
+	public int findPassword(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.findPassword", vo);
+	}
+	
+	public MemberVO EmailPhoneGetMember(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.EmailPhoneGetMember", vo);
+	}
+	
+	public int updatePassword(MemberVO vo) {
+		return sqlSessionTemplate.update("MemberDAO.updatePassword", vo);
+	}
 }

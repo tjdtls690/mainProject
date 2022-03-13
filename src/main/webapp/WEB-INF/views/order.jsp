@@ -29,7 +29,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=3">
+<link rel="stylesheet" href="${path }/style2.css?ver=4">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -73,16 +73,37 @@ function kakaoAddressStart(){
                 // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
                 document.body.scrollTop = currentScroll;
                 
+                var deliveryType = $('#deliveryType').val();
                 $.ajax({
-                	url : 'orderKakaoAddressSelectFinal.do',
-                	dataType : 'html',
+                	url : 'orderDeliveryTypeCheck.do',
                 	type : 'post',
                 	data : {
                 		'addr' : addr,
-                		'zonecode' : zonecode
+                		'deliveryType' : deliveryType
                 	},
-                	success : function(htmlOut){
-                		$('.modal-wrap__body').html(htmlOut);
+                	success : function(data){
+                		if(data == 0){
+                			$.ajax({
+                				url : 'orderMorningDeliveryExcept.do',
+                				dataType : 'html',
+                				success : function(htmlOut){
+                					$('.modal-wrap__body').html(htmlOut);
+                				}
+                			})
+                		}else{
+                			$.ajax({
+                            	url : 'orderKakaoAddressSelectFinal.do',
+                            	dataType : 'html',
+                            	type : 'post',
+                            	data : {
+                            		'addr' : addr,
+                            		'zonecode' : zonecode
+                            	},
+                            	success : function(htmlOut){
+                            		$('.modal-wrap__body').html(htmlOut);
+                            	}
+                            })
+                		}
                 	}
                 })
             },
@@ -100,6 +121,11 @@ function kakaoAddressStart(){
 }
 
 $(function() { 
+	// 배송지 디비에 이미 존재하는 경우 $('#addressCheck').val(1); // 새벽배송, 택배배송 나눠서.
+	// 배송지 디비에 이미 존재하는 경우 화면에 포문 돌려서 박기 (기본 배송지부터)
+	
+	
+	
 	$(document).on('click', '#closeFinalCheck', function(){
 		$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 		$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
@@ -224,7 +250,9 @@ $(function() {
     			&& !$(e.target).hasClass("address-index") && !$(e.target).hasClass("address-index__body") && !$(e.target).hasClass("error-list") && !$(e.target).hasClass("button--size-large-mobile")
     			&& !$(e.target).hasClass("add-search__back") && !$(e.target).hasClass("modal-wrap__body") && !$(e.target).hasClass("add-confirm__back") && !$(e.target).hasClass("add-confirm__body")
     			&& !$(e.target).hasClass("add-confirm__address") && !$(e.target).hasClass("form-text") && !$(e.target).hasClass("form-fieldset") && !$(e.target).hasClass("form-field")
-    			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("form-field")){
+    			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
+    			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
+    			&& !$(e.target).hasClass("disable-place-text")){
     		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
         	for (let i = 0; i < TimeoutId; i++) {
         	  clearTimeout(i);
@@ -2042,11 +2070,14 @@ $(function() {
     		alert('배송지명을 입력해주세요.');
     		return false;
     	}
+    	$('#addressCheck').val(1); // 배송지 설정 완료했다는 의미 (구매하기 버튼 활성화 조건)
+    	
     	var zonecode = $('.add-confirm__address').children('em').text();
     	var address = $('.add-confirm__address').children('span').text();
     	var detailAddress = $('.form-text').eq(0).val();
     	var shippingAddress = $('.form-text').eq(1).val();
     	var defaultAddressCheck = $('#defaultBesongjiCheck').val();
+    	var deliveryType = $('#deliveryType').val();
     	
     	$('.modal').detach();
     	
@@ -2058,11 +2089,12 @@ $(function() {
     			'member_address' : address,
     			'member_detail_address' : detailAddress,
     			'member_shipping_address' : shippingAddress,
-    			'member_default_address' : defaultAddressCheck
+    			'member_default_address' : defaultAddressCheck,
+    			'member_delivery_type' : deliveryType
     		},
     		success : function(data){ // 에이작스는 반환값이 필요 없어도
     									// success 를 실행하려면 null이라도 반환 시켜야함.
-    			
+    			$('#addressModalCheck').val(0);
     			$.ajax({
     	    		url : 'orderBesongjiRegistrationCompleteCheckModal.do',
     	    		dataType : 'html',
@@ -2078,7 +2110,6 @@ $(function() {
     	    					$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').detach();
     	    					$('html').attr('class', '');
     	    					$('body').attr('class', '');
-    	    					$('#addressModalCheck').val(0);
     	    				}, 3000);
     	    			}, 500);
     	    		}
@@ -2105,6 +2136,49 @@ $(function() {
     	}else{
     		$('#defaultBesongjiCheck').val('n');
     	}
+    });
+    
+    // 새벽배송 불가능 지역 창 확인 버튼
+    $(document).on('click', '.button.add-confirm__empty__button .button__wrap', function(){
+    	$.ajax({
+    		url : 'orderKakaoAddressContainer.do',
+    		dataType : 'html',
+    		success : function(htmlOut){
+    			$('.modal-wrap__body').html(htmlOut);
+    			
+    			kakaoAddressStart();
+    		}
+    	})
+    });
+    
+    
+    // 새벽배송 버튼
+    $(document).on('click', '.delivery-morning', function(){
+    	$('#deliveryType').val(0);
+    	$.ajax({
+    		url : 'orderMorningBesongji.do',
+    		dataType : 'html',
+    		success : function(htmlOut){
+    			$('.order-address-wrap').html(htmlOut);
+    			$('.morning-parcel-desc-text').detach();
+    			$('.order-type-wrap').next().append('<div data-v-064d23aa="" class="morning-parcel-desc-text">오후 5시 전까지 주문하면 다음 날 새벽에 도착합니다.</div>');
+    		}
+    	})
+    })
+    
+    
+    // 택배배송 버튼
+    $(document).on('click', '.delivery-parcel', function(){
+    	$('#deliveryType').val(1);
+    	$.ajax({
+    		url : 'orderParcelBesongji.do',
+    		dataType : 'html',
+    		success : function(htmlOut){
+    			$('.order-address-wrap').html(htmlOut);
+    			$('.morning-parcel-desc-text').detach();
+    			$('.order-type-wrap').next().append('<div data-v-064d23aa="" class="morning-parcel-desc-text">오후 5시 전까지 주문하면 당일 발송됩니다.</div>');
+    		}
+    	})
     })
     
  });
@@ -2141,11 +2215,14 @@ $(function() {
 					<input type="hidden" value="0" id="latelyQuantity">
 					<input type="hidden" value="0" id="latelyPrice">
 					<input type="hidden" value="0" id="checkCalendar">
+					<input type="hidden" value="0" id="addressCheck">
 					<input type="hidden" value="0" id="firstModalCheck">
 					<input type="hidden" value="0" id="secondModalCheck">
 					<input type="hidden" value="0" id="thirdModalCheck">
 					<input type="hidden" value="0" id="addressModalCheck">
 					<input type="hidden" value="n" id="defaultBesongjiCheck">
+					<input type="hidden" value="0" id="deliveryType">
+					
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -2278,10 +2355,10 @@ $(function() {
 										<div class="order-delivery-wrap" data-v-064d23aa=""> <input
 												id="delivery-morning" type="radio" name="delivery"
 												value="morning" data-v-064d23aa=""><label
-												for="delivery-morning" data-v-064d23aa=""> 새벽배송 </label> <input
+												for="delivery-morning" data-v-064d23aa="" class="delivery-morning"> 새벽배송 </label> <input
 												id="delivery-parcel" type="radio" name="delivery"
 												value="parcel" data-v-064d23aa=""><label
-												for="delivery-parcel" data-v-064d23aa=""> 택배배송 </label>
+												for="delivery-parcel" data-v-064d23aa="" class="delivery-parcel"> 택배배송 </label>
 										</div>
 									</div>
 									<div class="order-address-wrap" data-v-064d23aa="">

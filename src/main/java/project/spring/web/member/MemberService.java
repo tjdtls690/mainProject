@@ -9,4 +9,7 @@ public interface MemberService {
 	public int passwordCheck(MemberVO vo);
 	public int findEmail(MemberVO vo);
 	public MemberVO phoneNameGetMember(MemberVO vo);
+	public int findPassword(MemberVO vo);
+	public MemberVO EmailPhoneGetMember(MemberVO vo);
+	public int updatePassword(MemberVO vo);
 }

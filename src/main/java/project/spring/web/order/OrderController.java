@@ -295,4 +295,35 @@ public class OrderController {
 		mav.setViewName("orderBesongjiRegistrationCompleteCheckModal");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/orderDeliveryTypeCheck.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String orderDeliveryTypeCheckDo(String addr, String deliveryType) {
+		if(deliveryType.equals("0")) {
+			if(!addr.contains("서울") && !addr.contains("경기") && !addr.contains("인천")) {
+				return "0";
+			}
+			return "1";
+		}else {
+			return "1";
+		}
+	}
+	
+	@RequestMapping("/orderMorningDeliveryExcept.do")
+	public ModelAndView orderMorningDeliveryExceptDo(ModelAndView mav) {
+		mav.setViewName("orderMorningDeliveryExcept");
+		return mav;
+	}
+	
+	@RequestMapping("/orderMorningBesongji.do")
+	public ModelAndView orderMorningBesongjiDo(ModelAndView mav) {
+		mav.setViewName("orderMorningBesongji");
+		return mav;
+	}
+	
+	@RequestMapping("/orderParcelBesongji.do")
+	public ModelAndView orderParcelBesongjiDo(ModelAndView mav) {
+		mav.setViewName("orderParcelBesongji");
+		return mav;
+	}
 }

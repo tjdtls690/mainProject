@@ -396,7 +396,7 @@
 						<nav data-v-d3dff3a6="" class="row--v-center login__etc-menus">
 							<div data-v-d3dff3a6="" class="col--auto  row--v-center">
 								<a data-v-d3dff3a6="" href="findId.do" class="">이메일(아이디)
-									찾기</a> <a data-v-d3dff3a6="" href="/user/find-pw" class="">비밀번호
+									찾기</a> <a data-v-d3dff3a6="" href="findPassword.do" class="">비밀번호
 									찾기</a>
 							</div>
 							<div data-v-d3dff3a6="" class="col--auto">

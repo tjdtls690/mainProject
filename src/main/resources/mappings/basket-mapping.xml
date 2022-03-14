@@ -14,6 +14,7 @@
 		<result property="priceSub" column="price_sub" />
 		<result property="userCode" column="user_code" />
 		<result property="itemCode" column="item_code" />
+		<result property="itemSize" column="item_size" />
 	</resultMap>
 	<!-- resultType : 같을떄 resultMap : 다를떄 -->
 	<select id="getBasketList" resultMap="basketResult" >

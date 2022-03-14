@@ -25,4 +25,8 @@ public class EventDAO {
 	public List<CouponVO> getCouponPack(CouponVO vo) {
 		return sqlSessionTemplate.selectList("EventDAO.getCouponPack", vo);
 	}
+	
+	public CouponVO getCouponDetail(CouponVO vo) {
+		return sqlSessionTemplate.selectOne("EventDAO.getCouponDetail", vo);
+	}
 }

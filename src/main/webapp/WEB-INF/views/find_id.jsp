@@ -6,7 +6,7 @@
 <html class="">
 <head>
 
-<title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
+<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" data-hid="subject" name="subject"
 	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
@@ -19,19 +19,19 @@
 <meta data-n-head="ssr" data-hid="og:type" property="og:type"
 	content="website">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-16.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-24.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-32.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-57.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-120.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-152.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-196.png" sizes="196x196">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${path }/style.css">
 <link rel="stylesheet" href="${path }/style2.css?ver=1">
@@ -54,7 +54,6 @@ function request(){
 	$.ajax({
 		url : 'requestInfoBefore.do',
 		type : 'post',
-		dataType : 'html',
 		data : {
 			'name' : name,
 			'phone' : phone
@@ -80,6 +79,17 @@ function request(){
 				// 여기부터 시작해야 함 
 				// 1. 에이작스로 문자로 이메일 보내주기
 				// 2. 문자 전송 완료 페이지로 이동
+				$.ajax({
+					url : 'findIdMessage.do',
+					type : 'post',
+					data : {
+						'name' : name,
+						'phone' : phone
+					},
+					success : function(data){
+						$(location).attr("href", "findEmailSuccess.do");
+					}
+				})
 			}
 		}
 	})
@@ -104,14 +114,15 @@ $(function(){
 			}, 100);
 		}
 	});
-	
+
+
 	$(document).on('click', '#sideEvent', function(){
 		$(location).attr("href", "event.do");
 	});
 	
 	$(document).on('click', '#sideBasket', function(){
 		$(location).attr("href", "basket.do");
-	});
+	})
 	
 	$(document).on('click', '.header__toggle-button', function(){
 		$('html').attr('class', 'mode-popup');
@@ -132,6 +143,23 @@ $(function(){
 			}, 350);
 		}
 	});
+
+	var lastScrollTop = 0,
+    	delta = 90;
+    	$(window).scroll(function(event){
+    		var st = $(this).scrollTop();
+    		if(Math.abs(lastScrollTop - st) <= delta) return;
+    		if((st > lastScrollTop) && (lastScrollTop > 0)){
+    			if(window.innerWidth > 1023){
+    				$(".header").css("top","-130px");
+    			}else{
+    				$(".header").css("top","-50px");
+    			}
+    		}else{
+    			$(".header").css("top","0px");
+    		}
+    		lastScrollTop = st;
+    	});
 })
 </script>
 </head>
@@ -144,13 +172,15 @@ $(function(){
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-1739428d="" class="viewport-none-footer">
-				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
 					<form name="paging">
 						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
@@ -163,7 +193,7 @@ $(function(){
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
 								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""

@@ -355,6 +355,9 @@ $(document).ready(function(){
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myDelivery.do" class="">배송현황</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
+												href="myBesongji.do" aria-current="page"
+												class="nuxt-link-exact-active nuxt-link-active">배송지 관리</a></li>
+											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myPointSearch.do" class="">포인트 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myCouponSearch.do" class="">쿠폰 조회</a></li>
@@ -424,7 +427,7 @@ $(document).ready(function(){
 												<div data-v-31b582a4="" data-v-421abad8="">
 													<button data-v-a1c889e0="" data-v-31b582a4="" type="button"
 														title="" class="button button--side-padding"
-														data-v-421abad8="">
+														data-v-421abad8="" >
 														<span data-v-a1c889e0="" class="button__wrap">등록</span>
 													</button>
 												</div>
@@ -435,15 +438,17 @@ $(document).ready(function(){
 										<div data-v-31b582a4="" data-v-421abad8=""
 											class="mypage-coupons__index">
 											<ul data-v-31b582a4="" data-v-421abad8="">
+											<c:forEach var="couponDetail" items="${couponDetail }">
 												<li data-v-31b582a4="" data-v-421abad8=""><div
 														data-v-31b582a4="" data-v-421abad8=""
 														class="mypage-coupons-item">
 														<div data-v-31b582a4="" data-v-421abad8=""
 															class="mypage-coupons-item__body">
-															<strong data-v-31b582a4="" data-v-421abad8="">[첫
-																만남 쿠폰] 정기배송 50% 쿠폰</strong> <span data-v-31b582a4=""
-																data-v-421abad8="">최소주문금액: 30,000원 / 최대할인금액:
-																15,000원</span> <span data-v-31b582a4="" data-v-421abad8="">사용
+															<strong data-v-31b582a4="" data-v-421abad8="">
+															${couponDetail.coupon_type}</strong>
+															<span data-v-31b582a4=""
+																data-v-421abad8="">${couponDetail.coupon_explain }</span>
+															<span data-v-31b582a4="" data-v-421abad8="">사용
 																가능 메뉴: 정기배송/전체 상품</span>
 														</div>
 														<div data-v-31b582a4="" data-v-421abad8=""
@@ -456,7 +461,9 @@ $(document).ready(function(){
 																</em> 까지
 															</p>
 														</div>
-													</div></li>
+													</div>
+												</li>
+												</c:forEach>
 											</ul>
 										</div>
 										<div data-v-20ad18c6="" data-v-31b582a4=""

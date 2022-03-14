@@ -387,4 +387,12 @@ public class OrderController {
 		mav.setViewName("orderDefaultDeliveryCheckModal");
 		return mav;
 	}
+	
+	@RequestMapping("/orderCommonBesongji.do")
+	public ModelAndView orderCommonBesongjiDo(ModelAndView mav, MemberZipcodeVO vo) {
+		MemberZipcodeVO vo1 = memberZipcodeService.getZipcodeAll2(vo);
+		mav.addObject("memberZipcode", vo1);
+		mav.setViewName("orderCommonBesongji");
+		return mav;
+	}
 }

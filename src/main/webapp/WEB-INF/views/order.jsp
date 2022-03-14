@@ -42,6 +42,47 @@ function page_move(tagNum){
    f.submit();
 }
 
+function button_activation(){
+	var minPriceCheck = $('.info-content').eq(0).children().eq(2).val();
+	var calendarCheck = $('#checkCalendar').val();
+	var addressCheck = $('#addressCheck').val(); 
+	
+	if(minPriceCheck == 1 && calendarCheck == 1 && addressCheck == 1){
+		$('.order-result-payment .button.button--size-large').attr('class', 'button button--size-large');
+		$('.order-result-payment .button.button--size-large').css('width', '100%');
+		$('.order-result-payment .button.button--size-large').css('height', '50px');
+		$('.order-result-payment .button.button--size-large').css('margin', '0px auto');
+		$('.order-result-payment .button.button--size-large').css('border-radius', '2px');
+		$('.order-result-payment .button.button--size-large').css('font-size', '16px');
+		$('.order-result-payment .button.button--size-large').css('font-weight', '400');
+		$('.order-result-payment .button.button--size-large').css('background-color', 'rgb(53, 173, 115)');
+		$('.order-result-payment .button.button--size-large').removeAttr('disabled');
+		
+		var deliveryCheck = $('.info-content').eq(1).children().eq(2).val();
+		var totalPrice = 0;
+		var realPrice = $('#realPrice').val();
+		
+		if(deliveryCheck == 0){
+			totalPrice = Number(realPrice) + 3500;
+		}else{
+			totalPrice = Number(realPrice);
+		}
+		
+		$('.order-result-info-total').find('em').text(totalPrice.toLocaleString('en') + '원');
+	}else{
+		$('.order-result-payment .button.button--size-large').attr('class', 'button button--size-large button--disabled');
+		$('.order-result-payment .button.button--size-large').attr('disabled', 'disabled');
+		$('.order-result-payment .button.button--size-large').css('width', '100%');
+		$('.order-result-payment .button.button--size-large').css('height', '50px');
+		$('.order-result-payment .button.button--size-large').css('margin', '0px auto');
+		$('.order-result-payment .button.button--size-large').css('border-radius', '2px');
+		$('.order-result-payment .button.button--size-large').css('font-size', '16px');
+		$('.order-result-payment .button.button--size-large').css('font-weight', '400');
+		$('.order-result-payment .button.button--size-large').css('background-color', 'rgb(184, 212, 198)');
+		$('.order-result-info-total').find('em').text('0원');
+	}
+}
+
 function kakaoAddressStart(){
 	// 우편번호 찾기 찾기 화면을 넣을 element
     var element_wrap = document.getElementById('vue-daum-postcode-container');
@@ -233,9 +274,6 @@ $(function() {
     
     $(document).on('click', '.modal-wrap', function(e){
     	
-    	// 주소창 모달을 위해 더 추가시켜야 함 
-    	
-    	
     	if(!$(e.target).hasClass("content-name") && !$(e.target).hasClass("content-price-wrap") && !$(e.target).hasClass("content-right") && 
     			!$(e.target).hasClass("dropdown") && !$(e.target).hasClass("add-items-group-body-contents") && !$(e.target).hasClass("content-wrap") && 
     			!$(e.target).hasClass("add-items-group") && !$(e.target).hasClass("content-discounted-price") && !$(e.target).hasClass("detail-wrap")
@@ -279,6 +317,8 @@ $(function() {
         	var cloneElements = $('.hidden-div').children('div').clone();
         	$('.hidden-div2').empty();
         	cloneElements.appendTo('.hidden-div2');
+        	
+        	button_activation();
     	}
     })
     
@@ -680,6 +720,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -702,6 +743,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -709,6 +751,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     $(document).on('click', '.swal2-title', function(){
@@ -803,6 +847,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -825,6 +870,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -832,6 +878,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     $(document).on('click', '.form-number__control:odd:even', function(){
@@ -908,6 +956,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -930,6 +979,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -937,6 +987,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     $(document).on('change', '.form-number__input:even input', function(){
@@ -1004,6 +1056,7 @@ $(function() {
 	        				$('.info-content').eq(0).find('.min').detach();
 	        				$('.info-content').eq(0).append(htmlOut);
 	        				$('.info-content').eq(0).children().eq(2).val(0);
+	        				button_activation();
 	        			}
 	        		})
 	        		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -1026,6 +1079,7 @@ $(function() {
 	        				$('.info-content').eq(1).find('.min').detach();
 	        				$('.info-content').eq(1).append(htmlOut);
 	        				$('.info-content').eq(1).children().eq(2).val(0);
+	        				button_activation();
 	        			}
 	        		})
 	        	}else{
@@ -1037,6 +1091,8 @@ $(function() {
 	    		break;
 	    	}
     	}
+    	
+    	button_activation();
     });
     
     $(document).on('change', '.form-number__input:odd input', function(){
@@ -1081,6 +1137,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -1103,6 +1160,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -1110,6 +1168,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     $(document).on('click', '.form-number__control:odd:odd', function(){
@@ -1142,6 +1202,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -1164,6 +1225,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -1171,6 +1233,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     $(document).on('click', '.form-number__control:even:odd', function(){
@@ -1206,6 +1270,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -1228,6 +1293,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -1235,6 +1301,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     
@@ -1270,6 +1338,55 @@ $(function() {
 	    		break;
 	    	}
     	}
+    	
+    	var realPrice1 = $('#realPrice').val();
+    	
+    	if(realPrice1 < 10000){
+    		var remainPrice = 10000 - realPrice1;
+    		$.ajax({
+    			url : 'orderMinPrice.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(0).find('.min').detach();
+    				$('.info-content').eq(0).append(htmlOut);
+    				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
+    			}
+    		})
+    		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
+    	}else{
+    		$('.info-content').eq(0).find('.min').detach();
+    		$('.info-content').eq(0).children().eq(2).val(1);
+    		$('.info-content').eq(1).children().eq(1).text('1회 / 3,500원');
+    	}
+    	
+    	if(realPrice1 < 35000){
+    		var remainPrice = 35000 - realPrice1;
+    		$.ajax({
+    			url : 'orderMinPriceDelivery.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(1).find('.min').detach();
+    				$('.info-content').eq(1).append(htmlOut);
+    				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(1).find('.min').detach();
+    		$('.info-content').eq(1).children().eq(2).val(1);
+    		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
+    	}
+    	
+    	button_activation();
     });
     
     
@@ -1305,6 +1422,55 @@ $(function() {
 	    		break;
 	    	}
     	}
+    	
+    	var realPrice1 = $('#realPrice').val();
+    	
+    	if(realPrice1 < 10000){
+    		var remainPrice = 10000 - realPrice1;
+    		$.ajax({
+    			url : 'orderMinPrice.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(0).find('.min').detach();
+    				$('.info-content').eq(0).append(htmlOut);
+    				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
+    			}
+    		})
+    		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
+    	}else{
+    		$('.info-content').eq(0).find('.min').detach();
+    		$('.info-content').eq(0).children().eq(2).val(1);
+    		$('.info-content').eq(1).children().eq(1).text('1회 / 3,500원');
+    	}
+    	
+    	if(realPrice1 < 35000){
+    		var remainPrice = 35000 - realPrice1;
+    		$.ajax({
+    			url : 'orderMinPriceDelivery.do',
+    			type : 'post',
+    			dataType : 'html',
+    			data : {
+    				'remainPrice' : remainPrice
+    			},
+    			success : function(htmlOut){
+    				$('.info-content').eq(1).find('.min').detach();
+    				$('.info-content').eq(1).append(htmlOut);
+    				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
+    			}
+    		})
+    	}else{
+    		$('.info-content').eq(1).find('.min').detach();
+    		$('.info-content').eq(1).children().eq(2).val(1);
+    		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
+    	}
+    	
+    	button_activation();
     });
     
     $(document).on('click','.delete-menu-btn', function(){
@@ -1372,6 +1538,7 @@ $(function() {
 	        				$('.info-content').eq(0).find('.min').detach();
 	        				$('.info-content').eq(0).append(htmlOut);
 	        				$('.info-content').eq(0).children().eq(2).val(0);
+	        				button_activation();
 	        			}
 	        		})
 	        		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -1394,6 +1561,7 @@ $(function() {
 	        				$('.info-content').eq(1).find('.min').detach();
 	        				$('.info-content').eq(1).append(htmlOut);
 	        				$('.info-content').eq(1).children().eq(2).val(0);
+	        				button_activation();
 	        			}
 	        		})
 	        	}else{
@@ -1442,6 +1610,8 @@ $(function() {
         		}
         	});
     	}
+    	
+    	button_activation();
     })
     
     $(document).on('click', '#closeBtn', function(){
@@ -1513,6 +1683,7 @@ $(function() {
     				$('.info-content').eq(0).find('.min').detach();
     				$('.info-content').eq(0).append(htmlOut);
     				$('.info-content').eq(0).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
@@ -1535,6 +1706,7 @@ $(function() {
     				$('.info-content').eq(1).find('.min').detach();
     				$('.info-content').eq(1).append(htmlOut);
     				$('.info-content').eq(1).children().eq(2).val(0);
+    				button_activation();
     			}
     		})
     	}else{
@@ -1542,6 +1714,8 @@ $(function() {
     		$('.info-content').eq(1).children().eq(2).val(1);
     		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
     	}
+    	
+    	button_activation();
     });
     
     
@@ -1933,13 +2107,12 @@ $(function() {
     		success : function(htmlOut){
     			$('#modalWrap1').html(htmlOut);
     			
-	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
-	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/00/00'){
-	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
-	    					break;
-	    				}
-	    			}
-    			
+    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/00/00'){
+    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+    					break;
+    				}
+    			}
     		}
     	});
     });
@@ -2008,6 +2181,8 @@ $(function() {
 			$('.v-date-custom .vc-popover-content-wrapper').removeAttr('style');
         	$('.v-date-custom .vc-popover-content-wrapper').removeAttr('x-placement');
 		}, 300);
+		
+		button_activation();
     });
     
     
@@ -2135,6 +2310,7 @@ $(function() {
 	    	    				dataType : 'html',
 	    	    				success : function(htmlOut){
 	    	    					$('.order-address-wrap').html(htmlOut);
+	    	    					button_activation();
 	    	    				}
 	    	    			})
     	    			}else{
@@ -2143,13 +2319,16 @@ $(function() {
 	    	    				dataType : 'html',
 	    	    				success : function(htmlOut){
 	    	    					$('.order-address-wrap').html(htmlOut);
+	    	    					button_activation();
 	    	    				}
 	    	    			})
     	    			}
     	    		}
     	    	});
     		}
-    	})
+    	});
+    	
+    	button_activation();
     });
     
     
@@ -2196,6 +2375,7 @@ $(function() {
     			$('.order-address-wrap').html(htmlOut);
     			$('.morning-parcel-desc-text').detach();
     			$('.order-type-wrap').next().append('<div data-v-064d23aa="" class="morning-parcel-desc-text">오후 5시 전까지 주문하면 다음 날 새벽에 도착합니다.</div>');
+    			button_activation();
     		}
     	})
     })
@@ -2211,6 +2391,7 @@ $(function() {
     			$('.order-address-wrap').html(htmlOut);
     			$('.morning-parcel-desc-text').detach();
     			$('.order-type-wrap').next().append('<div data-v-064d23aa="" class="morning-parcel-desc-text">오후 5시 전까지 주문하면 당일 발송됩니다.</div>');
+    			button_activation();
     		}
     	})
     });
@@ -2235,10 +2416,13 @@ $(function() {
     });
     
     
+    // 기본 배송지 설정 변경 체크 모달창 취소 버튼
     $(document).on('click', '.swal2-cancel.swal2-styled', function(){
     	$('#defaultDeliverydeleteCheck').detach();
     });
     
+    
+ 	// 기본 배송지 설정 변경 체크 모달창 확인 버튼
     $(document).on('click', '.swal2-confirm.swal2-styled', function(){
     	var member_zipcode_code = $('#defaultDeliverydeleteCheck').closest('li').find('input:odd').val();
     	var member_delivery_type = $('#deliveryType').val();
@@ -2264,7 +2448,99 @@ $(function() {
     	    	})
     		}
     	})
-    })
+    });
+ 	
+ 	
+ 	// 배송지 목록 선택 버튼
+ 	$(document).on('click', '.button.button--side-padding.button--size-small', function(){
+ 		var member_zipcode_code = $(this).closest('li').find('input').val();
+ 		$('.modal').detach();
+ 		$.ajax({
+ 			url : 'orderCommonBesongji.do',
+ 			type : 'post',
+ 			dataType : 'html',
+ 			data : {
+ 				'member_zipcode_code' : member_zipcode_code
+ 			},
+ 			success : function(htmlOut){
+ 				$('.order-address-wrap').html(htmlOut);
+ 				
+ 				
+ 				$('#addressModalCheck').val(0);
+    			$.ajax({
+    	    		url : 'orderBesongjiRegistrationCompleteCheckModal.do',
+    	    		dataType : 'html',
+    	    		success : function(htmlOut){
+    	    			$('html').attr('class', 'swal2-toast-shown swal2-shown');
+    	    	    	$('body').attr('class', 'swal2-toast-shown swal2-shown');
+    	    			$('body').append(htmlOut);
+    	    			
+    	    			setTimeout(function() {
+    	    				$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').css('overflow-y', 'auto');
+    	    				
+    	    				setTimeout(function() {
+    	    					$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').detach();
+    	    					$('html').attr('class', '');
+    	    					$('body').attr('class', '');
+    	    				}, 3000);
+    	    			}, 500);
+    	    		}
+    	    	});
+ 			}
+ 		})
+ 	});
+ 	
+ 	// 배송지 목록 선택 버튼
+ 	$(document).on('click', '.button__wrap.delivery_select', function(){
+ 		var member_zipcode_code = $(this).closest('li').find('input').val();
+ 		$('.modal').detach();
+ 		
+ 		$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').detach();
+ 		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+    	for (let i = 0; i < TimeoutId; i++) {
+    	  clearTimeout(i);
+    	}
+    	
+ 		$.ajax({
+ 			url : 'orderCommonBesongji.do',
+ 			type : 'post',
+ 			dataType : 'html',
+ 			data : {
+ 				'member_zipcode_code' : member_zipcode_code
+ 			},
+ 			success : function(htmlOut){
+ 				$('.order-address-wrap').html(htmlOut);
+ 				
+ 				
+ 				$('#addressModalCheck').val(0);
+    			$.ajax({
+    	    		url : 'orderBesongjiRegistrationCompleteCheckModal.do',
+    	    		dataType : 'html',
+    	    		success : function(htmlOut){
+    	    			$('html').attr('class', 'swal2-toast-shown swal2-shown');
+    	    	    	$('body').attr('class', 'swal2-toast-shown swal2-shown');
+    	    			$('body').append(htmlOut);
+    	    			
+    	    			setTimeout(function() {
+    	    				$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').css('overflow-y', 'auto');
+    	    				
+    	    				setTimeout(function() {
+    	    					$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').detach();
+    	    					$('html').attr('class', '');
+    	    					$('body').attr('class', '');
+    	    				}, 3000);
+    	    			}, 500);
+    	    		}
+    	    	});
+ 			}
+ 		})
+ 	});
+ 	
+ 	
+ 	// 구매하기 버튼
+ 	$(document).on('click', '.order-result-payment .button.button--size-large', function(){ // todo
+ 		$(location).attr("href", "paymentSingle.do");
+ 	})
     
  });
 </script>
@@ -2577,7 +2853,7 @@ $(function() {
 										</div>
 									</div>
 								</div>
-								<div class="order-result-payment " data-v-064d23aa="">
+								<div class="order-result-payment" data-v-064d23aa="">
 									<div class="row--v-center " style="flex-basis: 100%;"
 										data-v-064d23aa="">
 										<div class="col" data-v-064d23aa="">

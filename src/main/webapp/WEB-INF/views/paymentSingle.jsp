@@ -1,0 +1,678 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="path" value="${pageContext.request.contextPath}/resources/paymentSingle"/>
+<!DOCTYPE html>
+<html class="">
+<head>
+
+<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
+<meta data-n-head="ssr" charset="utf-8">
+<meta data-n-head="ssr" name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
+<meta data-n-head="ssr" data-hid="title" name="title"
+	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
+<meta data-n-head="ssr" data-hid="subject" name="subject"
+	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
+<meta data-n-head="ssr" data-hid="description" name="description"
+	content="프코스팟은 무료배송. 오늘 주문하면 내일 아침 새벽배송. 맛있는 샐러드 도시락을 신선>하게 배달합니다. 다이어트 샐러드도 역시 프레시코드.">
+<meta data-n-head="ssr" data-hid="keywords" name="keywords"
+	content="프레시코드, 새벽배송, 샐러드, 신선배달">
+<meta data-n-head="ssr" data-hid="author" name="author"
+	content="https://www.freshcode.me">
+<meta data-n-head="ssr" data-hid="og:title" property="og:title"
+	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
+<meta data-n-head="ssr" data-hid="og:description"
+	property="og:description" content="undefined">
+<meta data-n-head="ssr" data-hid="og:type" property="og:type"
+	content="website">
+<meta data-n-head="ssr" data-hid="og:url" property="og:url"
+	content="https://www.freshcode.me">
+<meta data-n-head="ssr" data-hid="og:image" property="og:image"
+	content="https://s3.ap-northeast-2.amazonaws.com/freshcode/img/seo/main.png">
+<meta data-n-head="ssr" data-hid="og:site_name" property="og:site_name"
+	content="프레시코드 - 프리미엄 샐러드 배달 서비스">
+<meta data-n-head="ssr" data-hid="fb:app_id" property="fb:app_id"
+	content="323001348061168">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
+<link rel="stylesheet" href="${path }/style.css">
+<link rel="stylesheet" href="${path }/style2.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function page_move(tagNum){
+	   var f = document.paging; //폼 name
+	   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+	   f.action="tapPage.do";//이동할 페이지
+	   f.method="post";//POST방식
+	   f.submit();
+	}
+	
+	$(function(){
+		$(document).on('click', '#closeFinalCheck', function(){
+			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+		})
+		
+		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+				setTimeout(function() {
+					$('.swal2-container').detach();
+				}, 100);
+			}
+		});
+
+
+		$(document).on('click', '#sideEvent', function(){
+			$(location).attr("href", "event.do");
+		});
+		
+		$(document).on('click', '#sideBasket', function(){
+			$(location).attr("href", "basket.do");
+		})
+		
+		$(document).on('click', '.header__toggle-button', function(){
+			$('html').attr('class', 'mode-popup');
+			$.ajax({
+				url : 'sideMune.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('#header-area').after(htmlOut);
+				}
+			})
+		});
+		$(document).on('click', '.side-nav__overlay', function(e){
+			if (!$(e.target).hasClass(".side-nav__wrap")) {
+				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+				$('html').removeClass('mode-popup');
+				setTimeout(function() {
+					$('.side-nav').detach();
+				}, 350);
+			}
+		});
+
+		var lastScrollTop = 0,
+	    	delta = 90;
+	    	$(window).scroll(function(event){
+	    		var st = $(this).scrollTop();
+	    		if(Math.abs(lastScrollTop - st) <= delta) return;
+	    		if((st > lastScrollTop) && (lastScrollTop > 0)){
+	    			if(window.innerWidth > 1023){
+	    				$(".header").css("top","-130px");
+	    			}else{
+	    				$(".header").css("top","-50px");
+	    			}
+	    		}else{
+	    			$(".header").css("top","0px");
+	    		}
+	    		lastScrollTop = st;
+	    	});
+	})
+</script>
+</head>
+<body class="">
+	<noscript data-n-head="ssr" data-hid="gtm-noscript" data-pbody="true">
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWVZF4F&"
+			height="0" width="0" style="display: none; visibility: hidden"
+			title="gtm"></iframe>
+	</noscript>
+	<div id="__nuxt">
+		<div id="__layout">
+			<main data-v-1739428d="" class="viewport-none-footer">
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+					class="header">
+					<div data-v-7aa1f9b4="" class="header-banner-wrap">
+						<!---->
+					</div>
+					<form name="paging">
+						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
+					</form>
+					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
+						<div data-v-7aa1f9b4="" class="header__top">
+							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
+							<div data-v-7aa1f9b4="" class="header__top-right">
+							
+								<c:choose>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
+									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
+									신청</a>
+							</div>
+						</div>
+						<!---->
+						<div data-v-7aa1f9b4="" class="header__logo">
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
+							<!---->
+						</div>
+						<nav data-v-7aa1f9b4="" class="header__menus">
+							<div data-v-7aa1f9b4="">
+								<div data-v-7aa1f9b4="" class="dropdown">
+									<span data-v-7aa1f9b4="" class="item">전체 카테고리</span>
+									<div data-v-7aa1f9b4="" class="dropdown">
+										<ul data-v-7aa1f9b4="">
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
+										</ul>
+									</div>
+								</div>
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
+									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
+							</div>
+							<div data-v-7aa1f9b4="" class="header__menus-side">
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+									alt="메뉴 검색" class="search-logo-img"
+									style="width: 30px; height: 30px;">
+									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
+									href="basket.do" class="cart-logo-wrap item"><div
+										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+										<!---->
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
+										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
+							</div>
+						</nav>
+						<div data-v-7aa1f9b4="" class="header__side">
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+								alt="메뉴 검색" class="search-logo-img"
+								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
+									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+									<!---->
+								</div></a>
+							<nav data-v-7aa1f9b4="" class="header__toggle-button">
+								<button data-v-7aa1f9b4="" type="button">
+									<img data-v-7aa1f9b4=""
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
+								</button>
+							</nav>
+						</div>
+					</div>
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+				</header>
+				<!---->
+				<div data-v-1739428d="" class="container"
+					style="padding-top: 182px;">
+					<div data-v-8f2f8136="" data-v-1739428d=""
+						class="checkout-container">
+						<article data-v-8f2f8136="" class="checkout">
+							<div data-v-8f2f8136="" class="checkout__header">
+								<h2 data-v-8f2f8136="" class="header">주문/결제하기</h2>
+							</div>
+							<div data-v-8f2f8136="">
+								<section data-v-8f2f8136="" class="checkout__items">
+									<header data-v-8f2f8136="" class="row--v-center">
+										<h3 data-v-8f2f8136="" class="col checkout__section-title">주문상품정보</h3>
+										<button data-v-8f2f8136="" type="button">
+											<span data-v-8f2f8136="" class="row--v-center"><svg
+													data-v-8f2f8136="" xmlns="http://www.w3.org/2000/svg"
+													width="24" height="24" viewBox="0 0 24 24"
+													aria-labelledby="arrow-up-1" role="presentation"
+													class="icon" style="width: 20px; height: 15px;">
+													<g fill="none" fill-rule="evenodd"> <path
+														fill="currentColor" fill-rule="nonzero"
+														d="M3.455 16.362a.5.5 0 0 1-.69-.724l8.946-8.5a.5.5 0 0 1 .689 0l8.944 8.5a.5.5 0 0 1-.688.724l-8.6-8.172-8.601 8.172z"></path></g></svg></span>
+										</button>
+									</header>
+									<!---->
+									<div data-v-8f2f8136="" class="products">
+										<ul data-v-8f2f8136="">
+											<li data-v-8f2f8136=""><div data-v-8f2f8136=""
+													class="products-delivery-date-wrap">
+													<div data-v-8f2f8136="" class="products-delivery-date-left">수령일</div>
+													<div data-v-8f2f8136=""
+														class="products-delivery-date-right">2022-03-16</div>
+												</div>
+												<ul data-v-8f2f8136="" class="items">
+													<li data-v-8f2f8136="" class="row"><div
+															data-v-8f2f8136="" class="col info">
+															<strong data-v-8f2f8136="">지중해식 따블레 샐러드/미디움 (M)</strong>
+															<span data-v-8f2f8136="">일회용품(포크+물티슈) - 2개</span>
+														</div>
+														<div data-v-8f2f8136="" class="count">
+															<em data-v-8f2f8136="">2</em>개
+														</div>
+														<div data-v-8f2f8136="" class="price">
+															<em data-v-8f2f8136="">16,000</em>원
+														</div></li>
+													<li data-v-8f2f8136="" class="row"><div
+															data-v-8f2f8136="" class="col info">
+															<strong data-v-8f2f8136="">프렌치 발사믹 훈제연어 샐러드/미디움
+																(M)</strong> <span data-v-8f2f8136="">일회용품(포크+물티슈) - 3개</span>
+														</div>
+														<div data-v-8f2f8136="" class="count">
+															<em data-v-8f2f8136="">3</em>개
+														</div>
+														<div data-v-8f2f8136="" class="price">
+															<em data-v-8f2f8136="">26,555</em>원
+														</div></li>
+												</ul></li>
+										</ul>
+										<table data-v-8f2f8136="">
+											<colgroup data-v-8f2f8136="">
+												<col data-v-8f2f8136="" width="100px">
+												<col data-v-8f2f8136="" width="270px">
+												<col data-v-8f2f8136="" width="45px">
+												<col data-v-8f2f8136="" width="*">
+												<col data-v-8f2f8136="" width="*">
+												<col data-v-8f2f8136="" width="*">
+												<col data-v-8f2f8136="" width="*">
+											</colgroup>
+											<thead data-v-8f2f8136="">
+												<tr data-v-8f2f8136="">
+													<th data-v-8f2f8136="" scope="col">수령일</th>
+													<th data-v-8f2f8136="" scope="col">주문상품</th>
+													<th data-v-8f2f8136="" scope="col">수량</th>
+													<th data-v-8f2f8136="" scope="col" class="right">가격</th>
+													<th data-v-8f2f8136="" scope="col" class="right">할인금액
+													</th>
+													<th data-v-8f2f8136="" scope="col" class="right">배송비</th>
+													<th data-v-8f2f8136="" scope="col" class="right">결제예상금액</th>
+												</tr>
+											</thead>
+											<tbody data-v-8f2f8136="">
+												<tr data-v-8f2f8136="">
+													<td data-v-8f2f8136="" rowspan="2" class="date left">
+														2022/03/16</td>
+													<td data-v-8f2f8136="" class="bd left"><strong
+														data-v-8f2f8136="" class="title">지중해식 따블레 샐러드/미디움
+															(M)</strong>
+														<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈)
+															2개</div></td>
+													<td data-v-8f2f8136="" class="qry">2</td>
+													<td data-v-8f2f8136="" class="price right"><em
+														data-v-8f2f8136="">16,000</em>원</td>
+													<td data-v-8f2f8136="" class="price right"><em
+														data-v-8f2f8136=""> 0</em>원</td>
+													<td data-v-8f2f8136="" rowspan="2" class="price right"><em
+														data-v-8f2f8136="">0</em>원</td>
+													<td data-v-8f2f8136="" rowspan="2"
+														class="price-total right">41,665원</td>
+												</tr>
+												<tr data-v-8f2f8136="">
+													<!---->
+													<td data-v-8f2f8136="" class="bd left"><strong
+														data-v-8f2f8136="" class="title">프렌치 발사믹 훈제연어
+															샐러드/미디움 (M)</strong>
+														<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈)
+															3개</div></td>
+													<td data-v-8f2f8136="" class="qry">3</td>
+													<td data-v-8f2f8136="" class="price right"><em
+														data-v-8f2f8136="">27,000</em>원</td>
+													<td data-v-8f2f8136="" class="price right"><em
+														data-v-8f2f8136="">- 1,335</em>원</td>
+													<!---->
+													<!---->
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</section>
+								<section data-v-8f2f8136="" class="checkout__person">
+									<div data-v-8f2f8136="" class="wrap">
+										<div data-v-8f2f8136="" class="buyer">
+											<h3 data-v-8f2f8136="" class="checkout__section-title">주문자
+												정보</h3>
+											<dl data-v-8f2f8136="" class="row--v-center">
+												<dt data-v-8f2f8136="">보내는 분</dt>
+												<dd data-v-8f2f8136="" class="col">신준혁</dd>
+											</dl>
+											<dl data-v-8f2f8136="" class="row--v-center">
+												<dt data-v-8f2f8136="">이메일</dt>
+												<dd data-v-8f2f8136="" class="col">tjdtls690@naver.com</dd>
+											</dl>
+											<dl data-v-8f2f8136="" class="row--v-center">
+												<dt data-v-8f2f8136="">연락처</dt>
+												<dd data-v-8f2f8136="" class="col">01057113386</dd>
+											</dl>
+										</div>
+										<div data-v-8f2f8136="" class="receiver">
+											<header data-v-8f2f8136=""
+												class="row--v-center row--h-between">
+												<h3 data-v-8f2f8136="" class="checkout__section-title">받는
+													사람 정보</h3>
+											</header>
+											<div data-v-8f2f8136="">
+												<fieldset data-v-8f2f8136="" class="form-fieldset">
+													<legend data-v-8f2f8136="">받는 사람 정보 입력 폼</legend>
+													<input data-v-8bb17226="" data-v-8f2f8136="" id="xx"
+														type="text" name="xx" placeholder="받는분 이름을 입력해주세요"
+														maxlength="50" autocorrect="off" autocapitalize="off"
+														class="form-text"
+														style="height: 47px; margin-bottom: 10px;"> <input
+														data-v-8bb17226="" data-v-8f2f8136="" id="yy" type="tel"
+														name="yy" placeholder="연락처를 입력해주세요" minlength="9"
+														maxlength="12" autocorrect="off" autocapitalize="off"
+														class="form-text" style="height: 47px;">
+												</fieldset>
+												<label data-v-8f2f8136=""
+													class="row--v-center same-with-order-wrap"><label
+													data-v-2673f877="" data-v-8f2f8136="" class="form-checkbox"><input
+														data-v-2673f877="" type="checkbox" value="false">
+														<span data-v-2673f877=""><svg data-v-2673f877=""
+																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																<path data-v-2673f877="" fill="currentColor"
+																	fill-rule="nonzero"
+																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+													<span data-v-8f2f8136="">주문자 정보와 같습니다.</span></label>
+											</div>
+										</div>
+									</div>
+								</section>
+								<section data-v-8f2f8136=""
+									class="checkout__delivery checkout-column__delivery">
+									<header data-v-8f2f8136="">
+										<h3 data-v-8f2f8136="" class="checkout__section-title">배송정보</h3>
+										<span data-v-8f2f8136="" class="time-info">주문 변경 및 취소는
+											<b style="font-weight: normal; color: #35ad73;">수령일 하루 전
+												오후 3시까지 가능</b>
+										</span>
+										<div data-v-8f2f8136="" class="delivery">
+											<dl data-v-8f2f8136="" class="row">
+												<dt data-v-8f2f8136="">배송 방법</dt>
+												<dd data-v-8f2f8136="" class="col">택배배송</dd>
+											</dl>
+											<dl data-v-8f2f8136="" class="row">
+												<dt data-v-8f2f8136="">배송 예정일</dt>
+												<dd data-v-8f2f8136="" class="col">
+													<b data-v-8f2f8136="">2022-03-16</b>
+													<div data-v-8f2f8136="" class="detail-address">택배사의
+														사정에 따라 예정보다 지연될 수 있습니다.</div>
+												</dd>
+											</dl>
+											<dl data-v-8f2f8136="" class="row">
+												<dt data-v-8f2f8136="">배송지</dt>
+												<dd data-v-8f2f8136="" class="col">
+													우리집<span data-v-8f2f8136="" class="detail-address">인천
+														서구 청라한내로 40 593동 1801호</span>
+												</dd>
+											</dl>
+										</div>
+									</header>
+								</section>
+								<!---->
+								<section data-v-8f2f8136="" class="checkout__method">
+									<div data-v-8f2f8136="" class="info-wrap">
+										<h3 data-v-8f2f8136="" class="checkout__section-title">배송메모</h3>
+									</div>
+									<div data-v-8f2f8136="" class="method__checks parcel">
+										<input data-v-8bb17226="" data-v-8f2f8136="" type="text"
+											name="xxxx" placeholder="배송메모를 입력해주세요." maxlength="50"
+											autocorrect="off" autocapitalize="off" class="form-text"
+											style="height: 46px; margin-bottom: 10px;">
+									</div>
+									<div data-v-8f2f8136="" class="method">
+										<div data-v-8f2f8136="" class="disposable-checkbox-wrap">
+											<input data-v-8f2f8136="" id="reuseDeliveryMsgFlag-checkbox"
+												type="checkbox" name="reuseDeliveryMsgFlag"
+												class="disposable-checkbox"> <label
+												data-v-8f2f8136="" for="reuseDeliveryMsgFlag-checkbox"
+												class="disposable-checkbox-label"><span
+												data-v-8f2f8136="" class="disposable-checkbox-text">
+													다음에도 사용하기 </span></label>
+										</div>
+									</div>
+								</section>
+								<!---->
+								<div data-v-8f2f8136="" class="checkout-column">
+									<div data-v-8f2f8136="" class="checkout-column__payment">
+										<section data-v-8f2f8136="" class="checkout__payment">
+											<h3 data-v-8f2f8136="" class="checkout__section-title">결제수단</h3>
+											<div data-v-8f2f8136="" class="method">
+												<div data-v-8f2f8136=""
+													class="row--v-center method__item method__item--fco selected">
+													<label data-v-8f2f8136="" id="pay-card"
+														class="row--v-center col"><input
+														data-v-8f2f8136="" type="radio" name="pay" value="card"
+														class="check"> <span data-v-8f2f8136="">프코
+															간편결제</span></label>
+												</div>
+												<div data-v-8f2f8136=""
+													class="row--v-center method__item method__item--fco">
+													<label data-v-8f2f8136="" id="pay-payco"
+														class="row--v-center col"><input
+														data-v-8f2f8136="" type="radio" name="pay" value="payco"
+														class="check"> <span data-v-8f2f8136="">페이코
+															간편결제</span></label>
+												</div>
+												<div data-v-8f2f8136=""
+													class="row--v-center method__item method__item--fco">
+													<label data-v-8f2f8136="" id="pay-unpaid-card"
+														class="row--v-center col"><input
+														data-v-8f2f8136="" type="radio" name="pay"
+														value="unpaid-card" class="check"> <span
+														data-v-8f2f8136="">신용카드</span></label>
+												</div>
+												<div data-v-8f2f8136=""
+													class="row--v-center method__item method__item--fco">
+													<label data-v-8f2f8136="" id="pay-unpaid-kakao"
+														class="row--v-center col"><input
+														data-v-8f2f8136="" type="radio" name="pay"
+														value="unpaid-kakao" class="check"> <span
+														data-v-8f2f8136="">카카오 간편결제</span></label>
+												</div>
+												<div data-v-8f2f8136=""
+													class="row--v-center method__item method__item--fco">
+													<label data-v-8f2f8136="" id="pay-toss"
+														class="row--v-center col"><input
+														data-v-8f2f8136="" type="radio" name="pay" value="toss"
+														class="check"> <span data-v-8f2f8136="">토스
+															간편결제</span></label>
+												</div>
+												<div data-v-8f2f8136=""
+													class="row--v-center method__item method__item--fco">
+													<label data-v-8f2f8136="" id="pay-unpaid-bank"
+														class="row--v-center col"><input
+														data-v-8f2f8136="" type="radio" name="pay"
+														value="unpaid-bank" class="check"> <span
+														data-v-8f2f8136="">계좌이체</span></label>
+												</div>
+												<!---->
+												<div data-v-8f2f8136="" class="row--v-center fcopay">
+													<!---->
+													<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
+														title=""
+														class="button button--side-padding button--size-small"
+														style="height: 46px; border-radius: 2px; flex: 1 1 0px;">
+														<span data-v-a1c889e0="" class="button__wrap"> 카드
+															등록 </span>
+													</button>
+												</div>
+											</div>
+										</section>
+										<section data-v-8f2f8136="" class="checkout__coupoint">
+											<div data-v-8f2f8136="" class="coupon">
+												<h3 data-v-8f2f8136="" class="checkout__section-title">할인
+													쿠폰</h3>
+												<button data-v-8f2f8136="" type="button">
+													<span data-v-8f2f8136="" class="row--v-center"><em
+														data-v-8f2f8136="" class="col coupon__not-use">내 쿠폰
+															0장</em> <svg data-v-8f2f8136=""
+															xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+															viewBox="0 0 24 24" aria-labelledby="arrow-right-1"
+															role="presentation" class="icon">
+															<g fill="none" fill-rule="evenodd"> <path
+																stroke="currentColor" stroke-linecap="round"
+																stroke-linejoin="round" d="M10 6l5.964 5.964-5.964 6"></path></g></svg></span>
+												</button>
+											</div>
+											<div data-v-8f2f8136="" class="point">
+												<h3 data-v-8f2f8136="" class="checkout__section-title">포인트
+													사용</h3>
+												<div data-v-8f2f8136="" class="point-wrap row--v-center">
+													<span data-v-8f2f8136="" class="point__input"><input
+														data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel"
+														name="pp" placeholder="포인트를 입력해주세요" autocorrect="off"
+														autocapitalize="off" class="form-text" max="0"
+														style="height: 46px; text-align: right;"> <i
+														data-v-8f2f8136="">P</i></span>
+													<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
+														title=""
+														class="button button--side-padding button--size-small"
+														style="width: 80px; height: 46px; margin-left: 10px; border-radius: 2px;">
+														<span data-v-a1c889e0="" class="button__wrap">전액사용</span>
+													</button>
+												</div>
+												<dl data-v-8f2f8136="" class="row--v-center point__use">
+													<dt data-v-8f2f8136="" class="col label">사용 가능한 포인트</dt>
+													<dd data-v-8f2f8136="" class="num">0 P</dd>
+												</dl>
+											</div>
+											<!---->
+										</section>
+									</div>
+									<div data-v-8f2f8136="" class="checkout-column">
+										<section data-v-8f2f8136="" class="checkout__result">
+											<h3 data-v-8f2f8136="" class="checkout__section-title">결제
+												금액</h3>
+											<div data-v-8f2f8136="" class="bd">
+												<div data-v-8f2f8136="">
+													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
+														<dt data-v-8f2f8136="">상품 금액</dt>
+														<dd data-v-8f2f8136="">
+															<em data-v-8f2f8136="">43,000</em> 원
+														</dd>
+													</dl>
+													<dl data-v-8f2f8136=""
+														class="row--v-center row--h-between discount">
+														<dt data-v-8f2f8136="">상품 할인</dt>
+														<dd data-v-8f2f8136="">
+															<em data-v-8f2f8136="">- 1,335</em> 원
+														</dd>
+													</dl>
+												</div>
+												<div data-v-8f2f8136="">
+													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
+														<dt data-v-8f2f8136="">쿠폰 사용</dt>
+														<dd data-v-8f2f8136="">
+															<em data-v-8f2f8136=""> 0</em> 원
+														</dd>
+													</dl>
+													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
+														<dt data-v-8f2f8136="">포인트 사용</dt>
+														<dd data-v-8f2f8136="">
+															<em data-v-8f2f8136=""> 0</em> 원
+														</dd>
+													</dl>
+													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
+														<dt data-v-8f2f8136="">배송비</dt>
+														<dd data-v-8f2f8136="">
+															<em data-v-8f2f8136="">3,500</em> 원
+														</dd>
+													</dl>
+													<dl data-v-8f2f8136=""
+														class="row--v-center row--h-between delivery-fee-info-wrap"
+														style="color: red;">
+														<div data-v-8f2f8136="" class="delivery-fee-title-wrap">
+															<dt data-v-8f2f8136="">배송비 할인</dt>
+															<span data-v-8f2f8136="" class="info-hover-icon"></span>
+														</div>
+														<!---->
+														<dd data-v-8f2f8136="">
+															<em data-v-8f2f8136="">- 3,500</em> 원
+														</dd>
+													</dl>
+													<!---->
+												</div>
+												<!---->
+												<dl data-v-8f2f8136="" class="row--v-end row--h-between">
+													<dt data-v-8f2f8136="">최종 결제금액</dt>
+													<dd data-v-8f2f8136="">
+														<b data-v-8f2f8136="">41,665 원</b>
+													</dd>
+												</dl>
+											</div>
+										</section>
+										<div data-v-8f2f8136="" class="row--v-center checkout__agree">
+											<label data-v-8f2f8136="" class="row--v-center col"><label
+												data-v-2673f877="" data-v-8f2f8136="" class="form-checkbox"><input
+													data-v-2673f877="" type="checkbox" value="false"> <span
+													data-v-2673f877=""><svg data-v-2673f877=""
+															xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+															<path data-v-2673f877="" fill="currentColor"
+																fill-rule="nonzero"
+																d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
+												<span data-v-8f2f8136="" class="col">개인정보 수집·이용 동의
+													(필수)</span></label> <a data-v-8f2f8136="" href="#">내용보기</a>
+										</div>
+										<!---->
+										<nav data-v-8f2f8136="" class="nav checkout__nav"
+											style="margin-bottom: 0px;">
+											<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
+												title="" class="button button--size-large" id="pay-btn2"
+												style="border-radius: 2px; font-size: 16px;">
+												<span data-v-a1c889e0="" class="button__wrap">결제하기</span>
+											</button>
+										</nav>
+									</div>
+								</div>
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+						</article>
+					</div>
+				</div>
+				<!---->
+			</main>
+		</div>
+	</div>
+	<a class="custom-ch-btn" style="display: none">문의하기</a>
+</body>
+</html>

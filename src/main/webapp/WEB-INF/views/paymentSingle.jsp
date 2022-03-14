@@ -271,36 +271,29 @@
 									<!---->
 									<div data-v-8f2f8136="" class="products">
 										<ul data-v-8f2f8136="">
-											<li data-v-8f2f8136=""><div data-v-8f2f8136=""
-													class="products-delivery-date-wrap">
+											<li data-v-8f2f8136="">
+												<div data-v-8f2f8136="" class="products-delivery-date-wrap">
 													<div data-v-8f2f8136="" class="products-delivery-date-left">수령일</div>
 													<div data-v-8f2f8136=""
-														class="products-delivery-date-right">2022-03-16</div>
+														class="products-delivery-date-right">${vo.paymentDeliveryDate }</div>
 												</div>
 												<ul data-v-8f2f8136="" class="items">
-													<li data-v-8f2f8136="" class="row"><div
-															data-v-8f2f8136="" class="col info">
-															<strong data-v-8f2f8136="">지중해식 따블레 샐러드/미디움 (M)</strong>
-															<span data-v-8f2f8136="">일회용품(포크+물티슈) - 2개</span>
-														</div>
-														<div data-v-8f2f8136="" class="count">
-															<em data-v-8f2f8136="">2</em>개
-														</div>
-														<div data-v-8f2f8136="" class="price">
-															<em data-v-8f2f8136="">16,000</em>원
-														</div></li>
-													<li data-v-8f2f8136="" class="row"><div
-															data-v-8f2f8136="" class="col info">
-															<strong data-v-8f2f8136="">프렌치 발사믹 훈제연어 샐러드/미디움
-																(M)</strong> <span data-v-8f2f8136="">일회용품(포크+물티슈) - 3개</span>
-														</div>
-														<div data-v-8f2f8136="" class="count">
-															<em data-v-8f2f8136="">3</em>개
-														</div>
-														<div data-v-8f2f8136="" class="price">
-															<em data-v-8f2f8136="">26,555</em>원
-														</div></li>
-												</ul></li>
+													<c:forEach var="list1" items="${list }">
+														<li data-v-8f2f8136="" class="row">
+															<div data-v-8f2f8136="" class="col info">
+																<strong data-v-8f2f8136="">${list1.paymentItem }</strong>
+																<span data-v-8f2f8136="">일회용품(포크+물티슈) - ${list1.paymentDisposable }</span>
+															</div>
+															<div data-v-8f2f8136="" class="count">
+																<em data-v-8f2f8136="">${list1.paymentItemQuantity }</em>개
+															</div>
+															<div data-v-8f2f8136="" class="price">
+																<em data-v-8f2f8136="">${list1.paymentPrice }</em>원
+															</div>
+														</li>
+													</c:forEach>
+												</ul>
+											</li>
 										</ul>
 										<table data-v-8f2f8136="">
 											<colgroup data-v-8f2f8136="">
@@ -325,39 +318,46 @@
 												</tr>
 											</thead>
 											<tbody data-v-8f2f8136="">
-												<tr data-v-8f2f8136="">
-													<td data-v-8f2f8136="" rowspan="2" class="date left">
-														2022/03/16</td>
-													<td data-v-8f2f8136="" class="bd left"><strong
-														data-v-8f2f8136="" class="title">지중해식 따블레 샐러드/미디움
-															(M)</strong>
-														<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈)
-															2개</div></td>
-													<td data-v-8f2f8136="" class="qry">2</td>
-													<td data-v-8f2f8136="" class="price right"><em
-														data-v-8f2f8136="">16,000</em>원</td>
-													<td data-v-8f2f8136="" class="price right"><em
-														data-v-8f2f8136=""> 0</em>원</td>
-													<td data-v-8f2f8136="" rowspan="2" class="price right"><em
-														data-v-8f2f8136="">0</em>원</td>
-													<td data-v-8f2f8136="" rowspan="2"
-														class="price-total right">41,665원</td>
-												</tr>
-												<tr data-v-8f2f8136="">
-													<!---->
-													<td data-v-8f2f8136="" class="bd left"><strong
-														data-v-8f2f8136="" class="title">프렌치 발사믹 훈제연어
-															샐러드/미디움 (M)</strong>
-														<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈)
-															3개</div></td>
-													<td data-v-8f2f8136="" class="qry">3</td>
-													<td data-v-8f2f8136="" class="price right"><em
-														data-v-8f2f8136="">27,000</em>원</td>
-													<td data-v-8f2f8136="" class="price right"><em
-														data-v-8f2f8136="">- 1,335</em>원</td>
-													<!---->
-													<!---->
-												</tr>
+												<c:forEach var="list1" items="${list }" varStatus="i">
+													<c:if test="${i.index == 0 }">
+														<tr data-v-8f2f8136="">
+															<td data-v-8f2f8136="" rowspan="${fn:length(list)}" class="date left">
+																${vo.paymentDeliveryDate }</td>
+															<td data-v-8f2f8136="" class="bd left">
+																<strong data-v-8f2f8136="" class="title">${list1.paymentItem }</strong>
+																<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈) ${list1.paymentDisposable }</div>
+															</td>
+															<td data-v-8f2f8136="" class="qry">${list1.paymentItemQuantity }</td>
+															<td data-v-8f2f8136="" class="price right">
+																<em data-v-8f2f8136="">${list1.paymentPrice }</em>원
+															</td>
+															<td data-v-8f2f8136="" class="price right">
+																<em data-v-8f2f8136="">- ${list1.paymentSalePrice }</em>원
+															</td>
+															<td data-v-8f2f8136="" rowspan="2" class="price right">
+																<em data-v-8f2f8136="">${vo.paymentDeliveryPrice }</em>원
+															</td>
+															<td data-v-8f2f8136="" rowspan="2" class="price-total right">${vo.paymentPredictionPrice }원</td>
+														</tr>
+													</c:if>
+													<c:if test="${i.index > 0 }">
+														<tr data-v-8f2f8136="">
+															<!---->
+															<td data-v-8f2f8136="" class="bd left">
+																<strong data-v-8f2f8136="" class="title">${list1.paymentItem }</strong>
+																<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈) ${list1.paymentDisposable }</div>
+															</td>
+															<td data-v-8f2f8136="" class="qry">${list1.paymentItemQuantity }</td>
+															<td data-v-8f2f8136="" class="price right">
+																<em data-v-8f2f8136="">${list1.paymentPrice }</em>원
+															</td>
+															<td data-v-8f2f8136="" class="price right">
+																<em data-v-8f2f8136="">- ${list1.paymentSalePrice }</em>원
+															</td>
+														</tr>
+													</c:if>
+												</c:forEach>
+												
 											</tbody>
 										</table>
 									</div>
@@ -424,23 +424,22 @@
 										<div data-v-8f2f8136="" class="delivery">
 											<dl data-v-8f2f8136="" class="row">
 												<dt data-v-8f2f8136="">배송 방법</dt>
-												<dd data-v-8f2f8136="" class="col">택배배송</dd>
+												<dd data-v-8f2f8136="" class="col">${vo.paymentDeliveryType }</dd>
 											</dl>
 											<dl data-v-8f2f8136="" class="row">
 												<dt data-v-8f2f8136="">배송 예정일</dt>
 												<dd data-v-8f2f8136="" class="col">
-													<b data-v-8f2f8136="">2022-03-16</b>
-													<div data-v-8f2f8136="" class="detail-address">택배사의
-														사정에 따라 예정보다 지연될 수 있습니다.</div>
+													<b data-v-8f2f8136="">${vo.paymentPredictionDate }</b>
+													<div data-v-8f2f8136="" class="detail-address">${vo.paymentPredictionDateSummary }</div>
 												</dd>
 											</dl>
 											<dl data-v-8f2f8136="" class="row">
 												<dt data-v-8f2f8136="">배송지</dt>
 												<dd data-v-8f2f8136="" class="col">
-													우리집<span data-v-8f2f8136="" class="detail-address">인천
-														서구 청라한내로 40 593동 1801호</span>
+													${vo.paymentShippingAddress1 }<span data-v-8f2f8136="" class="detail-address">${vo.paymentShippingAddress2 }</span>
 												</dd>
 											</dl>
+											<input type="hidden" class="deliveryZipcodeCode" value="${vo.paymentShippingAddress3 }">
 										</div>
 									</header>
 								</section>
@@ -584,14 +583,14 @@
 													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
 														<dt data-v-8f2f8136="">상품 금액</dt>
 														<dd data-v-8f2f8136="">
-															<em data-v-8f2f8136="">43,000</em> 원
+															<em data-v-8f2f8136="">${vo.paymentFinalPrice }</em> 원
 														</dd>
 													</dl>
 													<dl data-v-8f2f8136=""
 														class="row--v-center row--h-between discount">
 														<dt data-v-8f2f8136="">상품 할인</dt>
 														<dd data-v-8f2f8136="">
-															<em data-v-8f2f8136="">- 1,335</em> 원
+															<em data-v-8f2f8136="">- ${vo.paymentFinalSalePrice }</em> 원
 														</dd>
 													</dl>
 												</div>
@@ -611,7 +610,7 @@
 													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
 														<dt data-v-8f2f8136="">배송비</dt>
 														<dd data-v-8f2f8136="">
-															<em data-v-8f2f8136="">3,500</em> 원
+															<em data-v-8f2f8136="">${vo.paymentFinalDeliveryPrice }</em> 원
 														</dd>
 													</dl>
 													<dl data-v-8f2f8136=""
@@ -623,7 +622,7 @@
 														</div>
 														<!---->
 														<dd data-v-8f2f8136="">
-															<em data-v-8f2f8136="">- 3,500</em> 원
+															<em data-v-8f2f8136="">- ${vo.paymentFinalDeliverySalePrice }</em> 원
 														</dd>
 													</dl>
 													<!---->
@@ -632,7 +631,7 @@
 												<dl data-v-8f2f8136="" class="row--v-end row--h-between">
 													<dt data-v-8f2f8136="">최종 결제금액</dt>
 													<dd data-v-8f2f8136="">
-														<b data-v-8f2f8136="">41,665 원</b>
+														<b data-v-8f2f8136="">${vo.paymentRealFinalPrice } 원</b>
 													</dd>
 												</dl>
 											</div>

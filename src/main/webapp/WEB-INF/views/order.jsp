@@ -2545,21 +2545,21 @@ $(function() {
  		for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
  			
  			// 주문 상품 1
- 			var saveItemName = $('.hidden-div-real').children('div').eq(i).find('#saveItemName').val();
- 			var saveItemSize = $('.hidden-div-real').children('div').eq(i).find('#saveItemSize').val();
+ 			var saveItemName = $('.hidden-div-real').children('div').eq(i).find('.saveItemName').val();
+ 			var saveItemSize = $('.hidden-div-real').children('div').eq(i).find('.saveItemSize').val();
  			var ns = saveItemName + '/' + saveItemSize;
  			
  			var objs1;
 	        objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 	        objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-	        objs1.setAttribute('name', 'paymentList[' + i + '].paymentItem'); // 객체이름
+	        objs1.setAttribute('name', 'paymentSingleList[' + i + '].paymentItem'); // 객체이름
 	        objs1.setAttribute('value', ns); //객체값
 	        form.appendChild(objs1);
  			
 	        
 	        // 주문 상품 2
-	        var saveDisposable = $('.hidden-div-real').children('div').eq(i).find('#saveDisposable').val();
-	        var saveDisposableComP = '일회용품(포크 + 물티슈) ';
+	        var saveDisposable = $('.hidden-div-real').children('div').eq(i).find('.saveDisposable').val();
+	        var saveDisposableComP = '';
 	        if(saveDisposable == 0){
 	        	saveDisposableComP += '선택안함';
 	        }else{
@@ -2569,40 +2569,273 @@ $(function() {
 	        var objs2;
 	        objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 	        objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-	        objs2.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
-	        objs2.setAttribute('value', name); //객체값
+	        objs2.setAttribute('name', 'paymentSingleList[' + i + '].paymentDisposable'); // 객체이름
+	        objs2.setAttribute('value', saveDisposableComP); //객체값
 	        form.appendChild(objs2);
 	        
 	        
 	        // 수량
+	        var saveitemQuantity = $('.hidden-div-real').children('div').eq(i).find('.saveitemQuantity').val();
+	        
 	        var objs3;
 	        objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 	        objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-	        objs3.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
-	        objs3.setAttribute('value', email); //객체값
+	        objs3.setAttribute('name', 'paymentSingleList[' + i + '].paymentItemQuantity'); // 객체이름
+	        objs3.setAttribute('value', saveitemQuantity); //객체값
 	        form.appendChild(objs3);
 	        
 	        
 	        // 가격
+	        var savePrice = 0;
+	        
+	        if($('.hidden-div-real').children('div').eq(i).find('.savePriceSub').val().replace(',', '') == 0){
+	        	savePrice = Number($('.hidden-div-real').children('div').eq(i).find('.savePrice').val().replace(',', '')) + (Number($('.hidden-div-real').children('div').eq(i).find('.saveDisposable').val()) * 100);
+	        }else{
+	        	savePrice = Number($('.hidden-div-real').children('div').eq(i).find('.savePriceSub').val().replace(',', '')) + (Number($('.hidden-div-real').children('div').eq(i).find('.saveDisposable').val()) * 100);
+	        }
+	        
+	        savePrice = savePrice.toLocaleString('en');
+	        
 	        var objs4;
 	        objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 	        objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-	        objs4.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
-	        objs4.setAttribute('value', email); //객체값
+	        objs4.setAttribute('name', 'paymentSingleList[' + i + '].paymentPrice'); // 객체이름
+	        objs4.setAttribute('value', savePrice); //객체값
 	        form.appendChild(objs4);
 	        
 	        
 	        // 할인 금액
+	        var salePrice = 0;
+	        
+	        if($('.hidden-div-real').children('div').eq(i).find('.savePriceSub').val().replace(',', '') == 0){
+	        	salePrice = 0;
+	        }else{
+	        	salePrice = Number($('.hidden-div-real').children('div').eq(i).find('.savePriceSub').val().replace(',', '')) - Number($('.hidden-div-real').children('div').eq(i).find('.savePrice').val().replace(',', ''));
+	        }
+	        salePrice = salePrice.toLocaleString('en');
+	        
 	        var objs5;
 	        objs5 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 	        objs5.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-	        objs5.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
-	        objs5.setAttribute('value', email); //객체값
+	        objs5.setAttribute('name', 'paymentSingleList[' + i + '].paymentSalePrice'); // 객체이름
+	        objs5.setAttribute('value', salePrice); //객체값
 	        form.appendChild(objs5);
  		}
  		
+ 		
+ 		// 수령일
+ 		var paymentDeliveryDate = $('.date-picker-input').val();
+ 		
+ 		var objs6;
+        objs6 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs6.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs6.setAttribute('name', 'paymentDeliveryDate'); // 객체이름
+        objs6.setAttribute('value', paymentDeliveryDate); //객체값
+        form.appendChild(objs6);
+        
+        
+        // 배송비
+        var paymentDeliveryPrice = 0;
+        
+        if($('.info-content').eq(1).children().eq(2).val() == 0){
+        	paymentDeliveryPrice = '3,500';
+        }
+        
+        var objs7;
+        objs7 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs7.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs7.setAttribute('name', 'paymentDeliveryPrice'); // 객체이름
+        objs7.setAttribute('value', paymentDeliveryPrice); //객체값
+        form.appendChild(objs7);
+        
+        
+        // 결제예상금액
+        var paymentPredictionPrice = 0;
+        
+        if($('.info-content').eq(1).children().eq(2).val() == 1){
+        	paymentPredictionPrice = Number($('#realPrice').val());
+        }else{
+        	paymentPredictionPrice = Number($('#realPrice').val()) + 3500;
+        }
+        paymentPredictionPrice = paymentPredictionPrice.toLocaleString('en');
+        
+        var objs8;
+        objs8 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs8.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs8.setAttribute('name', 'paymentPredictionPrice'); // 객체이름
+        objs8.setAttribute('value', paymentPredictionPrice); //객체값
+        form.appendChild(objs8);
+        
+        
+        // 배송 방법
+        var paymentDeliveryType = '';
+        
+        if($('#deliveryType').val() == 0){
+        	paymentDeliveryType = '새벽배송';
+        }else{
+        	paymentDeliveryType = '택배배송';
+        }
+        
+        var objs9;
+        objs9 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs9.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs9.setAttribute('name', 'paymentDeliveryType'); // 객체이름
+        objs9.setAttribute('value', paymentDeliveryType); //객체값
+        form.appendChild(objs9);
+        
+        
+        // 배송 예정 일시
+        var paymentPredictionDate = '';
+        
+        var arr = $('.date-picker-input').val().split('-');
+        var year = arr[0];
+        var month = String(arr[1]);
+        var day = String(arr[2]);
+        if(month.length == 1){
+        	month = '0' + month;
+        }
+        if(day.length == 1){
+        	day = '0' + day;
+        }
+        
+        paymentPredictionDate = year + '-' + month + '-' + day;
+        
+        if($('#deliveryType').val() == 0){ 
+        	paymentPredictionDate += ' 00:00-07:00';
+        }
+        
+        var objs10;
+        objs10 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs10.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs10.setAttribute('name', 'paymentPredictionDate'); // 객체이름
+        objs10.setAttribute('value', paymentPredictionDate); //객체값
+        form.appendChild(objs10);
+        
+        
+        // 배송 예정 일시 요약
+        var paymentPredictionDateSummary = '';
+        
+        if($('#deliveryType').val() == 0){ 
+        	paymentPredictionDateSummary = '예정보다 빠르게 배송될 수 있습니다 (배송 후 문자 안내)';
+        }else{
+        	paymentPredictionDateSummary = '택배사의 사정에 따라 예정보다 지연될 수 있습니다.';
+        }
+        
+        var objs11;
+        objs11 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs11.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs11.setAttribute('name', 'paymentPredictionDateSummary'); // 객체이름
+        objs11.setAttribute('value', paymentPredictionDateSummary); //객체값
+        form.appendChild(objs11);
+        
+        
+        // 배송지1
+        var paymentShippingAddress1 = $('.subject span').text();
+        
+        var objs12;
+        objs12 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs12.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs12.setAttribute('name', 'paymentShippingAddress1'); // 객체이름
+        objs12.setAttribute('value', paymentShippingAddress1); //객체값
+        form.appendChild(objs12);
+        
+        
+        // 배송지2
+        var paymentShippingAddress2 = $('.description').text();
+        
+        var objs13;
+        objs13 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs13.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs13.setAttribute('name', 'paymentShippingAddress2'); // 객체이름
+        objs13.setAttribute('value', paymentShippingAddress2); //객체값
+        form.appendChild(objs13);
+        
+        
+        // 배송지3 (배송지 고유 코드)
+        var paymentShippingAddress3 = $('.description').next().val();
+        
+        var objs14;
+        objs14 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs14.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs14.setAttribute('name', 'paymentShippingAddress3'); // 객체이름
+        objs14.setAttribute('value', paymentShippingAddress3); //객체값
+        form.appendChild(objs14);
+        
+        
+        // 상품 금액
+        var paymentFinalPrice = (Number($('#realPrice').val()) + Number($('#realPriceSub').val())).toLocaleString('en');
+        
+        var objs15;
+        objs15 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs15.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs15.setAttribute('name', 'paymentFinalPrice'); // 객체이름
+        objs15.setAttribute('value', paymentFinalPrice); //객체값
+        form.appendChild(objs15);
+        
+        
+        // 상품 할인
+        var paymentFinalSalePrice = Number($('#realPriceSub').val()).toLocaleString('en');
+        
+        var objs16;
+        objs16 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs16.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs16.setAttribute('name', 'paymentFinalSalePrice'); // 객체이름
+        objs16.setAttribute('value', paymentFinalSalePrice); //객체값
+        form.appendChild(objs16);
+        
+        
+        // 배송비
+        var paymentFinalDeliveryPrice = '';
+        
+        if($('.info-content').eq(1).children().eq(2).val() == 1){
+        	paymentFinalDeliveryPrice = 0;
+        }else{
+        	paymentFinalDeliveryPrice = '3,500';
+        }
+        
+        var objs17;
+        objs17 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs17.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs17.setAttribute('name', 'paymentFinalDeliveryPrice'); // 객체이름
+        objs17.setAttribute('value', paymentFinalDeliveryPrice); //객체값
+        form.appendChild(objs17);
+        
+        
+        // 배송비 할인
+        var paymentFinalDeliverySalePrice = '';
+        
+        if($('.info-content').eq(1).children().eq(2).val() == 1){
+        	paymentFinalDeliverySalePrice = '- 3,500';
+        }else{
+        	paymentFinalDeliverySalePrice = 0;
+        }
+        
+        var objs18;
+        objs18 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs18.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs18.setAttribute('name', 'paymentFinalDeliverySalePrice'); // 객체이름
+        objs18.setAttribute('value', paymentFinalDeliverySalePrice); //객체값
+        form.appendChild(objs18);
+        
+        
+        // 최종 결제금액
+        var paymentRealFinalPrice = Number($('#realPrice').val());
+        
+        if($('.info-content').eq(1).children().eq(2).val() == 0){
+        	paymentRealFinalPrice += 3500;
+        }
+        paymentRealFinalPrice = paymentRealFinalPrice.toLocaleString('en');
+        
+        var objs19;
+        objs19 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs19.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs19.setAttribute('name', 'paymentRealFinalPrice'); // 객체이름
+        objs19.setAttribute('value', paymentRealFinalPrice); //객체값
+        form.appendChild(objs19);
+        
+ 		
         form.setAttribute('method', 'post'); //get,post 가능
-        form.setAttribute('action', "kakaoData.do"); //보내는 url
+        form.setAttribute('action', "paymentSingle.do"); //보내는 url
         document.body.appendChild(form);
         form.submit();
  	})

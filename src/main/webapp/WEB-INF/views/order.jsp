@@ -2539,7 +2539,72 @@ $(function() {
  	
  	// 구매하기 버튼
  	$(document).on('click', '.order-result-payment .button.button--size-large', function(){ // todo
- 		$(location).attr("href", "paymentSingle.do");
+//  		$(location).attr("href", "paymentSingle.do");
+ 	
+ 		var form = document.createElement('form'); // 폼객체 생성
+ 		for(var i = 0; i < $('.hidden-div-real').children('div').length; i++){
+ 			
+ 			// 주문 상품 1
+ 			var saveItemName = $('.hidden-div-real').children('div').eq(i).find('#saveItemName').val();
+ 			var saveItemSize = $('.hidden-div-real').children('div').eq(i).find('#saveItemSize').val();
+ 			var ns = saveItemName + '/' + saveItemSize;
+ 			
+ 			var objs1;
+	        objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs1.setAttribute('name', 'paymentList[' + i + '].paymentItem'); // 객체이름
+	        objs1.setAttribute('value', ns); //객체값
+	        form.appendChild(objs1);
+ 			
+	        
+	        // 주문 상품 2
+	        var saveDisposable = $('.hidden-div-real').children('div').eq(i).find('#saveDisposable').val();
+	        var saveDisposableComP = '일회용품(포크 + 물티슈) ';
+	        if(saveDisposable == 0){
+	        	saveDisposableComP += '선택안함';
+	        }else{
+	        	saveDisposableComP += saveDisposable + '개';
+	        }
+	        
+	        var objs2;
+	        objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs2.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
+	        objs2.setAttribute('value', name); //객체값
+	        form.appendChild(objs2);
+	        
+	        
+	        // 수량
+	        var objs3;
+	        objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs3.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
+	        objs3.setAttribute('value', email); //객체값
+	        form.appendChild(objs3);
+	        
+	        
+	        // 가격
+	        var objs4;
+	        objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs4.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
+	        objs4.setAttribute('value', email); //객체값
+	        form.appendChild(objs4);
+	        
+	        
+	        // 할인 금액
+	        var objs5;
+	        objs5 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs5.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs5.setAttribute('name', 'paymentList[' + i + '].paymentQuantity'); // 객체이름
+	        objs5.setAttribute('value', email); //객체값
+	        form.appendChild(objs5);
+ 		}
+ 		
+        form.setAttribute('method', 'post'); //get,post 가능
+        form.setAttribute('action', "kakaoData.do"); //보내는 url
+        document.body.appendChild(form);
+        form.submit();
  	})
     
  });

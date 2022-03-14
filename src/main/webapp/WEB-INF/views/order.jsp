@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/order"/>
 <!DOCTYPE html>
 <html>
@@ -29,7 +30,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=4">
+<link rel="stylesheet" href="${path }/style2.css?ver=5">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -140,6 +141,7 @@ $(function() {
 			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
 			$('#closeBtn').trigger('click');
+			$('#defaultDeliverydeleteCheck').detach();
 			setTimeout(function() {
 				$('.swal2-container').detach();
 			}, 100);
@@ -252,7 +254,8 @@ $(function() {
     			&& !$(e.target).hasClass("add-confirm__address") && !$(e.target).hasClass("form-text") && !$(e.target).hasClass("form-fieldset") && !$(e.target).hasClass("form-field")
     			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
     			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
-    			&& !$(e.target).hasClass("disable-place-text")){
+    			&& !$(e.target).hasClass("disable-place-text") && !$(e.target).hasClass("name-wrap") && !$(e.target).hasClass("item__head") && !$(e.target).hasClass("round-text")
+    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small")){
     		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
         	for (let i = 0; i < TimeoutId; i++) {
         	  clearTimeout(i);
@@ -263,6 +266,7 @@ $(function() {
     		
     		$('.modal').detach();
     		$('#addressModalCheck').val(0);
+    		$('#defaultBesongjiCheck').val('n');
     		
     		$('.modal-wrap').detach();
         	$('html').attr('class', '');
@@ -2008,14 +2012,20 @@ $(function() {
     
     
     // 배송지 선택 맨 처음 화면
-    $(document).on('click', '.order-address-wrap', function(){
+    $(document).on('click', '.order-address-wrap button', function(){
     	$('#addressModalCheck').val(1); // 다른 같은 클래스 버튼 작동 안되게끔
     	$('#defaultBesongjiCheck').val('n'); // 기본 배송지 주소 설정 체크
     	$('html').attr('class', 'mode-popup');
     	
+    	var member_delivery_type = $('#deliveryType').val();
+    	
     	$.ajax({
     		url : 'orderZipCodeSelectModal.do',
     		dataType : 'html',
+    		type : 'post',
+    		data : {
+    			'member_delivery_type' : member_delivery_type
+    		},
     		success : function(htmlOut){
     			$('.order').append(htmlOut);
     		}
@@ -2038,9 +2048,15 @@ $(function() {
     
     
     $(document).on('click', '.add-search__back', function(){
+    	var member_delivery_type = $('#deliveryType').val();
+    	
     	$.ajax({
     		url : 'orderZipCodeSelectModalDetail.do',
     		dataType : 'html',
+    		type : 'post',
+    		data : {
+    			'member_delivery_type' : member_delivery_type
+    		},
     		success : function(htmlOut){
     			$('.modal-wrap__body').html(htmlOut);
     		}
@@ -2112,6 +2128,24 @@ $(function() {
     	    					$('body').attr('class', '');
     	    				}, 3000);
     	    			}, 500);
+    	    			
+    	    			if(deliveryType == 0){
+	    	    			$.ajax({
+	    	    				url : 'orderMorningBesongji.do',
+	    	    				dataType : 'html',
+	    	    				success : function(htmlOut){
+	    	    					$('.order-address-wrap').html(htmlOut);
+	    	    				}
+	    	    			})
+    	    			}else{
+    	    				$.ajax({
+	    	    				url : 'orderParcelBesongji.do',
+	    	    				dataType : 'html',
+	    	    				success : function(htmlOut){
+	    	    					$('.order-address-wrap').html(htmlOut);
+	    	    				}
+	    	    			})
+    	    			}
     	    		}
     	    	});
     		}
@@ -2179,6 +2213,57 @@ $(function() {
     			$('.order-type-wrap').next().append('<div data-v-064d23aa="" class="morning-parcel-desc-text">오후 5시 전까지 주문하면 당일 발송됩니다.</div>');
     		}
     	})
+    });
+    
+    
+    // 기본 배송지로 설정 버튼
+    $(document).on('click', '.delivery_default_select', function(){
+    	
+    	$.ajax({
+    		url : 'orderDefaultDeliveryCheckModal.do',
+    		dataType : 'html',
+    		context : this,
+    		success : function(htmlOut){
+    			$(this).after('<input type="hidden" id="defaultDeliverydeleteCheck">');
+    			$('html').attr('class', 'mode-popup swal2-shown swal2-height-auto');
+    			$('body').attr('class', 'swal2-shown swal2-height-auto');
+    			$('noscript').attr('aria-hidden', 'true');
+    			$('#__nuxt').attr('aria-hidden', 'true');
+    			$('body').append(htmlOut);
+    		}
+    	})
+    });
+    
+    
+    $(document).on('click', '.swal2-cancel.swal2-styled', function(){
+    	$('#defaultDeliverydeleteCheck').detach();
+    });
+    
+    $(document).on('click', '.swal2-confirm.swal2-styled', function(){
+    	var member_zipcode_code = $('#defaultDeliverydeleteCheck').closest('li').find('input:odd').val();
+    	var member_delivery_type = $('#deliveryType').val();
+    	
+    	$.ajax({
+    		url : 'orderDeliveryDefaultSelect.do',
+    		type : 'post',
+    		data : {
+    			'member_zipcode_code' : member_zipcode_code
+    		},
+    		success : function(data){
+    			
+    			$.ajax({
+    	    		url : 'orderZipCodeSelectModalDetail.do',
+    	    		dataType : 'html',
+    	    		type : 'post',
+    	    		data : {
+    	    			'member_delivery_type' : member_delivery_type
+    	    		},
+    	    		success : function(htmlOut){
+    	    			$('.modal-wrap__body').html(htmlOut);
+    	    		}
+    	    	})
+    		}
+    	})
     })
     
  });
@@ -2215,7 +2300,6 @@ $(function() {
 					<input type="hidden" value="0" id="latelyQuantity">
 					<input type="hidden" value="0" id="latelyPrice">
 					<input type="hidden" value="0" id="checkCalendar">
-					<input type="hidden" value="0" id="addressCheck">
 					<input type="hidden" value="0" id="firstModalCheck">
 					<input type="hidden" value="0" id="secondModalCheck">
 					<input type="hidden" value="0" id="thirdModalCheck">
@@ -2363,15 +2447,36 @@ $(function() {
 									</div>
 									<div class="order-address-wrap" data-v-064d23aa="">
 										<button type="button" data-v-064d23aa="">
-											<span class="row--v-center row--h-between" data-v-064d23aa=""><span
-												class="col ta-left" data-v-064d23aa="">서울, 경기, 인천 일부
-													새벽배송지 선택</span> <i class="ico" data-v-064d23aa=""><svg
-														xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-														viewBox="0 0 24 24" aria-labelledby="arrow-right-1"
-														role="presentation" class="icon" data-v-064d23aa="">
-														<g fill="none" fill-rule="evenodd"> <path
-															stroke="currentColor" stroke-linecap="round"
-															stroke-linejoin="round" d="M10 6l5.964 5.964-5.964 6"></path></g></svg></i></span>
+											<span class="row--v-center row--h-between" data-v-064d23aa="">
+												<c:if test="${fn:length(list) == 0}">
+													<span class="col ta-left" data-v-064d23aa="">서울, 경기, 인천 일부 새벽배송지 선택</span>
+													<input type="hidden" value="0" id="addressCheck">
+												</c:if>
+												<c:if test="${fn:length(list) > 0}">
+													<c:forEach var="memberZipcode" items="${list }">
+														<c:if test="${memberZipcode.member_default_address == 'y' }">
+															<span data-v-064d23aa="" class="col ta-left">
+																<b data-v-064d23aa="" class="subject">
+																	<span data-v-064d23aa="">${memberZipcode.member_shipping_address }</span>
+																</b> 
+																<span data-v-064d23aa="" class="description">${memberZipcode.member_address } ${memberZipcode.member_detail_address }</span>
+																<input type="hidden" vlaue="${memberZipcode.member_zipcode_code }">
+																<input type="hidden" value="1" id="addressCheck">
+															</span>
+														</c:if>
+													</c:forEach>
+												</c:if>
+												<i class="ico" data-v-064d23aa="">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-labelledby="arrow-right-1"
+															role="presentation" class="icon" data-v-064d23aa="">
+														<g fill="none" fill-rule="evenodd"> 
+															<path stroke="currentColor" stroke-linecap="round"
+																stroke-linejoin="round" d="M10 6l5.964 5.964-5.964 6">
+															</path>
+														</g>
+													</svg>
+												</i>
+											</span>
 										</button>
 									</div>
 									<!---->

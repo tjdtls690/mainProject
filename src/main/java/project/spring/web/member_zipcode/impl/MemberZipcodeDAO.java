@@ -17,6 +17,10 @@ public class MemberZipcodeDAO {
 		return sqlSessionTemplate.selectList("MemberZipcodeDAO.getZipcodeAll", vo);
 	}
 	
+	public MemberZipcodeVO getZipcodeAll2(MemberZipcodeVO vo){
+		return sqlSessionTemplate.selectOne("MemberZipcodeDAO.getZipcodeAll2", vo);
+	}
+	
 	public int getZipcodeAmount(MemberZipcodeVO vo) {
 		return sqlSessionTemplate.selectOne("MemberZipcodeDAO.getZipcodeAmount", vo);
 	}

@@ -33,5 +33,10 @@ public class MemberZipcodeServiceImpl implements MemberZipcodeService{
 	public int updateZipcodeDefaultAddress(MemberZipcodeVO vo) {
 		return memberZipcodeDAO.updateZipcodeDefaultAddress(vo);
 	}
+
+	@Override
+	public MemberZipcodeVO getZipcodeAll2(MemberZipcodeVO vo) {
+		return memberZipcodeDAO.getZipcodeAll2(vo);
+	}
 	
 }

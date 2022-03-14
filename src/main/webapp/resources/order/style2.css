@@ -1,4 +1,72 @@
 @charset "UTF-8";
+.item[data-v-464718a6] {
+	padding: 16px 0;
+	box-sizing: border-box
+}
+
+.item__type[data-v-464718a6]>:nth-child(n+2) {
+	margin-left: 4px
+}
+
+.item__head[data-v-464718a6] {
+	margin: 5px 0 0
+}
+
+.item__head>div[data-v-464718a6] {
+	padding-right: 15px
+}
+
+.item__head>div strong[data-v-464718a6] {
+	display: block;
+	font-size: 17px;
+	line-height: 19px;
+	font-weight: 500;
+	margin-right: 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+
+.item__head>p[data-v-464718a6] {
+	margin: 0
+}
+
+.item__address[data-v-464718a6] {
+	margin: 4px 0 0;
+	font-size: 14px;
+	line-height: 22px;
+	color: #6f7174;
+	font-weight: 300
+}
+
+.item__meta[data-v-464718a6] {
+	margin: 15px 0 0
+}
+
+.item__meta dl[data-v-464718a6] {
+	margin: 6px 0;
+	font-size: 13px;
+	line-height: 16px;
+	color: #6f7174
+}
+
+.item__meta dt[data-v-464718a6] {
+	width: 110px;
+	font-weight: 500
+}
+
+.item__nav[data-v-464718a6] {
+	margin: 12px 0 0
+}
+
+.name-wrap[data-v-464718a6] {
+	display: flex
+}
+
+.main-destination-select-btn[data-v-464718a6] {
+	margin-left: 8px
+}
+
 ::-webkit-scrollbar {width: 5px; height: 8px; border: 3px solid #fff; }
 ::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {display: block; height: 10px; background: url('./images/bg.png') #efefef}
 ::-webkit-scrollbar-track {background: #efefef; -webkit-border-radius: 10px; border-radius:10px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}

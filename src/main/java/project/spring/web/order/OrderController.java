@@ -1,5 +1,7 @@
 package project.spring.web.order;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,21 +13,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.detail.DetailVO;
 import project.spring.web.member.MemberVO;
+import project.spring.web.member_zipcode.MemberZipcodeService;
+import project.spring.web.member_zipcode.MemberZipcodeVO;
 
 @Controller
 public class OrderController {
 	
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	MemberZipcodeService memberZipcodeService;
 	
 	@RequestMapping("/order.do")
 	public ModelAndView orderDo(ModelAndView mav, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO vo = (MemberVO)session.getAttribute("member");
-		
 		if(vo == null) {
 			mav.setViewName("login");
 		}else {
+			MemberZipcodeVO tmp = new MemberZipcodeVO();
+			tmp.setMember_code(vo.getMemberCode());
+			tmp.setMember_delivery_type(0);
+			List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(tmp);
+			
+			mav.addObject("list", list);
 			mav.setViewName("order");
 		}
 		return mav;
@@ -258,17 +269,28 @@ public class OrderController {
 	
 	
 	@RequestMapping("/orderZipCodeSelectModal.do")
-	public ModelAndView orderZipCodeSelectModalDo(ModelAndView mav) {
+	public ModelAndView orderZipCodeSelectModalDo(HttpServletRequest request, ModelAndView mav, MemberZipcodeVO vo) {
 		// 여기에 해당 회원 고유코드에 매핑된 주소가 있으면 가져와서 리스트로 박기
+		HttpSession session = request.getSession();
+		MemberVO tmp = (MemberVO)session.getAttribute("member");
+		vo.setMember_code(tmp.getMemberCode());
+		
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(vo);
+		mav.addObject("list", list);
 		mav.setViewName("orderZipCodeSelectModal");
 		return mav;
 	}
 	
 	
 	@RequestMapping("/orderZipCodeSelectModalDetail.do")
-	public ModelAndView orderZipCodeSelectModalDetailDo(ModelAndView mav, String addr, String zonecode) {
+	public ModelAndView orderZipCodeSelectModalDetailDo(HttpServletRequest request, ModelAndView mav, MemberZipcodeVO vo) {
 		// 여기에 해당 회원 고유코드에 매핑된 주소가 있으면 가져와서 리스트로 박기
+		HttpSession session = request.getSession();
+		MemberVO tmp = (MemberVO)session.getAttribute("member");
+		vo.setMember_code(tmp.getMemberCode());
 		
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(vo);
+		mav.addObject("list", list);
 		mav.setViewName("orderZipCodeSelectModalDetail");
 		return mav;
 	}
@@ -316,14 +338,53 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderMorningBesongji.do")
-	public ModelAndView orderMorningBesongjiDo(ModelAndView mav) {
+	public ModelAndView orderMorningBesongjiDo(HttpServletRequest request, ModelAndView mav) {
+		HttpSession session = request.getSession();
+		MemberVO vo = (MemberVO)session.getAttribute("member");
+		MemberZipcodeVO tmp = new MemberZipcodeVO();
+		tmp.setMember_code(vo.getMemberCode());
+		tmp.setMember_delivery_type(0);
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(tmp);
+		
+		mav.addObject("list", list);
 		mav.setViewName("orderMorningBesongji");
 		return mav;
 	}
 	
 	@RequestMapping("/orderParcelBesongji.do")
-	public ModelAndView orderParcelBesongjiDo(ModelAndView mav) {
+	public ModelAndView orderParcelBesongjiDo(HttpServletRequest request, ModelAndView mav) {
+		HttpSession session = request.getSession();
+		MemberVO vo = (MemberVO)session.getAttribute("member");
+		MemberZipcodeVO tmp = new MemberZipcodeVO();
+		tmp.setMember_code(vo.getMemberCode());
+		tmp.setMember_delivery_type(1);
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(tmp);
+		
+		mav.addObject("list", list);
 		mav.setViewName("orderParcelBesongji");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/orderDeliveryDefaultSelect.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String orderDeliveryDefaultSelectDo(MemberZipcodeVO vo) {
+		MemberZipcodeVO vo1 = memberZipcodeService.getZipcodeAll2(vo);
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(vo1);
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getMember_default_address().equals("y")) {
+				list.get(i).setMember_default_address("n");
+				memberZipcodeService.updateZipcodeDefaultAddress(list.get(i));
+				vo1.setMember_default_address("y");
+				memberZipcodeService.updateZipcodeDefaultAddress(vo1);
+				break;
+			}
+		}
+		return null;
+	}
+	
+	@RequestMapping("/orderDefaultDeliveryCheckModal.do")
+	public ModelAndView orderDefaultDeliveryCheckModalDo(ModelAndView mav) {
+		mav.setViewName("orderDefaultDeliveryCheckModal");
 		return mav;
 	}
 }

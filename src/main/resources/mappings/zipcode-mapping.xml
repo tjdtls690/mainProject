@@ -5,10 +5,13 @@
 <mapper namespace="MemberZipcodeDAO">
 
 	<select id="getZipcodeAmount" resultType="int">
-		select count(*) from member_zipcode where member_code = #{member_code}
+		select count(*) from member_zipcode where member_code = #{member_code} and member_delivery_type = #{member_delivery_type}
 	</select>
 	<select id="getZipcodeAll" resultType="myzipcode">
 		select * from member_zipcode where member_code = #{member_code} and member_delivery_type = #{member_delivery_type}
+	</select>
+	<select id="getZipcodeAll2" resultType="myzipcode">
+		select * from member_zipcode where member_zipcode_code = #{member_zipcode_code}
 	</select>
 	<insert id="insertZipcode">
 		INSERT INTO member_zipcode(member_code, member_zipcode, member_address, member_detail_address, member_shipping_address, member_default_address, member_delivery_type)

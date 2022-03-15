@@ -6,17 +6,20 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.mapping.MappingService;
 import project.spring.web.mapping.MappingVO;
+import project.spring.web.modal.ModalService;
+import project.spring.web.modal.ModalVO;
 import project.spring.web.review.WriteReviewService;
-import project.spring.web.review.WriteReviewVO;
 import project.spring.web.tapPage.TapPageService;
 import project.spring.web.tapPage.TapPageVO;
 import project.spring.web.utill.Criteria;
@@ -34,6 +37,8 @@ public class DetailController {
 	private WriteReviewService writeReviewService;
 	@Autowired
 	private MappingService mappingService;
+	@Autowired
+	private ModalService modalService;
 	
 	
 	public DetailController() {
@@ -346,6 +351,7 @@ public class DetailController {
 		    System.out.println("");
 		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
 			mav.setViewName("subscribeDetail");
+
 			return mav;
 		}
 
@@ -368,20 +374,6 @@ public class DetailController {
 	}
 
 
-// 장바구니로 바꿔지는 테스트용 메서드.	  // 아이템코드.태그메인,수량,사이즈,넘겨 줘야함
-	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
-	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav) {
-		String str = request.getParameter("itemCode");
-		int num = Integer.parseInt(str);
-		//System.out.println("넘어온 item_code 값 : " +num);
-		
-		String a = request.getParameter("tagMain01");
-		int tagMain01 = Integer.parseInt(a);
-		//System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
-		mav.setViewName("basket");
-		return mav;
-	}
-	
 // 선택시 드롭다운 보여주기	
 	@RequestMapping("/dropDown.do")
 	public ModelAndView test2(HttpServletRequest request, ModelAndView mav) {
@@ -428,19 +420,33 @@ public class DetailController {
 		String size = request.getParameter("size");
 		String num = request.getParameter("price");
 		int price = Integer.parseInt(num);
+		String num2 = request.getParameter("price_sub");
+		int price_sub = Integer.parseInt(num2);
 		String name = request.getParameter("name");
 		String getTest = request.getParameter("test");
 		int test = Integer.parseInt(getTest);
+		String num3 = request.getParameter("code");
+		int itemCode = Integer.parseInt(num3);
+		String num4 = request.getParameter("tag");
+		int tagMain = Integer.parseInt(num4);
+		String image = request.getParameter("image");
+		String num5	= request.getParameter("tagSub");
+		int tagSub = Integer.parseInt(num5);
 		
-		//System.out.println("size"+size);
-		//System.out.println("price"+price);
-		//System.out.println("name"+name);
-		//System.out.println("test"+test);
+		System.out.println(" 넘어온 size: "+size+" 넘어온 price :"+price+" 넘어온 price_sub : "
+				+price_sub+" 넘어온 name : "+name+" 넘어온 code : "+itemCode+
+				" 넘어온 tagMain : "+tagMain+" 넘어온 tagSub : "+tagSub+" 넘어온 imag : "+image);
+
 		
 		mav.addObject("test",test);
 		mav.addObject("name",name);
 		mav.addObject("price",price);
+		mav.addObject("price_sub",price_sub);
 		mav.addObject("size",size);
+		mav.addObject("itemCode",itemCode);
+		mav.addObject("tagMain",tagMain);
+		mav.addObject("image",image);
+		mav.addObject("tagSub",tagSub);
 		mav.setViewName("selectedItem");
 		return mav;		
 	}
@@ -486,54 +492,27 @@ public class DetailController {
 	public ModelAndView modal(HttpServletRequest request,ModelAndView mav) {
 
 		String size = request.getParameter("size");
-		//System.out.println("넘어온 size 값 : "+size);
-		
+		//System.out.println("넘어온 size 값 : "+size);		
 		String week = request.getParameter("week");
-		//System.out.println("넘어온 week 값 : "+week);
-		
+		//System.out.println("넘어온 week 값 : "+week);		
 		String start = request.getParameter("start");
-		//System.out.println("넘어온 start 값 : "+start); // 다보이게
-		
+		//System.out.println("넘어온 start 값 : "+start); // 다보이게		
 		String day = start.substring(0,12);
-		//System.out.println("자른 날짜 :"+day); // 요일 안보이게
-		
+		//System.out.println("자른 날짜 :"+day); // 요일 안보이게		
 		char aaa = start.charAt(start.length()-3);
 	    String day3 = Character.toString(aaa); 
-	    //System.out.println("뽑은 char형 :"+day3); // 요일만 보이게
-		
+	    //System.out.println("뽑은 char형 :"+day3); // 요일만 보이게		
 		String str = request.getParameter("price");
 		int price = Integer.parseInt(str);
-		//System.out.println("넘어온 price 값 : "+price);
-		
+		//System.out.println("넘어온 price 값 : "+price);		
 		String getCode = request.getParameter("code");
 		int code = Integer.parseInt(getCode);
-		//System.out.println("넘어온 code 값 : "+code);
-		
+		//System.out.println("넘어온 code 값 : "+code);		
 		String getTag = request.getParameter("tag");
 		int tagNum = Integer.parseInt(getTag);
 		//System.out.println("넘어온 tag 값 : "+tagNum);
 		
-// 넘어온 code 값에따라 모달창에서 보여줘야할 드롭다운 버튼이 다르다.		
-		// 샐러드만 보여주게끔
-//		if(code ==14 && code ==15 && code == 22 && code == 23 && code == 18 && code ==26 ) { 
-//			
-//		}
-//		// 여러가지 보여줄거임
-//		else if(code == 16 && code == 24 && code == 17 && code == 25) {
-//		
-//		}
-//		// 샐러드 / 도시락 택
-//		else if(code == 19 && code == 27 )	{
-//			
-//		}
-//		// 샐러드 / 샌드위치
-//		else if(code == 20 && code == 28) {
-//			
-//		}
-//		// 도시락만 보여줄거임
-//		else if(code == 21 && code == 29) {
-//			
-//		}
+
 		
 		
 //		TapPageVO vo = new TapPageVO();		
@@ -555,4 +534,151 @@ public class DetailController {
 		return mav;
 	}
 	
+//  모달창내에서 리스트 클릭
+	@RequestMapping("/modalList.do")
+	public ModelAndView modalList(HttpServletRequest request,ModelAndView mav) {
+		System.out.println("모달리스트 크릭");
+		String getCode = request.getParameter("code");
+		int code = Integer.parseInt(getCode);
+		//System.out.println("넘어온 code 값 : "+code);		
+		String getTag = request.getParameter("tag");
+		int tagNum = Integer.parseInt(getTag);
+		//System.out.println("넘어온 tag 값 : "+tagNum);
+		
+	// 샐러드만 보여주게끔
+		if(code ==14 || code ==15 || code == 22 || code == 23 || code == 18 || code ==26 ) { 
+			System.out.println("샐러드일때");
+			ModalVO vo = new ModalVO();
+			vo.setSubscribe_code(code);
+			System.out.println("셋팅된 subscribe_code 값 : "+ vo.getSubscribe_code());
+			List<ModalVO> modal = modalService.getModalList(vo);
+			mav.addObject("modal",modal);
+			mav.setViewName("detailSubModalList");
+			
+		}
+		// 여러가지 보여줄거임
+		else if(code == 16 && code == 24 && code == 17 && code == 25) {
+		
+		}
+		// 샐러드 / 도시락 택
+		else if(code == 19 && code == 27 )	{
+			
+		}
+		// 샐러드 / 샌드위치
+		else if(code == 20 && code == 28) {
+			
+		}
+		// 도시락만 보여줄거임
+		else if(code == 21 && code == 29) {
+			
+		}
+		return mav;	
+	}
+
+// 장바구니 모달
+	@RequestMapping("/plzSelect.do")
+	public ModelAndView plzSelect(ModelAndView mav) {
+		
+		mav.setViewName("detailPlzSelectModal");
+		return mav;
+	}
+
+// 장바구니로 바꿔지는 테스트용 메서드.	
+	@RequestMapping(value = "/test.do", method = RequestMethod.POST)
+	public ModelAndView testDo(HttpServletRequest request, ModelAndView mav, String[] itemCode
+			,String[] tagMain, String[] price, String[] priceSub, String[] itemName, String[] itemSize
+			,String[] tagSub, String[] itemImage, String[] itemQuantity) {
+		System.out.println("장바구니");
+		
+		// 세션으로 내 정보를 가져옴  --> 현재는 새로고침으로 보는중이라 잠깐 주석처리
+//		HttpSession session = request.getSession();
+//		System.out.println(session.getAttribute("member"));
+		
+		for(int i=0; i < itemCode.length; i++) {
+			System.out.println(i+"회차 목록들");
+			System.out.println(" 넘어온 size: "+itemSize[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
+					+priceSub[i]+" 넘어온 name : "+itemName[i]+" 넘어온 code : "+itemCode[i]+
+					" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+
+					"넘어온 itemQuantity : "+itemQuantity[i]+" 넘어온 imag : "+itemImage[i]);
+			System.out.println("------");
+		}
+		// 이제 Update만 하면된다.
+
+		mav.setViewName("detailSuccessOrder");
+		return mav;
+	}
+// 장바구니 넣기 클릭시 장바구니 아래 그림
+	@RequestMapping(value="/addCart.do")
+	public ModelAndView addCart(HttpServletRequest request, ModelAndView mav) {
+		System.out.println("장바구니 모달");
+		String image = request.getParameter("image");
+		String name = request.getParameter("name");
+		String size = request.getParameter("size");
+		System.out.println("size 길이 : "+size.length());
+		String size2;
+		if(size.length()>2) {
+			size2= "M";
+		}else {
+			size2= "L";
+		}
+		
+		mav.addObject("size2",size2);
+		mav.addObject("image",image);
+		mav.addObject("name",name);
+		mav.addObject("size",size);
+		
+		mav.setViewName("detailAddCart");
+		return mav;
+	}
+	
+// 주문하기 버튼 테스트용 메서드.
+	@RequestMapping(value ="/testOrder.do")
+	public ModelAndView testOrdaer(HttpServletRequest request, ModelAndView mav, String[] itemCode
+			,String[] itemTagMain, String[] itemPrice, String[] itemPriceSub, String[] itemName, String[] itemSize
+			,String[] itemTagSub, String[] itemImage, String[] itemQuantity) {
+		System.out.println("주문하기 클릭했음");
+		
+		String[] code = request.getParameterValues("itemCode");
+		String[] tagMain = request.getParameterValues("itemTagMain");
+		String[] price = request.getParameterValues("itemPrice");
+		String[] priceSub = request.getParameterValues("itemPriceSub");
+		String[] name = request.getParameterValues("itemName");
+		String[] size = request.getParameterValues("itemSize");
+		String[] tagSub = request.getParameterValues("itemTagSub");
+		String[] image = request.getParameterValues("itemImage");
+		String[] quantity = request.getParameterValues("itemQuantity");
+		
+		
+// 넘어온 리스트가 1개일때와 2개일때 구분		
+		if(code[1]== "") { // 1개일때
+			for(int i=0; i < 1; i++) {
+				System.out.println("주문하기의 "+i+"회차 목록들");
+				System.out.println(" 넘어온 size: "+size[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
+						+priceSub[i]+" 넘어온 name : "+name[i]+" 넘어온 code : "+code[i]+
+						" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+
+						"넘어온 itemQuantity : "+quantity[i]+" 넘어온 imag : "+image[i]);
+				System.out.println("------");
+			}
+			
+			
+		}else { // 2개일때
+			for(int i=0; i < code.length; i++) {
+				System.out.println("주문하기의 "+i+"회차 목록들");
+				System.out.println(" 넘어온 size: "+size[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
+						+priceSub[i]+" 넘어온 name : "+name[i]+" 넘어온 code : "+code[i]+
+						" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+
+						"넘어온 itemQuantity : "+quantity[i]+" 넘어온 imag : "+image[i]);
+				System.out.println("------");
+			}
+			
+		}
+
+		mav.addObject("test",price);
+		mav.setViewName("test");
+		return mav;
+	}
+	
+	
+
+
 }

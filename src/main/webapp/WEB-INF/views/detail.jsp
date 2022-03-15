@@ -76,19 +76,177 @@
     	        $('#item_info_show').hide();  
     	    }  
     	});
+// -------------------------------------------------------------------------------------------------------------------   	
+// -------------------------------------------------------------------------------------------------------------------   	
 // 장바구니 담기
 		$(document).on('click','#mobCart',function(){
-			var p = document.passNum;
-			var code = $(this).children('#itemCode').attr('value');
-			var tag = $(this).children('#tagMain').attr('value');
-			var tagSub =$(this).children('#tagSub').attr('value');
-			p.itemCode.value = code;
-			p.tagMain.value = tag;
-			p.tagSub.value = tagSub;
-			p.action="test.do";
-			p.method="post";
-			p.submit();
+			alert("장바구니 클릭");
+		// 장바구니 담길것이 있을때와 없을때를 구분.
+			if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
+				alert("있다");
+				var itemCode = [], data = {};
+				var tagMain = [];
+				var price = [];
+				var priceSub = [];
+				var itemName = [];
+				var itemSize = [];
+				var itemImage = [];
+				var tagSub = [];
+				var itemQuantity = [];   
+				var htmlOut="";
+			// 길이 조절
+				var Length = $('.selected-detail-list').children().length;
+				if(Length == 2){
+					Length = 1;
+				}else if(Length == 4){
+					Length = 2;
+				}
+
+				for(var i = 0; i < Length; i++){
+					itemCode[i] = $('.selected-detail-wrap').eq(i).children().eq(0).attr('value')
+					tagMain[i] = $('.selected-detail-wrap').eq(i).children().eq(1).attr('value')
+					price[i] = $('.selected-detail-wrap'). eq(i).children().eq(2).attr('value')
+					priceSub[i] = $('.selected-detail-wrap').eq(i).children().eq(3).attr('value')
+					itemName[i] = $('.selected-detail-wrap').eq(i).children().eq(4).attr('value')
+					itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
+					itemImage[i] = $('.selected-detail-wrap').eq(i).children().eq(6).attr('value')
+					tagSub[i] = $('.selected-detail-wrap').eq(i).children().eq(7).attr('value')
+					itemQuantity[i] = Number($('.form-number__input').eq(i).children().val())
+				}
+
+			    data.itemCode = itemCode;
+			    data.tagMain = tagMain;
+			    data.price = price;
+			    data.priceSub = priceSub;
+			    data.itemName = itemName;
+			    data.itemSize = itemSize;
+			    data.tagSub = tagSub;
+			    data.itemImage = itemImage;
+			    data.itemQuantity = itemQuantity;
+			    jQuery.ajaxSettings.traditional = true;
+			    
+			    $.ajax({ // 장바구니 넣기 확인 모달
+			    	url : "test.do",
+			    	type : 'post',
+			    	dataType : 'html',
+			    	data : data,
+			    	success : function(html){
+			    		$('body').append(html);
+			    		setTimeout(function() {
+							$('.swal2-container').detach();
+						}, 2000);
+			   
+			    		
+			    	}
+			    }) //ajax 끝
+			    
+			    var thisItemImage =  $('.selected-detail-wrap').eq(0).children().eq(6).attr('value');
+			    var thisItemName = $('.selected-detail-wrap').eq(0).children().eq(4).attr('value')
+			 	var thisItemSize =  $('.selected-detail-wrap').eq(0).children().eq(5).attr('value')
+
+			    $.ajax({ // 장바구니 아래에 모달
+			    	url : "addCart.do",
+			    	type : 'post',
+			    	dataType : 'html',
+			    	data : {
+			    		"image" : thisItemImage,
+			    		"name" : thisItemName,
+			    		"size" : thisItemSize  		
+			    	},
+			    	success:function(html){
+			    		$('.cart-logo-wrap').append(html);
+			    		setTimeout(function() {
+							$('.add-cart-modal').detach();
+						}, 2000);
+			    		
+			    	}
+			    }) // ajax 끝
+			}
+			else{	// 아무것도 선택안할시 주문할 상품 선택하라고 모달
+				$.ajax({
+					url : "plzSelect.do",
+					success : function(html){
+						$('body').append(html);
+						
+					}
+				})// ajax 끝
+
+			}
 		})
+		
+// 장바구니 없을시 나오는 모달 없애기
+	$(document).on('click','.swal2-confirm.swal2-styled',function(){
+		$('.swal2-container.swal2-center.swal2-backdrop-show').detach();
+	})
+	
+// --------------------------------------------------------------------------------	
+// --------------------------------------------------------------------------------	
+// 주문하기버튼
+	$(document).on('click','#goOrder',function(){
+		alert("주문하기 클릭");
+		if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
+			var itemCode = [];
+			var tagMain = [];
+			var price = [];
+			var priceSub = [];
+			var itemName = [];
+			var itemSize = [];
+			var itemImage = [];
+			var tagSub = [];
+			var itemQuantity = [];   
+			var htmlOut="";
+			
+			// 길이 조절
+			var Length = $('.selected-detail-list').children().length;
+			if(Length == 2){
+				Length = 1;
+			}else if(Length == 4){
+				Length = 2;
+			}
+			
+			var o = document.order;	
+			
+			for(var i = 0; i < Length; i++){
+//				alert(i+" 번째 차");			
+				itemCode[i] = $('.selected-detail-wrap').eq(i).children().eq(0).attr('value')
+				o.itemCode[i].value = itemCode[i];			
+				tagMain[i] = $('.selected-detail-wrap').eq(i).children().eq(1).attr('value')
+				o.itemTagMain[i].value = tagMain[i];				
+				price[i] = $('.selected-detail-wrap'). eq(i).children().eq(2).attr('value')
+				o.itemPrice[i].value = price[i];
+				priceSub[i] = $('.selected-detail-wrap').eq(i).children().eq(3).attr('value')
+				o.itemPriceSub[i].value = priceSub[i];
+				itemName[i] = $('.selected-detail-wrap').eq(i).children().eq(4).attr('value')
+				o.itemName[i].value = itemName[i];
+				itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
+				o.itemSize[i].value = itemSize[i];
+				itemImage[i] = $('.selected-detail-wrap').eq(i).children().eq(6).attr('value')
+				o.itemImage[i].value = itemImage[i];
+				tagSub[i] = $('.selected-detail-wrap').eq(i).children().eq(7).attr('value')
+				o.itemTagSub[i].value = tagSub[i];
+				itemQuantity[i] = Number($('.form-number__input').eq(i).children().val())
+				o.itemQuantity[i].value = itemQuantity[i];
+
+			}
+
+			o.action="testOrder.do";
+			o.method="post";
+			o.submit();			
+			
+		}else{
+			$.ajax({	// 아무것도 선택안할시 주문할 상품 선택하라고 모달
+				url : "plzSelect.do",
+				success : function(html){
+					$('body').append(html);
+				}
+			})// ajax 끝
+		}
+		
+		
+	})
+	
+	
+	
 
 // 리뷰, faq 클릭 이벤트
       $(function(){
@@ -139,15 +297,25 @@
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-wrap',function(){
 			// 미디움(M) / 라지(L) / 세트일경우 이름을 가져옴
-//			var size = $(this).children().first().children().first().text();
 			var size = $(this).children().first().children().first().attr('id');
 			// 가격을 가져옴
 			var priceM = $(this).children().last().children().last().text();
 			// 가격 에서 '원',','을 빼고 가져옴
 			priceM = Number(priceM.replace('원', '').replace(',', ''));
-			alert(priceM);
 			// 판매중인 아이템의 이름을 가져옴.
 			var name = $('.menu__name').text();
+			var code =$('#mobCart').children('#itemCode').attr('value');			
+			var tag = $('#mobCart').children('#tagMain').attr('value');
+			var priceM_Sub ="0";
+			// 할인 전 가격
+			if($(this).children().last().children().length==2){
+				priceM_Sub = $(this).children().last().children().first().text();
+				priceM_Sub = Number(priceM_Sub.replace('원', '').replace(',', ''));
+				alert("원 가격 : "+priceM_Sub);
+			}
+			var image = $('.menu__body').children().first().val();
+			var tagSub = $('#tagSub').val();
+			
 
 			// 리스트 아이템을 누를시 클래를 가져옴	
 			var test = $(this).children().last().children().last().attr('id');
@@ -162,7 +330,12 @@
 					"test" : test,
 					"size" : size,
 					"price" : priceM,
-					"name" : name
+					"price_sub" : priceM_Sub,
+					"name" : name,
+					"code" : code,
+					"tag" : tag,
+					"image" : image,
+					"tagSub" : tagSub
 				},
 				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
 //				test = 리스트의 id .. testM/testL = 목록 M/L 의 class
@@ -318,7 +491,6 @@
 				// 현재 가격
 			var numPrice = Number(strPrice.replace('원', '').replace(',', ''));
 				// 현재 가격 숫자형
-			alert("현재가격 :"+ numPrice);
 
 
 			if(val2==1001){ //미디움 삭제
@@ -398,15 +570,37 @@
 <!--                form태그 -->
 <!--                form태그 -->
 <!--                form태그 -->
-<!--                	<form name="passNum"> -->
-<!-- 					<input type="hidden" name="tagMain" value=""> -->
-<!-- 					<input type="hidden" name="itemCode" value=""> -->
-			 	</form>
 			 	<form name="paging">
 					<input type="hidden" name="tagMain01" value="">
 					<input type="hidden" name="itemCode01" value="">
 					<input type="hidden" name="tagSub01" value="">
 				</form>
+				<form name="order">
+					<input type="hidden" name="itemCode" value="" >
+					<input type="hidden" name="itemCode" value="" >
+					<input type="hidden" name="itemTagMain" value=""  >
+					<input type="hidden" name="itemTagMain" value=""  >					
+					
+					<input type="hidden" name="itemPrice"  value="" >
+					<input type="hidden" name="itemPrice"  value="" >
+<!-- 					이렇게 두개씩주고 만약 M/L 둘다가면 그냥쓰고 한개만쓰면 컨트롤러에서 if문을 돌려 ""이면 1개만 받게끔하자... -->
+					
+					<input type="hidden" name="itemPriceSub" value="">
+					<input type="hidden" name="itemPriceSub" value="">
+					<input type="hidden" name="itemName" value="" >
+					<input type="hidden" name="itemName" value="" >
+					<input type="hidden" name="itemSize" value="" >
+					<input type="hidden" name="itemSize" value="" >
+					<input type="hidden" name="itemImage" value="" >
+					<input type="hidden" name="itemImage" value="" >
+					<input type="hidden" name="itemTagSub" value="" >
+					<input type="hidden" name="itemTagSub" value="" >
+					<input type="hidden" name="itemQuantity"  value="">
+					<input type="hidden" name="itemQuantity"  value="">
+
+				</form>
+				
+				
                <nav class="header__menus" data-v-30697495>
                   <div data-v-30697495>
                      <div class="dropdown" data-v-30697495>
@@ -568,9 +762,10 @@
                         <figure class="menu__image">
                             <div class="menu-badge">
                             </div>
-                                <img src="${detail.item_image }" alt="상품 이미지">
+                                <img src="${detail.item_image }" alt="상품 이미지" >
                         </figure>
-                        <div data-v-32a18372 class="menu__body">
+                        <div data-v-32a18372 class="menu__body" >
+                        	<input type="hidden" value=${detail.item_image }>
                             <header data-v-32a18372 class="menu__header">
                                 <h2 data-v-32a18372 class="menu__name">${detail.item_name }</h2>
                                 <div data-v-32a18372 class="menu__summary">${detail.item_summary }</div>
@@ -656,7 +851,7 @@
                                         </button>
                                     </div>
                                     <div data-v-32a18372 class="purchase-btn-wrap">
-                                        <button data-v-a1c889e0 data-v-32a18372 type="button" title class="button button">
+                                        <button data-v-a1c889e0 data-v-32a18372 type="button" title class="button button" id="goOrder">
                                             <span data-v-a1c889e0 class="button__wrap">주문하기</span>
                                         </button>
                                     </div>

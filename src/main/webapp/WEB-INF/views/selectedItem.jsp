@@ -5,7 +5,16 @@
 <!-- 상세페이지 리스트 클릭시 보여줄 상세명세서 -->
 <!-- 상세페이지 리스트 클릭시 보여줄 상세명세서 -->
 <!-- 상세페이지 리스트 클릭시 보여줄 상세명세서 -->
-<article data-v-2706028c="" class="selected-detail-wrap">
+<article data-v-2706028c="" class="selected-detail-wrap" id="test1">
+	<input type="hidden" name="itemCode " value="${itemCode}">
+	<input type="hidden" name="tagMain" value="${tagMain }">
+	<input type="hidden" name="price" value="${price }">
+	<input type="hidden" name="priceSub" value="${price_sub }">
+	<input type="hidden" name="itemName" value="${name }">
+	<input type="hidden" name="itemSize" value="${size }">
+	<input type="hidden" name="itemImage" value="${image }">
+	<input type="hidden" name="tagSub" value="${tagSub }">
+
 	<div data-v-2706028c="" class="selected-detail">
 		<img data-v-2706028c="" src="/images/exit@2x.png" class="selected-detail__close"> 
 <!-- 												삭제 버튼 -->

@@ -47,7 +47,7 @@
 <!--  샐러드 일때  -->
 										<li data-v-49ba6df3="">
 											<div data-v-4837bb91="" data-v-49ba6df3="" class="dropdown-btn-flex-wrap" selected-day="1">
-												<div data-v-4837bb91="" class="dropdown-btn">
+												<div data-v-4837bb91="" class="dropdown-btn modal">
 													<div data-v-4837bb91="" class="button dropdown">
 														<div data-v-4837bb91="" class="selected-content">
 															<span data-v-4837bb91="" class="selected-content-text">
@@ -55,7 +55,7 @@
 															<!---->
 														</div>
 													</div>
-													<!---->
+													<!--여기에 리스트-->
 												</div>
 											</div>
 										</li>
@@ -107,74 +107,9 @@
 <!--   샐러드 일때   -->
 									</ul>
 								</div>
-								<div data-v-49ba6df3="" class="menu-select-wrap__divider"></div>
-								<!---->
-								<div data-v-49ba6df3="" class="menu-select-wrap__list">
-									<h4 data-v-49ba6df3="">
-										추가 옵션 <span data-v-49ba6df3="">전체 배송 적용</span>
-									</h4>
-									<ul data-v-49ba6df3="" class="row--v-center">
-										<li data-v-49ba6df3="" class="package-checkbox-wrap">
-											<input data-v-49ba6df3="" id="selectSnack01" type="checkbox" disabled="disabled" class="package-checkbox"> 
-											<label data-v-49ba6df3="" for="selectSnack01" class="package-checkbox-label disabled">
-											구운주먹밥 세트. 5종 (영양밥/베이컨참치/대패삼겹/김치치즈/전주비빔) 
-											</label>
-											<div data-v-49ba6df3="" class="package-checkbox-right">품절</div>
-										</li>
-										<li data-v-49ba6df3="" class="package-checkbox-wrap">
-											<input data-v-49ba6df3="" id="selectSnack11" type="checkbox" class="package-checkbox"> 
-											<label data-v-49ba6df3="" for="selectSnack11" class="package-checkbox-label">
-											간편 분식세트. 컵누들 (매콤/우동) + 베지가든 떡볶이 (매콤/짜장) 
-											</label>
-											<div data-v-49ba6df3="" class="package-checkbox-right">7,400원</div>
-										</li>
-									</ul>
-								</div>
-								<div data-v-49ba6df3="" class="day-total-wrap">
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">1회차 상품 금액</span>
-										<p data-v-49ba6df3="" class="">
-											<del data-v-49ba6df3="">28,000</del>
-											27,160원
-										</p>
-									</div>
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">배송비</span>
-										<p data-v-49ba6df3="" class="">3,500원</p>
-									</div>
-								</div>
+
 							</div>
-							<footer data-v-49ba6df3="">
-								<div data-v-49ba6df3="" class="total-wrap">
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">1주차 상품 금액</span>
-										<p data-v-49ba6df3="">
-											<span data-v-49ba6df3="" class="origin-sum">58,900</span>
-											57,133원
-										</p>
-									</div>
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">배송비 / 횟수</span>
-										<p data-v-49ba6df3="">
-											<span data-v-49ba6df3="" class="free-delivery desktop">3만 5천원 이상 무료배송!</span> 
-												7,000원 / 2회 
-											<span data-v-49ba6df3="" class="free-delivery mobile">3만 5천원 이상 무료배송!</span>
-										</p>
-									</div>
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">상품 금액</span>
-										<p data-v-49ba6df3="">113,393원</p>
-									</div>
-								</div>
-								<div data-v-49ba6df3="" class="btn-wrap">
-									<button data-v-a1c889e0="" data-v-49ba6df3="" type="button" title="" class="button btn btn-close button--outline4">
-										<span data-v-a1c889e0="" class="button__wrap">닫기</span>
-									</button>
-									<button data-v-a1c889e0="" data-v-49ba6df3="" type="button" title="" class="button btn">
-										<span data-v-a1c889e0="" class="button__wrap">저장</span>
-									</button>
-								</div>
-							</footer>
+
 						</div>
 <!-- ----------------------------- -->						
 <!-- -------- 위 아래 기준  --------- -->						
@@ -191,10 +126,10 @@
 								<div data-v-49ba6df3="" class="menu-select-wrap__list">
 									<h4 data-v-49ba6df3="">메인 메뉴</h4>
 									<ul data-v-49ba6df3="">
-										<li data-v-49ba6df3=""><div data-v-4837bb91=""
-												data-v-49ba6df3="" class="dropdown-btn-flex-wrap"
+										<li data-v-49ba6df3="">	
+											<div data-v-4837bb91="" data-v-49ba6df3="" class="dropdown-btn-flex-wrap"
 												selected-day="1">
-												<div data-v-4837bb91="" class="dropdown-btn">
+												<div data-v-4837bb91="" class="dropdown-btn modal">
 													<div data-v-4837bb91="" class="button dropdown">
 														<div data-v-4837bb91="" class="selected-content">
 															<span data-v-4837bb91="" class="selected-content-text">
@@ -209,7 +144,7 @@
 										<li data-v-49ba6df3=""><div data-v-4837bb91=""
 												data-v-49ba6df3="" class="dropdown-btn-flex-wrap"
 												selected-day="1">
-												<div data-v-4837bb91="" class="dropdown-btn">
+												<div data-v-4837bb91="" class="dropdown-btn modal">
 													<div data-v-4837bb91="" class="button dropdown">
 														<div data-v-4837bb91="" class="selected-content">
 															<span data-v-4837bb91="" class="selected-content-text">
@@ -223,7 +158,7 @@
 										<li data-v-49ba6df3=""><div data-v-4837bb91=""
 												data-v-49ba6df3="" class="dropdown-btn-flex-wrap"
 												selected-day="1">
-												<div data-v-4837bb91="" class="dropdown-btn">
+												<div data-v-4837bb91="" class="dropdown-btn modal">
 													<div data-v-4837bb91="" class="button dropdown">
 														<div data-v-4837bb91="" class="selected-content">
 															<span data-v-4837bb91="" class="selected-content-text">
@@ -238,39 +173,8 @@
 								</div>
 								<div data-v-49ba6df3="" class="menu-select-wrap__divider"></div>
 								<!---->
-								<div data-v-49ba6df3="" class="menu-select-wrap__list">
-									<h4 data-v-49ba6df3="">
-										추가 옵션 <span data-v-49ba6df3="">전체 배송 적용</span>
-									</h4>
-									<ul data-v-49ba6df3="" class="row--v-center">
-										<li data-v-49ba6df3="" class="package-checkbox-wrap"><input
-											data-v-49ba6df3="" id="selectSnack02" type="checkbox"
-											disabled="disabled" class="package-checkbox"> <label
-											data-v-49ba6df3="" for="selectSnack02"
-											class="package-checkbox-label disabled">구운주먹밥 세트. 5종
-												(영양밥/베이컨참치/대패삼겹/김치치즈/전주비빔) </label>
-											<div data-v-49ba6df3="" class="package-checkbox-right">품절</div></li>
-										<li data-v-49ba6df3="" class="package-checkbox-wrap"><input
-											data-v-49ba6df3="" id="selectSnack12" type="checkbox"
-											class="package-checkbox"> <label data-v-49ba6df3=""
-											for="selectSnack12" class="package-checkbox-label">간편
-												분식세트. 컵누들 (매콤/우동) + 베지가든 떡볶이 (매콤/짜장) </label>
-											<div data-v-49ba6df3="" class="package-checkbox-right">7,400원</div></li>
-									</ul>
-								</div>
-								<div data-v-49ba6df3="" class="day-total-wrap">
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">2회차 상품 금액</span>
-										<p data-v-49ba6df3="" class="">
-											<del data-v-49ba6df3="">30,900</del>
-											29,973원
-										</p>
-									</div>
-									<div data-v-49ba6df3="" class="total">
-										<span data-v-49ba6df3="">배송비</span>
-										<p data-v-49ba6df3="" class="">3,500원</p>
-									</div>
-								</div>
+
+
 							</div>
 							<footer data-v-49ba6df3="">
 								<div data-v-49ba6df3="" class="total-wrap">

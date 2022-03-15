@@ -88,14 +88,6 @@ public class BasketVO {
 		this.subTotal = subTotal;
 	}
 	
-	
-	public String getItemSize() {
-		return itemSize;
-	}
-	public void setItemSize(String itemSize) {
-		this.itemSize = itemSize;
-	}
-	
 	@Override
 	public String toString() {
 		return "BasketVO [seq=" + seq + ", itemImage=" + itemImage + ", itemName=" + itemName + ", tagMain=" + tagMain

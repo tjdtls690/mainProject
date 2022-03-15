@@ -1,5 +1,6 @@
 package project.spring.web.order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.detail.DetailService;
 import project.spring.web.detail.DetailVO;
 import project.spring.web.member.MemberVO;
 import project.spring.web.member_zipcode.MemberZipcodeService;
@@ -23,9 +25,12 @@ public class OrderController {
 	OrderService orderService;
 	@Autowired
 	MemberZipcodeService memberZipcodeService;
+	@Autowired
+	DetailService detailService;
 	
 	@RequestMapping("/order.do")
-	public ModelAndView orderDo(ModelAndView mav, HttpServletRequest request) {
+	public ModelAndView orderDo(ModelAndView mav, HttpServletRequest request, String[] orderTagMain, String[] orderItemCode
+			, String[] orderQuantity, String[] orderItemSizeSummary) {
 		HttpSession session = request.getSession();
 		MemberVO vo = (MemberVO)session.getAttribute("member");
 		if(vo == null) {
@@ -35,7 +40,73 @@ public class OrderController {
 			tmp.setMember_code(vo.getMemberCode());
 			tmp.setMember_delivery_type(0);
 			List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(tmp);
+			List<String> orderItemSize = new ArrayList<String>();
+			List<DetailVO> orderItem = new ArrayList<DetailVO>();
+			List<String> orderItemSizePrice = new ArrayList<String>();
+			List<String> orderItemSizePriceSub = new ArrayList<String>();
+			int realQuantity = 0;
+			int realPrice = 0;
+			int realPriceSub = 0;
+			int oldPrice = 0;
 			
+			if(orderItemSizeSummary != null) {
+				for(int i = 0; i < orderItemSizeSummary.length; i++) {
+					DetailVO tmpVO = new DetailVO();
+					tmpVO.setItem_code(Integer.parseInt(orderItemCode[i]));
+					if(orderTagMain[i].equals("100") || orderTagMain[i].equals("600")) {
+						orderItem.add(detailService.getSubItem(tmpVO));
+					}else {
+						orderItem.add(detailService.getItem(tmpVO));
+					}
+				}
+				
+				for(int i = 0; i < orderItemSizeSummary.length; i++) {
+					if(orderItemSizeSummary[i].equals("m")){
+						orderItemSizePrice.add(orderItem.get(i).getItem_price_m());
+						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_m_sub());
+					}else {
+						orderItemSizePrice.add(orderItem.get(i).getItem_price_l());
+						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_l_sub());
+					}
+				}
+				
+				
+				for(int i = 0; i < orderItemSizeSummary.length; i++) {
+					if(orderTagMain[i].equals("400") || orderTagMain[i].equals("700") || orderTagMain[i].equals("800")) {
+						if(orderItemSizeSummary[i].equals("m")) {
+							orderItemSize.add("1개");
+						}else {
+							orderItemSize.add("1묶음");
+						}
+					}else {
+						if(orderItemSizeSummary[i].equals("m")) {
+							orderItemSize.add("미디움 (M)");
+						}else {
+							orderItemSize.add("라지 (L)");
+						}
+					}
+					realQuantity += Integer.parseInt(orderQuantity[i]);
+					realPrice += ((Integer.parseInt(orderItemSizePrice.get(i)) * Integer.parseInt(orderQuantity[i])) + Integer.parseInt(orderQuantity[i]) * 100);
+					if(!orderItemSizePriceSub.get(i).equals("0")) {
+						realPriceSub += ((Integer.parseInt(orderItemSizePriceSub.get(i)) * Integer.parseInt(orderQuantity[i])) - (Integer.parseInt(orderItemSizePrice.get(i)) * Integer.parseInt(orderQuantity[i])));
+					}
+					oldPrice += Integer.parseInt(orderItemSizePrice.get(i));
+				}
+			}
+			
+			
+			mav.addObject("oldPrice", oldPrice);
+			mav.addObject("realPrice", realPrice);
+			mav.addObject("realPriceSub", realPriceSub);
+			mav.addObject("realQuantity", realQuantity);
+			mav.addObject("orderItem", orderItem);
+			mav.addObject("orderItemSizePriceSub", orderItemSizePriceSub);
+			mav.addObject("orderItemSizePrice", orderItemSizePrice);
+			mav.addObject("orderTagMain", orderTagMain);
+			mav.addObject("orderItemCode", orderItemCode);
+			mav.addObject("orderQuantity", orderQuantity);
+			mav.addObject("orderItemSize", orderItemSize);
+			mav.addObject("orderItemSizeSummary", orderItemSizeSummary);
 			mav.addObject("list", list);
 			mav.setViewName("order");
 		}

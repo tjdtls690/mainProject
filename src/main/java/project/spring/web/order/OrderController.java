@@ -58,6 +58,9 @@ public class OrderController {
 					}else {
 						orderItem.add(detailService.getItem(tmpVO));
 					}
+					System.out.println("장바구니에서 넘어온 아이템 코드 " + i + "번째 : " + orderItemCode[i]);
+					System.out.println("장바구니에서 넘어온 아이템 수량 " + i + "번째 : " + orderQuantity[i]);
+					System.out.println("장바구니에서 넘어온 아이템 사이즈 요약 " + i + "번째 : " + orderItemSizeSummary[i]);
 				}
 				
 				for(int i = 0; i < orderItemSizeSummary.length; i++) {

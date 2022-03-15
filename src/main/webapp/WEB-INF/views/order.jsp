@@ -164,8 +164,53 @@ function kakaoAddressStart(){
 }
 
 $(function() { 
-	// 배송지 디비에 이미 존재하는 경우 $('#addressCheck').val(1); // 새벽배송, 택배배송 나눠서.
-	// 배송지 디비에 이미 존재하는 경우 화면에 포문 돌려서 박기 (기본 배송지부터)
+	
+	var realPrice10 = $('#realPrice').val();
+	
+	if(realPrice10 < 10000){
+		var remainPrice = 10000 - realPrice10;
+		$.ajax({
+			url : 'orderMinPrice.do',
+			type : 'post',
+			dataType : 'html',
+			data : {
+				'remainPrice' : remainPrice
+			},
+			success : function(htmlOut){
+				$('.info-content').eq(0).find('.min').detach();
+				$('.info-content').eq(0).append(htmlOut);
+				$('.info-content').eq(0).children().eq(2).val(0);
+				button_activation();
+			}
+		})
+		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
+	}else{
+		$('.info-content').eq(0).find('.min').detach();
+		$('.info-content').eq(0).children().eq(2).val(1);
+		$('.info-content').eq(1).children().eq(1).text('1회 / 3,500원');
+	}
+	
+	if(realPrice10 < 35000){
+		var remainPrice = 35000 - realPrice10;
+		$.ajax({
+			url : 'orderMinPriceDelivery.do',
+			type : 'post',
+			dataType : 'html',
+			data : {
+				'remainPrice' : remainPrice
+			},
+			success : function(htmlOut){
+				$('.info-content').eq(1).find('.min').detach();
+				$('.info-content').eq(1).append(htmlOut);
+				$('.info-content').eq(1).children().eq(2).val(0);
+				button_activation();
+			}
+		})
+	}else{
+		$('.info-content').eq(1).find('.min').detach();
+		$('.info-content').eq(1).children().eq(2).val(1);
+		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
+	}
 	
 	
 	
@@ -1809,6 +1854,9 @@ $(function() {
     });
     
     $(document).on('click', '.vc-title-wrapper .vc-title.vc-text-lg.vc-text-gray-800.vc-font-semibold', function(){
+    	if($('#thirdModalCheck').val() == 1 && $('#secondModalCheck').val() == 0){
+    		$('#thirdModalCheck').val(0);
+    	}
     	if($('#secondModalCheck').val() == 0){
     		$('#secondModalCheck').val(1);
         	
@@ -2864,18 +2912,57 @@ $(function() {
 						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<div class="hidden-div-real">
+						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] + 100 * orderQuantity[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
+								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }" pattern="#,###" />" class="savePriceSub">
+								<input type="hidden" value="${orderQuantity[i.index] }" class="saveDisposable">
+								<input type="hidden" value="${orderQuantity[i.index] }" class="saveitemQuantity">
+							</div>
+						</c:forEach>
 					</div>
 					<div class="hidden-div">
+						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
+								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] }" pattern="#,###" />" class="savePriceSub">
+								<input type="hidden" value="1" class="saveDisposable">
+								<input type="hidden" value="1" class="saveitemQuantity">
+							</div>
+						</c:forEach>
 					</div>
 					<div class="hidden-div2">
+						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
+								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] }" pattern="#,###" />" class="savePriceSub">
+								<input type="hidden" value="1" class="saveDisposable">
+								<input type="hidden" value="1" class="saveitemQuantity">
+							</div>
+						</c:forEach>
 					</div>
 					<input type="hidden" value="${realQuantity }" id="realQuantity">
-					<input type="hidden" value="0" id="realPrice">
-					<input type="hidden" value="0" id="realPriceSub">
-					<input type="hidden" value="0" id="oldQuantity">
-					<input type="hidden" value="0" id="oldPrice">
-					<input type="hidden" value="0" id="latelyQuantity">
-					<input type="hidden" value="0" id="latelyPrice">
+					<input type="hidden" value="${realPrice }" id="realPrice">
+					<input type="hidden" value="${realPriceSub }" id="realPriceSub">
+					<input type="hidden" value="${fn:length(orderItem)}" id="oldQuantity">
+					<input type="hidden" value="${oldPrice }" id="oldPrice">
+					<input type="hidden" value="${fn:length(orderItem)}" id="latelyQuantity">
+					<input type="hidden" value="${oldPrice }" id="latelyPrice">
 					<input type="hidden" value="0" id="checkCalendar">
 					<input type="hidden" value="0" id="firstModalCheck">
 					<input type="hidden" value="0" id="secondModalCheck">
@@ -3145,14 +3232,14 @@ $(function() {
 																	class="selected-item-price-wrap row row--v-end">
 																	<c:if test="${orderItemSizePriceSub == 0 }">
 																		<p data-v-003a3d21="" class="selected-item-price">
-																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] }원</em>
+																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
 																		</p>
 																	</c:if>
 																	<c:if test="${orderItemSizePriceSub != 0}">
 																		<div data-v-003a3d21="" class="selected-item-discount">
-																			${orderItemSizePriceSub[i.index] }</div>
+																			${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }</div>
 																		<p data-v-003a3d21="" class="selected-item-price">
-																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] }원</em>
+																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
 																		</p>
 																	</c:if>
 																	
@@ -3266,7 +3353,7 @@ $(function() {
 												<div class="info-content" data-v-064d23aa="">
 													<div class="info-content-title" data-v-064d23aa="">상품
 														수 / 금액</div>
-													<div data-v-064d23aa="">0개 / 0원</div>
+													<div data-v-064d23aa="">${realQuantity }개 / <fmt:formatNumber value="${realPrice }" pattern="#,###" />원</div>
 													<input type="hidden" value="0">
 													<!---->
 												</div>
@@ -3285,7 +3372,7 @@ $(function() {
 													<div class="info-content-title" data-v-064d23aa="" style="">
 														할인금액</div>
 													<div style="color: rgb(31, 95, 64); font-weight: bold;"
-														data-v-064d23aa="">- 0원</div>
+														data-v-064d23aa="">- <fmt:formatNumber value="${realPriceSub }" pattern="#,###" />원</div>
 														<input type="hidden" value="0">
 												</div>
 											</div>

@@ -14,9 +14,20 @@
 		<result property="priceSub" column="price_sub" />
 		<result property="userCode" column="user_code" />
 		<result property="itemCode" column="item_code" />
+		<result property="subTotal" column="sub_total" />
+		<result property="itemSize" column="item_size" />
 	</resultMap>
 	<!-- resultType : 같을떄 resultMap : 다를떄 -->
 	<select id="getBasketList" resultMap="basketResult" >
 		SELECT * FROM basket ORDER BY seq DESC
 	</select>
+	
+	<!--  -->
+	<select id="getBasketChangeList">
+		UPDATE basket SET amount = #{amount}, sub_total = #{subTotal} WHERE item_code = #{itemCode} AND user_code= 1  ORDER BY seq DESC
+	</select>
+	
+	<delete id="deleteBasketList">
+		DELETE FROM basket WHERE item_code = #{itemCode}
+	</delete>
 </mapper>

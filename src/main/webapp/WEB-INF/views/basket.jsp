@@ -5,7 +5,30 @@
 <!DOCTYPE html>
 <html class="">
 <head>
-
+<style>
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    cursor: pointer;
+    outline: none !important;
+    border: 1px solid #eeeeee;
+    border-radius: 2px;
+    background: #eee;
+}
+input[type="checkbox"]:checked {
+    -webkit-appearance: none;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    cursor: pointer;
+    outline: none !important;
+    border: 1px solid #eeeeee;
+    border-radius: 2px;
+    background: #35AD73;
+}
+</style>
 <title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
@@ -51,23 +74,511 @@
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+
 $(function() {
-	$(document).on('click','.form-number__control', function(){
-		/*  var amt = $('.form-number__input').val();*/
-		// var amt = $('#amount0').attr('value');
-		var amt = $(this).next().children().first().val();
-		if ($('.form-number__control').hasClass('minusbtn')) {
-			alert("minus btn click");
-			$('.form-number__control').toggleClass('minusbtn');
-		}else {
-			alert("plus btn click");
+	$(document).on('click','.form-number__control.desk_minusbtn', function(){
+
+		var amt = Number($(this).next().children().first().val());
+		var formData = $(this).children('#itemCode').val();
+		var formData2 = $(this).children('#price').val();
+		
+		if(amt <= 1){
+			alert("수량을 확인해주세요")
+			return false;
 		}
-		alert(amt);
-		
-		
-		
-	})
+			
+		$.ajax({
+			url : 'deskMinus.do',
+			type : 'post',
+			datatype : 'html',
+			data : {
+				"amt" : amt,
+				"itemCode" : formData,
+				"price" : formData2
+			},
+			success : function(data){
+				 $('.desktop-body-table-list').html(data);
+			},
+			complete : function() {
+				var sum =0;
+				var subtotal = 0;
+				var dctotal = 0;
+				
+				var count = $('.desktop-body-table-item-total-price').length; 
+				
+
+				for (var i =0; i< count; i++) {
+
+					if (parseInt($('.desktop-body-table-item-price')[i].innerHTML) != 0) {
+						dctotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[i].innerHTML)) * parseInt($('.abcd')[i].value);
+					}
+					
+					if(parseInt($('.desktop-body-table-item-price')[i].innerHTML) == 0){
+						subtotal += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+					}else {
+						subtotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML) * parseInt($('.abcd')[i].value));
+				 	}
+					
+					sum += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+
+				}
+				$('.desktop-body-table-footer-price').html(sum +"원");
+				$('.desktop-footer-price-bottom.discounted').html(sum +"원");
+				$('.desktop-footer-price-bottom.price').html(subtotal+"원");
+				$('.desktop-footer-price-bottom.dc').html(dctotal+"원");
+				
+				
+			}
+		});
+	});
 });
+
+	$(window).resize(function(){
+		if($(window).width() > 1023) {
+			document.location.reload();
+		}else if ($(window).width < 1023) {
+			document.location.reload();
+		}
+	});
+
+$(function(){
+	$(document).on('click','.form-number__control.desk_plusbtn', function(){
+
+		var amt = Number($(this).prev().children().val());
+		var formData = $(this).children('#itemCode').val();
+		var formData2 = $(this).children('#price').val();
+
+		$.ajax({
+			url : 'deskPlus.do',
+			type : 'post',
+			datatype : 'html',
+			data : {
+				"amt" : amt,
+				"itemCode" : formData,
+				"price" : formData2
+			},
+			success : function(data){
+				 $('.desktop-body-table-list').html(data);
+			},
+			complete : function() {
+				var sum =0;
+				var subtotal = 0;
+				var dctotal = 0;
+				
+				var count = $('.desktop-body-table-item-total-price').length; 
+				
+
+				for (var i =0; i< count; i++) {
+
+					if (parseInt($('.desktop-body-table-item-price')[i].innerHTML) != 0) {
+						dctotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[i].innerHTML)) * parseInt($('.abcd')[i].value);
+					}
+					
+					if(parseInt($('.desktop-body-table-item-price')[i].innerHTML) == 0){
+						subtotal += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+					}else {
+						subtotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML) * parseInt($('.abcd')[i].value));
+				 	}
+					
+					sum += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+
+				}
+				$('.desktop-body-table-footer-price').html(sum +"원");
+				$('.desktop-footer-price-bottom.discounted').html(sum +"원");
+				$('.desktop-footer-price-bottom.price').html(subtotal+"원");
+				$('.desktop-footer-price-bottom.dc').html(dctotal+"원");
+				
+				
+			}
+		});
+	});
+});
+
+$(function(){
+		$(document).on('click','.form-number__control.mobile_minusbtn', function(){
+
+			var amt = Number($(this).next().children().first().val());
+			var formData = $(this).children('#itemCode').val();
+			var formData2 = $(this).children('#price').val();
+			
+			if(amt <= 1){
+				alert("수량을 확인해주세요")
+				return false;
+			}
+
+			alert(amt);
+			$.ajax({
+				url : 'mobileMinus.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"amt" : amt,
+					"itemCode" : formData,
+					"price" : formData2
+				},
+				success : function(data){
+					 $('.mobile-body-list').html(data);
+				},
+				complete : function() {
+					var sum =0;
+					var subtotal = 0;
+					var dctotal = 0;
+					
+					var count = $('.mobile-body-item-discounted-price').length; 
+					
+
+					for (var i =0; i< count; i++) {
+
+						if (parseInt($('.mobile-body-item-price')[i].innerHTML) != 0) {
+							dctotal += (parseInt($('.mobile-body-item-price')[i].innerHTML)-parseInt($('.mobile-body-item-discounted-price')[i].innerHTML)) * parseInt($('.haha')[i].value);
+						}
+						
+						if(parseInt($('.mobile-body-item-price')[i].innerHTML) == 0){
+							subtotal += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+						}else {
+							subtotal += (parseInt($('.mobile-body-item-price')[i].innerHTML) * parseInt($('.haha')[i].value));
+					 	}
+						
+						sum += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+
+					}
+
+					$('.mobile-footer-price-right.total-price').html(sum +"원");
+					$('.mobile-footer-price-right.sub').html(subtotal+"원");
+					$('.ttt').html(dctotal+"원");
+				}
+	
+			});
+		});
+});
+		$(function(){
+			$(document).on('click','.form-number__control.mobile_plusbtn', function(){
+
+				var amt = Number($(this).prev().children().first().val());
+				var formData = $(this).children('#itemCode').val();
+				var formData2 = $(this).children('#price').val();
+
+				alert(amt);
+				$.ajax({
+					url : 'mobilePlus.do',
+					type : 'post',
+					datatype : 'html',
+					data : {
+						"amt" : amt,
+						"itemCode" : formData,
+						"price" : formData2
+					},
+					success : function(data){
+						 $('.mobile-body-list').html(data);
+					},
+					complete : function() {
+						var sum =0;
+						var subtotal = 0;
+						var dctotal = 0;
+						
+						var count = $('.mobile-body-item-discounted-price').length; 
+						
+
+						for (var i =0; i< count; i++) {
+
+							if (parseInt($('.mobile-body-item-price')[i].innerHTML) != 0) {
+								dctotal += (parseInt($('.mobile-body-item-price')[i].innerHTML)-parseInt($('.mobile-body-item-discounted-price')[i].innerHTML)) * parseInt($('.haha')[i].value);
+							}
+							
+							if(parseInt($('.mobile-body-item-price')[i].innerHTML) == 0){
+								subtotal += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+							}else {
+								subtotal += (parseInt($('.mobile-body-item-price')[i].innerHTML) * parseInt($('.haha')[i].value));
+						 	}
+							
+							sum += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+
+						}
+
+						$('.mobile-footer-price-right.total-price').html(sum +"원");
+						$('.mobile-footer-price-right.sub').html(subtotal+"원");
+						$('.ttt').html(dctotal+"원");
+					}
+				});
+			});	
+});
+		
+$('input:checkbox[name="point-check"]').prop("checked",true);
+$('input:checkbox[name="point-check"]').prop("checked",false);
+
+$('input:checkbox[name="point-check-all"]').prop("checked",true);
+$('input:checkbox[name="point-check-all"]').prop("checked",false);
+
+// 전체 선택 버튼
+$(function (){
+	$(document).on('click','.point-check-all', function(){
+		
+		var check = $(this).is(':checked');
+		alert(check);
+		
+		var count = $('.desktop-body-table-item-total-price').length; 
+		
+		if(check == false) {
+			for (var i =0; i < count; i++) {
+				$('input:checkbox[name="point-check"]').eq(i).prop("checked",false);
+				$('input:checkbox[name="point-check-all"]').eq(i).prop("checked", false);
+				
+			}
+			$('.desktop-body-table-footer-price').html(0 +"원");
+	 		$('.desktop-footer-price-bottom.discounted').html(0 +"원");
+	 		$('.desktop-footer-price-bottom.price').html(0+"원");
+	 		$('.desktop-footer-price-bottom.dc').html(0+"원");
+		}else if (check == true) {
+			for(var i=0; i<count; i++){
+				$('input:checkbox[name="point-check"]').eq(i).prop("checked",true);
+				$('input:checkbox[name="point-check-all"]').eq(i).prop("checked", true);
+			}
+			var sum =0;
+			var subtotal = 0;
+			var dctotal = 0;
+			
+			var count2 = $('.desktop-body-table-item-total-price').length; 
+			
+
+			for (var i =0; i< count2; i++) {
+
+				if (parseInt($('.desktop-body-table-item-price')[i].innerHTML) != 0) {
+					dctotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[i].innerHTML)) * parseInt($('.abcd')[i].value);
+				}
+				
+				if(parseInt($('.desktop-body-table-item-price')[i].innerHTML) == 0){
+					subtotal += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+				}else {
+					subtotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML) * parseInt($('.abcd')[i].value));
+			 	}
+				
+				sum += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+
+			}
+			$('.desktop-body-table-footer-price').html(sum +"원");
+			$('.desktop-footer-price-bottom.discounted').html(sum +"원");
+			$('.desktop-footer-price-bottom.price').html(subtotal+"원");
+			$('.desktop-footer-price-bottom.dc').html(dctotal+"원");
+			
+		}
+	});
+});
+// 선택삭제 
+$(function (){
+	$(document).on('click','.button.desktop-body-table-footer-btn.button--outline2.select', function(){
+		var count = $('.desktop-body-table-item-total-price').length; 
+		var deleteItemCode = [];
+// 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
+		var data = {};
+		var checkedNum =  $('input:checkbox[name="point-check"]:checked').length;
+		
+		for (var i=0; i < count; i++) {
+			var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+			if (check == true) {
+				deleteItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+			}
+		}
+		
+		var newDeleteItemCode = deleteItemCode.filter(number => {
+			return number >= 1;
+		});
+		
+		data.newDeleteItemCode = newDeleteItemCode;
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+    		url : 'basketSelectDelete.do',
+    		dataType : 'json',
+    		type : 'post',
+    		data : data,
+    		success : function(){
+    			location.reload();
+   			},
+    		complete : function() {
+    			location.reload();
+    		}
+		});
+	});
+});
+
+$(function (){
+	$(document).on('click','.button.desktop-body-table-footer-btn.button--outline2.all', function(){
+		var count = $('.desktop-body-table-item-total-price').length; 
+		var deleteItemCode = [];
+// 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
+		var data = {};
+		var checkedNum =  $('input:checkbox[name="point-check"]:checked').length;
+		
+		for (var i=0; i < count; i++) {
+				deleteItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+		}
+		
+		var newDeleteItemCode = deleteItemCode.filter(number => {
+			return number >= 1;
+		});
+		
+		data.newDeleteItemCode = newDeleteItemCode;
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+    		url : 'basketSelectDelete.do',
+    		dataType : 'json',
+    		type : 'post',
+    		data : data,
+    		success : function(){
+    			location.reload();
+   			},
+    		complete : function() {
+    			location.reload();
+    		}
+		});
+	});
+});
+
+$(function(){
+	$(document).on('click', '.button.desktop-footer-btn', function(){
+		
+		var count = $('.desktop-body-table-item-total-price').length; 
+		
+		var BuyItemCode = [];
+		var BuyAmount = [];
+		var BuyTagMain =[];
+		var BuyItemSize = [];
+		var data = {};
+		
+		alert(count);
+		for (var i=0; i < count; i++) {
+			var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+			if (check == true) {
+				BuyItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+				BuyTagMain[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#tagMain').val();
+				BuyAmount[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#amount').val();
+				BuyItemSize[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val();
+			}
+		}
+		
+		var orderItemCode = BuyItemCode.filter(number => {
+			return number >= 1;
+		});
+		var orderTagMain = BuyTagMain.filter(number => {
+			return number >= 1;
+		});
+		var orderQuantity = BuyAmount.filter(number => {
+			return number >= 1;
+		});
+		var orderItemSizeSummary = BuyItemSize.filter(word => {
+			return word.length >= 1;
+		});
+		
+		alert(orderItemCode);
+		alert(orderTagMain);
+		alert(orderQuantity);
+		alert(orderItemSizeSummary);
+		
+		data.orderItemCode = orderItemCode;
+		data.orderTagMain = orderTagMain;
+		data.orderQuantity = orderQuantity;
+		data.orderItemSizeSummary = orderItemSizeSummary;
+		
+		jQuery.ajaxSettings.traditional = true;
+
+		$.ajax({
+    		url : 'order.do',
+    		dataType : 'html',
+    		type : 'post',
+    		data : data,
+    		success : function(){
+   			},
+    		complete : function() {
+    			location.reload();
+    		}
+		});
+	});
+});
+// function checkFunction(){
+//     $('input:checkbox[name="point-check-all"]').change(function(){
+//         if (this.checked){
+//             $('input:checkbox[name="point-check"]').each(function() {
+//                 $(this).prop("checked",true);
+//             });
+//         }else{
+//             $('input:checkbox[name="point-check"]').each(function() {
+//                 $(this).prop("checked",false);
+//             });
+//         }
+//     })
+// }
+
+
+$(function(){
+	$(document).on('click','.point-check', function(){
+
+		var check = $(this).is(':checked');
+		var idx = parseInt($('input:checkbox[name="point-check"]').index(this)); 
+
+		if (check == false ) {
+			var sum = parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			var dctotal = 0;
+			var subtotal = 0;
+			
+			if (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) != 0) {
+				dctotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[idx].innerHTML)) * parseInt($('.abcd')[idx].value);
+			}
+			
+			if(parseInt($('.desktop-body-table-item-price')[idx].innerHTML) == 0){
+				subtotal += parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			}else {
+				subtotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) * parseInt($('.abcd')[idx].value));
+		 	}
+			
+			var changeSum = parseInt($('.desktop-body-table-footer-price')[0].innerHTML) - sum;
+	 		var changeSubtotal = parseInt($('.desktop-footer-price-bottom.price')[0].innerHTML) - subtotal;
+	 		var changeDctotal = parseInt($('.desktop-footer-price-bottom.dc')[0].innerHTML) - dctotal;
+	
+	 		$('.desktop-body-table-footer-price').html(changeSum +"원");
+	 		$('.desktop-footer-price-bottom.discounted').html(changeSum +"원");
+	 		$('.desktop-footer-price-bottom.price').html(changeSubtotal+"원");
+	 		$('.desktop-footer-price-bottom.dc').html(changeDctotal+"원");
+
+		} else {
+			var Esum = parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			var Edctotal = 0;
+			var Esubtotal = 0;
+			
+			if (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) != 0) {
+				Edctotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[idx].innerHTML)) * parseInt($('.abcd')[idx].value);
+			}
+			
+			if(parseInt($('.desktop-body-table-item-price')[idx].innerHTML) == 0){
+				Esubtotal += parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			}else {
+				Esubtotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) * parseInt($('.abcd')[idx].value));
+		 	}
+			
+			var EchangeSum = parseInt($('.desktop-body-table-footer-price')[0].innerHTML) + Esum;
+	 		var EchangeSubtotal = parseInt($('.desktop-footer-price-bottom.price')[0].innerHTML) + Esubtotal;
+	 		var EchangeDctotal = parseInt($('.desktop-footer-price-bottom.dc')[0].innerHTML) + Edctotal;
+	
+	 		$('.desktop-body-table-footer-price').html(EchangeSum +"원");
+	 		$('.desktop-footer-price-bottom.discounted').html(EchangeSum +"원");
+	 		$('.desktop-footer-price-bottom.price').html(EchangeSubtotal+"원");
+	 		$('.desktop-footer-price-bottom.dc').html(EchangeDctotal+"원");
+		}
+		
+	}); 
+});
+
+// $(function itemSum(){
+// 	var str ="";
+// 	var sum = 0;
+// 	var count = $('.chkbox').length; // checkbox class변경
+// 	for (var i =0; i < count; i++) {
+// 		if($('.chkbox')[i].checked == true) {
+// 			sum += parsInt($('.chkbox')[i].value);
+// 		}
+// 	}
+// 	$('#total_sum').html(sum + "원");
+// })
 
 </script>
 </head>
@@ -268,7 +779,7 @@ $(function() {
 								<div data-v-7f39deaa="" class="mobile-body-wrap">
 									<main data-v-7f39deaa="" class="mobile-body">
 										<ul data-v-7f39deaa="" class="mobile-body-list">
-											<c:forEach var="basket" items="${Basket}" varStatus="stauts">
+										<c:forEach var="basket" items="${Basket}" varStatus="stauts">
 											<li data-v-7f39deaa="" class="mobile-body-item"><img
 												data-v-7f39deaa="" src="/images/icon-exit@2x.png"
 												alt="장바구니 메뉴 삭제" class="mobile-body-item-close">
@@ -297,7 +808,9 @@ $(function() {
 														<nav data-v-4ba0dee4="" data-v-7f39deaa=""
 															class="form-number">
 															<button data-v-4ba0dee4="" type="button"
-																class="form-number__control minusbtn">
+																class="form-number__control mobile_minusbtn">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode">
+																<input type="hidden" value="${basket.price}" id="price">
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -305,11 +818,13 @@ $(function() {
 																		d="M7 11.5h10v1H7z"></path></g></svg>
 															</button>
 															
-															<span data-v-4ba0dee4="" class="form-number__input"><input
-																data-v-4ba0dee4=""  type="number" min="1"
+															<span data-v-4ba0dee4="" class="form-number__input mobile"><input
+																data-v-4ba0dee4=""  type="number" min="1" class="haha"
 																max="9999" step="1" value="${basket.amount}" ></span>
 															<button data-v-4ba0dee4="" type="button"
-																class="form-number__control plusbtn">
+																class="form-number__control mobile_plusbtn">																
+																<input type="hidden" value="${basket.itemCode}" id="itemCode">
+																<input type="hidden" value="${basket.price}" id="price">
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -318,10 +833,20 @@ $(function() {
 															</button>
 														</nav>
 													</div>
-													<div data-v-7f39deaa=""
-														class="mobile-body-item-bottom-price">7,340원</div>
+													<div data-v-7f39deaa="" 
+														class="mobile-body-item-bottom-price">${basket.subTotal } 원</div>
 												</section>
 											</li>
+												<c:set var="mobile_total" value="${mobile_total + basket.subTotal }" />
+												<c:choose>
+													<c:when test="${basket.priceSub eq 0}"> 
+														<c:set var="mobile_subTotal" value="${mobile_subTotal + (basket.price*basket.amount)}" />
+													</c:when>
+													<c:when test="${basket.priceSub ne 0}">
+														<c:set var="mobile_subTotal" value="${mobile_subTotal + (basket.priceSub*basket.amount) }" />
+														<c:set var="mobile_dcTotal" value="${mobile_dcTotal + ((basket.priceSub - basket.price) * basket.amount)}" />
+													</c:when>
+												</c:choose>
 											</c:forEach>
 										</ul>
 										<section data-v-7f39deaa="" class="mobile-footer-price-wrap">
@@ -338,15 +863,16 @@ $(function() {
 													style="margin-bottom: 8px;">
 													<div data-v-7f39deaa="" class="mobile-footer-price-left">
 														상품 금액</div>
-													<div data-v-7f39deaa="" class="mobile-footer-price-right">
-														7,900원</div>
+													<div data-v-7f39deaa="" class="mobile-footer-price-right sub">
+														<c:out value="${mobile_subTotal}원"></c:out></div>
 												</div>
 												<div data-v-7f39deaa="" class="mobile-footer-price-column">
 													<div data-v-7f39deaa="" class="mobile-footer-price-left">할인
 														금액</div>
-													<div data-v-7f39deaa="" class="mobile-footer-price-right">
+													<div data-v-7f39deaa="" class="mobile-footer-price-right dc">
 														<span data-v-7f39deaa=""
-															class="mobile-footer-price-right-red">(-)</span>560원
+															class="mobile-footer-price-right-red">(-)</span>
+														<span class="ttt"><c:out value="${mobile_dcTotal}원"></c:out></span>
 													</div>
 												</div>
 											</section>
@@ -357,7 +883,7 @@ $(function() {
 														예상 금액</div>
 													<div data-v-7f39deaa=""
 														class="mobile-footer-price-right total-price">
-														7,340원</div>
+														<c:out value="${mobile_total}원"></c:out></div>
 												</div>
 											</section>
 										</section>
@@ -373,6 +899,7 @@ $(function() {
 								</footer>
 							</div>
 						</section>
+						<!-- mobile 끝  -->
 						<section data-v-7f39deaa="" class="desktop-wrap">
 							<header data-v-7f39deaa="" class="desktop-header">
 								<div data-v-7f39deaa="" class="desktop-header-title-wrap">
@@ -394,14 +921,16 @@ $(function() {
 										<div data-v-7f39deaa="" class="desktop-body-table-header-left">
 											<div data-v-7f39deaa=""
 												class="desktop-body-table-check-all-wrap">
-												<input data-v-7f39deaa="" id="header-check-all"
-													type="checkbox" value="check-all" checked="checked"
-													name="check-all"
-													class="desktop-body-table-check-all js-check-all">
-												<label data-v-7f39deaa="" for="header-check-all"
-													class="desktop-body-table-check-all-label"><span
-													data-v-7f39deaa=""
-													class="desktop-body-table-check-all-text">전체 선택</span></label>
+												<input type="checkbox" name="point-check-all" id="point-check-all" class ="point-check-all" checked='checked'>
+												&nbsp;<span>전체 선택</span>
+<!-- 												<input data-v-7f39deaa="" id="header-check-all" -->
+<!-- 													type="checkbox" value="check-all" checked="checked" -->
+<!-- 													name="check-all" -->
+<!-- 													class="desktop-body-table-check-all js-check-all"> -->
+<!-- 												<label data-v-7f39deaa="" for="header-check-all" -->
+<!-- 													class="desktop-body-table-check-all-label"><span -->
+<!-- 													data-v-7f39deaa="" -->
+<!-- 													class="desktop-body-table-check-all-text">전체 선택</span></label> -->
 											</div>
 											<div data-v-7f39deaa=""
 												class="desktop-body-table-header-column info">상품 정보</div>
@@ -419,18 +948,25 @@ $(function() {
 									</header>
 									<main data-v-7f39deaa="" class="desktop-body-table-body">
 										<ul data-v-7f39deaa="" class="desktop-body-table-list">
+			
 											<c:forEach var="basket" items="${Basket}" varStatus="status">
 											<li data-v-7f39deaa="" class="desktop-body-table-item"><section
 													data-v-7f39deaa="" class="desktop-body-table-item-left">
 													<div data-v-7f39deaa=""
 														class="desktop-body-table-item-checkbox-wrap">
 														<!-- check box -->
-														<input data-v-7f39deaa="" id="table-item-checkbox-0"
-															checked="checked" name="selected-item" type="checkbox"
-															class="desktop-body-table-item-checkbox js-check-one"
-															value="426"> <label data-v-7f39deaa=""
-															for="table-item-checkbox-0"
-															class="desktop-body-table-item-checkbox-label"></label>
+														<input type="checkbox" name="point-check" id="point-check" class ="point-check" checked='checked'>
+<!-- 														<input data-v-7f39deaa="" id="table-item-checkbox-0" -->
+<!-- 															checked name="selected-item" type="checkbox" -->
+<!-- 															class="desktop-body-table-item-checkbox" -->
+<!-- 															value="426"> -->
+<!-- 															<label data-v-7f39deaa="" -->
+<!-- 															for="table-item-checkbox-0" -->
+<!-- 															class="desktop-body-table-item-checkbox-label"></label> -->
+<%-- 															<input type="hidden" value="${basket.price}" class="check-price"/> --%>
+<%-- 															<input type="hidden" value="${basket.priceSub}" class="check-priceSub" /> --%>
+<%-- 															<input type="hidden" value="${basket.subTotal}" class="check-subTotal" /> --%>
+<%-- 															<input type="hidden" value="${basket.amount}" class="check-amount" /> --%>
 													</div>
 													<div data-v-7f39deaa=""
 														class="desktop-body-table-item-img-wrap">
@@ -439,7 +975,7 @@ $(function() {
 															alt="데스크탑 장바구니 이미지" class="desktop-body-table-item-img">
 													</div>
 													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-title">${basket.itemName }
+														class="desktop-body-table-item-title">${basket.itemName } / ${basket.itemSize}
 													</div>
 												</section>
 												<section data-v-7f39deaa=""
@@ -449,18 +985,25 @@ $(function() {
 														<nav data-v-4ba0dee4="" data-v-7f39deaa=""
 															class="form-number">
 															<button data-v-4ba0dee4="" type="button"
-																class="form-number__control minusbtn">
+																class="form-number__control desk_minusbtn">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode"/>
+																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${basket.tagMain}" id="tagMain" />
+																<input type="hidden" value="${basket.amount}" id="amount" />
+																<input type="hidden" value="${basket.itemSize}" id="itemSize" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
 																	<path data-v-4ba0dee4="" fill="currentColor"
 																		d="M7 11.5h10v1H7z"></path></g></svg>
 															</button>
-															<span data-v-4ba0dee4="" class="form-number__input"><input
-																data-v-4ba0dee4=""  type="number" min="1"
+															<span data-v-4ba0dee4="" class="form-number__input deskAmt"><input
+																data-v-4ba0dee4=""  type="number" min="1" class="abcd"
 																max="9999" step="1"  value="${basket.amount}"></span>
 															<button data-v-4ba0dee4="" type="button" 
-																class="form-number__control plusbtn">
+																class="form-number__control desk_plusbtn">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode">
+																<input type="hidden" value="${basket.price}" id="price">
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -477,24 +1020,37 @@ $(function() {
 															class="desktop-body-table-item-discounted-price">
 															${basket.price }</div>
 													</div>
-													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-total-price">${basket.price}</div>
+														<div data-v-7f39deaa="" id="desk-subtotal"
+														class="desktop-body-table-item-total-price">${basket.subTotal}
+														<input type="hidden" value = "${basket.subTotal}" class="bf_subtotal"/></div>
 												</section></li>
+												<c:set var="desk_total" value="${desk_total + basket.subTotal }" />
+												<c:choose>
+													<c:when test="${basket.priceSub eq 0}"> 
+														<c:set var="desk_subTotal" value="${desk_subTotal + (basket.price*basket.amount)}" />
+													</c:when>
+													<c:when test="${basket.priceSub ne 0}">
+														<c:set var="desk_subTotal" value="${desk_subTotal + (basket.priceSub*basket.amount) }" />
+														<c:set var="desk_dcTotal" value="${desk_dcTotal + ((basket.priceSub - basket.price) * basket.amount)}" />
+													</c:when>
+												</c:choose>
 											</c:forEach>
 										</ul>
 									</main>
 									<footer data-v-7f39deaa="" class="desktop-body-table-footer">
 										<div data-v-7f39deaa="" class="desktop-body-table-footer-left">
-											<div data-v-7f39deaa=""
+											<div data-v-7f39deaa=""a
 												class="desktop-body-table-check-all-wrap">
-												<input data-v-7f39deaa="" id="footer-check-all"
-													checked="checked" name="check-all" type="checkbox"
-													value="check-all"
-													class="desktop-body-table-check-all js-check-all">
-												<label data-v-7f39deaa="" for="footer-check-all"
-													class="desktop-body-table-check-all-label"><span
-													data-v-7f39deaa=""
-													class="desktop-body-table-check-all-text">전체 선택</span></label>
+												<input type="checkbox" name="point-check-all" id="point-check-all" class ="point-check-all" checked='checked'>
+												&nbsp;<span>전체 선택</span>
+<!-- 												<input data-v-7f39deaa="" id="footer-check-all" -->
+<!-- 													checked="checked" name="check-all" type="checkbox" -->
+<!-- 													value="check-all" -->
+<!-- 													class="desktop-body-table-check-all js-check-all"> -->
+<!-- 												<label data-v-7f39deaa="" for="footer-check-all" -->
+<!-- 													class="desktop-body-table-check-all-label"><span -->
+<!-- 													data-v-7f39deaa="" -->
+<!-- 													class="desktop-body-table-check-all-text">전체 선택</span></label> -->
 											</div>
 											<div data-v-7f39deaa=""
 												class="desktop-body-table-footer-btns-wrap">
@@ -502,7 +1058,7 @@ $(function() {
 													class="desktop-body-table-footer-btn-wrap">
 													<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
 														title=""
-														class="button desktop-body-table-footer-btn button--outline2">
+														class="button desktop-body-table-footer-btn button--outline2 select">
 														<span data-v-a1c889e0="" class="button__wrap">선택 삭제</span>
 													</button>
 												</div>
@@ -510,7 +1066,7 @@ $(function() {
 													class="desktop-body-table-footer-btn-wrap">
 													<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
 														title=""
-														class="button desktop-body-table-footer-btn button--outline2">
+														class="button desktop-body-table-footer-btn button--outline2 all">
 														<span data-v-a1c889e0="" class="button__wrap">전체 삭제</span>
 													</button>
 												</div>
@@ -519,7 +1075,8 @@ $(function() {
 										<div data-v-7f39deaa=""
 											class="desktop-body-table-footer-right">
 											<span data-v-7f39deaa=""
-												class="desktop-body-table-footer-price">7,340원</span>
+												class="desktop-body-table-footer-price"><c:out value="${desk_total}원"></c:out>
+											</span>
 										</div>
 									</footer>
 								</section>
@@ -531,8 +1088,10 @@ $(function() {
 										<div data-v-7f39deaa="" class="desktop-footer-price-box">
 											<div data-v-7f39deaa="" class="desktop-footer-price-top">상품
 												금액</div>
-											<div data-v-7f39deaa="" class="desktop-footer-price-bottom">
-												7,900원</div>
+											<div data-v-7f39deaa="" class="desktop-footer-price-bottom price">
+												<c:out value="${desk_subTotal}원" />
+												<input type = "hidden" value ="${desk_subTotal}" id ="check_desk_subtotal"/>
+												</div>
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
 											<img data-v-7f39deaa="" src="/images/icon-minus@2x.png"
@@ -541,8 +1100,10 @@ $(function() {
 										<div data-v-7f39deaa="" class="desktop-footer-price-box">
 											<div data-v-7f39deaa="" class="desktop-footer-price-top">할인
 												금액</div>
-											<div data-v-7f39deaa="" class="desktop-footer-price-bottom">
-												560원</div>
+											<div data-v-7f39deaa="" class="desktop-footer-price-bottom dc">
+												<c:out value="${desk_dcTotal}원" />
+												<input type="hidden" value="${desk_dcTotal}" id ="check_desk_dctotal"/>	
+												</div>
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
 											<img data-v-7f39deaa="" src="/images/icon-equal@2x.png"
@@ -552,8 +1113,9 @@ $(function() {
 											<div data-v-7f39deaa="" class="desktop-footer-price-top">결제
 												예상 금액</div>
 											<div data-v-7f39deaa=""
-												class="desktop-footer-price-bottom discounted">7,340원
-											</div>
+												class="desktop-footer-price-bottom discounted"><c:out value="${desk_total}원" />
+												<input type ="hidden" value ="${check_desk_total}" id="check_desk_total"/>
+											</div> 
 										</div>
 									</div>
 								</section>
@@ -567,200 +1129,7 @@ $(function() {
 						</section>
 					</section>
 				</div>
-		<!-- 		<div data-v-1739428d="" class="container"
-					style="padding-top: 182px;">
-					<section data-v-7f39deaa="" data-v-1739428d="" class="cart">
-						<section data-v-7f39deaa="" id="cart-mobile-wrap"
-							class="mobile-wrap">
-							<div data-v-7f39deaa="" class="mobile-scroll-wrap">
-								<header data-v-7f39deaa="" class="mobile-header">
-									<button data-v-7f39deaa="" class="mobile-header-back-wrap">
-										<img data-v-7f39deaa="" src="/images/arrow-left@2x.png"
-											alt="뒤로가기" class="mobile-header-back-img">
-									</button>
-									<h1 data-v-7f39deaa="" class="mobile-header-title">장바구니</h1>
-									<button data-v-7f39deaa=""
-										class="mobile-header-delete-all disabled">전체 삭제</button>
-								</header>
-								장바구니 List
-								<div data-v-7f39deaa="" class="mobile-body-wrap">
-									<main data-v-7f39deaa="" class="mobile-body-no-item">
 
-
-										<div data-v-7f39deaa="" class="mobile-body-no-item-wrap">
-											<article data-v-7f39deaa="" class="mobile-body-no-item">
-												<img data-v-7f39deaa=""
-													src="/images/cart-no-item-mobile@2x.png" alt=""
-													class="mobile-body-no-item-img"> <span
-													data-v-7f39deaa="" class="mobile-body-no-item-text">장바구니에
-													담긴 상품이 없습니다 :(</span>
-											</article>
-										</div>
-									</main>
-								</div>
-								<footer data-v-7f39deaa="" class="mobile-footer">
-									<section data-v-7f39deaa="" class="mobile-footer-btn-wrap">
-										<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
-											title=""
-											class="button mobile-footer-btn outline button--outline2">
-											<span data-v-a1c889e0="" class="button__wrap">상품 담으러
-												가기</span>
-										</button>
-									</section>
-								</footer>
-							</div>
-						</section>
-						<section data-v-7f39deaa="" class="desktop-wrap">
-							<header data-v-7f39deaa="" class="desktop-header">
-								<div data-v-7f39deaa="" class="desktop-header-title-wrap">
-									<h1 data-v-7f39deaa="" class="desktop-header-title">장바구니</h1>
-									<h4 data-v-7f39deaa="" class="desktop-header-subtitle">
-										주문하실 상품의 제품명과 수량을 정확히 확인해 주세요.</h4>
-								</div>
-							</header>
-							<main data-v-7f39deaa="" class="desktop-body">
-								<section data-v-7f39deaa="" class="desktop-body-title-wrap">
-									<div data-v-7f39deaa="" class="desktop-body-title-img-wrap">
-										<img data-v-7f39deaa="" src="/images/icon-product@3x.png"
-											alt="상품정보 아이콘" class="desktop-body-title-img">
-									</div>
-									<h4 data-v-7f39deaa="" class="desktop-body-title">상품 정보</h4>
-								</section>
-								<section data-v-7f39deaa="" class="desktop-body-table-wrap">
-									<header data-v-7f39deaa="" class="desktop-body-table-header">
-										<div data-v-7f39deaa="" class="desktop-body-table-header-left">
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-check-all-wrap">
-												<input data-v-7f39deaa="" id="header-check-all"
-													type="checkbox" value="check-all" checked="checked"
-													name="check-all" disabled="disabled"
-													class="desktop-body-table-check-all js-check-all">
-												<label data-v-7f39deaa="" for="header-check-all"
-													class="desktop-body-table-check-all-label disabled"><span
-													data-v-7f39deaa=""
-													class="desktop-body-table-check-all-text">전체 선택</span></label>
-											</div>
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-header-column info">상품 정보</div>
-										</div>
-										<div data-v-7f39deaa=""
-											class="desktop-body-table-header-right">
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-header-column quantity">수량</div>
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-header-column price">가격</div>
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-header-column total-price">
-												상품 금액</div>
-										</div>
-									</header>
-									<main data-v-7f39deaa="" class="desktop-body-table-body">
-										<section data-v-7f39deaa="" class="desktop-body-no-item-wrap">
-											<div data-v-7f39deaa=""
-												class="desktop-body-no-item-content-wrap">
-												<div data-v-7f39deaa=""
-													class="desktop-body-no-item-img-wrap">
-													<img data-v-7f39deaa=""
-														src="/images/cart-no-item-web@2x.png" alt="장바구니가 비었습니다."
-														class="desktop-body-no-item-img">
-												</div>
-												<span data-v-7f39deaa="" class="desktop-body-no-item-text">장바구니에
-													담긴 상품이 없습니다 :(</span> <span data-v-7f39deaa=""
-													class="desktop-body-no-item-text"></span>
-											</div>
-											<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
-												title=""
-												class="button desktop-body-no-item-btn button--outline2">
-												<span data-v-a1c889e0="" class="button__wrap">상품 담으러
-													가기</span>
-											</button>
-										</section>
-									</main>
-									<footer data-v-7f39deaa="" class="desktop-body-table-footer">
-										<div data-v-7f39deaa="" class="desktop-body-table-footer-left">
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-check-all-wrap">
-												<input data-v-7f39deaa="" id="footer-check-all"
-													checked="checked" name="check-all" type="checkbox"
-													value="check-all" disabled="disabled"
-													class="desktop-body-table-check-all js-check-all">
-												<label data-v-7f39deaa="" for="footer-check-all"
-													class="desktop-body-table-check-all-label disabled"><span
-													data-v-7f39deaa=""
-													class="desktop-body-table-check-all-text">전체 선택</span></label>
-											</div>
-											<div data-v-7f39deaa=""
-												class="desktop-body-table-footer-btns-wrap">
-												<div data-v-7f39deaa=""
-													class="desktop-body-table-footer-btn-wrap">
-													<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
-														title="" disabled="disabled"
-														class="button desktop-body-table-footer-btn button--disabled2 button--outline2">
-														<span data-v-a1c889e0="" class="button__wrap">선택 삭제</span>
-													</button>
-												</div>
-												<div data-v-7f39deaa=""
-													class="desktop-body-table-footer-btn-wrap">
-													<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
-														title="" disabled="disabled"
-														class="button desktop-body-table-footer-btn button--disabled2 button--outline2 disabled">
-														<span data-v-a1c889e0="" class="button__wrap">전체 삭제</span>
-													</button>
-												</div>
-											</div>
-										</div>
-										<div data-v-7f39deaa=""
-											class="desktop-body-table-footer-right">
-											<span data-v-7f39deaa=""
-												class="desktop-body-table-footer-price">0원</span>
-										</div>
-									</footer>
-								</section>
-							</main>
-							<footer data-v-7f39deaa="" class="desktop-footer">
-								<section data-v-7f39deaa="" class="desktop-footer-price-wrap">
-									<div data-v-7f39deaa=""
-										class="desktop-footer-price-content-wrap">
-										<div data-v-7f39deaa="" class="desktop-footer-price-box">
-											<div data-v-7f39deaa="" class="desktop-footer-price-top">상품
-												금액</div>
-											<div data-v-7f39deaa="" class="desktop-footer-price-bottom">
-												0원</div>
-										</div>
-										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
-											<img data-v-7f39deaa="" src="/images/icon-minus@2x.png"
-												alt="뺴기 아이콘" class="desktop-footer-icon">
-										</div>
-										<div data-v-7f39deaa="" class="desktop-footer-price-box">
-											<div data-v-7f39deaa="" class="desktop-footer-price-top">할인
-												금액</div>
-											<div data-v-7f39deaa="" class="desktop-footer-price-bottom">
-												0원</div>
-										</div>
-										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
-											<img data-v-7f39deaa="" src="/images/icon-equal@2x.png"
-												alt="등호 아이콘" class="desktop-footer-icon">
-										</div>
-										<div data-v-7f39deaa="" class="desktop-footer-price-box">
-											<div data-v-7f39deaa="" class="desktop-footer-price-top">결제
-												예상 금액</div>
-											<div data-v-7f39deaa=""
-												class="desktop-footer-price-bottom discounted">0원</div>
-										</div>
-									</div>
-								</section>
-								<section data-v-7f39deaa="" class="desktop-footer-btn-wrap">
-									<button data-v-a1c889e0="" data-v-7f39deaa="" type="button"
-										title="" disabled="disabled"
-										class="button desktop-footer-btn button--disabled disabled">
-										<span data-v-a1c889e0="" class="button__wrap">주문하기</span>
-									</button>
-								</section>
-							</footer>
-						</section>
-					</section>
-				</div>
-				 -->
 			</main>
 		</div>
 	</div>

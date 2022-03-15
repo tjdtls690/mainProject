@@ -6,11 +6,12 @@ public class BasketVO {
 	private String itemName;	//
 	private int tagMain;		//
 	private int tagSub;
-	private int amount;			//
-	private int price;			//
-	private int priceSub;		//
-	private int userCode;		//
-	private int itemCode;		//
+	private int amount;
+	private int price;
+	private int priceSub;
+	private int userCode;
+	private int itemCode;
+	private int subTotal;
 	private String itemSize;
 	
 	public String getItemSize() {
@@ -80,12 +81,27 @@ public class BasketVO {
 	public void setItemCode(int itemCode) {
 		this.itemCode = itemCode;
 	}
+	public int getSubTotal() {
+		return subTotal;
+	}
+	public void setSubTotal(int subTotal) {
+		this.subTotal = subTotal;
+	}
+	
+	
+	public String getItemSize() {
+		return itemSize;
+	}
+	public void setItemSize(String itemSize) {
+		this.itemSize = itemSize;
+	}
 	
 	@Override
 	public String toString() {
 		return "BasketVO [seq=" + seq + ", itemImage=" + itemImage + ", itemName=" + itemName + ", tagMain=" + tagMain
 				+ ", tagSub=" + tagSub + ", amount=" + amount + ", price=" + price + ", priceSub=" + priceSub
-				+ ", userCode=" + userCode + ", itemCode=" + itemCode + "]";
+				+ ", userCode=" + userCode + ", itemCode=" + itemCode + ", subTotal=" + subTotal + ", itemSize="
+				+ itemSize + "]";
 	}
 
 

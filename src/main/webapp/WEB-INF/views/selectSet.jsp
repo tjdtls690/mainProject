@@ -10,7 +10,7 @@
 	<li data-v-5b7f52e9="">
 		<div data-v-5b7f52e9="" class="detail-wrap">
 			<div data-v-5b7f52e9="" class="detail-name-and-badge">
-				<span data-v-5b7f52e9="">${detail.item_name }</span>
+				<span data-v-5b7f52e9="" id="미디움">${detail.item_name }</span>
 <!-- 					<span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span> -->
 			</div> 
 			<div data-v-5b7f52e9="" class="detail-price">
@@ -27,7 +27,7 @@
 <li data-v-5b7f52e9="">
 		<div data-v-5b7f52e9="" class="detail-wrap">
 			<div data-v-5b7f52e9="" class="detail-name-and-badge">
-				<span data-v-5b7f52e9="">${detail.item_name }</span>
+				<span data-v-5b7f52e9="" id="미디움">${detail.item_name }</span>
 				<span data-v-5b7f52e9="">&nbsp(M)</span>
 <!-- 					<span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span> -->
 			</div> 
@@ -42,7 +42,7 @@
 <li data-v-5b7f52e9="">
 		<div data-v-5b7f52e9="" class="detail-wrap">
 			<div data-v-5b7f52e9="" class="detail-name-and-badge">
-				<span data-v-5b7f52e9="">${detail.item_name }</span>
+				<span data-v-5b7f52e9="" id="라지">${detail.item_name }</span>
 				<span data-v-5b7f52e9="">&nbsp(L)</span>
 <!-- 					<span data-v-5b7f52e9="" class="detail-badge">(굿바일 7% 할인)</span> -->
 			</div> 

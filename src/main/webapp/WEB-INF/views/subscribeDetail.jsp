@@ -84,9 +84,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
-<link href="${path}/style.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style2.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style3.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" href="${path }/style.css">
+   <link rel="stylesheet" href="${path }/style2.css">
    <script type="text/javascript">
    
 
@@ -178,16 +177,17 @@
 			$('.setSize').val(size);
 			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.			
 		});
+		
 
 		
 // 드롭 다운
 		$(document).on('click','.dropdown-btn.click',function(event){			
 			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
-			alert("클릭");
+			//alert("1.드랍다운 클릭");
 			var code =$('.itemCode').attr('value');	
 			var tag = $('.tagMain').attr('value');
 			var str ="";
-			if($('.dropdown-btn').hasClass('dropdown-open')){
+			if($('.dropdown-btn,click').hasClass('dropdown-open')){
 				$('ul').remove('.toggle-drop-down');
 			}else{
 				$.ajax({
@@ -198,11 +198,12 @@
 						"codeNum" : code ,
 						"tagNum"  : tag
 					},
+					context : this,
 					success : function(htmlOut){
 						str += "<ul data-v-5b7f52e9='' class='toggle-drop-down'>";
 						str += htmlOut;
 						str += "</ul>";
-						$('.dropdown-btn').append(str);
+						$(this).append(str);
 						
 					}
 				}); // ajax 끝								
@@ -212,6 +213,7 @@
 
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-name-and-badge',function(){
+			//alert("2.드랍다운 아이템 클릭");
 			var week = $(this).text();
 			var selectedWeek = Number(week.replace('주', '').replace(',', ''));
 			$('.setWeek').val(selectedWeek);
@@ -299,8 +301,8 @@
 				
 			} // if문 끝
 			$('.vc-text-gray-400').attr("disabled", disabled);
-			$('.vc-popover-content-wrapper:eq(0)').toggleClass('is-interactive');
-			$('.vc-popover-content-wrapper:eq(1)').toggleClass('is-interactive');
+			$('.vc-popover-content-wrapper').eq(0).toggleClass('is-interactive');
+			$('.vc-popover-content-wrapper').eq(1).toggleClass('is-interactive');
 			
 		});// 날짜 선택 클릭 끝
 
@@ -342,7 +344,7 @@
 			});// ajax 끝
 
 	// disable
-			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
+// 			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
 			$('.menu__label').toggleClass('disabled-style');
 			$('.menu__label').attr("disabled", 'disabled');
 			$('.menu__label.menu__price-label').toggleClass('disabled-style');
@@ -403,6 +405,7 @@
 				},
 				success : function(htmlOut){
 					alert("성공");
+					$('html').attr('class', 'mode-popup');
 					$('.menu').append(htmlOut);
 					$('.item-text:eq(0)').parent().addClass('selected');
 				}
@@ -426,11 +429,36 @@
 
 		})
 
-// 모달창 드랍다운
+// 모달창 드랍다운 클릭
 
-		$(document).on('click','.dropdown-btn',function(){
-			var test = $(this).children().children().children().text();
-			alert("텍스트 :"+test)
+		$(document).on('click','.menu-select-wrap__list .dropdown-btn',function(){
+//			alert("모달 버튼 클릭");
+			var code = $('.itemCode').val();	// 아이템 코드
+//			alert("넘어온 코드"+code);
+			var tag = $('.tagMain').val();
+//			alert("넘어온 태그"+tag);
+			
+			
+			$.ajax({
+				url : 'modalList.do',
+				type : 'post',
+				dataType : 'html',
+				data :{
+					"tag" : tag,
+					"code" : code
+				},
+				context : this,
+				success : function(htmlOut){
+					alert("ajax성공");
+					$(this).attr('class','dropdown-btn dropdown-open');
+					$(this).children().append(htmlOut);
+					
+				},
+				error:function(){
+			        alert("에러");
+			       }
+
+			});// ajax 끝
 			
 			
 			
@@ -706,8 +734,10 @@
 															class="dropdown-btn-flex-wrap both-style">
 															<div data-v-4837bb91="" class="dropdown-btn click">
 																<div data-v-4837bb91="" class="button dropdown">
-																	<div data-v-4837bb91="" class="">기간 선택(기간이 길수록 더
-																		많이 할인됩니다)</div>
+																	<div data-v-4837bb91="" class="">
+																		기간 선택(기간이 길수록 더많이 할인됩니다)
+																	</div>
+																	
 																</div>
 																<!---->
 															</div>

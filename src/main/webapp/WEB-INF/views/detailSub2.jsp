@@ -115,7 +115,7 @@
 			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.			
 		});
 
-		// 드롭 다운
+// 드롭 다운
 		$(document).on('click','.dropdown-btn-flex-wrap',function(event) {
 			var code = $('#mobCart').children('#itemCode').attr('value');
 			var tag = $('#mobCart').children('#tagMain').attr('value');
@@ -144,7 +144,7 @@
 			$('.dropdown-btn-flex-wrap').toggleClass('dropdown-open');
 		}); // 드롭 다운 끝
 
-		// 드롭 다운 아이템 클릭
+// 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-name-and-badge',function() {
 			var week = $(this).text();
 			var selectedWeek = Number(week.replace('주', '').replace(',', ''));
@@ -193,7 +193,7 @@
 
 		}); // 드롭 다운 아이템 끝
 
-		// 날짜 선택 클릭 시
+// 날짜 선택 클릭 시
 		$(document).on('click', '.v-date-custom', function() {
 
 			// css 변경을 원본 홈피와 그대로 하겠다.
@@ -232,7 +232,7 @@
 
 		});// 날짜 선택 클릭 끝
 
-		// 날짜 선택
+// 날짜 선택
 		$(document).on('click', '.vc-day-content.vc-focusable', function() {
 			alert("날짜 클릭");
 			//이름

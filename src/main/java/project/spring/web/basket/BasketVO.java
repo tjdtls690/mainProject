@@ -1,10 +1,10 @@
 package project.spring.web.basket;
 
 public class BasketVO {
-	private int seq;
-	private String itemImage;
-	private String itemName;
-	private int tagMain;
+	private int seq;			//
+	private String itemImage;	//
+	private String itemName;	//
+	private int tagMain;		//
 	private int tagSub;
 	private int amount;
 	private int price;
@@ -14,6 +14,12 @@ public class BasketVO {
 	private int subTotal;
 	private String itemSize;
 	
+	public String getItemSize() {
+		return itemSize;
+	}
+	public void setItemSize(String itemSize) {
+		this.itemSize = itemSize;
+	}
 	public int getSeq() {
 		return seq;
 	}

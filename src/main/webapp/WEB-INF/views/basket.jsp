@@ -400,7 +400,7 @@ $(function (){
 		});
 	});
 });
-
+// 전체 삭제
 $(function (){
 	$(document).on('click','.button.desktop-body-table-footer-btn.button--outline2.all', function(){
 		var count = $('.desktop-body-table-item-total-price').length; 
@@ -435,6 +435,38 @@ $(function (){
 	});
 });
 
+// 모바일 삭제
+$(function (){
+	$(document).on('click','.mobile-body-item-close', function(){
+		var count = $('.mobile-body-item-discounted-price').length;
+		var deleteItemCode = [];
+// 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
+		var data = {};
+		
+		deleteItemCode[0] = $('.form-number__control.mobile_minusbtn').children('#itemCode').val();
+
+		var newDeleteItemCode = deleteItemCode.filter(number => {
+			return number >= 1;
+		});
+		
+		data.newDeleteItemCode = newDeleteItemCode;
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+    		url : 'basketSelectDelete.do',
+    		dataType : 'json',
+    		type : 'post',
+    		data : data,
+    		success : function(){
+    			location.reload();
+   			},
+    		complete : function() {
+    			location.reload();
+    		}
+		});
+	});
+});
+
 $(function(){
 	$(document).on('click', '.button.desktop-footer-btn', function(){
 		
@@ -446,7 +478,6 @@ $(function(){
 		var BuyItemSize = [];
 		var data = {};
 		
-		alert(count);
 		for (var i=0; i < count; i++) {
 			var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
 			if (check == true) {
@@ -481,18 +512,58 @@ $(function(){
 		data.orderItemSizeSummary = orderItemSizeSummary;
 		
 		jQuery.ajaxSettings.traditional = true;
-
+		
 		$.ajax({
     		url : 'order.do',
-    		dataType : 'html',
+    		dataType : 'json',
     		type : 'post',
     		data : data,
     		success : function(){
-   			},
-    		complete : function() {
-    			location.reload();
-    		}
+    			location.href='order';
+   			}
+
 		});
+// 		var form = document.createElement('form'); // 폼객체 생성
+		
+// 	    var objs1;
+//         objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+//         objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+//         objs1.setAttribute('name', 'orderItemCode'); // 객체이름
+//         objs1.setAttribute('value', orderItemCode); //객체값
+//         form.appendChild(objs1);
+//  		alert(objs1);
+ 		
+//         var objs2;
+//         objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+//         objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+//         objs2.setAttribute('name', 'orderTagMain'); // 객체이름
+//         objs2.setAttribute('value', orderTagMain); //객체값
+//         form.appendChild(objs2);
+//         alert(objs2);
+        
+//         var objs3;
+//         objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+//         objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+//         objs3.setAttribute('name', 'orderQuantity'); // 객체이름
+//         objs3.setAttribute('value', orderQuantity); //객체값
+//         form.appendChild(objs3);
+//         alert(objs3);
+        
+//         var objs4;
+//         objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+//         objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+//         objs4.setAttribute('name', 'orderItemSizeSummary'); // 객체이름
+//         objs4.setAttribute('value', orderItemSizeSummary); //객체값
+//         form.appendChild(objs4);
+//         alert(objs4);
+        
+//         form.setAttribute('method', 'post'); //get,post 가능
+//         form.setAttribute('action', "order.do"); //보내는 url
+//         document.body.appendChild(form);
+//         form.submit();
+        
+// 		$(location).attr("href", "order.do");
+
 	});
 });
 // function checkFunction(){
@@ -651,7 +722,7 @@ $(function(){
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-									data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
 									style="width: 24px; height: 24px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
@@ -791,7 +862,7 @@ $(function(){
 													</div>
 													<div data-v-7f39deaa="" class="mobile-body-item-text-wrap">
 														<div data-v-7f39deaa="" class="mobile-body-item-title">
-															${basket.itemName}</div>
+															${basket.itemName} </div>
 														<div data-v-7f39deaa=""
 															class="mobile-body-item-price-wrap">
 															<div data-v-7f39deaa=""
@@ -911,7 +982,7 @@ $(function(){
 							<main data-v-7f39deaa="" class="desktop-body">
 								<section data-v-7f39deaa="" class="desktop-body-title-wrap">
 									<div data-v-7f39deaa="" class="desktop-body-title-img-wrap">
-										<img data-v-7f39deaa="" src="/images/icon-product@3x.png"
+										<img data-v-7f39deaa="" src="https://www.freshcode.me/images/icon-product@3x.png"
 											alt="상품정보 아이콘" class="desktop-body-title-img">
 									</div>
 									<h4 data-v-7f39deaa="" class="desktop-body-title">상품 정보</h4>

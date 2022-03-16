@@ -226,7 +226,7 @@
 					$('.selected-detail-wrap').eq(i).children().eq(5).val('l');
 					itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
 				}
-				o.orderItemSize[i].value = itemSize[i];
+				o.orderItemSizeSummary[i].value = itemSize[i];
 				itemImage[i] = $('.selected-detail-wrap').eq(i).children().eq(6).attr('value')
 				o.orderItemImage[i].value = itemImage[i];
 				tagSub[i] = $('.selected-detail-wrap').eq(i).children().eq(7).attr('value')
@@ -594,8 +594,8 @@
 					<input type="hidden" name="orderItemPriceSub" value="">
 					<input type="hidden" name="orderItemName" value="" >
 					<input type="hidden" name="orderItemName" value="" >
-					<input type="hidden" name="orderItemSize" value="" >
-					<input type="hidden" name="orderItemSize" value="" >
+					<input type="hidden" name="orderItemSizeSummary" value=""  id="a">
+					<input type="hidden" name="orderItemSizeSummary" value="" id="b">
 					<input type="hidden" name="orderItemImage" value="" >
 					<input type="hidden" name="orderItemImage" value="" >
 					<input type="hidden" name="orderItemTagSub" value="" >

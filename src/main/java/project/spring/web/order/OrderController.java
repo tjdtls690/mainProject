@@ -73,6 +73,10 @@ public class OrderController {
 					}
 				}
 				
+				for(int i = 0; i < orderItemSizePriceSub.size(); i++) {
+					System.out.println(orderItemSizePriceSub.get(i));
+				}
+				
 				
 				for(int i = 0; i < orderItemSizeSummary.length; i++) {
 					if(orderTagMain[i].equals("400") || orderTagMain[i].equals("700") || orderTagMain[i].equals("800")) {
@@ -89,7 +93,6 @@ public class OrderController {
 						}
 					}
 					realQuantity += Integer.parseInt(orderQuantity[i]);
-					System.out.println("??? : " + orderItemSizePrice.get(i) + " " + orderQuantity[i]);
 					realPrice += ((Integer.parseInt(orderItemSizePrice.get(i)) * Integer.parseInt(orderQuantity[i])) + Integer.parseInt(orderQuantity[i]) * 100);
 					if(!orderItemSizePriceSub.get(i).equals("0")) {
 						realPriceSub += ((Integer.parseInt(orderItemSizePriceSub.get(i)) * Integer.parseInt(orderQuantity[i])) - (Integer.parseInt(orderItemSizePrice.get(i)) * Integer.parseInt(orderQuantity[i])));

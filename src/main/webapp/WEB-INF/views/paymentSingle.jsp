@@ -212,8 +212,15 @@
 	    			dataType : 'html',
 	    			success : function(htmlOut){
 	    				$('body').append(htmlOut);
+	    				return false;
 	    			}
 	    		});
+	    		return false;
+	    	}else if($('.form-text').eq(0).val().length == 0){
+	    		alert('받는분 이름을 입력해 주세요.');
+	    		return false;
+	    	}else if($('.form-text').eq(1).val().length == 0){
+	    		alert('받는분 연락처를 입력해 주세요.');
 	    		return false;
 	    	}
 	    	
@@ -231,9 +238,9 @@
 					'deliveryZipcodeCode' : zNum
 				},
 				success : function(data){
-					alert($('#productsFinalPrice').val() + ' ' + $('#memberName').val());
-					alert($('#memberPhone').val() + ' ' + $('#productsFinalShippingAddress2').val());
-					alert(data + ' ' + productsName);
+// 					alert($('#productsFinalPrice').val() + ' ' + $('#memberName').val());
+// 					alert($('#memberPhone').val() + ' ' + $('#productsFinalShippingAddress2').val());
+// 					alert(data + ' ' + productsName);
 					var IMP = window.IMP;
 			        IMP.init('imp80414894');
 			        IMP.request_pay({
@@ -274,6 +281,30 @@
 	    	$('body').attr('class', '');
 	    	$('noscript').removeAttr('aria-hidden');
 	    	$('#__nuxt').removeAttr('aria-hidden');
+	    });
+	    
+	    // 할인 쿠폰 버튼
+	    $(document).on('click', '.coupon button', function(){
+	    	$('html').attr('class', 'mode-popup');
+	    	$.ajax({
+	    		url : 'paymentCouponModal.do',
+	    		dataType : 'html',
+	    		success : function(htmlOut){
+	    			$('.checkout').append(htmlOut);
+	    		}
+	    	});
+	    });
+	    
+	    // 쿠폰 모달창 중 x버튼, 선택 완료 버튼, 모달창 바깥 영역 클릭 시
+	    $(document).on('click', '.modal-wrap.modal-wrap--full', function(e){
+	    	if(!$(e.target).hasClass("select-coupon__title") && !$(e.target).hasClass("select-coupon__bar") && !$(e.target).hasClass("except1")
+	    			&& !$(e.target).hasClass("select-coupon__body") && !$(e.target).hasClass("error-list")){
+	    		$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+	    		setTimeout(function() {
+					$('.modal.modal-leave-active.modal-leave-to').detach();
+					$('html').attr('class', '');
+				}, 400);
+	    	}
 	    })
 	})
 </script>
@@ -302,10 +333,11 @@
 					<input type="hidden" value="${member.phone }" id="memberPhone">
 					<input type="hidden" value="${list[0].paymentItem }" id="productsName">
 					<input type="hidden" value="${fn:length(list)}" id="productsNum">
-					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck">
-					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice">
-					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1">
-					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2">
+					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck"> <!-- 배송방법 0, 1 -->
+					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice"> <!-- 최종 결제 금액 -->
+					<input type="hidden" value="${vo.paymentFinalSalePrice }" id="paymentFinalSalePrice"> <!-- 상품 할인 금액 (콤마있음) -->
+					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1"> <!-- 집코드 -->
+					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2"> <!-- 상세 주소 -->
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">

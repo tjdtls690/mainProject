@@ -48,4 +48,10 @@ public class PaymentSingleController {
 		mav.setViewName("paymentEnterExitType");
 		return mav;
 	}
+	
+	@RequestMapping("/paymentCouponModal.do")
+	public ModelAndView paymentCouponModalDo(ModelAndView mav, String check) {
+		mav.setViewName("paymentCouponModal");
+		return mav;
+	}
 }

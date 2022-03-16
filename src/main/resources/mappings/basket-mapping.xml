@@ -28,7 +28,7 @@
 	</select>
 	
 	<delete id="deleteBasketList">
-		DELETE FROM basket WHERE item_code = #{itemCode} AND user_code= #{userCode}
+		DELETE FROM basket WHERE item_code = #{itemCode} AND user_code= #{userCode} AND item_size = #{itemSize}
 	</delete>
 	
 	<insert id="insertBasket">

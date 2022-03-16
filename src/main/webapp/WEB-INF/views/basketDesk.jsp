@@ -11,9 +11,14 @@
 <!-- 														<input data-v-7f39deaa="" id="table-item-checkbox-0" -->
 <!-- 															checked name="selected-item" type="checkbox" -->
 <!-- 															class="desktop-body-table-item-checkbox" -->
-<!-- 															value="426"> <label data-v-7f39deaa="" -->
+<!-- 															value="426"> -->
+<!-- 															<label data-v-7f39deaa="" -->
 <!-- 															for="table-item-checkbox-0" -->
 <!-- 															class="desktop-body-table-item-checkbox-label"></label> -->
+<%-- 															<input type="hidden" value="${basket.price}" class="check-price"/> --%>
+<%-- 															<input type="hidden" value="${basket.priceSub}" class="check-priceSub" /> --%>
+<%-- 															<input type="hidden" value="${basket.subTotal}" class="check-subTotal" /> --%>
+<%-- 															<input type="hidden" value="${basket.amount}" class="check-amount" /> --%>
 													</div>
 													<div data-v-7f39deaa=""
 														class="desktop-body-table-item-img-wrap">
@@ -22,7 +27,7 @@
 															alt="데스크탑 장바구니 이미지" class="desktop-body-table-item-img">
 													</div>
 													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-title">${basket.itemName }
+														class="desktop-body-table-item-title">${basket.itemName } / ${basket.itemSize}
 													</div>
 												</section>
 												<section data-v-7f39deaa=""
@@ -33,8 +38,13 @@
 															class="form-number">
 															<button data-v-4ba0dee4="" type="button"
 																class="form-number__control desk_minusbtn">
-																<input type="hidden" value="${basket.itemCode}" id="itemCode">
-																<input type="hidden" value="${basket.price}" id="price">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode"/>
+																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${basket.tagMain}" id="tagMain" />
+																<input type="hidden" value="${basket.amount}" id="amount" />
+																<input type="hidden" value="${basket.itemSize}" id="itemSize" />
+																<input type="hidden" value="${member.memberCode}" id="memberCode" />
+																
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -46,8 +56,9 @@
 																max="9999" step="1"  value="${basket.amount}"></span>
 															<button data-v-4ba0dee4="" type="button" 
 																class="form-number__control desk_plusbtn">
-																<input type="hidden" value="${basket.itemCode}" id="itemCode">
-																<input type="hidden" value="${basket.price}" id="price">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode" />
+																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${member.memberCode}" id="memberCode" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -64,8 +75,9 @@
 															class="desktop-body-table-item-discounted-price">
 															${basket.price }</div>
 													</div>
-													<div data-v-7f39deaa="" id="desk-subtotal"
-														class="desktop-body-table-item-total-price">${basket.subTotal}</div>
+														<div data-v-7f39deaa="" id="desk-subtotal"
+														class="desktop-body-table-item-total-price">${basket.subTotal}
+														<input type="hidden" value = "${basket.subTotal}" class="bf_subtotal"/></div>
 												</section></li>
 												<c:set var="desk_total" value="${desk_total + basket.subTotal }" />
 												<c:choose>
@@ -78,6 +90,3 @@
 													</c:when>
 												</c:choose>
 											</c:forEach>
-											
-
-									

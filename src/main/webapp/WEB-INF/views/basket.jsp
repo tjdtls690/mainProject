@@ -27,6 +27,10 @@ input[type="checkbox"]:checked {
     border: 1px solid #eeeeee;
     border-radius: 2px;
     background: #35AD73;
+    background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_check.png);
+    background-position: 50%;
+    background-size: 12px 8px;
+    background-repeat: no-repeat;
 }
 </style>
 <title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
@@ -322,7 +326,6 @@ $(function (){
 	$(document).on('click','.point-check-all', function(){
 		
 		var check = $(this).is(':checked');
-		alert(check);
 		
 		var count = $('.desktop-body-table-item-total-price').length; 
 		
@@ -371,12 +374,34 @@ $(function (){
 		}
 	});
 });
+$(function (){
+	$(document).on('change','.point-check', function(){
+		
+		var check = $(this).is(':checked');
+		var count = $('.desktop-body-table-item-total-price').length; 
+		var subtotal =0;
+		
+		for (var i =0; i < count ; i ++) {
+			if ($('input:checkbox[name="point-check"]').eq(i).is(':checked') ) {
+				subtotal += 1
+			}
+		}
+		
+		if (subtotal === count) {
+			$('input:checkbox[name="point-check-all"]').eq(0).prop("checked", true);
+			$('input:checkbox[name="point-check-all"]').eq(1).prop("checked", true);
+		}else {
+			$('input:checkbox[name="point-check-all"]').eq(0).prop("checked", false);
+			$('input:checkbox[name="point-check-all"]').eq(1).prop("checked", false);
+		}
+	});
+});
 // 선택삭제 
 $(function (){
 	$(document).on('click','.button.desktop-body-table-footer-btn.button--outline2.select', function(){
 		var count = $('.desktop-body-table-item-total-price').length; 
 		var deleteItemCode = [];
-// 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
+		var deleteItemSize = [];
 		var data = {};
 		var checkedNum =  $('input:checkbox[name="point-check"]:checked').length;
 		
@@ -384,6 +409,7 @@ $(function (){
 			var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
 			if (check == true) {
 				deleteItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+				deleteItemSize[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val();
 			}
 		}
 		
@@ -391,7 +417,12 @@ $(function (){
 			return number >= 1;
 		});
 		
+		var newDeleteItemSize = deleteItemSize.filter(word => {
+			return word.length >= 1;
+		});
+		
 		data.newDeleteItemCode = newDeleteItemCode;
+		data.newDeleteItemSize = newDeleteItemSize;
 		jQuery.ajaxSettings.traditional = true;
 		
 		$.ajax({
@@ -413,7 +444,6 @@ $(function (){
 	$(document).on('click','.button.desktop-body-table-footer-btn.button--outline2.all', function(){
 		var count = $('.desktop-body-table-item-total-price').length; 
 		var deleteItemCode = [];
-// 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
 		var data = {};
 		var checkedNum =  $('input:checkbox[name="point-check"]:checked').length;
 		
@@ -481,16 +511,22 @@ $(function (){
 	$(document).on('click','.mobile-body-item-close', function(){
 		var count = $('.mobile-body-item-discounted-price').length;
 		var deleteItemCode = [];
-// 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
+		var deleteItemSize = [];
 		var data = {};
 		
 		deleteItemCode[0] = $('.form-number__control.mobile_minusbtn').children('#itemCode').val();
+		deleteItemSize[0] = $('.form-number__control.mobile_minusbtn').children('#itemSize').val();
 
 		var newDeleteItemCode = deleteItemCode.filter(number => {
 			return number >= 1;
 		});
 		
+		var newDeleteItemSize = deleteItemSize.filter(word => {
+			return word.length >= 1;
+		});
+		
 		data.newDeleteItemCode = newDeleteItemCode;
+		data.newDeleteItemSize = newDeleteItemSize;
 		jQuery.ajaxSettings.traditional = true;
 		
 		$.ajax({
@@ -509,7 +545,7 @@ $(function (){
 // mobile 주문하기
 $(function(){
 	$(document).on('click', '.button.mobile-footer-btn', function(){
-		alert("작동");
+	
 		var count = $('.mobile-body-item-discounted-price').length;
 		
 		var BuyItemCode = [];
@@ -590,7 +626,7 @@ $(function(){
 // desk 주문하기 
 $(function(){
 	$(document).on('click', '.button.desktop-footer-btn', function(){
-		alert("작동");
+	
 		var count = $('.desktop-body-table-item-total-price').length; 
 		
 		var BuyItemCode = [];
@@ -728,18 +764,6 @@ $(function(){
 		
 	}); 
 });
-
-// $(function itemSum(){
-// 	var str ="";
-// 	var sum = 0;
-// 	var count = $('.chkbox').length; // checkbox class변경
-// 	for (var i =0; i < count; i++) {
-// 		if($('.chkbox')[i].checked == true) {
-// 			sum += parsInt($('.chkbox')[i].value);
-// 		}
-// 	}
-// 	$('#total_sum').html(sum + "원");
-// })
 
 </script>
 </head>
@@ -973,6 +997,7 @@ $(function(){
 																class="form-number__control mobile_minusbtn">
 																<input type="hidden" value="${basket.itemCode}" id="itemCode" />
 																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${basket.itemSize}" id="itemSize" />
 																<input type="hidden" value="${member.memberCode}" id="memberCode" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

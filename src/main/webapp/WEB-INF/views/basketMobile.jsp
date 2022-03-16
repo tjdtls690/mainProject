@@ -33,6 +33,7 @@
 																class="form-number__control mobile_minusbtn">
 																<input type="hidden" value="${basket.itemCode}" id="itemCode" />
 																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${basket.itemSize}" id="itemSize" />
 																<input type="hidden" value="${member.memberCode}" id="memberCode" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

@@ -22,16 +22,21 @@ public class BasketController {
 	
 	@RequestMapping("/basket.do")
 	public ModelAndView basketDo(HttpServletRequest request, ModelAndView mav) {
-	
-		HttpSession session = request.getSession();
-		MemberVO vo = (MemberVO)session.getAttribute("member");
-		int userCode = vo.getMemberCode();
 		
-		BasketVO vo2 = new BasketVO();
-		vo2.setUserCode(userCode);
-		List<BasketVO> BasketList = basketService.getBasketList(vo2);
-		mav.addObject("Basket", BasketList);
-		mav.setViewName("basket");
+		HttpSession session = request.getSession();
+		MemberVO vo3 = (MemberVO)session.getAttribute("member");
+		if(vo3 == null) {
+			mav.setViewName("login");
+		}else {
+			MemberVO vo = (MemberVO)session.getAttribute("member");
+			int userCode = vo.getMemberCode();
+			
+			BasketVO vo2 = new BasketVO();
+			vo2.setUserCode(userCode);
+			List<BasketVO> BasketList = basketService.getBasketList(vo2);
+			mav.addObject("Basket", BasketList);
+			mav.setViewName("basket");
+		}
 		return mav;
 	}	
 	
@@ -172,21 +177,25 @@ public class BasketController {
 	}
 
 	@RequestMapping("/basketSelectDelete.do")
-	public ModelAndView basketSelectDelete(HttpServletRequest request, ModelAndView mav, String[] newDeleteItemCode) {
+	public ModelAndView basketSelectDelete(HttpServletRequest request, ModelAndView mav, String[] newDeleteItemCode, String[] newDeleteItemSize) {
 		
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO)session.getAttribute("member");
 		int userCode = mvo.getMemberCode();
 		
 		List<String> list1 = new ArrayList<>();
+		List<String> list2 = new ArrayList<>();
 		
 		for(int i=0; i < newDeleteItemCode.length; i++) {
 			System.out.println(newDeleteItemCode[i]);
 			BasketVO vo = new BasketVO();
 			list1.add(newDeleteItemCode[i]);
 			int f = Integer.parseInt(list1.get(i));
+			list2.add(newDeleteItemSize[i]);
+			String s = list2.get(i);
 			vo.setUserCode(userCode);
 			vo.setItemCode(f);
+			vo.setItemSize(s);
 			basketService.deleteBasketList(vo);
 		}
 

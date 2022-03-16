@@ -205,7 +205,6 @@
 			}
 			
 			var o = document.order;	
-			
 			for(var i = 0; i < Length; i++){
 //				alert(i+" 번째 차");			
 				itemCode[i] = $('.selected-detail-wrap').eq(i).children().eq(0).attr('value')
@@ -218,7 +217,15 @@
 				o.orderItemPriceSub[i].value = priceSub[i];
 				itemName[i] = $('.selected-detail-wrap').eq(i).children().eq(4).attr('value')
 				o.orderItemName[i].value = itemName[i];
-				itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
+//				itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
+				if($('.selected-detail-wrap').eq(i).children().eq(5).attr('value')=="미디움"){
+					$('.selected-detail-wrap').eq(i).children().eq(5).val('m');
+					itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
+				}
+				if($('.selected-detail-wrap').eq(i).children().eq(5).attr('value')=="라지"){
+					$('.selected-detail-wrap').eq(i).children().eq(5).val('l');
+					itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
+				}
 				o.orderItemSize[i].value = itemSize[i];
 				itemImage[i] = $('.selected-detail-wrap').eq(i).children().eq(6).attr('value')
 				o.orderItemImage[i].value = itemImage[i];
@@ -229,7 +236,7 @@
 
 			}
 
-			o.action="testOrder.do";
+			o.action="order.do";
 			o.method="post";
 			o.submit();			
 			

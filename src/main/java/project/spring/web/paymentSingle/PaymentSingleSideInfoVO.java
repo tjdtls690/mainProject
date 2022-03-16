@@ -16,6 +16,15 @@ public class PaymentSingleSideInfoVO {
 	private String paymentFinalDeliveryPrice;
 	private String paymentFinalDeliverySalePrice;
 	private String paymentRealFinalPrice;
+	private String paymentDeliveryTypeCheck;
+
+	public String getPaymentDeliveryTypeCheck() {
+		return paymentDeliveryTypeCheck;
+	}
+
+	public void setPaymentDeliveryTypeCheck(String paymentDeliveryTypeCheck) {
+		this.paymentDeliveryTypeCheck = paymentDeliveryTypeCheck;
+	}
 
 	public String getPaymentDeliveryDate() {
 		return paymentDeliveryDate;
@@ -131,7 +140,7 @@ public class PaymentSingleSideInfoVO {
 
 	@Override
 	public String toString() {
-		return "PaymentSingelSideInfoVO [paymentDeliveryDate=" + paymentDeliveryDate + ", paymentDeliveryPrice="
+		return "PaymentSingleSideInfoVO [paymentDeliveryDate=" + paymentDeliveryDate + ", paymentDeliveryPrice="
 				+ paymentDeliveryPrice + ", paymentPredictionPrice=" + paymentPredictionPrice + ", paymentDeliveryType="
 				+ paymentDeliveryType + ", paymentPredictionDate=" + paymentPredictionDate
 				+ ", paymentPredictionDateSummary=" + paymentPredictionDateSummary + ", paymentShippingAddress1="
@@ -139,7 +148,8 @@ public class PaymentSingleSideInfoVO {
 				+ ", paymentShippingAddress3=" + paymentShippingAddress3 + ", paymentFinalPrice=" + paymentFinalPrice
 				+ ", paymentFinalSalePrice=" + paymentFinalSalePrice + ", paymentFinalDeliveryPrice="
 				+ paymentFinalDeliveryPrice + ", paymentFinalDeliverySalePrice=" + paymentFinalDeliverySalePrice
-				+ ", paymentRealFinalPrice=" + paymentRealFinalPrice + "]";
+				+ ", paymentRealFinalPrice=" + paymentRealFinalPrice + ", paymentDeliveryTypeCheck="
+				+ paymentDeliveryTypeCheck + "]";
 	}
 
 }

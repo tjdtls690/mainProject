@@ -643,7 +643,7 @@ public class DetailController {
 			vo.setPriceSub(itemPriceSub[i]);
 			vo.setUserCode(memberVO.getMemberCode());
 			vo.setItemCode(code[i]);
-			vo.setSub_total(subTotal[i]); 
+			vo.setSubTotal(subTotal[i]); 
 			vo.setItemSize(size[i]);
 			
 		}

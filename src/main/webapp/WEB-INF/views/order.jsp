@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/order"/>
 <!DOCTYPE html>
 <html>
@@ -163,8 +164,53 @@ function kakaoAddressStart(){
 }
 
 $(function() { 
-	// 배송지 디비에 이미 존재하는 경우 $('#addressCheck').val(1); // 새벽배송, 택배배송 나눠서.
-	// 배송지 디비에 이미 존재하는 경우 화면에 포문 돌려서 박기 (기본 배송지부터)
+	
+	var realPrice10 = $('#realPrice').val();
+	
+	if(realPrice10 < 10000){
+		var remainPrice = 10000 - realPrice10;
+		$.ajax({
+			url : 'orderMinPrice.do',
+			type : 'post',
+			dataType : 'html',
+			data : {
+				'remainPrice' : remainPrice
+			},
+			success : function(htmlOut){
+				$('.info-content').eq(0).find('.min').detach();
+				$('.info-content').eq(0).append(htmlOut);
+				$('.info-content').eq(0).children().eq(2).val(0);
+				button_activation();
+			}
+		})
+		$('.info-content').eq(1).children().eq(1).text('0회 / 3,500원');
+	}else{
+		$('.info-content').eq(0).find('.min').detach();
+		$('.info-content').eq(0).children().eq(2).val(1);
+		$('.info-content').eq(1).children().eq(1).text('1회 / 3,500원');
+	}
+	
+	if(realPrice10 < 35000){
+		var remainPrice = 35000 - realPrice10;
+		$.ajax({
+			url : 'orderMinPriceDelivery.do',
+			type : 'post',
+			dataType : 'html',
+			data : {
+				'remainPrice' : remainPrice
+			},
+			success : function(htmlOut){
+				$('.info-content').eq(1).find('.min').detach();
+				$('.info-content').eq(1).append(htmlOut);
+				$('.info-content').eq(1).children().eq(2).val(0);
+				button_activation();
+			}
+		})
+	}else{
+		$('.info-content').eq(1).find('.min').detach();
+		$('.info-content').eq(1).children().eq(2).val(1);
+		$('.info-content').eq(1).children().eq(1).text('1회 / 0원');
+	}
 	
 	
 	
@@ -574,7 +620,9 @@ $(function() {
     	}
     });
     
-    $(document).on('click', '.button__wrap', function(){
+    
+    
+    $(document).on('click', '.button__wrap', function(){ // 상품 선택완료 버튼
     	if($('#addressModalCheck').val() == 1){
     		return false;
     	}
@@ -1806,6 +1854,9 @@ $(function() {
     });
     
     $(document).on('click', '.vc-title-wrapper .vc-title.vc-text-lg.vc-text-gray-800.vc-font-semibold', function(){
+    	if($('#thirdModalCheck').val() == 1 && $('#secondModalCheck').val() == 0){
+    		$('#thirdModalCheck').val(0);
+    	}
     	if($('#secondModalCheck').val() == 0){
     		$('#secondModalCheck').val(1);
         	
@@ -2805,7 +2856,7 @@ $(function() {
         var paymentFinalDeliverySalePrice = '';
         
         if($('.info-content').eq(1).children().eq(2).val() == 1){
-        	paymentFinalDeliverySalePrice = '- 3,500';
+        	paymentFinalDeliverySalePrice = '3,500';
         }else{
         	paymentFinalDeliverySalePrice = 0;
         }
@@ -2861,18 +2912,57 @@ $(function() {
 						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<div class="hidden-div-real">
+						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] + 100 * orderQuantity[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
+								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }" pattern="#,###" />" class="savePriceSub">
+								<input type="hidden" value="${orderQuantity[i.index] }" class="saveDisposable">
+								<input type="hidden" value="${orderQuantity[i.index] }" class="saveitemQuantity">
+							</div>
+						</c:forEach>
 					</div>
 					<div class="hidden-div">
+						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
+								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] }" pattern="#,###" />" class="savePriceSub">
+								<input type="hidden" value="1" class="saveDisposable">
+								<input type="hidden" value="1" class="saveitemQuantity">
+							</div>
+						</c:forEach>
 					</div>
 					<div class="hidden-div2">
+						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
+								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] }" pattern="#,###" />" class="savePriceSub">
+								<input type="hidden" value="1" class="saveDisposable">
+								<input type="hidden" value="1" class="saveitemQuantity">
+							</div>
+						</c:forEach>
 					</div>
-					<input type="hidden" value="0" id="realQuantity">
-					<input type="hidden" value="0" id="realPrice">
-					<input type="hidden" value="0" id="realPriceSub">
-					<input type="hidden" value="0" id="oldQuantity">
-					<input type="hidden" value="0" id="oldPrice">
-					<input type="hidden" value="0" id="latelyQuantity">
-					<input type="hidden" value="0" id="latelyPrice">
+					<input type="hidden" value="${realQuantity }" id="realQuantity">
+					<input type="hidden" value="${realPrice }" id="realPrice">
+					<input type="hidden" value="${realPriceSub }" id="realPriceSub">
+					<input type="hidden" value="${fn:length(orderItem)}" id="oldQuantity">
+					<input type="hidden" value="${oldPrice }" id="oldPrice">
+					<input type="hidden" value="${fn:length(orderItem)}" id="latelyQuantity">
+					<input type="hidden" value="${oldPrice }" id="latelyPrice">
 					<input type="hidden" value="0" id="checkCalendar">
 					<input type="hidden" value="0" id="firstModalCheck">
 					<input type="hidden" value="0" id="secondModalCheck">
@@ -3062,23 +3152,170 @@ $(function() {
 										오후 5시 전까지 주문하면 다음 날 새벽에 도착합니다.</div>
 								</div>
 								<div class="order-selected-item-wrap" data-v-064d23aa="">
-									<div data-v-064d23aa="" class="order-selected-item-header">
-										<p data-v-064d23aa="" class="header-title">상품 선택</p>
-									</div>
-									<div data-v-064d23aa="" class="header-description">주문하실
-										상품을 선택해 주세요.</div>
-									<div class="order-selected-item" data-v-064d23aa="">
-										<button data-v-064d23aa="" type="button" class="add">
-											<div data-v-064d23aa="">
-												<span data-v-064d23aa="">전체 메뉴 보기</span>
-												<div data-v-064d23aa="" class="v-spinner"
-													style="display: none; left: 50%; position: absolute;">
-													<div class="v-clip"
-														style="height: 18px; width: 18px; border-width: 2px; border-style: solid; border-color: rgb(201, 238, 222) rgb(201, 238, 222) transparent; border-radius: 100%; background: transparent;"></div>
+								
+								
+									<c:if test="${fn:length(orderItem) == 0}">
+										<div data-v-064d23aa="" class="order-selected-item-header">
+											<p data-v-064d23aa="" class="header-title">상품 선택</p>
+										</div>
+										<div data-v-064d23aa="" class="header-description">주문하실
+											상품을 선택해 주세요.</div>
+										<div class="order-selected-item" data-v-064d23aa="">
+											<button data-v-064d23aa="" type="button" class="add">
+												<div data-v-064d23aa="">
+													<span data-v-064d23aa="">전체 메뉴 보기</span>
+													<div data-v-064d23aa="" class="v-spinner"
+														style="display: none; left: 50%; position: absolute;">
+														<div class="v-clip"
+															style="height: 18px; width: 18px; border-width: 2px; border-style: solid; border-color: rgb(201, 238, 222) rgb(201, 238, 222) transparent; border-radius: 100%; background: transparent;"></div>
+													</div>
 												</div>
+											</button>
+										</div>
+									</c:if>
+									
+									<c:if test="${fn:length(orderItem) > 0}">
+										<div class="order-selected-item-list" data-v-064d23aa="">
+											<div data-v-064d23aa="" class="order-selected-item-list-header">
+												<div data-v-064d23aa="" class="order-selected-item-list-header-left">
+													<p data-v-064d23aa="" class="header-title">상품 선택</p>
+												</div>
+												<div data-v-064d23aa="" class="header-btn">전체 삭제</div>
 											</div>
-										</button>
-									</div>
+											<div data-v-064d23aa="" style="display: flex; flex-wrap: wrap; width: 100%;">
+												
+												<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+													<section data-v-003a3d21="" data-v-064d23aa="" class="selected-item">
+														<header data-v-003a3d21="" class="row--wrap selected-item-header">
+															<div data-v-003a3d21="" class="row row--h-between col-12">
+																<div data-v-003a3d21="">
+																	<h3 data-v-003a3d21="">${orderItem[i.index].item_name } / ${orderItemSize[i.index] }</h3>
+																	<p data-v-003a3d21="" class="content-info">
+																		<!---->
+																	</p>
+																</div>
+																<div data-v-003a3d21="">
+																	<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+																	<button data-v-003a3d21="" type="button" class="delete-menu-btn">
+																		삭제</button>
+																</div>
+															</div>
+															<div data-v-003a3d21="" class="selected-item-header__body">
+																<nav data-v-003a3d21="">
+																	<nav data-v-4ba0dee4="" data-v-003a3d21=""
+																		class="form-number quantity">
+																		<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+																		<input type="hidden" value="${orderItemSizePrice[i.index]}">
+																		<input type="hidden" value="${orderItemSizePriceSub[i.index]}">
+																		<button data-v-4ba0dee4="" type="button"
+																			class="form-number__control">
+																			<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg"
+																				viewBox="0 0 24 24">
+																				<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																				<path data-v-4ba0dee4="" fill="currentColor"
+																					d="M7 11.5h10v1H7z"></path></g></svg>
+																		</button>
+																		<span data-v-4ba0dee4="" class="form-number__input">
+																			<input data-v-4ba0dee4="" type="number" min="1" max="100" step="1" value="${orderQuantity[i.index] }">
+																		</span>
+																		<button data-v-4ba0dee4="" type="button"
+																			class="form-number__control">
+																			<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg"
+																				viewBox="0 0 24 24">
+																				<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																				<path data-v-4ba0dee4="" fill="currentColor"
+																					d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z"></path></g></svg>
+																		</button>
+																	</nav>
+																</nav>
+																<div data-v-003a3d21=""
+																	class="selected-item-price-wrap row row--v-end">
+																	<c:if test="${orderItemSizePriceSub == 0 }">
+																		<p data-v-003a3d21="" class="selected-item-price">
+																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
+																		</p>
+																	</c:if>
+																	<c:if test="${orderItemSizePriceSub != 0}">
+																		<div data-v-003a3d21="" class="selected-item-discount">
+																			${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }</div>
+																		<p data-v-003a3d21="" class="selected-item-price">
+																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
+																		</p>
+																	</c:if>
+																	
+																</div>
+															</div>
+														</header>
+														<div data-v-003a3d21="" class="selected-item-options">
+															<dl data-v-003a3d21="" class="row--v-center">
+																<label data-v-003a3d21="" class="row--v-center">
+																	<div data-v-7e133ddb="" data-v-003a3d21="">
+																		<div data-v-7e133ddb="" class="checkbox-wrap basic">
+																			<label data-v-7e133ddb="" class="">
+																			<input data-v-7e133ddb="" id="" type="checkbox" name="" value="1">
+																				<div data-v-7e133ddb="" class="check-svg default">
+																				<img data-v-7e133ddb="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_order-checkbox-on.svg">
+																				<img data-v-7e133ddb="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_order-checkbox-off.svg">
+																				</div> <span data-v-7e133ddb="" class="checkbox-label"></span></label>
+																		</div>
+																	</div> 
+																	<span data-v-003a3d21="" style="color: rgb(61, 61, 61); font-size: 14px;">일회용품(포크+물티슈)</span></label>
+															</dl>
+														</div>
+														
+														<div data-v-003a3d21="" class="selected-item-selected-options">
+															<div data-v-003a3d21=""
+																class="row--v-end row--h-between selected-item-selected-options__price">
+																<div data-v-003a3d21="" style="width: 130px;">
+																	<nav data-v-4ba0dee4="" data-v-003a3d21=""
+																		class="form-number quantity">
+																		<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+																		<input type="hidden" value="${orderItemSizePrice[i.index]}">
+																		<input type="hidden" value="${orderItemSizePriceSub[i.index]}">
+																		<button data-v-4ba0dee4="" type="button"
+																			class="form-number__control">
+																			<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg"
+																				viewBox="0 0 24 24">
+																				<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																				<path data-v-4ba0dee4="" fill="currentColor"
+																					d="M7 11.5h10v1H7z"></path></g></svg>
+																		</button>
+																		<span data-v-4ba0dee4="" class="form-number__input">
+																				<input data-v-4ba0dee4="" type="number" min="1" max="100" step="1" value="${orderQuantity[i.index] }">
+																		</span>
+																		<button data-v-4ba0dee4="" type="button"
+																			class="form-number__control">
+																			<svg data-v-4ba0dee4="" xmlns="http://www.w3.org/2000/svg"
+																				viewBox="0 0 24 24">
+																				<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																				<path data-v-4ba0dee4="" fill="currentColor"
+																					d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z"></path></g></svg>
+																		</button>
+																	</nav>
+																</div>
+																<p data-v-003a3d21="">
+																	<em data-v-003a3d21="" style="font-style: normal;"><fmt:formatNumber value="${orderQuantity[i.index] * 100 }" pattern="#,###" />원</em>
+																</p>
+															</div>
+														</div>
+
+														
+													</section>
+												</c:forEach>
+												
+											</div>
+											<div data-v-064d23aa="" class="order-selected-item" style="flex-basis: 50%;">
+												<button data-v-064d23aa="" type="button" class="add">
+													<div data-v-064d23aa="">
+														<span data-v-064d23aa="" style="white-space: nowrap;">추가하기</span>
+													</div>
+												</button>
+											</div>
+										</div>
+									</c:if>
+									
+									
+									
 								</div>
 								<!---->
 								<div class="order-delivery-date-wrap" data-v-064d23aa="">
@@ -3116,7 +3353,7 @@ $(function() {
 												<div class="info-content" data-v-064d23aa="">
 													<div class="info-content-title" data-v-064d23aa="">상품
 														수 / 금액</div>
-													<div data-v-064d23aa="">0개 / 0원</div>
+													<div data-v-064d23aa="">${realQuantity }개 / <fmt:formatNumber value="${realPrice }" pattern="#,###" />원</div>
 													<input type="hidden" value="0">
 													<!---->
 												</div>
@@ -3135,7 +3372,7 @@ $(function() {
 													<div class="info-content-title" data-v-064d23aa="" style="">
 														할인금액</div>
 													<div style="color: rgb(31, 95, 64); font-weight: bold;"
-														data-v-064d23aa="">- 0원</div>
+														data-v-064d23aa="">- <fmt:formatNumber value="${realPriceSub }" pattern="#,###" />원</div>
 														<input type="hidden" value="0">
 												</div>
 											</div>

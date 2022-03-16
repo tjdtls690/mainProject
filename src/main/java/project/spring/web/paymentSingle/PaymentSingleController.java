@@ -17,4 +17,12 @@ public class PaymentSingleController {
 		mav.setViewName("paymentSingle");
 		return mav;
 	}
+	
+	@RequestMapping("/paymentArrow.do")
+	public ModelAndView paymentArrowDo(ModelAndView mav, String check) {
+		
+		mav.addObject("check", check);
+		mav.setViewName("paymentArrow");
+		return mav;
+	}
 }

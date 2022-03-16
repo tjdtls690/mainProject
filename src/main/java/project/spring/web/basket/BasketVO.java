@@ -88,12 +88,19 @@ public class BasketVO {
 	public void setItemCode(int itemCode) {
 		this.itemCode = itemCode;
 	}
+	public int getSubTotal() {
+		return subTotal;
+	}
+	public void setSubTotal(int subTotal) {
+		this.subTotal = subTotal;
+	}
 	
 	@Override
 	public String toString() {
 		return "BasketVO [seq=" + seq + ", itemImage=" + itemImage + ", itemName=" + itemName + ", tagMain=" + tagMain
 				+ ", tagSub=" + tagSub + ", amount=" + amount + ", price=" + price + ", priceSub=" + priceSub
-				+ ", userCode=" + userCode + ", itemCode=" + itemCode + "]";
+				+ ", userCode=" + userCode + ", itemCode=" + itemCode + ", subTotal=" + subTotal + ", itemSize="
+				+ itemSize + "]";
 	}
 
 

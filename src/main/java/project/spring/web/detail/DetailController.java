@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -631,7 +632,6 @@ public class DetailController {
 					"넘어온 itemQuantity : "+itemQuantity[i]+" 넘어온 imag : "+itemImage[i]);
 			System.out.println("------");
 		}
-		
 		BasketVO vo = new BasketVO();
 		for(int i =0; i < itemCode.length; i++) {
 			vo.setItemImage(image[i]);
@@ -647,11 +647,6 @@ public class DetailController {
 			vo.setItemSize(size[i]);
 			
 		}
-		
-		
-		
-		
-		
 		// 이제 Update만 하면된다.
 
 		mav.setViewName("detailSuccessOrder");

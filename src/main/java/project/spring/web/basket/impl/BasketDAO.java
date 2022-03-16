@@ -18,5 +18,11 @@ public class BasketDAO {
 		System.out.println("::: MyBatis getBasketList() 기능 :::");
 		return sqlSessionTemplate.selectList("BasketDAO.getBasketList", vo);
 	}
+	public void getBasketChangeList(BasketVO vo) {
+		sqlSessionTemplate.update("BasketDAO.getBasketChangeList", vo);
+	}
+	public void deleteBasketList(BasketVO vo) {
+		sqlSessionTemplate.delete("BasketDAO.deleteBasketList", vo);
+	}
 }
 

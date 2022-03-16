@@ -50,7 +50,8 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css">
+<link rel="stylesheet" href="${path }/style2.css?ver=1">
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function page_move(tagNum){
@@ -62,6 +63,8 @@
 	}
 	
 	$(function(){
+		$('.row--v-center.same-with-order-wrap > span').trigger('click');
+		
 		$(document).on('click', '#closeFinalCheck', function(){
 			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
@@ -126,6 +129,110 @@
 	    		}
 	    		lastScrollTop = st;
 	    	});
+	    	
+	    	
+	    // 주문자 정보와 같습니다 체크박스
+	    $(document).on('click', '.row--v-center.same-with-order-wrap svg', function(){
+	    	if($('#samePerson').val() == 0){
+	    		$('#samePerson').val(1);
+	    		$('.form-text').eq(0).val($('#memberName').val()); // 받는분 이름을 입력해주세요.
+	    		$('.form-text').eq(1).val($('#memberPhone').val()); // 연락처를 입력해주세요
+	    	}else{
+	    		$('#samePerson').val(0);
+	    		$('.form-text').eq(0).val(''); // 받는분 이름을 입력해주세요.
+	    		$('.form-text').eq(1).val(''); // 연락처를 입력해주세요
+	    	}
+	    })
+	    
+	    
+	    // 주문자 정보와 같습니다 문자열
+	    $(document).on('click', '.row--v-center.same-with-order-wrap > span', function(){
+	    	if($('#samePerson').val() == 0){
+	    		$('#samePerson').val(1);
+	    		$('.form-text').eq(0).val($('#memberName').val()); // 받는분 이름을 입력해주세요.
+	    		$('.form-text').eq(1).val($('#memberPhone').val()); // 연락처를 입력해주세요
+	    	}else{
+	    		$('#samePerson').val(0);
+	    		$('.form-text').eq(0).val(''); // 받는분 이름을 입력해주세요.
+	    		$('.form-text').eq(1).val(''); // 연락처를 입력해주세요
+	    	}
+	    })
+	    
+	    $(document).on('click', '.checkout__items svg', function(){
+	    	if($('#orderListOpenClose').val() == 1){
+	    		$(this).attr('aria-labelledby', 'arrow-down-1');
+	    		$('#orderListOpenClose').val(0);
+	    		$('.products').css('display', 'none');
+	    		$.ajax({
+	    			url : 'paymentArrow.do',
+	    			dataType : 'html',
+	    			type : 'post',
+	    			data : {
+	    				'check' : 0
+	    			},
+	    			success : function(htmlOut){
+	    				$('.checkout__items svg g').html(htmlOut);
+	    			}
+	    		})
+	    	}else{
+	    		$(this).attr('aria-labelledby', 'arrow-up-1');
+	    		$('#orderListOpenClose').val(1);
+	    		$('.products').css('display', '');
+	    		$.ajax({
+	    			url : 'paymentArrow.do',
+	    			dataType : 'html',
+	    			type : 'post',
+	    			data : {
+	    				'check' : 1
+	    			},
+	    			success : function(htmlOut){
+	    				$('.checkout__items svg g').html(htmlOut);
+	    			}
+	    		})
+	    	}
+	    });
+	    
+	    //checkout__nav button__wrap
+	    $(document).on('click', '.checkout__nav .button__wrap', function(){
+	    	var productsName = $('#productsName').val();
+	    	var productsNum = $('#productsNum').val();
+	    	if(productsNum > 1){
+	    		productsName += ' 외 ' + (productsNum - 1) + '개';
+	    	}
+	    		
+	    		
+        	var IMP = window.IMP;
+	        IMP.init('imp80414894');
+	        IMP.request_pay({
+	          pg: 'inicis', 
+	          pay_method: 'card',
+	          merchant_uid: 'merchant_' + new Date().getTime(),
+	          name: productsName,
+	          //결제창에서 보여질 이름
+	          amount: $('#productsFinalPrice').val(),
+	          //가격
+	          buyer_email: $('#memberEmail').val(),
+	          buyer_name: $('#memberName').val(),
+	          buyer_tel: $('#memberPhone').val(),
+	          buyer_addr: '청라',
+	          buyer_postcode: '123-456',
+	          m_redirect_url: 'orderSu?member_number=4' //결제 끝나고 랜딩되는 페이지 
+	        }, function (rsp) {
+	         console.log(rsp);
+	         if (rsp.success) {
+	          var msg = '결제가 완료되었습니다.\n';
+	          msg += '고유ID : ' + rsp.imp_uid;
+	          msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	          msg += '\n결제 금액 : ' + rsp.paid_amount;
+	          msg += '\n카드 승인번호 : ' + rsp.apply_num;
+	          location.href="orderSu?member_number=4";
+	         } else {
+	          var msg = '결제에 실패하였습니다.\n';
+	          msg += '에러내용 : ' + rsp.error_msg;
+	         }
+	         alert(msg);
+	        });
+		});
 	})
 </script>
 </head>
@@ -148,6 +255,14 @@
 						<input type="hidden" name="itemCode01" value="">
 						<input type="hidden" name="tagSub01" value="">
 					</form>
+					<input type="hidden" value="${member.name }" id="memberName">
+					<input type="hidden" value="${member.email }" id="memberEmail">
+					<input type="hidden" value="${member.phone }" id="memberPhone">
+					<input type="hidden" value="${list[0].paymentItem }" id="productsName">
+					<input type="hidden" value="${fn:length(list)}" id="productsNum">
+					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice">
+					<input type="hidden" value="1" id="samePerson">
+					<input type="hidden" value="1" id="orderListOpenClose">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -245,8 +360,7 @@
 					<!---->
 				</header>
 				<!---->
-				<div data-v-1739428d="" class="container"
-					style="padding-top: 182px;">
+				<div data-v-1739428d="" class="container">
 					<div data-v-8f2f8136="" data-v-1739428d=""
 						class="checkout-container">
 						<article data-v-8f2f8136="" class="checkout">
@@ -392,9 +506,9 @@
 													<input data-v-8bb17226="" data-v-8f2f8136="" id="xx"
 														type="text" name="xx" placeholder="받는분 이름을 입력해주세요"
 														maxlength="50" autocorrect="off" autocapitalize="off"
-														class="form-text"
+														class="form-text" value="${member.name }"
 														style="height: 47px; margin-bottom: 10px;"> <input
-														data-v-8bb17226="" data-v-8f2f8136="" id="yy" type="tel"
+														data-v-8bb17226="" data-v-8f2f8136="" id="yy" type="tel" value="${member.phone }"
 														name="yy" placeholder="연락처를 입력해주세요" minlength="9"
 														maxlength="12" autocorrect="off" autocapitalize="off"
 														class="form-text" style="height: 47px;">
@@ -469,70 +583,7 @@
 								<!---->
 								<div data-v-8f2f8136="" class="checkout-column">
 									<div data-v-8f2f8136="" class="checkout-column__payment">
-										<section data-v-8f2f8136="" class="checkout__payment">
-											<h3 data-v-8f2f8136="" class="checkout__section-title">결제수단</h3>
-											<div data-v-8f2f8136="" class="method">
-												<div data-v-8f2f8136=""
-													class="row--v-center method__item method__item--fco selected">
-													<label data-v-8f2f8136="" id="pay-card"
-														class="row--v-center col"><input
-														data-v-8f2f8136="" type="radio" name="pay" value="card"
-														class="check"> <span data-v-8f2f8136="">프코
-															간편결제</span></label>
-												</div>
-												<div data-v-8f2f8136=""
-													class="row--v-center method__item method__item--fco">
-													<label data-v-8f2f8136="" id="pay-payco"
-														class="row--v-center col"><input
-														data-v-8f2f8136="" type="radio" name="pay" value="payco"
-														class="check"> <span data-v-8f2f8136="">페이코
-															간편결제</span></label>
-												</div>
-												<div data-v-8f2f8136=""
-													class="row--v-center method__item method__item--fco">
-													<label data-v-8f2f8136="" id="pay-unpaid-card"
-														class="row--v-center col"><input
-														data-v-8f2f8136="" type="radio" name="pay"
-														value="unpaid-card" class="check"> <span
-														data-v-8f2f8136="">신용카드</span></label>
-												</div>
-												<div data-v-8f2f8136=""
-													class="row--v-center method__item method__item--fco">
-													<label data-v-8f2f8136="" id="pay-unpaid-kakao"
-														class="row--v-center col"><input
-														data-v-8f2f8136="" type="radio" name="pay"
-														value="unpaid-kakao" class="check"> <span
-														data-v-8f2f8136="">카카오 간편결제</span></label>
-												</div>
-												<div data-v-8f2f8136=""
-													class="row--v-center method__item method__item--fco">
-													<label data-v-8f2f8136="" id="pay-toss"
-														class="row--v-center col"><input
-														data-v-8f2f8136="" type="radio" name="pay" value="toss"
-														class="check"> <span data-v-8f2f8136="">토스
-															간편결제</span></label>
-												</div>
-												<div data-v-8f2f8136=""
-													class="row--v-center method__item method__item--fco">
-													<label data-v-8f2f8136="" id="pay-unpaid-bank"
-														class="row--v-center col"><input
-														data-v-8f2f8136="" type="radio" name="pay"
-														value="unpaid-bank" class="check"> <span
-														data-v-8f2f8136="">계좌이체</span></label>
-												</div>
-												<!---->
-												<div data-v-8f2f8136="" class="row--v-center fcopay">
-													<!---->
-													<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
-														title=""
-														class="button button--side-padding button--size-small"
-														style="height: 46px; border-radius: 2px; flex: 1 1 0px;">
-														<span data-v-a1c889e0="" class="button__wrap"> 카드
-															등록 </span>
-													</button>
-												</div>
-											</div>
-										</section>
+										
 										<section data-v-8f2f8136="" class="checkout__coupoint">
 											<div data-v-8f2f8136="" class="coupon">
 												<h3 data-v-8f2f8136="" class="checkout__section-title">할인
@@ -554,7 +605,7 @@
 													사용</h3>
 												<div data-v-8f2f8136="" class="point-wrap row--v-center">
 													<span data-v-8f2f8136="" class="point__input"><input
-														data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel"
+														data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel" value="0"
 														name="pp" placeholder="포인트를 입력해주세요" autocorrect="off"
 														autocapitalize="off" class="form-text" max="0"
 														style="height: 46px; text-align: right;"> <i

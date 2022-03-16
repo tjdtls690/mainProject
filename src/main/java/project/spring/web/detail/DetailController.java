@@ -510,7 +510,7 @@ public class DetailController {
 	    //System.out.println("뽑은 char형 :"+day3); // 요일만 보이게		
 		String str = request.getParameter("price");
 		int price = Integer.parseInt(str);
-		//System.out.println("넘어온 price 값 : "+price);		
+		System.out.println("넘어온 price 값 : "+price);		
 		String getCode = request.getParameter("code");
 		int code = Integer.parseInt(getCode);
 		//System.out.println("넘어온 code 값 : "+code);		
@@ -518,15 +518,10 @@ public class DetailController {
 		int tagNum = Integer.parseInt(getTag);
 		//System.out.println("넘어온 tag 값 : "+tagNum);
 		
-
-		
-		
-//		TapPageVO vo = new TapPageVO();		
-//		vo.setTagMain(tagNum);
-//		List<TapPageVO> showList = tapPageService.getRandom2(vo);
-//		System.out.println("----> vo.setItemCode(tagNum) :" + vo.getTagMain());
-//
-//		mav.addObject("showList",showList);
+		ModalVO vo = new ModalVO();
+		vo.setSubscribe_code(code);
+		System.out.println("셋팅된 subscribe_code 값 : "+ vo.getSubscribe_code());
+		List<ModalVO> modal = modalService.getModalList(vo);
 		
 		mav.addObject("size",size);
 		mav.addObject("week",week);
@@ -541,45 +536,45 @@ public class DetailController {
 	}
 	
 //  모달창내에서 리스트 클릭
-	@RequestMapping("/modalList.do")
-	public ModelAndView modalList(HttpServletRequest request,ModelAndView mav) {
-		System.out.println("모달리스트 크릭");
-		String getCode = request.getParameter("code");
-		int code = Integer.parseInt(getCode);
-		//System.out.println("넘어온 code 값 : "+code);		
-		String getTag = request.getParameter("tag");
-		int tagNum = Integer.parseInt(getTag);
-		//System.out.println("넘어온 tag 값 : "+tagNum);
-		
-	// 샐러드만 보여주게끔
-		if(code ==14 || code ==15 || code == 22 || code == 23 || code == 18 || code ==26 ) { 
-			System.out.println("샐러드일때");
-			ModalVO vo = new ModalVO();
-			vo.setSubscribe_code(code);
-			System.out.println("셋팅된 subscribe_code 값 : "+ vo.getSubscribe_code());
-			List<ModalVO> modal = modalService.getModalList(vo);
-			mav.addObject("modal",modal);
-			mav.setViewName("detailSubModalList");
-			
-		}
-		// 여러가지 보여줄거임
-		else if(code == 16 && code == 24 && code == 17 && code == 25) {
-		
-		}
-		// 샐러드 / 도시락 택
-		else if(code == 19 && code == 27 )	{
-			
-		}
-		// 샐러드 / 샌드위치
-		else if(code == 20 && code == 28) {
-			
-		}
-		// 도시락만 보여줄거임
-		else if(code == 21 && code == 29) {
-			
-		}
-		return mav;	
-	}
+//	@RequestMapping("/modalList.do")
+//	public ModelAndView modalList(HttpServletRequest request,ModelAndView mav) {
+//		System.out.println("모달리스트 크릭");
+//		String getCode = request.getParameter("code");
+//		int code = Integer.parseInt(getCode);
+//		//System.out.println("넘어온 code 값 : "+code);		
+//		String getTag = request.getParameter("tag");
+//		int tagNum = Integer.parseInt(getTag);
+//		//System.out.println("넘어온 tag 값 : "+tagNum);
+//		
+//	// 샐러드만 보여주게끔
+//		if(code ==14 || code ==15 || code == 22 || code == 23 || code == 18 || code ==26 ) { 
+//			System.out.println("샐러드일때");
+//			ModalVO vo = new ModalVO();
+//			vo.setSubscribe_code(code);
+//			System.out.println("셋팅된 subscribe_code 값 : "+ vo.getSubscribe_code());
+//			List<ModalVO> modal = modalService.getModalList(vo);
+//			mav.addObject("modal",modal);
+//			mav.setViewName("detailSubModalList");
+//			
+//		}
+//		// 여러가지 보여줄거임
+//		else if(code == 16 && code == 24 && code == 17 && code == 25) {
+//		
+//		}
+//		// 샐러드 / 도시락 택
+//		else if(code == 19 && code == 27 )	{
+//			
+//		}
+//		// 샐러드 / 샌드위치
+//		else if(code == 20 && code == 28) {
+//			
+//		}
+//		// 도시락만 보여줄거임
+//		else if(code == 21 && code == 29) {
+//			
+//		}
+//		return mav;	
+//	}
 
 // 장바구니 모달
 	@RequestMapping("/plzSelect.do")
@@ -681,7 +676,7 @@ public class DetailController {
 	@RequestMapping(value ="/testOrder.do")
 	public ModelAndView testOrdaer(HttpServletRequest request, ModelAndView mav, String[] orderItemCode
 			,String[] orderTagMain, String[] orderItemPrice, String[] orderItemPriceSub, String[] orderItemName
-			,String[] orderItemSize ,String[] orderItemTagSub, String[] orderItemImage, String[] orderQuantity) {
+			,String[] orderItemSizeSummary  ,String[] orderItemTagSub, String[] orderItemImage, String[] orderQuantity) {
 		System.out.println("주문하기 클릭했음");
 		
 		String[] str1 = request.getParameterValues("orderItemCode");		// int
@@ -693,7 +688,7 @@ public class DetailController {
 		String[] price = request.getParameterValues("orderItemPrice");
 		String[] priceSub = request.getParameterValues("orderItemPriceSub");
 		String[] name = request.getParameterValues("orderItemName");
-		String[] size = request.getParameterValues("orderItemSize");		// m / l로 구분
+		String[] size = request.getParameterValues("orderItemSizeSummary");		// m / l로 구분
 		String[] str3 = request.getParameterValues("orderItemTagSub");		// int
 		int[] tagSub = new int[str3.length];
 		tagSub[0] = Integer.parseInt(str3[0]);

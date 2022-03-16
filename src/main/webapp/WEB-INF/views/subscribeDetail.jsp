@@ -209,11 +209,16 @@
 				}); // ajax 끝								
 			} //else 끝
 			$('.dropdown-btn').toggleClass('dropdown-open');
+			$('')
 		}); // 드롭 다운 끝
 
 // 드롭 다운 아이템 클릭
 		$(document).on('click','.detail-name-and-badge',function(){
-			//alert("2.드랍다운 아이템 클릭");
+		//alert("2.드랍다운 아이템 클릭");
+			// 선택한 주를 text에 표기
+			$('.dropdown-btn.click').children().children().first().addClass('selected-content');
+			$('.dropdown-btn.click').children().children().first().text($(this).text());
+			
 			var week = $(this).text();
 			var selectedWeek = Number(week.replace('주', '').replace(',', ''));
 			$('.setWeek').val(selectedWeek);
@@ -224,10 +229,20 @@
 			var subPriceM = $('.subPrcieM').val(); 
 			subPriceM = Number(subPriceM.replace('원', '').replace(',', ''));
 			//alert('M가격 : '+subPriceM);
+			// M 할인전 가격
+			var subPriceM_Sub = $('.subPrcieM_Sub').val();
+			subPriceM_Sub = Number(subPriceM_Sub.replace('원', '').replace(',', ''));
+			//alert("M할인전 가격 :"+subPriceM_Sub);
+			
 			// L 가격 
 			var subPriceL = $('.subPrcieL').val(); 
 			subPriceL = Number(subPriceL.replace('원', '').replace(',', ''));
 			//alert('L가격 : '+subPriceL);
+			// L 할인전 가격
+			var subPriceL_Sub = $('.subPrcieL_Sub').val();
+			subPriceL_Sub = Number(subPriceL_Sub.replace('원', '').replace(',', ''));
+			//alert("L할인전 가격 :"+subPriceL_Sub);
+			
 			// 사이즈 불러오기
 			var size = $('.setSize').val();
 
@@ -238,8 +253,13 @@
 				var setPrice = $('.setPrice').val();
 				var totalPrice = setPrice*selectedWeek;
 				$('.setTotal').val(totalPrice);
+				
+				$('.setPriceSub').val(subPriceM_Sub);
+				var setPriceSub = $('.setPriceSub').val();
+				var totalPriceSub = setPriceSub*selectedWeek;
+				$('.setTotalSub').val(totalPriceSub);
 			
-				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+				alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 			
 	// 라지 클릭후 가격 셋팅					
 			}else if(size =="Large"){							
@@ -249,7 +269,12 @@
 				var totalPrice = setPrice*selectedWeek;
 				$('.setTotal').val(totalPrice);
 				
-				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+				$('.setPriceSub').val(subPriceL_Sub);
+				var setPriceSub = $('.setPriceSub').val();
+				var totalPriceSub = setPriceSub*selectedWeek;
+				$('.setTotalSub').val(totalPriceSub);
+				
+				alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 				
 			}else{
 				alert("사이즈를 먼저 선택해주세요");
@@ -268,7 +293,7 @@
 
 // 날짜 선택 클릭 시
 		$(document).on('click','.v-date-custom',function(){
-			
+			alert("달력클릭");
 			// css 변경을 원본 홈피와 그대로 하겠다.
 			$(".vc-popover-content-wrapper").css({
 				'position': 'absolute',
@@ -281,7 +306,9 @@
 			var test = "test";
 			
 			if($('.vc-popover-content-wrapper').hasClass('is-interactive')){
+				alert("이미 있다");
 				$('div').detach('.vc-popover-content-wrapper:eq(1)'); // 이름이 같아서 2번째인 달력을 detach
+				$('div').detach('.vc-popover-content-wrapper:eq(2)');
 				$('.vc-popover-content-wrapper').removeAttr('style'); //스타일을 다지워줌
 			}else{	
 				//alert("없음");
@@ -293,7 +320,6 @@
 						"test" : test
 					},
 					success : function(htmlOut){
-						alert("success");
 						$('.v-date-custom').append(htmlOut);
 						
 					}
@@ -307,7 +333,7 @@
 		});// 날짜 선택 클릭 끝
 
 // 날짜 선택
-		$(document).on('click','.vc-day-content.vc-focusable',function(){
+		$(document).on('click','.vc-day-content',function(){
 			alert("날짜 클릭");
 			//이름
 			var name = $('.menu__name').text();
@@ -361,6 +387,7 @@
 			// 원하는주 disable
 			$('.dropdown-btn-flex-wrap').toggleClass('disabled');
 			// 달력 disabled
+			$('.date-picker-input').attr("disabled", 'disabled');
 			
 		
 		});
@@ -376,6 +403,26 @@
 			$('.setTotal').val(nothing);
 			$('.startDate').val(nothing);
 		
+			// disable
+// 			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
+			$('.menu__label').toggleClass('disabled-style');
+			$('.menu__label').attr("disabled", 'disabled');
+			$('.menu__label.menu__price-label').toggleClass('disabled-style');
+			$('.menu__label.menu__price-label').attr("disabled", 'disabled');
+			// M / L 버튼 disabled
+			$('.row--v-center.radio-label').toggleClass('disabled-style');
+			$('.row--v-center.radio-label').attr("disabled", 'disabled');
+			$('.row--v-center').toggleClass('disabled-style');
+			$('.row--v-center').attr("disabled", 'disabled');
+			$('.form-radio').toggleClass('form-radio--disabled');
+			$('.form-radio').attr("disabled", 'disabled');
+			$('.radio-side-text').toggleClass('disabled-style');
+			$('.radio-side-text').attr("disabled", 'disabled');
+			// 원하는주 disable
+			$('.dropdown-btn-flex-wrap').toggleClass('disabled');
+			// 달력 disabled
+			$('.date-picker-input').attr("disabled", 'disabled');
+			
 			
 		})
 		
@@ -417,6 +464,9 @@
 		$(document).on('click','.button--outline4',function(){
 			alert("닫기");
 			$('.modal').detach();
+			if($('html').hasClass('mode-popup')){
+				$('html').removeClass('mode-popup');
+			}
 		})
 
 // 몇주째 클릭 으로 초록색 바탕 보이고 나타내기 
@@ -431,38 +481,38 @@
 
 // 모달창 드랍다운 클릭
 
-		$(document).on('click','.menu-select-wrap__list .dropdown-btn',function(){
-//			alert("모달 버튼 클릭");
-			var code = $('.itemCode').val();	// 아이템 코드
-//			alert("넘어온 코드"+code);
-			var tag = $('.tagMain').val();
-//			alert("넘어온 태그"+tag);
+// 		$(document).on('click','.menu-select-wrap__list .dropdown-btn',function(){
+// //			alert("모달 버튼 클릭");
+// 			var code = $('.itemCode').val();	// 아이템 코드
+// //			alert("넘어온 코드"+code);
+// 			var tag = $('.tagMain').val();
+// //			alert("넘어온 태그"+tag);
 			
 			
-			$.ajax({
-				url : 'modalList.do',
-				type : 'post',
-				dataType : 'html',
-				data :{
-					"tag" : tag,
-					"code" : code
-				},
-				context : this,
-				success : function(htmlOut){
-					alert("ajax성공");
-					$(this).attr('class','dropdown-btn dropdown-open');
-					$(this).children().append(htmlOut);
+// 			$.ajax({
+// 				url : 'modalList.do',
+// 				type : 'post',
+// 				dataType : 'html',
+// 				data :{
+// 					"tag" : tag,
+// 					"code" : code
+// 				},
+// 				context : this,
+// 				success : function(htmlOut){
+// 					alert("ajax성공");
+// 					$(this).attr('class','dropdown-btn dropdown-open');
+// 					$(this).children().append(htmlOut);
 					
-				},
-				error:function(){
-			        alert("에러");
-			       }
+// 				},
+// 				error:function(){
+// 			        alert("에러");
+// 			       }
 
-			});// ajax 끝
+// 			});// ajax 끝
 			
 			
 			
-		});	
+// 		});	
 
 		
 // 상품 이미지 더보기
@@ -522,8 +572,10 @@
 <!--                input hidden 태그 -->
 <!--                input hidden 태그 -->
 				<input type="hidden" class="setPrice" value="">
+				<input type="hidden" class="setPriceSub" value="">
 				<input type="hidden" class="setSize" value="">
 				<input type="hidden" class="setTotal" value="">
+				<input type="hidden" class="setTotalSub" value="">
 				<input type="hidden" class="startDate" value="">
 				<input type="hidden" class="setWeek" value="">
 				<input type="hidden" value="${detail.item_code }" class="itemCode">

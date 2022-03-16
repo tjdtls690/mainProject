@@ -3243,14 +3243,14 @@ $(function() {
 																	class="selected-item-price-wrap row row--v-end">
 																	<c:if test="${orderItemSizePriceSub[i.index] == 0 }"> <!-- todo -->
 																		<p data-v-003a3d21="" class="selected-item-price">
-																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
+																			<em data-v-003a3d21=""><fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] }" pattern="#,###" />원</em>
 																		</p>
 																	</c:if>
 																	<c:if test="${orderItemSizePriceSub[i.index] != 0}">
 																		<div data-v-003a3d21="" class="selected-item-discount">
-																			${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }</div>
+																			<fmt:formatNumber value="${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }" pattern="#,###" /></div>
 																		<p data-v-003a3d21="" class="selected-item-price">
-																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
+																			<em data-v-003a3d21=""><fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] }" pattern="#,###" />원</em>
 																		</p>
 																	</c:if>
 																	

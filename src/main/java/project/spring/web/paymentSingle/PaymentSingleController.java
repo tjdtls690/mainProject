@@ -1,5 +1,7 @@
 package project.spring.web.paymentSingle;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +17,8 @@ public class PaymentSingleController {
 	
 	@Autowired
 	MemberZipcodeService memberZipcodeService;
+	@Autowired
+	PaymentSingleService paymentSingleService;
 	
 	@RequestMapping("/paymentSingle.do")
 	public ModelAndView paymentSingleDo(ModelAndView mav, @ModelAttribute(value="PaymentSingleListVO") PaymentSingleListVO list
@@ -50,7 +54,10 @@ public class PaymentSingleController {
 	}
 	
 	@RequestMapping("/paymentCouponModal.do")
-	public ModelAndView paymentCouponModalDo(ModelAndView mav, String check) {
+	public ModelAndView paymentCouponModalDo(ModelAndView mav, PaymentSingleCouponInfoVO vo) {
+		List<PaymentSingleCouponInfoVO> list = paymentSingleService.getMyPaymentCoupon(vo);
+		
+		mav.addObject("list", list);
 		mav.setViewName("paymentCouponModal");
 		return mav;
 	}

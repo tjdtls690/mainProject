@@ -686,39 +686,41 @@ public class DetailController {
 		
 		String[] str1 = request.getParameterValues("orderItemCode");		// int
 		int[] code = new int[str1.length];
-        if(str1[1]=="") {
-        	code[0] = Integer.parseInt(str1[0]);
-        	code[1] = 0;
-        }
+		code[0] = Integer.parseInt(str1[0]);
 		String[] str2 = request.getParameterValues("orderTagMain");			// int		
 		int[] tagMain = new int[str2.length];
-        if(str2[1]=="") {
-        	tagMain[0] = Integer.parseInt(str2[0]);
-        	tagMain[1] = 0;
-        }
+		tagMain[0] = Integer.parseInt(str2[0]);
 		String[] price = request.getParameterValues("orderItemPrice");
 		String[] priceSub = request.getParameterValues("orderItemPriceSub");
 		String[] name = request.getParameterValues("orderItemName");
 		String[] size = request.getParameterValues("orderItemSize");		// m / l로 구분
 		String[] str3 = request.getParameterValues("orderItemTagSub");		// int
 		int[] tagSub = new int[str3.length];
-        if(str3[1]=="") {
-        	tagSub[0] = Integer.parseInt(str3[0]);
-        	tagSub[1] = 0;
-        }
+		tagSub[0] = Integer.parseInt(str3[0]);
 		String[] image = request.getParameterValues("orderItemImage");
 		String[] str4 = request.getParameterValues("orderQuantity");		// int
-		System.out.println("수량값 !!!!!!!!!!!!!!!"+str4[0]);
 		int[] quantity = new int[str4.length];
-        if(str4[1]=="") {
-        	quantity[0] = Integer.parseInt(str4[0]);
+		quantity[0] = Integer.parseInt(str4[0]);
+
+        //2개일때 형변환 처리
+        if(str1[1]=="") { // 1개일때
+        	code[1] = 0;
+        	tagMain[1] = 0;
+        	tagSub[1] = 0;
         	quantity[1] = 0;
+        }else {
+        	for(int i=0; i<code.length; i++) { // 2개일때
+        		code[i] = Integer.parseInt(str1[i]);
+        		tagMain[i] = Integer.parseInt(str2[i]);
+        		tagSub[i] = Integer.parseInt(str3[i]);
+        		quantity[i] = Integer.parseInt(str4[i]);
+        	}
         }
 		
 // 넘어온 리스트가 1개일때와 2개일때 구분		
-		if(code[1]== 0) { // 1개일때
+		if(code[1] == 0) { // 1개일때
 			for(int i=0; i < 1; i++) {
-				System.out.println("주문하기의 "+i+"회차 목록들");
+				System.out.println("1개일때");
 				System.out.println(" 넘어온 size: "+size[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
 						+priceSub[i]+" 넘어온 name : "+name[i]+" 넘어온 code : "+code[i]+
 						" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+
@@ -729,7 +731,7 @@ public class DetailController {
 			
 		}else { // 2개일때
 			for(int i=0; i < code.length; i++) {
-				System.out.println("주문하기의 "+i+"회차 목록들");
+				System.out.println("2개일때");
 				System.out.println(" 넘어온 size: "+size[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
 						+priceSub[i]+" 넘어온 name : "+name[i]+" 넘어온 code : "+code[i]+
 						" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+

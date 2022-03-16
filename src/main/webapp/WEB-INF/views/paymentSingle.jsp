@@ -50,7 +50,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=1">
+<link rel="stylesheet" href="${path }/style2.css?ver=2">
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -80,6 +80,12 @@
 				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
 				setTimeout(function() {
 					$('.swal2-container').detach();
+					if($('.form-text').eq(2).val().length == 0 && $('#paymentDeliveryTypeCheck').val() == 0){
+				    	$('html').attr('class', '');
+				    	$('body').attr('class', '');
+				    	$('noscript').removeAttr('aria-hidden');
+				    	$('#__nuxt').removeAttr('aria-hidden');
+					}
 				}, 100);
 			}
 		});
@@ -192,47 +198,83 @@
 	    	}
 	    });
 	    
-	    //checkout__nav button__wrap
-	    $(document).on('click', '.checkout__nav .button__wrap', function(){
-	    	var productsName = $('#productsName').val();
-	    	var productsNum = $('#productsNum').val();
-	    	if(productsNum > 1){
-	    		productsName += ' 외 ' + (productsNum - 1) + '개';
+	    
+	    // 결제하기 버튼
+	    $(document).on('click', '#pay-btn2', function(){
+	    	// 공동현관 메모 비어있을 시 리턴
+	    	if($('.form-text').eq(2).val().length == 0 && $('#paymentDeliveryTypeCheck').val() == 0){
+	    		$('html').attr('class', 'swal2-shown swal2-height-auto');
+		    	$('body').attr('class', 'swal2-shown swal2-height-auto');
+		    	$('noscript').attr('aria-hidden', 'true');
+		    	$('#__nuxt').attr('aria-hidden', 'true');
+	    		$.ajax({
+	    			url : 'paymentEnterExitType.do',
+	    			dataType : 'html',
+	    			success : function(htmlOut){
+	    				$('body').append(htmlOut);
+	    			}
+	    		});
+	    		return false;
 	    	}
-	    		
-	    		
-        	var IMP = window.IMP;
-	        IMP.init('imp80414894');
-	        IMP.request_pay({
-	          pg: 'inicis', 
-	          pay_method: 'card',
-	          merchant_uid: 'merchant_' + new Date().getTime(),
-	          name: productsName,
-	          //결제창에서 보여질 이름
-	          amount: $('#productsFinalPrice').val(),
-	          //가격
-	          buyer_email: $('#memberEmail').val(),
-	          buyer_name: $('#memberName').val(),
-	          buyer_tel: $('#memberPhone').val(),
-	          buyer_addr: '청라',
-	          buyer_postcode: '123-456',
-	          m_redirect_url: 'orderSu?member_number=4' //결제 끝나고 랜딩되는 페이지 
-	        }, function (rsp) {
-	         console.log(rsp);
-	         if (rsp.success) {
-	          var msg = '결제가 완료되었습니다.\n';
-	          msg += '고유ID : ' + rsp.imp_uid;
-	          msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	          msg += '\n결제 금액 : ' + rsp.paid_amount;
-	          msg += '\n카드 승인번호 : ' + rsp.apply_num;
-	          location.href="orderSu?member_number=4";
-	         } else {
-	          var msg = '결제에 실패하였습니다.\n';
-	          msg += '에러내용 : ' + rsp.error_msg;
-	         }
-	         alert(msg);
-	        });
+	    	
+			var zNum = $('.deliveryZipcodeCode').val();
+			var productsName = $('#productsName').val();
+			var productsNum = $('#productsNum').val();
+			if($('#productsNum').val() > 0){
+				productsName += ' 외 '+ (Number(productsNum) - 1) + '개';
+			}
+			
+			$.ajax({
+				url : 'getZipcode.do',
+				type : 'post',
+				data : {
+					'deliveryZipcodeCode' : zNum
+				},
+				success : function(data){
+					alert($('#productsFinalPrice').val() + ' ' + $('#memberName').val());
+					alert($('#memberPhone').val() + ' ' + $('#productsFinalShippingAddress2').val());
+					alert(data + ' ' + productsName);
+					var IMP = window.IMP;
+			        IMP.init('imp80414894');
+			        IMP.request_pay({
+				          pg: 'html5_inicis', 
+				          pay_method: 'card',
+				          merchant_uid: 'merchant_' + new Date().getTime(),
+				          name: productsName,
+				          //결제창에서 보여질 이름
+				          amount: Number($('#productsFinalPrice').val().replace(',', '')),
+				          //가격
+				          buyer_email: $('#memberEmail').val(),
+				          buyer_name: $('#memberName').val(),
+				          buyer_tel: $('#memberPhone').val(),
+				          buyer_addr: $('#productsFinalShippingAddress2').val(),
+				          buyer_postcode: data
+			        }, function (rsp) {
+				         console.log(rsp);
+				         if (rsp.success) {
+					          var msg = '결제가 완료되었습니다.\n';
+					          msg += '고유ID : ' + rsp.imp_uid;
+					          msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+					          msg += '\n결제 금액 : ' + rsp.paid_amount;
+					          msg += '\n카드 승인번호 : ' + rsp.apply_num;
+		 			          location.href="paymentComplete.do";
+				         } else {
+					          var msg = '결제에 실패하였습니다.\n';
+					          msg += '에러내용 : ' + rsp.error_msg;
+				         }
+				         alert(msg);
+				    })
+				 }
+			})
 		});
+	    
+	    // 일반 체크 모달창 확인 버튼
+	    $(document).on('click', '.swal2-confirm.swal2-styled', function(){
+	    	$('html').attr('class', '');
+	    	$('body').attr('class', '');
+	    	$('noscript').removeAttr('aria-hidden');
+	    	$('#__nuxt').removeAttr('aria-hidden');
+	    })
 	})
 </script>
 </head>
@@ -260,7 +302,10 @@
 					<input type="hidden" value="${member.phone }" id="memberPhone">
 					<input type="hidden" value="${list[0].paymentItem }" id="productsName">
 					<input type="hidden" value="${fn:length(list)}" id="productsNum">
+					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck">
 					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice">
+					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1">
+					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2">
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
@@ -558,28 +603,74 @@
 									</header>
 								</section>
 								<!---->
-								<section data-v-8f2f8136="" class="checkout__method">
-									<div data-v-8f2f8136="" class="info-wrap">
-										<h3 data-v-8f2f8136="" class="checkout__section-title">배송메모</h3>
-									</div>
-									<div data-v-8f2f8136="" class="method__checks parcel">
-										<input data-v-8bb17226="" data-v-8f2f8136="" type="text"
-											name="xxxx" placeholder="배송메모를 입력해주세요." maxlength="50"
-											autocorrect="off" autocapitalize="off" class="form-text"
-											style="height: 46px; margin-bottom: 10px;">
-									</div>
-									<div data-v-8f2f8136="" class="method">
-										<div data-v-8f2f8136="" class="disposable-checkbox-wrap">
-											<input data-v-8f2f8136="" id="reuseDeliveryMsgFlag-checkbox"
-												type="checkbox" name="reuseDeliveryMsgFlag"
-												class="disposable-checkbox"> <label
-												data-v-8f2f8136="" for="reuseDeliveryMsgFlag-checkbox"
-												class="disposable-checkbox-label"><span
-												data-v-8f2f8136="" class="disposable-checkbox-text">
-													다음에도 사용하기 </span></label>
+								
+								<c:if test="${vo.paymentDeliveryTypeCheck == 0 }">
+									<section data-v-8f2f8136="" class="checkout__method">
+										<div data-v-8f2f8136="" class="info-wrap">
+											<h3 data-v-8f2f8136="" class="checkout__section-title">출입방법</h3>
+											<span data-v-8f2f8136="" class="info-hover-icon"></span>
+											<!---->
 										</div>
-									</div>
-								</section>
+										<div data-v-8f2f8136="" class="method__checks">
+											<span data-v-615e9308="" data-v-8f2f8136=""
+												class="form-select"
+												style="height: 46px; margin-bottom: 10px;"><select
+												data-v-615e9308=""><option data-v-615e9308=""
+														value="" disabled="disabled" selected="selected">선택하기</option>
+													<option data-v-8f2f8136="" data-v-615e9308=""
+														value="자유출입 가능">자유출입 가능</option>
+													<option data-v-8f2f8136="" data-v-615e9308=""
+														value="공동현관 비밀번호">공동현관 비밀번호</option>
+													<option data-v-8f2f8136="" data-v-615e9308=""
+														value="경비실 호출">경비실 호출</option>
+													<option data-v-8f2f8136="" data-v-615e9308="" value="세대 호출">세대
+														호출</option>
+													<option data-v-8f2f8136="" data-v-615e9308=""
+														value="경비실 배송">경비실 배송</option>
+													<option data-v-8f2f8136="" data-v-615e9308=""
+														value="무인택배함 배송">무인택배함 배송</option>
+													<option data-v-8f2f8136="" data-v-615e9308="" value="기타사항">기타사항</option></select>
+												<svg data-v-615e9308="" viewBox="0 0 12 7"
+													xmlns="http://www.w3.org/2000/svg">
+													<polygon data-v-615e9308="" id="Triangle" fill="#C9CACC"
+														points="6 0 12 7 7.84372567e-14 7"></polygon></svg></span> <input
+												data-v-8bb17226="" data-v-8f2f8136="" type="text"
+												name="xxxx" placeholder="" maxlength="50" autocorrect="off"
+												autocapitalize="off" class="form-text"
+												style="height: 46px; margin-bottom: 10px;">
+										</div>
+										<div data-v-8f2f8136="" class="added-form">
+											<p data-v-8f2f8136="" class="added-form-info">공동현관 및
+												무인택배함 비밀번호는 조합 방식 및 순서( #, 호출버튼) 와 함께 자세히 기재해주세요.</p>
+											<!---->
+										</div>
+									</section>
+								</c:if>
+								<c:if test="${vo.paymentDeliveryTypeCheck == 1 }">
+									<section data-v-8f2f8136="" class="checkout__method">
+										<div data-v-8f2f8136="" class="info-wrap">
+											<h3 data-v-8f2f8136="" class="checkout__section-title">배송메모</h3>
+										</div>
+										<div data-v-8f2f8136="" class="method__checks parcel">
+											<input data-v-8bb17226="" data-v-8f2f8136="" type="text"
+												name="xxxx" placeholder="배송메모를 입력해주세요." maxlength="50"
+												autocorrect="off" autocapitalize="off" class="form-text"
+												style="height: 46px; margin-bottom: 10px;">
+										</div>
+										<div data-v-8f2f8136="" class="method">
+											<div data-v-8f2f8136="" class="disposable-checkbox-wrap">
+												<input data-v-8f2f8136="" id="reuseDeliveryMsgFlag-checkbox"
+													type="checkbox" name="reuseDeliveryMsgFlag"
+													class="disposable-checkbox"> <label
+													data-v-8f2f8136="" for="reuseDeliveryMsgFlag-checkbox"
+													class="disposable-checkbox-label"><span
+													data-v-8f2f8136="" class="disposable-checkbox-text">
+														다음에도 사용하기 </span></label>
+											</div>
+										</div>
+									</section>
+								</c:if>
+								
 								<!---->
 								<div data-v-8f2f8136="" class="checkout-column">
 									<div data-v-8f2f8136="" class="checkout-column__payment">

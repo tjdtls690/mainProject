@@ -6,13 +6,14 @@ public class BasketVO {
 	private String itemName;	//
 	private int tagMain;		//
 	private int tagSub;
-	private int amount;
-	private int price;
-	private int priceSub;
-	private int userCode;
-	private int itemCode;
-	private int subTotal;
+	private int amount;			// 개수
+	private int price;			//
+	private int priceSub;		//
+	private int userCode;		//
+	private int itemCode;		//
+	private int subTotal;		// 개수x가격
 	private String itemSize;
+	
 	
 	public String getItemSize() {
 		return itemSize;

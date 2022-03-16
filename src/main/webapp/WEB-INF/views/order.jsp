@@ -2735,6 +2735,17 @@ $(function() {
         form.appendChild(objs9);
         
         
+        // 배송 방법 2
+        var paymentDeliveryTypeCheck = $('#deliveryType').val();
+        
+        var objs20;
+        objs20 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+        objs20.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+        objs20.setAttribute('name', 'paymentDeliveryTypeCheck'); // 객체이름
+        objs20.setAttribute('value', paymentDeliveryTypeCheck); //객체값
+        form.appendChild(objs20);
+        
+        
         // 배송 예정 일시
         var paymentPredictionDate = '';
         
@@ -3124,7 +3135,7 @@ $(function() {
 																	<span data-v-064d23aa="">${memberZipcode.member_shipping_address }</span>
 																</b> 
 																<span data-v-064d23aa="" class="description">${memberZipcode.member_address } ${memberZipcode.member_detail_address }</span>
-																<input type="hidden" vlaue="${memberZipcode.member_zipcode_code }">
+																<input type="hidden" value="${memberZipcode.member_zipcode_code }">
 																<input type="hidden" value="1" id="addressCheck">
 															</span>
 														</c:if>
@@ -3230,12 +3241,12 @@ $(function() {
 																</nav>
 																<div data-v-003a3d21=""
 																	class="selected-item-price-wrap row row--v-end">
-																	<c:if test="${orderItemSizePriceSub == 0 }">
+																	<c:if test="${orderItemSizePriceSub[i.index] == 0 }"> <!-- todo -->
 																		<p data-v-003a3d21="" class="selected-item-price">
 																			<em data-v-003a3d21="">${orderItemSizePrice[i.index] * orderQuantity[i.index] }원</em>
 																		</p>
 																	</c:if>
-																	<c:if test="${orderItemSizePriceSub != 0}">
+																	<c:if test="${orderItemSizePriceSub[i.index] != 0}">
 																		<div data-v-003a3d21="" class="selected-item-discount">
 																			${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }</div>
 																		<p data-v-003a3d21="" class="selected-item-price">

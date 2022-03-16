@@ -17,7 +17,7 @@
 							<span data-v-064d23aa="">${memberZipcode.member_shipping_address }</span>
 						</b> 
 						<span data-v-064d23aa="" class="description">${memberZipcode.member_address } ${memberZipcode.member_detail_address }</span>
-						<input type="hidden" vlaue="${memberZipcode.member_zipcode_code }">
+						<input type="hidden" value="${memberZipcode.member_zipcode_code }">
 						<input type="hidden" value="1" id="addressCheck">
 					</span>
 				</c:if>

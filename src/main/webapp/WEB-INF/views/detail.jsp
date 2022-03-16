@@ -209,23 +209,23 @@
 			for(var i = 0; i < Length; i++){
 //				alert(i+" 번째 차");			
 				itemCode[i] = $('.selected-detail-wrap').eq(i).children().eq(0).attr('value')
-				o.itemCode[i].value = itemCode[i];			
+				o.orderItemCode[i].value = itemCode[i];			
 				tagMain[i] = $('.selected-detail-wrap').eq(i).children().eq(1).attr('value')
-				o.itemTagMain[i].value = tagMain[i];				
+				o.orderTagMain[i].value = tagMain[i];				
 				price[i] = $('.selected-detail-wrap'). eq(i).children().eq(2).attr('value')
-				o.itemPrice[i].value = price[i];
+				o.orderItemPrice[i].value = price[i];
 				priceSub[i] = $('.selected-detail-wrap').eq(i).children().eq(3).attr('value')
-				o.itemPriceSub[i].value = priceSub[i];
+				o.orderItemPriceSub[i].value = priceSub[i];
 				itemName[i] = $('.selected-detail-wrap').eq(i).children().eq(4).attr('value')
-				o.itemName[i].value = itemName[i];
+				o.orderItemName[i].value = itemName[i];
 				itemSize[i] = $('.selected-detail-wrap').eq(i).children().eq(5).attr('value')
-				o.itemSize[i].value = itemSize[i];
+				o.orderItemSize[i].value = itemSize[i];
 				itemImage[i] = $('.selected-detail-wrap').eq(i).children().eq(6).attr('value')
-				o.itemImage[i].value = itemImage[i];
+				o.orderItemImage[i].value = itemImage[i];
 				tagSub[i] = $('.selected-detail-wrap').eq(i).children().eq(7).attr('value')
-				o.itemTagSub[i].value = tagSub[i];
+				o.orderItemTagSub[i].value = tagSub[i];
 				itemQuantity[i] = Number($('.form-number__input').eq(i).children().val())
-				o.itemQuantity[i].value = itemQuantity[i];
+				o.orderQuantity [i].value = itemQuantity[i];
 
 			}
 
@@ -576,27 +576,25 @@
 					<input type="hidden" name="tagSub01" value="">
 				</form>
 				<form name="order">
-					<input type="hidden" name="itemCode" value="" >
-					<input type="hidden" name="itemCode" value="" >
-					<input type="hidden" name="itemTagMain" value=""  >
-					<input type="hidden" name="itemTagMain" value=""  >					
-					
-					<input type="hidden" name="itemPrice"  value="" >
-					<input type="hidden" name="itemPrice"  value="" >
-<!-- 					이렇게 두개씩주고 만약 M/L 둘다가면 그냥쓰고 한개만쓰면 컨트롤러에서 if문을 돌려 ""이면 1개만 받게끔하자... -->
-					
-					<input type="hidden" name="itemPriceSub" value="">
-					<input type="hidden" name="itemPriceSub" value="">
-					<input type="hidden" name="itemName" value="" >
-					<input type="hidden" name="itemName" value="" >
-					<input type="hidden" name="itemSize" value="" >
-					<input type="hidden" name="itemSize" value="" >
-					<input type="hidden" name="itemImage" value="" >
-					<input type="hidden" name="itemImage" value="" >
-					<input type="hidden" name="itemTagSub" value="" >
-					<input type="hidden" name="itemTagSub" value="" >
-					<input type="hidden" name="itemQuantity"  value="">
-					<input type="hidden" name="itemQuantity"  value="">
+<!-- 					이렇게 두개씩주고 만약 M/L 둘다가면 그냥쓰고 한개만쓰면 컨트롤러에서 if문을 돌려 ""이면 1개만 받게끔하자... -->		
+					<input type="hidden" name="orderItemCode" value="" >
+					<input type="hidden" name="orderItemCode" value="" >
+					<input type="hidden" name="orderTagMain" value=""  >
+					<input type="hidden" name="orderTagMain" value=""  >								
+					<input type="hidden" name="orderItemPrice"  value="" >
+					<input type="hidden" name="orderItemPrice"  value="" >				
+					<input type="hidden" name="orderItemPriceSub" value="">
+					<input type="hidden" name="orderItemPriceSub" value="">
+					<input type="hidden" name="orderItemName" value="" >
+					<input type="hidden" name="orderItemName" value="" >
+					<input type="hidden" name="orderItemSize" value="" >
+					<input type="hidden" name="orderItemSize" value="" >
+					<input type="hidden" name="orderItemImage" value="" >
+					<input type="hidden" name="orderItemImage" value="" >
+					<input type="hidden" name="orderItemTagSub" value="" >
+					<input type="hidden" name="orderItemTagSub" value="" >
+					<input type="hidden" name="orderQuantity"  value="">
+					<input type="hidden" name="orderQuantity"  value="">
 
 				</form>
 				

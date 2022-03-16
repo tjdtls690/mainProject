@@ -205,7 +205,7 @@ $(function(){
 			return false;
 		}else{
 			alert("가입 완료");
-			var f = document.signupSuccess; //폼 name todo
+			var f = document.signupSuccess; //폼 name
 		    f.email.value = email; //POST방식으로 넘기고 싶은 값
 		    if(check == null){
 		    	f.password.value = "";
@@ -619,7 +619,7 @@ $(function(){
 						<input type="hidden" name="itemCode01" value="">
 						<input type="hidden" name="tagSub01" value="">
 					</form>
-					<form name="signupSuccess"> <!-- todo -->
+					<form name="signupSuccess">
 						<input type="hidden" name="email" value="">
 						<input type="hidden" name="password" value="">
 						<input type="hidden" name="name" value="">

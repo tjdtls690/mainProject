@@ -55,6 +55,47 @@ $(function() {
 		lastScrollTop = st;
 	});
 	
+	$('#deliveryCouponPack').click(function(){
+		var userCode = $('#userCode').val();
+		if(userCode == "") {
+			location.href = "login.do";
+		}else {
+			$.ajax({
+				url : 'coupon06.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+		}
+	})
+	
+	$('.btn.md.small, .btn.rt.small').click(function(){			
+		var userCode = $('#userCode').val();
+		var coupon_code = $(this).attr('id');
+		console.log(coupon_code);
+		if(userCode == "") {
+			location.href = "login.do";
+		}else {
+			$.ajax({
+				url : 'coupon02.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					"userCode" : userCode,
+					"coupon_code" : coupon_code
+				},
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+		}
+	})
+	
+	$(document).on('click', '#closeModal', function(){
+		$('.swal2-container').detach();
+	})
+	
 });
 function page_move(tagNum){
     var f = document.paging; //폼 name
@@ -66,12 +107,17 @@ function page_move(tagNum){
 }
 
 function coupon_page(){
-	var f = document.couponPage;
-	f.couponName.value = "신선하게샐러드구독";
-	f.action="myCouponSearch.do"
-	f.method="post";
-	f.submit();
-	console.log(f.couponPage.value);
+	var userCode = $('#userCode').val();
+	if(userCode == "") {
+		location.href = "login.do";
+	}else {
+		var f = document.couponPage;
+		f.promoCode.value = "신선하게샐러드구독";
+		f.action="myCouponSearch2.do";
+		f.method="post";
+		f.submit();
+		console.log(f.couponPage.value);
+	}
 }
 </script>
 </head>
@@ -81,6 +127,7 @@ function coupon_page(){
 			height="0" width="0" style="display: none; visibility: hidden"
 			title="gtm"></iframe>
 	</noscript>
+	<input type="hidden" value="${member.memberCode }" id="userCode">
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-0f5971ec="" class="viewport">
@@ -93,10 +140,17 @@ function coupon_page(){
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-								<a data-v-7aa1f9b4="" href="/mypage/orders" class="">신준혁 <span
-									data-v-7aa1f9b4="">님</span></a> <span data-v-7aa1f9b4="">1:1문의</span>
-								<a data-v-7aa1f9b4="" href="https://forms.gle/92o1ctx6U4CYe2yF9"
-									target="_blank">B2B 신청</a>
+								<c:choose>
+									<c:when test="${empty member.gender}">
+										<a href="signup.do" data-v-30697495="">회원가입</a>
+										<a data-v-30697495="" href="login.do">로그인</a>
+									</c:when>
+									<c:otherwise>
+										<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+									</c:otherwise>
+								</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span>
+								<a data-v-7aa1f9b4="" href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B 신청</a>
 							</div>
 						</div>
 						<!---->
@@ -108,7 +162,7 @@ function coupon_page(){
 							<input type="hidden" name="tagMain01" value="">
 						</form>
 						<form name="couponPage">
-							<input type="hidden" name="couponName" value="">
+							<input type="hidden" name="promoCode" value="">
 						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
@@ -292,15 +346,15 @@ function coupon_page(){
 							<img data-v-25f49d6b=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/07.png">
 							<div data-v-25f49d6b="" class="btn lt small"></div>
-							<div data-v-25f49d6b="" class="btn md small"></div>
-							<div data-v-25f49d6b="" class="btn rt small"></div>
+							<div data-v-25f49d6b="" class="btn md small" id="11"></div>
+							<div data-v-25f49d6b="" class="btn rt small" id="12"></div>
 						</div>
 						<img data-v-25f49d6b=""
 							src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/08.png">
 						<div data-v-25f49d6b="" class="btn-wrap">
 							<img data-v-25f49d6b=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/09.png">
-							<div data-v-25f49d6b="" class="btn-bar"></div>
+							<div data-v-25f49d6b="" class="btn-bar" id="deliveryCouponPack"></div>
 						</div>
 						<img data-v-25f49d6b=""
 							src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2022-02-brand-film/10.png">

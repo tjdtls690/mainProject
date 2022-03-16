@@ -126,6 +126,38 @@
 				}, 350);
 			}
 		});
+		
+		/* var referrer = document.referrer;
+	    console.log(referrer);
+	    if(referrer = 'http://localhost:8090/web/secondEvent.do') {
+	    	console.log("신선하게샐러드구독");
+	    	$('.form-text').val('신선하게샐러드구독');
+	    } else {
+	    	$('.form-text').val('');
+	    } */
+	    
+	    var url = window.location.pathname;
+	    
+	    if(url == '/web/myCouponSearch2.do') {
+	    	$('#f_coupon_number').val('신선하게샐러드구독');
+	    } else {
+	    	$('#f_coupon_number').val('');
+	    }
+	    
+		$('.button.button--side-padding').click(function(){	
+			var couponName = $('#f_coupon_number').val();
+			console.log(couponName);
+			$.ajax({
+				url : 'subscribeCoupon.do',
+				dataType : 'html',
+				data : {
+					'couponName' : couponName,
+				},
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+		})
 
 		var lastScrollTop = 0,
 	    	delta = 90;
@@ -143,11 +175,8 @@
 	    		}
 	    		lastScrollTop = st;
 	    	});
-	})
-$(document).ready(function(){
-	console.log("${couponName}");
-	$('.form-text').val('${couponName}');
-});
+	});
+
 </script>
 </head>
 <body>
@@ -409,25 +438,17 @@ $(document).ready(function(){
 											<div data-v-31b582a4="" data-v-421abad8=""
 												class="row mypage-coupons-register__field">
 												<div data-v-31b582a4="" data-v-421abad8="" class="col">
-												<c:choose>
-													<c:when test="${empty couponName }">
-													<input data-v-8bb17226="" data-v-31b582a4=""
+													
+															<input data-v-8bb17226="" data-v-31b582a4="" value=""
 														id="f_coupon_number" type="text" name="f_coupon_number"
 														placeholder="쿠폰번호를 입력해 주세요" autocorrect="off"
 														autocapitalize="off" class="form-text" data-v-421abad8="">
-													</c:when>
-													<c:otherwise>
-													<input data-v-8bb17226="" data-v-31b582a4="" value=""
-														id="f_coupon_number" type="text" name="f_coupon_number"
-														placeholder="쿠폰번호를 입력해 주세요" autocorrect="off"
-														autocapitalize="off" class="form-text" data-v-421abad8="">
-													</c:otherwise>
-												</c:choose>
+												
 												</div>
 												<div data-v-31b582a4="" data-v-421abad8="">
 													<button data-v-a1c889e0="" data-v-31b582a4="" type="button"
 														title="" class="button button--side-padding"
-														data-v-421abad8="" >
+														data-v-421abad8="">
 														<span data-v-a1c889e0="" class="button__wrap">등록</span>
 													</button>
 												</div>

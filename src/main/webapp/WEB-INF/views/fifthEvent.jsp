@@ -57,7 +57,33 @@ $(function() {
 		});
 	$('.btn.join').click(function(){
 		location.href = "firstEvent.do";
-	})	
+	})
+	
+	$('.btn.freeDelivery').click(function(){
+		var userCode = $('#userCode').val();
+		console.log(userCode);
+		var coupon_code = $(this).attr('id');
+		console.log(coupon_code);
+		if(userCode == "") {
+			location.href = "login.do";
+		}else {
+			$.ajax({
+				url : 'coupon02.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					"userCode" : userCode,
+					"coupon_code" : coupon_code
+				},
+				success : function(htmlOut){
+					$('body').append(htmlOut);
+				}
+			})
+		}
+	})
+	$(document).on('click', '#closeModal', function(){
+		$('.swal2-container').detach();
+	})
 });
 </script>
 </head>
@@ -67,6 +93,7 @@ $(function() {
 			height="0" width="0" style="display: none; visibility: hidden"
 			title="gtm"></iframe>
 	</noscript>
+	<input type="hidden" value="${member.memberCode }" id="userCode">
 	<div id="__nuxt">
 		<div id="__layout">
 			<main class="viewport" data-v-0f5971ec="">
@@ -79,8 +106,16 @@ $(function() {
 						<div class="header__top" data-v-7aa1f9b4="">
 							<a href="/info" class="header__top-left" data-v-7aa1f9b4=""></a>
 							<div class="header__top-right" data-v-7aa1f9b4="">
-								<a href="/mypage/orders" data-v-7aa1f9b4="" class="">신준혁 <span
-									data-v-7aa1f9b4="">님</span></a> <span data-v-7aa1f9b4="">1:1문의</span>
+								<c:choose>
+									<c:when test="${empty member.gender}">
+										<a href="signup.do" data-v-30697495="">회원가입</a>
+										<a data-v-30697495="" href="login.do">로그인</a>
+									</c:when>
+									<c:otherwise>
+										<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+									</c:otherwise>
+								</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span>
 								<a href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank"
 									data-v-7aa1f9b4="">B2B 신청</a>
 							</div>
@@ -246,7 +281,7 @@ $(function() {
 						<div data-v-b6a844b8="" class="btn-wrap">
 							<img data-v-b6a844b8=""
 								src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2021-parcel/02.jpg">
-							<div data-v-b6a844b8="" class="btn"></div>
+							<div data-v-b6a844b8="" class="btn freeDelivery" id="14"></div>
 						</div>
 						<img data-v-b6a844b8=""
 							src="https://freshcode.s3.ap-northeast-2.amazonaws.com/img/2021-parcel/03.jpg">

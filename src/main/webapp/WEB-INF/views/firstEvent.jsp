@@ -87,30 +87,7 @@ $(function() {
 			$('.swal2-container').detach();
 		})
 
-		$('.btn.half-menu.right').click(function(){			
-			var userCode = $('#userCode').val();
-			console.log(userCode);
-			var coupon_code = $(this).attr('id');
-			console.log(coupon_code);
-			if(userCode == "") {
-				location.href = "login.do";
-			}else {
-				$.ajax({
-					url : 'coupon02.do',
-					dataType : 'html',
-					type : 'post',
-					data : {
-						"userCode" : userCode,
-						"coupon_code" : coupon_code
-					},
-					success : function(htmlOut){
-						$('body').append(htmlOut);
-					}
-				})
-			}
-		})
-		
-		$('.btn.half-menu.left').click(function(){			
+		$('.btn.half-menu.right, .btn.half-menu.left').click(function(){			
 			var userCode = $('#userCode').val();
 			console.log(userCode);
 			var coupon_code = $(this).attr('id');
@@ -142,7 +119,7 @@ $(function() {
 				location.href = "login.do";
 			}else {
 				$.ajax({
-					url : 'coupon03.do',
+					url : 'coupon02.do',
 					dataType : 'html',
 					type : 'post',
 					data : {

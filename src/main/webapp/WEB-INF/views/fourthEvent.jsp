@@ -76,8 +76,16 @@ $(function() {
 						<div class="header__top" data-v-7aa1f9b4="">
 							<a href="/info" class="header__top-left" data-v-7aa1f9b4=""></a>
 							<div class="header__top-right" data-v-7aa1f9b4="">
-								<a href="/mypage/orders" data-v-7aa1f9b4="" class="">신준혁 <span
-									data-v-7aa1f9b4="">님</span></a> <span data-v-7aa1f9b4="">1:1문의</span>
+								<c:choose>
+									<c:when test="${empty member.gender}">
+										<a href="signup.do" data-v-30697495="">회원가입</a>
+										<a data-v-30697495="" href="login.do">로그인</a>
+									</c:when>
+									<c:otherwise>
+										<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+									</c:otherwise>
+								</c:choose>
+								<span data-v-7aa1f9b4="">1:1문의</span>
 								<a href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank"
 									data-v-7aa1f9b4="">B2B 신청</a>
 							</div>

@@ -15,7 +15,6 @@ public class BasketDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<BasketVO> getBasketList(BasketVO vo) {
-		System.out.println("::: MyBatis getBasketList() 기능 :::");
 		return sqlSessionTemplate.selectList("BasketDAO.getBasketList", vo);
 	}
 	public void getBasketChangeList(BasketVO vo) {

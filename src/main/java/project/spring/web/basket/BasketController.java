@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.member.MemberVO;
+
 @Controller
 public class BasketController {
 	
@@ -19,9 +21,15 @@ public class BasketController {
 	private BasketService basketService;
 	
 	@RequestMapping("/basket.do")
-	public ModelAndView basketDo(ModelAndView mav) {
-		BasketVO vo = new BasketVO();
-		List<BasketVO> BasketList = basketService.getBasketList(vo);
+	public ModelAndView basketDo(HttpServletRequest request, ModelAndView mav) {
+	
+		HttpSession session = request.getSession();
+		MemberVO vo = (MemberVO)session.getAttribute("member");
+		int userCode = vo.getMemberCode();
+		
+		BasketVO vo2 = new BasketVO();
+		vo2.setUserCode(userCode);
+		List<BasketVO> BasketList = basketService.getBasketList(vo2);
 		mav.addObject("Basket", BasketList);
 		mav.setViewName("basket");
 		return mav;
@@ -42,13 +50,13 @@ public class BasketController {
 		int itemCode = Integer.parseInt(str2);
 		System.out.println("itemCode : " + itemCode);
 		
-		// userCode 등록 후 세션에서 유저코드 뽑아오는 방법
-//		HttpSession session = request.getSession();
-//		String name = (String)session.getAttribute("userCode");
-//		int userCode = Integer.parseInt(name);
+		String str3 = request.getParameter("memberCode");
+		int userCode = Integer.parseInt(str3);
+		System.out.println("userCode : " + userCode);
 		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
+		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
 		basketService.getBasketChangeList(vo);
@@ -76,13 +84,13 @@ public class BasketController {
 		int itemCode = Integer.parseInt(str2);
 		System.out.println("itemCode : " + itemCode);
 		
-		// userCode 등록 후 세션에서 유저코드 뽑아오는 방법
-//		HttpSession session = request.getSession();
-//		String name = (String)session.getAttribute("userCode");
-//		int userCode = Integer.parseInt(name);
+		String str3 = request.getParameter("memberCode");
+		int userCode = Integer.parseInt(str3);
+		System.out.println("userCode : " + userCode);
 		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
+		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
 		basketService.getBasketChangeList(vo);
@@ -109,13 +117,13 @@ public class BasketController {
 		int itemCode = Integer.parseInt(str2);
 		System.out.println("itemCode : " + itemCode);
 		
-		// userCode 등록 후 세션에서 유저코드 뽑아오는 방법
-//		HttpSession session = request.getSession();
-//		String name = (String)session.getAttribute("userCode");
-//		int userCode = Integer.parseInt(name);
+		String str3 = request.getParameter("memberCode");
+		int userCode = Integer.parseInt(str3);
+		System.out.println("userCode : " + userCode);
 		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
+		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
 		basketService.getBasketChangeList(vo);
@@ -143,13 +151,14 @@ public class BasketController {
 		int itemCode = Integer.parseInt(str2);
 		System.out.println("itemCode : " + itemCode);
 		
-		// userCode 등록 후 세션에서 유저코드 뽑아오는 방법
-//		HttpSession session = request.getSession();
-//		String name = (String)session.getAttribute("userCode");
-//		int userCode = Integer.parseInt(name);
+		String str3 = request.getParameter("memberCode");
+		int userCode = Integer.parseInt(str3);
+		System.out.println("userCode : " + userCode);
+
 		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
+		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
 		basketService.getBasketChangeList(vo);
@@ -163,12 +172,11 @@ public class BasketController {
 	}
 
 	@RequestMapping("/basketSelectDelete.do")
-	public ModelAndView basketSelectDelete(ModelAndView mav, String[] newDeleteItemCode) {
-
-		// userCode 등록 후 세션에서 유저코드 뽑아오는 방법
-//		HttpSession session = request.getSession();
-//		String name = (String)session.getAttribute("userCode");
-//		int userCode = Integer.parseInt(name);
+	public ModelAndView basketSelectDelete(HttpServletRequest request, ModelAndView mav, String[] newDeleteItemCode) {
+		
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO)session.getAttribute("member");
+		int userCode = mvo.getMemberCode();
 		
 		List<String> list1 = new ArrayList<>();
 		
@@ -177,12 +185,13 @@ public class BasketController {
 			BasketVO vo = new BasketVO();
 			list1.add(newDeleteItemCode[i]);
 			int f = Integer.parseInt(list1.get(i));
+			vo.setUserCode(userCode);
 			vo.setItemCode(f);
 			basketService.deleteBasketList(vo);
 		}
-		
-		
+
 		BasketVO vo2 = new BasketVO();
+		vo2.setUserCode(userCode);
 		List<BasketVO> BasketList = basketService.getBasketList(vo2);
 		mav.addObject("Basket", BasketList);
 		mav.setViewName("basket");

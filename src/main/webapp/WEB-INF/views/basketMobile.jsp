@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-											<c:forEach var="basket" items="${Basket}" varStatus="stauts">
+									<c:forEach var="basket" items="${Basket}" varStatus="stauts">
 											<li data-v-7f39deaa="" class="mobile-body-item"><img
-												data-v-7f39deaa="" src="/images/icon-exit@2x.png"
+												data-v-7f39deaa="" src="https://www.freshcode.me/images/icon-exit@2x.png"
 												alt="장바구니 메뉴 삭제" class="mobile-body-item-close">
 												<section data-v-7f39deaa="" class="mobile-body-item-top">
 													<div data-v-7f39deaa="" class="mobile-body-item-img-wrap">
@@ -13,7 +13,7 @@
 													</div>
 													<div data-v-7f39deaa="" class="mobile-body-item-text-wrap">
 														<div data-v-7f39deaa="" class="mobile-body-item-title">
-															${basket.itemName}</div>
+															${basket.itemName} </div>
 														<div data-v-7f39deaa=""
 															class="mobile-body-item-price-wrap">
 															<div data-v-7f39deaa=""
@@ -31,8 +31,9 @@
 															class="form-number">
 															<button data-v-4ba0dee4="" type="button"
 																class="form-number__control mobile_minusbtn">
-																<input type="hidden" value="${basket.itemCode}" id="itemCode">
-																<input type="hidden" value="${basket.price}" id="price">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode" />
+																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${member.memberCode}" id="memberCode" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -45,8 +46,9 @@
 																max="9999" step="1" value="${basket.amount}" ></span>
 															<button data-v-4ba0dee4="" type="button"
 																class="form-number__control mobile_plusbtn">																
-																<input type="hidden" value="${basket.itemCode}" id="itemCode">
-																<input type="hidden" value="${basket.price}" id="price">
+																<input type="hidden" value="${basket.itemCode}" id="itemCode" />
+																<input type="hidden" value="${basket.price}" id="price" />
+																<input type="hidden" value="${member.memberCode}" id="memberCode" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">

@@ -839,11 +839,12 @@ $(function(){
 						<section data-v-7f39deaa="" id="cart-mobile-wrap"
 							class="mobile-wrap">
 							<div data-v-7f39deaa="" class="mobile-scroll-wrap">
+								<header class="mobile-header" data-v-7f39deaa="">
 									<button data-v-7f39deaa="" class="mobile-header-back-wrap">
-										<img data-v-7f39deaa="" src="/images/arrow-left@2x.png"
+										<img data-v-7f39deaa="" src="https://www.freshcode.me/images/arrow-left@2x.png"
 											alt="뒤로가기" class="mobile-header-back-img">
 									</button>
-									<h1 data-v-7f39deaa="" class="mobile-header-title">장바구니</h1>
+									<h1 class="mobile-header-title" data-v-7f39deaa="">장바구니</h1>
 									<button data-v-7f39deaa="" class="mobile-header-delete-all">
 										전체 삭제</button>
 								</header>
@@ -852,7 +853,7 @@ $(function(){
 										<ul data-v-7f39deaa="" class="mobile-body-list">
 										<c:forEach var="basket" items="${Basket}" varStatus="stauts">
 											<li data-v-7f39deaa="" class="mobile-body-item"><img
-												data-v-7f39deaa="" src="/images/icon-exit@2x.png"
+												data-v-7f39deaa="" src="https://www.freshcode.me/images/icon-exit@2x.png"
 												alt="장바구니 메뉴 삭제" class="mobile-body-item-close">
 												<section data-v-7f39deaa="" class="mobile-body-item-top">
 													<div data-v-7f39deaa="" class="mobile-body-item-img-wrap">
@@ -925,7 +926,7 @@ $(function(){
 												<div data-v-7f39deaa=""
 													class="mobile-footer-price-title-wrap">
 													<img data-v-7f39deaa=""
-														src="/images/icon-payment-information@3x.png"
+														src="https://www.freshcode.me/images/icon-payment-information@3x.png"
 														alt="결제 금액 아이콘" class="mobile-footer-price-title-img">
 													<h4 data-v-7f39deaa="" class="mobile-footer-price-title">결제
 														금액</h4>
@@ -1165,7 +1166,7 @@ $(function(){
 												</div>
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
-											<img data-v-7f39deaa="" src="/images/icon-minus@2x.png"
+											<img data-v-7f39deaa="" src="https://www.freshcode.me/images/icon-minus@2x.png"
 												alt="뺴기 아이콘" class="desktop-footer-icon">
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-price-box">
@@ -1177,7 +1178,7 @@ $(function(){
 												</div>
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
-											<img data-v-7f39deaa="" src="/images/icon-equal@2x.png"
+											<img data-v-7f39deaa="" src="https://www.freshcode.me/images/icon-equal@2x.png"
 												alt="등호 아이콘" class="desktop-footer-icon">
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-price-box">

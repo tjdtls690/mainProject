@@ -232,7 +232,7 @@
 				},
 				success : function(data){
 					alert($('#productsFinalPrice').val() + ' ' + $('#memberName').val());
-					alert($('#memberPhone').val() + ' ' + $('#productsFinalShippingAddress').val());
+					alert($('#memberPhone').val() + ' ' + $('#productsFinalShippingAddress2').val());
 					alert(data + ' ' + productsName);
 					var IMP = window.IMP;
 			        IMP.init('imp80414894');
@@ -247,7 +247,7 @@
 				          buyer_email: $('#memberEmail').val(),
 				          buyer_name: $('#memberName').val(),
 				          buyer_tel: $('#memberPhone').val(),
-				          buyer_addr: $('#productsFinalShippingAddress').val(),
+				          buyer_addr: $('#productsFinalShippingAddress2').val(),
 				          buyer_postcode: data
 			        }, function (rsp) {
 				         console.log(rsp);
@@ -304,7 +304,8 @@
 					<input type="hidden" value="${fn:length(list)}" id="productsNum">
 					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck">
 					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice">
-					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress">
+					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1">
+					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2">
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">

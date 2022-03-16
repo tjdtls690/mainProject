@@ -65,11 +65,11 @@ public class OrderController {
 				
 				for(int i = 0; i < orderItemSizeSummary.length; i++) {
 					if(orderItemSizeSummary[i].equals("m")){
-						orderItemSizePrice.add(orderItem.get(i).getItem_price_m());
-						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_m_sub());
+						orderItemSizePrice.add(orderItem.get(i).getItem_price_m().replace(",", ""));
+						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_m_sub().replace(",", ""));
 					}else {
-						orderItemSizePrice.add(orderItem.get(i).getItem_price_l());
-						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_l_sub());
+						orderItemSizePrice.add(orderItem.get(i).getItem_price_l().replace(",", ""));
+						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_l_sub().replace(",", ""));
 					}
 				}
 				
@@ -89,6 +89,7 @@ public class OrderController {
 						}
 					}
 					realQuantity += Integer.parseInt(orderQuantity[i]);
+					System.out.println("??? : " + orderItemSizePrice.get(i) + " " + orderQuantity[i]);
 					realPrice += ((Integer.parseInt(orderItemSizePrice.get(i)) * Integer.parseInt(orderQuantity[i])) + Integer.parseInt(orderQuantity[i]) * 100);
 					if(!orderItemSizePriceSub.get(i).equals("0")) {
 						realPriceSub += ((Integer.parseInt(orderItemSizePriceSub.get(i)) * Integer.parseInt(orderQuantity[i])) - (Integer.parseInt(orderItemSizePrice.get(i)) * Integer.parseInt(orderQuantity[i])));

@@ -1,6 +1,7 @@
 package project.spring.web.detail;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -10,13 +11,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.basket.BasketService;
+import project.spring.web.basket.BasketVO;
 import project.spring.web.mapping.MappingService;
 import project.spring.web.mapping.MappingVO;
+import project.spring.web.member.MemberVO;
 import project.spring.web.modal.ModalService;
 import project.spring.web.modal.ModalVO;
 import project.spring.web.review.WriteReviewService;
@@ -39,6 +42,8 @@ public class DetailController {
 	private MappingService mappingService;
 	@Autowired
 	private ModalService modalService;
+	@Autowired
+	private BasketService BasketService;
 	
 	
 	public DetailController() {
@@ -590,9 +595,33 @@ public class DetailController {
 			,String[] tagSub, String[] itemImage, String[] itemQuantity) {
 		System.out.println("장바구니");
 		
-		// 세션으로 내 정보를 가져옴  --> 현재는 새로고침으로 보는중이라 잠깐 주석처리
-//		HttpSession session = request.getSession();
-//		System.out.println(session.getAttribute("member"));
+		String[] str1 = request.getParameterValues("itemCode");		// int
+		int[] code = Arrays.stream(str1).mapToInt(Integer::parseInt).toArray();	
+		String[] str2 = request.getParameterValues("tagMain");			// int
+		int[] itemtagMain = Arrays.stream(str2).mapToInt(Integer::parseInt).toArray();
+		String[] str5 = request.getParameterValues("price");
+		int[] itemPrice = Arrays.stream(str5).mapToInt(Integer::parseInt).toArray();
+		String[] str6 = request.getParameterValues("priceSub");
+		int[] itemPriceSub = Arrays.stream(str6).mapToInt(Integer::parseInt).toArray();
+		String[] name = request.getParameterValues("itemName");
+		String[] size = request.getParameterValues("itemSize");		// m / l로 구분
+		String[] str3 = request.getParameterValues("tagSub");		// int
+		int[] itemTagSub = Arrays.stream(str3).mapToInt(Integer::parseInt).toArray();
+		String[] image = request.getParameterValues("itemImage");
+		String[] str4 = request.getParameterValues("itemQuantity");		// int
+		int[] quantity = Arrays.stream(str4).mapToInt(Integer::parseInt).toArray();
+		
+		int[] subTotal = new int[itemCode.length];
+		for(int i=0; i< itemCode.length; i++) {
+			subTotal[i] = itemPrice[i] * quantity[i];
+			//System.out.println("총가격 "+subTotal[i]);
+		}
+		
+		// 세션으로 내 정보를 가져옴 
+		HttpSession session = request.getSession();
+		System.out.println(session.getAttribute("member"));
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		
 		
 		for(int i=0; i < itemCode.length; i++) {
 			System.out.println(i+"회차 목록들");
@@ -602,6 +631,27 @@ public class DetailController {
 					"넘어온 itemQuantity : "+itemQuantity[i]+" 넘어온 imag : "+itemImage[i]);
 			System.out.println("------");
 		}
+		
+		BasketVO vo = new BasketVO();
+		for(int i =0; i < itemCode.length; i++) {
+			vo.setItemImage(image[i]);
+			vo.setItemName(name[i]);
+			vo.setTagMain(itemtagMain[i]);
+			vo.setTagSub(itemTagSub[i]);
+			vo.setAmount(quantity[i]);
+			vo.setPrice(itemPrice[i]);
+			vo.setPriceSub(itemPriceSub[i]);
+			vo.setUserCode(memberVO.getMemberCode());
+			vo.setItemCode(code[i]);
+			vo.setSub_total(subTotal[i]); 
+			vo.setItemSize(size[i]);
+			
+		}
+		
+		
+		
+		
+		
 		// 이제 Update만 하면된다.
 
 		mav.setViewName("detailSuccessOrder");
@@ -633,24 +683,27 @@ public class DetailController {
 	
 // 주문하기 버튼 테스트용 메서드.
 	@RequestMapping(value ="/testOrder.do")
-	public ModelAndView testOrdaer(HttpServletRequest request, ModelAndView mav, String[] itemCode
-			,String[] itemTagMain, String[] itemPrice, String[] itemPriceSub, String[] itemName, String[] itemSize
-			,String[] itemTagSub, String[] itemImage, String[] itemQuantity) {
+	public ModelAndView testOrdaer(HttpServletRequest request, ModelAndView mav, String[] orderItemCode
+			,String[] orderTagMain, String[] orderItemPrice, String[] orderItemPriceSub, String[] orderItemName
+			,String[] orderItemSize ,String[] orderItemTagSub, String[] orderItemImage, String[] orderQuantity) {
 		System.out.println("주문하기 클릭했음");
 		
-		String[] code = request.getParameterValues("itemCode");
-		String[] tagMain = request.getParameterValues("itemTagMain");
-		String[] price = request.getParameterValues("itemPrice");
-		String[] priceSub = request.getParameterValues("itemPriceSub");
-		String[] name = request.getParameterValues("itemName");
-		String[] size = request.getParameterValues("itemSize");
-		String[] tagSub = request.getParameterValues("itemTagSub");
-		String[] image = request.getParameterValues("itemImage");
-		String[] quantity = request.getParameterValues("itemQuantity");
-		
+		String[] str1 = request.getParameterValues("orderItemCode");		// int
+		int[] code = Arrays.stream(str1).mapToInt(Integer::parseInt).toArray();	
+		String[] str2 = request.getParameterValues("orderTagMain");			// int
+		int[] tagMain = Arrays.stream(str2).mapToInt(Integer::parseInt).toArray();
+		String[] price = request.getParameterValues("orderItemPrice");
+		String[] priceSub = request.getParameterValues("orderItemPriceSub");
+		String[] name = request.getParameterValues("orderItemName");
+		String[] size = request.getParameterValues("orderItemSize");		// m / l로 구분
+		String[] str3 = request.getParameterValues("orderItemTagSub");		// int
+		int[] tagSub = Arrays.stream(str3).mapToInt(Integer::parseInt).toArray();
+		String[] image = request.getParameterValues("orderItemImage");
+		String[] str4 = request.getParameterValues("orderQuantity");		// int
+		int[] quantity = Arrays.stream(str4).mapToInt(Integer::parseInt).toArray();
 		
 // 넘어온 리스트가 1개일때와 2개일때 구분		
-		if(code[1]== "") { // 1개일때
+		if(str1[1]== "") { // 1개일때
 			for(int i=0; i < 1; i++) {
 				System.out.println("주문하기의 "+i+"회차 목록들");
 				System.out.println(" 넘어온 size: "+size[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "

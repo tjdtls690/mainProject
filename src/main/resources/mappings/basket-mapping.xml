@@ -30,4 +30,15 @@
 	<delete id="deleteBasketList">
 		DELETE FROM basket WHERE item_code = #{itemCode}
 	</delete>
+	
+	<insert id="insertBasket">
+		insert INTO basket(item_image, item_name, tag_main, tag_sub, amount, price, price_sub,user_code,
+                   item_code, sub_total, item_size)
+        VALUES(#{itemImage}, #{itemName}, #{tagMain}, #{tagSub}, #{amount}, #{price}, #{priceSub}, #{userCode},
+        	   #{itemCode}, #{subTotal}, #{itemSize} );
+		
+	</insert>
+	
+	
+	
 </mapper>

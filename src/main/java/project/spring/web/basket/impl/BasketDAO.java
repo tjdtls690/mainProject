@@ -24,5 +24,9 @@ public class BasketDAO {
 	public void deleteBasketList(BasketVO vo) {
 		sqlSessionTemplate.delete("BasketDAO.deleteBasketList", vo);
 	}
+	
+	public int insertBasket(BasketVO vo) {
+		return sqlSessionTemplate.insert("BasketDAO.insertBasket",vo);
+	}
 }
 

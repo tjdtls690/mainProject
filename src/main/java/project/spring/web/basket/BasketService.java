@@ -8,4 +8,6 @@ public interface BasketService {
 	void getBasketChangeList(BasketVO vo);
 	
 	void deleteBasketList(BasketVO vo);
+	
+	int insertBasket(BasketVO vo);
 }

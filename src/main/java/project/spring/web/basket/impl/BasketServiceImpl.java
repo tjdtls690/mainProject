@@ -31,4 +31,11 @@ public class BasketServiceImpl implements BasketService {
 		System.out.println("::: basketService - deleteBasketList :::");
 		basketDAO.deleteBasketList(vo);
 	}
+
+	@Override
+	public int insertBasket(BasketVO vo) {
+		System.out.println("--> insertBasket");
+	
+		return basketDAO.insertBasket(vo);
+	}
 }

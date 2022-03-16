@@ -645,6 +645,7 @@ public class DetailController {
 			vo.setItemCode(code[i]);
 			vo.setSubTotal(subTotal[i]); 
 			vo.setItemSize(size[i]);
+			BasketService.insertBasket(vo);
 			
 		}
 		// 이제 Update만 하면된다.

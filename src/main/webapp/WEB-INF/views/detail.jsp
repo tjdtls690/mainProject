@@ -209,7 +209,7 @@
 			for(var i = 0; i < Length; i++){
 //				alert(i+" 번째 차");			
 				itemCode[i] = $('.selected-detail-wrap').eq(i).children().eq(0).attr('value')
-				o.orderItemCode[i].value = itemCode[i];			
+				o.orderItemCode[i].value = itemCode[i];		
 				tagMain[i] = $('.selected-detail-wrap').eq(i).children().eq(1).attr('value')
 				o.orderTagMain[i].value = tagMain[i];				
 				price[i] = $('.selected-detail-wrap'). eq(i).children().eq(2).attr('value')
@@ -577,7 +577,7 @@
 				</form>
 				<form name="order">
 <!-- 					이렇게 두개씩주고 만약 M/L 둘다가면 그냥쓰고 한개만쓰면 컨트롤러에서 if문을 돌려 ""이면 1개만 받게끔하자... -->		
-					<input type="hidden" name="orderItemCode" value="" >
+					<input type="hidden" name="orderItemCode" value="" id="a">
 					<input type="hidden" name="orderItemCode" value="" >
 					<input type="hidden" name="orderTagMain" value=""  >
 					<input type="hidden" name="orderTagMain" value=""  >								
@@ -1106,7 +1106,7 @@
                                         </button>
                                     </div>
                                     <div data-v-32a18372 class="purchase-btn-wrap">
-                                        <button data-v-a1c889e0 data-v-32a18372 type="button" title class="button button" style="height: 52px;">
+                                        <button data-v-a1c889e0 data-v-32a18372 type="button" title class="button button" style="height: 52px;" id="goOrder">
                                             <span data-v-a1c889e0 class="button__wrap">주문하기</span>
                                         </button>
                                     </div>

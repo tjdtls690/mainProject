@@ -30,4 +30,13 @@
 		SELECT * FROM coupon
 		WHERE coupon_code = #{coupon_code}
 	</select>
+	<select id="getAllCoupon" resultMap="couponResult">
+		SELECT * FROM coupon
+	</select>
+	<select id="getUserCoupon" resultMap="couponResult">
+		SELECT a.user_code, b.*
+		FROM user_coupon a LEFT JOIN coupon b 
+		ON a.coupon_code = b.coupon_code
+		ORDER BY a.user_code ASC
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package project.spring.web.member.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,4 +69,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.updatePassword(vo);
 	}
 	
+	@Override
+	public MemberVO getMemberEmail(MemberVO vo) {
+		return memberDAO.getMemberEmail(vo);
+	}
+	
+	@Override
+	public List<MemberVO> getAllMember(MemberVO vo) {
+		return memberDAO.getAllMember(vo);
+	}
 }

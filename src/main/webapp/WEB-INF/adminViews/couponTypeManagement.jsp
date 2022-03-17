@@ -129,124 +129,33 @@
                                        <tr>
                                             <th>번호</th>
                                             <th>쿠폰코드</th>
-											<th>쿠폰이름</th>
-                                            <th>최소사용금액</th>
-                                            <th>할인금액</th>
-											<th></th>
+											<th>쿠폰팩번호</th>
+                                            <th>쿠폰타입</th>
+                                            <th>쿠폰설명</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>번호</th>
                                             <th>쿠폰코드</th>
-											<th>쿠폰이름</th>
-                                            <th>최소주문금액</th>
-                                            <th>할인금액</th>
-											<th></th>
+											<th>쿠폰팩번호</th>
+                                            <th>쿠폰타입</th>
+                                            <th>쿠폰설명</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ghd5ask</td>
-                                            <td>1000원 할인 쿠폰</td>
-                                            <td>15000원</td>
-                                            <td>1000원</td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-										
+                                    	<c:forEach var="coupon" items="${coupon }" varStatus="i">
+	                                        <tr>
+	                                            <td>${i.count}</td>
+	                                            <td>${coupon.coupon_code }</td>
+	                                            <td>${coupon.coupon_pack }</td>
+	                                            <td>${coupon.coupon_type }</td>
+	                                            <td>${coupon.coupon_explain }</td>
+	                                            <td>
+	                                            <button type="button" class="btn btn-dark">삭제</button>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

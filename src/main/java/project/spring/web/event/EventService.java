@@ -11,4 +11,8 @@ public interface EventService {
 	public List<CouponVO> getCouponPack(CouponVO vo);
 	
 	public CouponVO getCouponDetail(CouponVO vo);
+	
+	public List<CouponVO> getAllCoupon(CouponVO vo);
+	
+	public List<CouponVO> getUserCoupon(CouponVO vo);
 }

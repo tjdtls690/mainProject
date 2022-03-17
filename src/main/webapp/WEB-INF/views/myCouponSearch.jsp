@@ -126,15 +126,6 @@
 				}, 350);
 			}
 		});
-		
-		/* var referrer = document.referrer;
-	    console.log(referrer);
-	    if(referrer = 'http://localhost:8090/web/secondEvent.do') {
-	    	console.log("신선하게샐러드구독");
-	    	$('.form-text').val('신선하게샐러드구독');
-	    } else {
-	    	$('.form-text').val('');
-	    } */
 	    
 	    var url = window.location.pathname;
 	    

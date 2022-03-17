@@ -238,7 +238,7 @@
 
 			}
 
-			o.action="testOrder.do";
+			o.action="order.do";
 			o.method="post";
 			o.submit();			
 			

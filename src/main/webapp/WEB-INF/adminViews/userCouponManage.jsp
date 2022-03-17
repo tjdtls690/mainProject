@@ -18,22 +18,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function() {
-	$(document).on('click','.btn.btn-dark', function(){
+	$(document).on('click','.btn.btn-dark', function(){	
 		var couponCode = $(this).attr('id');
-		alert(couponCode);
+		var email = $('.email').attr('id');
+		/* alert(couponCode); */
+		alert(email);
 		$.ajax({
-			url : 'couponDelete.mdo',
+			url : 'userCouponDelete.mdo',
 			type : 'post',
 			data : {
-				"couponCode" : couponCode
+				"couponCode" : couponCode,
+				"email" : email
 			},
 			success : function(data){
 				location.reload();
 			}
 		})
 	})
-});
-</script>    
+})
+</script>
     </head>
     
 <body class="sb-nav-fixed">
@@ -132,7 +135,7 @@ $(function() {
 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">쿠폰관리</h1>
+                        <h1 class="mt-4">회원쿠폰관리</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">(쿠폰목록)</li>
                         </ol>
@@ -147,8 +150,8 @@ $(function() {
                                     <thead>
                                        <tr>
                                             <th>번호</th>
+                                            <th>회원이메일</th>
                                             <th>쿠폰코드</th>
-											<th>쿠폰팩번호</th>
                                             <th>쿠폰타입</th>
                                             <th>쿠폰설명</th>
                                         </tr>
@@ -156,8 +159,8 @@ $(function() {
                                     <tfoot>
                                         <tr>
                                             <th>번호</th>
+                                            <th>회원이메일</th>
                                             <th>쿠폰코드</th>
-											<th>쿠폰팩번호</th>
                                             <th>쿠폰타입</th>
                                             <th>쿠폰설명</th>
                                         </tr>
@@ -166,8 +169,8 @@ $(function() {
                                     	<c:forEach var="coupon" items="${coupon }" varStatus="i">
 	                                        <tr>
 	                                            <td>${i.count}</td>
+	                                            <td class="email" id="${memberEmail[i.index] }">${memberEmail[i.index] }</td>
 	                                            <td>${coupon.coupon_code }</td>
-	                                            <td>${coupon.coupon_pack }</td>
 	                                            <td>${coupon.coupon_type }</td>
 	                                            <td>${coupon.coupon_explain }</td>
 	                                            <td>

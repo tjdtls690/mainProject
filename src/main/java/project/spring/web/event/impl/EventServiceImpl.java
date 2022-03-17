@@ -15,15 +15,13 @@ public class EventServiceImpl implements EventService {
 	EventDAO eventDAO;
 	
 	@Override
-	public List<CouponVO> getCoupon(CouponVO vo) {
-		
+	public List<CouponVO> getCoupon(CouponVO vo) {	
 		return eventDAO.getCoupon(vo);
 	}
 
 	@Override
 	public void insertCoupon(CouponVO vo) {
 		eventDAO.insertCoupon(vo);
-
 	}
 	
 	@Override
@@ -44,6 +42,16 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<CouponVO> getUserCoupon(CouponVO vo) {
 		return eventDAO.getUserCoupon(vo);
+	}
+
+	@Override
+	public void deleteCoupon(CouponVO vo) {
+		eventDAO.deleteCoupon(vo);
+	}
+
+	@Override
+	public void deleteUserCoupon(CouponVO vo) {
+		eventDAO.deleteUserCoupon(vo);
 	}
 	
 }

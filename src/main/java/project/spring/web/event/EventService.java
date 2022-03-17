@@ -15,4 +15,8 @@ public interface EventService {
 	public List<CouponVO> getAllCoupon(CouponVO vo);
 	
 	public List<CouponVO> getUserCoupon(CouponVO vo);
+	
+	public void deleteCoupon(CouponVO vo);
+	
+	public void deleteUserCoupon(CouponVO vo);
 }

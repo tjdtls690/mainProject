@@ -50,7 +50,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=2">
+<link rel="stylesheet" href="${path }/style2.css?ver=1">
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -63,6 +63,7 @@
 	}
 	
 	$(function(){
+		var currentScroll = 0;
 		$('.row--v-center.same-with-order-wrap > span').trigger('click');
 		
 		$(document).on('click', '#closeFinalCheck', function(){
@@ -286,23 +287,43 @@
 	    // 할인 쿠폰 버튼
 	    $(document).on('click', '.coupon button', function(){
 	    	$('html').attr('class', 'mode-popup');
+	    	var productsFinalPrice = $('#productsFinalPrice').val().replace(',', '');
+	    	var paymentDeliveryTypeCheck = $('#paymentDeliveryTypeCheck').val();
+	    	var itemTagMain = [];
+			var itemCode = [];
+			for(var i = 0; i < $('.itemTagMain').length; i++){
+				itemTagMain[i] = $('.itemTagMain').eq(i).val();
+				itemCode[i] = $('.itemCode').eq(i).val();
+			}
+			jQuery.ajaxSettings.traditional = true; // ajax로 리스트 형식을 보내기 위한 셋팅
+			
 	    	$.ajax({
 	    		url : 'paymentCouponModal.do',
 	    		dataType : 'html',
+	    		type : 'post',
+	    		data : {
+	    			'productsFinalPrice' : productsFinalPrice,
+	    			'itemTagMain' : itemTagMain,
+	    			'itemCode' : itemCode,
+	    			'paymentDeliveryTypeCheck' : paymentDeliveryTypeCheck
+	    		},
 	    		success : function(htmlOut){
 	    			$('.checkout').append(htmlOut);
 	    		}
 	    	});
 	    });
 	    
-	    // 쿠폰 모달창 중 x버튼, 선택 완료 버튼, 모달창 바깥 영역 클릭 시
+	    // 쿠폰 모달창 중 x버튼, 선택 완료 버튼, 모달창 바깥 영역 클릭 시 todo
 	    $(document).on('click', '.modal-wrap.modal-wrap--full', function(e){
 	    	if(!$(e.target).hasClass("select-coupon__title") && !$(e.target).hasClass("select-coupon__bar") && !$(e.target).hasClass("except1")
-	    			&& !$(e.target).hasClass("select-coupon__body") && !$(e.target).hasClass("error-list")){
+	    			&& !$(e.target).hasClass("select-coupon__body") && !$(e.target).hasClass("error-list") && !$(e.target).hasClass("row")
+	    			&& !$(e.target).hasClass("select-coupon-item__check") && !$(e.target).hasClass("form-checkbox") && !$(e.target).hasClass("col")
+	    			&& !$(e.target).hasClass("select-coupon-item__title") && !$(e.target).hasClass("select-coupon-item__description") && !$(e.target).hasClass("select-coupon-item__price") && !$(e.target).hasClass("select-coupon-item__date")){
 	    		$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+	    		$('html').attr('class', '');
+				$('html').scrollTop($('.checkout__delivery.checkout-column__delivery').offset().top);
 	    		setTimeout(function() {
 					$('.modal.modal-leave-active.modal-leave-to').detach();
-					$('html').attr('class', '');
 				}, 400);
 	    	}
 	    })
@@ -340,6 +361,13 @@
 					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2"> <!-- 상세 주소 -->
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
+					<div class="hidden-div" style="display:none">
+					<!-- 쿠폰 조건을 걸기 위한 태그메인, 아이템 코드 -->
+						<c:forEach var="list1" items="${list }">
+							<input type="hidden" value="${list1.paymentTagMain }" class="itemTagMain">
+							<input type="hidden" value="${list1.paymentItemCode }" class="itemCode">
+						</c:forEach>
+					</div>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>

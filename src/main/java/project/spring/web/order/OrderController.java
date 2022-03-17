@@ -51,20 +51,23 @@ public class OrderController {
 			
 			if(orderItemSizeSummary != null) {
 				for(int i = 0; i < orderItemSizeSummary.length; i++) {
-					DetailVO tmpVO = new DetailVO();
-					tmpVO.setItem_code(Integer.parseInt(orderItemCode[i]));
-					if(orderTagMain[i].equals("100") || orderTagMain[i].equals("600")) {
-						orderItem.add(detailService.getSubItem(tmpVO));
-					}else {
-						orderItem.add(detailService.getItem(tmpVO));
-					}
+					System.out.println("길이 : " + orderItemSizeSummary.length);
 					System.out.println("장바구니에서 넘어온 아이템 코드 " + i + "번째 : " + orderItemCode[i]);
 					System.out.println("장바구니에서 넘어온 아이템 수량 " + i + "번째 : " + orderQuantity[i]);
 					System.out.println("장바구니에서 넘어온 아이템 사이즈 요약 " + i + "번째 : " + orderItemSizeSummary[i]);
+					if(!orderItemSizeSummary[i].equals(null) && !orderItemSizeSummary[i].equals("") && !orderItemSizeSummary[i].equals("0")) {
+						DetailVO tmpVO = new DetailVO();
+						tmpVO.setItem_code(Integer.parseInt(orderItemCode[i]));
+						if(orderTagMain[i].equals("100") || orderTagMain[i].equals("600")) {
+							orderItem.add(detailService.getSubItem(tmpVO));
+						}else {
+							orderItem.add(detailService.getItem(tmpVO));
+						}
+					}
 				}
 				
-				for(int i = 0; i < orderItemSizeSummary.length; i++) {
-					if(orderItemSizeSummary[i].equals("m")){
+				for(int i = 0; i < orderItem.size(); i++) {
+					if(orderItemSizeSummary[i].equals("m") && !orderItemSizeSummary[i].equals("0")){
 						orderItemSizePrice.add(orderItem.get(i).getItem_price_m().replace(",", ""));
 						orderItemSizePriceSub.add(orderItem.get(i).getItem_price_m_sub().replace(",", ""));
 					}else {
@@ -77,7 +80,7 @@ public class OrderController {
 				}
 				
 				
-				for(int i = 0; i < orderItemSizeSummary.length; i++) {
+				for(int i = 0; i < orderItem.size(); i++) {
 					if(orderTagMain[i].equals("400") || orderTagMain[i].equals("700") || orderTagMain[i].equals("800")) {
 						if(orderItemSizeSummary[i].equals("m")) {
 							orderItemSize.add("1개");

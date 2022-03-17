@@ -2671,6 +2671,29 @@ $(function() {
 	        objs5.setAttribute('name', 'paymentSingleList[' + i + '].paymentSalePrice'); // 객체이름
 	        objs5.setAttribute('value', salePrice); //객체값
 	        form.appendChild(objs5);
+	        
+	        
+	        
+	        // 상품 태그 메인
+	        var saveTagMain = $('.hidden-div-real').children('div').eq(i).find('.saveTagMain').val();
+	        
+	        var objs21;
+	        objs21 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs21.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs21.setAttribute('name', 'paymentSingleList[' + i + '].paymentTagMain'); // 객체이름
+	        objs21.setAttribute('value', saveTagMain); //객체값
+	        form.appendChild(objs21);
+	        
+	        
+	        // 상품 코드
+	        var saveItemCode = $('.hidden-div-real').children('div').eq(i).find('.saveItemCode').val();
+	        
+	        var objs22;
+	        objs22 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	        objs22.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	        objs22.setAttribute('name', 'paymentSingleList[' + i + '].paymentItemCode'); // 객체이름
+	        objs22.setAttribute('value', saveItemCode); //객체값
+	        form.appendChild(objs22);
  		}
  		
  		
@@ -2923,12 +2946,12 @@ $(function() {
 						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<div class="hidden-div-real">
-						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
-							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
-								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+						<c:forEach var="orderItem" items="${orderItem }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode[i.index] }" class="saveItemCode">
 								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
 								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] + 100 * orderQuantity[i.index] }" pattern="#,###" />" class="savePrice">
-								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItem.item_name }" class="saveItemName">
 								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
 								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
 								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] * orderQuantity[i.index] }" pattern="#,###" />" class="savePriceSub">
@@ -2938,12 +2961,12 @@ $(function() {
 						</c:forEach>
 					</div>
 					<div class="hidden-div">
-						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
-							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
-								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+						<c:forEach var="orderItem" items="${orderItem }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode[i.index] }" class="saveItemCode">
 								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
 								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] }" pattern="#,###" />" class="savePrice">
-								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItem.item_name }" class="saveItemName">
 								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
 								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
 								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] }" pattern="#,###" />" class="savePriceSub">
@@ -2953,12 +2976,12 @@ $(function() {
 						</c:forEach>
 					</div>
 					<div class="hidden-div2">
-						<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
-							<div class="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
-								<input type="hidden" value="${orderItemCode }" class="saveItemCode">
+						<c:forEach var="orderItem" items="${orderItem }" varStatus="i">
+							<div class="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
+								<input type="hidden" value="${orderItemCode[i.index] }" class="saveItemCode">
 								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
 								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] }" pattern="#,###" />" class="savePrice">
-								<input type="hidden" value="${orderItem[i.index].item_name }" class="saveItemName">
+								<input type="hidden" value="${orderItem.item_name }" class="saveItemName">
 								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
 								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">
 								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePriceSub[i.index] }" pattern="#,###" />" class="savePriceSub">
@@ -3195,18 +3218,18 @@ $(function() {
 											</div>
 											<div data-v-064d23aa="" style="display: flex; flex-wrap: wrap; width: 100%;">
 												
-												<c:forEach var="orderItemCode" items="${orderItemCode }" varStatus="i">
+												<c:forEach var="orderItem" items="${orderItem }" varStatus="i">
 													<section data-v-003a3d21="" data-v-064d23aa="" class="selected-item">
 														<header data-v-003a3d21="" class="row--wrap selected-item-header">
 															<div data-v-003a3d21="" class="row row--h-between col-12">
 																<div data-v-003a3d21="">
-																	<h3 data-v-003a3d21="">${orderItem[i.index].item_name } / ${orderItemSize[i.index] }</h3>
+																	<h3 data-v-003a3d21="">${orderItem.item_name } / ${orderItemSize[i.index] }</h3>
 																	<p data-v-003a3d21="" class="content-info">
 																		<!---->
 																	</p>
 																</div>
 																<div data-v-003a3d21="">
-																	<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+																	<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
 																	<button data-v-003a3d21="" type="button" class="delete-menu-btn">
 																		삭제</button>
 																</div>
@@ -3215,7 +3238,7 @@ $(function() {
 																<nav data-v-003a3d21="">
 																	<nav data-v-4ba0dee4="" data-v-003a3d21=""
 																		class="form-number quantity">
-																		<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+																		<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
 																		<input type="hidden" value="${orderItemSizePrice[i.index]}">
 																		<input type="hidden" value="${orderItemSizePriceSub[i.index]}">
 																		<button data-v-4ba0dee4="" type="button"
@@ -3280,7 +3303,7 @@ $(function() {
 																<div data-v-003a3d21="" style="width: 130px;">
 																	<nav data-v-4ba0dee4="" data-v-003a3d21=""
 																		class="form-number quantity">
-																		<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode }/${orderItemSizeSummary[i.index]}">
+																		<input type="hidden" value="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
 																		<input type="hidden" value="${orderItemSizePrice[i.index]}">
 																		<input type="hidden" value="${orderItemSizePriceSub[i.index]}">
 																		<button data-v-4ba0dee4="" type="button"

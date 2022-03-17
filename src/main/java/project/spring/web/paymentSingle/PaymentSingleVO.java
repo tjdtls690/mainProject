@@ -6,6 +6,24 @@ public class PaymentSingleVO {
 	private String paymentItemQuantity;
 	private String paymentPrice;
 	private String paymentSalePrice;
+	private String paymentTagMain;
+	private String paymentItemCode;
+
+	public String getPaymentTagMain() {
+		return paymentTagMain;
+	}
+
+	public void setPaymentTagMain(String paymentTagMain) {
+		this.paymentTagMain = paymentTagMain;
+	}
+
+	public String getPaymentItemCode() {
+		return paymentItemCode;
+	}
+
+	public void setPaymentItemCode(String paymentItemCode) {
+		this.paymentItemCode = paymentItemCode;
+	}
 
 	public String getPaymentItem() {
 		return paymentItem;
@@ -51,7 +69,8 @@ public class PaymentSingleVO {
 	public String toString() {
 		return "PaymentSingleVO [paymentItem=" + paymentItem + ", paymentDisposable=" + paymentDisposable
 				+ ", paymentItemQuantity=" + paymentItemQuantity + ", paymentPrice=" + paymentPrice
-				+ ", paymentSalePrice=" + paymentSalePrice + "]";
+				+ ", paymentSalePrice=" + paymentSalePrice + ", paymentTagMain=" + paymentTagMain + ", paymentItemCode="
+				+ paymentItemCode + "]";
 	}
 
 }

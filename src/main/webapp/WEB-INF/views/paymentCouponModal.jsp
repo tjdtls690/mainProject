@@ -23,7 +23,7 @@
 						</button>
 					</h2>
 					<div data-v-32405de0="" class="select-coupon__bar">
-						<span data-v-32405de0="" class="except1">보유 쿠폰 ${fn:length(list)} 장 | 사용가능 쿠폰 0 장</span>
+						<span data-v-32405de0="" class="except1">보유 쿠폰 ${fn:length(list)} 장 | 사용가능 쿠폰 ${check } 장</span>
 						<nav data-v-32405de0=""></nav>
 					</div>
 					<div data-v-32405de0="" class="select-coupon__body">
@@ -36,201 +36,463 @@
 							<ul data-v-32405de0="">
 							
 								<c:forEach var="list1" items="${list }">
-									<c:if test="${list1.coupon_code == 1 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+									<c:forEach var="listCheck1" items="${listCheck }">
+										<c:if test="${listCheck1 ==  list1.coupon_code}">
+											<c:if test="${list1.coupon_code == 1 }">
+												<li data-v-32405de0="">
+												
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+															
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="except1">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 치킨 타코 샐러드
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">1000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+				<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 치킨 타코 샐러드
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">100</em>원 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 2 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 2 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 정기구독 상품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">50</em>% 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 정기구독 상품
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">50</em>% 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 3 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 3 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 세트 상품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">5000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+				<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 세트 상품
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">5000</em>원 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 4 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 4 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 닭가슴살 세트
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">15</em>% 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+				<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 닭가슴살 세트
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">15</em>% 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 5 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 5 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 넛트드링크 또는 그래놀라 세트
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">20</em>% 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 넛트드링크 또는 그래놀라 세트
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">20</em>% 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 6 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 6 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 프코한끼 도시락
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">20</em>% 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 프코한끼 도시락
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">20</em>% 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
+												</li>
+												</c:if>
+												<c:if test="${list1.coupon_code == 7 }">
+													<li data-v-32405de0="">
+														<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+															<span data-v-799a696b="" class="select-coupon-item__check">
+																<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																	<input data-v-2673f877="" class="except1" type="checkbox"  value="false"> 
+																	<span data-v-2673f877="" class="except1">
+																		<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																			<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																		</svg>
+																	</span>
+																</label>
+															</span>
+															<span data-v-799a696b="" class="col select-coupon-item__body">
+																<strong data-v-799a696b="" class="select-coupon-item__title">
+																	${list1.coupon_type } 
+																</strong> 
+																<span data-v-799a696b="" class="select-coupon-item__description"> 
+																		사용 가능 메뉴 : 모든 제품
+																	<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																</span> <!----> 
+																<span data-v-799a696b="" class="select-coupon-item__price">
+																	<em data-v-799a696b="" class="except1">1000</em>원 할인 
+																</span> <!----> 
+																<span data-v-799a696b="" class="select-coupon-item__date">
+				<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+																</span>
+															</span>
+														</label>
+													</li>
+												</c:if>
+												<c:if test="${list1.coupon_code == 8 }">
+													<li data-v-32405de0="">
+														<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+															<span data-v-799a696b="" class="select-coupon-item__check">
+																<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																	<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																	<span data-v-2673f877="" class="except1">
+																		<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																			<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																		</svg>
+																	</span>
+																</label>
+															</span>
+															<span data-v-799a696b="" class="col select-coupon-item__body">
+																<strong data-v-799a696b="" class="select-coupon-item__title">
+																	${list1.coupon_type } 
+																</strong> 
+																<span data-v-799a696b="" class="select-coupon-item__description"> 
+																		사용 가능 메뉴 : 모든 제품
+																	<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																</span> <!----> 
+																<span data-v-799a696b="" class="select-coupon-item__price">
+																	<em data-v-799a696b="" class="except1">2000</em>원 할인 
+																</span> <!----> 
+																<span data-v-799a696b="" class="select-coupon-item__date">
+				<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+																</span>
+															</span>
+													</label>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 9 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 모든 제품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">3000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
+														</span>
+													</label>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 10 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 모든 제품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">4000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
+														</span>
+													</label>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 11 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 새벽 배송
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">8000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
+														</span>
+													</label>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 12 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 택배 배송
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">8000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
+														</span>
+													</label>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 13 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 정기 구독 상품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">15</em>% 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
+														</span>
+													</label>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 14 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 택배 배송
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">전액</em> 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
+														</span>
+													</label>
+												</li>
+											</c:if>
 										</c:if>
-										<c:if test="${list1.coupon_code == 7 }">
+									</c:forEach>
+									</c:forEach>
+									
+									<!-- ============================================================================== -->
+									<c:forEach var="list1" items="${list }">
+								<c:forEach var="listCheck1" items="${listCheck }">
+									<c:if test="${listCheck1 !=  list1.coupon_code}">
+										<c:if test="${list1.coupon_code == 1 }">
 											<li data-v-32405de0="">
+											
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-															<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-															<span data-v-2673f877="">
-																<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																	<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+														
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="except1">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
 																</svg>
 															</span>
 														</label>
@@ -240,11 +502,42 @@
 															${list1.coupon_type } 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
-																사용 가능 메뉴 : 모든 제품
-															<p data-v-799a696b="">${list1.coupon_explain } </p>
+																사용 가능 메뉴 : 치킨 타코 샐러드
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
-															<em data-v-799a696b="">1000</em>원 할인 
+															<em data-v-799a696b="" class="except1">1000</em>원 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 2 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 정기구독 상품
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">50</em>% 할인 
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__date">
 		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
@@ -253,14 +546,76 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 8 }">
+										<c:if test="${list1.coupon_code == 3 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-															<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-															<span data-v-2673f877="">
-																<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 세트 상품
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">5000</em>원 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 4 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 닭가슴살 세트
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">15</em>% 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 5 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 																	<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
 																</svg>
 															</span>
@@ -271,205 +626,300 @@
 															${list1.coupon_type } 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
-																사용 가능 메뉴 : 모든 제품
-															<p data-v-799a696b="">${list1.coupon_explain } </p>
+																사용 가능 메뉴 : 넛트드링크 또는 그래놀라 세트
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
-															<em data-v-799a696b="">2000</em>원 할인 
+															<em data-v-799a696b="" class="except1">20</em>% 할인 
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__date">
 		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 														</span>
 													</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 9 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 6 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 프코한끼 도시락
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">20</em>% 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 7 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+																<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
+														</span>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 모든 제품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">1000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
 													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 모든 제품
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">3000</em>원 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 10 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</li>
+											</c:if>
+											<c:if test="${list1.coupon_code == 8 }">
+												<li data-v-32405de0="">
+													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+														<span data-v-799a696b="" class="select-coupon-item__check">
+															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+																<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+																<span data-v-2673f877="" class="except1">
+																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																		<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																	</svg>
+																</span>
+															</label>
 														</span>
-													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 모든 제품
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">4000</em>원 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
-													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 11 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+														<span data-v-799a696b="" class="col select-coupon-item__body">
+															<strong data-v-799a696b="" class="select-coupon-item__title">
+																${list1.coupon_type } 
+															</strong> 
+															<span data-v-799a696b="" class="select-coupon-item__description"> 
+																	사용 가능 메뉴 : 모든 제품
+																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__price">
+																<em data-v-799a696b="" class="except1">2000</em>원 할인 
+															</span> <!----> 
+															<span data-v-799a696b="" class="select-coupon-item__date">
+			<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+															</span>
 														</span>
-													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 새벽 배송
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">8000</em>원 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 9 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
 													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 12 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 모든 제품
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">3000</em>원 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 														</span>
-													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 택배 배송
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">8000</em>원 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 13 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 10 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 모든 제품
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">4000</em>원 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 														</span>
-													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 정기 구독 상품
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">15</em>% 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 													</span>
-												</span>
-											</label>
-										</li>
-									</c:if>
-									<c:if test="${list1.coupon_code == 14 }">
-										<li data-v-32405de0="">
-											<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
-												<span data-v-799a696b="" class="select-coupon-item__check">
-													<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														<input data-v-2673f877="" type="checkbox" disabled="disabled" value="false"> 
-														<span data-v-2673f877="">
-															<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
-															</svg>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 11 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 새벽 배송
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">8000</em>원 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 														</span>
-													</label>
-												</span>
-												<span data-v-799a696b="" class="col select-coupon-item__body">
-													<strong data-v-799a696b="" class="select-coupon-item__title">
-														${list1.coupon_type } 
-													</strong> 
-													<span data-v-799a696b="" class="select-coupon-item__description"> 
-															사용 가능 메뉴 : 택배 배송
-														<p data-v-799a696b="">${list1.coupon_explain } </p>
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__price">
-														<em data-v-799a696b="">전액</em> 할인 
-													</span> <!----> 
-													<span data-v-799a696b="" class="select-coupon-item__date">
-	<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
 													</span>
-												</span>
-											</label>
-										</li>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 12 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 택배 배송
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">8000</em>원 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 13 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 정기 구독 상품
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">15</em>% 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+										</c:if>
+										<c:if test="${list1.coupon_code == 14 }">
+											<li data-v-32405de0="">
+												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
+													<span data-v-799a696b="" class="select-coupon-item__check">
+														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
+															<span data-v-2673f877="" class="except1">
+																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+																	<path data-v-2673f877="" class="except1" fill="currentColor" fill-rule="nonzero" d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path>
+																</svg>
+															</span>
+														</label>
+													</span>
+													<span data-v-799a696b="" class="col select-coupon-item__body">
+														<strong data-v-799a696b="" class="select-coupon-item__title">
+															${list1.coupon_type } 
+														</strong> 
+														<span data-v-799a696b="" class="select-coupon-item__description"> 
+																사용 가능 메뉴 : 택배 배송
+															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__price">
+															<em data-v-799a696b="" class="except1">전액</em> 할인 
+														</span> <!----> 
+														<span data-v-799a696b="" class="select-coupon-item__date">
+		<!-- 													<em data-v-799a696b="">2022.03.30</em>까지  -->
+														</span>
+													</span>
+												</label>
+											</li>
+										</c:if>
 									</c:if>
+									</c:forEach>
 								</c:forEach>
 								
 							</ul>

@@ -1,5 +1,6 @@
 package project.spring.web.paymentSingle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,15 +59,105 @@ public class PaymentSingleController {
 	}
 	
 	@RequestMapping("/paymentCouponModal.do")
-	public ModelAndView paymentCouponModalDo(ModelAndView mav, HttpServletRequest request, PaymentSingleCouponInfoVO vo) {
+	public ModelAndView paymentCouponModalDo(ModelAndView mav, HttpServletRequest request, PaymentSingleCouponInfoVO vo, String productsFinalPrice
+			, String paymentDeliveryTypeCheck, String[] itemTagMain, String[] itemCode) {
 		HttpSession session = request.getSession();
 		MemberVO vo1 = (MemberVO)session.getAttribute("member");
 		vo.setUser_code(String.valueOf(vo1.getMemberCode()));
 		List<PaymentSingleCouponInfoVO> list = paymentSingleService.getMyPaymentCoupon(vo);
-		
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println("?? : " + list.get(i).getCoupon_code());
+		List<Integer> listCheck = new ArrayList<Integer>(); // 사용 가능한 쿠폰 고유 번호 리스트
+		for(int i = 0; i < itemTagMain.length; i++) {
+			System.out.println("태그메인 : " + itemTagMain[i]);
+			System.out.println("아이템 코드 : " + itemCode[i]);
+			
 		}
+		System.out.println("총 금액 : " + productsFinalPrice);
+		System.out.println("배송 타입 : " + paymentDeliveryTypeCheck);
+		
+		
+		// 쿠폰 사용조건 구분
+		int check = 0;
+		for(int i = 0; i < list.size(); i++) {
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 1 && Integer.parseInt(productsFinalPrice) >= 15000) {
+				for(int j = 0; j < itemTagMain.length; j++) {
+					if(Integer.parseInt(itemTagMain[j]) == 200 && Integer.parseInt(itemCode[j]) == 54) {
+						check++;
+						listCheck.add(1);
+						break;
+					}
+				}
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 2 && Integer.parseInt(productsFinalPrice) >= 30000 && Integer.parseInt(paymentDeliveryTypeCheck) == 2) {
+				check++;
+				listCheck.add(2);
+			}
+			
+			for(int j = 0; j < itemTagMain.length; j++) {
+				if(Integer.parseInt(list.get(i).getCoupon_code()) == 3 && Integer.parseInt(productsFinalPrice) >= 25000 && Integer.parseInt(itemTagMain[j]) == 600) {
+					check++;
+					listCheck.add(3);
+					break;
+				}
+			}
+			
+			for(int j = 0; j < itemTagMain.length; j++) {
+				if(Integer.parseInt(list.get(i).getCoupon_code()) == 6 && Integer.parseInt(productsFinalPrice) >= 30000 && 
+						(Integer.parseInt(itemTagMain[j]) == 100) && (Integer.parseInt(itemCode[j]) == 14 || Integer.parseInt(itemCode[j]) == 15 || Integer.parseInt(itemCode[j]) == 20
+						|| Integer.parseInt(itemCode[j]) == 21 || Integer.parseInt(itemCode[j]) == 22 || Integer.parseInt(itemCode[j]) == 23 || Integer.parseInt(itemCode[j]) == 28 || Integer.parseInt(itemCode[j]) == 29)) {
+					check++;
+					listCheck.add(6);
+					break;
+				}
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 7 && Integer.parseInt(productsFinalPrice) >= 10000) {
+				check++;
+				listCheck.add(7);
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 8 && Integer.parseInt(productsFinalPrice) >= 20000) {
+				check++;
+				listCheck.add(8);
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 9 && Integer.parseInt(productsFinalPrice) >= 30000) {
+				check++;
+				listCheck.add(9);
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 10 && Integer.parseInt(productsFinalPrice) >= 40000) {
+				check++;
+				listCheck.add(10);
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 11 && Integer.parseInt(productsFinalPrice) >= 55000 && Integer.parseInt(paymentDeliveryTypeCheck) == 0) {
+				check++;
+				listCheck.add(11);
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 12 && Integer.parseInt(productsFinalPrice) >= 55000 && Integer.parseInt(paymentDeliveryTypeCheck) == 1) {
+				check++;
+				listCheck.add(12);
+			}
+			
+			for(int j = 0; j < itemTagMain.length; j++) {
+				if(Integer.parseInt(list.get(i).getCoupon_code()) == 13 && Integer.parseInt(productsFinalPrice) >= 30000 && Integer.parseInt(itemTagMain[j]) == 100) {
+					check++;
+					listCheck.add(13);
+					break;
+				}
+			}
+			
+			if(Integer.parseInt(list.get(i).getCoupon_code()) == 14 && Integer.parseInt(productsFinalPrice) >= 30000 && Integer.parseInt(paymentDeliveryTypeCheck) == 1) {
+				check++;
+				listCheck.add(14);
+			}
+		}
+		
+		mav.addObject("listCheck", listCheck);
+		mav.addObject("check", check);
+		mav.addObject("productsFinalPrice", productsFinalPrice);
 		mav.addObject("list", list);
 		mav.setViewName("paymentCouponModal");
 		return mav;

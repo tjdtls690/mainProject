@@ -18,6 +18,7 @@
    <link rel="stylesheet" href="${path }/hmm2.css">
    <link rel="stylesheet" href="${path }/style2.css?ver=2">
    
+   
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
    
@@ -59,7 +60,7 @@
          
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
-     	$(document).on('click','#nutrition-info',function(){  
+     	$(document).on('click','#nut',function(){  
     		alert("영양 정보 숨기기");
     	    if($("#item_nut_show").css("display") == "none"){   
     	        $('#item_nut_show').show(); 
@@ -68,7 +69,7 @@
     	    }  
     	}); 
 // 상품 정보 고시 숨기기
-     	$(document).on('click','#product-info',function(){  
+     	$(document).on('click','#info',function(){  
     		alert("상품 정보 숨기기");
     	    if($("#item_info_show").css("display") == "none"){   
     	        $('#item_info_show').show(); 
@@ -204,6 +205,7 @@
 				Length = 2;
 			}
 			
+
 			var o = document.order;	
 			for(var i = 0; i < Length; i++){
 //				alert(i+" 번째 차");			
@@ -236,7 +238,7 @@
 
 			}
 
-			o.action="order.do";
+			o.action="testOrder.do";
 			o.method="post";
 			o.submit();			
 			
@@ -526,10 +528,56 @@
 			}					
 		});
 		
+// nav바 클릭시 스크롤이동
+		$(document).on('click','.menu-tab-btn-wrap',function(){
+			var text = $(this).children().children().text();
+			if(text =="상품정보"){
+				var location = document.querySelector(".menu-description-container").offsetTop;
+				window.scrollTo({top:location-150, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}else if(text =="상세정보"){  
+				var location = document.querySelector("#product-info").offsetTop;
+				window.scrollTo({top:location-180, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}else if(text == "FAQ"){
+				var location = document.querySelector("#faq").offsetTop;
+				window.scrollTo({top:location-220, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}else if(text == "고객후기"){
+				var location = document.querySelector("#ClientReview").offsetTop;
+				window.scrollTo({top:location-220, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}
+		})
+		
+// 스크롤 이동시 nav 바 변경
+	   $(document).ready(function(){
+			var menu =$('.menu-tab-btn-wrap');
+			var contents = $('.navBar');
+			$(window).scroll(function(){
+				var scltop = $(window).scrollTop();
+				$.each(contents, function(idx,item){
+					var target = contents.eq(idx);
+					var i = target.index();
+					var targetTop = target.offset().top;
+					if (targetTop-265 <= scltop) {
+			  			menu.removeClass('on');
+			  			menu.eq(idx).addClass('on');
+			  		}
+			  		if (!(600 <= scltop)) {
+			  			menu.removeClass('on');
+			  		}
+				})		
+			})
+		});
+		
 		
      }); //function 끝
-
-
+  
 
     </script>
 
@@ -585,23 +633,23 @@
 				<form name="order">
 <!-- 					이렇게 두개씩주고 만약 M/L 둘다가면 그냥쓰고 한개만쓰면 컨트롤러에서 if문을 돌려 ""이면 1개만 받게끔하자... -->		
 					<input type="hidden" name="orderItemCode" value="" id="a">
-					<input type="hidden" name="orderItemCode" value="" >
+					<input type="hidden" name="orderItemCode" value="0" >
 					<input type="hidden" name="orderTagMain" value=""  >
-					<input type="hidden" name="orderTagMain" value=""  >								
+					<input type="hidden" name="orderTagMain" value="0"  >								
 					<input type="hidden" name="orderItemPrice"  value="" >
-					<input type="hidden" name="orderItemPrice"  value="" >				
+					<input type="hidden" name="orderItemPrice"  value="0" >				
 					<input type="hidden" name="orderItemPriceSub" value="">
-					<input type="hidden" name="orderItemPriceSub" value="">
+					<input type="hidden" name="orderItemPriceSub" value="0">
 					<input type="hidden" name="orderItemName" value="" >
-					<input type="hidden" name="orderItemName" value="" >
+					<input type="hidden" name="orderItemName" value="0" >
 					<input type="hidden" name="orderItemSizeSummary" value=""  id="a">
-					<input type="hidden" name="orderItemSizeSummary" value="" id="b">
+					<input type="hidden" name="orderItemSizeSummary" value="0" id="b">
 					<input type="hidden" name="orderItemImage" value="" >
-					<input type="hidden" name="orderItemImage" value="" >
+					<input type="hidden" name="orderItemImage" value="0" >
 					<input type="hidden" name="orderItemTagSub" value="" >
-					<input type="hidden" name="orderItemTagSub" value="" >
+					<input type="hidden" name="orderItemTagSub" value="0" >
 					<input type="hidden" name="orderQuantity"  value="">
-					<input type="hidden" name="orderQuantity"  value="">
+					<input type="hidden" name="orderQuantity"  value="0">
 
 				</form>
 				
@@ -818,7 +866,7 @@
 	                                                                    <span data-v-5b7f52e9>선택</span>
 	                                                                </div>
 	                                                                <div data-v-5b7f52e9 class="dropdown-icon">
-	                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
+	                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="dropdown-icon">
 	                                                                </div>
 	                                                            </div>
 	<!--  클릭시 나올 선택 드롭다운은 selectitem.jsp 로 옮김 -->
@@ -967,12 +1015,12 @@
                     </article>
                     <div data-v-32a18372 class="menu__tab">
                         <nav data-v-61e19c34 data-v-32a18372 class="menu-tab unit">
-                            <div data-v-61e19c34 class="menu-tab-btn-wrap on">
+                            <div data-v-61e19c34 class="menu-tab-btn-wrap">
                                 <button data-v-61e19c34 type="button">
                                     <span data-v-61e19c34>상품정보</span>
                                 </button>
                             </div>
-                            <div data-v-61e19c34 class="menu-tab-btn-wrap">
+                            <div data-v-61e19c34 class="menu-tab-btn-wrap on">
                                 <button data-v-61e19c34 type="button">
                                     <span data-v-61e19c34>상세정보</span>
                                 </button>
@@ -991,7 +1039,7 @@
                             </div>
                         </nav>
                     </div>
-                    <div data-v-32a18372 class="menu-description-container">
+                    <div data-v-32a18372 class="menu-description-container navBar">
                         <div data-v-32a18372 class="menu-description">
                             <div data-v-32a18372 class="menu-description-left">
                                 <div data-v-32a18372 id="menu-detail" class="menu__tab-info">
@@ -1011,7 +1059,7 @@
                                             </div>
                                             <div data-v-79f00ef9 class="more-btn">
                                                 <span data-v-79f00ef9 class="more-btn-text">상품 정보 더보기</span>
-                                                <img data-v-79f00ef9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down-green%402x.png"  class="more-btn-arrow">
+                                                <img data-v-79f00ef9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down(green).png"  class="more-btn-arrow">
                                             </div>
                                         </div>
                                     </div>
@@ -1041,7 +1089,7 @@
                                                                     <span data-v-5b7f52e9>선택</span>
                                                                 </div>
                                                                 <div data-v-5b7f52e9 class="dropdown-icon">
-                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="dropdown-icon">
+                                                                    <img data-v-5b7f52e9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="dropdown-icon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1120,10 +1168,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div data-v-32a18372 id="product-info">
+                        <div data-v-32a18372 id="product-info" class="navBar">
                             <h3 data-v-32a18372 class="menu__tab-info-title menu-info">
-                                <span data-v-32a18372>상품 정보 고시</span>
-                                <div data-v-32a18372 class="info-title-img"></div>
+                                <span data-v-32a18372 id="info">상품 정보 고시</span>
+<!--                            <div data-v-32a18372 class="info-title-img" > -->
+                                	<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" style="width:25px; height:25px;">
+<!--                            </div> -->
                             </h3>
 						<!-- <div>~~~ 생겨야됨. -->
 							<div data-v-32a18372="" class="menu-info-content-wrap" id="item_info_show">
@@ -1150,8 +1200,9 @@
                         </div>
                         <div data-v-32a18372 id="nutrition-info">
                             <h3 data-v-32a18372 class="menu__tab-info-title menu-info">
-                                <span data-v-32a18372>영양 정보 고시</span>
-                                <div data-v-32a18372 class="info-title-img"></div>
+                                <span data-v-32a18372 id="nut">영양 정보 고시</span>
+<!--                                 <div data-v-32a18372 class="info-title-img"></div> -->
+								<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" style="width:25px; height:25px;">
                             </h3>
                             
                          <!--<div>~~~ 생겨야됨.  --> 
@@ -1179,21 +1230,21 @@
                         <!-- <div>-->  
                         
                         </div>
-                        <div data-v-32a18372 id="faq" class="menu__tab-info tab_menu_detail">
+                        <div data-v-32a18372 id="faq" class="menu__tab-info tab_menu_detail navBar">
                             <p data-v-32a18372 class="menu__tab-info-title faq">FAQ</p>
                             <div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
                                 <div data-v-e3f957fc class="menu-info-table-opener">
                                     <div data-v-e3f957fc class="menu-info-table-title-wrapper">
-                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png"  class="menu-info-table-img question">
+                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png"  class="menu-info-table-img question">
                                         <p data-v-e3f957fc class="menu-info-table-title">[결제 안내]</p>
                                     </div>
-                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="menu-info-table-opener-arrow">
+                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="menu-info-table-opener-arrow">
                                 </div>
 								<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide"
 									style="border-bottom: 1px solid rgb(233, 233, 233);">
 									<div data-v-e3f957fc="" class="answer-wrapper">
 										<div data-v-e3f957fc="" class="answer-column left">
-											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"
 												 class="menu-info-table-img answer">
 										</div>
 										<div data-v-e3f957fc="" class="answer-column right">
@@ -1208,16 +1259,16 @@
                             <div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
                                 <div data-v-e3f957fc class="menu-info-table-opener">
                                     <div data-v-e3f957fc class="menu-info-table-title-wrapper">
-                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png"  class="menu-info-table-img question">
+                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png"  class="menu-info-table-img question">
                                         <p data-v-e3f957fc class="menu-info-table-title">[주문단계 안내]</p>
                                     </div>
-                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="menu-info-table-opener-arrow">
+                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="menu-info-table-opener-arrow">
                                 </div>
                                 <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide"
 									style="border-bottom: 1px solid rgb(233, 233, 233);">
 									<div data-v-e3f957fc="" class="answer-wrapper">
 										<div data-v-e3f957fc="" class="answer-column left">
-											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"
 												 class="menu-info-table-img answer">
 										</div>
 										<div data-v-e3f957fc="" class="answer-column right">
@@ -1238,15 +1289,15 @@
                             <div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
                                 <div data-v-e3f957fc class="menu-info-table-opener">
                                     <div data-v-e3f957fc class="menu-info-table-title-wrapper">
-                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png"  class="menu-info-table-img question">
+                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png"  class="menu-info-table-img question">
                                         <p data-v-e3f957fc class="menu-info-table-title">[취소 및 환불 안내]</p>
                                     </div>
-                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="menu-info-table-opener-arrow">
+                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="menu-info-table-opener-arrow">
                                 </div>
                                 <div data-v-e3f957fc class="menu-info-table-content-wrap review-hide">
                                     <div data-v-e3f957fc class="answer-wrapper">
                                        <div data-v-e3f957fc class="answer-column left">
-                                          <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"  class="menu-info-table-img answer">
+                                          <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"  class="menu-info-table-img answer">
                                        </div>
                                        <div data-v-e3f957fc class="answer-column right">
                                           <div data-v-e3f957fc class="menu-info-table-content-description">▶ 일반상품 취소 가능 시점<br>
@@ -1267,16 +1318,16 @@
                             <div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
                                 <div data-v-e3f957fc class="menu-info-table-opener">
                                     <div data-v-e3f957fc class="menu-info-table-title-wrapper">
-                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png"  class="menu-info-table-img question">
+                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png"  class="menu-info-table-img question">
                                         <p data-v-e3f957fc class="menu-info-table-title">[배송 안내]</p>
                                     </div>
-                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="menu-info-table-opener-arrow">
+                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="menu-info-table-opener-arrow">
                                 </div>
                                 <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide"
 									style="border-bottom: 1px solid rgb(233, 233, 233);">
 									<div data-v-e3f957fc="" class="answer-wrapper">
 										<div data-v-e3f957fc="" class="answer-column left">
-											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"
 												 class="menu-info-table-img answer">
 										</div>
 										<div data-v-e3f957fc="" class="answer-column right">
@@ -1324,16 +1375,16 @@
                             <div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
                                 <div data-v-e3f957fc class="menu-info-table-opener">
                                     <div data-v-e3f957fc class="menu-info-table-title-wrapper">
-                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png"  class="menu-info-table-img question">
+                                        <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png"  class="menu-info-table-img question">
                                         <p data-v-e3f957fc class="menu-info-table-title">[기타 사항(자주 묻는 질문)]</p>
                                     </div>
-                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"  class="menu-info-table-opener-arrow">
+                                    <img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"  class="menu-info-table-opener-arrow">
                                 </div>
                                 <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide"
 									style="border-bottom: 1px solid rgb(233, 233, 233);">
 									<div data-v-e3f957fc="" class="answer-wrapper">
 										<div data-v-e3f957fc="" class="answer-column left">
-											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"
 												 class="menu-info-table-img answer">
 										</div>
 										<div data-v-e3f957fc="" class="answer-column right">
@@ -1367,233 +1418,233 @@
                             <div data-v-32a18372 class="menu__tab-review-banner"></div>
                         </a>
                         <div data-v-f8b893b0="" data-v-32a18372="" class="menu-review">
-                            <section data-v-f8b893b0="" class="menu-review__album">
-                                <h3 data-v-f8b893b0="" class="menu-review__album-title">
-                                  고객 후기 사진 (13)
-                                </h3>
-                                <div data-v-f8b893b0="" class="images">
-                                  <div data-v-f8b893b0="">
-                                     <span id="carousel_prev_nj8u0ztnu9d" style=""></span>
-                                     <div id="carousel_ola7225lcr9"
-                                        class="owl-carousel owl-theme owl-loaded">
-                                        <div class="owl-stage-outer">
-                                           <div class="owl-stage"
-                                              style="transform: translate3d(-1224px, 0px, 0px); transition: all 0s ease 0s; width: 5100px;">
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="7"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44177_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="8"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44178_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="9"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44144_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="10"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44145_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="11"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44112_20220119135334&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="12"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44090_20220119113045&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="0"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="1"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="2"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="3"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44276_20220121141048&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="4"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44231_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="5"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44232_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="6"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44194_20220120145825&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="7"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44177_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="8"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44178_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="9"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44144_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="10"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44145_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="11"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44112_20220119135334&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="12"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44090_20220119113045&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="0"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="1"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="2"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="3"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44276_20220121141048&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="4"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44231_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="5"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44232_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <div class="owl-nav">
-                                           <div class="owl-prev">next</div>
-                                           <div class="owl-next">prev</div>
-                                        </div>
-                                        <div class="owl-dots disabled"></div>
-                                     </div>
-                                     <span id="carousel_next_tc5wlekmakl"></span>
-                                  </div>
-                               </div>
-                            </section>
+<!--                             <section data-v-f8b893b0="" class="menu-review__album"> -->
+<!--                                 <h3 data-v-f8b893b0="" class="menu-review__album-title"> -->
+<!--                                   고객 후기 사진 (13) -->
+<!--                                 </h3> -->
+<!--                                 <div data-v-f8b893b0="" class="images"> -->
+<!--                                   <div data-v-f8b893b0=""> -->
+<!--                                      <span id="carousel_prev_nj8u0ztnu9d" style=""></span> -->
+<!--                                      <div id="carousel_ola7225lcr9" -->
+<!--                                         class="owl-carousel owl-theme owl-loaded"> -->
+<!--                                         <div class="owl-stage-outer"> -->
+<!--                                            <div class="owl-stage" -->
+<!--                                               style="transform: translate3d(-1224px, 0px, 0px); transition: all 0s ease 0s; width: 5100px;"> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="7" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44177_20220120123659&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="8" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44178_20220120123659&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="9" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44144_20220120071145&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="10" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44145_20220120071145&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="11" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44112_20220119135334&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="12" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44090_20220119113045&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item active" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="0" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item active" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="1" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item active" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="2" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item active" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="3" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44276_20220121141048&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item active" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="4" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44231_20220121072316&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item active" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="5" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44232_20220121072316&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="6" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44194_20220120145825&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="7" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44177_20220120123659&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="8" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44178_20220120123659&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="9" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44144_20220120071145&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="10" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44145_20220120071145&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="11" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44112_20220119135334&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="12" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44090_20220119113045&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="0" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="1" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="2" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="3" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44276_20220121141048&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="4" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44231_20220121072316&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                               <div class="owl-item cloned" -->
+<!--                                                  style="width: 180px; margin-right: 24px;"> -->
+<!--                                                  <div data-v-f8b893b0="" class="images__image"> -->
+<!--                                                     <a data-v-f8b893b0="" href="#"><i -->
+<!--                                                        data-v-f8b893b0="" id="5" -->
+<!--                                                        style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44232_20220121072316&quot;);"></i></a> -->
+<!--                                                  </div> -->
+<!--                                               </div> -->
+<!--                                            </div> -->
+<!--                                         </div> -->
+<!--                                         <div class="owl-nav"> -->
+<!--                                            <div class="owl-prev">next</div> -->
+<!--                                            <div class="owl-next">prev</div> -->
+<!--                                         </div> -->
+<!--                                         <div class="owl-dots disabled"></div> -->
+<!--                                      </div> -->
+<!--                                      <span id="carousel_next_tc5wlekmakl"></span> -->
+<!--                                   </div> -->
+<!--                                </div> -->
+<!--                             </section> -->
                             <section data-v-f8b893b0="" class="menu-review__rating">
                                <div data-v-f8b893b0="" class="wrap">
-                                  <h3 data-v-f8b893b0="">고객 후기</h3>
+                                  <h3 data-v-f8b893b0="" id="ClientReview" class="navBar">고객 후기</h3>
                                   <div data-v-f8b893b0=""
                                      class="row--v-center review-box-wrapper">
                                      <div data-v-f8b893b0="" class="review-stars">
@@ -1618,14 +1669,14 @@
 		                                     <div data-v-22105fb8="" class="review-item__head">
 		                                        <div data-v-22105fb8="" class="head-rating">
 		                                           <img data-v-22105fb8=""
-		                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" 
+		                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png" 
 		                                              class="rating-img">
 		                                           <div data-v-22105fb8="" class="rating-count">${board.star }</div>
 		                                        </div>
 		                                        <div data-v-22105fb8="" class="head-summary">
 		                                           <div data-v-22105fb8="" class="head-summary-left">
-		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png"
-		                                                  class="summary-photo">
+<!-- 		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png" -->
+<!-- 		                                                  class="summary-photo"> -->
 		                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
 		                                           </div>
 		                                           <!---->

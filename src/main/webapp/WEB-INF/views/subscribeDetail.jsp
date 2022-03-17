@@ -272,8 +272,9 @@
 		//alert("2.드랍다운 아이템 클릭");
 			// 선택한 주를 text에 표기
 			$('.dropdown-btn.click').children().children().first().addClass('selected-content');
-			$('.dropdown-btn.click').children().children().first().text($(this).text());
-			
+			$('.dropdown-btn.click:eq(0)').children().children().first().text($(this).text());
+			$('.dropdown-btn.click:eq(1)').children().children().first().text($(this).text());
+
 			var week = $(this).text();
 			var selectedWeek = Number(week.replace('주', '').replace(',', ''));
 			$('.setWeek').val(selectedWeek);
@@ -303,7 +304,7 @@
 
 	//미디움 클릭후 가격 셋팅		
 			if(size =='Medium'){ 			
-				alert("미디움일때");
+				//alert("미디움일때");
 				$('.setPrice').val(subPriceM);
 				var setPrice = $('.setPrice').val();
 				var totalPrice = setPrice*selectedWeek;
@@ -314,11 +315,11 @@
 				var totalPriceSub = setPriceSub*selectedWeek;
 				$('.setTotalSub').val(totalPriceSub);
 			
-				alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+				//alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 			
 	// 라지 클릭후 가격 셋팅					
 			}else if(size =="Large"){							
-				alert("라지일때");
+				//alert("라지일때");
 				$('.setPrice').val(subPriceL);
 				var setPrice = $('.setPrice').val();
 				var totalPrice = setPrice*selectedWeek;
@@ -329,7 +330,7 @@
 				var totalPriceSub = setPriceSub*selectedWeek;
 				$('.setTotalSub').val(totalPriceSub);
 				
-				alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+				//alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 				
 			}else{
 				alert("사이즈를 먼저 선택해주세요");
@@ -347,26 +348,24 @@
 		}); // 드롭 다운 아이템 끝
 
 // 날짜 선택 클릭 시
-		$(document).on('click','.v-date-custom',function(){
+		$(document).on('click','.date-picker-input',function(){
 			alert("달력클릭");
 			// css 변경을 원본 홈피와 그대로 하겠다.
-			$(".vc-popover-content-wrapper").css({
-				'position': 'absolute',
-				'transform': 'translate3d(0px, -279px, 0px)', 
-				'top': '0px', 
-				'left': '0px', 
-				'will-change': 'transform'
-			    });
+
 			
 			var test = "test";
 			
 			if($('.vc-popover-content-wrapper').hasClass('is-interactive')){
-				alert("이미 있다");
-				$('div').detach('.vc-popover-content-wrapper:eq(1)'); // 이름이 같아서 2번째인 달력을 detach
-				$('div').detach('.vc-popover-content-wrapper:eq(2)');
+				alert("달력 있다");
+// 				$('div').detach('.vc-popover-content-wrapper:eq(1)'); // 이름이 같아서 2번째인 달력을 detach
+// 				$('div').detach('.vc-popover-content-wrapper:eq(2)');
+				$('div #cal').remove();
+
+
+				$('.vc-popover-content-wrapper').removeClass('is-interactive');
 				$('.vc-popover-content-wrapper').removeAttr('style'); //스타일을 다지워줌
 			}else{	
-				//alert("없음");
+				alert("달력 없음");
 				$.ajax({
 					url : 'calendar.do',
 					type : 'post',
@@ -375,35 +374,43 @@
 						"test" : test
 					},
 					success : function(htmlOut){
-						$('.v-date-custom').append(htmlOut);
+						$('.vc-popover-content-wrapper').append(htmlOut);
+						$('.vc-popover-content-wrapper').addClass('is-interactive')
+						$(".vc-popover-content-wrapper").css({
+							'position': 'absolute',
+							'transform': 'translate3d(0px, -279px, 0px)', 
+							'top': '0px', 
+							'left': '0px', 
+							'will-change': 'transform'
+						    });
 						
 					}
 				}); // ajax 끝		
 				
 			} // if문 끝
 			$('.vc-text-gray-400').attr("disabled", disabled);
-			$('.vc-popover-content-wrapper').eq(0).toggleClass('is-interactive');
-			$('.vc-popover-content-wrapper').eq(1).toggleClass('is-interactive');
-			
+	
 		});// 날짜 선택 클릭 끝
 
 // 날짜 선택
 		$(document).on('click','.vc-day-content',function(){
 			alert("날짜 클릭");
+			$('div #cal').remove();
+			$('.vc-popover-content-wrapper').removeClass('is-interactive');
+			
+			//가격
+			var price = $('.setPrice').val();
+			var priceSub = $('.setPriceSub').val();				
 			//이름
 			var name = $('.menu__name').text();
-//			alert("name : "+name);
 			//사이즈
 			var size = $('.setSize').val();
-//			alert("size : "+size);
 			//몇주
 			var week = $('.setWeek').val();
-//			alert("week : "+week);
 			//날짜
 			var setDate = $(this).attr('aria-label');
 			$('.startDate').val(setDate);
 			var start = $('.startDate').val();
-//			alert("setDate : "+setDate);
 			
 			$.ajax({
 				url : 'selectedSub.do',
@@ -423,6 +430,10 @@
 				}// success 끝
 				
 			});// ajax 끝
+			
+			$("<div data-v-2706028c ></div>").insertBefore(".menu__price-current-price__wrapper").addClass('menu__price-prior-price');
+			$('.menu__price-prior-price').text(priceSub);
+			$('.menu__price-current-price').text(price+"원");
 
 	// disable
 // 			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
@@ -450,13 +461,22 @@
 // 구독 상세명서 삭제 버튼		
 		$(document).on('click','.selected-detail__close',function(){
 			alert("삭제버튼");
+		// 기간 선택 원위치
 			$('.selected-detail-wrap').detach();
+			$('.dropdown-btn.click:eq(0)').children().children().first().text("기간 선택(기간이 길수록 더많이 할인됩니다)");
+			$('.dropdown-btn.click:eq(1)').children().children().first().text("기간 선택(기간이 길수록 더많이 할인됩니다)");
 		// 현재 저장되어있는 값 초기화.
 			var nothing ="";
 			$('.setPrice').val(nothing);
 			$('.setSize').val(nothing);
 			$('.setTotal').val(nothing);
 			$('.startDate').val(nothing);
+			
+		// 가격 원위치
+			
+			$('.menu__price-prior-price').remove();
+			$('.menu__price-current-price').text("0원");
+		
 		
 			// disable
 // 			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
@@ -574,7 +594,55 @@
 		$(document).on('click','.more-btn',function(){
 			$(this).prev().children().toggleClass('img-wrapper');
 					
-		});	k
+		});	
+		
+		// nav바 클릭시 스크롤이동
+		$(document).on('click','.menu-tab-btn-wrap',function(){
+			var text = $(this).children().children().text();
+			if(text =="상품정보"){
+				var location = document.querySelector(".menu-description-container").offsetTop;
+				window.scrollTo({top:location-150, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}else if(text =="상세정보"){  
+				var location = document.querySelector("#product-info").offsetTop;
+				window.scrollTo({top:location-180, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}else if(text == "FAQ"){
+				var location = document.querySelector("#faq").offsetTop;
+				window.scrollTo({top:location-220, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}else if(text == "고객후기"){
+				var location = document.querySelector("#ClientReview").offsetTop;
+				window.scrollTo({top:location-220, behavior:'smooth'});
+				$(this).siblings().removeClass('on');
+				$(this).addClass('on');
+			}
+		})
+		
+// 스크롤 이동시 nav 바 변경
+	   $(document).ready(function(){
+			var menu =$('.menu-tab-btn-wrap');
+			var contents = $('.navBar');
+			$(window).scroll(function(){
+				var scltop = $(window).scrollTop();
+				$.each(contents, function(idx,item){
+					var target = contents.eq(idx);
+					var i = target.index();
+					var targetTop = target.offset().top;
+					if (targetTop-265 <= scltop) {
+			  			menu.removeClass('on');
+			  			menu.eq(idx).addClass('on');
+			  		}
+			  		if (!(600 <= scltop)) {
+			  			menu.removeClass('on');
+			  		}
+				})		
+			})
+		});s
+
      }); //function 끝
 
     </script>
@@ -858,7 +926,7 @@
 																	<!---->
 																</div>
 															</span> 
-															<img data-v-2706028c="" src="/images/icon-calendar-active@3x.png" class="date-select-calendar-icon" style="cursor: pointer;">
+															<img data-v-2706028c="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon-calendar.png" class="date-select-calendar-icon" style="cursor: pointer;">
 														</div>
 													</li>
 												</ul>
@@ -904,7 +972,7 @@
 							                    <article data-v-3ebe8eb0 data-v-32a18372 class="reco-index">
                         <header data-v-3ebe8eb0 class="row--v-center reco-index__header">
                             <div data-v-3ebe8eb0 class="col reco-title-wrap">
-                                <img data-v-3ebe8eb0 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon-like%402x.png"  class="reco-title-img">
+                                <img data-v-3ebe8eb0 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_like.png"  class="reco-title-img">
                                 <h2 data-v-3ebe8eb0>다른 고객들이 함께 본 상품</h2>
                             </div>
                             <nav data-v-3ebe8eb0>
@@ -1026,7 +1094,7 @@
 									<div data-v-61e19c34="" class="desktop-tab-blank"></div>
 								</nav>
 							</div>
-							<div data-v-32a18372="" class="menu-description-container">
+							<div data-v-32a18372="" class="menu-description-container navBar">
 								<div data-v-32a18372 class="menu-description">
 									<div data-v-32a18372 class="menu-description-left">
 										<div data-v-32a18372 id="menu-detail" class="menu__tab-info">
@@ -1046,7 +1114,7 @@
 													</div>
 													<div data-v-79f00ef9 class="more-btn">
 														<span data-v-79f00ef9 class="more-btn-text">상품 정보 더보기</span> 
-														<img data-v-79f00ef9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down-green%402x.png" class="more-btn-arrow">
+														<img data-v-79f00ef9 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down(green).png" class="more-btn-arrow">
 													</div>
 												</div>
 											</div>
@@ -1114,7 +1182,7 @@
 																
 																</div>
 															</span> 
-															<img data-v-2706028c="" src="/images/icon-calendar-active@3x.png" class="date-select-calendar-icon" style="cursor: pointer;">
+															<img data-v-2706028c="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon-calendar.png" class="date-select-calendar-icon" style="cursor: pointer;">
 														</div>
 													</li>
 												</ul>
@@ -1144,7 +1212,7 @@
 
 
 								<div id="section02"></div>
-								<div data-v-32a18372 id="product-info">
+								<div data-v-32a18372 id="product-info" class="navBar">
 									<h3 data-v-32a18372 class="menu__tab-info-title menu-info">
 										<span data-v-32a18372>상품 정보 고시</span>
 										<div data-v-32a18372 class="info-title-img"></div>
@@ -1201,20 +1269,20 @@
 
 								</div>
 
-								<div data-v-32a18372="" id="faq" class="menu__tab-info tab_menu_detail" style="">
+								<div data-v-32a18372="" id="faq" class="menu__tab-info tab_menu_detail navBar" style="">
 									<p data-v-32a18372="" class="menu__tab-info-title faq">FAQ</p>
 									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
 										<div data-v-e3f957fc class="menu-info-table-opener" id="section03">
 											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png" class="menu-info-table-img question">
+												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
 												<p data-v-e3f957fc class="menu-info-table-title">[결제 안내]</p>
 											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png" class="menu-info-table-opener-arrow">
+											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
 										</div>
 										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
 											<div data-v-e3f957fc="" class="answer-wrapper">
 												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"class="menu-info-table-img answer">
+													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"class="menu-info-table-img answer">
 												</div>
 												<div data-v-e3f957fc="" class="answer-column right">
 													<div data-v-e3f957fc="" class="menu-info-table-content-description">
@@ -1229,15 +1297,15 @@
 									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
 										<div data-v-e3f957fc class="menu-info-table-opener">
 											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png" class="menu-info-table-img question">
+												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
 												<p data-v-e3f957fc class="menu-info-table-title">[주문단계 안내]</p>
 											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png"class="menu-info-table-opener-arrow">
+											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"class="menu-info-table-opener-arrow">
 										</div>
 										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
 											<div data-v-e3f957fc="" class="answer-wrapper">
 												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png" class="menu-info-table-img answer">
+													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
 												</div>
 												<div data-v-e3f957fc="" class="answer-column right">
 													<div data-v-e3f957fc="" class="menu-info-table-content-description">
@@ -1253,15 +1321,15 @@
 									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
 										<div data-v-e3f957fc class="menu-info-table-opener">
 											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png" class="menu-info-table-img question">
+												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
 												<p data-v-e3f957fc class="menu-info-table-title">[취소 및 환불 안내]</p>
 											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png" class="menu-info-table-opener-arrow">
+											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
 										</div>
 										<div data-v-e3f957fc class="menu-info-table-content-wrap review-hide">
 											<div data-v-e3f957fc class="answer-wrapper">
 												<div data-v-e3f957fc class="answer-column left">
-													<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png" class="menu-info-table-img answer">
+													<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
 												</div>
 												<div data-v-e3f957fc class="answer-column right">
 													<div data-v-e3f957fc class="menu-info-table-content-description">
@@ -1281,15 +1349,15 @@
 									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
 										<div data-v-e3f957fc class="menu-info-table-opener">
 											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png" class="menu-info-table-img question">
+												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
 												<p data-v-e3f957fc class="menu-info-table-title">[배송 안내]</p>
 											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png" class="menu-info-table-opener-arrow">
+											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
 										</div>
 										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
 											<div data-v-e3f957fc="" class="answer-wrapper">
 												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png"class="menu-info-table-img answer">
+													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"class="menu-info-table-img answer">
 												</div>
 												<div data-v-e3f957fc="" class="answer-column right">
 													<div data-v-e3f957fc="" class="menu-info-table-content-description">
@@ -1319,15 +1387,15 @@
 									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
 										<div data-v-e3f957fc class="menu-info-table-opener">
 											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-question%402x.png" class="menu-info-table-img question">
+												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
 												<p data-v-e3f957fc class="menu-info-table-title">[기타 사항(자주 묻는 질문)]</p>
 											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-down%402x.png" class="menu-info-table-opener-arrow">
+											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
 										</div>
 										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
 											<div data-v-e3f957fc="" class="answer-wrapper">
 												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/fa-answer%402x.png" class="menu-info-table-img answer">
+													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
 												</div>
 												<div data-v-e3f957fc="" class="answer-column right">
 													<div data-v-e3f957fc="" class="menu-info-table-content-description">
@@ -1574,7 +1642,7 @@
 									</section>
 									<section data-v-f8b893b0="" class="menu-review__rating">
 										<div data-v-f8b893b0="" class="wrap">
-											<h3 data-v-f8b893b0="">고객 후기</h3>
+											<h3 data-v-f8b893b0="" id="ClientReview" class="navBar">고객 후기</h3>
 											<div data-v-f8b893b0=""
 												class="row--v-center review-box-wrapper">
 												<div data-v-f8b893b0="" class="review-stars">
@@ -1597,7 +1665,7 @@
 												<li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
 													<div data-v-22105fb8="" class="review-item__head">
 														<div data-v-22105fb8="" class="head-rating">
-															<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="rating-img">
+															<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png" class="rating-img">
 															<div data-v-22105fb8="" class="rating-count">${board.star }</div>
 														</div>
 														<div data-v-22105fb8="" class="head-summary">
@@ -1792,7 +1860,7 @@
 																			class="vc-popover-content-wrapper">
 																			<!---->
 																		</div></span> <img data-v-2706028c=""
-																		src="/images/icon-calendar-active@3x.png"
+																		src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon-calendar.png"
 																		 class="date-select-calendar-icon"
 																		style="cursor: pointer;">
 																</div>

@@ -37,4 +37,12 @@ public class EventDAO {
 	public List<CouponVO> getUserCoupon(CouponVO vo) {
 		return sqlSessionTemplate.selectList("EventDAO.getUserCoupon");
 	}
+	
+	public void deleteCoupon(CouponVO vo) {
+		sqlSessionTemplate.delete("EventDAO.deleteCoupon", vo);
+	}
+	
+	public void deleteUserCoupon(CouponVO vo) {
+		sqlSessionTemplate.delete("EventDAO.deleteUserCoupon", vo);
+	}
 }

@@ -83,8 +83,10 @@ public class EventController {
 			couponCode.add(userCoupon.get(i).getCoupon_code());
 		}
 		List<Integer> couponPack100 = new ArrayList<Integer>();
-		couponPack100.add(1);couponPack100.add(2);couponPack100.add(3);couponPack100.add(4);
-		couponPack100.add(5);couponPack100.add(6);
+		
+		for(int i = 0; i < coupon.size(); i++) {
+			couponPack100.add(coupon.get(i).getCoupon_code());
+		}
 		if(couponCode.containsAll(couponPack100)) {
 			mav.setViewName("downloadCouponModal");
 		}else {
@@ -171,9 +173,12 @@ public class EventController {
 		for(int i = 0; i < userCoupon.size(); i++) {
 			couponCode.add(userCoupon.get(i).getCoupon_code());
 		}
-		List<Integer> couponPack100 = new ArrayList<Integer>();
-		couponPack100.add(7);couponPack100.add(8);couponPack100.add(9);couponPack100.add(10);
-		if(couponCode.containsAll(couponPack100)) {
+		List<Integer> couponPack200 = new ArrayList<Integer>();
+		for(int i = 0; i < coupon.size(); i++) {
+			couponPack200.add(coupon.get(i).getCoupon_code());
+		}
+//		couponPack100.add(7);couponPack100.add(8);couponPack100.add(9);couponPack100.add(10);
+		if(couponCode.containsAll(couponPack200)) {
 			mav.setViewName("downloadCouponModal");
 		}else {
 			List<CouponVO> addUserCoupon = new ArrayList<CouponVO>();

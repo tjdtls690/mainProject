@@ -3,9 +3,12 @@ package project.spring.web.adminCouponTypeManagement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.event.CouponVO;
@@ -64,6 +67,39 @@ public class AdminCouponTypeManagement {
 		mav.addObject("coupon", userCoupon);
 		mav.addObject("memberEmail",memberEmail);
 		mav.setViewName("userCouponManage");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/userCouponDelete.mdo", method = RequestMethod.POST)
+	public ModelAndView userCouponDeleteDo(ModelAndView mav, HttpServletRequest request) {
+		String a = request.getParameter("couponCode");
+		String email = request.getParameter("email");
+		int couponCode = Integer.parseInt(a);
+		System.out.println(couponCode);
+		System.out.println(email);
+		
+		MemberVO mvo = new MemberVO();
+		mvo.setEmail(email);
+		MemberVO memberEmail = memberService.getMember(mvo);
+		//SELECT * FROM member WHERE member_email = #{email}
+		int userCode = memberEmail.getMemberCode();
+		CouponVO cvo = new CouponVO();
+		cvo.setCoupon_code(couponCode);
+		cvo.setUser_code(userCode);
+		eventService.deleteUserCoupon(cvo);
+		mav.setViewName("userCouponManage");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/couponDelete.mdo", method = RequestMethod.POST)
+	public ModelAndView couponDeleteDo(ModelAndView mav, HttpServletRequest request) {
+		String a = request.getParameter("couponCode");
+		int couponCode = Integer.parseInt(a);
+		System.out.println(couponCode);
+		CouponVO cvo = new CouponVO();
+		cvo.setCoupon_code(couponCode);
+		eventService.deleteCoupon(cvo);
+		mav.setViewName("couponTypeManagement");
 		return mav;
 	}
 }

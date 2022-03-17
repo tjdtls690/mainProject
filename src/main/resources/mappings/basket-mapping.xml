@@ -24,7 +24,7 @@
 	
 	<!--  -->
 	<select id="getBasketChangeList">
-		UPDATE basket SET amount = #{amount}, sub_total = #{subTotal} WHERE item_code = #{itemCode} AND user_code= #{userCode} ORDER BY seq DESC
+		UPDATE basket SET amount = #{amount}, sub_total = #{subTotal} WHERE item_code = #{itemCode} AND user_code= #{userCode} AND item_size=#{itemSize} ORDER BY seq DESC
 	</select>
 	
 	<delete id="deleteBasketList">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/basket"/>
 <!DOCTYPE html>
 <html class="">
@@ -79,6 +80,11 @@ input[type="checkbox"]:checked {
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
+function addComma(num) {
+	  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	  return num.toString().replace(regexp, ',');
+	}
+
 $(function() {
 	$(document).on('click','.form-number__control.desk_minusbtn', function(){
 
@@ -86,6 +92,7 @@ $(function() {
 		var formData = $(this).children('#itemCode').val();
 		var formData2 = $(this).children('#price').val();
 		var formData3 = $(this).children('#memberCode').val();
+		var formData4 = $(this).children('#itemSize').val();
 		
 		if(amt <= 1){
 			alert("수량을 확인해주세요")
@@ -100,8 +107,10 @@ $(function() {
 				"amt" : amt,
 				"itemCode" : formData,
 				"price" : formData2,
-				"memberCode" : formData3
+				"memberCode" : formData3,
+				"itemSize" : formData4
 			},
+			async : false,
 			success : function(data){
 				 $('.desktop-body-table-list').html(data);
 			},
@@ -111,30 +120,33 @@ $(function() {
 				var dctotal = 0;
 				
 				var count = $('.desktop-body-table-item-total-price').length; 
-				
-
+		
 				for (var i =0; i< count; i++) {
 
-					if (parseInt($('.desktop-body-table-item-price')[i].innerHTML) != 0) {
-						dctotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[i].innerHTML)) * parseInt($('.abcd')[i].value);
+					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
+						dctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
 					}
 					
-					if(parseInt($('.desktop-body-table-item-price')[i].innerHTML) == 0){
-						subtotal += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
+						subtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
 					}else {
-						subtotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML) * parseInt($('.abcd')[i].value));
+						subtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
 				 	}
 					
-					sum += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+					sum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 
 				}
-				$('.desktop-body-table-footer-price').html(sum +"원");
-				$('.desktop-footer-price-bottom.discounted').html(sum +"원");
-				$('.desktop-footer-price-bottom.price').html(subtotal+"원");
-				$('.desktop-footer-price-bottom.dc').html(dctotal+"원");
 				
+				var sum2 = addComma(sum);
+				var subtotal2 = addComma(subtotal);
+				var dctotal2 = addComma(dctotal);
 				
-			}
+				$('.desktop-body-table-footer-price').html(sum2 + "원");
+				$('.desktop-footer-price-bottom.discounted').html(sum2 + "원");
+				$('.desktop-footer-price-bottom.price').html(subtotal2 + "원");
+				$('.desktop-footer-price-bottom.dc').html(dctotal2 + "원");
+				
+			}	
 		});
 	});
 });
@@ -154,6 +166,7 @@ $(function(){
 		var formData = $(this).children('#itemCode').val();
 		var formData2 = $(this).children('#price').val();
 		var formData3 = $(this).children('#memberCode').val();
+		var formData4 = $(this).children('#itemSize').val();
 
 		$.ajax({
 			url : 'deskPlus.do',
@@ -163,7 +176,8 @@ $(function(){
 				"amt" : amt,
 				"itemCode" : formData,
 				"price" : formData2,
-				"memberCode" : formData3
+				"memberCode" : formData3,
+				"itemSize" : formData4
 			},
 			success : function(data){
 				 $('.desktop-body-table-list').html(data);
@@ -178,25 +192,29 @@ $(function(){
 
 				for (var i =0; i< count; i++) {
 
-					if (parseInt($('.desktop-body-table-item-price')[i].innerHTML) != 0) {
-						dctotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[i].innerHTML)) * parseInt($('.abcd')[i].value);
+					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
+						dctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
 					}
 					
-					if(parseInt($('.desktop-body-table-item-price')[i].innerHTML) == 0){
-						subtotal += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
+						subtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
 					}else {
-						subtotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML) * parseInt($('.abcd')[i].value));
+						subtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
 				 	}
 					
-					sum += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+					sum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 
 				}
-				$('.desktop-body-table-footer-price').html(sum +"원");
-				$('.desktop-footer-price-bottom.discounted').html(sum +"원");
-				$('.desktop-footer-price-bottom.price').html(subtotal+"원");
-				$('.desktop-footer-price-bottom.dc').html(dctotal+"원");
+			
+				var sum2 = addComma(sum);
+				var subtotal2 = addComma(subtotal);
+				var dctotal2 = addComma(dctotal);
 				
-				
+				$('.desktop-body-table-footer-price').html(sum2 + "원");
+				$('.desktop-footer-price-bottom.discounted').html(sum2 + "원");
+				$('.desktop-footer-price-bottom.price').html(subtotal2 + "원");
+				$('.desktop-footer-price-bottom.dc').html(dctotal2 + "원");
+			
 			}
 		});
 	});
@@ -209,9 +227,10 @@ $(function(){
 			var formData = $(this).children('#itemCode').val();
 			var formData2 = $(this).children('#price').val();
 			var formData3 = $(this).children('#memberCode').val();
+			var formData4 = $(this).children('#itemSize').val();
 			
 			if(amt <= 1){
-				alert("수량을 확인해주세요")
+				alert("수량을 확인해주세요");
 				return false;
 			}
 
@@ -223,7 +242,8 @@ $(function(){
 					"amt" : amt,
 					"itemCode" : formData,
 					"price" : formData2,
-					"memberCode" : formData3
+					"memberCode" : formData3,
+					"itemSize" : formData4
 				},
 				success : function(data){
 					 $('.mobile-body-list').html(data);
@@ -235,26 +255,28 @@ $(function(){
 					
 					var count = $('.mobile-body-item-discounted-price').length; 
 					
-
 					for (var i =0; i< count; i++) {
 
-						if (parseInt($('.mobile-body-item-price')[i].innerHTML) != 0) {
-							dctotal += (parseInt($('.mobile-body-item-price')[i].innerHTML)-parseInt($('.mobile-body-item-discounted-price')[i].innerHTML)) * parseInt($('.haha')[i].value);
+						if ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() != 0) {
+							dctotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() - $('.mobile-body-item-discounted-price').eq(i).children('#mprice').val()) * parseInt($('.haha')[i].value);
 						}
 						
-						if(parseInt($('.mobile-body-item-price')[i].innerHTML) == 0){
-							subtotal += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+						if($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() == 0){
+							subtotal += $('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val();
 						}else {
-							subtotal += (parseInt($('.mobile-body-item-price')[i].innerHTML) * parseInt($('.haha')[i].value));
+							subtotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() * parseInt($('.haha')[i].value));
 					 	}
 						
-						sum += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
-
+						sum += parseInt($('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val());
 					}
+					
+					var sum2 = addComma(sum);
+					var subtotal2 = addComma(subtotal);
+					var dctotal2 = addComma(dctotal);
 
-					$('.mobile-footer-price-right.total-price').html(sum +"원");
-					$('.mobile-footer-price-right.sub').html(subtotal+"원");
-					$('.ttt').html(dctotal+"원");
+					$('.mobile-footer-price-right.total-price').html(sum2 +"원");
+					$('.mobile-footer-price-right.sub').html(subtotal2+"원");
+					$('.ttt').html(dctotal2+"원");
 				}
 	
 			});
@@ -268,8 +290,8 @@ $(function(){
 		var formData = $(this).children('#itemCode').val();
 		var formData2 = $(this).children('#price').val();
 		var formData3 = $(this).children('#memberCode').val();
+		var formData4 = $(this).children('#itemSize').val();
 
-		alert(amt);
 		$.ajax({
 			url : 'mobilePlus.do',
 			type : 'post',
@@ -278,7 +300,8 @@ $(function(){
 				"amt" : amt,
 				"itemCode" : formData,
 				"price" : formData2,
-				"memberCode" : formData3
+				"memberCode" : formData3,
+				"itemSize" : formData4
 			},
 			success : function(data){
 					$('.mobile-body-list').html(data);
@@ -290,26 +313,29 @@ $(function(){
 						
 				var count = $('.mobile-body-item-discounted-price').length; 
 						
-
 				for (var i =0; i< count; i++) {
 
-					if (parseInt($('.mobile-body-item-price')[i].innerHTML) != 0) {
-						dctotal += (parseInt($('.mobile-body-item-price')[i].innerHTML)-parseInt($('.mobile-body-item-discounted-price')[i].innerHTML)) * parseInt($('.haha')[i].value);
+					if ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() != 0) {
+						dctotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() - $('.mobile-body-item-discounted-price').eq(i).children('#mprice').val()) * parseInt($('.haha')[i].value);
 					}
-							
-					if(parseInt($('.mobile-body-item-price')[i].innerHTML) == 0){
-						subtotal += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+					
+					if($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() == 0){
+						subtotal += $('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val();
 					}else {
-						subtotal += (parseInt($('.mobile-body-item-price')[i].innerHTML) * parseInt($('.haha')[i].value));
-						}
-							
-					sum += parseInt($('.mobile-body-item-bottom-price')[i].innerHTML);
+						subtotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() * parseInt($('.haha')[i].value));
+				 	}
+					
+					sum += parseInt($('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val());
 
 				}
 
-				$('.mobile-footer-price-right.total-price').html(sum +"원");
-				$('.mobile-footer-price-right.sub').html(subtotal+"원");
-				$('.ttt').html(dctotal+"원");
+				var sum2 = addComma(sum);
+				var subtotal2 = addComma(subtotal);
+				var dctotal2 = addComma(dctotal);
+
+				$('.mobile-footer-price-right.total-price').html(sum2 +"원");
+				$('.mobile-footer-price-right.sub').html(subtotal2+"원");
+				$('.ttt').html(dctotal2+"원");
 			}
 		});
 	});	
@@ -353,27 +379,33 @@ $(function (){
 
 			for (var i =0; i< count2; i++) {
 
-				if (parseInt($('.desktop-body-table-item-price')[i].innerHTML) != 0) {
-					dctotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[i].innerHTML)) * parseInt($('.abcd')[i].value);
+				if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
+					dctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
 				}
 				
-				if(parseInt($('.desktop-body-table-item-price')[i].innerHTML) == 0){
-					subtotal += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+				if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
+					subtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
 				}else {
-					subtotal += (parseInt($('.desktop-body-table-item-price')[i].innerHTML) * parseInt($('.abcd')[i].value));
+					subtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
 			 	}
 				
-				sum += parseInt($('.desktop-body-table-item-total-price')[i].innerHTML);
+				sum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 
 			}
-			$('.desktop-body-table-footer-price').html(sum +"원");
-			$('.desktop-footer-price-bottom.discounted').html(sum +"원");
-			$('.desktop-footer-price-bottom.price').html(subtotal+"원");
-			$('.desktop-footer-price-bottom.dc').html(dctotal+"원");
+			
+			var sum2 = addComma(sum);
+			var subtotal2 = addComma(subtotal);
+			var dctotal2 = addComma(dctotal);
+			
+			$('.desktop-body-table-footer-price').html(sum2 + "원");
+			$('.desktop-footer-price-bottom.discounted').html(sum2 + "원");
+			$('.desktop-footer-price-bottom.price').html(subtotal2 + "원");
+			$('.desktop-footer-price-bottom.dc').html(dctotal2 + "원");
 			
 		}
 	});
 });
+
 $(function (){
 	$(document).on('change','.point-check', function(){
 		
@@ -444,18 +476,26 @@ $(function (){
 	$(document).on('click','.button.desktop-body-table-footer-btn.button--outline2.all', function(){
 		var count = $('.desktop-body-table-item-total-price').length; 
 		var deleteItemCode = [];
+		var deleteItemSize = [];
 		var data = {};
 		var checkedNum =  $('input:checkbox[name="point-check"]:checked').length;
 		
 		for (var i=0; i < count; i++) {
 				deleteItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+				deleteItemSize[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val();
 		}
 		
 		var newDeleteItemCode = deleteItemCode.filter(number => {
 			return number >= 1;
 		});
 		
+		var newDeleteItemSize = deleteItemSize.filter(word => {
+			return word.length >= 1;
+		});
+		
 		data.newDeleteItemCode = newDeleteItemCode;
+		data.newDeleteItemSize = newDeleteItemSize;
+
 		jQuery.ajaxSettings.traditional = true;
 		
 		$.ajax({
@@ -478,18 +518,26 @@ $(function (){
 	$(document).on('click','.mobile-header-delete-all', function(){
 		var count = $('.mobile-body-item-discounted-price').length;
 		var deleteItemCode = [];
+		var deleteItemSize = [];
 // 		var deleteUserCode = session.getAttribute("userCode"); // 유저코드 추후 완성되면 추가하기
 		var data = {};
 		
 		for(var i =0; i < count; i++) {
-			deleteItemCode[i] = $('.form-number__control.mobile_minusbtn').children('#itemCode').val();
+			deleteItemCode[i] = $('.form-number__control.mobile_minusbtn').eq(i).children('#itemCode').val();
+			deleteItemSize[i] = $('.form-number__control.mobile_minusbtn').eq(i).children('#itemSize').val();
 		}
 
 		var newDeleteItemCode = deleteItemCode.filter(number => {
 			return number >= 1;
 		});
 		
+		var newDeleteItemSize = deleteItemSize.filter(word => {
+			return word.length >= 1;
+		});
+		
 		data.newDeleteItemCode = newDeleteItemCode;
+		data.newDeleteItemSize = newDeleteItemSize;
+		
 		jQuery.ajaxSettings.traditional = true;
 		
 		$.ajax({
@@ -514,8 +562,10 @@ $(function (){
 		var deleteItemSize = [];
 		var data = {};
 		
-		deleteItemCode[0] = $('.form-number__control.mobile_minusbtn').children('#itemCode').val();
-		deleteItemSize[0] = $('.form-number__control.mobile_minusbtn').children('#itemSize').val();
+		var idx = parseInt($('.mobile-body-item-close').index(this));
+		
+		deleteItemCode[0] = $('.form-number__control.mobile_minusbtn').eq(idx).children('#itemCode').val();
+		deleteItemSize[0] = $('.form-number__control.mobile_minusbtn').eq(idx).children('#itemSize').val();
 
 		var newDeleteItemCode = deleteItemCode.filter(number => {
 			return number >= 1;
@@ -711,55 +761,114 @@ $(function(){
 	$(document).on('click','.point-check', function(){
 
 		var check = $(this).is(':checked');
-		var idx = parseInt($('input:checkbox[name="point-check"]').index(this)); 
-
+		var idx = parseInt($('input:checkbox[name="point-check"]').index(this));
+		var count = $('.desktop-body-table-item-total-price').length; 
+		
 		if (check == false ) {
-			var sum = parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			var sum = parseInt($('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val());
 			var dctotal = 0;
 			var subtotal = 0;
 			
-			if (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) != 0) {
-				dctotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[idx].innerHTML)) * parseInt($('.abcd')[idx].value);
+			var bodySum = 0;
+			var bodyDctotal = 0;
+			var bodySubtotal = 0;
+			
+			if ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() != 0) {
+				dctotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(idx).children('#bPrice').val()) * parseInt($('.abcd')[idx].value);
 			}
 			
-			if(parseInt($('.desktop-body-table-item-price')[idx].innerHTML) == 0){
-				subtotal += parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			if($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() == 0){
+				subtotal += $('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val();
 			}else {
-				subtotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) * parseInt($('.abcd')[idx].value));
+				subtotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() * parseInt($('.abcd')[idx].value));
 		 	}
 			
-			var changeSum = parseInt($('.desktop-body-table-footer-price')[0].innerHTML) - sum;
-	 		var changeSubtotal = parseInt($('.desktop-footer-price-bottom.price')[0].innerHTML) - subtotal;
-	 		var changeDctotal = parseInt($('.desktop-footer-price-bottom.dc')[0].innerHTML) - dctotal;
-	
-	 		$('.desktop-body-table-footer-price').html(changeSum +"원");
-	 		$('.desktop-footer-price-bottom.discounted').html(changeSum +"원");
-	 		$('.desktop-footer-price-bottom.price').html(changeSubtotal+"원");
-	 		$('.desktop-footer-price-bottom.dc').html(changeDctotal+"원");
+			for (var i=0; i < count; i++) {
+				var check2 = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+				if (check2 == false) {
+					continue;
+				}else {
+					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
+						bodyDctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+					}
+					
+					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
+						bodySubtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+					}else {
+						bodySubtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+				 	}
+					
+					bodySum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
+				}
+			}
+
+			var changeSum = bodySum;
+	 		var changeSubtotal = bodySubtotal;
+	 		var changeDctotal = bodyDctotal;
+
+	 		var changeSum2 = addComma(changeSum);
+			var changeSubtotal2 = addComma(changeSubtotal);
+			var changeDctotal2 = addComma(changeDctotal);
+	 		
+	 		$('.desktop-body-table-footer-price').html(changeSum2 +"원");
+	 		$('.desktop-footer-price-bottom.discounted').html(changeSum2 +"원");
+	 		$('.desktop-footer-price-bottom.price').html(changeSubtotal2+"원");
+	 		$('.desktop-footer-price-bottom.dc').html(changeDctotal2+"원");
 
 		} else {
-			var Esum = parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			var Esum = parseInt($('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val());
 			var Edctotal = 0;
 			var Esubtotal = 0;
 			
-			if (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) != 0) {
-				Edctotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML)-parseInt($('.desktop-body-table-item-discounted-price')[idx].innerHTML)) * parseInt($('.abcd')[idx].value);
+			var EbodySum = 0;
+			var EbodyDctotal = 0;
+			var EbodySubtotal = 0;
+			
+			if ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() != 0) {
+				Edctotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(idx).children('#bPrice').val()) * parseInt($('.abcd')[idx].value);
 			}
 			
-			if(parseInt($('.desktop-body-table-item-price')[idx].innerHTML) == 0){
-				Esubtotal += parseInt($('.desktop-body-table-item-total-price')[idx].innerHTML);
+			if($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() == 0){
+				Esubtotal += $('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val();
 			}else {
-				Esubtotal += (parseInt($('.desktop-body-table-item-price')[idx].innerHTML) * parseInt($('.abcd')[idx].value));
+				Esubtotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() * parseInt($('.abcd')[idx].value));
 		 	}
+	 		
+			for (var i=0; i < count; i++) {
+				var check3 = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+				if (check3 == false) {
+					continue;
+				}else {
+					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
+						EbodyDctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+					}
+					
+					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
+						EbodySubtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+					}else {
+						EbodySubtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+				 	}
+					
+					EbodySum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
+				}
+			}
 			
-			var EchangeSum = parseInt($('.desktop-body-table-footer-price')[0].innerHTML) + Esum;
-	 		var EchangeSubtotal = parseInt($('.desktop-footer-price-bottom.price')[0].innerHTML) + Esubtotal;
-	 		var EchangeDctotal = parseInt($('.desktop-footer-price-bottom.dc')[0].innerHTML) + Edctotal;
-	
-	 		$('.desktop-body-table-footer-price').html(EchangeSum +"원");
-	 		$('.desktop-footer-price-bottom.discounted').html(EchangeSum +"원");
-	 		$('.desktop-footer-price-bottom.price').html(EchangeSubtotal+"원");
-	 		$('.desktop-footer-price-bottom.dc').html(EchangeDctotal+"원");
+	 		var EchangeSum = EbodySum;
+	 		var EchangeSubtotal = EbodySubtotal;
+	 		var EchangeDctotal = EbodyDctotal;
+	 		
+// 	 		var EchangeSum = EbodySum + Esum;
+// 	 		var EchangeSubtotal = EbodySubtotal + Esubtotal;
+// 	 		var EchangeDctotal = EbodyDctotal + Edctotal;
+	 		
+	 		var EchangeSum2 = addComma(EchangeSum);
+			var EchangeSubtotal2 = addComma(EchangeSubtotal);
+			var EchangeDctotal2 = addComma(EchangeDctotal);
+			
+	 		$('.desktop-body-table-footer-price').html(EchangeSum2 +"원");
+	 		$('.desktop-footer-price-bottom.discounted').html(EchangeSum2 +"원");
+	 		$('.desktop-footer-price-bottom.price').html(EchangeSubtotal2+"원");
+	 		$('.desktop-footer-price-bottom.dc').html(EchangeDctotal2+"원");
 		}
 		
 	}); 
@@ -977,13 +1086,16 @@ $(function(){
 													</div>
 													<div data-v-7f39deaa="" class="mobile-body-item-text-wrap">
 														<div data-v-7f39deaa="" class="mobile-body-item-title">
-															${basket.itemName} </div>
+															${basket.itemName} / ${basket.itemSize }</div>
 														<div data-v-7f39deaa=""
 															class="mobile-body-item-price-wrap">
 															<div data-v-7f39deaa=""
-																class="mobile-body-item-discounted-price">${basket.price}</div>
+																class="mobile-body-item-discounted-price">
+																<input type="hidden" value="${basket.price}" id="mprice" />
+																<fmt:formatNumber value="${basket.price }" pattern="#,### 원" /></div>
 															<div data-v-7f39deaa="" class="mobile-body-item-price">
-																${basket.priceSub}</div>
+																<input type="hidden" value="${basket.priceSub}" id="mpriceSub" />
+																<fmt:formatNumber value="${basket.priceSub }" pattern="#,### 원" /></div>
 														</div>
 													</div>
 												</section>
@@ -1014,6 +1126,7 @@ $(function(){
 																<input type="hidden" value="${basket.itemCode}" id="itemCode" />
 																<input type="hidden" value="${basket.price}" id="price" />
 																<input type="hidden" value="${member.memberCode}" id="memberCode" />
+																<input type="hidden" value="${basket.itemSize}" id="itemSize" />
 																<svg data-v-4ba0dee4=""
 																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
@@ -1023,7 +1136,9 @@ $(function(){
 														</nav>
 													</div>
 													<div data-v-7f39deaa="" 
-														class="mobile-body-item-bottom-price">${basket.subTotal } 원</div>
+														class="mobile-body-item-bottom-price">
+															<input type="hidden" value="${basket.subTotal}" id="msubTotal" />
+															<fmt:formatNumber value="${basket.subTotal }" pattern="#,### 원" /></div>
 												</section>
 											</li>
 												<c:set var="mobile_total" value="${mobile_total + basket.subTotal }" />
@@ -1053,7 +1168,8 @@ $(function(){
 													<div data-v-7f39deaa="" class="mobile-footer-price-left">
 														상품 금액</div>
 													<div data-v-7f39deaa="" class="mobile-footer-price-right sub">
-														<c:out value="${mobile_subTotal}원"></c:out></div>
+														<input type="hidden" value="${mobile_subTotal}" id="Mofoot_subTotal" />
+														<fmt:formatNumber pattern="#,### 원"><c:out value="${mobile_subTotal}"></c:out></fmt:formatNumber></div>
 												</div>
 												<div data-v-7f39deaa="" class="mobile-footer-price-column">
 													<div data-v-7f39deaa="" class="mobile-footer-price-left">할인
@@ -1061,7 +1177,10 @@ $(function(){
 													<div data-v-7f39deaa="" class="mobile-footer-price-right dc">
 														<span data-v-7f39deaa=""
 															class="mobile-footer-price-right-red">(-)</span>
-														<span class="ttt"><c:out value="${mobile_dcTotal}원"></c:out></span>
+														<span class="ttt">
+															<input type="hidden" value="${mobile_dcTotal}" id="Mofoot_dcTotal" />
+															<fmt:formatNumber pattern="#,### 원" ><c:out value="${mobile_dcTotal}"></c:out></fmt:formatNumber>
+														</span>
 													</div>
 												</div>
 											</section>
@@ -1072,7 +1191,9 @@ $(function(){
 														예상 금액</div>
 													<div data-v-7f39deaa=""
 														class="mobile-footer-price-right total-price">
-														<c:out value="${mobile_total}원"></c:out></div>
+														<input type="hidden" value="${mobile_total}" id="Mofoot_total" />
+														<fmt:formatNumber pattern="#,### 원"><c:out value="${mobile_total}"></c:out></fmt:formatNumber>
+													</div>
 												</div>
 											</section>
 										</section>
@@ -1136,98 +1257,106 @@ $(function(){
 										</div>
 									</header>
 									<main data-v-7f39deaa="" class="desktop-body-table-body">
-										<ul data-v-7f39deaa="" class="desktop-body-table-list">
-			
-											<c:forEach var="basket" items="${Basket}" varStatus="status">
-											<li data-v-7f39deaa="" class="desktop-body-table-item"><section
-													data-v-7f39deaa="" class="desktop-body-table-item-left">
-													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-checkbox-wrap">
-														<!-- check box -->
-														<input type="checkbox" name="point-check" id="point-check" class ="point-check" checked='checked'>
-<!-- 														<input data-v-7f39deaa="" id="table-item-checkbox-0" -->
-<!-- 															checked name="selected-item" type="checkbox" -->
-<!-- 															class="desktop-body-table-item-checkbox" -->
-<!-- 															value="426"> -->
-<!-- 															<label data-v-7f39deaa="" -->
-<!-- 															for="table-item-checkbox-0" -->
-<!-- 															class="desktop-body-table-item-checkbox-label"></label> -->
-<%-- 															<input type="hidden" value="${basket.price}" class="check-price"/> --%>
-<%-- 															<input type="hidden" value="${basket.priceSub}" class="check-priceSub" /> --%>
-<%-- 															<input type="hidden" value="${basket.subTotal}" class="check-subTotal" /> --%>
-<%-- 															<input type="hidden" value="${basket.amount}" class="check-amount" /> --%>
-													</div>
-													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-img-wrap">
-														<img data-v-7f39deaa=""
-															src="${basket.itemImage}"
-															alt="데스크탑 장바구니 이미지" class="desktop-body-table-item-img">
-													</div>
-													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-title">${basket.itemName } / ${basket.itemSize}
-													</div>
-												</section>
-												<section data-v-7f39deaa=""
-													class="desktop-body-table-item-right">
-													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-spinner-wrap">
-														<nav data-v-4ba0dee4="" data-v-7f39deaa=""
-															class="form-number">
-															<button data-v-4ba0dee4="" type="button"
-																class="form-number__control desk_minusbtn">
-																<input type="hidden" value="${basket.itemCode}" id="itemCode"/>
-																<input type="hidden" value="${basket.price}" id="price" />
-																<input type="hidden" value="${basket.tagMain}" id="tagMain" />
-																<input type="hidden" value="${basket.amount}" id="amount" />
-																<input type="hidden" value="${basket.itemSize}" id="itemSize" />
-																<input type="hidden" value="${member.memberCode}" id="memberCode" />
-																
-																<svg data-v-4ba0dee4=""
-																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
-																	<path data-v-4ba0dee4="" fill="currentColor"
-																		d="M7 11.5h10v1H7z"></path></g></svg>
-															</button>
-															<span data-v-4ba0dee4="" class="form-number__input deskAmt"><input
-																data-v-4ba0dee4=""  type="number" min="1" class="abcd"
-																max="9999" step="1"  value="${basket.amount}"></span>
-															<button data-v-4ba0dee4="" type="button" 
-																class="form-number__control desk_plusbtn">
-																<input type="hidden" value="${basket.itemCode}" id="itemCode">
-																<input type="hidden" value="${basket.price}" id="price">
-																<input type="hidden" value="${member.memberCode}" id="memberCode" />
-																<svg data-v-4ba0dee4=""
-																	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-																	<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
-																	<path data-v-4ba0dee4="" fill="currentColor"
-																		d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z"></path></g></svg>
-															</button>
-														</nav>
-													</div>
-													<div data-v-7f39deaa=""
-														class="desktop-body-table-item-price-wrap">
-														<div data-v-7f39deaa=""
-															class="desktop-body-table-item-price">${basket.priceSub }</div>
-														<div data-v-7f39deaa=""
-															class="desktop-body-table-item-discounted-price">
-															${basket.price }</div>
-													</div>
-														<div data-v-7f39deaa="" id="desk-subtotal"
-														class="desktop-body-table-item-total-price">${basket.subTotal}
-														<input type="hidden" value = "${basket.subTotal}" class="bf_subtotal"/></div>
-												</section></li>
-												<c:set var="desk_total" value="${desk_total + basket.subTotal }" />
-												<c:choose>
-													<c:when test="${basket.priceSub eq 0}"> 
-														<c:set var="desk_subTotal" value="${desk_subTotal + (basket.price*basket.amount)}" />
-													</c:when>
-													<c:when test="${basket.priceSub ne 0}">
-														<c:set var="desk_subTotal" value="${desk_subTotal + (basket.priceSub*basket.amount) }" />
-														<c:set var="desk_dcTotal" value="${desk_dcTotal + ((basket.priceSub - basket.price) * basket.amount)}" />
-													</c:when>
-												</c:choose>
-											</c:forEach>
-										</ul>
+												<ul data-v-7f39deaa="" class="desktop-body-table-list">
+											
+													<c:forEach var="basket" items="${Basket}" varStatus="status">
+													<li data-v-7f39deaa="" class="desktop-body-table-item"><section
+															data-v-7f39deaa="" class="desktop-body-table-item-left">
+															<div data-v-7f39deaa=""
+																class="desktop-body-table-item-checkbox-wrap">
+																<!-- check box -->
+																<input type="checkbox" name="point-check" id="point-check" class ="point-check" checked='checked'>
+		<!-- 														<input data-v-7f39deaa="" id="table-item-checkbox-0" -->
+		<!-- 															checked name="selected-item" type="checkbox" -->
+		<!-- 															class="desktop-body-table-item-checkbox" -->
+		<!-- 															value="426"> -->
+		<!-- 															<label data-v-7f39deaa="" -->
+		<!-- 															for="table-item-checkbox-0" -->
+		<!-- 															class="desktop-body-table-item-checkbox-label"></label> -->
+		<%-- 															<input type="hidden" value="${basket.price}" class="check-price"/> --%>
+		<%-- 															<input type="hidden" value="${basket.priceSub}" class="check-priceSub" /> --%>
+		<%-- 															<input type="hidden" value="${basket.subTotal}" class="check-subTotal" /> --%>
+		<%-- 															<input type="hidden" value="${basket.amount}" class="check-amount" /> --%>
+															</div>
+															<div data-v-7f39deaa=""
+																class="desktop-body-table-item-img-wrap">
+																<img data-v-7f39deaa=""
+																	src="${basket.itemImage}"
+																	alt="데스크탑 장바구니 이미지" class="desktop-body-table-item-img">
+															</div>
+															<div data-v-7f39deaa=""
+																class="desktop-body-table-item-title">${basket.itemName } / ${basket.itemSize}
+															</div>
+														</section>
+														<section data-v-7f39deaa=""
+															class="desktop-body-table-item-right">
+															<div data-v-7f39deaa=""
+																class="desktop-body-table-item-spinner-wrap">
+																<nav data-v-4ba0dee4="" data-v-7f39deaa=""
+																	class="form-number">
+																	<button data-v-4ba0dee4="" type="button"
+																		class="form-number__control desk_minusbtn">
+																		<input type="hidden" value="${basket.itemCode}" id="itemCode"/>
+																		<input type="hidden" value="${basket.price}" id="price" />
+																		<input type="hidden" value="${basket.tagMain}" id="tagMain" />
+																		<input type="hidden" value="${basket.amount}" id="amount" />
+																		<input type="hidden" value="${basket.itemSize}" id="itemSize" />
+																		<input type="hidden" value="${member.memberCode}" id="memberCode" />
+																		
+																		<svg data-v-4ba0dee4=""
+																			xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+																			<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																			<path data-v-4ba0dee4="" fill="currentColor"
+																				d="M7 11.5h10v1H7z"></path></g></svg>
+																	</button>
+																	<span data-v-4ba0dee4="" class="form-number__input deskAmt"><input
+																		data-v-4ba0dee4=""  type="number" min="1" class="abcd"
+																		max="9999" step="1"  value="${basket.amount}"></span>
+																	<button data-v-4ba0dee4="" type="button" 
+																		class="form-number__control desk_plusbtn">
+																		<input type="hidden" value="${basket.itemCode}" id="itemCode">
+																		<input type="hidden" value="${basket.price}" id="price">
+																		<input type="hidden" value="${member.memberCode}" id="memberCode" />
+																		<input type="hidden" value="${basket.itemSize}" id="itemSize" />
+																		<svg data-v-4ba0dee4=""
+																			xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+																			<g data-v-4ba0dee4="" fill="none" fill-rule="evenodd">
+																			<path data-v-4ba0dee4="" fill="currentColor"
+																				d="M11.5 11.5V6h1v5.5H18v1h-5.5V18h-1v-5.5H6v-1h5.5z"></path></g></svg>
+																	</button>
+																</nav>
+															</div>
+															<div data-v-7f39deaa=""
+																class="desktop-body-table-item-price-wrap">
+																<div data-v-7f39deaa=""
+																	class="desktop-body-table-item-price">
+																		<input type="hidden" value="${basket.priceSub}" id="bPriceSub">
+																		<fmt:formatNumber value="${basket.priceSub }" pattern="#,### 원" /></div>
+																	<!--  class="desktop-body-table-item-price"><fmt:formatNumber value="${basket.priceSub }" pattern="#,### 원" /></div> -->
+
+																<div data-v-7f39deaa=""
+																	class="desktop-body-table-item-discounted-price">
+																	<input type="hidden" value="${basket.price}" id="bPrice">
+																	<fmt:formatNumber value="${basket.price }" pattern="#,### 원" /></div>
+															</div>
+																<div data-v-7f39deaa="" id="desk-subtotal"
+																	class="desktop-body-table-item-total-price">
+																		<fmt:formatNumber value="${basket.subTotal }" pattern="#,### 원" />
+																		<input type="hidden" value="${basket.subTotal}" id="bdesk-SubTotal">
+																</div>
+														</section></li>
+														<c:set var="desk_total" value="${desk_total + basket.subTotal }" />
+														<c:choose>
+															<c:when test="${basket.priceSub eq 0}"> 
+																<c:set var="desk_subTotal" value="${desk_subTotal + (basket.price*basket.amount)}" />
+															</c:when>
+															<c:when test="${basket.priceSub ne 0}">
+																<c:set var="desk_subTotal" value="${desk_subTotal + (basket.priceSub*basket.amount) }" />
+																<c:set var="desk_dcTotal" value="${desk_dcTotal + ((basket.priceSub - basket.price) * basket.amount)}" />
+															</c:when>
+														</c:choose>
+													</c:forEach>
+												</ul>
 									</main>
 									<footer data-v-7f39deaa="" class="desktop-body-table-footer">
 										<div data-v-7f39deaa="" class="desktop-body-table-footer-left">
@@ -1267,7 +1396,9 @@ $(function(){
 										<div data-v-7f39deaa=""
 											class="desktop-body-table-footer-right">
 											<span data-v-7f39deaa=""
-												class="desktop-body-table-footer-price"><c:out value="${desk_total}원"></c:out>
+												class="desktop-body-table-footer-price">
+												<input type="hidden" value = "${desk_total}" id="bDeskTotal"/>
+												<fmt:formatNumber pattern="#,### 원" ><c:out value="${desk_total}"></c:out></fmt:formatNumber>
 											</span>
 										</div>
 									</footer>
@@ -1281,8 +1412,8 @@ $(function(){
 											<div data-v-7f39deaa="" class="desktop-footer-price-top">상품
 												금액</div>
 											<div data-v-7f39deaa="" class="desktop-footer-price-bottom price">
-												<c:out value="${desk_subTotal}원" />
 												<input type = "hidden" value ="${desk_subTotal}" id ="check_desk_subtotal"/>
+												<fmt:formatNumber pattern="#,### 원" ><c:out value="${desk_subTotal}" /></fmt:formatNumber>
 												</div>
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
@@ -1293,8 +1424,8 @@ $(function(){
 											<div data-v-7f39deaa="" class="desktop-footer-price-top">할인
 												금액</div>
 											<div data-v-7f39deaa="" class="desktop-footer-price-bottom dc">
-												<c:out value="${desk_dcTotal}원" />
 												<input type="hidden" value="${desk_dcTotal}" id ="check_desk_dctotal"/>	
+												<fmt:formatNumber  pattern="#,### 원" ><c:out value="${desk_dcTotal}" /></fmt:formatNumber>
 												</div>
 										</div>
 										<div data-v-7f39deaa="" class="desktop-footer-icon-wrap">
@@ -1305,8 +1436,9 @@ $(function(){
 											<div data-v-7f39deaa="" class="desktop-footer-price-top">결제
 												예상 금액</div>
 											<div data-v-7f39deaa=""
-												class="desktop-footer-price-bottom discounted"><c:out value="${desk_total}원" />
+												class="desktop-footer-price-bottom discounted">
 												<input type ="hidden" value ="${check_desk_total}" id="check_desk_total"/>
+												<fmt:formatNumber pattern="#,### 원" ><c:out value="${desk_total}" /></fmt:formatNumber>
 											</div> 
 										</div>
 									</div>

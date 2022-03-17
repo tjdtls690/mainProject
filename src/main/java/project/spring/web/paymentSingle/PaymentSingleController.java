@@ -2,6 +2,9 @@ package project.spring.web.paymentSingle;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.member.MemberVO;
 import project.spring.web.member_zipcode.MemberZipcodeService;
 import project.spring.web.member_zipcode.MemberZipcodeVO;
 
@@ -54,9 +58,15 @@ public class PaymentSingleController {
 	}
 	
 	@RequestMapping("/paymentCouponModal.do")
-	public ModelAndView paymentCouponModalDo(ModelAndView mav, PaymentSingleCouponInfoVO vo) {
+	public ModelAndView paymentCouponModalDo(ModelAndView mav, HttpServletRequest request, PaymentSingleCouponInfoVO vo) {
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		vo.setUser_code(String.valueOf(vo1.getMemberCode()));
 		List<PaymentSingleCouponInfoVO> list = paymentSingleService.getMyPaymentCoupon(vo);
 		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println("?? : " + list.get(i).getCoupon_code());
+		}
 		mav.addObject("list", list);
 		mav.setViewName("paymentCouponModal");
 		return mav;

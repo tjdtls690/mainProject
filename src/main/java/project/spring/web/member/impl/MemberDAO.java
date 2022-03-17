@@ -1,5 +1,7 @@
 package project.spring.web.member.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -54,5 +56,13 @@ public class MemberDAO {
 	
 	public int updatePassword(MemberVO vo) {
 		return sqlSessionTemplate.update("MemberDAO.updatePassword", vo);
+	}
+	
+	public MemberVO getMemberEmail(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.getMemberEmail", vo);
+	}
+	
+	public List<MemberVO> getAllMember(MemberVO vo) {
+		return sqlSessionTemplate.selectList("MemberDAO.getAllMember");
 	}
 }

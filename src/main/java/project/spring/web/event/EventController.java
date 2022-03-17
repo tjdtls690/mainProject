@@ -152,46 +152,6 @@ public class EventController {
 		
 		return mav;
 	}
-//	//1만원 쿠폰팩에서 낱개로 눌렀을때 실행되는 메서드
-//	@RequestMapping(value = "coupon03.do", method = RequestMethod.POST)
-//	public ModelAndView coupon03Do(ModelAndView mav, HttpServletRequest request) {
-//		CouponVO cvo = new CouponVO();
-//		HttpSession session = request.getSession();
-//		MemberVO mvo = (MemberVO) session.getAttribute("member");
-//		int memCode = mvo.getMemberCode();
-//		String b = request.getParameter("coupon_code");
-//		int coupon_code = Integer.parseInt(b);
-//		System.out.println(memCode);
-//		System.out.println(coupon_code);
-//		cvo.setUser_code(memCode);
-//		
-//		List<CouponVO> coupon = eventService.getCoupon(cvo);
-//		//getCoupon : SELECT * FROM user_coupon WHERE user_code = #{user_code}
-//		
-//		if(coupon.isEmpty()) {
-//			CouponVO cvo2 = new CouponVO();
-//			cvo2.setCoupon_code(coupon_code);
-//			cvo2.setUser_code(memCode);
-//			eventService.insertCoupon(cvo2);
-//			mav.setViewName("couponAvailable");
-//		} else {
-//			List<Integer> couponCode = new ArrayList<Integer>();
-//			for(int i = 0; i < coupon.size(); i++) {
-//				couponCode.add(coupon.get(i).getCoupon_code());
-//			}
-//			if(couponCode.contains(coupon_code)) {
-//				mav.setViewName("downloadCouponModal");
-//			} else {
-//				CouponVO cvo2 = new CouponVO();
-//				cvo2.setCoupon_code(coupon_code);
-//				cvo2.setUser_code(memCode);
-//				eventService.insertCoupon(cvo2);
-//				mav.setViewName("couponAvailable");
-//			}
-//		}
-//		
-//		return mav;
-//	}
 	//1만원 쿠폰팩 모두받기 버튼 눌렀을때 실행되는 메서드
 	@RequestMapping("coupon04.do")
 	public ModelAndView coupon04Do(ModelAndView mav, HttpServletRequest request) {

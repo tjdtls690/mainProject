@@ -35,7 +35,12 @@
 	<select id="getMember" resultMap="getMemberMapping">
 		SELECT * FROM member WHERE member_email = #{email}
 	</select>
-	
+	<select id="getMemberEmail" resultMap="getMemberMapping">
+		SELECT * FROM member WHERE member_code = #{memberCode}
+	</select>
+	<select id="getAllMember" resultMap="getMemberMapping">
+		SELECT * FROM member
+	</select>
 	<select id="phoneCheck" resultType="int">
 		SELECT COUNT(c.member_email) AS count 
 		FROM (

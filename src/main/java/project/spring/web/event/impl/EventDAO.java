@@ -29,4 +29,12 @@ public class EventDAO {
 	public CouponVO getCouponDetail(CouponVO vo) {
 		return sqlSessionTemplate.selectOne("EventDAO.getCouponDetail", vo);
 	}
+	
+	public List<CouponVO> getAllCoupon(CouponVO vo) {
+		return sqlSessionTemplate.selectList("EventDAO.getAllCoupon");
+	}
+	
+	public List<CouponVO> getUserCoupon(CouponVO vo) {
+		return sqlSessionTemplate.selectList("EventDAO.getUserCoupon");
+	}
 }

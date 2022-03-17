@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-	<div data-v-7605e1b2="" data-v-56ae83be=""
-		class="vc-popover-content-wrapper is-interactive"
-		style="position: absolute; transform: translate3d(0px, -279px, 0px); top: 0px; left: 0px; will-change: transform;"
-		x-placement="top-start">
 		<div data-v-7605e1b2="" tabindex="-1"
-			class="vc-popover-content direction-top vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg">
+			class="vc-popover-content direction-top vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg" id="cal">
 			<div data-v-56ae83be=""
 				data-helptext="Press the arrow keys to navigate by day, Home and End to navigate to week ends, PageUp and PageDown to navigate by month, Alt+PageUp and Alt+PageDown to navigate by year"
 				class="vc-container vc-reset vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg">
@@ -651,4 +647,3 @@
 			<span data-v-7605e1b2=""
 				class="vc-popover-caret direction-top align-left"></span>
 		</div>
-	</div>

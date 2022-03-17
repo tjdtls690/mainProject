@@ -5,7 +5,7 @@
 
 	<div data-v-2706028c="" class="selected-detail-wrap">
 		<div data-v-2706028c="" class="selected-detail" style="margin-bottom: 8px;">
-			<img data-v-2706028c=""  class="selected-detail__close img-fade-in" src="/images/exit@2x.png">
+			<img data-v-2706028c=""  class="selected-detail__close img-fade-in" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/Logo_close.png">
 			<div data-v-2706028c="" class="selected-detail__title">
 				${name }
 			</div>

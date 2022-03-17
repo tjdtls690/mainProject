@@ -34,8 +34,13 @@ public class BasketController {
 			BasketVO vo2 = new BasketVO();
 			vo2.setUserCode(userCode);
 			List<BasketVO> BasketList = basketService.getBasketList(vo2);
-			mav.addObject("Basket", BasketList);
-			mav.setViewName("basket");
+			
+			if (BasketList.size() == 0) {
+				mav.setViewName("basket2");
+			}else {
+				mav.addObject("Basket", BasketList);
+				mav.setViewName("basket");
+			}
 		}
 		return mav;
 	}	
@@ -59,11 +64,15 @@ public class BasketController {
 		int userCode = Integer.parseInt(str3);
 		System.out.println("userCode : " + userCode);
 		
+		String str4 = request.getParameter("itemSize");
+		System.out.println("itemSize : " + str4); 
+		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
 		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
+		vo.setItemSize(str4);
 		basketService.getBasketChangeList(vo);
 		
 		List<BasketVO> basketChangeList = basketService.getBasketList(vo);
@@ -93,11 +102,15 @@ public class BasketController {
 		int userCode = Integer.parseInt(str3);
 		System.out.println("userCode : " + userCode);
 		
+		String str4 = request.getParameter("itemSize");
+		System.out.println("itemSize : " + str4); 
+		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
 		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
+		vo.setItemSize(str4);
 		basketService.getBasketChangeList(vo);
 		
 		List<BasketVO> basketChangeList = basketService.getBasketList(vo);
@@ -126,11 +139,15 @@ public class BasketController {
 		int userCode = Integer.parseInt(str3);
 		System.out.println("userCode : " + userCode);
 		
+		String str4 = request.getParameter("itemSize");
+		System.out.println("itemSize : " + str4); 
+		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
 		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
+		vo.setItemSize(str4);
 		basketService.getBasketChangeList(vo);
 		
 		List<BasketVO> basketChangeList = basketService.getBasketList(vo);
@@ -160,12 +177,15 @@ public class BasketController {
 		int userCode = Integer.parseInt(str3);
 		System.out.println("userCode : " + userCode);
 
+		String str4 = request.getParameter("itemSize");
+		System.out.println("itemSize : " + str4); 
 		
 		BasketVO vo = new BasketVO();
 		vo.setAmount(amt);
 		vo.setUserCode(userCode);
 		vo.setItemCode(itemCode);
 		vo.setSubTotal(subtotal);
+		vo.setItemSize(str4);
 		basketService.getBasketChangeList(vo);
 		
 		List<BasketVO> basketChangeList = basketService.getBasketList(vo);

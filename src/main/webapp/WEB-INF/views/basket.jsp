@@ -84,6 +84,12 @@ function addComma(num) {
 	  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	  return num.toString().replace(regexp, ',');
 	}
+	
+$(function(){
+	$(document).on('click','.mobile-header-back-wrap', function(){
+		location.href="main.do";
+	});
+});
 
 $(function() {
 	$(document).on('click','.form-number__control.desk_minusbtn', function(){
@@ -110,7 +116,6 @@ $(function() {
 				"memberCode" : formData3,
 				"itemSize" : formData4
 			},
-			async : false,
 			success : function(data){
 				 $('.desktop-body-table-list').html(data);
 			},
@@ -123,14 +128,14 @@ $(function() {
 		
 				for (var i =0; i< count; i++) {
 
-					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
-						dctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+					if (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) != 0) {
+						dctotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val())) * parseInt($('.abcd')[i].value);
 					}
 					
-					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
-						subtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+					if(parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) == 0){
+						subtotal += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 					}else {
-						subtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+						subtotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) * parseInt($('.abcd')[i].value));
 				 	}
 					
 					sum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
@@ -192,14 +197,14 @@ $(function(){
 
 				for (var i =0; i< count; i++) {
 
-					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
-						dctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+					if (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) != 0) {
+						dctotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val())) * parseInt($('.abcd')[i].value);
 					}
 					
-					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
-						subtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+					if(parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) == 0){
+						subtotal += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 					}else {
-						subtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+						subtotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) * parseInt($('.abcd')[i].value));
 				 	}
 					
 					sum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
@@ -257,14 +262,14 @@ $(function(){
 					
 					for (var i =0; i< count; i++) {
 
-						if ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() != 0) {
-							dctotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() - $('.mobile-body-item-discounted-price').eq(i).children('#mprice').val()) * parseInt($('.haha')[i].value);
+						if (parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) != 0) {
+							dctotal += (parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) - parseInt($('.mobile-body-item-discounted-price').eq(i).children('#mprice').val())) * parseInt($('.haha')[i].value);
 						}
 						
-						if($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() == 0){
-							subtotal += $('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val();
+						if(parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) == 0){
+							subtotal += parseInt($('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val());
 						}else {
-							subtotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() * parseInt($('.haha')[i].value));
+							subtotal += (parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) * parseInt($('.haha')[i].value));
 					 	}
 						
 						sum += parseInt($('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val());
@@ -315,14 +320,14 @@ $(function(){
 						
 				for (var i =0; i< count; i++) {
 
-					if ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() != 0) {
-						dctotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() - $('.mobile-body-item-discounted-price').eq(i).children('#mprice').val()) * parseInt($('.haha')[i].value);
+					if (parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) != 0) {
+						dctotal += (parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) - parseInt($('.mobile-body-item-discounted-price').eq(i).children('#mprice').val())) * parseInt($('.haha')[i].value);
 					}
 					
-					if($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() == 0){
-						subtotal += $('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val();
+					if(parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) == 0){
+						subtotal += parseInt($('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val());
 					}else {
-						subtotal += ($('.mobile-body-item-price').eq(i).children('#mpriceSub').val() * parseInt($('.haha')[i].value));
+						subtotal += (parseInt($('.mobile-body-item-price').eq(i).children('#mpriceSub').val()) * parseInt($('.haha')[i].value));
 				 	}
 					
 					sum += parseInt($('.mobile-body-item-bottom-price').eq(i).children('#msubTotal').val());
@@ -379,14 +384,14 @@ $(function (){
 
 			for (var i =0; i< count2; i++) {
 
-				if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
-					dctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+				if (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) != 0) {
+					dctotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val())) * parseInt($('.abcd')[i].value);
 				}
 				
-				if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
-					subtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+				if(parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) == 0){
+					subtotal += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 				}else {
-					subtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+					subtotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) * parseInt($('.abcd')[i].value));
 			 	}
 				
 				sum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
@@ -440,7 +445,7 @@ $(function (){
 		for (var i=0; i < count; i++) {
 			var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
 			if (check == true) {
-				deleteItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+				deleteItemCode[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val());
 				deleteItemSize[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val();
 			}
 		}
@@ -481,7 +486,7 @@ $(function (){
 		var checkedNum =  $('input:checkbox[name="point-check"]:checked').length;
 		
 		for (var i=0; i < count; i++) {
-				deleteItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
+				deleteItemCode[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val());
 				deleteItemSize[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val();
 		}
 		
@@ -523,7 +528,7 @@ $(function (){
 		var data = {};
 		
 		for(var i =0; i < count; i++) {
-			deleteItemCode[i] = $('.form-number__control.mobile_minusbtn').eq(i).children('#itemCode').val();
+			deleteItemCode[i] = parseInt($('.form-number__control.mobile_minusbtn').eq(i).children('#itemCode').val());
 			deleteItemSize[i] = $('.form-number__control.mobile_minusbtn').eq(i).children('#itemSize').val();
 		}
 
@@ -564,7 +569,7 @@ $(function (){
 		
 		var idx = parseInt($('.mobile-body-item-close').index(this));
 		
-		deleteItemCode[0] = $('.form-number__control.mobile_minusbtn').eq(idx).children('#itemCode').val();
+		deleteItemCode[0] = parseInt($('.form-number__control.mobile_minusbtn').eq(idx).children('#itemCode').val());
 		deleteItemSize[0] = $('.form-number__control.mobile_minusbtn').eq(idx).children('#itemSize').val();
 
 		var newDeleteItemCode = deleteItemCode.filter(number => {
@@ -606,9 +611,9 @@ $(function(){
 		var medium = "미디움";
 		var large = "라지";
 		for (var i=0; i < count; i++) {	
-			BuyItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
-			BuyTagMain[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#tagMain').val();
-			BuyAmount[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#amount').val();
+			BuyItemCode[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val());
+			BuyTagMain[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#tagMain').val());
+			BuyAmount[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#amount').val());
 			if($('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val() === medium){
 				BuyItemSize[i] = 'm';
 			}else if ($('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val() === large){
@@ -690,9 +695,9 @@ $(function(){
 		for (var i=0; i < count; i++) {
 			var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
 			if (check == true) {
-				BuyItemCode[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val();
-				BuyTagMain[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#tagMain').val();
-				BuyAmount[i] = $('.form-number__control.desk_minusbtn').eq(i).children('#amount').val();
+				BuyItemCode[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#itemCode').val());
+				BuyTagMain[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#tagMain').val());
+				BuyAmount[i] = parseInt($('.form-number__control.desk_minusbtn').eq(i).children('#amount').val());
 				if($('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val() === medium){
 					BuyItemSize[i] = 'm';
 				}else if ($('.form-number__control.desk_minusbtn').eq(i).children('#itemSize').val() === large){
@@ -773,14 +778,14 @@ $(function(){
 			var bodyDctotal = 0;
 			var bodySubtotal = 0;
 			
-			if ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() != 0) {
-				dctotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(idx).children('#bPrice').val()) * parseInt($('.abcd')[idx].value);
+			if (parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()) != 0) {
+				dctotal += (parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(idx).children('#bPrice').val())) * parseInt($('.abcd')[idx].value);
 			}
 			
-			if($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() == 0){
-				subtotal += $('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val();
+			if(parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()) == 0){
+				subtotal += parseInt($('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val());
 			}else {
-				subtotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() * parseInt($('.abcd')[idx].value));
+				subtotal += (parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()) * parseInt($('.abcd')[idx].value));
 		 	}
 			
 			for (var i=0; i < count; i++) {
@@ -788,14 +793,14 @@ $(function(){
 				if (check2 == false) {
 					continue;
 				}else {
-					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
-						bodyDctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+					if (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) != 0) {
+						bodyDctotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val())) * parseInt($('.abcd')[i].value);
 					}
 					
-					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
-						bodySubtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+					if(parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) == 0){
+						bodySubtotal += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 					}else {
-						bodySubtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+						bodySubtotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) * parseInt($('.abcd')[i].value));
 				 	}
 					
 					bodySum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
@@ -824,14 +829,14 @@ $(function(){
 			var EbodyDctotal = 0;
 			var EbodySubtotal = 0;
 			
-			if ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() != 0) {
-				Edctotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(idx).children('#bPrice').val()) * parseInt($('.abcd')[idx].value);
+			if (parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()) != 0) {
+				Edctotal += (parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(idx).children('#bPrice').val())) * parseInt($('.abcd')[idx].value);
 			}
 			
-			if($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() == 0){
-				Esubtotal += $('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val();
+			if(parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()) == 0){
+				Esubtotal += parseInt($('.desktop-body-table-item-total-price').eq(idx).children('#bdesk-SubTotal').val());
 			}else {
-				Esubtotal += ($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val() * parseInt($('.abcd')[idx].value));
+				Esubtotal += (parseInt($('.desktop-body-table-item-price').eq(idx).children('#bPriceSub').val()) * parseInt($('.abcd')[idx].value));
 		 	}
 	 		
 			for (var i=0; i < count; i++) {
@@ -839,14 +844,14 @@ $(function(){
 				if (check3 == false) {
 					continue;
 				}else {
-					if ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() != 0) {
-						EbodyDctotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()-$('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val()) * parseInt($('.abcd')[i].value);
+					if (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) != 0) {
+						EbodyDctotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val())-parseInt($('.desktop-body-table-item-discounted-price').eq(i).children('#bPrice').val())) * parseInt($('.abcd')[i].value);
 					}
 					
-					if($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() == 0){
-						EbodySubtotal += $('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val();
+					if(parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) == 0){
+						EbodySubtotal += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());
 					}else {
-						EbodySubtotal += ($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val() * parseInt($('.abcd')[i].value));
+						EbodySubtotal += (parseInt($('.desktop-body-table-item-price').eq(i).children('#bPriceSub').val()) * parseInt($('.abcd')[i].value));
 				 	}
 					
 					EbodySum += parseInt($('.desktop-body-table-item-total-price').eq(i).children('#bdesk-SubTotal').val());

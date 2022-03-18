@@ -81,12 +81,10 @@
 				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
 				setTimeout(function() {
 					$('.swal2-container').detach();
-					if($('.form-text').eq(2).val().length == 0 && $('#paymentDeliveryTypeCheck').val() == 0){
-				    	$('html').attr('class', '');
-				    	$('body').attr('class', '');
-				    	$('noscript').removeAttr('aria-hidden');
-				    	$('#__nuxt').removeAttr('aria-hidden');
-					}
+			    	$('html').attr('class', '');
+			    	$('body').attr('class', '');
+			    	$('noscript').removeAttr('aria-hidden');
+			    	$('#__nuxt').removeAttr('aria-hidden');
 				}, 100);
 			}
 		});
@@ -203,7 +201,7 @@
 	    // 결제하기 버튼
 	    $(document).on('click', '#pay-btn2', function(){
 	    	// 공동현관 메모 비어있을 시 리턴
-	    	if($('.form-text').eq(2).val().length == 0 && $('#paymentDeliveryTypeCheck').val() == 0){
+	    	if(($('.form-text').eq(2).val().length == 0 && $('#paymentDeliveryTypeCheck').val() == 0) || ($('#typeSelect option:checked').text() == '선택하기') && $('#paymentDeliveryTypeCheck').val() == 0){
 	    		$('html').attr('class', 'swal2-shown swal2-height-auto');
 		    	$('body').attr('class', 'swal2-shown swal2-height-auto');
 		    	$('noscript').attr('aria-hidden', 'true');
@@ -366,6 +364,8 @@
 						<c:forEach var="list1" items="${list }">
 							<input type="hidden" value="${list1.paymentTagMain }" class="itemTagMain">
 							<input type="hidden" value="${list1.paymentItemCode }" class="itemCode">
+							<input type="hidden" value="${list1.paymentItemQuantity }" class="ItemQuantity">
+							<input type="hidden" value="${fn:replace(list1.paymentPrice , ',', '') }" class="itemPrice">
 						</c:forEach>
 					</div>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
@@ -674,8 +674,8 @@
 										<div data-v-8f2f8136="" class="method__checks">
 											<span data-v-615e9308="" data-v-8f2f8136=""
 												class="form-select"
-												style="height: 46px; margin-bottom: 10px;"><select
-												data-v-615e9308=""><option data-v-615e9308=""
+												style="height: 46px; margin-bottom: 10px;"><select id="typeSelect"
+												data-v-615e9308=""><option data-v-615e9308="" 
 														value="" disabled="disabled" selected="selected">선택하기</option>
 													<option data-v-8f2f8136="" data-v-615e9308=""
 														value="자유출입 가능">자유출입 가능</option>

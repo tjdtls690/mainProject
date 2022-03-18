@@ -15,7 +15,15 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${path }/css/style.css?ver=1" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        
+        <style>
+       .modal-header{
+       background: #F7941E;
+       color: #fff;
+       }
+    </style>
         <script type="text/javascript">
         	$(function(){
         		$(document).on('click', '.btn.btn-outline-secondary', function(){
@@ -134,7 +142,7 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 배너목록
-                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 
                             </div>
                             <div class="card-body">
@@ -233,5 +241,35 @@
         <script src="${path }/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>
+        <div class="modal" id="myModal">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Contact us</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+         </div>
+         <div class="modal-body">
+            <form>
+               <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control">
+               </div>
+               <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="text" class="form-control">
+               </div>
+               <div class="mb-3">
+                  <label class="form-label">Type your message here</label>
+                  <textarea class="form-control"></textarea>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+         <button type="submit" class="btn btn-primary">Submit</button>
+         <button type="submit" class="btn btn-primary">Cancel</button>
+         </div>
+         </div>
+         </div>
+         </div>
     </body>
 </html>

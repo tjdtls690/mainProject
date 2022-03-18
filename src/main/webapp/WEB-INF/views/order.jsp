@@ -622,7 +622,7 @@ $(function() {
     
     
     
-    $(document).on('click', '.button__wrap', function(){ // 상품 선택완료 버튼
+    $(document).on('click', '.add-items-footer .button.button--size-large .button__wrap', function(){ // 상품 선택완료 버튼
     	if($('#addressModalCheck').val() == 1){
     		return false;
     	}
@@ -2211,7 +2211,6 @@ $(function() {
     
     
     $(document).on('click', '.vc-day-content.vc-focusable.vc-font-medium.vc-text-sm.vc-cursor-pointer.real-check', function(){
-		
     	// 달력에서 최종 날짜 선택
     	
 		$('#firstModalCheck').val(0);
@@ -2638,13 +2637,11 @@ $(function() {
 	        
 	        // 가격
 	        var savePrice = 0;
-	        
 	        if($('.hidden-div-real').children('div').eq(i).find('.savePriceSub').val().replace(',', '') == 0){
 	        	savePrice = Number($('.hidden-div-real').children('div').eq(i).find('.savePrice').val().replace(',', '')) + (Number($('.hidden-div-real').children('div').eq(i).find('.saveDisposable').val()) * 100);
 	        }else{
 	        	savePrice = Number($('.hidden-div-real').children('div').eq(i).find('.savePriceSub').val().replace(',', '')) + (Number($('.hidden-div-real').children('div').eq(i).find('.saveDisposable').val()) * 100);
 	        }
-	        
 	        savePrice = savePrice.toLocaleString('en');
 	        
 	        var objs4;
@@ -2950,7 +2947,7 @@ $(function() {
 							<div class="${orderTagMain[i.index]}/${orderItemCode[i.index] }/${orderItemSizeSummary[i.index]}">
 								<input type="hidden" value="${orderItemCode[i.index] }" class="saveItemCode">
 								<input type="hidden" value="${orderTagMain[i.index]}" class="saveTagMain">
-								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] + 100 * orderQuantity[i.index] }" pattern="#,###" />" class="savePrice">
+								<input type="hidden" value="<fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index]}" pattern="#,###" />" class="savePrice">
 								<input type="hidden" value="${orderItem.item_name }" class="saveItemName">
 								<input type="hidden" value="${orderItemSize[i.index] }" class="saveItemSize">
 								<input type="hidden" value="${orderItemSizeSummary[i.index]}" class="saveitemSizeSummary">

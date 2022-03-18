@@ -16,7 +16,7 @@
 	<input type="hidden" name="tagSub" value="${tagSub }">
 
 	<div data-v-2706028c="" class="selected-detail">
-		<img data-v-2706028c="" src="/images/exit@2x.png" class="selected-detail__close"> 
+		<img data-v-2706028c="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/Logo_close.png" class="selected-detail__close"> 
 <!-- 												삭제 버튼 -->
 		<div data-v-2706028c="" class="selected-detail__title" >
              			${name} // ${ size}

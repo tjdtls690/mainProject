@@ -7,6 +7,7 @@ public interface TapPageService {
 	TapPageVO getItemInfoOne(TapPageVO vo);
 	
 	TapPageVO getAvgCount(TapPageVO vo);
+	TapPageVO getAvgCount2(TapPageVO vo);
 //	슬라이드용 이미지 랜덤 정보 추출
 	List<TapPageVO> getRandom(TapPageVO vo);
 	List<TapPageVO> getRandom2(TapPageVO vo);

@@ -341,17 +341,17 @@ public class DetailController {
 //			아이템 평균별점/게시글카운트
 			TapPageVO VO2 = new TapPageVO();
 			VO2.setItemCode(menuNum);
-			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
+			mav.addObject("avgCount", tapPageService.getAvgCount2(VO2));
 //			리뷰보드( 각 품목 불러오기 )
 			cri.setItem_code(menuNum);
-		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
 		    mav.addObject("boardList", list);
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
 		    pageMaker.setCri(cri);
 		    pageMaker.setItem_code(menuNum);
-		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal2(pageMaker));
 		    mav.addObject("pageMaker", pageMaker);
 		    System.out.println("cri.getItem_code : "+cri.getItem_code());
 		    System.out.println("");
@@ -741,6 +741,24 @@ public class DetailController {
 		return mav;
 	}
 	
+	
+	@RequestMapping("/aaa.do")
+	public ModelAndView aaa(HttpServletRequest request, ModelAndView mav) {
+		String price = request.getParameter("price");
+		String priceSub = request.getParameter("priceSub");
+		String size = request.getParameter("size");
+		String start = request.getParameter("start");
+		String week = request.getParameter("week");
+		String code = request.getParameter("code");
+		String tag = request.getParameter("tag");
+		
+		System.out.println(" "+price+" "+priceSub+" "+size+" "+start+" "+week+" "+code+" "+tag);
+		
+		
+		
+		return mav;
+		
+	}
 	
 
 

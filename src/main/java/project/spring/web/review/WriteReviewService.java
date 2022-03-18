@@ -20,6 +20,10 @@ public interface WriteReviewService {
 // 페이징 처리
 	List<Map<String, Object>> selectBoardList(Criteria cri);
 	
+	List<Map<String, Object>> selectBoardList2(Criteria cri);
+	
 	int countBoardListTotal(PageMaker pageMaker);
+	
+	int countBoardListTotal2(PageMaker pageMaker);
 
 }

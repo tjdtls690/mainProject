@@ -52,13 +52,21 @@
 		SELECT * FROM reviewboard where subscribe_code = ${subscribe_code}
 		ORDER BY seq DESC
 	</select>
-<!-- 	페이징처리 -->
+<!-- 	페이징처리  -->
+<!-- 	각각 2 라고 추가된 id 들은 구독용 처리 -->
 	<select id="selectBoardList" resultType="hashmap" parameterType="hashmap">
         SELECT * FROM reviewboard WHERE item_code = #{item_code}
         ORDER BY seq DESC LIMIT #{pageStart}, #{perPageNum}
 	</select>
+	<select id="selectBoardList2" resultType="hashmap" parameterType="hashmap">
+        SELECT * FROM reviewboard WHERE subscribe_code = #{item_code}
+        ORDER BY seq DESC LIMIT #{pageStart}, #{perPageNum}
+	</select>
 	<select id="countBoardList" resultType="Integer">
         SELECT count(*) FROM reviewboard WHERE item_code = #{item_code}
+	</select>
+	<select id="countBoardList2" resultType="Integer">
+        SELECT count(*) FROM reviewboard WHERE subscribe_code = #{item_code}
 	</select>
 	
 </mapper>

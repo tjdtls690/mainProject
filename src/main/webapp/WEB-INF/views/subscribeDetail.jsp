@@ -180,7 +180,7 @@
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
      	$(document).on('click','#nutrition-info',function(){  
-    		alert("영양 정보 숨기기");
+    		//alert("영양 정보 숨기기");
     	    if($("#item_nut_show").css("display") == "none"){   
     	        $('#item_nut_show').show(); 
     	    } else {  
@@ -189,7 +189,7 @@
     	}); 
 // 상품 정보 고시 숨기기
      	$(document).on('click','#product-info',function(){  
-    		alert("상품 정보 숨기기");
+    		//alert("상품 정보 숨기기");
     	    if($("#item_info_show").css("display") == "none"){   
     	        $('#item_info_show').show(); 
     	    } else {  
@@ -240,7 +240,7 @@
 			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
 			//alert("1.드랍다운 클릭");
 			var code =$('.itemCode').attr('value');	
-			alert(code);
+			//alert(code);
 			var tag = $('.tagMain').attr('value');
 			var str ="";
 			if($('.dropdown-btn,click').hasClass('dropdown-open')){
@@ -350,7 +350,7 @@
 
 // 날짜 선택 클릭 시
 		$(document).on('click','.date-picker-input',function(){
-			alert("달력클릭");
+			//alert("달력클릭");
 			// css 변경을 원본 홈피와 그대로 하겠다.
 
 			
@@ -366,7 +366,7 @@
 				$('.vc-popover-content-wrapper').removeClass('is-interactive');
 				$('.vc-popover-content-wrapper').removeAttr('style'); //스타일을 다지워줌
 			}else{	
-				alert("달력 없음");
+				//alert("달력 없음");
 				$.ajax({
 					url : 'calendar.do',
 					type : 'post',
@@ -395,7 +395,7 @@
 
 // 날짜 선택
 		$(document).on('click','.vc-day-content',function(){
-			alert("날짜 클릭");
+			//alert("날짜 클릭");
 			$('div #cal').remove();
 			$('.vc-popover-content-wrapper').removeClass('is-interactive');
 			
@@ -461,7 +461,7 @@
 		
 // 구독 상세명서 삭제 버튼		
 		$(document).on('click','.selected-detail__close',function(){
-			alert("삭제버튼");
+			//alert("삭제버튼");
 		// 기간 선택 원위치
 			$('.selected-detail-wrap').detach();
 			$('.dropdown-btn.click:eq(0)').children().children().first().text("기간 선택(기간이 길수록 더많이 할인됩니다)");
@@ -645,7 +645,7 @@
 		});
 // 구독하기 클릭시 값 넘어감
 		$(document).on('click','.purchase-btn-wrap',function(){
-			alert("구독하기 클릭");
+			//alert("구독하기 클릭");
 			var price = $('.setPrice').val();	// 총 가격
 			var priceSub = $('.setPriceSub').val() // 총 원 가격
 			var size = $('.setSize').val();		// 사이즈

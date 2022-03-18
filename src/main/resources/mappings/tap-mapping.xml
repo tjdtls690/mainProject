@@ -18,6 +18,7 @@
 		<result property="itemPriceMSub" column="item_price_m_sub" />
 		<result property="starAvg" column="round(avg(b.star), 1)" />
 		<result property="reviewCount" column="count(b.content)" />
+		<result property="kind" column="kind" />
 	</resultMap>
 	<resultMap type="mytap" id="tapResult02">
 		<id property="itemCode" column="subscribe_code" />
@@ -33,7 +34,7 @@
 	</resultMap>
 	<select id="getItemInfoList01" resultMap="tapResult01">
 			select a.item_code, a.item_tag_main, a.item_tag_sub, a.item_image, a.item_name, a.item_summary, 
-			a.item_price_m, a.item_price_m_sub, round(avg(b.star), 1), count(b.content) 
+			a.item_price_m, a.item_price_m_sub, round(avg(b.star), 1), count(b.content) , a.kind
 			from item a left join reviewboard b 
 			on a.item_code = b.item_code 
 			where 1 = 1 

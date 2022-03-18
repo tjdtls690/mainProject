@@ -26,7 +26,7 @@ public class TapPageController {
 	public ModelAndView tapPageDo(HttpServletRequest request, TapPageVO vo, TagVO vo1, ModelAndView mav) {
 		String tmp = request.getParameter("tagMain01");
 		int tagMain = Integer.parseInt(tmp);
-		
+
 		if(tagMain != 0) {
 			vo.setTagMain(tagMain);
 			List<TapPageVO> itemInfo = tapPageService.getItemInfo(vo);

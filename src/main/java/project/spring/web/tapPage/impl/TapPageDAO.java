@@ -15,10 +15,12 @@ public class TapPageDAO {
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<TapPageVO> getItemInfo01(TapPageVO vo){
+		System.out.println("getItemInfo01 이용");
 		 return sqlSessionTemplate.selectList("TapPageDAO.getItemInfoList01", vo);
 	}
 	
 	public List<TapPageVO> getItemInfo02(TapPageVO vo){
+		System.out.println("getItemInfo02 이용");
 		return sqlSessionTemplate.selectList("TapPageDAO.getItemInfoList02", vo);
 	}
 	

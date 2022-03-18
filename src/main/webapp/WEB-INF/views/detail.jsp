@@ -45,7 +45,7 @@
          
 // 이미지 슬라이드 아이템 클릭시 상세페이지로 이동         
          $(document).on('click', '.swiper-slide', function(){ 
-        	alert("클릭");
+        	//alert("클릭");
      		var f = document.paging;
      		var code = $(this).children('#itemCode').attr('value');
      		var tag = $(this).children('#tagMain').attr('value');
@@ -61,7 +61,7 @@
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
      	$(document).on('click','#nut',function(){  
-    		alert("영양 정보 숨기기");
+    		//alert("영양 정보 숨기기");
     	    if($("#item_nut_show").css("display") == "none"){   
     	        $('#item_nut_show').show(); 
     	    } else {  
@@ -70,7 +70,7 @@
     	}); 
 // 상품 정보 고시 숨기기
      	$(document).on('click','#info',function(){  
-    		alert("상품 정보 숨기기");
+    		//alert("상품 정보 숨기기");
     	    if($("#item_info_show").css("display") == "none"){   
     	        $('#item_info_show').show(); 
     	    } else {  
@@ -81,10 +81,10 @@
 // -------------------------------------------------------------------------------------------------------------------   	
 // 장바구니 담기
 		$(document).on('click','#mobCart',function(){
-			alert("장바구니 클릭");
+			//alert("장바구니 클릭");
 		// 장바구니 담길것이 있을때와 없을때를 구분.
 			if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
-				alert("있다");
+				//alert("있다");
 				var itemCode = [], data = {};
 				var tagMain = [];
 				var price = [];
@@ -184,7 +184,7 @@
 // --------------------------------------------------------------------------------	
 // 주문하기버튼
 	$(document).on('click','#goOrder',function(){
-		alert("주문하기 클릭");
+		//alert("주문하기 클릭");
 		if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
 			var itemCode = [];
 			var tagMain = [];
@@ -491,7 +491,7 @@
 			
 // 상세 명세서 이미지 클릭시 삭제
 		$(document).on('click','.selected-detail__close',function(){
-			alert("삭제");
+			//alert("삭제");
 			var val = Number($(this).next().next().children().children().eq(1).children().val());
 				// 현재개수
  			var val2 = $(this).next().next().children().children().eq(1).children().attr('class'); 
@@ -506,7 +506,7 @@
 				var price = Number($('.1001:eq(0)').attr('id'));
 				// 개당 가격
 				numPrice -= price*val;
-				alert("numPrice : " + numPrice);
+				//alert("numPrice : " + numPrice);
 
 				// 아이템 가격
 				$('.1001:eq(0)').parent().parent().parent().parent().parent().detach();
@@ -518,7 +518,7 @@
 				var price = Number($('.1002:eq(0)').attr('id'));
 				// 개당 가격
 				numPrice -= price*val;
-				alert("numPrice : " + numPrice);
+				//alert("numPrice : " + numPrice);
 				
 				$('.1002:eq(0)').parent().parent().parent().parent().parent().detach();
 				$('.1002:eq(0)').parent().parent().parent().parent().parent().detach();

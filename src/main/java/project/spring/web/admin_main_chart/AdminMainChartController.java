@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminMainChartController {
 	
 	
-	@RequestMapping("/adminMainChrat.mdo")
+	@RequestMapping("/adminMainChart.mdo")
 	public ModelAndView adminMainChartDo(ModelAndView mav) {
 		mav.addObject("check10", 100000);
 		mav.setViewName("mainChart");

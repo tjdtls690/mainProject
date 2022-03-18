@@ -588,15 +588,15 @@
 												정보</h3>
 											<dl data-v-8f2f8136="" class="row--v-center">
 												<dt data-v-8f2f8136="">보내는 분</dt>
-												<dd data-v-8f2f8136="" class="col">신준혁</dd>
+												<dd data-v-8f2f8136="" class="col">${member.name }</dd>
 											</dl>
 											<dl data-v-8f2f8136="" class="row--v-center">
 												<dt data-v-8f2f8136="">이메일</dt>
-												<dd data-v-8f2f8136="" class="col">tjdtls690@naver.com</dd>
+												<dd data-v-8f2f8136="" class="col">${member.email }</dd>
 											</dl>
 											<dl data-v-8f2f8136="" class="row--v-center">
 												<dt data-v-8f2f8136="">연락처</dt>
-												<dd data-v-8f2f8136="" class="col">01057113386</dd>
+												<dd data-v-8f2f8136="" class="col">${member.phone }</dd>
 											</dl>
 										</div>
 										<div data-v-8f2f8136="" class="receiver">

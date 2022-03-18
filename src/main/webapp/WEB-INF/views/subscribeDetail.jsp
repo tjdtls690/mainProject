@@ -240,6 +240,7 @@
 			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
 			//alert("1.드랍다운 클릭");
 			var code =$('.itemCode').attr('value');	
+			alert(code);
 			var tag = $('.tagMain').attr('value');
 			var str ="";
 			if($('.dropdown-btn,click').hasClass('dropdown-open')){
@@ -502,47 +503,47 @@
 		})
 		
 // 식단확인 및 변경 클릭
-		$(document).on('click','.selected-detail__btn',function(){
-			alert("식단변경");
-			var price = $('.setPrice').val();	// 총 가격
-			var size = $('.setSize').val();		// 사이즈
-			var start = $('.startDate').val();	// 시작일
-			var week = $('.setWeek').val();		// 총 주
-			var code = $('.itemCode').val();	// 아이템 코드
-			var tag = $('.tagMain').val();
-			// 요일은 컨트롤러에서 자르자.
+// 		$(document).on('click','.selected-detail__btn',function(){
+// 			alert("식단변경");
+// 			var price = $('.setPrice').val();	// 총 가격
+// 			var size = $('.setSize').val();		// 사이즈
+// 			var start = $('.startDate').val();	// 시작일
+// 			var week = $('.setWeek').val();		// 총 주
+// 			var code = $('.itemCode').val();	// 아이템 코드
+// 			var tag = $('.tagMain').val();
+// 			// 요일은 컨트롤러에서 자르자.
 			
-			$.ajax({
-	//			alert("ajax 들어옴");
-				url : 'modal.do',
-				type : 'post',
-				dataType : 'html',
-				data :{
-					'price' : price,
-					'size' : size,
-					'start' : start,
-					'week' : week,
-					'code' : code,
-					'tag' : tag
-				},
-				success : function(htmlOut){
-					alert("성공");
-					$('html').attr('class', 'mode-popup');
-					$('.menu').append(htmlOut);
-					$('.item-text:eq(0)').parent().addClass('selected');
-				}
-			});// ajax 끝
+// 			$.ajax({
+// 	//			alert("ajax 들어옴");
+// 				url : 'modal.do',
+// 				type : 'post',
+// 				dataType : 'html',
+// 				data :{
+// 					'price' : price,
+// 					'size' : size,
+// 					'start' : start,
+// 					'week' : week,
+// 					'code' : code,
+// 					'tag' : tag
+// 				},
+// 				success : function(htmlOut){
+// 					alert("성공");
+// 					$('html').attr('class', 'mode-popup');
+// 					$('.menu').append(htmlOut);
+// 					$('.item-text:eq(0)').parent().addClass('selected');
+// 				}
+// 			});// ajax 끝
 			
-		})
+// 		})
 		
 // 모달창 닫기
-		$(document).on('click','.button--outline4',function(){
-			alert("닫기");
-			$('.modal').detach();
-			if($('html').hasClass('mode-popup')){
-				$('html').removeClass('mode-popup');
-			}
-		})
+// 		$(document).on('click','.button--outline4',function(){
+// 			alert("닫기");
+// 			$('.modal').detach();
+// 			if($('html').hasClass('mode-popup')){
+// 				$('html').removeClass('mode-popup');
+// 			}
+// 		})
 
 // 몇주째 클릭 으로 초록색 바탕 보이고 나타내기 
 		$(document).on('click','.item-text',function(){
@@ -587,7 +588,7 @@
 			
 			
 			
-// 		});	
+//  		});	
 
 		
 // 상품 이미지 더보기
@@ -641,7 +642,52 @@
 			  		}
 				})		
 			})
-		});s
+		});
+// 구독하기 클릭시 값 넘어감
+		$(document).on('click','.purchase-btn-wrap',function(){
+			alert("구독하기 클릭");
+			var price = $('.setPrice').val();	// 총 가격
+			var priceSub = $('.setPriceSub').val() // 총 원 가격
+			var size = $('.setSize').val();		// 사이즈
+			var start = $('.startDate').val();	// 시작일
+			var week = $('.setWeek').val();		// 총 주
+			var code = $('.itemCode').val();	// 아이템 코드
+			var tag = $('.tagMain').val();		// 태그
+			
+			var o = document.order;	
+			o.price.value = price;
+			o.priceSub.value = priceSub;
+			o.size.value = size;
+			o.start.value = start;
+			o.week.value = week;
+			o.code.value = code;
+			o.tag.value = tag;
+			o.action="aaa.do"; 
+     		o.method="post";
+     		o.submit();
+	
+		})
+// 별점 찍기
+		$(document).ready(function(){
+			var starCount = $('.review-count').attr('id');
+			var halfStart = starCount.substring(2);
+			for(var i=1; i<starCount; i++){
+				$("<img data-v-32a18372 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png'>").insertAfter('#front');
+				$("<img data-v-f8b893b0 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png' class='review-stars-star'>").insertAfter('#front2');
+		
+			} // 별 찍기
+			if(halfStart ==0){
+				$("<img data-v-32a18372 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png'>").insertAfter('#front');
+				$("<img data-v-f8b893b0 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png' class='review-stars-star'>").insertAfter('#front2');
+			}
+			if(halfStart > 2){
+				$("<img data-v-32a18372 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(half).png'>").insertBefore('#rear');
+				$("<img data-v-f8b893b0 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(half).png' class='review-stars-star'>").insertBefore('#rear2');
+			}
+		
+		})
+		
+		
 
      }); //function 끝
 
@@ -704,6 +750,15 @@
 				<input type="hidden" value="${detail.item_code }" class="itemCode">
 				<input type="hidden" value="${detail.item_tag_main }" class="tagMain">
 			
+				<form name="order">
+					<input type="hidden" name="price" value="">
+					<input type="hidden" name="priceSub" value="">
+					<input type="hidden" name="size" value="">
+					<input type="hidden" name="start" value="">
+					<input type="hidden" name="week" value="">
+					<input type="hidden" name="code" value="">
+					<input type="hidden" name="tag" value="">
+				</form>
 <!--                input hidden 태그 -->
 <!--                input hidden 태그 -->
 <!--                input hidden 태그 -->	
@@ -792,14 +847,13 @@
 										<div data-v-32a18372 class="review">
 											<div data-v-32a18372 class="row--v-center review-wrap">
 												<div class="review-stars">
-													<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-													<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-													<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-													<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-													<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_half%402x.png">
+													<input type="hidden" id="front"></input>
+													<input type="hidden" id="rear"></input>
 												</div>
 												<div>
-													<span class="review-count"> ★★★★${avgCount.starAvg }(후기 ${avgCount.reviewCount}) </span>
+													<span class="review-count" id ="${avgCount.starAvg }">
+														${avgCount.starAvg }(후기 ${avgCount.reviewCount}) 
+													</span>
 												</div>
 											</div>
 										</div>
@@ -949,7 +1003,7 @@
 											<!---->
 											<div data-v-32a18372="" class="purchase-btn-wrap" style="width: 100%;">
 												<button data-v-a1c889e0="" data-v-32a18372="" type="button" title="" class="button button">
-													<span data-v-a1c889e0="" class="button__wrap" id="sub">구독하기</span>
+													<span data-v-a1c889e0="" class="button__wrap">구독하기</span>
 												</button>
 											</div>
 										</div>
@@ -1109,7 +1163,7 @@
 																</div>
 															</c:forEach>
 
-															<!--                                                     <div data-v-79f00ef9 class="shadow"></div> -->
+									                          <div data-v-79f00ef9 class="shadow"></div>
 														</div>
 													</div>
 													<div data-v-79f00ef9 class="more-btn">
@@ -1646,11 +1700,8 @@
 											<div data-v-f8b893b0=""
 												class="row--v-center review-box-wrapper">
 												<div data-v-f8b893b0="" class="review-stars">
-													<img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png"class="review-stars-star"> 
-													<img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star"> 
-													<img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star"> 
-													<img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star"> 
-													<img data-v-f8b893b0=""src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_half%402x.png" class="review-stars-star">
+													<input type="hidden" id="front2"></input>
+													<input type="hidden" id="rear2"></input>
 												</div>
 												<div data-v-f8b893b0="" class="review-rating-counts">
 													${avgCount.starAvg }(후기 ${avgCount.reviewCount})

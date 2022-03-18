@@ -49,12 +49,22 @@ public class WriteReviewServiceImpl implements WriteReviewService{
 	public List<Map<String, Object>> selectBoardList(Criteria cri) {
 	    return writeReviewDAO.selectBoardList(cri);
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> selectBoardList2(Criteria cri) {
+	    return writeReviewDAO.selectBoardList2(cri);
+	}
+	
 	@Override
 	public int countBoardListTotal(PageMaker pageMaker) {
 		System.out.println("countBoardListTotal serviceImpl");
 		return writeReviewDAO.countBoardList(pageMaker);
-
+	}
+	
+	@Override
+	public int countBoardListTotal2(PageMaker pageMaker) {
+		System.out.println("countBoardListTotal2 serviceImpl");
+		return writeReviewDAO.countBoardList2(pageMaker);
 	}
 	
 }

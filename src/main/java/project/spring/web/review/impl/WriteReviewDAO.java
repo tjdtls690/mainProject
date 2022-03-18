@@ -53,9 +53,19 @@ public class WriteReviewDAO {
 		System.out.println("--->MyBatis selectBoardList 실행");
 	    return sqlSessionTemplate.selectList("WriteReviewDAO.selectBoardList", cri);
 	}
+	
+	public List<Map<String, Object>> selectBoardList2(Criteria cri) {
+		System.out.println("--->MyBatis selectBoardList 실행");
+	    return sqlSessionTemplate.selectList("WriteReviewDAO.selectBoardList2", cri);
+	}
 
 	public int countBoardList(PageMaker pageMaker){
 		System.out.println("--->MyBatis countBoardList 실행");
 	    return sqlSessionTemplate.selectOne("WriteReviewDAO.countBoardList", pageMaker);
+	}
+	
+	public int countBoardList2(PageMaker pageMaker){
+		System.out.println("--->MyBatis countBoardList 실행");
+	    return sqlSessionTemplate.selectOne("WriteReviewDAO.countBoardList2", pageMaker);
 	}
 }

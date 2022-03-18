@@ -70,6 +70,11 @@
 		  FROM reviewboard b WHERE item_code = #{itemCode};
 	</select>
 	
+	<select id="getAvgCount2" resultMap="tapResult01">
+		SELECT item_code, round(avg(b.star), 1), count(b.content) 
+		  FROM reviewboard b WHERE subscribe_code = #{itemCode};
+	</select>
+	
 	<select id="getRandom" resultMap="tapResult01">
 		select a.item_code, a.item_tag_main, a.item_image, a.item_name, a.item_summary, 
 			a.item_price_m, a.item_price_m_sub, round(avg(b.star), 1), count(b.content) 

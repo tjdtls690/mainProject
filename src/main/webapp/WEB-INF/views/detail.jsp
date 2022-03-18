@@ -574,6 +574,29 @@
 				})		
 			})
 		});
+
+// 별점 찍기
+		$(document).ready(function(){
+			var starCount = $('.review-count').attr('id');
+			//var star = $("<img src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png'>");
+			var halfStart = starCount.substring(2);
+			
+			for(var i=1; i<starCount; i++){
+				$("<img data-v-32a18372 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png'>").insertAfter('#front');
+				$("<img data-v-f8b893b0 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png' class='review-stars-star'>").insertAfter('#front2');
+		
+			} // 별 찍기
+			if(halfStart ==0){
+				$("<img data-v-32a18372 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png'>").insertAfter('#front');
+				$("<img data-v-f8b893b0 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png' class='review-stars-star'>").insertAfter('#front2');
+			}
+			if(halfStart > 2){
+				$("<img data-v-32a18372 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(half).png'>").insertBefore('#rear');
+				$("<img data-v-f8b893b0 src='https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(half).png' class='review-stars-star'>").insertBefore('#rear2');
+			}
+		
+		})
+		
 		
 		
      }); //function 끝
@@ -826,19 +849,15 @@
                                     <div data-v-32a18372 class="row--v-center review-wrap">
                                     
                                     
-                                        <div class="review-stars">
-
-                                            <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-                                            <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-                                            <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-                                            <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png">
-                                            <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_half%402x.png">
+                                        <div data-v-32a18372 class="review-stars">
+											<input type="hidden" id="front"></input>
+											<input type="hidden" id="rear"></input>
                                         </div>
                                         
                                         
                                         <div>
-                                            <span class="review-count">
-                                                ★★★★${avgCount.starAvg }(후기 ${avgCount.reviewCount})
+                                            <span class="review-count" id ="${avgCount.starAvg }">
+                                                ${avgCount.starAvg }(후기 ${avgCount.reviewCount})
                                             </span>
                                         </div>
                                     </div>
@@ -915,7 +934,7 @@
                     <article data-v-3ebe8eb0 data-v-32a18372 class="reco-index">
                         <header data-v-3ebe8eb0 class="row--v-center reco-index__header">
                             <div data-v-3ebe8eb0 class="col reco-title-wrap">
-                                <img data-v-3ebe8eb0 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon-like%402x.png"  class="reco-title-img">
+                                <img data-v-3ebe8eb0 src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_like.png"  class="reco-title-img">
                                 <h2 data-v-3ebe8eb0>다른 고객들이 함께 본 상품</h2>
                             </div>
                             <nav data-v-3ebe8eb0>
@@ -1054,7 +1073,7 @@
                                                 </c:forEach>
                                         
                                                     
-<!--                                                     <div data-v-79f00ef9 class="shadow"></div> -->
+                                                    <div data-v-79f00ef9 class="shadow"></div>
                                                 </div>
                                             </div>
                                             <div data-v-79f00ef9 class="more-btn">
@@ -1648,11 +1667,8 @@
                                   <div data-v-f8b893b0=""
                                      class="row--v-center review-box-wrapper">
                                      <div data-v-f8b893b0="" class="review-stars">
-                                        <img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star">
-                                        <img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star">
-                                        <img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star">
-                                        <img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_full%402x.png" class="review-stars-star">
-                                        <img data-v-f8b893b0="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_star_half%402x.png" class="review-stars-star">
+                                        <input type="hidden" id="front2"></input>
+										<input type="hidden" id="rear2"></input>
                                      </div>
                                      <div data-v-f8b893b0="" class="review-rating-counts">
                                         ${avgCount.starAvg }(후기 ${avgCount.reviewCount})</div>
@@ -1752,8 +1768,9 @@
 										    <c:if test="${pageMaker.prev }">
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
-														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-											        <i class="fa fa-chevron-left"><img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
+													<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
+											        	<i class="fa fa-chevron-left">
+											        	<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
 											        </a>
 											    </li>
 										    </c:if>
@@ -1761,7 +1778,7 @@
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
 													<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-											        <i class="fa">${pageNum }  </i> 
+											        	<i class="fa">${pageNum }  </i> 
 											        </a>
 											    </li>
 										    </c:forEach>
@@ -1769,7 +1786,9 @@
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
 														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-											        <i class="fa fa-chevron-right"><img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png"></i>
+											        	<i class="fa fa-chevron-right">
+											        		<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
+											        	</i>
 											        </a>
 											    </li>
 										    </c:if>

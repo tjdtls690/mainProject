@@ -11,8 +11,17 @@ public class TapPageVO {
 	private int reviewCount;
 	private int tagMain;
 	private int tagSub;
+	private String kind;
 	
 	
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 
 	public int getTagSub() {
 		return tagSub;

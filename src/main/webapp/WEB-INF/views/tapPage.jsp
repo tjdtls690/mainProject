@@ -51,12 +51,13 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 	var code = $(this).children('#itemCode').attr('value');
 	var tag = $(this).children('#tagMain').attr('value');
 	var tagSub = $(this).children('#tagSub').attr('value');
-	f.tagMain01.value = tag;
-	f.itemCode01.value = code;
-	f.tagSub01.value = tagSub;
-	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
-	f.method="post";
-	f.submit();
+	alert(code);
+// 	f.tagMain01.value = tag;
+// 	f.itemCode01.value = code;
+// 	f.tagSub01.value = tagSub;
+// 	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
+// 	f.method="post";
+// 	f.submit();
 })
 
 
@@ -183,6 +184,7 @@ $(function() {
         	}
         })
     });
+
 	
     var lastScrollTop = 0,
     delta = 90;
@@ -200,9 +202,40 @@ $(function() {
     	}
     	lastScrollTop = st;
     });
+    
+    
+ // 테스트용	
+	$(document).ready(function(){
+		
+		var tt = $('#tagSub').val();
+		
+	})
+ // 작은 장바구니
+ 	$(document).on('click','.btn-cart',function(){
+ 		alert("작은거 클릭");
+ 		
+ 	})
+	
+	
 });
 </script>
-	
+<style type="text/css">
+.btn-cart[data-v-15082832] {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    background-color: #35ad73;
+    opacity: .9;
+    border-radius: 100%;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_cart_white2.png);
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 50%;
+}
+
+</style>	
 </head>
 <body>
 	<div id="__nuxt">
@@ -428,18 +461,46 @@ $(function() {
 														<div data-v-15082832="" class="for-loop-cloned-item-244">
 															<figure data-v-15082832=""
 																class="item__image for-loop-cloned-item-244">
-																<div data-v-15082832=""
-																	class="item-badge for-loop-cloned-item-244">
+																<div data-v-15082832="" class="item-badge for-loop-cloned-item-244">
 																	<!---->
+																	<c:if test="${item.tagSub eq 302}">
+																		<div data-v-15082832="" class="for-loop-cloned-item-244">
+        																  하루 50개 한정
+        																</div>
+																	</c:if>
 																</div>
 																<img data-v-15082832=""
 																	src="${item.itemImage }"
 																	alt="${item.itemName } " title="${item.itemName } "
 																	class="for-loop-cloned-item-244">
+																	<c:if test="${item.tagMain ne 100}">
+																		<div data-v-15082832="" class="btn-cart js-btn-cart"></div>
+																	</c:if>
+																	
 															</figure>
 															<div data-v-15082832=""
 																class="item__body for-loop-cloned-item-244">
 																<!---->
+<!-- 																구독 애들이 허전해보여서 추가해보았다 -->
+															<c:if test="${item.tagMain eq 100}">
+																<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+																	<div data-v-29c2185a="" class="move-balloon">
+																		<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+																			20% 쿠폰
+																		</span>
+																	</div>
+																</div>
+															</c:if>
+<!-- 															샐러드에 그냥 하나 추가 시켜봄 ㅋㅋ -->
+															<c:if test="${item.kind eq '비건'}">
+																<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+																	<div data-v-29c2185a="" class="move-balloon">
+																		<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+																			비건에 어그로 끌기
+																		</span>
+																	</div>
+																</div>
+															</c:if>
 																<strong data-v-15082832=""
 																	class="for-loop-cloned-item-244">${item.itemName }</strong>
 																<div data-v-15082832=""
@@ -471,9 +532,48 @@ $(function() {
 																		class="row--v-center for-loop-cloned-item-244 tag-wrap">
 																		<div data-v-15082832=""
 																			class="for-loop-cloned-item-244 row--v-center">
-	<!-- 																		<div data-v-15082832="" -->
-	<!-- 																			class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag"> -->
-	<!-- 																			락토베지테리언</div> -->
+																			
+																			<c:if test="${item.kind eq '비건'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					비건</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '페스코'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					페스코 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '폴로'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					폴로 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '락토'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					락토 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '플렉시'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					플렉시 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '채식'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					채식</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '오보'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					오보 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '프로틴'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					프로틴</div>
+																			</c:if>	
+	
 																		</div>
 																	</div>
 																</div>
@@ -523,9 +623,9 @@ $(function() {
 														<div data-v-15082832="" class="for-loop-cloned-item-244">
 															<figure data-v-15082832=""
 																class="item__image for-loop-cloned-item-244">
-																<div data-v-15082832=""
-																	class="item-badge for-loop-cloned-item-244">
+																<div data-v-15082832="" class="item-badge for-loop-cloned-item-244">
 																	<!---->
+																	
 																</div>
 																<img data-v-15082832=""
 																	src="${item.itemImage }"

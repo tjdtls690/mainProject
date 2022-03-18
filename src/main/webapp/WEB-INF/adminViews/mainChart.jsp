@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="path" value="${pageContext.request.contextPath}/resources/admin"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,8 +13,115 @@
         <meta name="author" content="" />
         <title>Saladit-admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="${path}/css/style.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        	$(function(){
+        		var ctx = document.getElementById("myAreaChart");
+    			var myLineChart = new Chart(ctx, {
+    			  type: 'line',
+    			  data: {
+    			    labels: ["Mar1", "Mar2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+    			    datasets: [{
+    			      label: "Sessions",
+    			      lineTension: 0.3,
+    			      backgroundColor: "rgba(2,117,216,0.2)",
+    			      borderColor: "rgba(2,117,216,1)",
+    			      pointRadius: 5,
+    			      pointBackgroundColor: "rgba(2,117,216,1)",
+    			      pointBorderColor: "rgba(255,255,255,0.8)",
+    			      pointHoverRadius: 5,
+    			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+    			      pointHitRadius: 50,
+    			      pointBorderWidth: 2,
+    			      data: [10000, 200, ${check10}, 400, 500, 600, 700, 800, 900, 1000, 1100, 12000, 1300],
+    			    }],
+    			  },
+    			  options: {
+    			    scales: {
+    			      xAxes: [{
+    			        time: {
+    			          unit: 'date'
+    			        },
+    			        gridLines: {
+    			          display: false
+    			        },
+    			        ticks: {
+    			          maxTicksLimit: 7
+    			        }
+    			      }],
+    			      yAxes: [{
+    			        ticks: {
+    			          min: 0,
+    			          max: 40000,
+    			          maxTicksLimit: 5
+    			        },
+    			        gridLines: {
+    			          color: "rgba(0, 0, 0, .125)",
+    			        }
+    			      }],
+    			    },
+    			    legend: {
+    			      display: false
+    			    }
+    			  }
+    			});
+        		
+        		
+//         		$(document).on('click', '.small.text-white.stretched-link', function(){
+//         			var ctx = document.getElementById("myAreaChart");
+//         			var myLineChart = new Chart(ctx, {
+//         			  type: 'line',
+//         			  data: {
+//         			    labels: ["Mar1", "Mar2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+//         			    datasets: [{
+//         			      label: "Sessions",
+//         			      lineTension: 0.3,
+//         			      backgroundColor: "rgba(2,117,216,0.2)",
+//         			      borderColor: "rgba(2,117,216,1)",
+//         			      pointRadius: 5,
+//         			      pointBackgroundColor: "rgba(2,117,216,1)",
+//         			      pointBorderColor: "rgba(255,255,255,0.8)",
+//         			      pointHoverRadius: 5,
+//         			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+//         			      pointHitRadius: 50,
+//         			      pointBorderWidth: 2,
+//         			      data: [10000, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300],
+//         			    }],
+//         			  },
+//         			  options: {
+//         			    scales: {
+//         			      xAxes: [{
+//         			        time: {
+//         			          unit: 'date'
+//         			        },
+//         			        gridLines: {
+//         			          display: false
+//         			        },
+//         			        ticks: {
+//         			          maxTicksLimit: 7
+//         			        }
+//         			      }],
+//         			      yAxes: [{
+//         			        ticks: {
+//         			          min: 0,
+//         			          max: 40000,
+//         			          maxTicksLimit: 5
+//         			        },
+//         			        gridLines: {
+//         			          color: "rgba(0, 0, 0, .125)",
+//         			        }
+//         			      }],
+//         			    },
+//         			    legend: {
+//         			      display: false
+//         			    }
+//         			  }
+//         			});
+//         		})
+        	})
+        </script>
     </head>
     
     <body class="sb-nav-fixed">
@@ -270,11 +380,11 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="${path}/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="${path}/assets/demo/chart-area-demo.js?ver=1"></script>
+        <script src="${path}/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+        <script src="${path}/js/datatables-simple-demo.js"></script>
     </body>
 </html>

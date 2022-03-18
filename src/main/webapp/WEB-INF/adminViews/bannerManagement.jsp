@@ -11,32 +11,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Saladit-coupon</title>
+        <title>Saladit-banner</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="${path }/css/style.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <link href="${path }/css/style.css?ver=1" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-<script type="text/javascript">
-$(function() {
-	$(document).on('click','.btn.btn-dark', function(){	
-		var couponCode = $(this).attr('id');
-		var email = $('.email').attr('id');
-		/* alert(couponCode); */
-		alert(email);
-		$.ajax({
-			url : 'userCouponDelete.mdo',
-			type : 'post',
-			data : {
-				"couponCode" : couponCode,
-				"email" : email
-			},
-			success : function(data){
-				location.reload();
-			}
-		})
-	})
-})
-</script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        	$(function(){
+        		$(document).on('click', '.btn.btn-outline-secondary', function(){
+        			$.ajax({
+        				url : 'bannerModal.mdo',
+        				dataType : 'html',
+        				success : function(htmlOut){
+        					$('body').append(htmlOut);
+        				}
+        			})
+        		})
+        	})
+        </script>
     </head>
     
 <body class="sb-nav-fixed">
@@ -83,8 +75,8 @@ $(function() {
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">조회/등록/수정</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" href="상품목록.html">조회/등록/수정</a>
+                                    <!-- <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a> -->
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -135,49 +127,96 @@ $(function() {
 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">회원쿠폰관리</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">(쿠폰목록)</li>
-                        </ol>
+                        <h1 class="mt-4">Banner</h1>
+                        
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                쿠폰목록
+                                배너목록
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
-                                       <tr>
+                                        <tr>
                                             <th>번호</th>
-                                            <th>회원이메일</th>
-                                            <th>쿠폰코드</th>
-                                            <th>쿠폰타입</th>
-                                            <th>쿠폰설명</th>
+                                            <th>배너이름</th>
+                                            <th>배너내용</th>
+											<th>배너이미지</th> 
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>번호</th>
-                                            <th>회원이메일</th>
-                                            <th>쿠폰코드</th>
-                                            <th>쿠폰타입</th>
-                                            <th>쿠폰설명</th>
+                                            <th>배너이름</th>
+                                            <th>배너내용</th>
+											<th>배너이미지</th> 
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="coupon" items="${coupon }" varStatus="i">
-	                                        <tr>
-	                                            <td>${i.count}</td>
-	                                            <td class="email" id="${memberEmail[i.index] }">${memberEmail[i.index] }</td>
-	                                            <td>${coupon.coupon_code }</td>
-	                                            <td>${coupon.coupon_type }</td>
-	                                            <td>${coupon.coupon_explain }</td>
-	                                            <td>
-	                                            <button type="button" class="btn btn-dark" id="${coupon.coupon_code }">삭제</button>
-	                                            </td>
-	                                        </tr>
-                                        </c:forEach>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>블라</td>
+                                            <td>블라블라</td>
+                                            <td>배너 이미지 넣어주세욥</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+										
                                     </tbody>
                                 </table>
                             </div>
@@ -190,7 +229,7 @@ $(function() {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path }/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${path }/assets/demo/chart-area-demo.js?ver=1"></script>
+        <script src="${path }/assets/demo/chart-area-demo.js"></script>
         <script src="${path }/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>

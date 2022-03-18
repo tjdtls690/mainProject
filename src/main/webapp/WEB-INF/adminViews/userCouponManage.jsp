@@ -21,7 +21,6 @@ $(function() {
 	$(document).on('click','.btn.btn-dark', function(){	
 		var couponCode = $(this).attr('id');
 		var email = $('.email').attr('id');
-		/* alert(couponCode); */
 		alert(email);
 		$.ajax({
 			url : 'userCouponDelete.mdo',

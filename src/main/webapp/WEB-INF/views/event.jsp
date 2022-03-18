@@ -117,7 +117,7 @@ $(function() {
 						</div>
 						<!---->
 						<div data-v-7aa1f9b4="" class="header__logo">
-							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
 							<!---->
 						</div>
 						<form name="paging">
@@ -148,7 +148,7 @@ $(function() {
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
 												href="/menu/drink" class="new"> 음료 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/event" class="new"> 프코 편의점 </a></li>
+												href="/menu/event" class="new"> 초코베리머치 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
 												href="/menu/soon" class=""> 오픈예정 </a></li>
 										</ul>
@@ -157,7 +157,7 @@ $(function() {
 								<a data-v-7aa1f9b4="" href="/menu/subscription" class="item">정기구독
 								</a><a data-v-7aa1f9b4="" href="/menu/salad" class="item">샐러드 </a><a
 									data-v-7aa1f9b4="" href="/menu/salad-wrap" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">프코 편의점
+								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">초코베리머치
 								</a><a data-v-7aa1f9b4="" href="/event"
 									class="item nuxt-link-exact-active nuxt-link-active"
 									aria-current="page">이벤트 </a><a data-v-7aa1f9b4=""
@@ -172,23 +172,23 @@ $(function() {
 									href="/cart" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo">
 										<div data-v-7aa1f9b4="" class="cart-logo-count">3</div>
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="/order" class="item"><div
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="basket.do" class="item"><div
 										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
-							<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-								data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
 								style="width: 24px; height: 24px;"></a> <a data-v-7aa1f9b4=""
-								href="/cart" class="cart-logo-wrap item"><div
+								href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_baguni.PNG" class="cart-logo-wrap item"><div
 									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo">
 									<div data-v-7aa1f9b4="" class="cart-logo-count">3</div>
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="/images/header-img/menu_new@2x.png" alt="user-menu"
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
 										style="width: 24px; height: 24px;">
 								</button>
 							</nav>

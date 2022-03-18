@@ -29,24 +29,126 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
          </div>
          <div class="modal-body">
-            <form>
-               <div class="mb-3">
-                  <label class="form-label">Name</label>
-                  <input type="text" class="form-control">
-               </div>
-               <div class="mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="text" class="form-control">
-               </div>
-               <div class="mb-3">
-                  <label class="form-label">Type your message here</label>
-                  <textarea class="form-control"></textarea>
-               </div>
-            </form>
+            <!-- form -->
+	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
+	           							
+	           							<!-- table -->
+	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
+	           						
+	           								<tr>
+												<th scope="row" width=70>
+													TAG
+												</th>
+												<td width=150>
+													<div class="row">
+													  <div class="col" style = "margin-right : 0%;">
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>main</option>
+													    <option value="1">100</option>
+													    <option value="2">200</option>
+													    <option value="3">300</option>
+													    <option value="3">400</option>
+													    <option value="3">500</option>
+													    <option value="3">600</option>
+													    <option value="3">700</option>
+													  </select>
+													  </div>
+													  <div class="col" >
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>sub</option>
+													    <option value="1">101</option>
+													    <option value="2">102</option>
+													    <option value="3">103</option>
+													  </select>
+													  </div>
+													</div>
+												</td>
+											</tr>
+											<!-- <tr>
+												<th scope="row">
+													상품명
+												</th>
+												<td>
+													<input type="text" name="banner_contents"/>
+												</td>
+											</tr> -->
+											<tr>
+												<th scope="row">
+													MAIN
+												</th>
+												<td>
+													<input type="file" name="uploadFile" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													MOBILE
+												</th>
+												<td>
+													<input type="file" name="uploadFile" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													PAGE URL
+												</th>
+												<td>
+													<input type="text" name="banner_contents"/>
+												</td>
+											</tr>
+											<!-- <tr>
+												<th scope="row">
+													상품설명
+												</th>
+												<td>
+													<textarea name="banner_subcontents" ></textarea>
+												</td>
+											</tr>
+	           								<tr>
+												<th scope="row">
+													영양정보
+												</th>
+												<td>
+													<textarea name="banner_subcontents" ></textarea>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													상품정보
+												</th>
+												<td>
+													<textarea name="banner_subcontents" ></textarea>
+												</td>
+											</tr>
+											
+											<tr>
+												<th scope="row">
+													이미지
+												</th>
+												<td>
+													<input type="file" name="uploadFile" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													상품 상세 정보 이미지
+												</th>
+												<td>
+													<input type="file" name="uploadFile" />
+												</td>
+											</tr> -->
+	           							</table>
+	           							
+	           							<!--// table -->
+	           							
+	           					
+	           							
+	           						</form>
+	           						<!—// form —>
          </div>
          <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">Submit</button>
          <button type="submit" class="btn btn-primary">Cancel</button>
+         <button type="submit" class="btn btn-primary">Upload</button>
          </div>
          </div>
          </div>

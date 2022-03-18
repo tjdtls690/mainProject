@@ -23,6 +23,9 @@
        background: #F7941E;
        color: #fff;
        }
+       .modal-dialog{
+       width-bottom: -50%; 
+       }
     </style>
         <script type="text/javascript">
         	$(function(){
@@ -143,6 +146,88 @@
                                 <i class="fas fa-table me-1"></i>
                                 배너목록
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                <div class="modal" id="myModal">
+								   <div class="modal-dialog">
+								      <div class="modal-content">
+								         <div class="modal-header">
+								            <h5 class="modal-title">Contact us</h5>
+								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								         </div>
+								         <div class="modal-body">
+								            <!-- form -->
+	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
+	           							
+	           							<!-- table -->
+	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
+	           						
+	           								<tr>
+												<th scope="row" width=70>
+													TAG
+												</th>
+												<td width=150>
+													<div class="row">
+													  <div class="col" style = "margin-right : 0%;">
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>main</option>
+													    <option value="1">100</option>
+													    <option value="2">200</option>
+													    <option value="3">300</option>
+													    <option value="3">400</option>
+													    <option value="3">500</option>
+													    <option value="3">600</option>
+													    <option value="3">700</option>
+													  </select>
+													  </div>
+													  <div class="col" >
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>sub</option>
+													    <option value="1">101</option>
+													    <option value="2">102</option>
+													    <option value="3">103</option>
+													  </select>
+													  </div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													MAIN
+												</th>
+												<td>
+													<input type="file" name="uploadFile" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													MOBILE
+												</th>
+												<td>
+													<input type="file" name="uploadFile" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													PAGE URL
+												</th>
+												<td>
+													<input type="text" name="banner_contents"/>
+												</td>
+											</tr>
+	           							</table>
+	           							<!--// table -->
+	           						</form>
+	           						<!—-// form -—>
+	           						
+         </div>
+         <div class="modal-footer">
+         <button type="submit" class="btn btn-primary">Upload</button>
+         </div>
+         </div>
+         </div>
+         </div>
+   </div>
+                                
+                                
                                 
                             </div>
                             <div class="card-body">
@@ -242,7 +327,7 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>
         <div class="modal" id="myModal">
-   <div class="modal-dialog">
+   <div class="modal-dialog" style="margin-bottom:-50%;">
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title">Contact us</h5>

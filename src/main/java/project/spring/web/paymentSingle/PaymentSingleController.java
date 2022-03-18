@@ -185,4 +185,10 @@ public class PaymentSingleController {
 		mav.setViewName("paymentCouponModal");
 		return mav;
 	}
+	
+	@RequestMapping("/paymentMyInfoPolicy.do")
+	public ModelAndView paymentMyInfoPolicyDo(ModelAndView mav, String check) {
+		mav.setViewName("paymentMyInfoPolicy");
+		return mav;
+	}
 }

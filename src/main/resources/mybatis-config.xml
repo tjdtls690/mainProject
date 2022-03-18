@@ -18,6 +18,8 @@
 		<typeAlias type="project.spring.web.member_zipcode.MemberZipcodeVO" alias="myzipcode"/>
 		<typeAlias type="project.spring.web.paymentSingle.PaymentSingleCouponInfoVO" alias="myPaymentCoupon"/>
 		<typeAlias type="project.spring.web.adminLogin.AdminLoginVO" alias="adminLogin"/>
+		<typeAlias type="project.spring.web.paymentComplete.PaymentMyDetailSideInfoVO" alias="paymentDetailSide"/>
+		<typeAlias type="project.spring.web.paymentComplete.PaymentMyDetailInfoVO" alias="paymentDetail"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />

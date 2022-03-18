@@ -31,6 +31,35 @@
 	<link rel="stylesheet" type="text/css" href="${path}/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${path}/css/main.css">
 <!--===============================================================================================-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+$(function() {
+	$(document).on('click','.login100-form-btn', function(){	
+		var id = $('.input100').eq(0).val();
+		var pwd = $('.input100').eq(1).val();
+		alert(id);
+		$.ajax({
+			url : 'adminLoginCheck.mdo',
+			type : 'post',
+			data : {
+				"admin_id" : id,
+				"admin_pwd" : pwd
+			},
+			success : function(data){
+				//data = 1이면 로그인 성공 1이 아니면 로그인 실패
+				if(data == 0){
+					alert(data+'틀림!!!');
+				}else if(data == 1){
+					alert(data);
+					//adminLoginForm.action="adminLoginSuccess.mdo";
+					adminLoginForm.submit();
+				}
+			}
+		})
+	})
+})
+</script>
 </head>
 <body>
 	
@@ -43,16 +72,16 @@
 					</span> --> 
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="post" action="adminLoginSuccess.mdo" name="adminLoginForm">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Admin ID</span>
-						<input class="input100" type="text" name="username" placeholder="Enter username">
+						<input class="input100" type="text" name="admin_id" placeholder="Enter username">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password">
+						<input class="input100" type="password" name="admin_pwd" placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -72,7 +101,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" type="button">
 							Login
 						</button>
 					</div>

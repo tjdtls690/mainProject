@@ -129,7 +129,7 @@ $(function() {
                 </nav>
             </div>
 
-<div id="layoutSidenav_content">
+			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">쿠폰관리</h1>
@@ -141,7 +141,75 @@ $(function() {
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 쿠폰목록
-                            </div>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                <div class="modal" id="myModal">
+								   <div class="modal-dialog">
+								      <div class="modal-content">
+								         <div class="modal-header">
+								            <h5 class="modal-title">Contact us</h5>
+								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								         </div>
+								         <div class="modal-body">
+								            <!-- form -->
+	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
+	           							
+	           							<!-- table -->
+	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
+	           								<tr>
+												<th scope="row">
+													code
+												</th>
+												<td>
+													<input type="text" name="banner_contents"/>
+												</td>
+											</tr>
+	           								<tr>
+												<th scope="row" width=70>
+													pack num
+												</th>
+												<td width=150>
+													<div class="row">
+													  <div class="col" style = "margin-right : 40%;">
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>---</option>
+													    <option value="1">100</option>
+													    <option value="2">200</option>
+													    <option value="3">300</option>
+													  </select>
+													  </div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													name
+												</th>
+												<td>
+													<input type="text" name="banner_contents"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													explain
+												</th>
+												<td>
+													<input type="text" name="banner_contents"/>
+												</td>
+											</tr>
+	           							</table>
+	           							<!--// table -->
+	           						</form>
+	           						
+	           						
+         </div>
+         <div class="modal-footer">
+         <button type="submit" class="btn btn-primary">Upload</button>
+         </div>
+         </div>
+         </div>
+         </div>
+   </div>
+</div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
@@ -179,11 +247,10 @@ $(function() {
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </main>
-               
+                        </main>
+                    </div>   
             </div>
-        </div>
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path }/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

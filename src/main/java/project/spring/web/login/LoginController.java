@@ -122,10 +122,4 @@ public class LoginController {
 		mav.setViewName("index");
 		return mav;
 	}
-	
-	@RequestMapping("/firstEvent01.do")
-	public ModelAndView firstEvent01Do(ModelAndView mav) {
-		mav.setViewName("firstEvent");
-		return mav;
-	}
 }

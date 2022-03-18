@@ -27,7 +27,14 @@ public class PaymentSingleController {
 	
 	@RequestMapping("/paymentSingle.do")
 	public ModelAndView paymentSingleDo(ModelAndView mav, @ModelAttribute(value="PaymentSingleListVO") PaymentSingleListVO list
-			, PaymentSingleSideInfoVO vo) {
+			, PaymentSingleSideInfoVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		PaymentSingleCouponInfoVO vo2 = new PaymentSingleCouponInfoVO();
+		vo2.setUser_code(String.valueOf(vo1.getMemberCode()));
+		List<PaymentSingleCouponInfoVO> list1 = paymentSingleService.getMyPaymentCoupon(vo2);
+		
+		mav.addObject("listSize", list1.size());
 		mav.addObject("vo", vo);
 		mav.addObject("list", list.getPaymentSingleList());
 		mav.setViewName("paymentSingle");
@@ -66,6 +73,7 @@ public class PaymentSingleController {
 		vo.setUser_code(String.valueOf(vo1.getMemberCode()));
 		List<PaymentSingleCouponInfoVO> list = paymentSingleService.getMyPaymentCoupon(vo);
 		List<Integer> listCheck = new ArrayList<Integer>(); // 사용 가능한 쿠폰 고유 번호 리스트
+		List<Integer> listFail = new ArrayList<Integer>(); // 사용 불가능한 쿠폰 고유 번호 리스트
 		for(int i = 0; i < itemTagMain.length; i++) {
 			System.out.println("태그메인 : " + itemTagMain[i]);
 			System.out.println("아이템 코드 : " + itemCode[i]);
@@ -78,6 +86,7 @@ public class PaymentSingleController {
 		// 쿠폰 사용조건 구분
 		int check = 0;
 		for(int i = 0; i < list.size(); i++) {
+			System.out.println("쿠폰 타입 : " + list.get(i).getCoupon_type());
 			if(Integer.parseInt(list.get(i).getCoupon_code()) == 1 && Integer.parseInt(productsFinalPrice) >= 15000) {
 				for(int j = 0; j < itemTagMain.length; j++) {
 					if(Integer.parseInt(itemTagMain[j]) == 200 && Integer.parseInt(itemCode[j]) == 54) {
@@ -155,6 +164,20 @@ public class PaymentSingleController {
 			}
 		}
 		
+		for(int i = 0; i < list.size(); i++) {
+			int tmpCheck = 0;
+			for(int j = 0; j < listCheck.size(); j++) {
+				if(Integer.parseInt(list.get(i).getCoupon_code()) != listCheck.get(j)) {
+					tmpCheck++;
+					break;
+				}
+			}
+			if(tmpCheck == listCheck.size()) {
+				listFail.add(Integer.parseInt(list.get(i).getCoupon_code()));
+			}
+		}
+		
+		mav.addObject("listFail", listFail);
 		mav.addObject("listCheck", listCheck);
 		mav.addObject("check", check);
 		mav.addObject("productsFinalPrice", productsFinalPrice);

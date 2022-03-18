@@ -742,7 +742,7 @@
 												<button data-v-8f2f8136="" type="button">
 													<span data-v-8f2f8136="" class="row--v-center"><em
 														data-v-8f2f8136="" class="col coupon__not-use">내 쿠폰
-															0장</em> <svg data-v-8f2f8136=""
+															${listSize }장</em> <svg data-v-8f2f8136=""
 															xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 															viewBox="0 0 24 24" aria-labelledby="arrow-right-1"
 															role="presentation" class="icon">

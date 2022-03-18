@@ -35,10 +35,8 @@
 						<c:if test="${fn:length(list) > 0}">
 							<ul data-v-32405de0="">
 							
-								<c:forEach var="list1" items="${list }">
-									<c:forEach var="listCheck1" items="${listCheck }">
-										<c:if test="${listCheck1 ==  list1.coupon_code}">
-											<c:if test="${list1.coupon_code == 1 }">
+								<c:forEach var="listCheck" items="${listCheck }">
+											<c:if test="${listCheck == 1 }">
 												<li data-v-32405de0="">
 												
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
@@ -55,11 +53,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																치킨타코 샐러드 1000원
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 치킨 타코 샐러드
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">15,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">1000</em>원 할인 
@@ -71,7 +69,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 2 }">
+											<c:if test="${listCheck == 2 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -86,11 +84,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																정기배송 상품 50% 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 정기구독 상품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">50</em>% 할인 
@@ -102,7 +100,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 3 }">
+											<c:if test="${listCheck == 3 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -117,11 +115,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																입문용 세트 상품 5000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 세트 상품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">25,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">5000</em>원 할인 
@@ -133,7 +131,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 4 }">
+											<c:if test="${listCheck == 4 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -148,11 +146,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																프레시코드 닭가슴살 세트 15% 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 닭가슴살 세트
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">25,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">15</em>% 할인 
@@ -164,7 +162,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 5 }">
+											<c:if test="${listCheck == 5 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -179,11 +177,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																넛츠드링크 또는 그래놀라 세트 20% 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 넛트드링크 또는 그래놀라 세트
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">20,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">20</em>% 할인 
@@ -195,7 +193,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 6 }">
+											<c:if test="${listCheck == 6 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -210,11 +208,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																프코한끼 식단관리 도시락 7종 20% 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 프코한끼 도시락
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">20</em>% 할인 
@@ -226,7 +224,7 @@
 													</label>
 												</li>
 												</c:if>
-												<c:if test="${list1.coupon_code == 7 }">
+												<c:if test="${listCheck == 7 }">
 													<li data-v-32405de0="">
 														<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 															<span data-v-799a696b="" class="select-coupon-item__check">
@@ -241,11 +239,11 @@
 															</span>
 															<span data-v-799a696b="" class="col select-coupon-item__body">
 																<strong data-v-799a696b="" class="select-coupon-item__title">
-																	${list1.coupon_type } 
+																	1000원 할인 
 																</strong> 
 																<span data-v-799a696b="" class="select-coupon-item__description"> 
 																		사용 가능 메뉴 : 모든 제품
-																	<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																	<p data-v-799a696b="" class="except1">10,000원 이상 구매시 사용 가능 </p>
 																</span> <!----> 
 																<span data-v-799a696b="" class="select-coupon-item__price">
 																	<em data-v-799a696b="" class="except1">1000</em>원 할인 
@@ -257,7 +255,7 @@
 														</label>
 													</li>
 												</c:if>
-												<c:if test="${list1.coupon_code == 8 }">
+												<c:if test="${listCheck == 8 }">
 													<li data-v-32405de0="">
 														<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 															<span data-v-799a696b="" class="select-coupon-item__check">
@@ -272,11 +270,11 @@
 															</span>
 															<span data-v-799a696b="" class="col select-coupon-item__body">
 																<strong data-v-799a696b="" class="select-coupon-item__title">
-																	${list1.coupon_type } 
+																	2000원 할인 
 																</strong> 
 																<span data-v-799a696b="" class="select-coupon-item__description"> 
 																		사용 가능 메뉴 : 모든 제품
-																	<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																	<p data-v-799a696b="" class="except1">20,000원 이상 구매시 사용 가능 </p>
 																</span> <!----> 
 																<span data-v-799a696b="" class="select-coupon-item__price">
 																	<em data-v-799a696b="" class="except1">2000</em>원 할인 
@@ -288,7 +286,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 9 }">
+											<c:if test="${listCheck == 9 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -303,11 +301,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																3000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 모든 제품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">3000</em>원 할인 
@@ -319,7 +317,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 10 }">
+											<c:if test="${listCheck == 10 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -334,11 +332,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																4000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 모든 제품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">4만원 이상 구매 시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">4000</em>원 할인 
@@ -350,7 +348,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 11 }">
+											<c:if test="${listCheck == 11 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -365,11 +363,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																새벽배송 전용 8000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 새벽 배송
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">5만 5천원 이상 주문 시 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">8000</em>원 할인 
@@ -396,11 +394,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																전국 택배배송 전용 8000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 택배 배송
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">5만 5천원 이상 주문 시 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">8000</em>원 할인 
@@ -412,7 +410,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 13 }">
+											<c:if test="${listCheck == 13 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -427,11 +425,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																정기구독 전용 15% 할인 쿠폰 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 정기 구독 상품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">15</em>% 할인 
@@ -443,7 +441,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 14 }">
+											<c:if test="${listCheck == 14 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -458,11 +456,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																[전국 택배배송] 배송비 1회 무료 쿠폰 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 택배 배송
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">3만원 이상 주문 시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">전액</em> 할인 
@@ -474,15 +472,11 @@
 													</label>
 												</li>
 											</c:if>
-										</c:if>
-									</c:forEach>
-									</c:forEach>
+							</c:forEach>
 									
 									<!-- ============================================================================== -->
-									<c:forEach var="list1" items="${list }">
-								<c:forEach var="listCheck1" items="${listCheck }">
-									<c:if test="${listCheck1 !=  list1.coupon_code}">
-										<c:if test="${list1.coupon_code == 1 }">
+							<c:forEach var="listFail" items="${listFail }" varStatus="i">
+										<c:if test="${listFail == 1 }">
 											<li data-v-32405de0="">
 											
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
@@ -499,11 +493,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															치킨타코 샐러드 1000원 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 치킨 타코 샐러드
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">15,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">1000</em>원 할인 
@@ -515,7 +509,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 2 }">
+										<c:if test="${listFail == 2 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -530,11 +524,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															정기배송 상품 50% 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 정기구독 상품
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">50</em>% 할인 
@@ -546,7 +540,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 3 }">
+										<c:if test="${listFail == 3 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -561,11 +555,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															입문용 세트 상품 5000원 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 세트 상품
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">25,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">5000</em>원 할인 
@@ -577,7 +571,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 4 }">
+										<c:if test="${listFail == 4 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -592,11 +586,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															프레시코드 닭가슴살 세트 15% 할인
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 닭가슴살 세트
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">25,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">15</em>% 할인 
@@ -608,7 +602,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 5 }">
+										<c:if test="${listFail == 5 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -623,11 +617,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															넛츠드링크 & 그래놀라 세트 20% 할인
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 넛트드링크 또는 그래놀라 세트
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">20,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">20</em>% 할인 
@@ -639,7 +633,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 6 }">
+										<c:if test="${listFail == 6 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -654,11 +648,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															프코한끼 식단관리 도시락 7종 20% 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 프코한끼 도시락
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">20</em>% 할인 
@@ -670,7 +664,7 @@
 												</label>
 											</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 7 }">
+											<c:if test="${listFail == 7 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -685,11 +679,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																1000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 모든 제품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">10,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">1000</em>원 할인 
@@ -701,7 +695,7 @@
 													</label>
 												</li>
 											</c:if>
-											<c:if test="${list1.coupon_code == 8 }">
+											<c:if test="${listFail == 8 }">
 												<li data-v-32405de0="">
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 														<span data-v-799a696b="" class="select-coupon-item__check">
@@ -716,11 +710,11 @@
 														</span>
 														<span data-v-799a696b="" class="col select-coupon-item__body">
 															<strong data-v-799a696b="" class="select-coupon-item__title">
-																${list1.coupon_type } 
+																2000원 할인 
 															</strong> 
 															<span data-v-799a696b="" class="select-coupon-item__description"> 
 																	사용 가능 메뉴 : 모든 제품
-																<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+																<p data-v-799a696b="" class="except1">20,000원 이상 구매시 사용 가능 </p>
 															</span> <!----> 
 															<span data-v-799a696b="" class="select-coupon-item__price">
 																<em data-v-799a696b="" class="except1">2000</em>원 할인 
@@ -732,7 +726,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 9 }">
+										<c:if test="${listFail == 9 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -747,11 +741,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															3000원 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 모든 제품
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">3000</em>원 할인 
@@ -763,7 +757,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 10 }">
+										<c:if test="${listFail == 10 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -778,11 +772,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															4000원 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 모든 제품
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">4만원 이상 구매 시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">4000</em>원 할인 
@@ -794,7 +788,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 11 }">
+										<c:if test="${listFail == 11 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -809,11 +803,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															새벽배송 전용 8000원 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 새벽 배송
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">5만 5천원 이상 주문 시 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">8000</em>원 할인 
@@ -825,7 +819,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 12 }">
+										<c:if test="${listFail == 12 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -840,11 +834,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															전국 택배배송 전용 8000원 할인 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 택배 배송
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">5만 5천원 이상 주문 시 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">8000</em>원 할인 
@@ -856,7 +850,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 13 }">
+										<c:if test="${listFail == 13 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -871,11 +865,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															정기구독 전용 15% 할인 쿠폰 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 정기 구독 상품
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">30,000원 이상 구매시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">15</em>% 할인 
@@ -887,7 +881,7 @@
 												</label>
 											</li>
 										</c:if>
-										<c:if test="${list1.coupon_code == 14 }">
+										<c:if test="${listFail == 14 }">
 											<li data-v-32405de0="">
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
@@ -902,11 +896,11 @@
 													</span>
 													<span data-v-799a696b="" class="col select-coupon-item__body">
 														<strong data-v-799a696b="" class="select-coupon-item__title">
-															${list1.coupon_type } 
+															[전국 택배배송] 배송비 1회 무료 쿠폰 
 														</strong> 
 														<span data-v-799a696b="" class="select-coupon-item__description"> 
 																사용 가능 메뉴 : 택배 배송
-															<p data-v-799a696b="" class="except1">${list1.coupon_explain } </p>
+															<p data-v-799a696b="" class="except1">3만원 이상 주문 시 사용 가능 </p>
 														</span> <!----> 
 														<span data-v-799a696b="" class="select-coupon-item__price">
 															<em data-v-799a696b="" class="except1">전액</em> 할인 
@@ -918,8 +912,6 @@
 												</label>
 											</li>
 										</c:if>
-									</c:if>
-									</c:forEach>
 								</c:forEach>
 								
 							</ul>

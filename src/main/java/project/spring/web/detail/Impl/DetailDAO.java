@@ -15,7 +15,7 @@ public class DetailDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public DetailVO getItem(DetailVO vo) {
-//		System.out.println("-->myBatis getItem");
+		System.out.println("-->myBatis getItem");
 		return sqlSessionTemplate.selectOne("DetailDAO.getItem",vo);
 	}
 	

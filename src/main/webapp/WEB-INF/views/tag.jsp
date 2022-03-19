@@ -72,45 +72,45 @@
 						<div data-v-15082832=""
 							class="for-loop-cloned-item-244 row--v-center">
  									<c:if test="${item.kind eq '비건'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					비건</div>
-																			</c:if>
-																			<c:if test="${item.kind eq '페스코'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					페스코 베지테리언</div>
-																			</c:if>
-																			<c:if test="${item.kind eq '폴로'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					폴로 베지테리언</div>
-																			</c:if>
-																			<c:if test="${item.kind eq '락토'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					락토 베지테리언</div>
-																			</c:if>
-																			<c:if test="${item.kind eq '플렉시'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					플렉시 베지테리언</div>
-																			</c:if>
-																			<c:if test="${item.kind eq '채식'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					채식</div>
-																			</c:if>
-																			<c:if test="${item.kind eq '오보'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					오보 베지테리언</div>
-																			</c:if>	
-																			<c:if test="${item.kind eq '프로틴'}">
-																				<div data-v-15082832=""
-																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
-																					프로틴</div>
-																			</c:if>										
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											비건</div>
+									</c:if>
+									<c:if test="${item.kind eq '페스코'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											페스코 베지테리언</div>
+									</c:if>
+									<c:if test="${item.kind eq '폴로'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											폴로 베지테리언</div>
+									</c:if>
+									<c:if test="${item.kind eq '락토'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											락토 베지테리언</div>
+									</c:if>
+									<c:if test="${item.kind eq '플렉시'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											플렉시 베지테리언</div>
+									</c:if>
+									<c:if test="${item.kind eq '채식'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											채식</div>
+									</c:if>
+									<c:if test="${item.kind eq '오보'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											오보 베지테리언</div>
+									</c:if>	
+									<c:if test="${item.kind eq '프로틴'}">
+										<div data-v-15082832=""
+											class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+											프로틴</div>
+									</c:if>										
 						</div>
 					</div>
 				</div>

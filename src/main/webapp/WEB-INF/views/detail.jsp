@@ -275,7 +275,7 @@
 			
 		})
 // 드롭 다운
-		$(document).on('click','.button.dropdown',function(event){			
+		$(document).on('click','.button.dropdown',function(event){	
 			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
 			var code =$('#mobCart').children('#itemCode').attr('value');			
 			var tag = $('#mobCart').children('#tagMain').attr('value');

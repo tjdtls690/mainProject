@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.detail.DetailService;
+import project.spring.web.detail.DetailVO;
 import project.spring.web.tag.TagService;
 import project.spring.web.tag.TagVO;
 
@@ -21,6 +23,8 @@ public class TapPageController {
 	TapPageService tapPageService;
 	@Autowired
 	TagService tagService;
+	@Autowired
+	private DetailService detailService;
 	
 	@RequestMapping(value = "/tapPage.do", method = RequestMethod.POST)
 	public ModelAndView tapPageDo(HttpServletRequest request, TapPageVO vo, TagVO vo1, ModelAndView mav) {
@@ -60,4 +64,21 @@ public class TapPageController {
 		mav.setViewName("dropDownAllMenu");
 		return mav;
 	}
+	
+	@RequestMapping("/cartModal.do")
+	public ModelAndView cartModal(HttpServletRequest request, ModelAndView mav) {
+		String str = request.getParameter("code");
+		int code = Integer.parseInt(str);
+		String str2 = request.getParameter("tagMain");
+		int tagMain = Integer.parseInt(str2);
+		
+		DetailVO vo = new DetailVO();
+		vo.setItem_code(code);
+		System.out.println("세팅된 아이템 코드 : "+ vo.getItem_code());
+		mav.addObject("item", detailService.getItem(vo));
+		mav.addObject("tagMain", tagMain);
+		mav.setViewName("cartModal");
+		return mav;
+	}
+	
 }

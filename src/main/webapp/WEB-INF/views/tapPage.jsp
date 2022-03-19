@@ -51,13 +51,12 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 	var code = $(this).children('#itemCode').attr('value');
 	var tag = $(this).children('#tagMain').attr('value');
 	var tagSub = $(this).children('#tagSub').attr('value');
-	alert(code);
-// 	f.tagMain01.value = tag;
-// 	f.itemCode01.value = code;
-// 	f.tagSub01.value = tagSub;
-// 	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
-// 	f.method="post";
-// 	f.submit();
+	f.tagMain01.value = tag;
+	f.itemCode01.value = code;
+	f.tagSub01.value = tagSub;
+	f.action="detail.do"; // 상세페이지 url 로 연결만 시키기
+	f.method="post";
+	f.submit();
 })
 
 
@@ -204,16 +203,177 @@ $(function() {
     });
     
     
- // 테스트용	
-	$(document).ready(function(){
-		
-		var tt = $('#tagSub').val();
-		
-	})
  // 작은 장바구니
- 	$(document).on('click','.btn-cart',function(){
- 		alert("작은거 클릭");
+ 	$(document).on('click','.btn-cart',function(e){
+ 		e.stopPropagation();
+ 		var code = $(this).parent().parent().prev().prev().prev().attr('value');
+ 		var tagMain = $(this).parent().parent().prev().prev().attr('value');
+ 		var tagSub = $(this).parent().parent().prev().attr('value');
+		
+ 		$.ajax({
+ 			url : 'cartModal.do',
+ 			type : 'post',
+ 			dataType : 'html',
+ 			data :{
+ 				"code" : code,
+ 				"tagMain" : tagMain,
+ 				"tagSub" : tagSub
+ 			},
+ 			success : function(htmlOut){
+ 				$('#forModal').append(htmlOut);
+ 			}
  		
+ 		})
+ 		
+ 	})
+ // 작은 장바구니 + 버튼 처리
+ 	$(document).on('click','#plus-button',function(){
+ 		var val = Number($(this).prev().children().val());
+ 		// 찍을 가격
+ 		var strPrice2 = $(this).parent().parent().parent().prev().children('.detail-price').text();
+ 		var getPrice =  Number(strPrice2.replace('원','').replace(',', ''));
+ 		// 찍힐가격
+ 		var strPrice = $('.price-wrap').children('.price-right').text();
+ 		var nowPrice =  Number(strPrice.replace('원','').replace(',', ''));
+ 		
+ 	// 버튼 누를시 개수 +
+ 		val +=1;
+ 		$(this).prev().children().val(val);
+ 	// + 만큼 값 찍기
+ 		nowPrice += getPrice;
+ 		$('.price-wrap').children('.price-right').text(nowPrice+"원");
+ 	// 장바구니 담기 버튼 활성화
+ 		$('#mobCart').removeClass('button--disabled');
+ 		$('#mobCart').removeAttr('disabled');
+ 		
+ 	})
+ 	
+ // 작은 장바구니 - 버튼 처리
+ 	$(document).on('click','#minus-button',function(){
+		var val = Number($(this).next().children().val());
+		// 찍을 가격
+ 		var strPrice2 = $(this).parent().parent().parent().prev().children('.detail-price').text();
+ 		var getPrice =  Number(strPrice2.replace('원','').replace(',', ''));
+		// 찍힐 가격
+		var strPrice = $('.price-wrap').children('.price-right').text();
+ 		var nowPrice =  Number(strPrice.replace('원','').replace(',', ''));
+		
+		
+ 	// 버튼 누를시 개수 -
+		if(val > 0){
+	 		val -=1;
+	 		$(this).next().children().val(val);
+	 		nowPrice -= getPrice;
+	 		$('.price-wrap').children('.price-right').text(nowPrice+"원");
+		}
+		else{
+			val = 0;
+		}
+ 	
+ 	// 장바구니에 아무것도없을시에 장바구니담기 비활성화
+ 		if(nowPrice ==0){
+ 			$('#mobCart').addClass('button--disabled');
+ 			$('#mobCart').attr('disabled','disabled');
+ 		}
+ 		
+ 	})
+ 	
+ // 작은 장바구니 장바구니에 담기 처리
+ 	$(document).on('click','#mobCart',function(){ 
+ 		alert("장바구니 담기");
+	// 장바구니에 넒길 값
+		var itemCode = [], data = {};
+		var tagMain = [];
+		var strPrice =[];	// 원 , , 지우기용
+		var strPrice2 =[];  // 원 , , 지우기용
+		var price = [];
+		var priceSub = [];
+		var itemName = [];
+		var itemSize = [];
+		var itemImage = [];
+		var tagSub = [];
+		var itemQuantity = [];
+		
+
+		var length = $('.detail-item').children().length;
+		// 길이 조절
+		if(length == 9){
+			length = 1;
+		}else if(length == 18){
+			length = 2;
+		}
+		
+		for(var i =0; i < length; i++){
+			itemCode[i] = $('.detail-item').eq(i).children().eq(0).attr('value')
+			tagMain[i] = $('.detail-item').eq(i).children().eq(1).attr('value')
+			strPrice[i] = $('.detail-item').eq(i).children().eq(2).attr('value')
+			price[i] = Number(strPrice[i].replace('원','').replace(',', ''))
+			strPrice2[i] = $('.detail-item').eq(i).children().eq(3).attr('value')
+			priceSub[i] = Number(strPrice2[i].replace('원','').replace(',', ''))
+			itemName[i] = $('.detail-item').eq(i).children().eq(4).attr('value')
+			itemSize[i] = $('.detail-name').eq(i).attr('id');
+			itemImage[i] = $('.detail-item').eq(i).children().eq(5).attr('value')
+			tagSub[i] = $('.detail-item').eq(i).children().eq(6).attr('value')
+			itemQuantity[i] = Number($('.form-number__input').eq(i).children().val())
+		}
+		
+	    data.itemCode = itemCode;
+	    data.tagMain = tagMain;
+	    data.price = price;
+	    data.priceSub = priceSub;
+	    data.itemName = itemName;
+	    data.itemSize = itemSize;
+	    data.tagSub = tagSub;
+	    data.itemImage = itemImage;
+	    data.itemQuantity = itemQuantity;
+	    jQuery.ajaxSettings.traditional = true;
+	    
+	    $.ajax({ // 장바구니 넣기 확인 모달
+	    	url : "test.do",
+	    	type : 'post',
+	    	dataType : 'html',
+	    	data : data,
+	    	success : function(html){
+	    		$('#cart-modal').remove();
+	    		$('body').append(html);
+	    		setTimeout(function() {
+					$('.swal2-container').detach();
+				}, 2500);
+
+	   			
+	    		
+	    	}
+	    }) //ajax 끝
+	    
+	    var thisItemImage = $('.detail-item').eq(0).children().eq(5).attr('value')
+	    var thisItemName = $('.detail-item').eq(0).children().eq(4).attr('value');
+	 	var thisItemSize =  $('.detail-name').eq(0).attr('id');
+	    
+	    
+	    $.ajax({ // 장바구니 아래에 모달
+	    	url : "addCart.do",
+	    	type : 'post',
+	    	dataType : 'html',
+	    	data : {
+	    		"image" : thisItemImage,
+	    		"name" : thisItemName,
+	    		"size" : thisItemSize  		
+	    	},
+	    	success:function(html){
+	    		$('.cart-logo-wrap').append(html);
+	    		setTimeout(function() {
+					$('.add-cart-modal').detach();
+				}, 2500);
+	    		
+	    	}
+	    }) // ajax 끝
+
+ 		
+ 	})
+ 
+ // 작은 장바구니 모달 닫기
+ 	$(document).on('click','.cancel-btn',function(){
+ 		$('#cart-modal').remove();
  	})
 	
 	
@@ -420,7 +580,7 @@ $(function() {
 				</header>
 				<div class="container"
 					data-v-0f5971ec="">
-					<div data-v-0f5971ec="">
+					<div data-v-0f5971ec="" id="forModal">
 						<div data-v-32208b1c="" class="menu-top-banner-container">
 							<div data-v-32208b1c="" class="menu-top-banner-wrap">
 								<div data-v-32208b1c="" class="menu-top-banner expired"

@@ -207,7 +207,6 @@ $(function() {
          </div>
          </div>
          </div>
-         </div>
    </div>
 </div>
                             <div class="card-body">
@@ -246,6 +245,7 @@ $(function() {
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
                         </div>
                         </main>
                     </div>   

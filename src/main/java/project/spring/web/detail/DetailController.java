@@ -598,7 +598,10 @@ public class DetailController {
 		String[] str5 = request.getParameterValues("price");
 		int[] itemPrice = Arrays.stream(str5).mapToInt(Integer::parseInt).toArray();
 		String[] str6 = request.getParameterValues("priceSub");
-		int[] itemPriceSub = Arrays.stream(str6).mapToInt(Integer::parseInt).toArray();
+		int[] itemPriceSub = null;
+		if(str6 != null) {
+			itemPriceSub = Arrays.stream(str6).mapToInt(Integer::parseInt).toArray();
+		}
 		String[] name = request.getParameterValues("itemName");
 		String[] size = request.getParameterValues("itemSize");		// m / l로 구분
 		String[] str3 = request.getParameterValues("tagSub");		// int
@@ -643,7 +646,7 @@ public class DetailController {
 			BasketService.insertBasket(vo);
 			
 		}
-		// 이제 Update만 하면된다.
+		
 
 		mav.setViewName("detailSuccessOrder");
 		return mav;

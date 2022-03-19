@@ -20,6 +20,11 @@
         					 하루 50개 한정
 						</div>
 					</c:if>
+					<c:if test="${item.kind eq '락토'}">
+						<div data-v-15082832="" class="for-loop-cloned-item-244">
+							best item
+						</div>
+					</c:if>
 				</div>
 				<img data-v-15082832=""
 					src="${item.itemImage }"
@@ -36,6 +41,15 @@
 					<div data-v-29c2185a="" class="move-balloon">
 						<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
 							20% 쿠폰
+						</span>
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${item.kind eq '비건'}">
+				<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+					<div data-v-29c2185a="" class="move-balloon">
+						<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+							비건에 어그로 끌기
 						</span>
 					</div>
 				</div>

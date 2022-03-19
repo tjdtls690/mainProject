@@ -628,6 +628,11 @@ $(function() {
         																  하루 50개 한정
         																</div>
 																	</c:if>
+																	<c:if test="${item.kind eq '락토'}">
+																		<div data-v-15082832="" class="for-loop-cloned-item-244">
+        																	best item
+        																</div>
+																	</c:if>
 																</div>
 																<img data-v-15082832=""
 																	src="${item.itemImage }"

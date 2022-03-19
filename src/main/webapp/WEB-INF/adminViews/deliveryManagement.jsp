@@ -115,13 +115,13 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">주문관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">결제완료/목록</li>
+                            <li class="breadcrumb-item active">배송/목록</li>
                         </ol>
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                결제완료/배송준비중
+                                배송중/배송완료
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -138,7 +138,7 @@
                                             <th>번호</th>
                                             <th>배송지</th>
                                             <th>주문금액</th>
-											<th>상태</th>
+											<th>배송상태</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -154,7 +154,7 @@
                                             <th>번호</th>
                                             <th>배송지</th>
                                             <th>주문금액</th>
-											<th>상태</th>
+											<th>배송상태</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -172,13 +172,13 @@
                                             <td>26000원</td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -197,13 +197,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -222,13 +222,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -247,13 +247,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -272,13 +272,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -297,13 +297,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -322,13 +322,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -347,13 +347,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -372,13 +372,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>
@@ -397,13 +397,13 @@
                                             <td></td>
                                             <td>
                                             <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
+											  <button type="button" class="btn btn-secondary">배송중</button>
 											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
 											    <span class="visually-hidden">Toggle Dropdown</span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+											    <li><a class="dropdown-item" href="#">배송완료</a></li>
 											  </ul>
 											</div>
 											</td>

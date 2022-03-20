@@ -1,8 +1,12 @@
 package project.spring.web.paymentComplete;
 
+import java.time.LocalDate;
+
 public class PaymentMyDetailSideInfoVO {
 	private int payment_code;
 	private int payment_member_code;
+	private String payment_date_impl;
+	private LocalDate payment_date;
 	private String payment_recipient;
 	private String payment_recipient_phone;
 	private String payment_delivery_type;
@@ -16,6 +20,22 @@ public class PaymentMyDetailSideInfoVO {
 	private String payment_point_price;
 	private String payment_sail_price;
 	private String payment_final_price;
+
+	public String getPayment_date_impl() {
+		return payment_date_impl;
+	}
+
+	public void setPayment_date_impl(String payment_date_impl) {
+		this.payment_date_impl = payment_date_impl;
+	}
+
+	public LocalDate getPayment_date() {
+		return payment_date;
+	}
+
+	public void setPayment_date(LocalDate payment_date) {
+		this.payment_date = payment_date;
+	}
 
 	public int getPayment_code() {
 		return payment_code;
@@ -140,13 +160,14 @@ public class PaymentMyDetailSideInfoVO {
 	@Override
 	public String toString() {
 		return "PaymentMyDetailSideInfoVO [payment_code=" + payment_code + ", payment_member_code="
-				+ payment_member_code + ", payment_recipient=" + payment_recipient + ", payment_recipient_phone="
-				+ payment_recipient_phone + ", payment_delivery_type=" + payment_delivery_type + ", payment_zipcode="
-				+ payment_zipcode + ", payment_address=" + payment_address + ", payment_memo=" + payment_memo
-				+ ", payment_price=" + payment_price + ", payment_delivery_price=" + payment_delivery_price
-				+ ", payment_sum_price=" + payment_sum_price + ", payment_coupon_price=" + payment_coupon_price
-				+ ", payment_point_price=" + payment_point_price + ", payment_sail_price=" + payment_sail_price
-				+ ", payment_final_price=" + payment_final_price + "]";
+				+ payment_member_code + ", payment_date_impl=" + payment_date_impl + ", payment_date=" + payment_date
+				+ ", payment_recipient=" + payment_recipient + ", payment_recipient_phone=" + payment_recipient_phone
+				+ ", payment_delivery_type=" + payment_delivery_type + ", payment_zipcode=" + payment_zipcode
+				+ ", payment_address=" + payment_address + ", payment_memo=" + payment_memo + ", payment_price="
+				+ payment_price + ", payment_delivery_price=" + payment_delivery_price + ", payment_sum_price="
+				+ payment_sum_price + ", payment_coupon_price=" + payment_coupon_price + ", payment_point_price="
+				+ payment_point_price + ", payment_sail_price=" + payment_sail_price + ", payment_final_price="
+				+ payment_final_price + "]";
 	}
 
 }

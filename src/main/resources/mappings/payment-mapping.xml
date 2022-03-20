@@ -11,10 +11,21 @@
 		order by a.user_code asc
 	</select>
 	<insert id="paymentInfoSave" parameterType="paymentDetailSide" useGeneratedKeys="true" keyProperty="payment_code">
-		insert into payment_info(payment_member_code, payment_recipient, payment_recipient_phone, payment_delivery_type,
+		insert into payment_info(payment_member_code, payment_date, payment_recipient, payment_recipient_phone, payment_delivery_type,
 		payment_zipcode, payment_address, payment_memo, payment_price, payment_delivery_price, payment_sum_price,
 		payment_coupon_price, payment_point_price, payment_sail_price, payment_final_price) 
-		values(#{payment_member_code}, #{payment_recipient}, #{payment_recipient_phone}, #{payment_delivery_type}, #{payment_zipcode}, #{payment_address}, 
+		values(#{payment_member_code}, #{payment_date}, #{payment_recipient}, #{payment_recipient_phone}, #{payment_delivery_type}, #{payment_zipcode}, #{payment_address}, 
 		#{payment_memo}, #{payment_price}, #{payment_delivery_price}, #{payment_sum_price}, #{payment_coupon_price}, #{payment_point_price}, #{payment_sail_price}, #{payment_final_price});
 	</insert>
+	<insert id="paymentMappingItemInfoSave" parameterType="paymentDetail">
+		insert into payment_item_mapping(payment_code, payment_member_code, payment_item_mapping_tag_main, payment_item_mapping_item_code,
+		payment_item_mapping_item_name_size, payment_item_mapping_item_quantity, payment_item_mapping_item_price)
+		values(#{payment_code}, #{payment_member_code}, #{payment_item_mapping_tag_main}, #{payment_item_mapping_item_code}, #{payment_item_mapping_item_name_size}, 
+		#{payment_item_mapping_item_quantity}, #{payment_item_mapping_tag_main})
+	</insert>
+	<delete id="deleteItem">
+		delete from basket 
+		where user_code = #{payment_member_code} and tag_main = #{payment_item_mapping_tag_main} 
+		and item_code = #{payment_item_mapping_item_code}
+	</delete>
 </mapper>

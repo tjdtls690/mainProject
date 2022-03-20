@@ -273,7 +273,7 @@
 			        }, function (rsp) {
 				         console.log(rsp);
 				         if (rsp.success) {
-				        	 // 여기부터 주문 상세에 필요한 리스트들, 값들 전부 넘기기 todo
+				        	 // 여기부터 주문 상세에 필요한 리스트들, 값들 전부 넘기기
 				        	 
 				        	var form = document.createElement('form'); // 폼객체 생성
 				        	for(var i = 0; i < $('.itemTagMain').length; i++){
@@ -284,7 +284,7 @@
 				        		var objs1;
 				     	        objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 				     	        objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-				     	        objs1.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_tag_main'); // 객체이름
+				     	        objs1.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_tag_main'); // 객체이름
 				     	        objs1.setAttribute('value', payment_item_tag_main); //객체값
 				     	        form.appendChild(objs1);
 				     	        
@@ -295,7 +295,7 @@
 				     	        var objs2;
 				     	        objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 				     	        objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-				     	        objs2.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_code'); // 객체이름
+				     	        objs2.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_code'); // 객체이름
 				     	        objs2.setAttribute('value', payment_item_code); //객체값
 				     	        form.appendChild(objs2);
 				     	        
@@ -306,7 +306,7 @@
 				     	       	var objs3;
 				     	      	objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 				     	     	objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-				     	    	objs3.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_name_size'); // 객체이름
+				     	    	objs3.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_name_size'); // 객체이름
 				     	   		objs3.setAttribute('value', payment_item_name_size); //객체값
 				     	        form.appendChild(objs3);
 				     	   		
@@ -316,7 +316,7 @@
 					     	   	var objs4;
 					     	   	objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 					     	  	objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-					     	 	objs4.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_quantity'); // 객체이름
+					     	 	objs4.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_quantity'); // 객체이름
 					     		objs4.setAttribute('value', payment_item_quantity); //객체값
 			     	        	form.appendChild(objs4);
 					     		
@@ -326,10 +326,23 @@
 					     		var objs5;
 					     		objs5 = document.createElement('input'); // 값이 들어있는 녀석의 형식
 					     		objs5.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
-					     		objs5.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_price'); // 객체이름
+					     		objs5.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_price'); // 객체이름
 					     		objs5.setAttribute('value', payment_item_price); //객체값
 			     	        	form.appendChild(objs5);
 				        	}
+				        	
+				        	// 배송 예정일
+				        	var payment_date = $('.date.left').text();
+				        	
+				        	var objs19;
+				        	objs19 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+				        	objs19.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+				        	objs19.setAttribute('name', 'payment_date_impl'); // 객체이름
+				        	objs19.setAttribute('value', payment_date); //객체값
+		     	        	form.appendChild(objs19);
+				        	
+				        	
+				        	
 				        	
 				        	// 받는분
 				        	var payment_recipient = $('.form-text').eq(0).val();
@@ -451,7 +464,7 @@
 				        	
 				        	
 				        	// 상품할인
-				        	var payment_sail_price = $('.row--v-center.row--h-between').eq(2).find('em').text().replace(',', '');
+				        	var payment_sail_price = $('#paymentFinalSalePrice').val().replace(',', '');
 				        	
 				        	var objs17;
 				        	objs17 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -480,8 +493,8 @@
 				         } else {
 					          var msg = '결제에 실패하였습니다.\n';
 					          msg += '에러내용 : ' + rsp.error_msg;
+					          alert(msg);
 				         }
-				         alert(msg);
 				    })
 				 }
 			})
@@ -524,7 +537,7 @@
 	    	});
 	    });
 	    
-	    // 쿠폰 모달창 중 x버튼, 선택 완료 버튼, 모달창 바깥 영역 클릭 시 todo
+	    // 쿠폰 모달창 중 x버튼, 선택 완료 버튼, 모달창 바깥 영역 클릭 시
 	    $(document).on('click', '.modal-wrap.modal-wrap--full', function(e){
 	    	if(!$(e.target).hasClass("select-coupon__title") && !$(e.target).hasClass("select-coupon__bar") && !$(e.target).hasClass("except1")
 	    			&& !$(e.target).hasClass("select-coupon__body") && !$(e.target).hasClass("error-list") && !$(e.target).hasClass("row")
@@ -562,6 +575,52 @@
 	    		$('#paymentMyInfoPolicyCheck').val(0);
 	    	}
 	    })
+	    
+	    
+	    // 쿠폰 선택 시
+	    $(document).on('click', '.row.select-coupon-item input:odd', function(){
+	    	if($(this).val() == 'false'){
+	    		$(this).val('true');
+	    		
+	    		for(var i = 0; i < $(this).closest('li').siblings('li').length; i++){
+	    			if($(this).closest('li').siblings('li').eq(i).find('input').eq(1).val() == 'true'){
+	    				$(this).closest('li').siblings('li').eq(i).children('label').trigger('click');
+	    				$(this).closest('li').siblings('li').eq(i).find('input').eq(1).val('false');
+	    			}
+	    		}
+	    			
+	    	}else{
+	    		$(this).val('false');
+	    	}
+	    })
+	    
+	    
+	    // 쿠폰 선택 완료 버튼
+	    $(document).on('click', '.select-coupon__nav .button__wrap', function(){
+	    	for(var i = 0; i < $('.select-coupon__body').find('li').length; i++){
+    			if($('.select-coupon__body').find('li').eq(i).find('input').eq(1).val() == 'true'){
+    				var couponNum = $('.select-coupon__body').find('li').eq(i).find('input').eq(0).val();
+    				
+    				
+    				// todo
+    				// 일단 쿠폰 버튼 문자열을 couponNum 데이터를 통해 바꾸고, 
+    				// 한번더 에이작스 써서 계산하고 총 금액, 쿠폰 할인금액 수정.
+    				$.ajax({
+    					url : 'paymentSingleCouponState.do',
+    					type : 'post',
+    					dataType : 'html',
+    					data : {
+    						'couponNum' : couponNum
+    					},
+    					success : function(htmlOut){
+    						$('.coupon').find('.col.coupon__not-use').detach();
+    						$('.coupon').find('.col.coupon__use').detach();
+    						$('.coupon').find('.row--v-center').prepend(htmlOut);
+    					}
+    				})
+    			}
+    		}
+	    })
 	})
 </script>
 </head>
@@ -596,7 +655,7 @@
 					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2"> <!-- 상세 주소 -->
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
-					<input type="hidden" value="0" id="paymentMyInfoPolicyCheck"> <!-- todo -->
+					<input type="hidden" value="0" id="paymentMyInfoPolicyCheck">
 					<input type="hidden" value="0" id="paymentMyInfoPolicy">
 					<div class="hidden-div" style="display:none">
 					<!-- 쿠폰 조건을 걸기 위한 태그메인, 아이템 코드 -->
@@ -779,8 +838,7 @@
 												<c:forEach var="list1" items="${list }" varStatus="i">
 													<c:if test="${i.index == 0 }">
 														<tr data-v-8f2f8136="">
-															<td data-v-8f2f8136="" rowspan="${fn:length(list)}" class="date left">
-																${vo.paymentDeliveryDate }</td>
+															<td data-v-8f2f8136="" rowspan="${fn:length(list)}" class="date left">${vo.paymentDeliveryDate }</td>
 															<td data-v-8f2f8136="" class="bd left">
 																<strong data-v-8f2f8136="" class="title">${list1.paymentItem }</strong>
 																<div data-v-8f2f8136="" class="option">일회용품(포크+물티슈) ${list1.paymentDisposable }</div>
@@ -1039,13 +1097,13 @@
 													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
 														<dt data-v-8f2f8136="">쿠폰 사용</dt>
 														<dd data-v-8f2f8136="">
-															<em data-v-8f2f8136=""> 0</em> 원
+															<em data-v-8f2f8136="">0</em> 원
 														</dd>
 													</dl>
 													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
 														<dt data-v-8f2f8136="">포인트 사용</dt>
 														<dd data-v-8f2f8136="">
-															<em data-v-8f2f8136=""> 0</em> 원
+															<em data-v-8f2f8136="">0</em> 원
 														</dd>
 													</dl>
 													<dl data-v-8f2f8136="" class="row--v-center row--h-between">

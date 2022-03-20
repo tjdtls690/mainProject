@@ -42,7 +42,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
-															
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="except1">
@@ -74,6 +74,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -105,6 +106,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -136,6 +138,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -167,6 +170,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -198,6 +202,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -229,6 +234,7 @@
 														<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 															<span data-v-799a696b="" class="select-coupon-item__check">
 																<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																	<input type="hidden" class="couponNum" value="${listCheck }">
 																	<input data-v-2673f877="" class="except1" type="checkbox"  value="false"> 
 																	<span data-v-2673f877="" class="except1">
 																		<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -260,6 +266,7 @@
 														<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 															<span data-v-799a696b="" class="select-coupon-item__check">
 																<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																	<input type="hidden" class="couponNum" value="${listCheck }">
 																	<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																	<span data-v-2673f877="" class="except1">
 																		<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -291,6 +298,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -322,6 +330,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -353,6 +362,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -384,6 +394,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -415,6 +426,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -446,6 +458,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox">
+																<input type="hidden" class="couponNum" value="${listCheck }">
 																<input data-v-2673f877="" class="except1" type="checkbox" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -482,7 +495,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
-														
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="except1">
@@ -514,6 +527,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -545,6 +559,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -576,6 +591,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -607,6 +623,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -638,6 +655,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -669,6 +687,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+																<input type="hidden" class="couponNum" value="${listFail }">
 																<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -700,6 +719,7 @@
 													<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 														<span data-v-799a696b="" class="select-coupon-item__check">
 															<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+																<input type="hidden" class="couponNum" value="${listFail }">
 																<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 																<span data-v-2673f877="" class="except1">
 																	<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -731,6 +751,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -762,6 +783,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -793,6 +815,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -824,6 +847,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -855,6 +879,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -886,6 +911,7 @@
 												<label data-v-799a696b="" data-v-32405de0="" class="row select-coupon-item disabled">
 													<span data-v-799a696b="" class="select-coupon-item__check">
 														<label data-v-2673f877="" data-v-799a696b="" class="form-checkbox form-checkbox--disabled">
+															<input type="hidden" class="couponNum" value="${listFail }">
 															<input data-v-2673f877="" class="except1" type="checkbox" disabled="disabled" value="false"> 
 															<span data-v-2673f877="" class="except1">
 																<svg data-v-2673f877="" class="except1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

@@ -1,7 +1,6 @@
 package project.spring.web.review;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class WriteReviewVO {
 	private int seq;

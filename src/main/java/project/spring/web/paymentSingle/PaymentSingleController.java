@@ -169,7 +169,6 @@ public class PaymentSingleController {
 			for(int j = 0; j < listCheck.size(); j++) {
 				if(Integer.parseInt(list.get(i).getCoupon_code()) != listCheck.get(j)) {
 					tmpCheck++;
-					break;
 				}
 			}
 			if(tmpCheck == listCheck.size()) {
@@ -189,6 +188,12 @@ public class PaymentSingleController {
 	@RequestMapping("/paymentMyInfoPolicy.do")
 	public ModelAndView paymentMyInfoPolicyDo(ModelAndView mav, String check) {
 		mav.setViewName("paymentMyInfoPolicy");
+		return mav;
+	}
+	
+	@RequestMapping("/paymentSingleCouponState.do")
+	public ModelAndView paymentSingleCouponStateDo(ModelAndView mav, String check) {
+		mav.setViewName("paymentSingleCouponState");
 		return mav;
 	}
 }

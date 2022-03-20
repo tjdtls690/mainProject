@@ -8,7 +8,7 @@
 		<result property="admin_pwd" column="admin_pwd"/>
 	</resultMap>
 	
-	<select id="getAdminInfo" resultMap="adminLogin">
+	<select id="getOrderList" resultMap="adminLogin">
 		SELECT * FROM admin_login where admin_id = #{admin_id} and admin_pwd = password(#{admin_pwd})
 	</select>
 </mapper>

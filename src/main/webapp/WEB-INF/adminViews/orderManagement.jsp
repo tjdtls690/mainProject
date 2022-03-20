@@ -133,9 +133,9 @@
 											</div>
                                             </th>
                                             <th>주문번호</th>
-                                            <th>날짜</th>
-											<th>이름(아이디)</th>
-                                            <th>번호</th>
+                                            <th>주문날짜</th>
+											<th>수령인이름</th>
+                                            <th>수령인번호</th>
                                             <th>배송지</th>
                                             <th>주문금액</th>
 											<th>상태</th>
@@ -149,266 +149,42 @@
 											</div>
                                             </th>
                                             <th>주문번호</th>
-                                            <th>날짜</th>
-											<th>이름(아이디)</th>
-                                            <th>번호</th>
+                                            <th>주문날짜</th>
+											<th>수령인이름</th>
+                                            <th>수령인번호</th>
                                             <th>배송지</th>
                                             <th>주문금액</th>
 											<th>상태</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td>ab123c</td>
-                                            <td>2022-03-01</td>
-                                            <td>조망고(mango)</td>
-                                            <td>01076513333</td>
-                                            <td>화성시 새솔동</td>
-                                            <td>26000원</td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송준비중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-										
+                                    	<c:forEach var="orderList" items="${orderList }">
+	                                        <tr>
+	                                            <td>
+	                                            <div>
+												  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+												</div>
+												</td>
+	                                            <td>${orderList.payment_code }</td>
+	                                            <td>${orderList.payment_date }</td>
+	                                            <td>${orderList.payment_recipient }</td>
+	                                            <td>${orderList.payment_recipient_phone }</td>
+	                                            <td>${orderList.payment_address }</td>
+	                                            <td>${orderList.payment_final_price}원</td>
+	                                            <td>
+	                                            <div class="btn-group">
+												  <button type="button" class="btn btn-secondary">배송준비중</button>
+												  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+												    <span class="visually-hidden">Toggle Dropdown</span>
+												  </button>
+												  <ul class="dropdown-menu">
+												    <li><a class="dropdown-item" href="#">배송중</a></li>
+												    <li><a class="dropdown-item" href="#">배송준비중</a></li>
+												  </ul>
+												</div>
+												</td>
+	                                        </tr>
+										</c:forEach>
                                     </tbody>
                                 </table>
                             </div>

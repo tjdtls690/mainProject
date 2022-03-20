@@ -56,6 +56,44 @@ $(function() {
 	    lastScrollTop = st;
 	  	});
 		
+	    $(document).on('click', '#closeFinalCheck', function(){
+			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+		})
+		
+		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+				setTimeout(function() {
+					$('.swal2-container').detach();
+				}, 100);
+			}
+		});
+	    $(document).on('click', '.header__toggle-button', function(){
+			$('html').attr('class', 'mode-popup');
+			$.ajax({
+				url : 'sideMune.do',
+				dataType : 'html',
+				success : function(htmlOut){
+					$('#header-area').after(htmlOut);
+				}
+			})
+		});
+		$(document).on('click', '.side-nav__overlay', function(e){
+			if (!$(e.target).hasClass(".side-nav__wrap")) {
+				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+				$('html').removeClass('mode-popup');
+				setTimeout(function() {
+					$('.side-nav').detach();
+				}, 350);
+			}
+		});
+	    
 	    var userCode = $('#userCode').val();
 		if(userCode == ""){
 			$('.btn').click(function(){

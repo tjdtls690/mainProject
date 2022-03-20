@@ -144,6 +144,20 @@
 	    		}
 	    		lastScrollTop = st;
 	    	});
+	    	
+	    $('#logout').click(function(){
+	    	$.ajax({
+	    		url : 'logout.do',
+	    		dataType : 'html',
+	    		success : function(htmlOut){
+	    			$('body').append(htmlOut);
+	    		}
+	    	})
+	    })
+	    	
+	    $(document).on('click', '#closeModal', function(){
+	    	$('.swal2-container').detach();
+	    })
 	})
 </script>
 </head>
@@ -347,8 +361,7 @@
 										<h2 data-v-e99f4992="">마이페이지</h2>
 										<ul data-v-e99f4992="">
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="myPayInfo.do" aria-current="page"
-												class="nuxt-link-exact-active nuxt-link-active">주문/결제 내역</a></li>
+												href="myPayInfo.do" aria-current="page">주문/결제 내역</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myDelivery.do" class="">배송현황</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
@@ -362,7 +375,7 @@
 												href="myReviewSearch.do" class="">나의 후기</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myMemberModify.do" class="">회원정보 수정</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#">로그아웃</a></li>
+											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#" id="logout">로그아웃</a></li>
 										</ul>
 									</aside>
 								</aside>

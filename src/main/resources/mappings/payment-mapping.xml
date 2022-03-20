@@ -10,7 +10,7 @@
 		where user_code = #{user_code}
 		order by a.user_code asc
 	</select>
-	<insert id="paymentInfoSave" parameterType="paymentDetailSide">
+	<insert id="paymentInfoSave" parameterType="paymentDetailSide" useGeneratedKeys="true" keyProperty="payment_code">
 		insert into payment_info(payment_member_code, payment_recipient, payment_recipient_phone, payment_delivery_type,
 		payment_zipcode, payment_address, payment_memo, payment_price, payment_delivery_price, payment_sum_price,
 		payment_coupon_price, payment_point_price, payment_sail_price, payment_final_price) 

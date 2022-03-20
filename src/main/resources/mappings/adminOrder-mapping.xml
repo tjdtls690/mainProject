@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminOrderDAO">
+	<resultMap type="adminOrder" id="adminOrder">
+		<id property="payment_code" column="payment_code"/>
+		<result property="payment_member_code" column="payment_member_code"/>
+		<result property="payment_date" column="payment_date"/>
+		<result property="payment_recipient" column="payment_recipient"/>
+		<result property="payment_recipient_phone" column="payment_recipient_phone"/>
+		<result property="payment_delivery_type" column="payment_delivery_type"/>
+		<result property="payment_zipcode" column="payment_zipcode"/>
+		<result property="payment_address" column="payment_address"/>
+		<result property="payment_memo" column="payment_memo"/>
+		<result property="payment_price" column="payment_price"/>
+		<result property="payment_delivery_price" column="payment_delivery_price"/>
+		<result property="payment_sum_price" column="payment_sum_price"/>
+		<result property="payment_coupon_price" column="payment_coupon_price"/>
+		<result property="payment_point_price" column="payment_point_price"/>
+		<result property="payment_sail_price" column="payment_sail_price"/>
+		<result property="payment_final_price" column="payment_final_price"/>
+	</resultMap>
+	
+	<select id="getOrderList" resultMap="adminOrder">
+		SELECT * FROM payment_info
+	</select>
+</mapper>

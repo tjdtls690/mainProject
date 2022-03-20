@@ -20,6 +20,7 @@
 		<typeAlias type="project.spring.web.adminLogin.AdminLoginVO" alias="adminLogin"/>
 		<typeAlias type="project.spring.web.paymentComplete.PaymentMyDetailSideInfoVO" alias="paymentDetailSide"/>
 		<typeAlias type="project.spring.web.paymentComplete.PaymentMyDetailInfoVO" alias="paymentDetail"/>
+		<typeAlias type="project.spring.web.admin_order_management.AdminOrderVO" alias="adminOrder"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -37,5 +38,6 @@
 		<mapper resource="mappings/zipcode-mapping.xml" />
 		<mapper resource="mappings/payment-mapping.xml" />
 		<mapper resource="mappings/adminLogin-mapping.xml"/>
+		<mapper resource="mappings/adminOrder-mapping.xml"/>
 	</mappers>
 </configuration>

@@ -2,6 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+	$('#logout').click(function(){
+		$.ajax({
+			url : 'logout.do',
+			dataType : 'html',
+			success : function(htmlOut){
+				$('body').append(htmlOut);
+			}
+		})
+	})
+	
+	$(document).on('click', '#closeModal', function(){
+		$('.swal2-container').detach();
+	})
+</script>
 <c:if test="${check == 0 }">
 	<div data-v-2f05bf52="" data-v-1739428d="" class="side-nav">
 		<div data-v-2f05bf52="" class="side-nav__overlay"></div>
@@ -139,7 +155,7 @@
 						<li data-v-1fc516f9="" onclick="location.href='myMemberModify.do'"><span data-v-1fc516f9="">
 								회원정보 수정 </span></li>
 						<li data-v-1fc516f9="" class="logout"><span
-							data-v-1fc516f9="">로그아웃</span></li>
+							data-v-1fc516f9="" id="logout">로그아웃</span></li>
 					</ul>
 				</nav>
 			</div>

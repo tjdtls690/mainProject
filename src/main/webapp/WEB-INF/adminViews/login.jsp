@@ -49,10 +49,8 @@ $(function() {
 			success : function(data){
 				//data = 1이면 로그인 성공 1이 아니면 로그인 실패
 				if(data == 0){
-					alert(data+'틀림!!!');
+					alert('아이디나 비밀번호가 일치하지 않아요!');
 				}else if(data == 1){
-					alert(data);
-					//adminLoginForm.action="adminLoginSuccess.mdo";
 					adminLoginForm.submit();
 				}
 			}

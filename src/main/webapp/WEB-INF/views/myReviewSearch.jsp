@@ -113,6 +113,20 @@ function page_move(tagNum){
 	    		}
 	    		lastScrollTop = st;
 	    	});
+	    	
+	    	$('#logout').click(function(){
+		    	$.ajax({
+		    		url : 'logout.do',
+		    		dataType : 'html',
+		    		success : function(htmlOut){
+		    			$('body').append(htmlOut);
+		    		}
+		    	})
+		    })
+		    	
+		    $(document).on('click', '#closeModal', function(){
+		    	$('.swal2-container').detach();
+		    })
 		})
 </script>
 </head>
@@ -314,22 +328,20 @@ function page_move(tagNum){
 										<h2 data-v-e99f4992="">마이페이지</h2>
 										<ul data-v-e99f4992="">
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="myPayInfo.do" aria-current="page"
-												class="nuxt-link-exact-active nuxt-link-active">주문/결제 내역</a></li>
+												href="myPayInfo.do" aria-current="page">주문/결제 내역</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myDelivery.do" class="">배송현황</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="myBesongji.do" aria-current="page"
-												class="nuxt-link-exact-active nuxt-link-active">배송지 관리</a></li>
+												href="myBesongji.do" aria-current="page">배송지 관리</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myPointSearch.do" class="">포인트 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myCouponSearch.do" class="">쿠폰 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="myReviewSearch.do" class="">나의 후기</a></li>
+												href="myReviewSearch.do" class="nuxt-link-exact-active nuxt-link-active">나의 후기</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myMemberModify.do" class="">회원정보 수정</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#">로그아웃</a></li>
+											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#" id="logout">로그아웃</a></li>
 										</ul>
 									</aside>
 								</aside>

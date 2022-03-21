@@ -209,7 +209,7 @@
                         <h1 class="mt-4">md추천</h1>
                         
                        
-                        <div class="card mb-4">
+                        <div class="card mb-4" style="width:200%;">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 md추천목록
@@ -221,7 +221,7 @@
 								         <div class="modal-header">
 								            <h5 class="modal-title">Contact us</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								         </div>
+								         
 								         <div class="modal-body">
 								            <!-- form -->
 	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
@@ -401,6 +401,7 @@
                                     </tbody>
                                 </table>
                                 </div>
+                            </div>
                             </div>
                             </main>
                         </div>

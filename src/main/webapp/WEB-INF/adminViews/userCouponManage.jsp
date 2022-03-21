@@ -19,20 +19,22 @@
 <script type="text/javascript">
 $(function() {
 	$(document).on('click','.btn.btn-dark', function(){	
-		var couponCode = $(this).attr('id');
-		var email = $('.email').attr('id');
-		alert(email);
-		$.ajax({
-			url : 'userCouponDelete.mdo',
-			type : 'post',
-			data : {
-				"couponCode" : couponCode,
-				"email" : email
-			},
-			success : function(data){
-				location.reload();
-			}
-		})
+		var email = $(this).attr('id');
+		var couponCode = $(this).parent().siblings('td').eq(2).text();
+		alert(couponCode);
+		if(confirm('쿠폰을 삭제하시겠습니까?')) {
+			$.ajax({
+				url : 'userCouponDelete.mdo',
+				type : 'post',
+				data : {
+					"couponCode" : couponCode,
+					"email" : email
+				},
+				success : function(data){
+					location.reload();
+				}
+			})
+		}
 	})
 })
 </script>
@@ -168,12 +170,12 @@ $(function() {
                                     	<c:forEach var="coupon" items="${coupon }" varStatus="i">
 	                                        <tr>
 	                                            <td>${i.count}</td>
-	                                            <td class="email" id="${memberEmail[i.index] }">${memberEmail[i.index] }</td>
+	                                            <td>${memberEmail[i.index] }</td>
 	                                            <td>${coupon.coupon_code }</td>
 	                                            <td>${coupon.coupon_type }</td>
 	                                            <td>${coupon.coupon_explain }</td>
 	                                            <td>
-	                                            <button type="button" class="btn btn-dark" id="${coupon.coupon_code }">삭제</button>
+	                                            <button type="button" class="btn btn-dark" id="${memberEmail[i.index] }">삭제</button>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

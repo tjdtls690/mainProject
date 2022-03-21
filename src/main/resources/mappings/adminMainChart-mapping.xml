@@ -2,8 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="adminMainChartVO">
+<mapper namespace="adminMainChartDAO">
 	<resultMap type="adminMainChart" id="ChartResult">
-	
+		<id property="date" column="date" />
+		<result property="daySum" column="sum(`payment_price`)" />
 	</resultMap>
+	<select id="dayChart"  resultMap="ChartResult">
+		SELECT DATE(`payment_date`) AS `date`,
+      		sum(`payment_price`)
+  			FROM payment_info
+ 		GROUP BY `date`;
+	</select>
 </mapper>

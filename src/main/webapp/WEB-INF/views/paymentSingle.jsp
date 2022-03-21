@@ -75,6 +75,9 @@
 	}
 	
 	$(function(){
+		var finalRealPrice01 = Number(${fn:replace(vo.paymentRealFinalPrice, ',', '')}); // todo
+		
+		
 		var currentScroll = 0;
 		$('.row--v-center.same-with-order-wrap > span').trigger('click');
 		
@@ -600,6 +603,7 @@
 	    	for(var i = 0; i < $('.select-coupon__body').find('li').length; i++){
     			if($('.select-coupon__body').find('li').eq(i).find('input').eq(1).val() == 'true'){
     				var couponNum = $('.select-coupon__body').find('li').eq(i).find('input').eq(0).val();
+    				var realSale = $('.select-coupon__body').find('li').eq(i).find('em').text();
     				
     				
     				// todo
@@ -610,12 +614,32 @@
     					type : 'post',
     					dataType : 'html',
     					data : {
-    						'couponNum' : couponNum
+    						'couponNum' : couponNum,
+    						'realSale' : realSale
     					},
     					success : function(htmlOut){
     						$('.coupon').find('.col.coupon__not-use').detach();
     						$('.coupon').find('.col.coupon__use').detach();
     						$('.coupon').find('.row--v-center').prepend(htmlOut);
+    						
+    						var productsFinalPrice = finalRealPrice01;
+    						$.ajax({
+    							url : 'paymentSingleCouponSaleCal.do',
+    	    					type : 'post',
+    	    					data : {
+    	    						'couponNum' : couponNum,
+    	    						'realSale' : realSale,
+    	    						'productsFinalPrice' : productsFinalPrice
+    	    					},
+    	    					success : function(data){
+    	    						// 컨트롤러에서 계산해서 총 금액 가져오기.
+    	    						var arr = data.split(':');
+    	    						$('.row--v-end.row--h-between').find('b').text(Number(arr[0]).toLocaleString('en') + ' 원');
+    	    						$('#productsFinalPrice').val(Number(arr[0]).toLocaleString('en'));
+    	    						$('.row--v-center.row--h-between.discount').find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
+    	    						$('#paymentFinalSalePrice').val(Number(arr[1]).toLocaleString('en'));
+    	    					}
+    						})
     					}
     				})
     			}

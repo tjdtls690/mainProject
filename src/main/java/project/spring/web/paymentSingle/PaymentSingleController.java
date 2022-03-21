@@ -192,8 +192,27 @@ public class PaymentSingleController {
 	}
 	
 	@RequestMapping("/paymentSingleCouponState.do")
-	public ModelAndView paymentSingleCouponStateDo(ModelAndView mav, String check) {
+	public ModelAndView paymentSingleCouponStateDo(ModelAndView mav, String couponNum, String realSale) {
+		int check = Integer.parseInt(couponNum);
+		
+		mav.addObject("check", check);
+		mav.addObject("realSale", realSale);
 		mav.setViewName("paymentSingleCouponState");
 		return mav;
+	}
+	
+	@RequestMapping(value = "/paymentSingleCouponSaleCal.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String paymentSingleCouponSaleCalDo(ModelAndView mav, String couponNum, String realSale, String productsFinalPrice) {
+		int check = Integer.parseInt(couponNum);
+		int productsFinalPrice1 = Integer.parseInt(productsFinalPrice);
+		int realSale1 = Integer.parseInt(realSale);
+		if(check == 2 || check == 4 || check == 5 || check == 6) {
+			productsFinalPrice1 = Math.round(productsFinalPrice1 * (realSale1 / 100));
+		}else {
+			productsFinalPrice1 -= realSale1;
+		}
+		String saleTmp = String.valueOf(Integer.parseInt(productsFinalPrice) - productsFinalPrice1);
+		return String.valueOf(productsFinalPrice1) + ":" + saleTmp;
 	}
 }

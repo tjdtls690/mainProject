@@ -636,8 +636,7 @@
     	    						var arr = data.split(':');
     	    						$('.row--v-end.row--h-between').find('b').text(Number(arr[0]).toLocaleString('en') + ' 원');
     	    						$('#productsFinalPrice').val(Number(arr[0]).toLocaleString('en'));
-    	    						$('.row--v-center.row--h-between.discount').find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
-    	    						$('#paymentFinalSalePrice').val(Number(arr[1]).toLocaleString('en'));
+    	    						$('.row--v-center.row--h-between').eq(3).find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
     	    					}
     						})
     					}

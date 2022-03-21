@@ -40,6 +40,6 @@
 		<mapper resource="mappings/payment-mapping.xml" />
 		<mapper resource="mappings/adminLogin-mapping.xml"/>
 		<mapper resource="mappings/adminOrder-mapping.xml"/>
-		<mapper resource="mappings/adminMain-mapping.xml"/>
+		<mapper resource="mappings/adminMainChart-mapping.xml"/>
 	</mappers>
 </configuration>

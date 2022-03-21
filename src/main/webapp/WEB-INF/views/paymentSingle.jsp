@@ -412,7 +412,7 @@
 				        	
 				        	
 				        	// 상품 금액
-				        	var payment_price = $('.row--v-center.row--h-between').eq(1).find('em').text().replace(',', '');
+				        	var payment_price = $('#productsPrice').val().replace(',', '');
 				        	
 				        	var objs12;
 				        	objs12 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -423,7 +423,7 @@
 				        	
 				        	
 				        	// 배송비
-				        	var payment_delivery_price = $('.row--v-center.row--h-between').eq(5).find('em').text().replace(',', '');
+				        	var payment_delivery_price = $('#paymentFinalDeliveryPrice').val().replace(',', '');
 				        	
 				        	var objs13;
 				        	objs13 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -445,7 +445,7 @@
 				        	
 				        	
 				        	// 쿠폰사용
-				        	var payment_coupon_price = $('.row--v-center.row--h-between').eq(3).find('em').text().replace(',', '');
+				        	var payment_coupon_price = $('#couponPrice').val().replace(',', '');
 				        	
 				        	var objs15;
 				        	objs15 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -456,7 +456,7 @@
 				        	
 				        	
 				        	// 포인트사용
-				        	var payment_point_price = $('.row--v-center.row--h-between').eq(4).find('em').text().replace(',', '');
+				        	var payment_point_price = $('.row--v-center.row--h-between.point01').find('em').text().replace(',', '');
 				        	
 				        	var objs16;
 				        	objs16 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -514,7 +514,7 @@
 	    // 할인 쿠폰 버튼
 	    $(document).on('click', '.coupon button', function(){
 	    	$('html').attr('class', 'mode-popup');
-	    	var productsFinalPrice = $('#productsFinalPrice').val().replace(',', '');
+	    	var productsFinalPrice = finalRealPrice01;
 	    	var paymentDeliveryTypeCheck = $('#paymentDeliveryTypeCheck').val();
 	    	var itemTagMain = [];
 			var itemCode = [];
@@ -600,11 +600,28 @@
 	    
 	    // 쿠폰 선택 완료 버튼
 	    $(document).on('click', '.select-coupon__nav .button__wrap', function(){
+	    	var check = 0;
+			for(var i = 0; i < $('.select-coupon__body').find('li').length; i++){
+				if($('.select-coupon__body').find('li').eq(i).find('input').eq(1).val() == 'true'){
+					check++;
+				}
+			}
+			
+			if(check == 0){
+				$.ajax({
+					url : 'paymentCouponEmptyCheck.do',
+					dataType : 'html',
+					success : function(htmlOut){
+						$('body').append(htmlOut);
+					}
+				})
+				return false;
+			}
+	    	
 	    	for(var i = 0; i < $('.select-coupon__body').find('li').length; i++){
     			if($('.select-coupon__body').find('li').eq(i).find('input').eq(1).val() == 'true'){
     				var couponNum = $('.select-coupon__body').find('li').eq(i).find('input').eq(0).val();
     				var realSale = $('.select-coupon__body').find('li').eq(i).find('em').text();
-    				
     				
     				// todo
     				// 일단 쿠폰 버튼 문자열을 couponNum 데이터를 통해 바꾸고, 
@@ -636,13 +653,38 @@
     	    						var arr = data.split(':');
     	    						$('.row--v-end.row--h-between').find('b').text(Number(arr[0]).toLocaleString('en') + ' 원');
     	    						$('#productsFinalPrice').val(Number(arr[0]).toLocaleString('en'));
-    	    						$('.row--v-center.row--h-between').eq(3).find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
+    	    						$('.row--v-center.row--h-between.coupon').find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
+    	    						$('#couponPrice').val(Number(arr[1]).toLocaleString('en'));
     	    					}
     						})
     					}
     				})
     			}
     		}
+	    })
+	    
+	    
+	    // 쿠폰 선택 안하고 버튼 클릭시 확인 모달창
+	    $(document).on('click', '.coupon-ok', function(){
+	    	$.ajax({
+	    		url : 'paymentCouponReturn.do',
+	    		dataType : 'html',
+	    		success : function(htmlOut){
+	    			$('.coupon').find('.col.coupon__not-use').detach();
+					$('.coupon').find('.col.coupon__use').detach();
+					$('.coupon').find('.row--v-center').prepend(htmlOut);
+	    		}
+	    	})
+	    	$('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice01).toLocaleString('en') + ' 원');
+			$('#productsFinalPrice').val(Number(finalRealPrice01).toLocaleString('en'));
+			$('.row--v-center.row--h-between.coupon').find('em').text('0');
+			$('#couponPrice').val('0');
+			$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+    		$('html').attr('class', '');
+			$('html').scrollTop($('.checkout__delivery.checkout-column__delivery').offset().top);
+    		setTimeout(function() {
+				$('.modal.modal-leave-active.modal-leave-to').detach();
+			}, 400);
 	    })
 	})
 </script>
@@ -672,10 +714,13 @@
 					<input type="hidden" value="${list[0].paymentItem }" id="productsName"> 
 					<input type="hidden" value="${fn:length(list)}" id="productsNum">
 					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck"> <!-- 배송방법 0, 1 -->
+					<input type="hidden" value="${vo.paymentFinalDeliveryPrice }" id="paymentFinalDeliveryPrice"> <!-- 배송방법 0, 1 -->
+					<input type="hidden" value="${vo.paymentFinalPrice }" id="productsPrice"> <!-- 최종 결제 금액 -->
 					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice"> <!-- 최종 결제 금액 -->
 					<input type="hidden" value="${vo.paymentFinalSalePrice }" id="paymentFinalSalePrice"> <!-- 상품 할인 금액 (콤마있음) -->
 					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1"> <!-- 집코드 -->
 					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2"> <!-- 상세 주소 -->
+					<input type="hidden" value="0" id="couponPrice"> <!-- 콤마 있음 -->
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
 					<input type="hidden" value="0" id="paymentMyInfoPolicyCheck">
@@ -1117,13 +1162,13 @@
 													</dl>
 												</div>
 												<div data-v-8f2f8136="">
-													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
+													<dl data-v-8f2f8136="" class="row--v-center row--h-between coupon">
 														<dt data-v-8f2f8136="">쿠폰 사용</dt>
 														<dd data-v-8f2f8136="">
 															<em data-v-8f2f8136="">0</em> 원
 														</dd>
 													</dl>
-													<dl data-v-8f2f8136="" class="row--v-center row--h-between">
+													<dl data-v-8f2f8136="" class="row--v-center row--h-between point01">
 														<dt data-v-8f2f8136="">포인트 사용</dt>
 														<dd data-v-8f2f8136="">
 															<em data-v-8f2f8136="">0</em> 원

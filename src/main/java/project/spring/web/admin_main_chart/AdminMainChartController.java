@@ -17,7 +17,6 @@ public class AdminMainChartController {
 	@RequestMapping("/adminMainChart.mdo")
 	public ModelAndView adminMainChartDo(ModelAndView mav) {
 		
-		
 		List<AdminMainChartVO> dayChartList = adminMainChartService.dayChart(null);
 	
 		for(int i=0; i<2; i++) {

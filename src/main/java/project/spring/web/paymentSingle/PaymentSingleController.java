@@ -215,4 +215,24 @@ public class PaymentSingleController {
 		String saleTmp = String.valueOf(Integer.parseInt(productsFinalPrice) - productsFinalPrice1);
 		return String.valueOf(productsFinalPrice1) + ":" + saleTmp;
 	}
+	
+	
+	@RequestMapping("/paymentCouponEmptyCheck.do")
+	public ModelAndView paymentCouponEmptyCheckDo(ModelAndView mav) {
+		mav.setViewName("paymentCouponEmptyCheck");
+		return mav;
+	}
+	
+	@RequestMapping("/paymentCouponReturn.do")
+	public ModelAndView paymentCouponReturnDo(ModelAndView mav, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		PaymentSingleCouponInfoVO vo2 = new PaymentSingleCouponInfoVO();
+		vo2.setUser_code(String.valueOf(vo1.getMemberCode()));
+		List<PaymentSingleCouponInfoVO> list1 = paymentSingleService.getMyPaymentCoupon(vo2);
+		
+		mav.addObject("listSize", list1.size());
+		mav.setViewName("paymentCouponReturn");
+		return mav;
+	}
 }

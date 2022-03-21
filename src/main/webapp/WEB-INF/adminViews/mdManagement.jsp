@@ -221,7 +221,7 @@
 								         <div class="modal-header">
 								            <h5 class="modal-title">Contact us</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								         </div>
+								         
 								         <div class="modal-body">
 								            <!-- form -->
 	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
@@ -401,6 +401,7 @@
                                     </tbody>
                                 </table>
                                 </div>
+                            </div>
                             </div>
                             </main>
                         </div>

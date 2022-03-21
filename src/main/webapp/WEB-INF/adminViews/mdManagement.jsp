@@ -297,107 +297,18 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>101</td>
-                                            <th>135462</th>
-                                            <td>샐러드메롱</td>
-                                            <td style="width:13%">
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            <button type="button" class="btn btn-dark">삭제</button>
-                                            </td>
-                                        </tr>
-										
+                                    	<c:forEach var="mdList" items="${mdList }">
+	                                        <tr>
+	                                            <td>${mdList.md_code }</td>
+	                                            <td>${mdList.item_tag_main }</td>
+	                                            <th>${mdList.item_code }</th>
+	                                            <td>샐러드메롱</td>
+	                                            <td style="width:13%">
+	                                            <button type="button" class="btn btn-dark">수정</button>
+	                                            <button type="button" class="btn btn-dark">삭제</button>
+	                                            </td>
+	                                        </tr>
+                                       </c:forEach>
                                     </tbody>
                                 </table>
                                 </div>

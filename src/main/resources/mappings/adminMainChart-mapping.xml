@@ -6,4 +6,9 @@
 	<resultMap type="adminMainChart" id="ChartResult">
 	
 	</resultMap>
+	
+	<select id="selectRepositoryList" parameterType="int" resultType="java.util.HashMap">
+		SELECT *
+		FROM REPOSITORY
+	</select>
 </mapper>

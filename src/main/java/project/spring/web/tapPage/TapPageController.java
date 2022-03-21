@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.detail.DetailService;
 import project.spring.web.detail.DetailVO;
+import project.spring.web.member.MemberVO;
 import project.spring.web.tag.TagService;
 import project.spring.web.tag.TagVO;
 
@@ -71,14 +74,33 @@ public class TapPageController {
 		int code = Integer.parseInt(str);
 		String str2 = request.getParameter("tagMain");
 		int tagMain = Integer.parseInt(str2);
-		
+		//  여기서 단품인지 세트인지 구분해서 보내자.
 		DetailVO vo = new DetailVO();
+		
+		if(tagMain == 600) {
+			vo.setItem_code(code);
+			mav.addObject("item", detailService.getSubItem(vo));
+			mav.addObject("tagMain",tagMain);	
+		}else {
 		vo.setItem_code(code);
 		System.out.println("세팅된 아이템 코드 : "+ vo.getItem_code());
 		mav.addObject("item", detailService.getItem(vo));
 		mav.addObject("tagMain", tagMain);
+		}
 		mav.setViewName("cartModal");
 		return mav;
 	}
 	
+	@RequestMapping(value = "/detaillLginCheck.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String detaillLginCheckDo(ModelAndView mav, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		System.out.println(session.getAttribute("member"));
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		if(memberVO == null) {
+			return "0";
+		}else {
+			return "1";
+		}
+	}
 }

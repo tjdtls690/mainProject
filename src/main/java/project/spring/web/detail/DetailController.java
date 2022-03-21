@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.basket.BasketService;
@@ -621,34 +622,37 @@ public class DetailController {
 		System.out.println(session.getAttribute("member"));
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		
-		
-		for(int i=0; i < itemCode.length; i++) {
-			System.out.println(i+"회차 목록들");
-			System.out.println(" 넘어온 size: "+itemSize[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
-					+priceSub[i]+" 넘어온 name : "+itemName[i]+" 넘어온 code : "+itemCode[i]+
-					" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+
-					"넘어온 itemQuantity : "+itemQuantity[i]+" 넘어온 imag : "+itemImage[i]);
-			System.out.println("------");
+		if(memberVO == null) {
+			 mav.setViewName("login");
 		}
-		BasketVO vo = new BasketVO();
-		for(int i =0; i < itemCode.length; i++) {
-			vo.setItemImage(image[i]);
-			vo.setItemName(name[i]);
-			vo.setTagMain(itemtagMain[i]);
-			vo.setTagSub(itemTagSub[i]);
-			vo.setAmount(quantity[i]);
-			vo.setPrice(itemPrice[i]);
-			vo.setPriceSub(itemPriceSub[i]);
-			vo.setUserCode(memberVO.getMemberCode());
-			vo.setItemCode(code[i]);
-			vo.setSubTotal(subTotal[i]); 
-			vo.setItemSize(size[i]);
-			BasketService.insertBasket(vo);
-			
+		else {
+			for(int i=0; i < itemCode.length; i++) {
+				System.out.println(i+"회차 목록들");
+				System.out.println(" 넘어온 size: "+itemSize[i]+" 넘어온 price :"+price[i]+" 넘어온 price_sub : "
+						+priceSub[i]+" 넘어온 name : "+itemName[i]+" 넘어온 code : "+itemCode[i]+
+						" 넘어온 tagMain : "+tagMain[i]+" 넘어온 tagSub : "+tagSub[i]+
+						"넘어온 itemQuantity : "+itemQuantity[i]+" 넘어온 imag : "+itemImage[i]);
+				System.out.println("------");
+			}
+			BasketVO vo = new BasketVO();
+			for(int i =0; i < itemCode.length; i++) {
+				vo.setItemImage(image[i]);
+				vo.setItemName(name[i]);
+				vo.setTagMain(itemtagMain[i]);
+				vo.setTagSub(itemTagSub[i]);
+				vo.setAmount(quantity[i]);
+				vo.setPrice(itemPrice[i]);
+				vo.setPriceSub(itemPriceSub[i]);
+				vo.setUserCode(memberVO.getMemberCode());
+				vo.setItemCode(code[i]);
+				vo.setSubTotal(subTotal[i]); 
+				vo.setItemSize(size[i]);
+				BasketService.insertBasket(vo);
+				
+			}
+			mav.setViewName("detailSuccessOrder");
 		}
-		
 
-		mav.setViewName("detailSuccessOrder");
 		return mav;
 	}
 // 장바구니 넣기 클릭시 장바구니 아래 그림

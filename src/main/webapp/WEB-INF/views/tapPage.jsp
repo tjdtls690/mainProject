@@ -209,21 +209,32 @@ $(function() {
  		var code = $(this).parent().parent().prev().prev().prev().attr('value');
  		var tagMain = $(this).parent().parent().prev().prev().attr('value');
  		var tagSub = $(this).parent().parent().prev().attr('value');
-		
- 		$.ajax({
- 			url : 'cartModal.do',
- 			type : 'post',
- 			dataType : 'html',
- 			data :{
- 				"code" : code,
- 				"tagMain" : tagMain,
- 				"tagSub" : tagSub
- 			},
- 			success : function(htmlOut){
- 				$('#forModal').append(htmlOut);
- 			}
  		
+ 		$.ajax({
+ 			url : 'detaillLginCheck.do',
+ 			success : function(data){
+ 				if(data == 1){
+ 					$.ajax({
+ 			 			url : 'cartModal.do',
+ 			 			type : 'post',
+ 			 			dataType : 'html',
+ 			 			data :{
+ 			 				"code" : code,
+ 			 				"tagMain" : tagMain,
+ 			 				"tagSub" : tagSub
+ 			 			},
+ 			 			success : function(htmlOut){
+ 			 				$('#forModal').append(htmlOut);
+ 			 			}
+ 			 		
+ 			 		})
+ 				}else{
+ 					$(location).attr("href", "login.do");
+ 				}
+ 			}
  		})
+		
+ 		
  		
  	})
  // 작은 장바구니 + 버튼 처리
@@ -329,7 +340,7 @@ $(function() {
 	    jQuery.ajaxSettings.traditional = true;
 	    
 	    $.ajax({ // 장바구니 넣기 확인 모달
-	    	url : "test.do",
+	    	url : "test.do",  // detail Controller에 있음.
 	    	type : 'post',
 	    	dataType : 'html',
 	    	data : data,
@@ -796,10 +807,33 @@ $(function() {
 																	src="${item.itemImage }"
 																	alt="${item.itemName } " title="${item.itemName } "
 																	class="for-loop-cloned-item-244">
+																<c:if test="${item.tagMain ne 100}">
+																	<div data-v-15082832="" class="btn-cart js-btn-cart"></div>
+																</c:if>
 															</figure>
 															<div data-v-15082832=""
 																class="item__body for-loop-cloned-item-244">
 																<!---->
+<!-- 																구독 애들이 허전해보여서 추가해보았다 -->
+															<c:if test="${item.tagMain eq 100}">
+																<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+																	<div data-v-29c2185a="" class="move-balloon">
+																		<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+																			20% 쿠폰
+																		</span>
+																	</div>
+																</div>
+															</c:if>
+<!-- 															샐러드에 그냥 하나 추가 시켜봄 ㅋㅋ -->
+															<c:if test="${item.kind eq '비건'}">
+																<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+																	<div data-v-29c2185a="" class="move-balloon">
+																		<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+																			비건에 어그로 끌기
+																		</span>
+																	</div>
+																</div>
+															</c:if>
 																<strong data-v-15082832=""
 																	class="for-loop-cloned-item-244">${item.itemName }</strong>
 																<div data-v-15082832=""
@@ -831,9 +865,46 @@ $(function() {
 																		class="row--v-center for-loop-cloned-item-244 tag-wrap">
 																		<div data-v-15082832=""
 																			class="for-loop-cloned-item-244 row--v-center">
-	<!-- 																		<div data-v-15082832="" -->
-	<!-- 																			class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag"> -->
-	<!-- 																			락토베지테리언</div> -->
+																		<c:if test="${item.kind eq '비건'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					비건</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '페스코'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					페스코 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '폴로'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					폴로 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '락토'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					락토 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '플렉시'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					플렉시 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '채식'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					채식</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '오보'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					오보 베지테리언</div>
+																			</c:if>
+																			<c:if test="${item.kind eq '프로틴'}">
+																				<div data-v-15082832=""
+																					class="for-loop-cloned-item-244 vegi-tag md-item-vegi-tag">
+																					프로틴</div>
+																			</c:if>	
 																		</div>
 																	</div>
 																</div>

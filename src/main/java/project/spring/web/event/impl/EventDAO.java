@@ -45,4 +45,8 @@ public class EventDAO {
 	public void deleteUserCoupon(CouponVO vo) {
 		sqlSessionTemplate.delete("EventDAO.deleteUserCoupon", vo);
 	}
+	
+	public void couponInsert(CouponVO vo) {
+		sqlSessionTemplate.insert("EventDAO.couponInsert", vo);
+	}
 }

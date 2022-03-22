@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminMemberManagementDAO">
+<resultMap type="myAdminMember" id="adminmemberResult">
+<id property="memberCode" column="member_code"/>
+<result property="memberName" column="member_name"/>
+<result property="memberNickname" column="member_nickname"/>
+<result property="memberPhone" column="member_phone"/>
+<result property="memberBirthday" column="member_birthday"/>
+<result property="memberGender" column="member_gender"/>
+<result property="memberEmail" column="member_email"/>
+</resultMap>
+<select id="getAdminMember" resultMap="adminmemberResult" >
+SELECT * FROM member 
+</select>
+</mapper>
+

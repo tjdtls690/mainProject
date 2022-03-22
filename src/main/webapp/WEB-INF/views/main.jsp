@@ -404,34 +404,28 @@ new Swiper('.swiper-container', {
 						<div class="home" id="home" data-v-75a55e4e data-v-0f5971ec>
 							<div id="myCarousel" class="carousel slide" data-interval="false" data-bs-wrap="true">
 						      <ol class="carousel-indicators">
-						          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-						         <li data-target="#myCarousel" data-slide-to="1"></li>
-						         <li data-target="#myCarousel" data-slide-to="2"></li>
-						         <li data-target="#myCarousel" data-slide-to="3"></li>
-						         <li data-target="#myCarousel" data-slide-to="4"></li>
+						      	<c:forEach var="sizelist" items="${sizelist}" varStatus="i"> 
+						      		<c:if test="${sizelist == 0 }">
+						      			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						      		</c:if>
+						      		<c:if test="${sizelist != 0 }">
+						      			<li data-target="#myCarousel" data-slide-to="${sizelist}"></li>
+						      		</c:if>
+						        </c:forEach>
 						      </ol>
 						      <div class="carousel-inner" >
-						         <div class="item active">
-						            <img id="slide01" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide01.PNG">
-						            <img id="slide01_1" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide01_1.PNG">
-						         </div>
-						         <div class="item">
-						            <img id="slide02" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide02.PNG">
-						            <img id="slide02_1" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide02_1.PNG">
-						         </div>
-						         <div class="item">
-						            <img id="slide03" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide03.PNG">
-						            <img id="slide03_1" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide03_1.PNG">
-						         </div>
-						         <div class="item">
-						            <img id="slide04" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide04.PNG">
-						            <img id="slide04_1" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide04_1.PNG">
-						         </div>
-						         <div class="item">
-						            <img id="slide05" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide05.PNG">
-						            <img id="slide05_1" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/slide05_1.PNG">
-						         </div>
-						      </div>
+						      	 <c:forEach var="banner" items="${banner}" varStatus="status">
+						      	 	<c:if test="${status.count == 1}" >
+						      	 		<div class="item active">
+						      	 	</c:if>
+						      	 	<c:if test="${status.count != 1}" >
+						      	 		<div class="item">
+						      	 	</c:if>
+						           	 		<img id="${banner.id}" src="${banner.image}">
+						           	 		<img id="${banner.id}_1" src="${banner.mobile}">
+						       	 	 	</div>
+						      	 </c:forEach>
+						   	
 						       <a class="left carousel-control" href="#myCarousel" data-slide="prev">
 						         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 						         <span class="sr-only">Previous</span>
@@ -440,7 +434,8 @@ new Swiper('.swiper-container', {
 						         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						         <span class="sr-only">Next</span>
 						      </a>
-						   </div>
+							</div>
+						  </div>
 							<section class="home-items" data-v-7b0f70b9 data-v-75a55e4e>
 								<div id="md-pick" data-v-7b0f70b9>
 									<header class="row--v-center home-items__header"

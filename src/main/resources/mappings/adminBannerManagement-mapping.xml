@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminBannerManagementDAO">
+	<resultMap type="myBanner" id="bannerResult">
+		<id property="seq" column="seq"/>
+		<result property="name" column="name"/>
+		<result property="content" column="content"/>
+		<result property="id" column="id"/>
+		<result property="mobile" column="mobile" />
+	</resultMap>
+	<select id="getBanner" resultMap="bannerResult">
+		SELECT * FROM banner ORDER BY seq
+	</select>
+
+	<delete id="deleteBanner">
+		DELETE FROM banner WHERE id = #{id}
+	</delete>
+	
+	<insert id="insertBanner">
+		insert into banner(name, content, image, id, mobile) 
+		values(#{name}, #{content}, #{image}, #{id}, #{mobile});
+    </insert>
+</mapper>

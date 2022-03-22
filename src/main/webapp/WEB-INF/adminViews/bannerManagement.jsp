@@ -26,19 +26,107 @@
        .modal-dialog{
        width-bottom: -50%; 
        }
+       input[type="checkbox"] {
+	   		-webkit-appearance: none;
+	   		position: relative;
+	   		vertical-align:middle;
+	    	width: 30px;
+		    height: 22px;
+		    cursor: pointer;
+		    outline: none !important;
+		    border: 1px solid #eeeeee;
+		    border-radius: 2px;
+		    background: #eee;
+		}
+		input[type="checkbox"]:checked {
+		    -webkit-appearance: none;
+		    position: relative;
+		    width: 30px;
+		    height: 22px;
+		    cursor: pointer;
+		    vertical-align:middle;
+		    outline: none !important;
+		    border: 1px solid #eeeeee;
+		    border-radius: 2px;
+ 		    background: #1E90FF;
+		    background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_check.png);
+		    background-position: 50%;
+		    background-size: 12px 8px;
+		    background-repeat: no-repeat;
+		}
     </style>
         <script type="text/javascript">
         	$(function(){
-        		$(document).on('click', '.btn.btn-outline-secondary', function(){
-        			$.ajax({
-        				url : 'bannerModal.mdo',
-        				dataType : 'html',
-        				success : function(htmlOut){
-        					$('body').append(htmlOut);
-        				}
-        			})
-        		})
-        	})
+        		$(document).on('click', '.btn.btn-outline-secondary.insert', function(){
+        			var count = $('.bannerID').length;
+        			if (count >= 5) {
+        				alert("배너등록은 최대 5개까지만 가능합니다.");
+        				location.href="bannerManagement.mdo";
+        			}else {
+        				$.ajax({
+            				url : 'bannerModal.mdo',
+            				dataType : 'html',
+            				success : function(htmlOut){
+            					$('body').append(htmlOut);
+            				}
+            			});
+        			}
+
+        		});
+        	});
+        	
+        	$('input:checkbox[name="point-check"]').prop("checked",true);
+			$('input:checkbox[name="point-check"]').prop("checked",false);
+			
+			// 선택삭제 
+			$(function (){
+				$(document).on('click','.btn.btn-outline-secondary.del', function(){
+
+					var count = $('.bannerID').length; 
+					var deleteItemId = [];
+					var data = {};
+
+					
+					for (var i=0; i < count; i++) {
+						var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+						if (check == true) {
+							deleteItemId[i] = $('.bannerID').eq(i).children('#bannerId').val();
+						}
+					}
+					
+					var newDeleteItemId = deleteItemId.filter(word => {
+						return word.length >= 1;
+					});
+
+					data.newDeleteItemId = newDeleteItemId;
+					jQuery.ajaxSettings.traditional = true;
+					
+					$.ajax({
+			    		url : 'bannerSelectDelete.do',
+			    		dataType : 'json',
+			    		type : 'post',
+			    		data : data,
+			    		success : function(){
+			    			alert("삭제되었습니다");
+			   			},
+			    		complete : function() {
+			    			location.reload();
+			    		}
+					});
+				});
+			});
+			
+// 			$(function (){
+// 				$(document).on('click','.btn.btn-primary.submit', function(){
+// 					alert("modaljsp");
+// // 					var url = $('.table.table-bordered.dataTable').children('#banner_url').innerHTML;
+// // 					alert(url);
+// 					var x = document.getElementById("banner_url").innerHTML;
+
+// 					alert(x);
+
+// 				});
+// 			});
         </script>
     </head>
     
@@ -145,56 +233,57 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 배너목록
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                <button type="button" class="btn btn-outline-secondary del" style="padding:0px 30px; float:right;">삭제</button>
+                                <button type="button" class="btn btn-outline-secondary insert" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 <div class="modal" id="myModal">
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
-								            <h5 class="modal-title">Contact us</h5>
+								            <h5 class="modal-title">Banner 등록</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
 								            <!-- form -->
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
+	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data" id="frm1">
 	           							
 	           							<!-- table -->
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
 	           						
-	           								<tr>
-												<th scope="row" width=70>
-													TAG
-												</th>
-												<td width=150>
-													<div class="row">
-													  <div class="col" style = "margin-right : 0%;">
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-													    <option selected>main</option>
-													    <option value="1">100</option>
-													    <option value="2">200</option>
-													    <option value="3">300</option>
-													    <option value="3">400</option>
-													    <option value="3">500</option>
-													    <option value="3">600</option>
-													    <option value="3">700</option>
-													  </select>
-													  </div>
-													  <div class="col" >
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-													    <option selected>sub</option>
-													    <option value="1">101</option>
-													    <option value="2">102</option>
-													    <option value="3">103</option>
-													  </select>
-													  </div>
-													</div>
-												</td>
-											</tr>
+<!-- 	           								<tr> -->
+<!-- 												<th scope="row" width=70> -->
+<!-- 													TAG -->
+<!-- 												</th> -->
+<!-- 												<td width=150> -->
+<!-- 													<div class="row"> -->
+<!-- 													  <div class="col" style = "margin-right : 0%;"> -->
+<!-- 													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"> -->
+<!-- 													    <option selected>main</option> -->
+<!-- 													    <option value="1">100</option> -->
+<!-- 													    <option value="2">200</option> -->
+<!-- 													    <option value="3">300</option> -->
+<!-- 													    <option value="3">400</option> -->
+<!-- 													    <option value="3">500</option> -->
+<!-- 													    <option value="3">600</option> -->
+<!-- 													    <option value="3">700</option> -->
+<!-- 													  </select> -->
+<!-- 													  </div> -->
+<!-- 													  <div class="col" > -->
+<!-- 													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"> -->
+<!-- 													    <option selected>sub</option> -->
+<!-- 													    <option value="1">101</option> -->
+<!-- 													    <option value="2">102</option> -->
+<!-- 													    <option value="3">103</option> -->
+<!-- 													  </select> -->
+<!-- 													  </div> -->
+<!-- 													</div> -->
+<!-- 												</td> -->
+<!-- 											</tr> -->
 											<tr>
 												<th scope="row">
 													MAIN
 												</th>
 												<td>
-													<input type="file" name="uploadFile" />
+													<input type="file" name="uploadFile" id="uploadFileDesk" />
 												</td>
 											</tr>
 											<tr>
@@ -202,7 +291,7 @@
 													MOBILE
 												</th>
 												<td>
-													<input type="file" name="uploadFile" />
+													<input type="file" name="uploadFile" id="uploadFileMobile"/>
 												</td>
 											</tr>
 											<tr>
@@ -210,7 +299,39 @@
 													PAGE URL
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="banner_url" id="banner_url" placeholder="서버에 저장된 url 입력"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													MOBILE URL
+												</th>
+												<td>
+													<input type="text" name="banner_url" id="banner_mobile" placeholder="서버에 저장된 url 입력"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													NAME
+												</th>
+												<td>
+													<input type="text" name="banner_name" id="banner_name" placeholder="상품 이름"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													ID
+												</th>
+												<td>
+													<input type="text" name="banner_id" id="banner_id" placeholder="slide00"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													Banner Content
+												</th>
+												<td>
+													<input type="text" name="banner_content" id="banner_content" placeholder="배너 내용"/>
 												</td>
 											</tr>
 	           							</table>
@@ -220,7 +341,7 @@
 	           						
          </div>
          <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">Upload</button>
+         <button type="submit" class="btn btn-primary submit" >Upload</button>
          </div>
          </div>
          </div>
@@ -234,82 +355,32 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
+                                        	<th>선택</th>
                                             <th>배너이름</th>
                                             <th>배너내용</th>
 											<th>배너이미지</th> 
+											<th>배너 ID </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>번호</th>
+                                        	<th>선택</th>
                                             <th>배너이름</th>
                                             <th>배너내용</th>
 											<th>배너이미지</th> 
+											<th>배너 ID</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    	<c:forEach var="banner" items="${banner}">
                                         <tr>
-                                            <td>1</td>
-                                            <td>블라</td>
-                                            <td>블라블라</td>
-                                            <td>배너 이미지 넣어주세욥</td>
+                                        	<td align="center"><input type="checkbox" name="point-check" id="point-check" class ="point-check"></td>
+                                            <td><input type="hidden" value="${banner.name}" id="bannerName" />${banner.name}</td>
+                                            <td><input type="hidden" value="${banner.content }" id="bannerContent" />${banner.content }</td>
+                                            <td><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
+                                            <td class="bannerID"><input type="hidden" value="${banner.id}" id="bannerId" />${banner.id}</td>
                                         </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-										
+                                        </c:forEach>											
                                     </tbody>
                                 </table>
                             </div>
@@ -326,35 +397,35 @@
         <script src="${path }/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>
-        <div class="modal" id="myModal">
-   <div class="modal-dialog" style="margin-bottom:-50%;">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title">Contact us</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-         </div>
-         <div class="modal-body">
-            <form>
-               <div class="mb-3">
-                  <label class="form-label">Name</label>
-                  <input type="text" class="form-control">
-               </div>
-               <div class="mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="text" class="form-control">
-               </div>
-               <div class="mb-3">
-                  <label class="form-label">Type your message here</label>
-                  <textarea class="form-control"></textarea>
-               </div>
-            </form>
-         </div>
-         <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">Submit</button>
-         <button type="submit" class="btn btn-primary">Cancel</button>
-         </div>
-         </div>
-         </div>
-         </div>
+<!--         <div class="modal" id="myModal"> -->
+<!--    <div class="modal-dialog" style="margin-bottom:-50%;"> -->
+<!--       <div class="modal-content"> -->
+<!--          <div class="modal-header"> -->
+<!--             <h5 class="modal-title">Contact us</h5> -->
+<!--             <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+<!--          </div> -->
+<!--          <div class="modal-body"> -->
+<!--             <form> -->
+<!--                <div class="mb-3"> -->
+<!--                   <label class="form-label">Name</label> -->
+<!--                   <input type="text" class="form-control"> -->
+<!--                </div> -->
+<!--                <div class="mb-3"> -->
+<!--                   <label class="form-label">Email</label> -->
+<!--                   <input type="text" class="form-control"> -->
+<!--                </div> -->
+<!--                <div class="mb-3"> -->
+<!--                   <label class="form-label">Type your message here</label> -->
+<!--                   <textarea class="form-control"></textarea> -->
+<!--                </div> -->
+<!--             </form> -->
+<!--          </div> -->
+<!--          <div class="modal-footer"> -->
+<!--          <button type="submit" class="btn btn-primary">Submit</button> -->
+<!--          <button type="submit" class="btn btn-primary">Cancel</button> -->
+<!--          </div> -->
+<!--          </div> -->
+<!--          </div> -->
+<!--          </div> -->
     </body>
 </html>

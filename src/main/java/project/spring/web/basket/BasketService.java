@@ -10,4 +10,6 @@ public interface BasketService {
 	void deleteBasketList(BasketVO vo);
 	
 	int insertBasket(BasketVO vo);
+	
+	void deleteBasketZero(BasketVO vo);
 }

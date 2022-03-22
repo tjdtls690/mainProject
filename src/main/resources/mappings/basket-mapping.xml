@@ -31,6 +31,10 @@
 		DELETE FROM basket WHERE item_code = #{itemCode} AND user_code= #{userCode} AND item_size = #{itemSize}
 	</delete>
 	
+	<delete id="deleteBasketZero">
+		DELETE FROM basket WHERE user_code=#{userCode} AND amount = 0
+	</delete>
+	
 	<insert id="insertBasket">
 		insert INTO basket(item_image, item_name, tag_main, tag_sub, amount, price, price_sub,user_code,
                    item_code, sub_total, item_size)

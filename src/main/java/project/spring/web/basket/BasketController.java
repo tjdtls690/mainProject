@@ -34,6 +34,7 @@ public class BasketController {
 			BasketVO vo2 = new BasketVO();
 			vo2.setUserCode(userCode);
 			List<BasketVO> BasketList = basketService.getBasketList(vo2);
+			basketService.deleteBasketZero(vo2);
 			
 			if (BasketList.size() == 0) {
 				mav.setViewName("basket2");

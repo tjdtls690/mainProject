@@ -184,13 +184,15 @@
 			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">md추천</h1>
-                        
+                        <h1 class="mt-4">MD추천</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">(MD Management)</li>
+                        </ol>
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                md추천목록
+                                MD List !
                                 
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 <div class="modal" id="myModal">
@@ -199,7 +201,7 @@
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
-								            <h5 class="modal-title">Contact us</h5>
+								            <h5 class="modal-title">MD추천</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
@@ -254,7 +256,7 @@
 	           							
          							</div>
          						<div class="modal-footer">
-         							<button type="button" class="btn btn-primary">Upload</button>
+         							<button type="button" class="btn btn-primary">등록</button>
          						</div>
          						
          						</div>
@@ -269,7 +271,7 @@
                                 <table id="datatablesSimple" >
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
+                                            <th>no.</th>
                                             <th>태그번호</th>
                                             <th>아이템코드</th>
                                             <th>상품이름</th>
@@ -278,7 +280,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>번호</th>
+                                            <th>no.</th>
                                             <th>태그번호</th>
                                             <th>아이템코드</th>
                                             <th>상품이름</th>

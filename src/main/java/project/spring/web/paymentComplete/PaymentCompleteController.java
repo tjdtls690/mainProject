@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.basket.BasketService;
 import project.spring.web.basket.BasketVO;
+import project.spring.web.event.CouponVO;
 import project.spring.web.member.MemberVO;
 
 @Controller
@@ -30,7 +31,7 @@ public class PaymentCompleteController {
 	
 	@RequestMapping("/paymentComplete.do")
 	public ModelAndView paymentCompleteDo(ModelAndView mav, HttpServletRequest request, @ModelAttribute(value="PaymentMyDetailInfoList") PaymentMyDetailInfoList list,
-			PaymentMyDetailSideInfoVO vo) {
+			PaymentMyDetailSideInfoVO vo, String coupon_check_num) {
 		HttpSession session = request.getSession();
 		MemberVO vo1 = (MemberVO)session.getAttribute("member");
 		List<String> li = new ArrayList<String>();
@@ -75,6 +76,7 @@ public class PaymentCompleteController {
 			paymentCompleteService.paymentMappingItemInfoSave(list.getPaymentMyDetailInfo().get(i));
 		}
 		
+		// 장바구니에서 구매한 물건들 삭제
 		BasketVO vo2 = new BasketVO();
 		vo2.setUserCode(vo1.getMemberCode());
 		List<BasketVO> li2 = basketService.getBasketList(vo2);
@@ -87,6 +89,27 @@ public class PaymentCompleteController {
 				}
 			}
 		}
+		
+		
+		// 사용한 쿠폰 금지
+		int coupon_check_num1 = Integer.parseInt(coupon_check_num);
+		CouponVO vo3 = new CouponVO();
+		vo3.setUser_code(vo1.getMemberCode());
+		vo3.setCoupon_code(coupon_check_num1);
+		paymentCompleteService.useCouponProhibition(vo3);
+		
+		
+		// 포인트 계산 (5% 적입)
+		int paymentFinalPrice = Integer.parseInt(vo.getPayment_final_price());
+		int point = Math.round(paymentFinalPrice / 20);
+		System.out.println("적립된 포인트 : " + point);
+		
+		PaymentCompletePointVO vo4 = new PaymentCompletePointVO();
+		vo4.setPayment_member_code(vo1.getMemberCode());
+		System.out.println("??? : " + vo4.getPayment_member_code());
+		vo4 = paymentCompleteService.getMemberPoint(vo4);
+		vo4.setPayment_point(vo4.getPayment_point() + point);
+		paymentCompleteService.updateMemberPoint(vo4);
 		
 		mav.setViewName("paymentComplete");
 		return mav;

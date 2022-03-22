@@ -15,12 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.member.MemberService;
 import project.spring.web.member.MemberVO;
+import project.spring.web.paymentComplete.PaymentCompletePointVO;
+import project.spring.web.paymentComplete.PaymentCompleteService;
 
 @Controller
 public class SignUpController {
 	
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	PaymentCompleteService paymentCompleteService;
 	
 	@RequestMapping("/signup.do")
 	public ModelAndView signUpDo(ModelAndView mav, HttpServletRequest request) {
@@ -187,7 +191,12 @@ public class SignUpController {
 	        vo.setBirthday(LocalDate.parse(string, DateTimeFormatter.ISO_DATE));
 		}
 		memberService.insertMember(vo);
-		session.setAttribute("member", memberService.getMember(vo));
+		MemberVO vo1 = memberService.getMember(vo);
+		PaymentCompletePointVO vo2 = new PaymentCompletePointVO();
+		vo2.setPayment_member_code(vo1.getMemberCode());
+		paymentCompleteService.insertMemberPoint(vo2);
+		
+		session.setAttribute("member", vo1);
 		mav.setViewName("signupSuccess");
 		return mav;
 	}

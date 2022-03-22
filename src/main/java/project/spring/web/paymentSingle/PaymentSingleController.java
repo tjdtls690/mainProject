@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import project.spring.web.member.MemberVO;
 import project.spring.web.member_zipcode.MemberZipcodeService;
 import project.spring.web.member_zipcode.MemberZipcodeVO;
+import project.spring.web.paymentComplete.PaymentCompletePointVO;
+import project.spring.web.paymentComplete.PaymentCompleteService;
 
 @Controller
 public class PaymentSingleController {
@@ -24,6 +26,8 @@ public class PaymentSingleController {
 	MemberZipcodeService memberZipcodeService;
 	@Autowired
 	PaymentSingleService paymentSingleService;
+	@Autowired
+	PaymentCompleteService paymentCompleteService;
 	
 	@RequestMapping("/paymentSingle.do")
 	public ModelAndView paymentSingleDo(ModelAndView mav, @ModelAttribute(value="PaymentSingleListVO") PaymentSingleListVO list
@@ -34,6 +38,10 @@ public class PaymentSingleController {
 		vo2.setUser_code(String.valueOf(vo1.getMemberCode()));
 		List<PaymentSingleCouponInfoVO> list1 = paymentSingleService.getMyPaymentCoupon(vo2);
 		
+		PaymentCompletePointVO vo3 = new PaymentCompletePointVO();
+		vo3.setPayment_member_code(vo1.getMemberCode());
+		
+		mav.addObject("point", paymentCompleteService.getMemberPoint(vo3));
 		mav.addObject("listSize", list1.size());
 		mav.addObject("vo", vo);
 		mav.addObject("list", list.getPaymentSingleList());

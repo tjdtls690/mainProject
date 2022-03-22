@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/paymentSingle"/>
 <!DOCTYPE html>
 <html class="">
@@ -75,7 +76,7 @@
 	}
 	
 	$(function(){
-		var finalRealPrice01 = Number(${fn:replace(vo.paymentRealFinalPrice, ',', '')}); // todo
+		var finalRealPrice01 = Number(${fn:replace(vo.paymentRealFinalPrice, ',', '')});
 		
 		
 		var currentScroll = 0;
@@ -344,6 +345,16 @@
 				        	objs19.setAttribute('value', payment_date); //객체값
 		     	        	form.appendChild(objs19);
 				        	
+				        	
+				        	// 사용한 쿠폰 번호
+				        	var coupon_check_num = $('#couponCheckNum').val();
+				        	
+				        	var objs20;
+				        	objs20 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+				        	objs20.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+				        	objs20.setAttribute('name', 'coupon_check_num'); // 객체이름
+				        	objs20.setAttribute('value', coupon_check_num); //객체값
+		     	        	form.appendChild(objs20);
 				        	
 				        	
 				        	
@@ -623,7 +634,6 @@
     				var couponNum = $('.select-coupon__body').find('li').eq(i).find('input').eq(0).val();
     				var realSale = $('.select-coupon__body').find('li').eq(i).find('em').text();
     				
-    				// todo
     				// 일단 쿠폰 버튼 문자열을 couponNum 데이터를 통해 바꾸고, 
     				// 한번더 에이작스 써서 계산하고 총 금액, 쿠폰 할인금액 수정.
     				$.ajax({
@@ -655,6 +665,7 @@
     	    						$('#productsFinalPrice').val(Number(arr[0]).toLocaleString('en'));
     	    						$('.row--v-center.row--h-between.coupon').find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
     	    						$('#couponPrice').val(Number(arr[1]).toLocaleString('en'));
+    	    						$('#couponCheckNum').val(couponNum);
     	    					}
     						})
     					}
@@ -674,11 +685,13 @@
 					$('.coupon').find('.col.coupon__use').detach();
 					$('.coupon').find('.row--v-center').prepend(htmlOut);
 	    		}
-	    	})
+	    	});
 	    	$('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice01).toLocaleString('en') + ' 원');
 			$('#productsFinalPrice').val(Number(finalRealPrice01).toLocaleString('en'));
 			$('.row--v-center.row--h-between.coupon').find('em').text('0');
 			$('#couponPrice').val('0');
+			$('#couponCheckNum').val('0');
+			
 			$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
     		$('html').attr('class', '');
 			$('html').scrollTop($('.checkout__delivery.checkout-column__delivery').offset().top);
@@ -686,6 +699,27 @@
 				$('.modal.modal-leave-active.modal-leave-to').detach();
 			}, 400);
 	    })
+	    
+	    $(document).on("propertychange change keyup paste input", '.point__input input', function() {
+	    	var oldVal = $('#memberPoint').val();
+	        var currentVal = $(this).val();
+	        alert(oldVal < currentVal);
+	        if(oldVal < currentVal){
+	        	currentVal = oldVal;
+	        	$(this).val(currentVal);
+	        	return false;
+	        }else if(currentVal < 0){
+	        	currentVal = 0;
+	        	$(this).val(0);
+	        	return false;
+	        }
+	        //finalRealPrice01
+	        var finalRealPrice02 = Number(finalRealPrice01) - Number($('#couponPrice').val().replace(',', '')) - Number(currentVal);
+	        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+	        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	        $('#memberRealPoint').val(currentVal);
+	        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(currentVal).toLocaleString('en'));
+	    });
 	})
 </script>
 </head>
@@ -720,7 +754,10 @@
 					<input type="hidden" value="${vo.paymentFinalSalePrice }" id="paymentFinalSalePrice"> <!-- 상품 할인 금액 (콤마있음) -->
 					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1"> <!-- 집코드 -->
 					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2"> <!-- 상세 주소 -->
-					<input type="hidden" value="0" id="couponPrice"> <!-- 콤마 있음 -->
+					<input type="hidden" value="0" id="couponPrice"> <!-- 쿠폰 할인 가격. 콤마 있음 -->
+					<input type="hidden" value="0" id="couponCheckNum"> <!-- 선택한 쿠폰 코드 -->
+					<input type="hidden" value="${point.payment_point }" id="memberPoint"> <!-- 사용 가능 포인트.  todo -->
+					<input type="hidden" value="0" id="memberRealPoint"> <!-- 사용 포인트.  todo -->
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
 					<input type="hidden" value="0" id="paymentMyInfoPolicyCheck">
@@ -1120,12 +1157,13 @@
 												<h3 data-v-8f2f8136="" class="checkout__section-title">포인트
 													사용</h3>
 												<div data-v-8f2f8136="" class="point-wrap row--v-center">
-													<span data-v-8f2f8136="" class="point__input"><input
-														data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel" value="0"
-														name="pp" placeholder="포인트를 입력해주세요" autocorrect="off"
-														autocapitalize="off" class="form-text" max="0"
-														style="height: 46px; text-align: right;"> <i
-														data-v-8f2f8136="">P</i></span>
+													<span data-v-8f2f8136="" class="point__input">
+														<input data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel" value="0"
+															name="pp" placeholder="포인트를 입력해주세요" autocorrect="off"
+															autocapitalize="off" class="form-text" max="0"
+															style="height: 46px; text-align: right;"> 
+														<i data-v-8f2f8136="">P</i>
+													</span>
 													<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
 														title=""
 														class="button button--side-padding button--size-small"
@@ -1135,7 +1173,7 @@
 												</div>
 												<dl data-v-8f2f8136="" class="row--v-center point__use">
 													<dt data-v-8f2f8136="" class="col label">사용 가능한 포인트</dt>
-													<dd data-v-8f2f8136="" class="num">0 P</dd>
+													<dd data-v-8f2f8136="" class="num"><fmt:formatNumber value="${point.payment_point }" pattern="#,###" /> P</dd>
 												</dl>
 											</div>
 											<!---->

@@ -1,5 +1,7 @@
 package project.spring.web.paymentComplete.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,10 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 	}
 
 	@Override
+	public List<PaymentMyDetailSideInfoVO> getAllPaymentDetail(PaymentMyDetailSideInfoVO vo) {
+		return paymentCompleteDAO.getAllPaymentDetail(vo);
+	}
+  
 	public int useCouponProhibition(CouponVO vo) {
 		return paymentCompleteDAO.useCouponProhibition(vo);
 	}

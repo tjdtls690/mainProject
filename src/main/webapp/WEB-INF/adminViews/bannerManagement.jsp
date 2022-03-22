@@ -26,20 +26,155 @@
        .modal-dialog{
        width-bottom: -50%; 
        }
+       input[type="checkbox"] {
+	   		-webkit-appearance: none;
+	   		position: relative;
+	   		vertical-align:middle;
+	    	width: 30px;
+		    height: 22px;
+		    cursor: pointer;
+		    outline: none !important;
+		    border: 1px solid #eeeeee;
+		    border-radius: 2px;
+		    background: #eee;
+		}
+		input[type="checkbox"]:checked {
+		    -webkit-appearance: none;
+		    position: relative;
+		    width: 30px;
+		    height: 22px;
+		    cursor: pointer;
+		    vertical-align:middle;
+		    outline: none !important;
+		    border: 1px solid #eeeeee;
+		    border-radius: 2px;
+ 		    background: #1E90FF;
+		    background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_check.png);
+		    background-position: 50%;
+		    background-size: 12px 8px;
+		    background-repeat: no-repeat;
+		}
     </style>
         <script type="text/javascript">
-        	$(function(){
-        		$(document).on('click', '.btn.btn-outline-secondary', function(){
-        			$.ajax({
-        				url : 'bannerModal.mdo',
-        				dataType : 'html',
-        				success : function(htmlOut){
-        					$('body').append(htmlOut);
-        				}
-        			})
-        		})
-        	})
-        </script>
+        	 $(function(){
+        		$(document).on('click', '.btn.btn-outline-secondary.insert', function(){
+        			var count = $('.bannerID').length;
+        		
+        			]if (count >= 5) {
+        				alert("배너등록은 최대 5개까지만 가능합니다.");
+        				location.href="bannerManagement.mdo";
+        				
+        			}else {
+        				$.ajax({
+            				url : 'bannerModal.mdo',
+            				dataType : 'html',
+            				success : function(htmlOut){
+            					$('body').append(htmlOut);
+            				}
+            			}); 
+        			}
+
+        		});
+        	}); 
+        	
+        	$('input:checkbox[name="point-check"]').prop("checked",true);
+			$('input:checkbox[name="point-check"]').prop("checked",false);
+			
+			// 선택삭제 
+			$(function (){
+				$(document).on('click','.btn.btn-outline-secondary.del', function(){
+
+					var count = $('.bannerID').length; 
+					var deleteItemId = [];
+					var data = {};
+
+					
+					for (var i=0; i < count; i++) {
+						var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+						if (check == true) {
+							deleteItemId[i] = $('.bannerID').eq(i).children('#bannerId').val();
+						}
+					}
+					
+					var newDeleteItemId = deleteItemId.filter(word => {
+						return word.length >= 1;
+					});
+
+					data.newDeleteItemId = newDeleteItemId;
+					jQuery.ajaxSettings.traditional = true;
+					
+					$.ajax({
+			    		url : 'bannerSelectDelete.do',
+			    		dataType : 'json',
+			    		type : 'post',
+			    		data : data,
+			    		success : function(){
+			    			alert("삭제되었습니다");
+			   			},
+			    		complete : function() {
+			    			location.reload();
+			    		}
+					});
+				});
+			});
+			
+// 			$(function (){
+// 				$(document).on('click','.btn.btn-primary.submit', function(){
+// 					alert("modaljsp");
+// // 					var url = $('.table.table-bordered.dataTable').children('#banner_url').innerHTML;
+// // 					alert(url);
+// 					var x = document.getElementById("banner_url").innerHTML;
+
+// 					alert(x);
+
+// 				});
+// 			});
+		$(function (){
+		$(document).on('click','.btn.btn-primary.submit', function(){
+			alert("modaljsp");
+// 					var url = $('.table.table-bordered.dataTable').children('#banner_url').innerHTML;
+// 					alert(url);
+			var url = document.getElementById("banner_url").value;
+			var name = document.getElementById("banner_name").value;
+			var id = document.getElementById("banner_id").value;
+			var content = document.getElementById("banner_content").value;
+			var mobile = document.getElementById("banner_mobile").value;
+			
+			$.ajax({
+				url : 'bannerInsert.mdo',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"url" : url,
+					"name" : name,
+					"id" : id,
+					"content" : content,
+					"mobile" : mobile
+				},
+				success : function(data){
+					 alert("등록 성공");
+					 location.href="bannerManagement.mdo";
+				}
+			});
+		});
+	});
+		
+		$(document).ready(function(){
+		    function alignModal(){
+		        var modalDialog = $(this).find(".modal-dialog");
+		        
+		        // Applying the top margin on modal dialog to align it vertically center
+		        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+		    }
+		    // Align modal when it is displayed
+		    $(".modal").on("shown.bs.modal", alignModal);
+		    
+		    // Align modal when user resize the window
+		    $(window).on("resize", function(){
+		        $(".modal:visible").each(alignModal);
+		    });   
+		});
+    </script>
     </head>
     
 <body class="sb-nav-fixed">
@@ -69,73 +204,74 @@
             </ul>
         </nav>
         
-         <div id="layoutSidenav">
+        <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav"> 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="adminMainChart.mdo">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                상품/판매
+                                Admin
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="상품목록.html">조회/등록/수정</a>
-                                    <!-- <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a> -->
+                                    <a class="nav-link" href="adminCouponTypeManagement.mdo">쿠폰관리</a>
+                                    <a class="nav-link" href="userCouponManage.mdo">발급쿠폰관리</a>
+                                    <a class="nav-link" href="mdInfo.mdo">MD추천관리</a>
+                                    <a class="nav-link" href="bannerManagement.mdo">배너관리</a>
                                 </nav>
                             </div>
+                            
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                주문/환불
+                                상품/판매
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
+                                        조회/등록/수정
+                                    </a>  
                                 </nav>
                             </div>
                             
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                매출/상품통계관리
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                주문/배송
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                게시글관리
+                            <div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
+                                    <a class="nav-link" href="#">주문목록</a>
+                                    <a class="nav-link" href="#">배송중</a>
+                                    <a class="nav-link" href="#">배송완료</a>
+                                </nav>
+                            </div>
+                            
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                회원
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
+                                    <a class="nav-link" href="memberManagement.mdo">회원관리</a>
+                                    <a class="nav-link" href="#">리뷰관리</a>
+                                </nav>
+                            </div>
+                            
                         </div>
                     </div>
                 </nav>
             </div>
 
-<div id="layoutSidenav_content">
+			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Banner</h1>
@@ -145,19 +281,20 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 배너목록
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
-                                <div class="modal" id="myModal">
+                                <button type="button" class="btn btn-outline-secondary del" style="padding:0px 30px; float:right;">삭제</button>
+                                <button type="button" class="btn btn-outline-secondary insert" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                 <div class="modal" id="myModal">
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
-								            <h5 class="modal-title">Contact us</h5>
+								            <h5 class="modal-title">Banner 등록</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
-								            <!-- form -->
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
+								            form
+	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data" id="frm1">
 	           							
-	           							<!-- table -->
+	           							table
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
 	           						
 	           								<tr>
@@ -194,7 +331,7 @@
 													MAIN
 												</th>
 												<td>
-													<input type="file" name="uploadFile" />
+													<input type="file" name="uploadFile" id="uploadFileDesk" />
 												</td>
 											</tr>
 											<tr>
@@ -202,7 +339,7 @@
 													MOBILE
 												</th>
 												<td>
-													<input type="file" name="uploadFile" />
+													<input type="file" name="uploadFile" id="uploadFileMobile"/>
 												</td>
 											</tr>
 											<tr>
@@ -210,23 +347,55 @@
 													PAGE URL
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="banner_url" id="banner_url" placeholder="서버에 저장된 url 입력"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													MOBILE URL
+												</th>
+												<td>
+													<input type="text" name="banner_url" id="banner_mobile" placeholder="서버에 저장된 url 입력"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													NAME
+												</th>
+												<td>
+													<input type="text" name="banner_name" id="banner_name" placeholder="상품 이름"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													ID
+												</th>
+												<td>
+													<input type="text" name="banner_id" id="banner_id" placeholder="slide00"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													Banner Content
+												</th>
+												<td>
+													<input type="text" name="banner_content" id="banner_content" placeholder="배너 내용"/>
 												</td>
 											</tr>
 	           							</table>
-	           							<!--// table -->
+	           							// table
 	           						</form>
 	           						<!—-// form -—>
 	           						
-         </div>
-         <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">Upload</button>
-         </div>
-         </div>
-         </div>
-         </div>
-   </div>
-                                
+							         </div>
+							         <div class="modal-footer">
+							         <button type="submit" class="btn btn-primary submit" >Upload</button>
+							         </div>
+							         </div>
+							         </div>
+							         </div>
+							   </div>
+							                                
                                 
                                 
                             </div>
@@ -234,91 +403,41 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
+                                        	<th>선택</th>
                                             <th>배너이름</th>
                                             <th>배너내용</th>
 											<th>배너이미지</th> 
+											<th>배너 ID </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>번호</th>
+                                        	<th>선택</th>
                                             <th>배너이름</th>
                                             <th>배너내용</th>
 											<th>배너이미지</th> 
+											<th>배너 ID</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    	<c:forEach var="banner" items="${banner}">
                                         <tr>
-                                            <td>1</td>
-                                            <td>블라</td>
-                                            <td>블라블라</td>
-                                            <td>배너 이미지 넣어주세욥</td>
+                                        	<td align="center"><input type="checkbox" name="point-check" id="point-check" class ="point-check"></td>
+                                            <td><input type="hidden" value="${banner.name}" id="bannerName" />${banner.name}</td>
+                                            <td><input type="hidden" value="${banner.content }" id="bannerContent" />${banner.content }</td>
+                                            <td><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
+                                            <td class="bannerID"><input type="hidden" value="${banner.id}" id="bannerId" />${banner.id}</td>
                                         </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-										
+                                        </c:forEach>											
                                     </tbody>
                                 </table>
+                              
+                            </div>
+                            </div> 
+                            </main>
                             </div>
                         </div>
-                    </div>
-                </main>
-               
-            </div>
-        </div>
+                        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path }/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -326,35 +445,35 @@
         <script src="${path }/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>
-        <div class="modal" id="myModal">
-   <div class="modal-dialog" style="margin-bottom:-50%;">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title">Contact us</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-         </div>
-         <div class="modal-body">
-            <form>
-               <div class="mb-3">
-                  <label class="form-label">Name</label>
-                  <input type="text" class="form-control">
-               </div>
-               <div class="mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="text" class="form-control">
-               </div>
-               <div class="mb-3">
-                  <label class="form-label">Type your message here</label>
-                  <textarea class="form-control"></textarea>
-               </div>
-            </form>
-         </div>
-         <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">Submit</button>
-         <button type="submit" class="btn btn-primary">Cancel</button>
-         </div>
-         </div>
-         </div>
-         </div>
+<!--         <div class="modal" id="myModal"> -->
+<!--    <div class="modal-dialog" style="margin-bottom:-50%;"> -->
+<!--       <div class="modal-content"> -->
+<!--          <div class="modal-header"> -->
+<!--             <h5 class="modal-title">Contact us</h5> -->
+<!--             <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+<!--          </div> -->
+<!--          <div class="modal-body"> -->
+<!--             <form> -->
+<!--                <div class="mb-3"> -->
+<!--                   <label class="form-label">Name</label> -->
+<!--                   <input type="text" class="form-control"> -->
+<!--                </div> -->
+<!--                <div class="mb-3"> -->
+<!--                   <label class="form-label">Email</label> -->
+<!--                   <input type="text" class="form-control"> -->
+<!--                </div> -->
+<!--                <div class="mb-3"> -->
+<!--                   <label class="form-label">Type your message here</label> -->
+<!--                   <textarea class="form-control"></textarea> -->
+<!--                </div> -->
+<!--             </form> -->
+<!--          </div> -->
+<!--          <div class="modal-footer"> -->
+<!--          <button type="submit" class="btn btn-primary">Submit</button> -->
+<!--          <button type="submit" class="btn btn-primary">Cancel</button> -->
+<!--          </div> -->
+<!--          </div> -->
+<!--          </div> -->
+<!--          </div> -->
     </body>
 </html>

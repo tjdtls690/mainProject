@@ -52,7 +52,7 @@
 													<div data-v-464718a6="" class="except1">
 														<button data-v-a1c889e0="" data-v-464718a6="" type="button"
 															title=""
-															class="button button--side-padding button--size-small">
+															class="button button--side-padding button--size-small select">
 															<span data-v-a1c889e0="" class="button__wrap delivery_select">선택</span>
 														</button>
 													</div>
@@ -78,14 +78,14 @@
 													<div data-v-464718a6="" class="except1">
 														<button data-v-a1c889e0="" data-v-464718a6="" type="button"
 															title=""
-															class="button button--side-padding button--size-small">
+															class="button button--side-padding button--size-small select">
 															<span data-v-a1c889e0="" class="button__wrap delivery_select">선택</span>
 														</button>
 													</div>
 													<div data-v-464718a6="" class="main-destination-select-btn">
 														<button data-v-a1c889e0="" data-v-464718a6="" type="button"
 															title=""
-															class="button button--side-padding button--size-small button--outline2">
+															class="button button--side-padding button--size-small button--outline2 default">
 															<span data-v-a1c889e0="" class="button__wrap delivery_default_select">기본 배송지로 설정</span>
 														</button>
 													</div>

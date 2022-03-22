@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/paymentSingle"/>
 <!DOCTYPE html>
 <html class="">
@@ -75,7 +76,7 @@
 	}
 	
 	$(function(){
-		var finalRealPrice01 = Number(${fn:replace(vo.paymentRealFinalPrice, ',', '')}); // todo
+		var finalRealPrice01 = Number(${fn:replace(vo.paymentRealFinalPrice, ',', '')});
 		
 		
 		var currentScroll = 0;
@@ -258,6 +259,237 @@
 // 					alert($('#productsFinalPrice').val() + ' ' + $('#memberName').val());
 // 					alert($('#memberPhone').val() + ' ' + $('#productsFinalShippingAddress2').val());
 // 					alert(data + ' ' + productsName);
+
+					// 쿠폰과 포인트로인해 가격이 0원일 때
+					if(Number($('#productsFinalPrice').val().replace(',', '')) == 0){
+						var form = document.createElement('form'); // 폼객체 생성
+			        	for(var i = 0; i < $('.itemTagMain').length; i++){
+			        		 
+			        		// 아이템 태그메인
+			        		var payment_item_tag_main = $('.itemTagMain').eq(i).val();
+			        		
+			        		var objs1;
+			     	        objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			     	        objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			     	        objs1.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_tag_main'); // 객체이름
+			     	        objs1.setAttribute('value', payment_item_tag_main); //객체값
+			     	        form.appendChild(objs1);
+			     	        
+			     	        
+			     	        // 아이템 코드
+			     	        var payment_item_code = $('.itemCode').eq(i).val();
+			     	        
+			     	        var objs2;
+			     	        objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			     	        objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			     	        objs2.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_code'); // 객체이름
+			     	        objs2.setAttribute('value', payment_item_code); //객체값
+			     	        form.appendChild(objs2);
+			     	        
+			     	        
+			     	        // 아이템 이름/사이즈
+			     	        var payment_item_name_size = $('.bd.left .title').eq(i).text();
+			     	        
+			     	       	var objs3;
+			     	      	objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			     	     	objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			     	    	objs3.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_name_size'); // 객체이름
+			     	   		objs3.setAttribute('value', payment_item_name_size); //객체값
+			     	        form.appendChild(objs3);
+			     	   		
+			     	   		// 아이템 수량
+			     	   		var payment_item_quantity = $('.ItemQuantity').eq(i).val();
+			     	   		
+				     	   	var objs4;
+				     	   	objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+				     	  	objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+				     	 	objs4.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_quantity'); // 객체이름
+				     		objs4.setAttribute('value', payment_item_quantity); //객체값
+		     	        	form.appendChild(objs4);
+				     		
+				     		// 아이템 가격
+				     		var payment_item_price = $('.itemPrice').eq(i).val();
+				     		
+				     		var objs5;
+				     		objs5 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+				     		objs5.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+				     		objs5.setAttribute('name', 'paymentMyDetailInfo[' + i + '].payment_item_mapping_item_price'); // 객체이름
+				     		objs5.setAttribute('value', payment_item_price); //객체값
+		     	        	form.appendChild(objs5);
+			        	}
+			        	
+			        	// 배송 예정일
+			        	var payment_date = $('.date.left').text();
+			        	
+			        	var objs19;
+			        	objs19 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs19.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs19.setAttribute('name', 'payment_date_impl'); // 객체이름
+			        	objs19.setAttribute('value', payment_date); //객체값
+	     	        	form.appendChild(objs19);
+			        	
+			        	
+			        	// 사용한 쿠폰 번호
+			        	var coupon_check_num = $('#couponCheckNum').val();
+			        	
+			        	var objs20;
+			        	objs20 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs20.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs20.setAttribute('name', 'coupon_check_num'); // 객체이름
+			        	objs20.setAttribute('value', coupon_check_num); //객체값
+	     	        	form.appendChild(objs20);
+			        	
+			        	
+			        	
+			        	// 받는분
+			        	var payment_recipient = $('.form-text').eq(0).val();
+			        	
+			        	var objs6;
+			        	objs6 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs6.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs6.setAttribute('name', 'payment_recipient'); // 객체이름
+			        	objs6.setAttribute('value', payment_recipient); //객체값
+	     	        	form.appendChild(objs6);
+			        	
+			        	
+			        	// 연락처
+			        	var payment_recipient_phone = $('.form-text').eq(1).val();
+			        	
+			        	var objs7;
+			        	objs7 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs7.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs7.setAttribute('name', 'payment_recipient_phone'); // 객체이름
+			        	objs7.setAttribute('value', payment_recipient_phone); //객체값
+	     	        	form.appendChild(objs7);
+			        	
+			        	
+			        	// 배송방법
+			        	var payment_delivery_type = $('#paymentDeliveryTypeCheck').val(); // 0이면 새벽배송, 1이면 택배배송
+			        																	// 0이면 출입방법, 1이면 배송메모
+			        	var objs8;
+			        	objs8 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs8.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs8.setAttribute('name', 'payment_delivery_type'); // 객체이름
+			        	objs8.setAttribute('value', payment_delivery_type); //객체값
+	     	        	form.appendChild(objs8);
+			        	
+			        	
+			        	// 배송주소 중 우편번호
+			        	var payment_zipcode = data;
+			        	
+			        	var objs9;
+			        	objs9 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs9.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs9.setAttribute('name', 'payment_zipcode'); // 객체이름
+			        	objs9.setAttribute('value', payment_zipcode); //객체값
+	     	        	form.appendChild(objs9);
+			        	
+			        	// 배송주소 중 상세주소
+			        	var payment_address = $('#productsFinalShippingAddress2').val();
+			        	
+			        	var objs10;
+			        	objs10 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs10.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs10.setAttribute('name', 'payment_address'); // 객체이름
+			        	objs10.setAttribute('value', payment_address); //객체값
+	     	        	form.appendChild(objs10);
+			        	
+			        	// 택배 : 배송 메모(새벽 : 공동 현관 비번)
+			        	var payment_memo = $('.form-text').eq(2).val();
+			        	
+			        	var objs11;
+			        	objs11 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs11.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs11.setAttribute('name', 'payment_memo'); // 객체이름
+			        	objs11.setAttribute('value', payment_memo); //객체값
+	     	        	form.appendChild(objs11);
+			        	
+			        	
+			        	// 상품 금액
+			        	var payment_price = $('#productsPrice').val().replace(',', '');
+			        	
+			        	var objs12;
+			        	objs12 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs12.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs12.setAttribute('name', 'payment_price'); // 객체이름
+			        	objs12.setAttribute('value', payment_price); //객체값
+	     	        	form.appendChild(objs12);
+			        	
+			        	
+			        	// 배송비
+			        	var payment_delivery_price = $('#paymentFinalDeliveryPrice').val().replace(',', '');
+			        	
+			        	var objs13;
+			        	objs13 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs13.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs13.setAttribute('name', 'payment_delivery_price'); // 객체이름
+			        	objs13.setAttribute('value', payment_delivery_price); //객체값
+	     	        	form.appendChild(objs13);
+			        	
+			        	
+			        	// 합계
+			        	var payment_sum_price = Number(payment_price) + Number(payment_delivery_price);
+			        	
+			        	var objs14;
+			        	objs14 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs14.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs14.setAttribute('name', 'payment_sum_price'); // 객체이름
+			        	objs14.setAttribute('value', payment_sum_price); //객체값
+	     	        	form.appendChild(objs14);
+			        	
+			        	
+			        	// 쿠폰사용
+			        	var payment_coupon_price = $('#couponPrice').val().replace(',', '');
+			        	
+			        	var objs15;
+			        	objs15 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs15.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs15.setAttribute('name', 'payment_coupon_price'); // 객체이름
+			        	objs15.setAttribute('value', payment_coupon_price); //객체값
+	     	        	form.appendChild(objs15);
+			        	
+			        	
+			        	// 포인트사용
+			        	var payment_point_price = $('#memberRealPoint').val();
+			        	
+			        	var objs16;
+			        	objs16 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs16.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs16.setAttribute('name', 'payment_point_price'); // 객체이름
+			        	objs16.setAttribute('value', payment_point_price); //객체값
+	     	        	form.appendChild(objs16);
+			        	
+			        	
+			        	// 상품할인
+			        	var payment_sail_price = $('#paymentFinalSalePrice').val().replace(',', '');
+			        	
+			        	var objs17;
+			        	objs17 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs17.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs17.setAttribute('name', 'payment_sail_price'); // 객체이름
+			        	objs17.setAttribute('value', payment_sail_price); //객체값
+	     	        	form.appendChild(objs17);
+			        	
+			        	
+			        	// 결제 금액
+			        	var payment_final_price = $('#productsFinalPrice').val().replace(',', '');
+			        	
+			        	var objs18;
+			        	objs18 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+			        	objs18.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+			        	objs18.setAttribute('name', 'payment_final_price'); // 객체이름
+			        	objs18.setAttribute('value', payment_final_price); //객체값
+	     	        	form.appendChild(objs18);
+			        	
+			        	
+			        	
+			        	form.setAttribute('method', 'post'); //get,post 가능
+			            form.setAttribute('action', "paymentComplete.do"); //보내는 url
+			            document.body.appendChild(form);
+			            form.submit();
+			            return false;
+					}
+					
 					var IMP = window.IMP;
 			        IMP.init('imp80414894');
 			        IMP.request_pay({
@@ -344,6 +576,16 @@
 				        	objs19.setAttribute('value', payment_date); //객체값
 		     	        	form.appendChild(objs19);
 				        	
+				        	
+				        	// 사용한 쿠폰 번호
+				        	var coupon_check_num = $('#couponCheckNum').val();
+				        	
+				        	var objs20;
+				        	objs20 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+				        	objs20.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+				        	objs20.setAttribute('name', 'coupon_check_num'); // 객체이름
+				        	objs20.setAttribute('value', coupon_check_num); //객체값
+		     	        	form.appendChild(objs20);
 				        	
 				        	
 				        	
@@ -456,7 +698,7 @@
 				        	
 				        	
 				        	// 포인트사용
-				        	var payment_point_price = $('.row--v-center.row--h-between.point01').find('em').text().replace(',', '');
+				        	var payment_point_price = $('#memberRealPoint').val();
 				        	
 				        	var objs16;
 				        	objs16 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -617,13 +859,14 @@
 				})
 				return false;
 			}
+			
+			var pointAmount = $('.point__input input').val();
 	    	
 	    	for(var i = 0; i < $('.select-coupon__body').find('li').length; i++){
     			if($('.select-coupon__body').find('li').eq(i).find('input').eq(1).val() == 'true'){
     				var couponNum = $('.select-coupon__body').find('li').eq(i).find('input').eq(0).val();
     				var realSale = $('.select-coupon__body').find('li').eq(i).find('em').text();
     				
-    				// todo
     				// 일단 쿠폰 버튼 문자열을 couponNum 데이터를 통해 바꾸고, 
     				// 한번더 에이작스 써서 계산하고 총 금액, 쿠폰 할인금액 수정.
     				$.ajax({
@@ -639,7 +882,7 @@
     						$('.coupon').find('.col.coupon__use').detach();
     						$('.coupon').find('.row--v-center').prepend(htmlOut);
     						
-    						var productsFinalPrice = finalRealPrice01;
+    						var productsFinalPrice = Number(finalRealPrice01) - Number(pointAmount);
     						$.ajax({
     							url : 'paymentSingleCouponSaleCal.do',
     	    					type : 'post',
@@ -655,12 +898,26 @@
     	    						$('#productsFinalPrice').val(Number(arr[0]).toLocaleString('en'));
     	    						$('.row--v-center.row--h-between.coupon').find('em').text('- ' + Number(arr[1]).toLocaleString('en'));
     	    						$('#couponPrice').val(Number(arr[1]).toLocaleString('en'));
+    	    						$('#couponCheckNum').val(couponNum);
+    	    						
+    	    						var usePoint = $('#memberRealPoint').val();
+    	    				    	var useCoupon = $('#couponPrice').val().replace(',', '');
+    	    				        if(Number(finalRealPrice01) - Number(usePoint) - Number(useCoupon) < 0){
+    	    				    		var remainPrice = Number(finalRealPrice01) - Number(useCoupon);
+    	    				    		$('#memberRealPoint').val(remainPrice);
+    	    					        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(remainPrice).toLocaleString('en'));
+    	    					        $('.point__input').children('input').val(remainPrice);
+    	    					        var finalRealPrice02 = Number(finalRealPrice01) - Number(useCoupon) - Number(remainPrice);
+    	    					        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+    	    					        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+    	    				    	}
     	    					}
     						})
     					}
     				})
     			}
     		}
+	    	
 	    })
 	    
 	    
@@ -674,17 +931,76 @@
 					$('.coupon').find('.col.coupon__use').detach();
 					$('.coupon').find('.row--v-center').prepend(htmlOut);
 	    		}
-	    	})
-	    	$('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice01).toLocaleString('en') + ' 원');
-			$('#productsFinalPrice').val(Number(finalRealPrice01).toLocaleString('en'));
+	    	});
+	    	
+	    	var pointAmount = $('.point__input input').val();
+	    	var productsFinalPrice = Number(finalRealPrice01) - Number(pointAmount);
+	    	
+	    	$('.row--v-end.row--h-between').find('b').text(Number(productsFinalPrice).toLocaleString('en') + ' 원');
+			$('#productsFinalPrice').val(Number(productsFinalPrice).toLocaleString('en'));
 			$('.row--v-center.row--h-between.coupon').find('em').text('0');
 			$('#couponPrice').val('0');
+			$('#couponCheckNum').val('0');
+			
 			$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
     		$('html').attr('class', '');
 			$('html').scrollTop($('.checkout__delivery.checkout-column__delivery').offset().top);
     		setTimeout(function() {
 				$('.modal.modal-leave-active.modal-leave-to').detach();
 			}, 400);
+	    })
+	    
+	    $(document).on("propertychange change keyup paste input", '.point__input input', function() {
+	    	var oldVal = $('#memberPoint').val();
+	        var currentVal = $(this).val();
+	        if(Number(oldVal) < Number(currentVal)){
+	        	currentVal = oldVal;
+	        	$(this).val(currentVal);
+	        }else if(Number(currentVal) < 0){
+	        	currentVal = 0;
+	        	$(this).val(0);
+	        }
+	        
+	        var finalRealPrice02 = Number(finalRealPrice01) - Number($('#couponPrice').val().replace(',', '')) - Number(currentVal);
+	        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+	        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	        $('#memberRealPoint').val(currentVal);
+	        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(currentVal).toLocaleString('en'));
+	        
+	        var usePoint = $('#memberRealPoint').val();
+	    	var useCoupon = $('#couponPrice').val().replace(',', '');
+	        if(Number(finalRealPrice01) - Number(usePoint) - Number(useCoupon) < 0){
+	    		var remainPrice = Number(finalRealPrice01) - Number(useCoupon);
+	    		$('#memberRealPoint').val(remainPrice);
+		        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(remainPrice).toLocaleString('en'));
+		        $('.point__input').children('input').val(remainPrice);
+		        var finalRealPrice021 = Number(finalRealPrice01) - Number(useCoupon) - Number(remainPrice);
+		        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice021).toLocaleString('en') + ' 원');
+		        $('#productsFinalPrice').val(Number(finalRealPrice021).toLocaleString('en'));
+	    	}
+	    });
+	    
+	    $(document).on('click', '.button.button--side-padding.button--size-small.point-all', function(){
+	    	var oldVal = $('#memberPoint').val();
+	    	$('.point__input').children('input').val(oldVal);
+	    	
+	    	var finalRealPrice02 = Number(finalRealPrice01) - Number($('#couponPrice').val().replace(',', '')) - Number(oldVal);
+	        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+	        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	        $('#memberRealPoint').val(oldVal);
+	        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(oldVal).toLocaleString('en'));
+	        
+	        var usePoint = $('#memberRealPoint').val();
+	    	var useCoupon = $('#couponPrice').val().replace(',', '');
+	    	if(Number(finalRealPrice01) - Number(usePoint) - Number(useCoupon) < 0){
+	    		var remainPrice = Number(finalRealPrice01) - Number(useCoupon);
+	    		$('#memberRealPoint').val(remainPrice);
+		        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(remainPrice).toLocaleString('en'));
+		        $('.point__input').children('input').val(remainPrice);
+		        var finalRealPrice02 = Number(finalRealPrice01) - Number(useCoupon) - Number(remainPrice);
+		        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+		        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	    	}
 	    })
 	})
 </script>
@@ -715,12 +1031,15 @@
 					<input type="hidden" value="${fn:length(list)}" id="productsNum">
 					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck"> <!-- 배송방법 0, 1 -->
 					<input type="hidden" value="${vo.paymentFinalDeliveryPrice }" id="paymentFinalDeliveryPrice"> <!-- 배송방법 0, 1 -->
-					<input type="hidden" value="${vo.paymentFinalPrice }" id="productsPrice"> <!-- 최종 결제 금액 -->
+					<input type="hidden" value="${vo.paymentFinalPrice }" id="productsPrice"> <!-- 상품 금액 -->
 					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice"> <!-- 최종 결제 금액 -->
 					<input type="hidden" value="${vo.paymentFinalSalePrice }" id="paymentFinalSalePrice"> <!-- 상품 할인 금액 (콤마있음) -->
 					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1"> <!-- 집코드 -->
 					<input type="hidden" value="${vo.paymentShippingAddress2 }" id="productsFinalShippingAddress2"> <!-- 상세 주소 -->
-					<input type="hidden" value="0" id="couponPrice"> <!-- 콤마 있음 -->
+					<input type="hidden" value="0" id="couponPrice"> <!-- 쿠폰 할인 가격. 콤마 있음 -->
+					<input type="hidden" value="0" id="couponCheckNum"> <!-- 선택한 쿠폰 코드 -->
+					<input type="hidden" value="${point.payment_point }" id="memberPoint"> <!-- 사용 가능 포인트.  todo -->
+					<input type="hidden" value="0" id="memberRealPoint"> <!-- 사용 포인트.  todo -->
 					<input type="hidden" value="1" id="samePerson">
 					<input type="hidden" value="1" id="orderListOpenClose">
 					<input type="hidden" value="0" id="paymentMyInfoPolicyCheck">
@@ -1120,22 +1439,23 @@
 												<h3 data-v-8f2f8136="" class="checkout__section-title">포인트
 													사용</h3>
 												<div data-v-8f2f8136="" class="point-wrap row--v-center">
-													<span data-v-8f2f8136="" class="point__input"><input
-														data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel" value="0"
-														name="pp" placeholder="포인트를 입력해주세요" autocorrect="off"
-														autocapitalize="off" class="form-text" max="0"
-														style="height: 46px; text-align: right;"> <i
-														data-v-8f2f8136="">P</i></span>
+													<span data-v-8f2f8136="" class="point__input">
+														<input data-v-8bb17226="" data-v-8f2f8136="" id="pp" type="tel" value="0"
+															name="pp" placeholder="포인트를 입력해주세요" autocorrect="off"
+															autocapitalize="off" class="form-text" max="0"
+															style="height: 46px; text-align: right;"> 
+														<i data-v-8f2f8136="">P</i>
+													</span>
 													<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
 														title=""
-														class="button button--side-padding button--size-small"
+														class="button button--side-padding button--size-small point-all"
 														style="width: 80px; height: 46px; margin-left: 10px; border-radius: 2px;">
 														<span data-v-a1c889e0="" class="button__wrap">전액사용</span>
 													</button>
 												</div>
 												<dl data-v-8f2f8136="" class="row--v-center point__use">
 													<dt data-v-8f2f8136="" class="col label">사용 가능한 포인트</dt>
-													<dd data-v-8f2f8136="" class="num">0 P</dd>
+													<dd data-v-8f2f8136="" class="num"><fmt:formatNumber value="${point.payment_point }" pattern="#,###" /> P</dd>
 												</dl>
 											</div>
 											<!---->

@@ -35,4 +35,10 @@ public class BasketServiceImpl implements BasketService {
 	
 		return basketDAO.insertBasket(vo);
 	}
+	
+	@Override
+	public void deleteBasketZero(BasketVO vo) {
+		basketDAO.deleteBasketZero(vo);
+	}
+	
 }

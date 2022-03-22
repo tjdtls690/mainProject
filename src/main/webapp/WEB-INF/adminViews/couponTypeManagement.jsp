@@ -13,25 +13,60 @@
         <meta name="author" content="" />
         <title>Saladit-coupon</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="${path }/css/style.css">
+        <link rel="stylesheet" href="${path }/css/style.css?ver=2">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function() {
 	$(document).on('click','.btn.btn-dark', function(){
 		var couponCode = $(this).attr('id');
-		alert(couponCode);
+		if(confirm('쿠폰을 삭제하시겠습니까?')) {
+			$.ajax({
+				url : 'couponDelete.mdo',
+				type : 'post',
+				data : {
+					"couponCode" : couponCode
+				},
+				success : function(data){
+					location.reload();
+				}
+			})
+		}
+	})
+	
+	$(document).on('click', '.btn.btn-primary', function(){
+		var couponPack = $('#couponPack').val();
+		var couponType = document.couponInsert.coupon_type.value
+		var couponEx = document.couponInsert.coupon_explain.value
 		$.ajax({
-			url : 'couponDelete.mdo',
+			url : 'couponInsert.mdo',
 			type : 'post',
 			data : {
-				"couponCode" : couponCode
+				"couponPack" : couponPack,
+				"couponType" : couponType,
+				"couponEx" : couponEx
 			},
 			success : function(data){
 				location.reload();
 			}
 		})
 	})
+});
+
+$(document).ready(function(){
+    function alignModal(){
+        var modalDialog = $(this).find(".modal-dialog");
+        
+        // Applying the top margin on modal dialog to align it vertically center
+        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+    }
+    // Align modal when it is displayed
+    $(".modal").on("shown.bs.modal", alignModal);
+    
+    // Align modal when user resize the window
+    $(window).on("resize", function(){
+        $(".modal:visible").each(alignModal);
+    });   
 });
 </script>    
     </head>
@@ -63,67 +98,68 @@ $(function() {
             </ul>
         </nav>
         
-         <div id="layoutSidenav">
+        <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav"> 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="adminMainChart.mdo">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                상품/판매
+                                Admin
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">조회/등록/수정</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" href="adminCouponTypeManagement.mdo">쿠폰관리</a>
+                                    <a class="nav-link" href="userCouponManage.mdo">발급쿠폰관리</a>
+                                    <a class="nav-link" href="mdInfo.mdo">MD추천관리</a>
+                                    <a class="nav-link" href="bannerManagement.mdo">배너관리</a>
                                 </nav>
                             </div>
+                            
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                주문/환불
+                                상품/판매
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
+                                        조회/등록/수정
+                                    </a>  
                                 </nav>
                             </div>
                             
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                매출/상품통계관리
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                주문/배송
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                게시글관리
+                            <div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
+                                    <a class="nav-link" href="#">주문목록</a>
+                                    <a class="nav-link" href="#">배송중</a>
+                                    <a class="nav-link" href="#">배송완료</a>
+                                </nav>
+                            </div>
+                            
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                회원
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
+                                    <a class="nav-link" href="memberManagement.mdo">회원관리</a>
+                                    <a class="nav-link" href="#">리뷰관리</a>
+                                </nav>
+                            </div>
+                            
                         </div>
                     </div>
                 </nav>
@@ -132,49 +168,50 @@ $(function() {
 			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">쿠폰관리</h1>
+                        <h1 class="mt-4">쿠폰</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">(쿠폰목록)</li>
+                            <li class="breadcrumb-item active">(Coupon Management)</li>
                         </ol>
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                쿠폰목록
+                                Coupon List !
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 <div class="modal" id="myModal">
+                                <form name="couponInsert" action = "couponInsert.mdo" enctype = "multipart/form-data">
+                                
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
-								            <h5 class="modal-title">Contact us</h5>
+								            <h5 class="modal-title">Coupon</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
 								            <!-- form -->
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
 	           							
 	           							<!-- table -->
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
-	           								<tr>
+	           								<!-- <tr>
 												<th scope="row">
-													code
+													coupon code
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="coupon_code"/>
 												</td>
-											</tr>
+											</tr> -->
 	           								<tr>
 												<th scope="row" width=70>
-													pack num
+													coupon pack number
 												</th>
 												<td width=150>
 													<div class="row">
 													  <div class="col" style = "margin-right : 40%;">
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <select name="coupon_pack" class="form-select" id="couponPack" aria-label="Floating label select example">
 													    <option selected>---</option>
-													    <option value="1">100</option>
-													    <option value="2">200</option>
-													    <option value="3">300</option>
+													    <option value="100">100</option>
+													    <option value="200">200</option>
+													    <option value="300">300</option>
 													  </select>
 													  </div>
 													</div>
@@ -182,18 +219,18 @@ $(function() {
 											</tr>
 											<tr>
 												<th scope="row">
-													name
+													coupon name
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="coupon_type"/>
 												</td>
 											</tr>
 											<tr>
 												<th scope="row">
-													explain
+													coupon explain
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="coupon_explain"/>
 												</td>
 											</tr>
 	           							</table>
@@ -203,7 +240,7 @@ $(function() {
 	           						
          </div>
          <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">Upload</button>
+         <button type="submit" class="btn btn-primary">등록</button>
          </div>
          </div>
          </div>

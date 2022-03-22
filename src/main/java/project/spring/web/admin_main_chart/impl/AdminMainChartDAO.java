@@ -36,6 +36,17 @@ public class AdminMainChartDAO {
 		System.out.println("-->mybatis. getDayChart2");
 		return sqlSessionTemplate.selectList("adminMainChartDAO.getDayChart2", vo);
 	}
+	
+	// 바 차트
+	public List<AdminMainChartVO> getMonthChart(AdminMainChartVO vo) {
+		System.out.println("-->mybatis. getMonthChart");
+		return sqlSessionTemplate.selectList("adminMainChartDAO.getMonthChart", vo);
+	}
+	
+	public List<AdminMainChartVO> getMonthChart2(AdminMainChartVO vo) {
+		System.out.println("-->mybatis. getMonthChart2");
+		return sqlSessionTemplate.selectList("adminMainChartDAO.getMonthChart2", vo);
+	}
 
 
 }

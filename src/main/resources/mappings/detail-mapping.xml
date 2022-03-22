@@ -57,5 +57,12 @@
 <!-- 	<select id="getRandom" resultMap="detailResult"> -->
 <!-- 		select * from item where item_tag_main= #{item_tag_main} order by rand() Limit 9; -->
 <!-- 	</select> -->
+	<select id="getTagItem" resultMap="detailResult">
+		select * from item where item_tag_main = #{item_tag_main}
+	</select>
+	
+	<select id="getTagSubscribe" resultMap="detailResult02">
+		select * from subscribe where subscribe_tag_main = #{item_tag_main}
+	</select>
 
 </mapper>

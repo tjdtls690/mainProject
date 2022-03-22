@@ -60,8 +60,8 @@
    			      yAxes: [{
    			        ticks: {
    			          min: 0,
-   			          max: 150000,
-   			          maxTicksLimit: 5
+   			          max: 400000,
+   			          maxTicksLimit: 8
    			        },
    			        gridLines: {
    			          color: "rgba(0, 0, 0, .125)",
@@ -152,8 +152,8 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 150000,
-   	        			          maxTicksLimit: 5
+   	        			          max: 400000,
+   	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
    	        			          color: "rgba(0, 0, 0, .125)",
@@ -255,8 +255,8 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 150000,
-   	        			          maxTicksLimit: 5
+   	        			          max: 400000,
+   	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
    	        			          color: "rgba(0, 0, 0, .125)",
@@ -280,12 +280,16 @@
        		var myLineChart = new Chart(ctx, {
        		  type: 'bar',
        		  data: {
-       		    labels: ["January", "February", "March", "April", "May", "June"],
+       		    labels: ["January", "February", "March", "April", 
+       		    		 "May", "June" , "July", "August", 
+       		    		 "September", "October", "November", "December"],
        		    datasets: [{
        		      label: "Revenue",
        		      backgroundColor: "rgba(2,117,216,1)",
        		      borderColor: "rgba(2,117,216,1)",
-       		      data: [4215, 7312, 6251, 7841, 9821, 14984],
+       		      data: [${month0}, ${month4}, ${month5}, ${month6},
+       		   			 ${month7}, ${month8}, ${month9}, ${month10},
+       					 ${month11}, ${month1}, ${month2}, ${month3}],
        		    }],
        		  },
        		  options: {
@@ -298,13 +302,13 @@
        		          display: false
        		        },
        		        ticks: {
-       		          maxTicksLimit: 6
+       		          maxTicksLimit: 12
        		        }
        		      }],
        		      yAxes: [{
        		        ticks: {
        		          min: 0,
-       		          max: 15000,
+       		          max: 10000000,
        		          maxTicksLimit: 5
        		        },
        		        gridLines: {
@@ -318,16 +322,199 @@
        		  }
        		});
        		
+       // 바차트 오른쪽		
+       		var check02 = 0;
+       		$(document).on('click','.bi.bar-chevron-right',function(){
+       			var setYear =  $("input[name='month']").val();
+       			var html ="";
+       			$.ajax({
+       				url : "nextMonth.mdo",
+       				type : "post",
+       				dataType : "html",
+       				data : {
+       					"setYear" : setYear
+       				},
+       				success : function(htmlOut){
+       					alert("오른쪽버튼성공");     					
+       					
+       					$('.month-btn').children('.btn.btn-link').remove();
+       					
+       					html +='<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">';
+       					html +='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-left" viewBox="0 0 16 16">';
+       					html +='<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>';
+       					html +='</svg>';
+       					html +='</button>';
+       					$('.month-btn').append(html);
+       					
+//       			    	// 기존에 있던 input 애들 다 삭제.
+   			    		$("input[name='monthSum']").remove();
+   			    		// 데이터 들어가있는 input 추가
+   			    		$('#input').append(htmlOut);
+   			    		
+   			    		var month = [];
+   						//날짜 집어넣기.
+						for(var i = 0; i<13; i++){
+							
+							month[i] = $("input[name='monthSum']").eq(i).val();
+							
+						}
+       					
+       					
+       		       		var ctx = document.getElementById("myBarChart");
+       		       		var myLineChart = new Chart(ctx, {
+       		       		  type: 'bar',
+       		       		  data: {
+       		       		    labels: ["January", "February", "March", "April", 
+       		       		    		 "May", "June" , "July", "August", 
+       		       		    		 "September", "October", "November", "December"],
+       		       		    datasets: [{
+       		       		      label: "Revenue",
+       		       		      backgroundColor: "rgba(2,117,216,1)",
+       		       		      borderColor: "rgba(2,117,216,1)",
+       		       		      data: [month[0], month[4], month[5], month[6],
+       		       		   			 month[7], month[8], month[9], month[10],
+       		       					 month[11], month[1], month[2], month[3] ],
+       		       		    }],
+       		       		  },
+       		       		  options: {
+       		       		    scales: {
+       		       		      xAxes: [{
+       		       		        time: {
+       		       		          unit: 'month'
+       		       		        },
+       		       		        gridLines: {
+       		       		          display: false
+       		       		        },
+       		       		        ticks: {
+       		       		          maxTicksLimit: 12
+       		       		        }
+       		       		      }],
+       		       		      yAxes: [{
+       		       		        ticks: {
+       		       		          min: 0,
+       		       		          max: 10000000,
+       		       		          maxTicksLimit: 5
+       		       		        },
+       		       		        gridLines: {
+       		       		          display: true
+       		       		        }
+       		       		      }],
+       		       		    },
+       		       		    legend: {
+       		       		      display: false
+       		       		    }
+       		       		  }
+       		       		});
+       					
+       					
+       				}
+       			
+       				
+       			})// ajax 끝
+       			
+  
+       		})
+       // 바차트 왼쪽		
+       		$(document).on('click','.bi.bar-chevron-left',function(){
+       			var setYear =  $("input[name='month']").val();
+       			var html ="";
+       			$.ajax({
+       				url : "prevMonth.mdo",
+       				type : "post",
+       				dataType : "html",
+       				data : {
+       					"setYear" : setYear
+       				},
+       				success : function(htmlOut){
+       					alert("왼쪽버튼 성공");     				
+       					
+       					$('.month-btn').children('.btn.btn-link').remove();
+       					
+       					html += '<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">';
+       					html += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-right" viewBox="0 0 16 16">';
+       					html += '<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>';
+       					html += '</svg>';
+       					html += '</button>';      					
+       					$('.month-btn').append(html);
+       					
+//   			    	// 기존에 있던 input 애들 다 삭제.
+   			    		$("input[name='monthSum']").remove();
+   			    		// 데이터 들어가있는 input 추가
+   			    		$('#input').append(htmlOut);
+   			    		
+   			    		var month = [];
+   						//날짜 집어넣기.
+						for(var i = 0; i<13; i++){
+							
+							month[i] = $("input[name='monthSum']").eq(i).val();
+							
+						}
+       					
+       					var ctx = document.getElementById("myBarChart");
+       		       		var myLineChart = new Chart(ctx, {
+       		       		  type: 'bar',
+       		       		  data: {
+       		       		    labels: ["January", "February", "March", "April", 
+       		       		    		 "May", "June" , "July", "August", 
+       		       		    		 "September", "October", "November", "December"],
+       		       		    datasets: [{
+       		       		      label: "Revenue",
+       		       		      backgroundColor: "rgba(2,117,216,1)",
+       		       		      borderColor: "rgba(2,117,216,1)",
+       		       		      data: [${month0}, ${month4}, ${month5}, ${month6},
+       		       		   			 ${month7}, ${month8}, ${month9}, ${month10},
+       		       					 ${month11}, ${month1}, ${month2}, ${month3}],
+       		       		    }],
+       		       		  },
+       		       		  options: {
+       		       		    scales: {
+       		       		      xAxes: [{
+       		       		        time: {
+       		       		          unit: 'month'
+       		       		        },
+       		       		        gridLines: {
+       		       		          display: false
+       		       		        },
+       		       		        ticks: {
+       		       		          maxTicksLimit: 12
+       		       		        }
+       		       		      }],
+       		       		      yAxes: [{
+       		       		        ticks: {
+       		       		          min: 0,
+       		       		          max: 10000000,
+       		       		          maxTicksLimit: 5
+       		       		        },
+       		       		        gridLines: {
+       		       		          display: true
+       		       		        }
+       		       		      }],
+       		       		    },
+       		       		    legend: {
+       		       		      display: false
+       		       		    }
+       		       		  }
+       		       		});
+       					
+       					
+       				}
+       				
+       			})// ajax 끝
+       			
+       			
+       		})
        		
        		
-       		
+//      ------------------------  		
        	}) 
+
         </script>
     </head>
     
     <body class="sb-nav-fixed">
     	<input type="hidden" name="firstDay" value="${startDay}">
     	<input type="hidden" name="lastDay" value="${startDay2}">
+    	<input type="hidden" name="month" value="2022">
 <%--     	<input type="hidden" name="startDay2" value="${startDay2}"> --%>
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
@@ -355,72 +542,72 @@
 	            </ul>
 	        </nav>
         
-         <div id="layoutSidenav">
+        <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav"> 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="adminMainChart.mdo">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                상품/판매 
+                                Admin
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">조회/등록/수정</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" href="adminCouponTypeManagement.mdo">쿠폰관리</a>
+                                    <a class="nav-link" href="userCouponManage.mdo">발급쿠폰관리</a>
+                                    <a class="nav-link" href="mdInfo.mdo">MD추천관리</a>
+                                    <a class="nav-link" href="bannerManagement.mdo">배너관리</a>
                                 </nav>
                             </div>
+                            
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                주문/환불
+                                상품/판매
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
+                                        조회/등록/수정
+                                    </a>  
                                 </nav>
                             </div>
                             
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                매출/상품통계관리
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                주문/배송
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                게시글관리
+                            <div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
+                                    <a class="nav-link" href="#">주문목록</a>
+                                    <a class="nav-link" href="#">배송중</a>
+                                    <a class="nav-link" href="#">배송완료</a>
+                                </nav>
+                            </div>
+                            
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                회원
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
+                                    <a class="nav-link" href="memberManagement.mdo">회원관리</a>
+                                    <a class="nav-link" href="#">리뷰관리</a>
+                                </nav>
+                            </div>
+                            
                         </div>
                     </div>
                 </nav>
             </div>
-            
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -494,14 +681,14 @@
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
                                         월 별 차트
-                                        <div style="float:right; height:17px;">
-	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">  
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-												  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-												</svg>
-											</button>
+                                        <div style="float:right; height:17px;" class='month-btn'>
+<!-- 	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">   -->
+<!-- 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-left" viewBox="0 0 16 16"> -->
+<!-- 												  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/> -->
+<!-- 												</svg> -->
+<!-- 											</button> -->
 											<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-right" viewBox="0 0 16 16">
 												  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 												</svg>
 											</button>

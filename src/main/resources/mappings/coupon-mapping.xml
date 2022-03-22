@@ -49,4 +49,9 @@
 	<delete id="deleteUserCoupon">
 		DELETE FROM user_coupon WHERE coupon_code = #{coupon_code} and user_code = #{user_code}
 	</delete>
+	
+	<insert id="couponInsert">
+		INSERT INTO coupon(coupon_pack, coupon_type, coupon_explain)
+		VALUES(#{coupon_pack}, #{coupon_type}, #{coupon_explain})
+	</insert>
 </mapper>

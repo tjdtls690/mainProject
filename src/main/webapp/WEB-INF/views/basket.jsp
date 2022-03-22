@@ -146,13 +146,14 @@ $(function() {
 				var subtotal2 = addComma(subtotal);
 				var dctotal2 = addComma(dctotal);
 				
+
 				$('.desktop-body-table-footer-price').html(sum2 + "원");
 				$('.desktop-footer-price-bottom.discounted').html(sum2 + "원");
 				$('.desktop-footer-price-bottom.price').html(subtotal2 + "원");
 				$('.desktop-footer-price-bottom.dc').html(dctotal2 + "원");
 				
-			}	
-		});
+ 			}	
+ 		});
 	});
 });
 

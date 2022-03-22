@@ -15,6 +15,10 @@ public interface AdminMainChartService {
 	
 	List<AdminMainChartVO> getDayChart2(AdminMainChartVO vo);
 	
+	List<AdminMainChartVO> getMonthChart(AdminMainChartVO vo);
+	
+	List<AdminMainChartVO> getMonthChart2(AdminMainChartVO vo);
+	
 	
 	
 

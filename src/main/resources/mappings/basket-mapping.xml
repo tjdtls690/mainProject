@@ -19,7 +19,7 @@
 	</resultMap>
 	<!-- resultType : 같을떄 resultMap : 다를떄 -->
 	<select id="getBasketList" resultMap="basketResult" >
-		SELECT * FROM basket WHERE user_code = #{userCode} ORDER BY seq DESC
+		SELECT * FROM basket WHERE user_code = #{userCode} AND amount >= 1 ORDER BY seq DESC
 	</select>
 	
 	<!--  -->
@@ -29,6 +29,10 @@
 	
 	<delete id="deleteBasketList">
 		DELETE FROM basket WHERE item_code = #{itemCode} AND user_code= #{userCode} AND item_size = #{itemSize}
+	</delete>
+	
+	<delete id="deleteBasketZero">
+		DELETE FROM basket WHERE user_code=#{userCode} AND amount = 0
 	</delete>
 	
 	<insert id="insertBasket">

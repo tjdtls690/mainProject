@@ -17,4 +17,12 @@ public class MdRecommandDAO {
 	public List<MdRecommandVO> getMd(MdRecommandVO vo) {
 		return sqlSessionTemplate.selectList("MdRecommandDAO.getMd", vo);
 	}
+	
+	public void deleteMd(MdRecommandVO vo) {
+		sqlSessionTemplate.delete("MdRecommandDAO.deleteMd", vo);
+	}
+	
+	public void mdInsert(MdRecommandVO vo) {
+		sqlSessionTemplate.insert("MdRecommandDAO.mdInsert", vo);
+	}
 }

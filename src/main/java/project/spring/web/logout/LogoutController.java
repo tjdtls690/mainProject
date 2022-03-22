@@ -21,7 +21,7 @@ public class LogoutController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
 		session.invalidate();
-		mav.setViewName("main");
+		mav.setViewName("index");
 		return mav;
 	}
 }

@@ -7,7 +7,7 @@
 		select a.user_code, b.*
 		from user_coupon a left join coupon b 
 		on a.coupon_code = b.coupon_code
-		where user_code = #{user_code}
+		where user_code = #{user_code} and coupon_check = 'n'
 		order by a.user_code asc
 	</select>
 	<insert id="paymentInfoSave" parameterType="paymentDetailSide" useGeneratedKeys="true" keyProperty="payment_code">
@@ -28,7 +28,22 @@
 		where user_code = #{payment_member_code} and tag_main = #{payment_item_mapping_tag_main} 
 		and item_code = #{payment_item_mapping_item_code}
 	</delete>
+<<<<<<< HEAD
 	<select id="getAllPaymentDetail" resultType="paymentDetailSide">
 		SELECT * FROM payment_info
 	</select>
+=======
+	<update id="useCouponProhibition">
+		update user_coupon set coupon_check = 'y' where user_code = #{user_code} and coupon_code = #{coupon_code}
+	</update>
+	<select id="getMemberPoint" resultType="myPoint">
+		select * from payment_point where payment_member_code = #{payment_member_code}
+	</select>
+	<update id="updateMemberPoint">
+		update payment_point set payment_point = #{payment_point} where payment_member_code = #{payment_member_code}
+	</update>
+	<insert id="insertMemberPoint">
+		insert into payment_point(payment_member_code) values(#{payment_member_code})
+	</insert>
+>>>>>>> c2182defc1a9ef624a889793ac4f47daa096cf84
 </mapper>

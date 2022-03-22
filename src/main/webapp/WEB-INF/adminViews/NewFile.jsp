@@ -21,8 +21,17 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
 	crossorigin="anonymous"></script>
-</head>
 
+</head>
+<script type="text/javascript">
+
+$(document).on('click', 'mt-4', function(){
+	var memberManagement = $(this).attr('id')
+	f.action="memberManagement.mdo";
+	f.method="post"
+	f.submit();
+}
+</script>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
@@ -153,7 +162,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">회원관리</h1>
+					<button id="mt-4">회원관리</button>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item active">관리자에서 회원관리를 하는 페이지 입니다.</li>
 					</ol>
@@ -167,11 +176,11 @@
 								<thead>
 									<tr>
 										<th>번호</th>
-										<th>이메일</th>
+										<th>아이디</th>
 										<th>이름</th>
 										<th>전화번호</th>
-										<th>생일</th>
-										<th>성별</th>
+										<th>포인트</th>
+										<th>총금액</th>
 										<th>상태</th>
 										<th>수정/삭제</th>
 									</tr>
@@ -179,25 +188,24 @@
 								<tfoot>
 									<tr>
 										<th>번호</th>
-										<th>이메일</th>
+										<th>아이디</th>
 										<th>이름</th>
 										<th>전화번호</th>
-										<th>생일</th>
-										<th>성별</th>
+										<th>포인트</th>
+										<th>총금액</th>
 										<th>상태</th>
 										<th>수정/삭제</th>
 									</tr>
 								</tfoot>
 								<tbody>
-									<c:forEach var="adminMember" items="${adminMember }">
-
+									<c:forEach var="memberManagement" items="${memberManagement}" varStatus="i">
 										<tr>
-											<td>${adminMember.memberCode }</td>
-											<td>${adminMember.memberEmail }</td>
-											<td>${adminMember.memberName }</td>
-											<td>${adminMember.memberPhone }</td>
-											<td>${adminMember.memberBirthday }</td>
-											<td>${adminMember.memberGender }</td>
+											<td>${i.count}</td>
+											<td>${memberNickname }</td>
+											<td>${memberName}</td>
+											<td>${memberPhone }</td>
+											<td>3330</td>
+											<td>45000</td>
 											<td>
 												<div class="btn-group">
 													<button type="button" class="btn btn-secondary">활성</button>
@@ -217,8 +225,7 @@
 												<button type="button" class="btn btn-dark">삭제</button>
 											</td>
 										</tr>
-
-
+										<tr>
 									</c:forEach>
 								</tbody>
 							</table>

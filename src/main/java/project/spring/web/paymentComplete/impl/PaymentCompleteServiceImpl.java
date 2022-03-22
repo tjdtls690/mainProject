@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.spring.web.event.CouponVO;
+import project.spring.web.paymentComplete.PaymentCompletePointVO;
 import project.spring.web.paymentComplete.PaymentCompleteService;
 import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.paymentComplete.PaymentMyDetailSideInfoVO;
@@ -31,8 +33,30 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<PaymentMyDetailSideInfoVO> getAllPaymentDetail(PaymentMyDetailSideInfoVO vo) {
 		return paymentCompleteDAO.getAllPaymentDetail(vo);
 	}
+=======
+	public int useCouponProhibition(CouponVO vo) {
+		return paymentCompleteDAO.useCouponProhibition(vo);
+	}
+
+	@Override
+	public PaymentCompletePointVO getMemberPoint(PaymentCompletePointVO vo) {
+		return paymentCompleteDAO.getMemberPoint(vo);
+	}
+
+	@Override
+	public int updateMemberPoint(PaymentCompletePointVO vo) {
+		return paymentCompleteDAO.updateMemberPoint(vo);
+	}
+
+	@Override
+	public int insertMemberPoint(PaymentCompletePointVO vo) {
+		return paymentCompleteDAO.insertMemberPoint(vo);
+	}
+	
+>>>>>>> c2182defc1a9ef624a889793ac4f47daa096cf84
 	
 }

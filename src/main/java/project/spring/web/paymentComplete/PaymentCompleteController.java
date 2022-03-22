@@ -98,6 +98,16 @@ public class PaymentCompleteController {
 		vo3.setCoupon_code(coupon_check_num1);
 		paymentCompleteService.useCouponProhibition(vo3);
 		
+		// 사용 포인트 차감
+		int usePoint = Integer.parseInt(vo.getPayment_point_price());
+		int oldPoint = 0;
+		PaymentCompletePointVO vo5 = new PaymentCompletePointVO();
+		vo5.setPayment_member_code(vo1.getMemberCode());
+		vo5 = paymentCompleteService.getMemberPoint(vo5);
+		int remainPoint = vo5.getPayment_point() - usePoint;
+		vo5.setPayment_point(remainPoint);
+		paymentCompleteService.updateMemberPoint(vo5);
+		
 		
 		// 포인트 계산 (5% 적입)
 		int paymentFinalPrice = Integer.parseInt(vo.getPayment_final_price());

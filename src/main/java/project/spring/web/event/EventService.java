@@ -19,4 +19,6 @@ public interface EventService {
 	public void deleteCoupon(CouponVO vo);
 	
 	public void deleteUserCoupon(CouponVO vo);
+	
+	public void couponInsert(CouponVO vo);
 }

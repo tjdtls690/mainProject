@@ -43,4 +43,13 @@
 	<insert id="insertMemberPoint">
 		insert into payment_point(payment_member_code) values(#{payment_member_code})
 	</insert>
+	<select id="getMemberAllPaymentInfo" resultType="paymentDetailSide">
+		select * from payment_info 
+		where payment_member_code = #{payment_member_code} 
+		and payment_code &gt; 1404
+	</select>
+	<select id="getMemberPayMappingItemInfo" resultType="paymentDetail">
+		select * from payment_item_mapping 
+		where payment_code = #{payment_code}
+	</select>
 </mapper>

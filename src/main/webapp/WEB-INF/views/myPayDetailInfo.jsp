@@ -243,8 +243,7 @@ function page_move(tagNum){
 					<!---->
 					<!---->
 				</header>
-				<div class="container" style="padding-top: 182px;"
-					data-v-0f5971ec="">
+				<div class="container" data-v-0f5971ec="">
 					<div data-v-421abad8="" data-v-ae81dc8e="" data-v-0f5971ec=""
 						class="mypage-layout">
 						<div data-v-3e2784be="" data-v-421abad8=""

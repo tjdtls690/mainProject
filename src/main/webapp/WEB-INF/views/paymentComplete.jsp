@@ -279,7 +279,7 @@ $(function(){
 											<div data-v-5a073676="" class="body__items--content">${list[0].payment_item_mapping_item_name_size }</div>
 										</c:if>
 										<c:if test="${fn:length(list) > 1}">
-											<div data-v-5a073676="" class="body__items--content">${list[0].payment_item_mapping_item_name_size } 외 ${fn:length(list)}개</div>
+											<div data-v-5a073676="" class="body__items--content">${list[0].payment_item_mapping_item_name_size } 외 ${(fn:length(list) - 1)}개</div>
 										</c:if>
 									</div>
 								</div>

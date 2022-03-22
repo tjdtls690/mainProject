@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MyPayDetailInfoController {
 	
-	@RequestMapping("myPayDetailInfo.do")
+	@RequestMapping("/myPayDetailInfo.do")
 	public ModelAndView myPayDetailDo(ModelAndView mav) {
 		mav.setViewName("myPayDetailInfo");
 		return mav;

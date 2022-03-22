@@ -1,7 +1,8 @@
 package project.spring.web.admin_main_chart;
 
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,17 +19,53 @@ public class AdminMainChartController {
 	public ModelAndView adminMainChartDo(ModelAndView mav) {
 		
 		List<AdminMainChartVO> dayChartList = adminMainChartService.dayChart(null);
-	
-		for(int i=0; i<2; i++) {
-			System.out.println(dayChartList.get(i));
+//	값이 잘 넘어오는지 테스트
+		for(int i=0; i<13; i++) {
+//			System.out.print(i+"번째 sum : "+dayChartList.get(i).getDaySum()+"\n");
+			
+			mav.addObject("check"+i, dayChartList.get(i).getDaySum());
 		}
-		System.out.println("-----------");
-		System.out.println(dayChartList.get(0).getDate());
+		mav.addObject("startDay2",dayChartList.get(0).getDate());
+		mav.addObject("startDay", dayChartList.get(12).getDate());
 		mav.addObject("dayChart", dayChartList);
 		
 		
-		mav.addObject("check10", 10000);
 		mav.setViewName("mainChart");
 		return mav;
 	}
+	
+	@RequestMapping("/next.mdo")
+	public ModelAndView nextDay(HttpServletRequest request, ModelAndView mav) {
+		String str = request.getParameter("theDay");
+		System.out.println("보여주는 마지막 날짜 : "+str);
+		
+		AdminMainChartVO vo = new AdminMainChartVO();
+		vo.setDate(str);
+		
+		List<AdminMainChartVO> dayChartList = adminMainChartService.getDayChart(vo);
+
+		
+		mav.addObject("chart", dayChartList);
+		mav.setViewName("mainForLine");
+		return mav;
+	}
+	
+	@RequestMapping("/prev.mdo")
+	public ModelAndView prevDay(HttpServletRequest request, ModelAndView mav) {
+		String str = request.getParameter("theDay");
+		System.out.println("보여주는 마지막 날짜 : "+str);
+		
+		AdminMainChartVO vo = new AdminMainChartVO();
+		vo.setDate(str);
+		
+		List<AdminMainChartVO> dayChartList = adminMainChartService.getDayChart2(vo);
+		
+		
+		mav.addObject("chart", dayChartList);
+		mav.setViewName("mainForLine");
+		return mav;
+	}
+	
+	
+	
 }

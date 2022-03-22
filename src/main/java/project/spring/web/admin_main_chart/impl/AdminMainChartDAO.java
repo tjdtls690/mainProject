@@ -19,9 +19,22 @@ public class AdminMainChartDAO {
 //		return sqlSessionTemplate.selectList("adminMainChartDAO.dayChart");
 //	}
 	
+	//처음 메인 왔을때 차트
 	public 	List<AdminMainChartVO> dayChart(){
 		System.out.println("-->mybatis. dayChart");
 		return sqlSessionTemplate.selectList("adminMainChartDAO.dayChart");
+	}
+	
+	// 다음 버튼 수행시 차트
+	public List<AdminMainChartVO> getDayChart(AdminMainChartVO vo) {
+		System.out.println("-->mybatis. getDayChart");
+		return sqlSessionTemplate.selectList("adminMainChartDAO.getDayChart", vo);
+	}
+	
+	// 이전 버튼 수행시 차트
+	public List<AdminMainChartVO> getDayChart2(AdminMainChartVO vo) {
+		System.out.println("-->mybatis. getDayChart2");
+		return sqlSessionTemplate.selectList("adminMainChartDAO.getDayChart2", vo);
 	}
 
 

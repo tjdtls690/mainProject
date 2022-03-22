@@ -19,7 +19,7 @@
 	</resultMap>
 	<!-- resultType : 같을떄 resultMap : 다를떄 -->
 	<select id="getBasketList" resultMap="basketResult" >
-		SELECT * FROM basket WHERE user_code = #{userCode} ORDER BY seq DESC
+		SELECT * FROM basket WHERE user_code = #{userCode} AND amount >= 1 ORDER BY seq DESC
 	</select>
 	
 	<!--  -->

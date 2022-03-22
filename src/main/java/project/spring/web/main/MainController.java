@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.admin_banner_management.AdminBannerManagementService;
+import project.spring.web.admin_banner_management.AdminBannerManagementVO;
 import project.spring.web.md_recommand.MdRecommandService;
 import project.spring.web.md_recommand.MdRecommandVO;
 import project.spring.web.tapPage.TapPageService;
@@ -20,6 +22,8 @@ public class MainController {
 	MdRecommandService mdRecommandService;
 	@Autowired
 	TapPageService tapPageService;
+	@Autowired
+	private AdminBannerManagementService bannerService;
 	
 	@RequestMapping("/main.do")
 	public ModelAndView mainDo(ModelAndView mav) {
@@ -32,6 +36,20 @@ public class MainController {
 			tmp.setTagMain(vo.getItem_tag_main());
 			mdInfo.add(tapPageService.getItemInfoOne(tmp));
 		}
+		
+		AdminBannerManagementVO vo = new AdminBannerManagementVO();
+		List<AdminBannerManagementVO> bannerList = bannerService.getBanner(vo);
+		mav.addObject("banner", bannerList);
+		
+		int size = (int)bannerList.size();
+//		int size2 = size / 2 ;
+		
+		List<Integer> list1 = new ArrayList<>();
+		for (int i =0 ; i < size; i++) {
+			list1.add(i);
+		}
+		
+		mav.addObject("sizelist", list1);
 		mav.addObject("mdInfo", mdInfo);
 		mav.setViewName("main");
 		return mav;

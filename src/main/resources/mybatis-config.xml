@@ -22,6 +22,7 @@
 		<typeAlias type="project.spring.web.paymentComplete.PaymentMyDetailInfoVO" alias="paymentDetail"/>
 		<typeAlias type="project.spring.web.admin_order_management.AdminOrderVO" alias="adminOrder"/>
 		<typeAlias type="project.spring.web.admin_main_chart.AdminMainChartVO" alias="adminMainChart"/>
+		<typeAlias type="project.spring.web.admin_banner_management.AdminBannerManagementVO" alias="myBanner" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -41,5 +42,6 @@
 		<mapper resource="mappings/adminLogin-mapping.xml"/>
 		<mapper resource="mappings/adminOrder-mapping.xml"/>
 		<mapper resource="mappings/adminMainChart-mapping.xml"/>
+		<mapper resource="mappings/adminBannerManagement-mapping.xml"/>
 	</mappers>
 </configuration>

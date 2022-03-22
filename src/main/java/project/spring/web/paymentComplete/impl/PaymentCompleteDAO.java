@@ -31,6 +31,7 @@ public class PaymentCompleteDAO {
 	
 	public List<PaymentMyDetailSideInfoVO> getAllPaymentDetail(PaymentMyDetailSideInfoVO vo) {
 		return sqlSessionTemplate.selectList("PaymentDAO.getAllPaymentDetail");
+	}
     
 	public int useCouponProhibition(CouponVO vo) {
 		return sqlSessionTemplate.update("PaymentDAO.useCouponProhibition", vo);

@@ -2449,7 +2449,7 @@ $(function() {
     
     // 기본 배송지로 설정 버튼
     $(document).on('click', '.delivery_default_select', function(){
-    	
+    	// todo
     	$.ajax({
     		url : 'orderDefaultDeliveryCheckModal.do',
     		dataType : 'html',
@@ -2469,6 +2469,7 @@ $(function() {
     // 기본 배송지 설정 변경 체크 모달창 취소 버튼
     $(document).on('click', '.swal2-cancel.swal2-styled', function(){
     	$('#defaultDeliverydeleteCheck').detach();
+    	$('#checkDefaultDelivery').val(0);
     });
     
     
@@ -2494,6 +2495,7 @@ $(function() {
     	    		},
     	    		success : function(htmlOut){
     	    			$('.modal-wrap__body').html(htmlOut);
+    	    			$('#checkDefaultDelivery').val(0);
     	    		}
     	    	})
     		}
@@ -2502,7 +2504,8 @@ $(function() {
  	
  	
  	// 배송지 목록 선택 버튼
- 	$(document).on('click', '.button.button--side-padding.button--size-small', function(){
+ 	$(document).on('click', '.button.button--side-padding.button--size-small.select', function(){
+ 		// todo
  		var member_zipcode_code = $(this).closest('li').find('input').val();
  		$('.modal').detach();
  		$.ajax({
@@ -2588,7 +2591,7 @@ $(function() {
  	
  	
  	// 구매하기 버튼
- 	$(document).on('click', '.order-result-payment .button.button--size-large', function(){ // todo
+ 	$(document).on('click', '.order-result-payment .button.button--size-large', function(){
 //  		$(location).attr("href", "paymentSingle.do");
  	
  		var form = document.createElement('form'); // 폼객체 생성
@@ -3261,7 +3264,7 @@ $(function() {
 																</nav>
 																<div data-v-003a3d21=""
 																	class="selected-item-price-wrap row row--v-end">
-																	<c:if test="${orderItemSizePriceSub[i.index] == 0 }"> <!-- todo -->
+																	<c:if test="${orderItemSizePriceSub[i.index] == 0 }">
 																		<p data-v-003a3d21="" class="selected-item-price">
 																			<em data-v-003a3d21=""><fmt:formatNumber value="${orderItemSizePrice[i.index] * orderQuantity[i.index] }" pattern="#,###" />원</em>
 																		</p>

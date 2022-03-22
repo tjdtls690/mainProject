@@ -56,12 +56,14 @@
 		}
     </style>
         <script type="text/javascript">
-        	$(function(){
+        	 $(function(){
         		$(document).on('click', '.btn.btn-outline-secondary.insert', function(){
         			var count = $('.bannerID').length;
-        			if (count >= 5) {
+        		
+        			]if (count >= 5) {
         				alert("배너등록은 최대 5개까지만 가능합니다.");
         				location.href="bannerManagement.mdo";
+        				
         			}else {
         				$.ajax({
             				url : 'bannerModal.mdo',
@@ -69,11 +71,11 @@
             				success : function(htmlOut){
             					$('body').append(htmlOut);
             				}
-            			});
+            			}); 
         			}
 
         		});
-        	});
+        	}); 
         	
         	$('input:checkbox[name="point-check"]').prop("checked",true);
 			$('input:checkbox[name="point-check"]').prop("checked",false);
@@ -127,7 +129,52 @@
 
 // 				});
 // 			});
-        </script>
+		$(function (){
+		$(document).on('click','.btn.btn-primary.submit', function(){
+			alert("modaljsp");
+// 					var url = $('.table.table-bordered.dataTable').children('#banner_url').innerHTML;
+// 					alert(url);
+			var url = document.getElementById("banner_url").value;
+			var name = document.getElementById("banner_name").value;
+			var id = document.getElementById("banner_id").value;
+			var content = document.getElementById("banner_content").value;
+			var mobile = document.getElementById("banner_mobile").value;
+			
+			$.ajax({
+				url : 'bannerInsert.mdo',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"url" : url,
+					"name" : name,
+					"id" : id,
+					"content" : content,
+					"mobile" : mobile
+				},
+				success : function(data){
+					 alert("등록 성공");
+					 location.href="bannerManagement.mdo";
+				}
+			});
+		});
+	});
+		
+		$(document).ready(function(){
+		    function alignModal(){
+		        var modalDialog = $(this).find(".modal-dialog");
+		        
+		        // Applying the top margin on modal dialog to align it vertically center
+		        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+		    }
+		    // Align modal when it is displayed
+		    $(".modal").on("shown.bs.modal", alignModal);
+		    
+		    // Align modal when user resize the window
+		    $(window).on("resize", function(){
+		        $(".modal:visible").each(alignModal);
+		    });   
+		});
+    </script>
     </head>
     
 <body class="sb-nav-fixed">
@@ -223,7 +270,7 @@
                 </nav>
             </div>
 
-<div id="layoutSidenav_content">
+			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Banner</h1>
@@ -235,7 +282,7 @@
                                 배너목록
                                 <button type="button" class="btn btn-outline-secondary del" style="padding:0px 30px; float:right;">삭제</button>
                                 <button type="button" class="btn btn-outline-secondary insert" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
-                                <div class="modal" id="myModal">
+                                 <div class="modal" id="myModal">
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
@@ -243,41 +290,41 @@
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
-								            <!-- form -->
+								            form
 	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data" id="frm1">
 	           							
-	           							<!-- table -->
+	           							table
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
 	           						
-<!-- 	           								<tr> -->
-<!-- 												<th scope="row" width=70> -->
-<!-- 													TAG -->
-<!-- 												</th> -->
-<!-- 												<td width=150> -->
-<!-- 													<div class="row"> -->
-<!-- 													  <div class="col" style = "margin-right : 0%;"> -->
-<!-- 													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"> -->
-<!-- 													    <option selected>main</option> -->
-<!-- 													    <option value="1">100</option> -->
-<!-- 													    <option value="2">200</option> -->
-<!-- 													    <option value="3">300</option> -->
-<!-- 													    <option value="3">400</option> -->
-<!-- 													    <option value="3">500</option> -->
-<!-- 													    <option value="3">600</option> -->
-<!-- 													    <option value="3">700</option> -->
-<!-- 													  </select> -->
-<!-- 													  </div> -->
-<!-- 													  <div class="col" > -->
-<!-- 													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"> -->
-<!-- 													    <option selected>sub</option> -->
-<!-- 													    <option value="1">101</option> -->
-<!-- 													    <option value="2">102</option> -->
-<!-- 													    <option value="3">103</option> -->
-<!-- 													  </select> -->
-<!-- 													  </div> -->
-<!-- 													</div> -->
-<!-- 												</td> -->
-<!-- 											</tr> -->
+	           								<tr>
+												<th scope="row" width=70>
+													TAG
+												</th>
+												<td width=150>
+													<div class="row">
+													  <div class="col" style = "margin-right : 0%;">
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>main</option>
+													    <option value="1">100</option>
+													    <option value="2">200</option>
+													    <option value="3">300</option>
+													    <option value="3">400</option>
+													    <option value="3">500</option>
+													    <option value="3">600</option>
+													    <option value="3">700</option>
+													  </select>
+													  </div>
+													  <div class="col" >
+													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <option selected>sub</option>
+													    <option value="1">101</option>
+													    <option value="2">102</option>
+													    <option value="3">103</option>
+													  </select>
+													  </div>
+													</div>
+												</td>
+											</tr>
 											<tr>
 												<th scope="row">
 													MAIN
@@ -335,19 +382,19 @@
 												</td>
 											</tr>
 	           							</table>
-	           							<!--// table -->
+	           							// table
 	           						</form>
 	           						<!—-// form -—>
 	           						
-         </div>
-         <div class="modal-footer">
-         <button type="submit" class="btn btn-primary submit" >Upload</button>
-         </div>
-         </div>
-         </div>
-         </div>
-   </div>
-                                
+							         </div>
+							         <div class="modal-footer">
+							         <button type="submit" class="btn btn-primary submit" >Upload</button>
+							         </div>
+							         </div>
+							         </div>
+							         </div>
+							   </div>
+							                                
                                 
                                 
                             </div>
@@ -383,13 +430,13 @@
                                         </c:forEach>											
                                     </tbody>
                                 </table>
+                              
+                            </div>
+                            </div> 
+                            </main>
                             </div>
                         </div>
-                    </div>
-                </main>
-               
-            </div>
-        </div>
+                        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path }/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

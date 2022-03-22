@@ -13,7 +13,7 @@
         <meta name="author" content="" />
         <title>Saladit-coupon</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="${path }/css/style.css">
+        <link rel="stylesheet" href="${path }/css/style.css?ver=2">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -53,7 +53,21 @@ $(function() {
 	})
 });
 
-
+$(document).ready(function(){
+    function alignModal(){
+        var modalDialog = $(this).find(".modal-dialog");
+        
+        // Applying the top margin on modal dialog to align it vertically center
+        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+    }
+    // Align modal when it is displayed
+    $(".modal").on("shown.bs.modal", alignModal);
+    
+    // Align modal when user resize the window
+    $(window).on("resize", function(){
+        $(".modal:visible").each(alignModal);
+    });   
+});
 </script>    
     </head>
     
@@ -153,15 +167,15 @@ $(function() {
 			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">쿠폰관리</h1>
+                        <h1 class="mt-4">쿠폰</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">(쿠폰목록)</li>
+                            <li class="breadcrumb-item active">(Coupon Management)</li>
                         </ol>
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                쿠폰목록
+                                Coupon List !
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 <div class="modal" id="myModal">
                                 <form name="couponInsert" action = "couponInsert.mdo" enctype = "multipart/form-data">
@@ -169,7 +183,7 @@ $(function() {
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
-								            <h5 class="modal-title">Contact us</h5>
+								            <h5 class="modal-title">Coupon</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
@@ -220,13 +234,15 @@ $(function() {
 											</tr>
 	           							</table>
 	           							<!--// table -->
-         			</div>
-         			<div class="modal-footer">
-         				<button type="button" class="btn btn-primary">Upload</button>
-         			</div>
-         		</div>
-         	</div>
-         </form>
+	           						</form>
+	           						
+	           						
+         </div>
+         <div class="modal-footer">
+         <button type="submit" class="btn btn-primary">등록</button>
+         </div>
+         </div>
+         </div>
    </div>
 </div>
                             <div class="card-body">

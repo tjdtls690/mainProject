@@ -29,10 +29,10 @@ public class PaymentCompleteDAO {
 		return sqlSessionTemplate.delete("PaymentDAO.deleteItem", vo);
 	}
 	
-<<<<<<< HEAD
 	public List<PaymentMyDetailSideInfoVO> getAllPaymentDetail(PaymentMyDetailSideInfoVO vo) {
 		return sqlSessionTemplate.selectList("PaymentDAO.getAllPaymentDetail");
-=======
+	}
+    
 	public int useCouponProhibition(CouponVO vo) {
 		return sqlSessionTemplate.update("PaymentDAO.useCouponProhibition", vo);
 	}
@@ -47,6 +47,5 @@ public class PaymentCompleteDAO {
 	
 	public int insertMemberPoint(PaymentCompletePointVO vo) {
 		return sqlSessionTemplate.insert("PaymentDAO.insertMemberPoint", vo);
->>>>>>> c2182defc1a9ef624a889793ac4f47daa096cf84
 	}
 }

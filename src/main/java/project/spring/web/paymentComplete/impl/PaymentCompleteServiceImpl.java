@@ -33,11 +33,10 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<PaymentMyDetailSideInfoVO> getAllPaymentDetail(PaymentMyDetailSideInfoVO vo) {
 		return paymentCompleteDAO.getAllPaymentDetail(vo);
 	}
-=======
+  
 	public int useCouponProhibition(CouponVO vo) {
 		return paymentCompleteDAO.useCouponProhibition(vo);
 	}
@@ -57,6 +56,5 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 		return paymentCompleteDAO.insertMemberPoint(vo);
 	}
 	
->>>>>>> c2182defc1a9ef624a889793ac4f47daa096cf84
 	
 }

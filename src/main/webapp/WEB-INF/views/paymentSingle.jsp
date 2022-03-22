@@ -467,7 +467,7 @@
 				        	
 				        	
 				        	// 포인트사용
-				        	var payment_point_price = $('.row--v-center.row--h-between.point01').find('em').text().replace(',', '');
+				        	var payment_point_price = $('#memberRealPoint').val();
 				        	
 				        	var objs16;
 				        	objs16 = document.createElement('input'); // 값이 들어있는 녀석의 형식
@@ -628,6 +628,8 @@
 				})
 				return false;
 			}
+			
+			var pointAmount = $('.point__input input').val();
 	    	
 	    	for(var i = 0; i < $('.select-coupon__body').find('li').length; i++){
     			if($('.select-coupon__body').find('li').eq(i).find('input').eq(1).val() == 'true'){
@@ -649,7 +651,7 @@
     						$('.coupon').find('.col.coupon__use').detach();
     						$('.coupon').find('.row--v-center').prepend(htmlOut);
     						
-    						var productsFinalPrice = finalRealPrice01;
+    						var productsFinalPrice = Number(finalRealPrice01) - Number(pointAmount);
     						$.ajax({
     							url : 'paymentSingleCouponSaleCal.do',
     	    					type : 'post',
@@ -672,6 +674,18 @@
     				})
     			}
     		}
+	    	
+	    	var usePoint = $('#memberRealPoint').val();
+	    	var useCoupon = $('#couponPrice').val().replace(',', '');
+	        if(Number(finalRealPrice01) - Number(usePoint) - Number(useCoupon) < 0){
+	    		var remainPrice = Number(finalRealPrice01) - Number(useCoupon);
+	    		$('#memberRealPoint').val(remainPrice);
+		        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(remainPrice).toLocaleString('en'));
+		        $('.point__input').children('input').val(remainPrice);
+		        var finalRealPrice02 = Number(finalRealPrice01) - Number(useCoupon) - Number(remainPrice);
+		        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+		        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	    	}
 	    })
 	    
 	    
@@ -686,8 +700,12 @@
 					$('.coupon').find('.row--v-center').prepend(htmlOut);
 	    		}
 	    	});
-	    	$('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice01).toLocaleString('en') + ' 원');
-			$('#productsFinalPrice').val(Number(finalRealPrice01).toLocaleString('en'));
+	    	
+	    	var pointAmount = $('.point__input input').val();
+	    	var productsFinalPrice = Number(finalRealPrice01) - Number(pointAmount);
+	    	
+	    	$('.row--v-end.row--h-between').find('b').text(Number(productsFinalPrice).toLocaleString('en') + ' 원');
+			$('#productsFinalPrice').val(Number(productsFinalPrice).toLocaleString('en'));
 			$('.row--v-center.row--h-between.coupon').find('em').text('0');
 			$('#couponPrice').val('0');
 			$('#couponCheckNum').val('0');
@@ -703,15 +721,12 @@
 	    $(document).on("propertychange change keyup paste input", '.point__input input', function() {
 	    	var oldVal = $('#memberPoint').val();
 	        var currentVal = $(this).val();
-	        alert(oldVal < currentVal);
-	        if(oldVal < currentVal){
+	        if(Number(oldVal) < Number(currentVal)){
 	        	currentVal = oldVal;
 	        	$(this).val(currentVal);
-	        	return false;
-	        }else if(currentVal < 0){
+	        }else if(Number(currentVal) < 0){
 	        	currentVal = 0;
 	        	$(this).val(0);
-	        	return false;
 	        }
 	        //finalRealPrice01
 	        var finalRealPrice02 = Number(finalRealPrice01) - Number($('#couponPrice').val().replace(',', '')) - Number(currentVal);
@@ -719,7 +734,42 @@
 	        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
 	        $('#memberRealPoint').val(currentVal);
 	        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(currentVal).toLocaleString('en'));
+	        
+	        var usePoint = $('#memberRealPoint').val();
+	    	var useCoupon = $('#couponPrice').val().replace(',', '');
+	        if(Number(finalRealPrice01) - Number(usePoint) - Number(useCoupon) < 0){
+	    		var remainPrice = Number(finalRealPrice01) - Number(useCoupon);
+	    		$('#memberRealPoint').val(remainPrice);
+		        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(remainPrice).toLocaleString('en'));
+		        $('.point__input').children('input').val(remainPrice);
+		        var finalRealPrice021 = Number(finalRealPrice01) - Number(useCoupon) - Number(remainPrice);
+		        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice021).toLocaleString('en') + ' 원');
+		        $('#productsFinalPrice').val(Number(finalRealPrice021).toLocaleString('en'));
+	    	}
 	    });
+	    
+	    $(document).on('click', '.button.button--side-padding.button--size-small.point-all', function(){
+	    	var oldVal = $('#memberPoint').val();
+	    	$('.point__input').children('input').val(oldVal);
+	    	
+	    	var finalRealPrice02 = Number(finalRealPrice01) - Number($('#couponPrice').val().replace(',', '')) - Number(oldVal);
+	        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+	        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	        $('#memberRealPoint').val(oldVal);
+	        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(oldVal).toLocaleString('en'));
+	        
+	        var usePoint = $('#memberRealPoint').val();
+	    	var useCoupon = $('#couponPrice').val().replace(',', '');
+	    	if(Number(finalRealPrice01) - Number(usePoint) - Number(useCoupon) < 0){
+	    		var remainPrice = Number(finalRealPrice01) - Number(useCoupon);
+	    		$('#memberRealPoint').val(remainPrice);
+		        $('.row--v-center.row--h-between.point01').find('em').text('- ' + Number(remainPrice).toLocaleString('en'));
+		        $('.point__input').children('input').val(remainPrice);
+		        var finalRealPrice02 = Number(finalRealPrice01) - Number(useCoupon) - Number(remainPrice);
+		        $('.row--v-end.row--h-between').find('b').text(Number(finalRealPrice02).toLocaleString('en') + ' 원');
+		        $('#productsFinalPrice').val(Number(finalRealPrice02).toLocaleString('en'));
+	    	}
+	    })
 	})
 </script>
 </head>
@@ -749,7 +799,7 @@
 					<input type="hidden" value="${fn:length(list)}" id="productsNum">
 					<input type="hidden" value="${vo.paymentDeliveryTypeCheck }" id="paymentDeliveryTypeCheck"> <!-- 배송방법 0, 1 -->
 					<input type="hidden" value="${vo.paymentFinalDeliveryPrice }" id="paymentFinalDeliveryPrice"> <!-- 배송방법 0, 1 -->
-					<input type="hidden" value="${vo.paymentFinalPrice }" id="productsPrice"> <!-- 최종 결제 금액 -->
+					<input type="hidden" value="${vo.paymentFinalPrice }" id="productsPrice"> <!-- 상품 금액 -->
 					<input type="hidden" value="${vo.paymentRealFinalPrice }" id="productsFinalPrice"> <!-- 최종 결제 금액 -->
 					<input type="hidden" value="${vo.paymentFinalSalePrice }" id="paymentFinalSalePrice"> <!-- 상품 할인 금액 (콤마있음) -->
 					<input type="hidden" value="${vo.paymentShippingAddress1 }" id="productsFinalShippingAddress1"> <!-- 집코드 -->
@@ -1166,7 +1216,7 @@
 													</span>
 													<button data-v-a1c889e0="" data-v-8f2f8136="" type="button"
 														title=""
-														class="button button--side-padding button--size-small"
+														class="button button--side-padding button--size-small point-all"
 														style="width: 80px; height: 46px; margin-left: 10px; border-radius: 2px;">
 														<span data-v-a1c889e0="" class="button__wrap">전액사용</span>
 													</button>

@@ -251,6 +251,14 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.12.104</version>
 		</dependency>
+	
+<!-- 	엑셀로내보내기	 -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.17</version>
+		</dependency>
+		
 
 	</dependencies>
 	<build>

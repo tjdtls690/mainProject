@@ -49,5 +49,6 @@
 		WHERE  DATE_FORMAT(payment_date,'%Y') = DATE_FORMAT(now(),'2022')
 		GROUP BY date;
 	</select>
+
 	
 </mapper>

@@ -28,4 +28,7 @@
 		where user_code = #{payment_member_code} and tag_main = #{payment_item_mapping_tag_main} 
 		and item_code = #{payment_item_mapping_item_code}
 	</delete>
+	<select id="getAllPaymentDetail" resultType="paymentDetailSide">
+		SELECT * FROM payment_info
+	</select>
 </mapper>

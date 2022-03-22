@@ -1,5 +1,7 @@
 package project.spring.web.paymentComplete.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,5 +25,9 @@ public class PaymentCompleteDAO {
 	
 	public int deleteItem(PaymentMyDetailInfoVO vo) {
 		return sqlSessionTemplate.delete("PaymentDAO.deleteItem", vo);
+	}
+	
+	public List<PaymentMyDetailSideInfoVO> getAllPaymentDetail(PaymentMyDetailSideInfoVO vo) {
+		return sqlSessionTemplate.selectList("PaymentDAO.getAllPaymentDetail");
 	}
 }

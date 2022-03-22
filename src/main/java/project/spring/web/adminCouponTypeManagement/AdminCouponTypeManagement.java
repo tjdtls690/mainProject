@@ -102,4 +102,32 @@ public class AdminCouponTypeManagement {
 		mav.setViewName("couponTypeManagement");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/couponInsert.mdo", method = RequestMethod.POST)
+	public ModelAndView couponInsertDo(ModelAndView mav, HttpServletRequest request) {
+		String b = request.getParameter("couponPack");
+		String no = "---";
+		if(b.equals(no)) {
+			b = null;
+			String couponType = request.getParameter("couponType");
+			String couponEx = request.getParameter("couponEx");
+			CouponVO vo = new CouponVO();
+			vo.setCoupon_type(couponType);
+			vo.setCoupon_explain(couponEx);
+			eventService.couponInsert(vo);
+			mav.setViewName("couponTypeManagement");
+		} else {
+			int couponPack = Integer.parseInt(b);
+			String couponType = request.getParameter("couponType");
+			String couponEx = request.getParameter("couponEx");
+			System.out.println(b + couponType + couponEx);
+			CouponVO vo = new CouponVO();
+			vo.setCoupon_pack(couponPack);
+			vo.setCoupon_type(couponType);
+			vo.setCoupon_explain(couponEx);
+			eventService.couponInsert(vo);
+			mav.setViewName("couponTypeManagement");
+		}
+		return mav;
+	}
 }

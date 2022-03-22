@@ -168,8 +168,8 @@
 					<li data-v-1b66704d="" class="detail-item">
 						<input type="hidden" name="itemCode " value="${item.item_code}">
 						<input type="hidden" name="tagMain" value="${item.item_tag_main }">
-						<input type="hidden" name="price" value="${item.item_price_m }">
-						<input type="hidden" name="priceSub" value="${item.item_price_m_sub }">
+						<input type="hidden" name="price" value="${item.item_price_l }">
+						<input type="hidden" name="priceSub" value="${item.item_price_l_sub }">
 						<input type="hidden" name="itemName" value="${item.item_name }">
 						<input type="hidden" name="itemImage" value="${item.item_image }">
 						<input type="hidden" name="tagSub" value="${item.item_tag_sub }">

@@ -5,156 +5,355 @@
 <c:set var="path" value="${pageContext.request.contextPath}/resources/admin"/>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Saladit-admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="${path}/css/style.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-        	$(function(){
-        		var ctx = document.getElementById("myAreaChart");
-    			var myLineChart = new Chart(ctx, {
-    			  type: 'line',
-    			  data: {
-    			    labels: ["Apr 1", "Apr 2", "Apr 3", "Apr 4", "Apr 5", "Apr 6", "Apr 7", "Apr 8", "Apr 9", "Apr 10", "Apr 11", "Apr 12", "Apr 13"],
-    			    datasets: [{
-    			      label: "Sessions",
-    			      lineTension: 0.3,
-    			      backgroundColor: "rgba(2,117,216,0.2)",
-    			      borderColor: "rgba(2,117,216,1)",
-    			      pointRadius: 5,
-    			      pointBackgroundColor: "rgba(2,117,216,1)",
-    			      pointBorderColor: "rgba(255,255,255,0.8)",
-    			      pointHoverRadius: 5,
-    			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-    			      pointHitRadius: 50,
-    			      pointBorderWidth: 2,
-    			      data: [10000, 200, ${check10}, 400, 500, 600, 700, 800, 900, 1000, 1100, 12000, 1300],
-    			    }],
-    			  },
-    			  options: {
-    			    scales: {
-    			      xAxes: [{
-    			        time: {
-    			          unit: 'date'
-    			        },
-    			        gridLines: {
-    			          display: false
-    			        },
-    			        ticks: {
-    			          maxTicksLimit: 7
-    			        }
-    			      }],
-    			      yAxes: [{
-    			        ticks: {
-    			          min: 0,
-    			          max: 40000,
-    			          maxTicksLimit: 5
-    			        },
-    			        gridLines: {
-    			          color: "rgba(0, 0, 0, .125)",
-    			        }
-    			      }],
-    			    },
-    			    legend: {
-    			      display: false
-    			    }
-    			  }
-    			});
-        		
-        		
-        		$(document).on('click', '.small.text-white.stretched-link', function(){
-        			var ctx = document.getElementById("myAreaChart");
-        			var myLineChart = new Chart(ctx, {
-        			  type: 'line',
-        			  data: {
-        			    labels: ["Apr 1", "Apr 2", "Apr 3", "Apr 4", "Apr 5", "Apr 6", "Apr 7", "Apr 8", "Apr 9", "Apr 10", "Apr 11", "Apr 12", "Apr 13"],
-        			    datasets: [{
-        			      label: "Sessions",
-        			      lineTension: 0.3,
-        			      backgroundColor: "rgba(2,117,216,0.2)",
-        			      borderColor: "rgba(2,117,216,1)",
-        			      pointRadius: 5,
-        			      pointBackgroundColor: "rgba(2,117,216,1)",
-        			      pointBorderColor: "rgba(255,255,255,0.8)",
-        			      pointHoverRadius: 5,
-        			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-        			      pointHitRadius: 50,
-        			      pointBorderWidth: 2,
-        			      data: [10000, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300],
-        			    }],
-        			  },
-        			  options: {
-        			    scales: {
-        			      xAxes: [{
-        			        time: {
-        			          unit: 'date'
-        			        },
-        			        gridLines: {
-        			          display: false
-        			        },
-        			        ticks: {
-        			          maxTicksLimit: 7
-        			        }
-        			      }],
-        			      yAxes: [{
-        			        ticks: {
-        			          min: 0,
-        			          max: 40000,
-        			          maxTicksLimit: 5
-        			        },
-        			        gridLines: {
-        			          color: "rgba(0, 0, 0, .125)",
-        			        }
-        			      }],
-        			    },
-        			    legend: {
-        			      display: false
-        			    }
-        			  }
-        			});
-        		})
-        		
-        		
-        		
-        		
-        		
-        	}) 
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Saladit-admin</title>
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+	<link href="${path}/css/style.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+       	$(function(){
+       		var ctx = document.getElementById("myAreaChart");
+   			var myLineChart = new Chart(ctx, {
+   			  type: 'line',
+   			  data: {
+   			    labels: [ "2021-04-01", "2021-04-02", "2021-04-03", "2021-04-04", 
+   			    	      "2021-04-05", "2021-04-06", "2021-04-07", "2021-04-08", 
+   			    	      "2021-04-09", "2021-04-10", "2021-04-11", "2021-04-12", "2021-04-13"],
+   			    datasets: [{
+   			      label: "Sessions",
+   			      lineTension: 0.3,
+   			      backgroundColor: "rgba(2,117,216,0.2)",
+   			      borderColor: "rgba(2,117,216,1)",
+   			      pointRadius: 5,
+   			      pointBackgroundColor: "rgba(2,117,216,1)",
+   			      pointBorderColor: "rgba(255,255,255,0.8)",
+   			      pointHoverRadius: 5,
+   			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+   			      pointHitRadius: 50,
+   			      pointBorderWidth: 2,
+   			      data: [
+   			    	  	${check0}, ${check1}, ${check2}, ${check3}, ${check4}, ${check5}, ${check6},
+   			    	  	${check7}, ${check8}, ${check9}, ${check10}, ${check11}, ${check12}
+ 
+   			    	  ],
+   			    }],
+   			  },
+   			  options: {
+   			    scales: {
+   			      xAxes: [{
+   			        time: {
+   			          unit: 'date'
+   			        },
+   			        gridLines: {
+   			          display: false
+   			        },
+   			        ticks: {
+   			          maxTicksLimit: 7
+   			        }
+   			      }],
+   			      yAxes: [{
+   			        ticks: {
+   			          min: 0,
+   			          max: 150000,
+   			          maxTicksLimit: 5
+   			        },
+   			        gridLines: {
+   			          color: "rgba(0, 0, 0, .125)",
+   			        }
+   			      }],
+   			    },
+   			    legend: {
+   			      display: false
+   			    }
+   			  }
+   			});
+       		
+// 오른쪽 버튼 클릭시       		
+			var check01 = 0;
+       		$(document).on('click', '.bi.bi-chevron-right', function(){
+       			var theDay = $("input[name='firstDay']").val();
+
+       			$.ajax({ 
+   			    	url : "next.mdo",
+   			    	type : 'post',
+   			    	dataType : 'html',
+   			    	data : {
+   			    		"theDay" : theDay	
+   			    	},
+   			    	success:function(html){
+
+   			    	// 기존에 있던 input 애들 다 삭제.
+   			    		$("input[name='day']").remove();
+   			    		$("input[name='daySum']").remove();
+   			    	// 데이터 들어가있는 input 추가
+   			    		$('#input').append(html);
+   			    	
+   			    		$('.chartjs-size-monitor').detach();
+   			    		$('#myAreaChart').detach()
+   	   			    	$('#myAreaChart' + check01).detach();
+   	   			    	check01++;
+   	   			    	$('.card-body').eq(4).append('<canvas id="myAreaChart' + check01 + '" width="100%" height="40"></canvas>');
+					//날짜 집어넣기.
+						var day = [];
+						for(var i = 0; i<13; i++){
+							day[i] = $("input[name='day']").eq(i).val();
+						}
+					// 컨트롤러에 보내서 db쿼리 수행에 필요한 시작 날짜. 재 셋팅
+						$("input[name='firstDay']").val($("input[name='day']").last().val());
+						$("input[name='lastDay']").val($("input[name='day']").first().val());
+						
+				
+						var daySum = [];
+						for(var i =0; i<13; i++){
+							daySum[i] = $("input[name='daySum']").eq(i).val();
+						}
+						
+
+   			    		var ctx = document.getElementById("myAreaChart" + check01);
+   	        			var myLineChart = new Chart(ctx, {
+   	        			  type: 'line',
+   	        			  data: {
+   	        			    labels: [ day[0], day[1], day[2], day[3], day[4], day[5], day[6], day[7], day[8], day[9], day[10], day[11], day[12] ],
+   	        			    datasets: [{
+   	        			      label: "Sessions",
+   	        			      lineTension: 0.3,
+   	        			      backgroundColor: "rgba(2,117,216,0.2)",
+   	        			      borderColor: "rgba(2,117,216,1)",
+   	        			      pointRadius: 5,
+   	        			      pointBackgroundColor: "rgba(2,117,216,1)",
+   	        			      pointBorderColor: "rgba(255,255,255,0.8)",
+   	        			      pointHoverRadius: 5,
+   	        			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+   	        			      pointHitRadius: 50,
+   	        			      pointBorderWidth: 2,
+   	        			      data: [ daySum[0], daySum[1], daySum[2], daySum[3], daySum[4], daySum[5], daySum[6], 
+   	        			    	      daySum[7], daySum[8], daySum[9], daySum[10], daySum[11], daySum[12] ],
+   	        			    }],
+   	        			  },
+   	        			  options: {
+   	        			    scales: {
+   	        			      xAxes: [{
+   	        			        time: {
+   	        			          unit: 'date'
+   	        			        },
+   	        			        gridLines: {
+   	        			          display: false
+   	        			        },
+   	        			        ticks: {
+   	        			          maxTicksLimit: 7
+   	        			        }
+   	        			      }],
+   	        			      yAxes: [{
+   	        			        ticks: {
+   	        			          min: 0,
+   	        			          max: 150000,
+   	        			          maxTicksLimit: 5
+   	        			        },
+   	        			        gridLines: {
+   	        			          color: "rgba(0, 0, 0, .125)",
+   	        			        }
+   	        			      }],
+   	        			    },
+   	        			    legend: {
+   	        			      display: false
+   	        			    }
+   	        			  }
+   	        			});
+   			    		
+   			    	
+   			    	}
+
+   			    }) // ajax 끝
+       		})
+
+// 왼쪽 버튼 클릭시       		
+			
+       		$(document).on('click', '.bi.bi-chevron-left', function(){
+       			var theDay = $("input[name='lastDay']").val();
+       			
+
+       			$.ajax({ 
+   			    	url : "prev.mdo",
+   			    	type : 'post',
+   			    	dataType : 'html',
+   			    	data : {
+   			    		"theDay" : theDay	
+   			    	},
+   			    	success:function(html){
+
+   			    	// 기존에 있던 input 애들 다 삭제.
+   			    		$("input[name='day']").remove();
+   			    		$("input[name='daySum']").remove();
+   			    	// 데이터 들어가있는 input 추가
+   			    		$('#input').append(html);
+   			    	
+   			    		$('.chartjs-size-monitor').detach();
+   			    	$('#myAreaChart').detach()
+   			    	$('#myAreaChart' + check01).detach();
+   			    	check01++;
+   			    	$('.card-body').eq(4).append('<canvas id="myAreaChart' + check01 + '" width="100%" height="40"></canvas>');
+   			    	
+					//날짜 집어넣기.
+						var day = [];
+						for(var i = 0; i<13; i++){
+							
+							day[i] = $("input[name='day']").eq(12-i).val();
+							
+						}
+					// 컨트롤러에 보내서 db쿼리 수행에 필요한 시작 날짜. 재 셋팅
+ 						$("input[name='lastDay']").val($("input[name='day']").last().val());
+						$("input[name='firstDay']").val($("input[name='day']").first().val());
+						
+					// 가격 집어넣기.	
+						var daySum = [];
+						for(var i =0; i<13; i++){
+							
+							daySum[i] = $("input[name='daySum']").eq(12-i).val();
+						}
+						
+
+   			    		var ctx = document.getElementById("myAreaChart" + check01);
+   	        			var myLineChart = new Chart(ctx, {
+   	        			  type: 'line',
+   	        			  data: {
+   	        			    labels: [ day[0], day[1], day[2], day[3], day[4], day[5], day[6], day[7], day[8], day[9], day[10], day[11], day[12] ],
+   	        			    datasets: [{
+   	        			      label: "Sessions",
+   	        			      lineTension: 0.3,
+   	        			      backgroundColor: "rgba(2,117,216,0.2)",
+   	        			      borderColor: "rgba(2,117,216,1)",
+   	        			      pointRadius: 5,
+   	        			      pointBackgroundColor: "rgba(2,117,216,1)",
+   	        			      pointBorderColor: "rgba(255,255,255,0.8)",
+//    	        			      pointHoverRadius: 5,
+   	        			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+   	        			      pointHitRadius: 50,
+   	        			      pointBorderWidth: 2,
+   	        			      data: [ daySum[0], daySum[1], daySum[2], daySum[3], daySum[4], daySum[5], daySum[6], 
+   	        			    	      daySum[7], daySum[8], daySum[9], daySum[10], daySum[11], daySum[12] ],
+   	        			    }],
+   	        			  },
+   	        			  options: {
+   	        			    scales: {
+   	        			      xAxes: [{
+   	        			        time: {
+   	        			          unit: 'date'
+   	        			        },
+   	        			        gridLines: {
+   	        			          display: false
+   	        			        },
+   	        			        ticks: {
+   	        			          maxTicksLimit: 7
+   	        			        }
+   	        			      }],
+   	        			      yAxes: [{
+   	        			        ticks: {
+   	        			          min: 0,
+   	        			          max: 150000,
+   	        			          maxTicksLimit: 5
+   	        			        },
+   	        			        gridLines: {
+   	        			          color: "rgba(0, 0, 0, .125)",
+   	        			        }
+   	        			      }],
+   	        			    },
+   	        			    legend: {
+   	        			      display: false
+   	        			    }
+   	        			  }
+   	        			});
+   			    		
+   			    	
+   			    	}
+
+   			    }) // ajax 끝
+       		})
+       		
+ // 바 차트      		
+       		var ctx = document.getElementById("myBarChart");
+       		var myLineChart = new Chart(ctx, {
+       		  type: 'bar',
+       		  data: {
+       		    labels: ["January", "February", "March", "April", "May", "June"],
+       		    datasets: [{
+       		      label: "Revenue",
+       		      backgroundColor: "rgba(2,117,216,1)",
+       		      borderColor: "rgba(2,117,216,1)",
+       		      data: [4215, 7312, 6251, 7841, 9821, 14984],
+       		    }],
+       		  },
+       		  options: {
+       		    scales: {
+       		      xAxes: [{
+       		        time: {
+       		          unit: 'month'
+       		        },
+       		        gridLines: {
+       		          display: false
+       		        },
+       		        ticks: {
+       		          maxTicksLimit: 6
+       		        }
+       		      }],
+       		      yAxes: [{
+       		        ticks: {
+       		          min: 0,
+       		          max: 15000,
+       		          maxTicksLimit: 5
+       		        },
+       		        gridLines: {
+       		          display: true
+       		        }
+       		      }],
+       		    },
+       		    legend: {
+       		      display: false
+       		    }
+       		  }
+       		});
+       		
+       		
+       		
+       		
+       	}) 
         </script>
     </head>
     
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    	<input type="hidden" name="firstDay" value="${startDay}">
+    	<input type="hidden" name="lastDay" value="${startDay2}">
+<%--     	<input type="hidden" name="startDay2" value="${startDay2}"> --%>
+	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
+	        <!-- Navbar Brand-->
+	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
+	        <!-- Sidebar Toggle-->
+	            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+	        <!-- Navbar Search-->
+	            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+	                <div class="input-group">
+	                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+	                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+	                </div>
+	            </form>
+	        <!-- Navbar-->
+	            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+	                <li class="nav-item dropdown">
+	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+	                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+	                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+	                        <li><hr class="dropdown-divider" /></li>
+	                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </nav>
         
          <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -163,7 +362,7 @@
                         <div class="nav"> 
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard 
+                                Dashboard
                             </a>
                             
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -227,7 +426,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard ${dayChart.date }</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -275,16 +474,16 @@
                                         <i class="fas fa-chart-area me-1"></i>
                                         일 별 차트
                                         <div style="float:right; height:17px;">
-                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">  
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-										  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-										</svg>
-										</button>
-										<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-										  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-										</svg>
-										</button>
+	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">  
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+												</svg>
+											</button>
+											<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+												</svg>
+											</button>
 										</div>
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
@@ -400,7 +599,7 @@
         <script src="${path}/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="${path}/assets/demo/chart-area-demo.js?ver=1"></script>
-        <script src="${path}/assets/demo/chart-bar-demo.js"></script>
+<%--         <script src="${path}/assets/demo/chart-bar-demo.js"></script> --%>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path}/js/datatables-simple-demo.js"></script>
     </body>

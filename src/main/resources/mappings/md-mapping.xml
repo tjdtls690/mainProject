@@ -5,4 +5,10 @@
 	<select id="getMd" resultType="mymd" >
 		SELECT * FROM md_info
 	</select>
+	<delete id="deleteMd">
+		DELETE FROM md_info WHERE item_code = #{item_code}
+	</delete>
+	<insert id="mdInsert">
+		INSERT INTO md_info(item_code, item_tag_main) values(#{item_code}, #{item_tag_main})
+	</insert>
 </mapper>

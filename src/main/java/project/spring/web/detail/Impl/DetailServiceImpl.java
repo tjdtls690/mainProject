@@ -37,4 +37,14 @@ public class DetailServiceImpl implements DetailService {
 		return detailDAO.getRandom(vo);
 	}
 
+	@Override
+	public List<DetailVO> getTagItem(DetailVO vo) {
+		return detailDAO.getTagItem(vo);
+	}
+
+	@Override
+	public List<DetailVO> getTagSubscribe(DetailVO vo) {
+		return detailDAO.getTagSubscribe(vo);
+	}
+
 }

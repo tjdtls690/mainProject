@@ -18,5 +18,14 @@ public class MdRecommandServiceImpl implements MdRecommandService{
 	public List<MdRecommandVO> getMd(MdRecommandVO vo) {
 		return mdRecommandDAO.getMd(vo);
 	}
+	
+	@Override
+	public void deleteMd(MdRecommandVO vo) {
+		mdRecommandDAO.deleteMd(vo);		
+	}
 
+	@Override
+	public void mdInsert(MdRecommandVO vo) {
+		mdRecommandDAO.mdInsert(vo);
+	}
 }

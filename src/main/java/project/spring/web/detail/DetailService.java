@@ -11,4 +11,8 @@ public interface DetailService {
 	DetailVO getSubItem(DetailVO vo);
 	
 	List<DetailVO> getRandom(DetailVO vo);
+	
+	public List<DetailVO> getTagItem(DetailVO vo);
+	
+	public List<DetailVO> getTagSubscribe(DetailVO vo);
 }

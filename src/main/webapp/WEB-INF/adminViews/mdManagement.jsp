@@ -14,7 +14,62 @@
         <title>Saladit-order</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="${path }/css/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+<script>
+	$(document).on('click','.btn.btn-dark.delete', function(){	
+		var itemCode = $('.itemCode').attr('id');
+		var tag = $('.tag').attr('id');
+		if(confirm('상품을 삭제하시겠습니까?')) {
+			$.ajax({
+				url : 'mdItemDelete.mdo',
+				type : 'post',
+				data : {
+					"itemCode" : itemCode,
+					"tag" : tag
+				},
+				success : function(data){
+					location.reload();
+				}
+			})
+		}
+	})
+	
+	function tagChange(e) {
+		$('#item_name').empty();
+		var tag = e.value;
+		$.ajax({
+			url : 'tagMain.mdo',
+			type : 'post',
+			dataType : 'html',
+			data : {
+				"tag" : tag
+			},
+			success : function(html){
+				$('#item_name').append(html);				
+			}
+		})
+	}
+	
+	$(document).on('click', '.btn.btn-primary', function(){
+		var tag = $('#item_tag_main').val();
+		var itemCode = $('#item_name').val();
+		/* var itemName = $('#item_name').text(); */
+		$.ajax({
+			url : 'mdInsert.mdo',
+			type : 'post',
+			data : {
+				"tag" : tag,
+				"itemCode" : itemCode
+				/* "itemName" : itemName */
+			},
+			success : function(data){
+				location.reload();
+			}
+		})
+	})
+	
+</script>
     </head>
     
 <body class="sb-nav-fixed">
@@ -216,6 +271,8 @@
                                 
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 <div class="modal" id="myModal">
+                                <!-- form -->
+                                <form action = "mdInsert.mdo" method = "POST" enctype = "multipart/form-data" name="mdInsert">
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
@@ -223,9 +280,6 @@
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         
 								         <div class="modal-body">
-								            <!-- form -->
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
-	           							
 	           							<!-- table -->
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
 	           								<tr>
@@ -235,12 +289,17 @@
 												<td width=150>
 													<div class="row">
 													  <div class="col">
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" style="width:25%;">
-													    <option selected>---</option>
-													    <option value="1">100</option>
-													    <option value="2">200</option>
-													    <option value="3">300</option>
-													  </select>
+													    <select onchange="tagChange(this)" class="form-select" id="item_tag_main" aria-label="Floating label select example" style="width:70%;" >
+														    <option selected>---</option>
+														    <option value="100">100</option>
+														    <option value="200">200</option>
+														    <option value="300">300</option>
+														    <option value="400">400</option>
+														    <option value="500">500</option>
+														    <option value="600">600</option>
+														    <option value="700">700</option>
+														    <option value="800">800</option>
+													  	</select>
 													  </div>
 													</div>
 												</td>
@@ -249,29 +308,36 @@
 												<th scope="row">
 													item code
 												</th>
-												<td>
-													<input type="text" name="banner_contents"/>
+												<td width=150>
+													<div class="row">
+													  <div class="col">
+													    <select id="item_name" aria-label="Floating label select example" style="width:100%;">
+														    <option selected>---</option>
+													  	</select>
+													  </div>
+													</div>
 												</td>
 											</tr>
-											<tr>
+											<!-- <tr>
 												<th scope="row">
 													name
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" id="item_name" value=""/>
 												</td>
-											</tr>
-											
+											</tr> -->
 	           							</table>
 	           							<!--// table -->
-	           						</form>
+	           							
          							</div>
          						<div class="modal-footer">
-         							<button type="submit" class="btn btn-primary">Upload</button>
+         							<button type="button" class="btn btn-primary">Upload</button>
+         						</div>
+         						
          						</div>
          						</div>
          						</div>
-         						</div>
+         						</form>
    							</div>
 						</div>
                                 
@@ -297,15 +363,15 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="mdList" items="${mdList }">
+                                    	<c:forEach var="mdList" items="${mdList }" varStatus="i">
 	                                        <tr>
 	                                            <td>${mdList.md_code }</td>
-	                                            <td>${mdList.item_tag_main }</td>
-	                                            <th>${mdList.item_code }</th>
-	                                            <td>샐러드메롱</td>
+	                                            <td class="tag" id="${mdList.item_tag_main }">${mdList.item_tag_main }</td>
+	                                            <th class="itemCode" id="${mdList.item_code }">${mdList.item_code }</th>
+	                                            <td>${itemName[i.index] }</td>
 	                                            <td style="width:13%">
 	                                            <button type="button" class="btn btn-dark">수정</button>
-	                                            <button type="button" class="btn btn-dark">삭제</button>
+	                                            <button type="button" class="btn btn-dark delete">삭제</button>
 	                                            </td>
 	                                        </tr>
                                        </c:forEach>

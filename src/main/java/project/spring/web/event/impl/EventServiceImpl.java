@@ -53,5 +53,9 @@ public class EventServiceImpl implements EventService {
 	public void deleteUserCoupon(CouponVO vo) {
 		eventDAO.deleteUserCoupon(vo);
 	}
-	
+
+	@Override
+	public void couponInsert(CouponVO vo) {
+		eventDAO.couponInsert(vo);
+	}
 }

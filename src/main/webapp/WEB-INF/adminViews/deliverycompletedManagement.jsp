@@ -115,7 +115,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">주문관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">배송완룐/목록</li>
+                            <li class="breadcrumb-item active">배송완료 목록</li>
                         </ol>
                        
                         <div class="card mb-4">
@@ -158,257 +158,33 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td>ab123c</td>
-                                            <td>2022-03-01</td>
-                                            <td>조망고(mango)</td>
-                                            <td>01076513333</td>
-                                            <td>화성시 새솔동</td>
-                                            <td>26000원</td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-											</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div class="btn-group">
-											  <button type="button" class="btn btn-secondary">배송중</button>
-											  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-											    <span class="visually-hidden">Toggle Dropdown</span>
-											  </button>
-											  <ul class="dropdown-menu">
-											    <li><a class="dropdown-item" href="#">배송중</a></li>
-											    <li><a class="dropdown-item" href="#">배송완료</a></li>
-											  </ul>
-											</div>
-											</td>
-                                        </tr>
-										
+                                    	<c:forEach var="paymentList" items="${paymentList }">
+	                                        <tr>
+	                                            <td>
+	                                            <div>
+												  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+												</div>
+												</td>
+	                                            <td>${paymentList.payment_code }</td>
+	                                            <td>${paymentList.payment_date }</td>
+	                                            <td>${paymentList.payment_recipient }</td>
+	                                            <td>${paymentList.payment_recipient_phone }</td>
+	                                            <td>${paymentList.payment_address }</td>
+	                                            <td>${paymentList.payment_final_price }원</td>
+	                                            <td>
+	                                            <div class="btn-group">
+												  <button type="button" class="btn btn-secondary">배송중</button>
+												  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+												    <span class="visually-hidden">Toggle Dropdown</span>
+												  </button>
+												  <ul class="dropdown-menu">
+												    <li><a class="dropdown-item" href="#">배송중</a></li>
+												    <li><a class="dropdown-item" href="#">배송완료</a></li>
+												  </ul>
+												</div>
+												</td>
+	                                        </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

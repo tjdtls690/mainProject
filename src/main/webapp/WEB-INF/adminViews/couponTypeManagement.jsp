@@ -20,12 +20,31 @@
 $(function() {
 	$(document).on('click','.btn.btn-dark', function(){
 		var couponCode = $(this).attr('id');
-		alert(couponCode);
+		if(confirm('쿠폰을 삭제하시겠습니까?')) {
+			$.ajax({
+				url : 'couponDelete.mdo',
+				type : 'post',
+				data : {
+					"couponCode" : couponCode
+				},
+				success : function(data){
+					location.reload();
+				}
+			})
+		}
+	})
+	
+	$(document).on('click', '.btn.btn-primary', function(){
+		var couponPack = $('#couponPack').val();
+		var couponType = document.couponInsert.coupon_type.value
+		var couponEx = document.couponInsert.coupon_explain.value
 		$.ajax({
-			url : 'couponDelete.mdo',
+			url : 'couponInsert.mdo',
 			type : 'post',
 			data : {
-				"couponCode" : couponCode
+				"couponPack" : couponPack,
+				"couponType" : couponType,
+				"couponEx" : couponEx
 			},
 			success : function(data){
 				location.reload();
@@ -159,6 +178,8 @@ $(document).ready(function(){
                                 Coupon List !
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                 <div class="modal" id="myModal">
+                                <form name="couponInsert" action = "couponInsert.mdo" enctype = "multipart/form-data">
+                                
 								   <div class="modal-dialog">
 								      <div class="modal-content">
 								         <div class="modal-header">
@@ -167,30 +188,29 @@ $(document).ready(function(){
 								         </div>
 								         <div class="modal-body">
 								            <!-- form -->
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
 	           							
 	           							<!-- table -->
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
-	           								<tr>
+	           								<!-- <tr>
 												<th scope="row">
-													code
+													coupon code
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="coupon_code"/>
 												</td>
-											</tr>
+											</tr> -->
 	           								<tr>
 												<th scope="row" width=70>
-													pack num
+													coupon pack number
 												</th>
 												<td width=150>
 													<div class="row">
 													  <div class="col" style = "margin-right : 40%;">
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <select name="coupon_pack" class="form-select" id="couponPack" aria-label="Floating label select example">
 													    <option selected>---</option>
-													    <option value="1">100</option>
-													    <option value="2">200</option>
-													    <option value="3">300</option>
+													    <option value="100">100</option>
+													    <option value="200">200</option>
+													    <option value="300">300</option>
 													  </select>
 													  </div>
 													</div>
@@ -198,18 +218,18 @@ $(document).ready(function(){
 											</tr>
 											<tr>
 												<th scope="row">
-													name
+													coupon name
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="coupon_type"/>
 												</td>
 											</tr>
 											<tr>
 												<th scope="row">
-													explain
+													coupon explain
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="coupon_explain"/>
 												</td>
 											</tr>
 	           							</table>

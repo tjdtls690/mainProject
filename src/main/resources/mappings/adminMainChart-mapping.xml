@@ -6,7 +6,9 @@
 	<resultMap type="adminMainChart" id="ChartResult">
 		<id property="date" column="date" />
 		<result property="daySum" column="sum(`payment_price`)" />
+		<result property="daySum" column="sum(payment_price)" />
 	</resultMap>
+<!-- 	main 처음 화면에 보여줄 라인 차트 -->
 	<select id="dayChart" resultMap="ChartResult">
 		SELECT DATE(`payment_date`) AS `date`,
 		sum(`payment_price`)
@@ -14,6 +16,7 @@
 		WHERE DATE(`payment_date`) >= STR_TO_DATE('2021-04-01', '%Y-%m-%d')
 		GROUP BY `date` LIMIT 0,13;
 	</select>
+<!-- 	라인차트 +버튼 -->
 	<select id="getDayChart" resultMap="ChartResult">
 		SELECT DATE(`payment_date`) AS `date`,
 		sum(`payment_price`)
@@ -21,12 +24,30 @@
 		WHERE DATE(`payment_date`) > STR_TO_DATE(#{date}, '%Y-%m-%d')
 		GROUP BY `date` LIMIT 0,13;
 	</select>
+<!-- 	라인차트 -버튼 -->
 	<select id="getDayChart2" resultMap="ChartResult">
 		SELECT DATE(`payment_date`) AS `date`,
 		sum(`payment_price`)
 		FROM payment_info
 		WHERE DATE(`payment_date`) <![CDATA[<]]>  STR_TO_DATE(#{date}, '%Y-%m-%d')
 		GROUP BY `date` desc LIMIT 13;
-
 	</select>
+<!-- 	바차트 ( #date 는 년도가 될것임..)-->
+	<select id="getMonthChart" resultMap="ChartResult">
+		SELECT 
+		CONCAT(YEAR(payment_date), '-', MONTH(payment_date)) as date,
+		sum(payment_price) 
+		FROM payment_info 
+		WHERE  DATE_FORMAT(payment_date,'%Y') = DATE_FORMAT(now(),'2021')
+		GROUP BY date;
+	</select>
+	<select id="getMonthChart2" resultMap="ChartResult">
+		SELECT 
+		CONCAT(YEAR(payment_date), '-', MONTH(payment_date)) as date,
+		sum(payment_price) 
+		FROM payment_info 
+		WHERE  DATE_FORMAT(payment_date,'%Y') = DATE_FORMAT(now(),'2022')
+		GROUP BY date;
+	</select>
+	
 </mapper>

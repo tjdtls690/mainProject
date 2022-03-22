@@ -21,7 +21,9 @@ public class AdminMainChartController {
 		List<AdminMainChartVO> dayChartList = adminMainChartService.dayChart(null);
 //	값이 잘 넘어오는지 테스트
 		for(int i=0; i<13; i++) {
-//			System.out.print(i+"번째 sum : "+dayChartList.get(i).getDaySum()+"\n");
+//			System.out.println("라인차트");
+//			System.out.print(i+"번째 date : "+dayChartList.get(i).getDate());
+//			System.out.print(i+"번째 sum : "+dayChartList.get(i).getDaySum());
 			
 			mav.addObject("check"+i, dayChartList.get(i).getDaySum());
 		}
@@ -29,16 +31,25 @@ public class AdminMainChartController {
 		mav.addObject("startDay", dayChartList.get(12).getDate());
 		mav.addObject("dayChart", dayChartList);
 		
+		// 바 차트에 처음 보여줄 값
+		List<AdminMainChartVO> monthChartList = adminMainChartService.getMonthChart(null);
+		for(int i=0; i<12; i++) {
+//			System.out.println("바차트");
+//			System.out.println(i+"번째 date : "+monthChartList.get(i).getDate());
+//			System.out.println(i+"번째 sum : "+monthChartList.get(i).getDaySum());
+			mav.addObject("month"+i, monthChartList.get(i).getDaySum());
+		}
+		
 		
 		mav.setViewName("mainChart");
 		return mav;
 	}
 	
+	// 라인차트 +버튼
 	@RequestMapping("/next.mdo")
 	public ModelAndView nextDay(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("theDay");
-		System.out.println("보여주는 마지막 날짜 : "+str);
-		
+
 		AdminMainChartVO vo = new AdminMainChartVO();
 		vo.setDate(str);
 		
@@ -50,11 +61,11 @@ public class AdminMainChartController {
 		return mav;
 	}
 	
+	// 라인차트 -버튼
 	@RequestMapping("/prev.mdo")
 	public ModelAndView prevDay(HttpServletRequest request, ModelAndView mav) {
 		String str = request.getParameter("theDay");
-		System.out.println("보여주는 마지막 날짜 : "+str);
-		
+
 		AdminMainChartVO vo = new AdminMainChartVO();
 		vo.setDate(str);
 		
@@ -63,6 +74,41 @@ public class AdminMainChartController {
 		
 		mav.addObject("chart", dayChartList);
 		mav.setViewName("mainForLine");
+		return mav;
+	}
+
+	// 바 차트 오른쪽 버튼
+	@RequestMapping("/nextMonth.mdo")
+	public ModelAndView nextMonth(HttpServletRequest request,ModelAndView mav) {
+		String str = request.getParameter("setYear");
+		System.out.println("오른쪽버튼"+str);
+		
+		// 바 차트에 처음 보여줄 값
+		List<AdminMainChartVO> monthChartList = adminMainChartService.getMonthChart2(null);
+//		for(int i=0; i<12; i++) {
+//			mav.addObject("month", monthChartList.get(i).getDaySum());
+//			System.out.println("2022 가격 : "+monthChartList.get(i).getDaySum());
+//		}		
+		mav.addObject("month",monthChartList);
+		mav.setViewName("mainForBar");
+		return mav;
+	}
+	
+	// 바 차트 왼쪽 버튼
+	@RequestMapping("/prevMonth.mdo")
+	public ModelAndView prevMonth(HttpServletRequest request,ModelAndView mav) {
+		String str = request.getParameter("setYear");
+		System.out.println(str);
+		
+		// 바 차트에 처음 보여줄 값
+		List<AdminMainChartVO> monthChartList = adminMainChartService.getMonthChart(null);
+//		for(int i=0; i<12; i++) {
+//			mav.addObject("month", monthChartList.get(i).getDaySum());
+//			System.out.println("2021 가격 : "+monthChartList.get(i).getDaySum());
+//		}		
+		
+		mav.addObject("month",monthChartList);
+		mav.setViewName("mainForBar");
 		return mav;
 	}
 	

@@ -14,10 +14,6 @@ public class AdminMainChartImpl implements AdminMainChartService {
 	@Autowired
 	AdminMainChartDAO adminChartDAO;
 
-//	@Override
-//	public List<Map<String, Object>> dayChart() {
-//		return adminChartDAO.dayChart();
-//	}
 
 	//처음 메인 왔을때 차트
 	@Override
@@ -38,6 +34,18 @@ public class AdminMainChartImpl implements AdminMainChartService {
 	public List<AdminMainChartVO> getDayChart2(AdminMainChartVO vo) {
 		
 		return adminChartDAO.getDayChart2(vo);
+	}
+
+	// 바 차트
+	@Override
+	public List<AdminMainChartVO> getMonthChart(AdminMainChartVO vo) {
+		
+		return adminChartDAO.getMonthChart(vo);
+	}
+	@Override
+	public List<AdminMainChartVO> getMonthChart2(AdminMainChartVO vo) {
+		
+		return adminChartDAO.getMonthChart2(vo);
 	}
 
 }

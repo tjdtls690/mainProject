@@ -266,17 +266,21 @@ $(function(){
 									<div data-v-5a073676="" class="body__items">
 										<div data-v-5a073676="" class="body__items--title">배송예정일</div>
 										<div data-v-5a073676="" class="body__items--content">
-											22.03.17. 목</div>
+											${vo.payment_date }</div>
 									</div>
 									<div data-v-5a073676="" class="body__items">
 										<div data-v-5a073676="" class="body__items--title">배송 주소</div>
 										<div data-v-5a073676="" class="body__items--content">
-											(22765) 인천 서구 청라한내로 40 593동 1801호</div>
+											(${vo.payment_zipcode }) ${vo.payment_address }</div>
 									</div>
 									<div data-v-5a073676="" class="body__items">
 										<div data-v-5a073676="" class="body__items--title">주문 상품</div>
-										<div data-v-5a073676="" class="body__items--content">프코
-											그래놀라 다크초코칩 1ea</div>
+										<c:if test="${fn:length(list) == 1}">
+											<div data-v-5a073676="" class="body__items--content">${list[0].payment_item_mapping_item_name_size }</div>
+										</c:if>
+										<c:if test="${fn:length(list) > 1}">
+											<div data-v-5a073676="" class="body__items--content">${list[0].payment_item_mapping_item_name_size } 외 ${fn:length(list)}개</div>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -284,7 +288,7 @@ $(function(){
 								class="row--h-center checkout-finish__nav">
 								<div data-v-5a073676="">
 									<button data-v-a1c889e0="" data-v-5a073676="" type="button"
-										title="" class="button button--size-large">
+										title="" class="button button--size-large" onclick="location.href='myPayInfo.do'">
 										<span data-v-a1c889e0="" class="button__wrap">주문내역 확인하기</span>
 									</button>
 								</div>

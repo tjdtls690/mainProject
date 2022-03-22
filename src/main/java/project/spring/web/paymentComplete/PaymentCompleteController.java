@@ -121,6 +121,8 @@ public class PaymentCompleteController {
 		vo4.setPayment_point(vo4.getPayment_point() + point);
 		paymentCompleteService.updateMemberPoint(vo4);
 		
+		mav.addObject("list", list.getPaymentMyDetailInfo());
+		mav.addObject("vo", vo);
 		mav.setViewName("paymentComplete");
 		return mav;
 	}

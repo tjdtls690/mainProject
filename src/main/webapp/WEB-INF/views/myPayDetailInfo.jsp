@@ -494,7 +494,7 @@ function page_move(tagNum){
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">배송주소</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">
-															(${vo.payment_zipcode } })${vo.payment_address }</dd>
+															(${vo.payment_zipcode })${vo.payment_address }</dd>
 													</dl>
 													<!---->
 													<dl data-v-ae81dc8e="" data-v-421abad8=""

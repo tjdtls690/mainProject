@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/myBesongji"/>
 <!DOCTYPE html>
 <html class="">
@@ -36,7 +38,7 @@
 }
 </style>
 
-<title>프레시코드 - 프리미엄 샐러드 배달 서비스</title>
+<title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1.0, minimal-ui, viewport-fit=cover, user-scalable=no">
@@ -154,9 +156,63 @@
 	    		}
 	    	})
 	    })
+	    
+	    $(document).on('click', '.modal-wrap', function(e){
+    	
+    	if(!$(e.target).hasClass("content-name") && !$(e.target).hasClass("content-price-wrap") && !$(e.target).hasClass("content-right") && 
+    			!$(e.target).hasClass("dropdown") && !$(e.target).hasClass("add-items-group-body-contents") && !$(e.target).hasClass("content-wrap") && 
+    			!$(e.target).hasClass("add-items-group") && !$(e.target).hasClass("content-discounted-price") && !$(e.target).hasClass("detail-wrap")
+    			&& !$(e.target).hasClass("modal-list-img") && !$(e.target).hasClass("order_modal_btn") && !$(e.target).hasClass("menu-tab")
+    			&& !$(e.target).hasClass("order-modal-tab-name") && !$(e.target).hasClass("dropdown-icon") && !$(e.target).hasClass("modal-header-slot-title")
+    			&& !$(e.target).hasClass("modal-header-slot") && !$(e.target).hasClass("add-items") && !$(e.target).hasClass("except1") && !$(e.target).hasClass("except2")
+    			&& !$(e.target).hasClass("add-items-selected") && !$(e.target).hasClass("add-items-selected-text") && !$(e.target).hasClass("count-and-price")
+    			&& !$(e.target).hasClass("button__wrap") && !$(e.target).hasClass("confirm-icon") && !$(e.target).hasClass("add-items-content-wrap")
+    			&& !$(e.target).hasClass("content-left") && !$(e.target).hasClass("dropdown-btn") && !$(e.target).hasClass("dropdown-content") && !$(e.target).hasClass("except3")
+    			&& !$(e.target).hasClass("confirm-list") && !$(e.target).hasClass("confirm-list-delete") && !$(e.target).hasClass("except4") && !$(e.target).hasClass("order-menu-temp-name")
+    			&& !$(e.target).hasClass("except5") && !$(e.target).hasClass("except6") && !$(e.target).hasClass("button button--size-large") && !$(e.target).hasClass("hidden-save-close")
+    			&& !$(e.target).hasClass("toggle-drop-down") && !$(e.target).hasClass("order-modal-select") && !$(e.target).hasClass("content-price") && !$(e.target).hasClass("order-menu-temp-discount")
+    			&& !$(e.target).hasClass("discount-price") && !$(e.target).hasClass("order-menu-temp-price") && !$(e.target).hasClass("page-header--modal") && !$(e.target).hasClass("col")
+    			&& !$(e.target).hasClass("address-index") && !$(e.target).hasClass("address-index__body") && !$(e.target).hasClass("error-list") && !$(e.target).hasClass("button--size-large-mobile")
+    			&& !$(e.target).hasClass("add-search__back") && !$(e.target).hasClass("modal-wrap__body") && !$(e.target).hasClass("add-confirm__back") && !$(e.target).hasClass("add-confirm__body")
+    			&& !$(e.target).hasClass("add-confirm__address") && !$(e.target).hasClass("form-text") && !$(e.target).hasClass("form-fieldset") && !$(e.target).hasClass("form-field")
+    			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
+    			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
+    			&& !$(e.target).hasClass("disable-place-text") && !$(e.target).hasClass("name-wrap") && !$(e.target).hasClass("item__head") && !$(e.target).hasClass("round-text")
+    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small")){
+    		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+        	for (let i = 0; i < TimeoutId; i++) {
+        	  clearTimeout(i);
+        	}
+    		
+        	$('html').attr('class', '');
+        	$(window).scrollTop(200);
+        	$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+        	setTimeout(function() {
+        		$('.modal').detach();
+			}, 500);
+    	}
+    })
 	    	
 	    $(document).on('click', '#closeModal', function(){
 	    	$('.swal2-container').detach();
+	    })
+	    
+	    
+	    // 배송지 추가 버튼
+	    $(document).on('click', '.address-index__nav .button__wrap.button1', function(){
+	    	var member_delivery_type = $('#deliveryType').val();
+	    	$.ajax({
+	    		url : 'myBesongjiModal.do',
+	    		dataType : 'html',
+	    		type : 'post',
+	    		data : {
+	    			'member_delivery_type' : member_delivery_type
+	    		},
+	    		success : function(htmlOut){
+	    			$('html').attr('class', 'mode-popup');
+	    			$('.mypage-header-info').append(htmlOut);
+	    		}
+	    	})
 	    })
 	})
 </script>
@@ -180,6 +236,7 @@
 						<input type="hidden" name="itemCode01" value="">
 						<input type="hidden" name="tagSub01" value="">
 					</form>
+					<input type="hidden" value="0" id="deliveryType">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -276,8 +333,7 @@
 					<!---->
 					<!---->
 				</header>
-				<div class="container" style="padding-top: 182px;"
-					data-v-0f5971ec="">
+				<div class="container" data-v-0f5971ec="">
 					<div data-v-421abad8="" data-v-bb8d8f74="" data-v-0f5971ec=""
 						class="mypage-layout">
 						<div data-v-3e2784be="" data-v-421abad8=""
@@ -392,16 +448,6 @@
 										<nav data-v-610ea6d8="" data-v-bb8d8f74=""
 											class="nav-tab mypage-destination__tab" data-v-421abad8="">
 											<div data-v-610ea6d8="" class="nav-tab__wrap">
-												<div data-v-610ea6d8="" class="">
-													<button data-v-610ea6d8="" type="button">
-														<span data-v-610ea6d8="">스팟배송</span>
-													</button>
-												</div>
-												<div data-v-610ea6d8="" class="">
-													<button data-v-610ea6d8="" type="button">
-														<span data-v-610ea6d8="">퀵배송</span>
-													</button>
-												</div>
 												<div data-v-610ea6d8="" class="on">
 													<button data-v-610ea6d8="" type="button">
 														<span data-v-610ea6d8="">새벽배송</span>
@@ -418,25 +464,118 @@
 											class="mypage-destination__body">
 											<div data-v-bb8d8f74="" data-v-421abad8=""
 												class="row--v-center row--h-between mypage-destination__body-head">
-												<strong data-v-bb8d8f74="" data-v-421abad8="">내
-													새벽배송지 0개</strong>
+												<c:if test="${list[0].member_delivery_type == 0 }">
+													<strong data-v-bb8d8f74="" data-v-421abad8="">내 새벽배송지 ${fn:length(list)}개</strong>
+												</c:if>
+												<c:if test="${list[0].member_delivery_type == 1 }">
+													<strong data-v-bb8d8f74="" data-v-421abad8="">내 택배배송지 ${fn:length(list)}개</strong>
+												</c:if>
 												<div data-v-bb8d8f74="" data-v-421abad8=""
 													class="address-index__nav">
 													<button data-v-a1c889e0="" data-v-bb8d8f74="" type="button"
 														title=""
 														class="button button--size-small button--outline2"
 														data-v-421abad8="">
-														<span data-v-a1c889e0="" class="button__wrap">+ 배송지
+														<span data-v-a1c889e0="" class="button__wrap button1">+ 배송지
 															추가</span>
 													</button>
 												</div>
 											</div>
 											<div data-v-bb8d8f74="" data-v-421abad8=""
 												class="mypage-destination__index">
-												<div data-v-6b53621a="" data-v-bb8d8f74=""
-													class="error-list" data-v-421abad8="">
-													<p data-v-6b53621a="">등록된 배송지가 없습니다.</p>
-												</div>
+												<c:if test="${fn:length(list) > 0}">
+													<ul data-v-bb8d8f74="" data-v-421abad8="">
+													
+														<c:forEach var="list" items="${list }">
+															<c:if test="${list.member_default_address == 'y' }">
+																<li data-v-bb8d8f74="" data-v-421abad8=""><div
+																		data-v-bb8d8f74="" data-v-421abad8=""
+																		class="mypage-destination-item">
+																		<div data-v-bb8d8f74="" data-v-421abad8=""
+																			class="mypage-destination-item__body">
+																			<div data-v-bb8d8f74="" data-v-421abad8=""
+																				class="row--v-center mypage-destination-item__header">
+																				<div data-v-bb8d8f74="" data-v-421abad8="" class="col">
+																					<strong data-v-bb8d8f74="" data-v-421abad8="">${list.member_shipping_address }</strong>
+																				</div>
+																				<div data-v-bb8d8f74="" data-v-421abad8="">
+																					<span data-v-7f86e76e="" data-v-bb8d8f74=""
+																						class="round-text" data-v-421abad8="">기본 배송지</span>
+																				</div>
+																			</div>
+																			<p data-v-bb8d8f74="" data-v-421abad8=""
+																				class="mypage-destination-item__description">${list.member_address } ${list.member_detail_address }</p>
+																		</div>
+																		<nav data-v-bb8d8f74="" data-v-421abad8=""
+																			class="row--h-start mypage-destination-item__nav">
+																			<!---->
+																			<div data-v-bb8d8f74="" data-v-421abad8="">
+																				<button data-v-a1c889e0="" data-v-bb8d8f74=""
+																					type="button" title=""
+																					class="button button button--side-padding button--size-small button--color-gray button--outline"
+																					data-v-421abad8="">
+																					<span data-v-a1c889e0="" class="button__wrap">
+																						삭제 </span>
+																				</button>
+																			</div>
+																		</nav>
+																	</div>
+																	<input type="hidden" value="${list.member_zipcode_code }">
+																</li>
+															</c:if>
+														</c:forEach>
+														
+														<c:forEach var="list" items="${list }">
+															<c:if test="${list.member_default_address == 'n' }">
+																<li data-v-bb8d8f74="" data-v-421abad8=""><div
+																		data-v-bb8d8f74="" data-v-421abad8=""
+																		class="mypage-destination-item">
+																		<div data-v-bb8d8f74="" data-v-421abad8=""
+																			class="mypage-destination-item__body">
+																			<div data-v-bb8d8f74="" data-v-421abad8=""
+																				class="row--v-center mypage-destination-item__header">
+																				<div data-v-bb8d8f74="" data-v-421abad8="" class="col">
+																					<strong data-v-bb8d8f74="" data-v-421abad8="">${list.member_shipping_address }</strong>
+																				</div>
+																				<!---->
+																			</div>
+																			<p data-v-bb8d8f74="" data-v-421abad8=""
+																				class="mypage-destination-item__description">${list.member_address } ${list.member_detail_address }</p>
+																		</div>
+																		<nav data-v-bb8d8f74="" data-v-421abad8=""
+																			class="row--h-start mypage-destination-item__nav">
+																			<div data-v-bb8d8f74="" data-v-421abad8="">
+																				<button data-v-a1c889e0="" data-v-bb8d8f74=""
+																					type="button" title=""
+																					class="button button button--side-padding button--size-small button--color-gray button--outline"
+																					data-v-421abad8="">
+																					<span data-v-a1c889e0="" class="button__wrap">
+																						기본 배송지 설정 </span>
+																				</button>
+																			</div>
+																			<div data-v-bb8d8f74="" data-v-421abad8="">
+																				<button data-v-a1c889e0="" data-v-bb8d8f74=""
+																					type="button" title=""
+																					class="button button button--side-padding button--size-small button--color-gray button--outline"
+																					data-v-421abad8="">
+																					<span data-v-a1c889e0="" class="button__wrap">
+																						삭제 </span>
+																				</button>
+																			</div>
+																		</nav>
+																	</div>
+																	<input type="hidden" value="${list.member_zipcode_code }">
+																</li>
+															</c:if>
+														</c:forEach>
+													</ul>
+												</c:if>
+												<c:if test="${fn:length(list) == 0}">
+													<div data-v-6b53621a="" data-v-bb8d8f74=""
+														class="error-list" data-v-421abad8="">
+														<p data-v-6b53621a="">등록된 배송지가 없습니다.</p>
+													</div>
+												</c:if>
 											</div>
 											<div data-v-20ad18c6="" data-v-bb8d8f74=""
 												class="nav-paginate-wrap destination__paginate"

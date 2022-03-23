@@ -502,17 +502,17 @@
        			
        		})
  // 금주 매출       		
-//        		$(document).on('click','.col-xl-3.col-md-6:eq(0)',function(){
-//        			alert("hi");
+       		$(document).on('click','.col-xl-3.col-md-6:eq(1)',function(){
+       			alert("hi");
        			
-//        			$.ajax({
-//        				url : 'excelDown.mdo',
-//        				success : function(){
-//        					alert("성공");
-//        				}
-//        			})
+       			$.ajax({
+       				url : 'pdfDown.mdo',
+       				success : function(){
+       					alert("성공");
+       				}
+       			})
        			
-//        		})
+       		})
        		
        		
 //      ------------------------  		
@@ -639,6 +639,7 @@
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">금 달 매출</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
+<!--                                         <a class="small text-white stretched-link" href="pdfDown.mdo">자세히보기</a> -->
                                         <a class="small text-white stretched-link" href="#">자세히보기</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>

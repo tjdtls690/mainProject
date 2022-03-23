@@ -18,7 +18,7 @@ public class AdminMainChartImpl implements AdminMainChartService {
 	@Override
 	public List<AdminMainChartVO> dayChart(AdminMainChartVO vo) {
 		
-		return adminChartDAO.dayChart();
+		return adminChartDAO.dayChart(vo);
 	}
 	
 	// 다음 버튼 수행시 차트

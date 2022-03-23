@@ -10,6 +10,9 @@ public class AdminReportDayVO {
 	String pricepoint;
 	String priceSail;
 	String priceFinal;
+	String impl;
+	
+	
 	public String getDate() {
 		return date;
 	}
@@ -64,5 +67,13 @@ public class AdminReportDayVO {
 	public void setPriceFinal(String priceFinal) {
 		this.priceFinal = priceFinal;
 	}
+	public String getImpl() {
+		return impl;
+	}
+	public void setImpl(String impl) {
+		this.impl = impl;
+	}
+	
+	
 
 }

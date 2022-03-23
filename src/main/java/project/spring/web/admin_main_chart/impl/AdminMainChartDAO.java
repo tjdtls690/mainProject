@@ -20,9 +20,9 @@ public class AdminMainChartDAO {
 //	}
 	
 	//처음 메인 왔을때 차트
-	public 	List<AdminMainChartVO> dayChart(){
+	public 	List<AdminMainChartVO> dayChart(AdminMainChartVO vo){
 		System.out.println("-->mybatis. dayChart");
-		return sqlSessionTemplate.selectList("adminMainChartDAO.dayChart");
+		return sqlSessionTemplate.selectList("adminMainChartDAO.dayChart", vo);
 	}
 	
 	// 다음 버튼 수행시 차트

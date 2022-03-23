@@ -19,8 +19,24 @@
 					sum(payment_sail_price) as 'priceSail' ,
 					sum(payment_final_price) as 'priceFinal' 
 				FROM payment_info 
-			WHERE DATE(payment_date) >= STR_TO_DATE('2022-03-23', '%Y-%m-%d')
-		GROUP BY date LIMIT 0,7;
+			WHERE DATE(payment_date) <![CDATA[<=]]> STR_TO_DATE(#{date}, '%Y-%m-%d')
+		GROUP BY date desc LIMIT 0,7;
+	</select>
+	
+	<select id="reportMonth" resultMap="ReportDay">
+		SELECT
+					DATE(payment_date) as 'date' ,
+					count(payment_date) as 'count' ,
+					sum(payment_price) as 'price' ,
+					sum(payment_delivery_price) as 'delivery' ,
+					sum(payment_sum_price) as 'priceSum' ,
+					sum(payment_coupon_price) as 'priceCoupon' ,
+					sum(payment_point_price) as 'pricePoint' ,
+					sum(payment_sail_price) as 'priceSail' ,
+					sum(payment_final_price) as 'priceFinal' 
+				FROM payment_info 
+			WHERE DATE(payment_date) BETWEEN #{date} AND #{impl}
+		GROUP BY date;
 	</select>
 
 

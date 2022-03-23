@@ -48,6 +48,10 @@
 		where payment_member_code = #{payment_member_code} 
 		and payment_code &gt; 1404
 	</select>
+	<select id="getMemberPaymentDeailInfo" resultType="paymentDetailSide">
+		select * from payment_info 
+		where payment_code = #{payment_code}
+	</select>
 	<select id="getMemberPayMappingItemInfo" resultType="paymentDetail">
 		select * from payment_item_mapping 
 		where payment_code = #{payment_code}

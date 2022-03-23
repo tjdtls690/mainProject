@@ -336,8 +336,7 @@
        					"setYear" : setYear
        				},
        				success : function(htmlOut){
-       					alert("오른쪽버튼성공");     					
-       					
+
        					$('.month-btn').children('.btn.btn-link').remove();
        					
        					html +='<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">';
@@ -427,8 +426,7 @@
        					"setYear" : setYear
        				},
        				success : function(htmlOut){
-       					alert("왼쪽버튼 성공");     				
-       					
+ 
        					$('.month-btn').children('.btn.btn-link').remove();
        					
        					html += '<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">';

@@ -37,11 +37,11 @@
 							<ul data-v-130d71ec="">
 								<c:forEach var="list" items="${list }">
 									<c:if test="${list.member_default_address == 'y' }">
-										<li data-v-130d71ec=""><div data-v-464718a6=""
+										<li data-v-130d71ec="" class="except1"><div data-v-464718a6=""
 												data-v-130d71ec="" class="item">
 												<div data-v-464718a6="" class="row--v-center item__head">
 													<div data-v-464718a6="" class="col name-wrap">
-														<strong data-v-464718a6="">${list.member_shipping_address }</strong>
+														<strong data-v-464718a6="" class="except1">${list.member_shipping_address }</strong>
 													</div>
 													<p data-v-464718a6="">
 														<span data-v-7f86e76e="" data-v-464718a6=""
@@ -49,16 +49,6 @@
 													</p>
 												</div>
 												<p data-v-464718a6="" class="item__address">${list.member_address } ${list.member_detail_address }</p>
-												<nav data-v-464718a6="" class="row item__nav">
-													<div data-v-464718a6="">
-														<button data-v-a1c889e0="" data-v-464718a6="" type="button"
-															title=""
-															class="button button--side-padding button--size-small">
-															<span data-v-a1c889e0="" class="button__wrap">선택</span>
-														</button>
-													</div>
-													<!---->
-												</nav>
 											</div>
 											<input type="hidden" value="${list.member_zipcode_code }">
 										</li>
@@ -67,33 +57,27 @@
 								
 								<c:forEach var="list" items="${list }">
 									<c:if test="${list.member_default_address == 'n' }">
-										<li data-v-130d71ec=""><div data-v-464718a6=""
+										<li data-v-130d71ec="" class="except1"><div data-v-464718a6=""
 												data-v-130d71ec="" class="item">
 												<div data-v-464718a6="" class="row--v-center item__head">
 													<div data-v-464718a6="" class="col name-wrap">
-														<strong data-v-464718a6="">${list.member_shipping_address }</strong>
+														<strong data-v-464718a6="" class="except1">${list.member_shipping_address }</strong>
 													</div>
 													<!---->
 												</div>
 												<p data-v-464718a6="" class="item__address">${list.member_address } ${list.member_detail_address }</p>
 												<nav data-v-464718a6="" class="row item__nav">
-													<div data-v-464718a6="">
-														<button data-v-a1c889e0="" data-v-464718a6="" type="button"
-															title=""
-															class="button button--side-padding button--size-small">
-															<span data-v-a1c889e0="" class="button__wrap">선택</span>
-														</button>
-													</div>
 													<div data-v-464718a6="" class="main-destination-select-btn">
 														<button data-v-a1c889e0="" data-v-464718a6="" type="button"
 															title=""
-															class="button button--side-padding button--size-small button--outline2">
+															class="button button--side-padding button--size-small button--outline2 default-besongji">
 															<span data-v-a1c889e0="" class="button__wrap">기본
 																배송지로 설정</span>
 														</button>
 													</div>
 												</nav>
 											</div>
+											<input type="hidden" value="${list.member_zipcode_code }">
 										</li>
 									</c:if>
 								</c:forEach>

@@ -69,8 +69,8 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css">
-
+<link rel="stylesheet" href="${path }/style2.css?ver=2">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function page_move(tagNum){
@@ -79,6 +79,87 @@
 	   f.action="tapPage.do";//이동할 페이지
 	   f.method="post";//POST방식
 	   f.submit();
+	}
+	
+	function kakaoAddressStart(){
+		// 우편번호 찾기 찾기 화면을 넣을 element
+	    var element_wrap = document.getElementById('vue-daum-postcode-container');
+
+//	     function foldDaumPostcode() {
+//	         // iframe을 넣은 element를 안보이게 한다.
+//	         element_wrap.style.display = 'none';
+//	     }
+
+//	     function sample3_execDaumPostcode() {
+	        // 현재 scroll 위치를 저장해놓는다.
+	        var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                // 도로명 주소 받기, 지번주소 받기
+	                addr = data.roadAddress;
+	                zonecode = data.zonecode;
+
+	                // iframe을 넣은 element를 안보이게 한다.
+	                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+	                element_wrap.style.display = 'none';
+
+	                // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+	                document.body.scrollTop = currentScroll;
+	                
+	                var deliveryType = $('#deliveryType').val();
+	                $.ajax({
+	                	url : 'orderDeliveryTypeCheck.do',
+	                	type : 'post',
+	                	data : {
+	                		'addr' : addr,
+	                		'deliveryType' : deliveryType
+	                	},
+	                	success : function(data){
+	                		if(data == 0){
+	                			$.ajax({
+	                				url : 'orderMorningDeliveryExcept.do',
+	                				dataType : 'html',
+	                				success : function(htmlOut){
+	                					$('.modal-wrap__body').html(htmlOut);
+	                				}
+	                			})
+	                		}else{
+	                			$.ajax({
+	                            	url : 'orderKakaoAddressSelectFinal.do',
+	                            	dataType : 'html',
+	                            	type : 'post',
+	                            	data : {
+	                            		'addr' : addr,
+	                            		'zonecode' : zonecode
+	                            	},
+	                            	success : function(htmlOut){
+	                            		$('.modal-wrap__body').html(htmlOut);
+	                            	}
+	                            })
+	                		}
+	                	}
+	                })
+	            },
+	            // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+	            onresize : function(size) {
+	                element_wrap.style.height = size.height+'px';
+	            },
+	            width : '100%',
+	            height : '100%'
+	        }).embed(element_wrap);
+
+	        // iframe을 넣은 element를 보이게 한다.
+	        element_wrap.style.display = 'block';
+	        $('.placeholder.show').text('예) 판교역로 235, 분당 주공');
+			$('#region_name').attr('placeholder', '예) 판교역로 235, 분당 주공');
+//	     }
 	}
 
 	$(function(){
@@ -92,9 +173,11 @@
 		
 		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
 			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
-					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container") && !$(e.target).hasClass("swal2-confirm swal2-styled")) {
 				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+				$('#defaultDeliverydeleteCheck').detach();
+				
 				setTimeout(function() {
 					$('.swal2-container').detach();
 				}, 100);
@@ -178,13 +261,16 @@
     			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
     			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
     			&& !$(e.target).hasClass("disable-place-text") && !$(e.target).hasClass("name-wrap") && !$(e.target).hasClass("item__head") && !$(e.target).hasClass("round-text")
-    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small")){
+    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small") && !$(e.target).hasClass("item")){
     		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
         	for (let i = 0; i < TimeoutId; i++) {
         	  clearTimeout(i);
         	}
     		
         	$('html').attr('class', '');
+        	$('body').attr('class', '');
+        	$('noscript').removeAttr('aria-hidden');
+        	$('#__nuxt').removeAttr('aria-hidden');
         	$(window).scrollTop(200);
         	$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
         	setTimeout(function() {
@@ -213,7 +299,85 @@
 	    			$('.mypage-header-info').append(htmlOut);
 	    		}
 	    	})
-	    })
+	    });
+	    
+	    
+	    // 기본 배송지로 설정 버튼
+	    $(document).on('click', '.default-besongji', function(){
+	    	$.ajax({
+	    		url : 'orderDefaultDeliveryCheckModal.do',
+	    		dataType : 'html',
+	    		context : this,
+	    		success : function(htmlOut){
+	    			$(this).after('<input type="hidden" id="defaultDeliverydeleteCheck">');
+	    			$('html').attr('class', 'mode-popup swal2-shown swal2-height-auto');
+	    			$('body').attr('class', 'swal2-shown swal2-height-auto');
+	    			$('noscript').attr('aria-hidden', 'true');
+	    			$('#__nuxt').attr('aria-hidden', 'true');
+	    			$('body').append(htmlOut);
+	    		}
+	    	})
+	    });
+	    
+	 	// 기본 배송지 설정 변경 체크 모달창 취소 버튼
+	    $(document).on('click', '.swal2-cancel.swal2-styled', function(){
+	    	$('#defaultDeliverydeleteCheck').detach();
+	    	$('#checkDefaultDelivery').val(0);
+	    });
+	 	
+	 	// 기본 배송지 설정 변경 체크 모달창 확인 버튼
+	    $(document).on('click', '.swal2-confirm.swal2-styled', function(){
+	    	var member_zipcode_code = $('#defaultDeliverydeleteCheck').closest('li').find('input:odd').val();
+	    	var member_delivery_type = $('#deliveryType').val();
+	    	
+	    	$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+			$('#defaultDeliverydeleteCheck').detach();
+			
+			setTimeout(function() {
+				$('.swal2-container').detach();
+			}, 100);
+			
+	    	$.ajax({
+	    		url : 'myBesongjiDefaultZipCheck.do',
+	    		type : 'post',
+	    		data : {
+	    			'member_zipcode_code' : member_zipcode_code,
+	    			'member_delivery_type' : member_delivery_type
+	    		},
+	    		success : function(data){
+	    			$.ajax({
+	    				url : 'myBesongjiModalDetail.do',
+	    				dataType : 'html',
+	    				type : 'post',
+	    				data : {
+	    					'member_zipcode_code' : member_zipcode_code,
+	    	    			'member_delivery_type' : member_delivery_type
+	    				},
+	    				success : function(htmlOut){
+	    					$('.address-index__index').html(htmlOut);
+	    				}
+	    			})
+	    		}
+	    	})
+	    });
+	 	
+	 	
+	 	// 배송지 추가 버튼
+	 	$(document).on('click', '.button__wrap.button2', function(){
+	 		$.ajax({
+	    		url : 'myBesongjiKakaoAddressContainer.do',
+	    		dataType : 'html',
+	    		success : function(htmlOut){
+	    			$('.modal-wrap__body').html(htmlOut);
+	    			
+	    			kakaoAddressStart();
+	    			
+	    			$('.placeholder').css('display', 'none');
+	    			$('#region_name').attr('placeholder', '예) 판교역로 235, 분당 주공');
+	    		}
+	    	})
+	 	})
 	})
 </script>
 </head>

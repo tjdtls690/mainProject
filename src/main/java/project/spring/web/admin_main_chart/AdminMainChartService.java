@@ -1,9 +1,6 @@
 package project.spring.web.admin_main_chart;
 
 import java.util.List;
-import java.util.Map;
-
-import project.spring.web.review.WriteReviewVO;
 
 public interface AdminMainChartService {
 	

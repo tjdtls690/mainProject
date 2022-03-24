@@ -25,7 +25,7 @@ public class AdminReportDayServiceImpl implements AdminReportDayService {
 
 	@Override
 	public List<AdminReportDayVO> reportMonth(AdminReportDayVO vo) {
-		// TODO Auto-generated method stub
+		
 		return adminReportDayDAO.reportMonth(vo);
 	}
 	

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PointHistoryDAO">
+	<insert id="insertPointHistory">
+		insert into point_history(point_history_member_code, point_history_point, point_history_explain)
+		values(#{point_history_member_code}, #{point_history_point}, #{point_history_explain})
+	</insert>
+</mapper>

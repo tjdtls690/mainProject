@@ -16,7 +16,7 @@
 SELECT * FROM member 
 </select>
 	<delete id="deleteMember">
-		DELETE FROM member WHERE memberCode = #{memberCode}
+		DELETE FROM member WHERE member_Code = #{memberCode}
 	</delete>
 </mapper>
 

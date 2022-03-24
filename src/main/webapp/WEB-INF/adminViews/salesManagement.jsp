@@ -7,21 +7,169 @@
 <html lang="en">
 <head>
 <style>
-input {
-  padding:10px;
-	font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: inherit;
-  border-radius: 0 !important;
+.fa-calendar {
+    position: absolute;
+    top: 13px;
+    font-size: 20px;
+    color: #1976D2;
+    z-index: 1000
 }
 
-.form-control {
-  border-radius: 0 !important;
-  font-size: 12x;
+#fa-1 {
+    left: calc(50% - 40px)
 }
 
-.clickable { cursor: pointer; }
+#fa-2 {
+    left: calc(100% - 40px)
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: -10px !important;
+    padding: 12px 2px 0 2px;
+    opacity: 0.5
+}
+
+#end-p {
+    left: calc(50% + 4px)
+}
+
+.form-control:focus+.form-control-placeholder,
+.form-control:valid+.form-control-placeholder {
+    font-size: 95%;
+    top: 10px;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1
+}
+
+::placeholder {
+    color: #BDBDBD;
+    opacity: 1
+}
+
+:-ms-input-placeholder {
+    color: #BDBDBD
+}
+
+::-ms-input-placeholder {
+    color: #BDBDBD
+}
+
+.datepicker {
+    background-color: #fff;
+    border-radius: 0 !important;
+    align-content: center !important;
+    padding: 0 !important
+}
+
+.datepicker-dropdown {
+    top: 180px !important;
+    left: calc(50% - 173.5px) !important;
+    border-right: #1976D2;
+    border-left: #1976D2
+}
+
+.datepicker-dropdown.datepicker-orient-left:before {
+    left: calc(50% - 6px) !important
+}
+
+.datepicker-dropdown.datepicker-orient-left:after {
+    left: calc(50% - 5px) !important;
+    border-bottom-color: #1976D2
+}
+
+.datepicker-dropdown.datepicker-orient-right:after {
+    border-bottom-color: #1976D2
+}
+
+.datepicker table tr td.today,
+span.focused {
+    border-radius: 50% !important;
+    background-image: linear-gradient(#FFF3E0, #FFE0B2)
+}
+
+tbody tr td {
+    padding: 10px !important
+}
+
+tfoot tr:nth-child(2) th {
+    padding: 10px !important;
+    border-top: 1px solid #CFD8DC !important
+}
+
+.cw {
+    font-size: 14px !important;
+    background-color: #E8EAF6 !important;
+    border-radius: 0px !important;
+    padding: 0px 20px !important;
+    margin-right: 10px solid #fff !important
+}
+
+.old,
+.day,
+.new {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 0px !important
+}
+
+.day.old,
+.day.new {
+    color: #E0E0E0 !important
+}
+
+.day.old:hover,
+.day.new:hover {
+    border-radius: 50% !important
+}
+
+.old-day:hover,
+.day:hover,
+.new-day:hover,
+.month:hover,
+.year:hover,
+.decade:hover,
+.century:hover {
+    border-radius: 50% !important;
+    background-color: #eee
+}
+
+.range-start,
+.range-end {
+    border-radius: 50% !important;
+    background-image: linear-gradient(#1976D2, #1976D2) !important
+}
+
+.range {
+    background-color: #E3F2FD !important
+}
+
+.prev,
+.next,
+.datepicker-switch {
+    border-radius: 0 !important;
+    padding: 10px 10px 10px 10px !important;
+    font-size: 18px;
+    opacity: 0.7;
+    color: #fff
+}
+
+.prev:hover,
+.next:hover,
+.datepicker-switch:hover {
+    background-color: inherit !important;
+    opacity: 1
+}
+
+@media screen and (max-width: 726px) {
+    .datepicker-dropdown.datepicker-orient-right:before {
+        right: calc(50% - 6px)
+    }
+
+    .datepicker-dropdown.datepicker-orient-right:after {
+        right: calc(50% - 5px)
+    }
+}
 </style>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -34,7 +182,10 @@ input {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-	<script type="text/javascript">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css"> -->
+	<script>
        	$(function(){
        		var ctx = document.getElementById("myAreaChart");
    			var myLineChart = new Chart(ctx, {
@@ -92,518 +243,17 @@ input {
    			  }
    			});
        		
-// 오른쪽 버튼 클릭시       		
-			var check01 = 0;
-       		$(document).on('click', '.bi.bi-chevron-right', function(){
-       			var theDay = $("input[name='firstDay']").val();
+   			$(document).ready(function(){
 
-       			$.ajax({ 
-   			    	url : "next.mdo",
-   			    	type : 'post',
-   			    	dataType : 'html',
-   			    	data : {
-   			    		"theDay" : theDay	
-   			    	},
-   			    	success:function(html){
+   				$('.input-daterange').datepicker({
+   				format: 'dd-mm-yyyy',
+   				autoclose: true,
+   				calendarWeeks : true,
+   				clearBtn: true,
+   				disableTouchKeyboard: true
+   				});
 
-   			    	// 기존에 있던 input 애들 다 삭제.
-   			    		$("input[name='day']").remove();
-   			    		$("input[name='daySum']").remove();
-   			    	// 데이터 들어가있는 input 추가
-   			    		$('#input').append(html);
-   			    	
-   			    		$('.chartjs-size-monitor').detach();
-   			    		$('#myAreaChart').detach()
-   	   			    	$('#myAreaChart' + check01).detach();
-   	   			    	check01++;
-   	   			    	$('.card-body').eq(4).append('<canvas id="myAreaChart' + check01 + '" width="100%" height="40"></canvas>');
-					//날짜 집어넣기.
-						var day = [];
-						for(var i = 0; i<13; i++){
-							day[i] = $("input[name='day']").eq(i).val();
-						}
-					// 컨트롤러에 보내서 db쿼리 수행에 필요한 시작 날짜. 재 셋팅
-						$("input[name='firstDay']").val($("input[name='day']").last().val());
-						$("input[name='lastDay']").val($("input[name='day']").first().val());
-						
-				
-						var daySum = [];
-						for(var i =0; i<13; i++){
-							daySum[i] = $("input[name='daySum']").eq(i).val();
-						}
-						
-
-   			    		var ctx = document.getElementById("myAreaChart" + check01);
-   	        			var myLineChart = new Chart(ctx, {
-   	        			  type: 'line',
-   	        			  data: {
-   	        			    labels: [ day[0], day[1], day[2], day[3], day[4], day[5], day[6], day[7], day[8], day[9], day[10], day[11], day[12] ],
-   	        			    datasets: [{
-   	        			      label: "Sessions",
-   	        			      lineTension: 0.3,
-   	        			      backgroundColor: "rgba(2,117,216,0.2)",
-   	        			      borderColor: "rgba(2,117,216,1)",
-   	        			      pointRadius: 5,
-   	        			      pointBackgroundColor: "rgba(2,117,216,1)",
-   	        			      pointBorderColor: "rgba(255,255,255,0.8)",
-   	        			      pointHoverRadius: 5,
-   	        			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-   	        			      pointHitRadius: 50,
-   	        			      pointBorderWidth: 2,
-   	        			      data: [ daySum[0], daySum[1], daySum[2], daySum[3], daySum[4], daySum[5], daySum[6], 
-   	        			    	      daySum[7], daySum[8], daySum[9], daySum[10], daySum[11], daySum[12] ],
-   	        			    }],
-   	        			  },
-   	        			  options: {
-   	        			    scales: {
-   	        			      xAxes: [{
-   	        			        time: {
-   	        			          unit: 'date'
-   	        			        },
-   	        			        gridLines: {
-   	        			          display: false
-   	        			        },
-   	        			        ticks: {
-   	        			          maxTicksLimit: 7
-   	        			        }
-   	        			      }],
-   	        			      yAxes: [{
-   	        			        ticks: {
-   	        			          min: 0,
-   	        			          max: 400000,
-   	        			          maxTicksLimit: 8
-   	        			        },
-   	        			        gridLines: {
-   	        			          color: "rgba(0, 0, 0, .125)",
-   	        			        }
-   	        			      }],
-   	        			    },
-   	        			    legend: {
-   	        			      display: false
-   	        			    }
-   	        			  }
-   	        			});
-   			    		
-   			    	
-   			    	}
-
-   			    }) // ajax 끝
-       		})
-
-// 왼쪽 버튼 클릭시       		
-			
-       		$(document).on('click', '.bi.bi-chevron-left', function(){
-       			var theDay = $("input[name='lastDay']").val();
-       			
-
-       			$.ajax({ 
-   			    	url : "prev.mdo",
-   			    	type : 'post',
-   			    	dataType : 'html',
-   			    	data : {
-   			    		"theDay" : theDay	
-   			    	},
-   			    	success:function(html){
-
-   			    	// 기존에 있던 input 애들 다 삭제.
-   			    		$("input[name='day']").remove();
-   			    		$("input[name='daySum']").remove();
-   			    	// 데이터 들어가있는 input 추가
-   			    		$('#input').append(html);
-   			    	
-   			    		$('.chartjs-size-monitor').detach();
-   			    	$('#myAreaChart').detach()
-   			    	$('#myAreaChart' + check01).detach();
-   			    	check01++;
-   			    	$('.card-body').eq(4).append('<canvas id="myAreaChart' + check01 + '" width="100%" height="40"></canvas>');
-   			    	
-					//날짜 집어넣기.
-						var day = [];
-						for(var i = 0; i<13; i++){
-							
-							day[i] = $("input[name='day']").eq(12-i).val();
-							
-						}
-					// 컨트롤러에 보내서 db쿼리 수행에 필요한 시작 날짜. 재 셋팅
- 						$("input[name='lastDay']").val($("input[name='day']").last().val());
-						$("input[name='firstDay']").val($("input[name='day']").first().val());
-						
-					// 가격 집어넣기.	
-						var daySum = [];
-						for(var i =0; i<13; i++){
-							
-							daySum[i] = $("input[name='daySum']").eq(12-i).val();
-						}
-						
-
-   			    		var ctx = document.getElementById("myAreaChart" + check01);
-   	        			var myLineChart = new Chart(ctx, {
-   	        			  type: 'line',
-   	        			  data: {
-   	        			    labels: [ day[0], day[1], day[2], day[3], day[4], day[5], day[6], day[7], day[8], day[9], day[10], day[11], day[12] ],
-   	        			    datasets: [{
-   	        			      label: "Sessions",
-   	        			      lineTension: 0.3,
-   	        			      backgroundColor: "rgba(2,117,216,0.2)",
-   	        			      borderColor: "rgba(2,117,216,1)",
-   	        			      pointRadius: 5,
-   	        			      pointBackgroundColor: "rgba(2,117,216,1)",
-   	        			      pointBorderColor: "rgba(255,255,255,0.8)",
-//    	        			      pointHoverRadius: 5,
-   	        			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-   	        			      pointHitRadius: 50,
-   	        			      pointBorderWidth: 2,
-   	        			      data: [ daySum[0], daySum[1], daySum[2], daySum[3], daySum[4], daySum[5], daySum[6], 
-   	        			    	      daySum[7], daySum[8], daySum[9], daySum[10], daySum[11], daySum[12] ],
-   	        			    }],
-   	        			  },
-   	        			  options: {
-   	        			    scales: {
-   	        			      xAxes: [{
-   	        			        time: {
-   	        			          unit: 'date'
-   	        			        },
-   	        			        gridLines: {
-   	        			          display: false
-   	        			        },
-   	        			        ticks: {
-   	        			          maxTicksLimit: 7
-   	        			        }
-   	        			      }],
-   	        			      yAxes: [{
-   	        			        ticks: {
-   	        			          min: 0,
-   	        			          max: 400000,
-   	        			          maxTicksLimit: 8
-   	        			        },
-   	        			        gridLines: {
-   	        			          color: "rgba(0, 0, 0, .125)",
-   	        			        }
-   	        			      }],
-   	        			    },
-   	        			    legend: {
-   	        			      display: false
-   	        			    }
-   	        			  }
-   	        			});
-   			    		
-   			    	
-   			    	}
-
-   			    }) // ajax 끝
-       		})
-       		
- // 바 차트      		
-       		var ctx = document.getElementById("myBarChart");
-       		var myLineChart = new Chart(ctx, {
-       		  type: 'bar',
-       		  data: {
-       		    labels: ["January", "February", "March", "April", 
-       		    		 "May", "June" , "July", "August", 
-       		    		 "September", "October", "November", "December"],
-       		    datasets: [{
-       		      label: "Revenue",
-       		      backgroundColor: "rgba(2,117,216,1)",
-       		      borderColor: "rgba(2,117,216,1)",
-       		      data: [${month0}, ${month4}, ${month5}, ${month6},
-       		   			 ${month7}, ${month8}, ${month9}, ${month10},
-       					 ${month11}, ${month1}, ${month2}, ${month3}],
-       		    }],
-       		  },
-       		  options: {
-       		    scales: {
-       		      xAxes: [{
-       		        time: {
-       		          unit: 'month'
-       		        },
-       		        gridLines: {
-       		          display: false
-       		        },
-       		        ticks: {
-       		          maxTicksLimit: 12
-       		        }
-       		      }],
-       		      yAxes: [{
-       		        ticks: {
-       		          min: 0,
-       		          max: 10000000,
-       		          maxTicksLimit: 5
-       		        },
-       		        gridLines: {
-       		          display: true
-       		        }
-       		      }],
-       		    },
-       		    legend: {
-       		      display: false
-       		    }
-       		  }
-       		});
-       		
-       // 바차트 오른쪽		
-       		var check02 = 0;
-       		$(document).on('click','.bi.bar-chevron-right',function(){
-       			var setYear =  $("input[name='month']").val();
-       			var html ="";
-       			$.ajax({
-       				url : "nextMonth.mdo",
-       				type : "post",
-       				dataType : "html",
-       				data : {
-       					"setYear" : setYear
-       				},
-       				success : function(htmlOut){
-
-       					$('.month-btn').children('.btn.btn-link').remove();
-       					
-       					html +='<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">';
-       					html +='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-left" viewBox="0 0 16 16">';
-       					html +='<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>';
-       					html +='</svg>';
-       					html +='</button>';
-       					$('.month-btn').append(html);
-       					
-//       			    	// 기존에 있던 input 애들 다 삭제.
-   			    		$("input[name='monthSum']").remove();
-   			    		// 데이터 들어가있는 input 추가
-   			    		$('#input').append(htmlOut);
-   			    		
-   			    		var month = [];
-   						//날짜 집어넣기.
-						for(var i = 0; i<13; i++){
-							
-							month[i] = $("input[name='monthSum']").eq(i).val();
-							
-						}
-       					
-       					
-       		       		var ctx = document.getElementById("myBarChart");
-       		       		var myLineChart = new Chart(ctx, {
-       		       		  type: 'bar',
-       		       		  data: {
-       		       		    labels: ["January", "February", "March", "April", 
-       		       		    		 "May", "June" , "July", "August", 
-       		       		    		 "September", "October", "November", "December"],
-       		       		    datasets: [{
-       		       		      label: "Revenue",
-       		       		      backgroundColor: "rgba(2,117,216,1)",
-       		       		      borderColor: "rgba(2,117,216,1)",
-       		       		      data: [month[0], month[4], month[5], month[6],
-       		       		   			 month[7], month[8], month[9], month[10],
-       		       					 month[11], month[1], month[2], month[3] ],
-       		       		    }],
-       		       		  },
-       		       		  options: {
-       		       		    scales: {
-       		       		      xAxes: [{
-       		       		        time: {
-       		       		          unit: 'month'
-       		       		        },
-       		       		        gridLines: {
-       		       		          display: false
-       		       		        },
-       		       		        ticks: {
-       		       		          maxTicksLimit: 12
-       		       		        }
-       		       		      }],
-       		       		      yAxes: [{
-       		       		        ticks: {
-       		       		          min: 0,
-       		       		          max: 10000000,
-       		       		          maxTicksLimit: 5
-       		       		        },
-       		       		        gridLines: {
-       		       		          display: true
-       		       		        }
-       		       		      }],
-       		       		    },
-       		       		    legend: {
-       		       		      display: false
-       		       		    }
-       		       		  }
-       		       		});
-       					
-       					
-       				}
-       			
-       				
-       			})// ajax 끝
-       			
-  
-       		})
-       // 바차트 왼쪽		
-       		$(document).on('click','.bi.bar-chevron-left',function(){
-       			var setYear =  $("input[name='month']").val();
-       			var html ="";
-       			$.ajax({
-       				url : "prevMonth.mdo",
-       				type : "post",
-       				dataType : "html",
-       				data : {
-       					"setYear" : setYear
-       				},
-       				success : function(htmlOut){
- 
-       					$('.month-btn').children('.btn.btn-link').remove();
-       					
-       					html += '<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">';
-       					html += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-right" viewBox="0 0 16 16">';
-       					html += '<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>';
-       					html += '</svg>';
-       					html += '</button>';      					
-       					$('.month-btn').append(html);
-       					
-//   			    	// 기존에 있던 input 애들 다 삭제.
-   			    		$("input[name='monthSum']").remove();
-   			    		// 데이터 들어가있는 input 추가
-   			    		$('#input').append(htmlOut);
-   			    		
-   			    		var month = [];
-   						//날짜 집어넣기.
-						for(var i = 0; i<13; i++){
-							
-							month[i] = $("input[name='monthSum']").eq(i).val();
-							
-						}
-       					
-       					var ctx = document.getElementById("myBarChart");
-       		       		var myLineChart = new Chart(ctx, {
-       		       		  type: 'bar',
-       		       		  data: {
-       		       		    labels: ["January", "February", "March", "April", 
-       		       		    		 "May", "June" , "July", "August", 
-       		       		    		 "September", "October", "November", "December"],
-       		       		    datasets: [{
-       		       		      label: "Revenue",
-       		       		      backgroundColor: "rgba(2,117,216,1)",
-       		       		      borderColor: "rgba(2,117,216,1)",
-       		       		      data: [${month0}, ${month4}, ${month5}, ${month6},
-       		       		   			 ${month7}, ${month8}, ${month9}, ${month10},
-       		       					 ${month11}, ${month1}, ${month2}, ${month3}],
-       		       		    }],
-       		       		  },
-       		       		  options: {
-       		       		    scales: {
-       		       		      xAxes: [{
-       		       		        time: {
-       		       		          unit: 'month'
-       		       		        },
-       		       		        gridLines: {
-       		       		          display: false
-       		       		        },
-       		       		        ticks: {
-       		       		          maxTicksLimit: 12
-       		       		        }
-       		       		      }],
-       		       		      yAxes: [{
-       		       		        ticks: {
-       		       		          min: 0,
-       		       		          max: 10000000,
-       		       		          maxTicksLimit: 5
-       		       		        },
-       		       		        gridLines: {
-       		       		          display: true
-       		       		        }
-       		       		      }],
-       		       		    },
-       		       		    legend: {
-       		       		      display: false
-       		       		    }
-       		       		  }
-       		       		});
-       					
-       					
-       				}
-       				
-       			})// ajax 끝
-       			
-       			
-       		})
-       		
-
-
-       		
- // 금주 매출  pdf 다운로드     		
-       		$(document).on('click','.btn.btn-outline-danger:eq(0)',function(){	
-       			alert("금주 pdf 다운");
-       			$.ajax({
-       				url : 'pdfDown.mdo',
-       				success : function(htmlOut){
-       					alert("pdf 다운 완료");
-       					
-       				}
-       			})
-       			
-       		})
- // 금달 매출  pdf 다운로드     		
-       		$(document).on('click','.btn.btn-outline-danger:eq(1)',function(){	
-       			alert("금달 pdf 다운");
-       			$.ajax({
-       				url : 'pdfDown2.mdo',
-       				success : function(htmlOut){
-       					alert("pdf 다운 완료");
-       					
-       				}
-       			})
-       			
-       		})
-
-
-//      ------------------------  		
-       	}) 
-
-       	$(document).ready(function(){
-    function alignModal(){
-        var modalDialog = $(this).find(".modal-dialog");
-        
-        // Applying the top margin on modal dialog to align it vertically center
-        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
-//         modalDialog.css("margin-left", Math.max(0, ($(window).height() - modalDialog.height()) / 0.35));
-    }
-    // Align modal when it is displayed
-    $(".modal").on("shown.bs.modal", alignModal);
-    
-    // Align modal when user resize the window
-    $(window).on("resize", function(){
-        $(".modal:visible").each(alignModal);
-    });   
-});
-       	
-       	//Datepicker
-       	$(function(){
-       	var nowTemp = new Date();
-       	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-
-       	var checkin = $('#dp1').datepicker({
-
-       	  beforeShowDay: function(date) {
-       	    return date.valueOf() >= now.valueOf();
-       	  },
-       	  autoclose: true
-
-       	}).on('changeDate', function(ev) {
-       	  if (ev.date.valueOf() > checkout.datepicker("getDate").valueOf() || !checkout.datepicker("getDate").valueOf()) {
-
-       	    var newDate = new Date(ev.date);
-       	    newDate.setDate(newDate.getDate() + 1);
-       	    checkout.datepicker("update", newDate);
-
-       	  }
-       	  $('#dp2')[0].focus();
-       	});
-
-
-       	var checkout = $('#dp2').datepicker({
-       	  beforeShowDay: function(date) {
-       	    if (!checkin.datepicker("getDate").valueOf()) {
-       	      return date.valueOf() >= new Date().valueOf();
-       	    } else {
-       	      return date.valueOf() > checkin.datepicker("getDate").valueOf();
-       	    }
-       	  },
-       	  autoclose: true
-
-       	}).on('changeDate', function(ev) {});
+   				});
         </script>
     </head>
     
@@ -713,9 +363,9 @@ input {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">매출통계</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">매출통계</li>
                         </ol>  
                         
                         <div class="card mb-4">
@@ -724,12 +374,15 @@ input {
                                 매출통계
                             </div>
                             <div class="card-body">
-                            <div class="form-group">
-							  <input id="dp1" type="text" class="form-control clickable input-md" id="DtChkIn" placeholder="&#xf133;  Check-In">
-							</div>
-							<div class="form-group">
-							  <input id="dp2" type="text" class="form-control clickable input-md" id="DtChkOut" placeholder="&#xf133;  Check-Out">
-							</div>
+                            	<div class="container px-1 px-sm-5 mx-auto">
+								    <form autocomplete="off">
+								        <div class="flex-row d-flex justify-content-center">
+								            <div class="col-lg-6 col-11 px-1">
+								                <div class="input-group input-daterange"> <input type="text" id="start" class="form-control text-left mr-2"> <label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date</label> <span class="fa fa-calendar" id="fa-1"></span> <input type="text" id="end" class="form-control text-left ml-2"> <label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date</label> <span class="fa fa-calendar" id="fa-2"></span> </div>
+								            </div>
+								        </div>
+								    </form>
+								</div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -812,13 +465,13 @@ input {
                                      
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> <!-- card mb-4 -->
+                        </div> <!-- container-fluid px-4 -->
                         </div>
-                    </div>
-                </main>
-               
-            </div>
-        </div>
+                        </main>
+                    </div> <!-- layoutSidenav_content -->            
+            </div> <!-- layoutSidenav -->
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -826,5 +479,8 @@ input {
 <%--         <script src="${path}/assets/demo/chart-bar-demo.js"></script> --%>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path}/js/datatables-simple-demo.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" crossorigin="anonymous"></script>
     </body>
 </html>

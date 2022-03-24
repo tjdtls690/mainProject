@@ -1,7 +1,11 @@
 package project.spring.web.admin_main_rank;
 
+import java.util.List;
+
 public interface AdminMainRankService {
 	
-//	List<AdminRankVO> 
+	List<AdminMainRankVO> saleRank10();
+	
+	List<AdminMainRankVO> countRank10();
 
 }

@@ -7,4 +7,7 @@
 		insert into point_history(point_history_member_code, point_history_point, point_history_explain)
 		values(#{point_history_member_code}, #{point_history_point}, #{point_history_explain})
 	</insert>
+	<select id="selectMemberPointHistory" resultType="pointHistory">
+		select * from point_history where point_history_member_code = #{point_history_member_code}
+	</select>
 </mapper>

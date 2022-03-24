@@ -1,5 +1,7 @@
 package project.spring.web.point_history.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class PointHistoryServiceImpl implements PointHistoryService{
 	@Override
 	public int insertPointHistory(PointHistoryVO vo) {
 		return pointHistoryDAO.insertPointHistory(vo);
+	}
+
+	@Override
+	public List<PointHistoryVO> selectMemberPointHistory(PointHistoryVO vo) {
+		return pointHistoryDAO.selectMemberPointHistory(vo);
 	}
 	
 }

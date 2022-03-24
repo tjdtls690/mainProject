@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}/resources/myPointSearch"/>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path"
+	value="${pageContext.request.contextPath}/resources/myPointSearch" />
 <!DOCTYPE html>
 <html class="">
 <head>
@@ -53,110 +56,146 @@
 <meta data-n-head="ssr" data-hid="fb:app_id" property="fb:app_id"
 	content="323001348061168">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png"
+	sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
 <link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
-function page_move(tagNum){
-   var f = document.paging; //폼 name
-   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
-   f.action="tapPage.do";//이동할 페이지
-   f.method="post";//POST방식
-   f.submit();
-}
+	function page_move(tagNum) {
+		var f = document.paging; //폼 name
+		f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+		f.action = "tapPage.do";//이동할 페이지
+		f.method = "post";//POST방식
+		f.submit();
+	}
 
+	$(function() {
+		$(document)
+				.on(
+						'click',
+						'#closeFinalCheck',
+						function() {
+							$('.swal2-container')
+									.attr('class',
+											'swal2-container swal2-center swal2-backdrop-hide');
+							$('.swal2-popup')
+									.attr(
+											'swal2-popup swal2-modal swal2-icon-info swal2-hide');
+							setTimeout(function() {
+								$('.swal2-container').detach();
+							}, 100);
+						})
 
-	$(function(){
-		$(document).on('click', '#closeFinalCheck', function(){
-			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
-			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
-			setTimeout(function() {
-				$('.swal2-container').detach();
-			}, 100);
-		})
-		
-		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
-			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
-					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
-				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
-				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
-				setTimeout(function() {
-					$('.swal2-container').detach();
-				}, 100);
-			}
-		});
+		$(document)
+				.on(
+						'click',
+						'.swal2-container.swal2-center.swal2-backdrop-show',
+						function(e) {
+							if (!$(e.target).hasClass("swal2-popup")
+									&& !$(e.target).hasClass("swal2-header")
+									&& !$(e.target).hasClass("swal2-content")
+									&& !$(e.target).hasClass("swal2-actions")
+									&& !$(e.target).hasClass("swal2-icon")
+									&& !$(e.target).hasClass(
+											"swal2-icon-content")
+									&& !$(e.target).hasClass(
+											"swal2-html-container")) {
+								$('.swal2-container')
+										.attr('class',
+												'swal2-container swal2-center swal2-backdrop-hide');
+								$('.swal2-popup')
+										.attr(
+												'swal2-popup swal2-modal swal2-icon-info swal2-hide');
+								setTimeout(function() {
+									$('.swal2-container').detach();
+								}, 100);
+							}
+						});
 
-
-		$(document).on('click', '#sideEvent', function(){
+		$(document).on('click', '#sideEvent', function() {
 			$(location).attr("href", "event.do");
 		});
-		
-		$(document).on('click', '#sideBasket', function(){
+
+		$(document).on('click', '#sideBasket', function() {
 			$(location).attr("href", "basket.do");
 		})
-		
-		$(document).on('click', '.header__toggle-button', function(){
+
+		$(document).on('click', '.header__toggle-button', function() {
 			$('html').attr('class', 'mode-popup');
 			$.ajax({
 				url : 'sideMune.do',
 				dataType : 'html',
-				success : function(htmlOut){
+				success : function(htmlOut) {
 					$('#header-area').after(htmlOut);
 				}
 			})
 		});
-		$(document).on('click', '.side-nav__overlay', function(e){
-			if (!$(e.target).hasClass(".side-nav__wrap")) {
-				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
-				$('html').removeClass('mode-popup');
-				setTimeout(function() {
-					$('.side-nav').detach();
-				}, 350);
+		$(document)
+				.on(
+						'click',
+						'.side-nav__overlay',
+						function(e) {
+							if (!$(e.target).hasClass(".side-nav__wrap")) {
+								$('.side-nav')
+										.attr('class',
+												'side-nav side-nav-leave-active side-nav-leave-to');
+								$('html').removeClass('mode-popup');
+								setTimeout(function() {
+									$('.side-nav').detach();
+								}, 350);
+							}
+						});
+
+		var lastScrollTop = 0, delta = 90;
+		$(window).scroll(function(event) {
+			var st = $(this).scrollTop();
+			if (Math.abs(lastScrollTop - st) <= delta)
+				return;
+			if ((st > lastScrollTop) && (lastScrollTop > 0)) {
+				if (window.innerWidth > 1023) {
+					$(".header").css("top", "-130px");
+				} else {
+					$(".header").css("top", "0px");
+				}
+			} else {
+				$(".header").css("top", "0px");
 			}
+			lastScrollTop = st;
 		});
 
-		var lastScrollTop = 0,
-	    	delta = 90;
-	    	$(window).scroll(function(event){
-	    		var st = $(this).scrollTop();
-	    		if(Math.abs(lastScrollTop - st) <= delta) return;
-	    		if((st > lastScrollTop) && (lastScrollTop > 0)){
-	    			if(window.innerWidth > 1023){
-	    				$(".header").css("top","-130px");
-	    			}else{
-	    				$(".header").css("top","0px");
-	    			}
-	    		}else{
-	    			$(".header").css("top","0px");
-	    		}
-	    		lastScrollTop = st;
-	    	});
-	    	
-	    $('#logout').click(function(){
-		    $.ajax({
-		    	url : 'logout.do',
-		    	dataType : 'html',
-		    	success : function(htmlOut){
-		    		$('body').append(htmlOut);
-		    	}
-		    })
+		$('#logout').click(function() {
+			$.ajax({
+				url : 'logout.do',
+				dataType : 'html',
+				success : function(htmlOut) {
+					$('body').append(htmlOut);
+				}
+			})
 		})
-		    	
-		$(document).on('click', '#closeModal', function(){
-		    $('.swal2-container').detach();
+
+		$(document).on('click', '#closeModal', function() {
+			$('.swal2-container').detach();
 		})
 	})
 </script>
@@ -170,7 +209,7 @@ function page_move(tagNum){
 	<div id="__nuxt">
 		<div id="__layout">
 			<main class="viewport" data-v-0f5971ec="">
-								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
@@ -182,16 +221,18 @@ function page_move(tagNum){
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-							
+
 								<c:choose>
-										<c:when test="${empty member.gender}">
-											<a href="signup.do" data-v-30697495="">회원가입</a>
-											<a data-v-30697495="" href="login.do">로그인</a>
-										</c:when>
-										<c:otherwise>
-											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
-										</c:otherwise>
-									</c:choose>
+									<c:when test="${empty member.gender}">
+										<a href="signup.do" data-v-30697495="">회원가입</a>
+										<a data-v-30697495="" href="login.do">로그인</a>
+									</c:when>
+									<c:otherwise>
+										<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name }
+											<span data-v-30697495>님</span>
+										</a>
+									</c:otherwise>
+								</c:choose>
 								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
 									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
 									신청</a>
@@ -231,40 +272,46 @@ function page_move(tagNum){
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
-								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);"
+									class="item">정기구독 </a><a data-v-7aa1f9b4=""
+									href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);"
+									class="item">샌드위치·랩 </a><a data-v-7aa1f9b4=""
+									href="javascript:page_move(1);" class="item">초코베리머치 </a><a
+									data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
 									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
-									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+									data-v-7aa1f9b4=""
+									src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
 									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
 									href="basket.do" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 										<!---->
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
-										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do"
+									class="item"><div data-v-7aa1f9b4="" class="icon-order"></div>
+									바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
 							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
-								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+								data-v-7aa1f9b4=""
+								src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
 								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
-								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
-									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+								href="basket.do" class="cart-logo-wrap item"><div
+									style="width: 24px; height: 24px;" data-v-7aa1f9b4=""
+									alt="프레시코드 장바구니" class="cart-logo empty">
 									<!---->
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
-										style="width: 30px; height: 30px;">
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG"
+										alt="user-menu" style="width: 30px; height: 30px;">
 								</button>
 							</nav>
 						</div>
@@ -274,8 +321,7 @@ function page_move(tagNum){
 					<!---->
 					<!---->
 				</header>
-				<div class="container" style="padding-top: 182px;"
-					data-v-0f5971ec="">
+				<div class="container" data-v-0f5971ec="">
 					<div data-v-421abad8="" data-v-5371d1c8="" data-v-0f5971ec=""
 						class="mypage-layout">
 						<div data-v-3e2784be="" data-v-421abad8=""
@@ -367,14 +413,16 @@ function page_move(tagNum){
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myBesongji.do" aria-current="page">배송지 관리</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
-												href="myPointSearch.do" class="nuxt-link-exact-active nuxt-link-active">포인트 조회</a></li>
+												href="myPointSearch.do"
+												class="nuxt-link-exact-active nuxt-link-active">포인트 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myCouponSearch.do" class="">쿠폰 조회</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myReviewSearch.do" class="">나의 후기</a></li>
 											<li data-v-e99f4992=""><a data-v-e99f4992=""
 												href="myMemberModify.do" class="">회원정보 수정</a></li>
-											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#" id="logout">로그아웃</a></li>
+											<li data-v-e99f4992=""><a data-v-e99f4992="" href="#"
+												id="logout">로그아웃</a></li>
 										</ul>
 									</aside>
 								</aside>
@@ -396,23 +444,43 @@ function page_move(tagNum){
 													<p data-v-5371d1c8="" data-v-421abad8="">
 														<span data-v-5371d1c8="" data-v-421abad8="">보유포인트</span> <em
 															data-v-5371d1c8="" data-v-421abad8=""
-															class="text-color-key">0</em>
-													</p>
-												</div>
-												<div data-v-5371d1c8="" data-v-421abad8="" class="col">
-													<p data-v-5371d1c8="" data-v-421abad8="">
-														<span data-v-5371d1c8="" data-v-421abad8="">만료 예정
-															포인트</span> <em data-v-5371d1c8="" data-v-421abad8="">0</em>
+															class="text-color-key"><fmt:formatNumber value="${vo.payment_point }" pattern="#,###" /></em>
 													</p>
 												</div>
 											</div>
 										</div>
 										<div data-v-5371d1c8="" data-v-421abad8=""
 											class="mypage-points__index">
-											<div data-v-6b53621a="" data-v-5371d1c8="" class="error-list"
-												data-v-421abad8="">
-												<p data-v-6b53621a="">적립 내역이 없습니다.</p>
-											</div>
+											<!-- todo -->
+											<c:if test="${fn:length(list) == 0 }">
+												<div data-v-6b53621a="" data-v-5371d1c8=""
+													class="error-list" data-v-421abad8="">
+													<p data-v-6b53621a="">적립 내역이 없습니다.</p>
+												</div>
+											</c:if>
+											<c:if test="${fn:length(list) > 0 }">
+												<ul data-v-5371d1c8="" data-v-421abad8="">
+												
+													<c:forEach var="list" items="${list }" varStatus="i">
+														<li data-v-5371d1c8="" data-v-421abad8="">
+															<div data-v-5371d1c8="" data-v-421abad8="" class="row--v-center mypage-points-item">
+																<div data-v-5371d1c8="" data-v-421abad8=""
+																	class="col mypage-points-item__body">
+																	<em data-v-5371d1c8="" data-v-421abad8="">${list.point_history_date }</em>
+																	<span data-v-5371d1c8="" data-v-421abad8="">${list.point_history_explain }</span>
+																</div>
+																<div data-v-5371d1c8="" data-v-421abad8=""
+																	class="mypage-points-item__point">
+																	<em data-v-5371d1c8="" data-v-421abad8="" class="plus"
+																		style="text-align: right;">+${list.point_history_point }</em> 
+																</div>
+															</div>
+														</li>
+													</c:forEach>
+													
+												</ul>
+											</c:if>
+
 										</div>
 										<div data-v-20ad18c6="" data-v-5371d1c8=""
 											class="nav-paginate-wrap mypage-points__paginate"

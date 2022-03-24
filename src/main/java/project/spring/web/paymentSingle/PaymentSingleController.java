@@ -214,7 +214,13 @@ public class PaymentSingleController {
 	public String paymentSingleCouponSaleCalDo(ModelAndView mav, String couponNum, String realSale, String productsFinalPrice) {
 		int check = Integer.parseInt(couponNum);
 		int productsFinalPrice1 = Integer.parseInt(productsFinalPrice);
-		int realSale1 = Integer.parseInt(realSale);
+		int realSale1 = 0;
+		if(check == 14) {
+			realSale1 = 3500;
+		}else {
+			realSale1 = Integer.parseInt(realSale);
+		}
+		
 		if(check == 2 || check == 4 || check == 5 || check == 6) {
 			productsFinalPrice1 = Math.round(productsFinalPrice1 * (realSale1 / 100));
 		}else {

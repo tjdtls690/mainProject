@@ -642,8 +642,11 @@
 				        	objs10.setAttribute('value', payment_address); //객체값
 		     	        	form.appendChild(objs10);
 				        	
-				        	// 택배 : 배송 메모(새벽 : 공동 현관 비번)
+				        	// 택배 : 배송 메모(새벽 : 공동 현관 비번) todo
 				        	var payment_memo = $('.form-text').eq(2).val();
+				        	if(payment_delivery_type == 0){
+				        		payment_memo = $('#typeSelect option:checked').text() + ' (' + payment_memo + ')';
+				        	}
 				        	
 				        	var objs11;
 				        	objs11 = document.createElement('input'); // 값이 들어있는 녀석의 형식

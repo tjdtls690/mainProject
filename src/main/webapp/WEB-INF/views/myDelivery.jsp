@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/myDelivery"/>
 <!DOCTYPE html>
 <html class="">
@@ -46,6 +48,22 @@ function page_move(tagNum){
    f.action="tapPage.do";//이동할 페이지
    f.method="post";//POST방식
    f.submit();
+}
+
+function payDetailInfoPage(payNum){ // 결제 고유 번호를 통해 주문 상세정보로 이동
+	var form = document.createElement('form'); // 폼객체 생성
+	
+	var objs1;
+    objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+    objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+    objs1.setAttribute('name', 'payment_code'); // 객체이름
+    objs1.setAttribute('value', payNum); //객체값
+    form.appendChild(objs1);
+    
+    form.setAttribute('method', 'post'); //get,post 가능
+    form.setAttribute('action', "myPayDetailInfo.do"); //보내는 url
+    document.body.appendChild(form);
+    form.submit();
 }
 
 	$(function(){
@@ -368,51 +386,71 @@ function page_move(tagNum){
 										<div data-v-23e4825a="" data-v-421abad8=""
 											class="mypage-delivery__index">
 											<ul data-v-23e4825a="" data-v-421abad8="">
-												<li data-v-23e4825a="" data-v-421abad8=""><div
-														data-v-54beba30="" data-v-23e4825a=""
-														class="mypage-delivery-item" data-v-421abad8="">
-														<div data-v-54beba30="" class="mypage-delivery-item__body">
-															<div data-v-54beba30="" class="section-1">
-																<div data-v-54beba30="" class="section-1-left-wrap">
-																	<em data-v-54beba30="">2022/01/26</em> <span
-																		data-v-7f86e76e="" data-v-54beba30=""
-																		class="round-text round-text--color-parcel">
-																		택배배송 </span>
-																	<!---->
-																	<!---->
+											
+												<c:forEach items="${list1 }" var="list1" varStatus="i">
+													<li data-v-23e4825a="" data-v-421abad8=""><div
+															data-v-54beba30="" data-v-23e4825a=""
+															class="mypage-delivery-item" data-v-421abad8="">
+															<div data-v-54beba30="" class="mypage-delivery-item__body">
+																<div data-v-54beba30="" class="section-1">
+																	<div data-v-54beba30="" class="section-1-left-wrap">
+																		<em data-v-54beba30="">${list1.payment_date }</em> 
+																		<c:if test="${list1.payment_delivery_type == 0 }">
+																			<span data-v-7f86e76e="" data-v-54beba30=""
+																				class="round-text round-text--color-morning">
+																				새벽배송 
+																			</span>
+																		</c:if>
+																		<c:if test="${list1.payment_delivery_type == 1 }">
+																			<span data-v-7f86e76e="" data-v-54beba30=""
+																				class="round-text round-text--color-parcel">
+																				택배배송 
+																			</span>
+																		</c:if>
+																		<!---->
+																		<!---->
+																	</div>
+																	<span data-v-54beba30=""
+																		class="status-text desktop done">배송완료</span>
 																</div>
-																<span data-v-54beba30=""
-																	class="status-text desktop done">배송완료</span>
+																<p data-v-54beba30="" class="section-2">
+																	<strong data-v-54beba30="">
+																		<c:if test="${fn:length(list2[i.index]) > 1}">
+																					${list2[i.index][0].payment_item_mapping_item_name_size } ${list2[i.index][0].payment_item_mapping_item_quantity }개 외 ${(fn:length(list2[i.index]) - 1)}개
+																				</c:if>
+																				<c:if test="${fn:length(list2[i.index]) == 1}">
+																					${list2[i.index][0].payment_item_mapping_item_name_size } ${list2[i.index][0].payment_item_mapping_item_quantity }개
+																				</c:if>
+																	</strong> <a data-v-54beba30=""
+																		href='javascript:void(0);' onclick="payDetailInfoPage(${list1.payment_code});"
+																		class="show-order-info desktop">주문정보 보기</a> <span
+																		data-v-54beba30="" class="invoice-wrap"> 운송장번호<span
+																		data-v-54beba30="" class="invoice-number">
+																			${list1.payment_code }</span></span>
+																</p>
 															</div>
-															<p data-v-54beba30="" class="section-2">
-																<strong data-v-54beba30="">[프코메이드] 더블 다크 초코칩
-																	쿠키/1개 1개 외 2개</strong> <a data-v-54beba30=""
-																	href="myPayDetailInfo.do"
-																	class="show-order-info desktop">주문정보 보기</a> <span
-																	data-v-54beba30="" class="invoice-wrap"> 운송장번호<span
-																	data-v-54beba30="" class="invoice-number">
-																		510027550401 </span></span>
-															</p>
-														</div>
-														<div data-v-54beba30=""
-															class="row--h-end row--v-center mypage-delivery-item__nav">
-															<a data-v-54beba30="" href="myPayDetailInfo.do"
-																class="show-order-info mobile">주문정보 보기</a> <span
-																data-v-54beba30="" class="status-text mobile done">배송완료</span>
-														</div>
-														<div data-v-54beba30=""
-															class="mypage-delivery-item-invoice-container">
 															<div data-v-54beba30=""
-																class="mypage-delivery-item-invoice-wrap">
+																class="row--h-end row--v-center mypage-delivery-item__nav">
+																<a data-v-54beba30="" href="myPayDetailInfo.do"
+																	class="show-order-info mobile">주문정보 보기</a> <span
+																	data-v-54beba30="" class="status-text mobile done">배송완료</span>
+															</div>
+															<div data-v-54beba30=""
+																class="mypage-delivery-item-invoice-container">
 																<div data-v-54beba30=""
-																	class="mypage-delivery-item-invoice-label">운송장번호
+																	class="mypage-delivery-item-invoice-wrap">
+																	<div data-v-54beba30=""
+																		class="mypage-delivery-item-invoice-label">운송장번호
+																	</div>
+																	<div data-v-54beba30=""
+																		class="mypage-delivery-item-invoice-number">
+																		${list1.payment_code }</div>
 																</div>
-																<div data-v-54beba30=""
-																	class="mypage-delivery-item-invoice-number">
-																	510027550401</div>
 															</div>
 														</div>
-													</div></li>
+													</li>
+												</c:forEach>
+												
 											</ul>
 										</div>
 										<div data-v-20ad18c6="" data-v-23e4825a=""

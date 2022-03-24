@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminItemDAO">
+	<resultMap type="adminItem" id="adminItem">
+		<id property="item_code" column="item_code"></id>
+		<result property="item_tag_main" column="item_tag_main" />
+		<result property="item_tag_sub" column="item_tag_sub" />
+		<result property="item_tag_event" column="item_tag_event" />
+		<result property="item_name" column="item_name" />
+		<result property="item_summary" column="item_summary" />
+		<result property="item_explain" column="item_explain" />
+		<result property="item_price_m" column="item_price_m" />
+		<result property="item_price_m_sub" column="item_price_m_sub" />
+		<result property="item_price_l" column="item_price_l" />
+		<result property="item_price_l_sub" column="item_price_l_sub" />
+		<result property="item_nut" column="item_nut" />
+		<result property="item_image" column="item_image" />
+		<result property="item_info_image" column="item_info_image" />
+		<result property="item_delinfo_image" column="item_delinfo_image" />
+	</resultMap>
+	<resultMap type="adminSub" id="adminSub">
+		<id property="subscribe_code" column="subscribe_code"/>
+		<result property="subscribe_tag_main" column="subscribe_tag_main" />
+		<result property="subscribe_tag_sub" column="subscribe_tag_sub" />
+		<result property="subscribe_name" column="subscribe_name" />
+		<result property="subscribe_summary" column="subscribe_summary" />
+		<result property="subscribe_explain" column="subscribe_explain" />
+		<result property="subscribe_price_m" column="subscribe_price_m" />
+		<result property="subscribe_price_m_sub" column="subscribe_price_m_sub" />
+		<result property="subscribe_price_l" column="subscribe_price_l" />
+		<result property="subscribe_price_l_sub" column="subscribe_price_l_sub" />
+		<result property="subscribe_image" column="subscribe_image" />
+		<result property="subscribe_info_image" column="subscribe_info_image" />
+	</resultMap>
+	
+	<select id="getAdminItem" resultMap="adminItem">
+		SELECT * FROM item
+	</select>
+	
+	<select id="getAdminSub" resultMap="adminSub">
+		SELECT * FROM subscribe
+	</select>
+	
+	<delete id="itemDelete">
+		DELETE FROM item WHERE item_tag_main = #{item_tag_main} and item_code = #{item_code}
+	</delete>
+	
+	<delete id="subDelete">
+		DELETE FROM subscribe WHERE subscribe_tag_main = #{subscribe_tag_main} and subscribe_code = #{subscribe_code}
+	</delete>
+	
+	<insert id="itemInsert" parameterType="adminItem">
+		INSERT INTO item(item_tag_main, item_tag_sub, item_tag_event, item_name, item_summary, item_explain, item_price_l, item_price_l_sub, item_price_m_sub, item_price_m, item_image, item_info_image)
+		VALUES(#{item_tag_main}, #{item_tag_sub}, #{item_tag_event}, #{item_name}, #{item_summary}, #{item_explain}, #{item_price_l}, #{item_price_l_sub}, #{item_price_m_sub}, #{item_price_m}, #{item_image}, #{item_info_image})
+	</insert>
+</mapper>

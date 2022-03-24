@@ -147,6 +147,11 @@ $(function(){
                                 </nav>
                             </div>
                             
+                            <a class="nav-link" href="#">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 매출/상품통계관리
+							</a>
                         </div>
                     </div>
                 </nav>
@@ -175,7 +180,6 @@ $(function(){
 										<th>생일</th>
 										<th>성별</th>
 										<th>상태</th>
-										<th>수정/삭제</th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -187,7 +191,6 @@ $(function(){
 										<th>생일</th>
 										<th>성별</th>
 										<th>상태</th>
-										<th>수정/삭제</th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -210,12 +213,11 @@ $(function(){
 													</button>
 													<ul class="dropdown-menu">
 														<li><a class="dropdown-item" href="#">활성</a></li>
-														<li><a class="dropdown-item" href="#">탈퇴</a></li>
+														<li><a class="dropdown-item" href="#">휴먼</a></li>
 													</ul>
 												</div>
 											</td>
 											<td>
-												<button type="button" class="btn btn-secondary">수정</button>
 												<button type="button" class="btn btn-dark" id="${adminMember.memberCode }">삭제</button>
 											</td>
 										</tr>

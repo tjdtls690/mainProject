@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/myPayDetailInfo"/>
 <!DOCTYPE html>
 <html class="">
@@ -359,27 +361,27 @@ function page_move(tagNum){
 											<header data-v-ae81dc8e="" data-v-421abad8=""
 												class="row--v-center order-items__header">
 												<h2 data-v-ae81dc8e="" data-v-421abad8="" class="col">주문상품</h2>
-												<div data-v-ae81dc8e="" data-v-421abad8=""
-													class="row row--v-center row--gutter">
-													<div data-v-ae81dc8e="" data-v-421abad8="" class="col">
-														<button data-v-a1c889e0="" data-v-ae81dc8e=""
-															type="button" title="" disabled="disabled"
-															class="button button--side-padding button--size-small button--disabled2 button--outline2"
-															data-v-421abad8="">
-															<span data-v-a1c889e0="" class="button__wrap">
-																주문취소 </span>
-														</button>
-													</div>
-													<div data-v-ae81dc8e="" data-v-421abad8="" class="col">
-														<button data-v-a1c889e0="" data-v-ae81dc8e=""
-															type="button" title="" disabled="disabled"
-															class="button button--side-padding button--size-small button--disabled2 button--outline2"
-															data-v-421abad8="">
-															<span data-v-a1c889e0="" class="button__wrap">
-																주문수정 </span>
-														</button>
-													</div>
-												</div>
+<!-- 												<div data-v-ae81dc8e="" data-v-421abad8="" -->
+<!-- 													class="row row--v-center row--gutter"> -->
+<!-- 													<div data-v-ae81dc8e="" data-v-421abad8="" class="col"> -->
+<!-- 														<button data-v-a1c889e0="" data-v-ae81dc8e="" -->
+<!-- 															type="button" title="" disabled="disabled" -->
+<!-- 															class="button button--side-padding button--size-small button--disabled2 button--outline2" -->
+<!-- 															data-v-421abad8=""> -->
+<!-- 															<span data-v-a1c889e0="" class="button__wrap"> -->
+<!-- 																주문취소 </span> -->
+<!-- 														</button> -->
+<!-- 													</div> -->
+<!-- 													<div data-v-ae81dc8e="" data-v-421abad8="" class="col"> -->
+<!-- 														<button data-v-a1c889e0="" data-v-ae81dc8e="" -->
+<!-- 															type="button" title="" disabled="disabled" -->
+<!-- 															class="button button--side-padding button--size-small button--disabled2 button--outline2" -->
+<!-- 															data-v-421abad8=""> -->
+<!-- 															<span data-v-a1c889e0="" class="button__wrap"> -->
+<!-- 																주문수정 </span> -->
+<!-- 														</button> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
 											</header>
 											<div data-v-ae81dc8e="" data-v-421abad8=""
 												class="order-items__body">
@@ -392,77 +394,39 @@ function page_move(tagNum){
 														<div data-v-1b1887ad=""
 															class="text-color-key text-wrapper">
 															<span data-v-1b1887ad="" class="text-status">배송완료
-																2022-01-26</span>
+																${vo.payment_date }</span>
 															<div data-v-1b1887ad="" class="invoice-wrapper">
 																<span data-v-1b1887ad="" class="invoice-label">운송장번호</span>
-																<span data-v-1b1887ad="" class="invoice-text">510027550401</span>
+																<span data-v-1b1887ad="" class="invoice-text">${vo.payment_code }</span>
 															</div>
 														</div>
 													</div>
 													<ul data-v-1b1887ad="">
-														<li data-v-1b1887ad=""><section data-v-51586166=""
-																data-v-1b1887ad="" class="order-item">
-																<header data-v-51586166=""
-																	class="row--v-center order-item__header">
-																	<figure data-v-51586166="" class="">
-																		<i data-v-51586166=""
-																			style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/601_20220222112331.png&quot;);">image</i>
-																	</figure>
-																	<div data-v-51586166="" class="col">
-																		<h3 data-v-51586166="" class="">[프코메이드] 더블 다크 초코칩
-																			쿠키 / 1개</h3>
-																	</div>
-																	<div data-v-51586166=""
-																		class="row--v-center row--h-end order-item__info info-right">
-																		<span data-v-51586166=""><em data-v-51586166="">1</em>
-																			개</span> <span data-v-51586166=""><em
-																			data-v-51586166="">2,700</em> 원</span>
-																		<!---->
-																	</div>
-																</header>
-															</section></li>
-														<li data-v-1b1887ad=""><section data-v-51586166=""
-																data-v-1b1887ad="" class="order-item">
-																<header data-v-51586166=""
-																	class="row--v-center order-item__header">
-																	<figure data-v-51586166="" class="">
-																		<i data-v-51586166=""
-																			style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/267_20210427171253&quot;);">image</i>
-																	</figure>
-																	<div data-v-51586166="" class="col">
-																		<h3 data-v-51586166="" class="">[키토제니] 방탄커피 / 1개입
-																		</h3>
-																	</div>
-																	<div data-v-51586166=""
-																		class="row--v-center row--h-end order-item__info info-right">
-																		<span data-v-51586166=""><em data-v-51586166="">1</em>
-																			개</span> <span data-v-51586166=""><em
-																			data-v-51586166="">2,800</em> 원</span>
-																		<!---->
-																	</div>
-																</header>
-															</section></li>
-														<li data-v-1b1887ad=""><section data-v-51586166=""
-																data-v-1b1887ad="" class="order-item">
-																<header data-v-51586166=""
-																	class="row--v-center order-item__header">
-																	<figure data-v-51586166="" class="">
-																		<i data-v-51586166=""
-																			style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/849_20220222114651.png&quot;);">image</i>
-																	</figure>
-																	<div data-v-51586166="" class="col">
-																		<h3 data-v-51586166="" class="">[쿠캣] 프로틴바 웨하스 2종
-																			/ 스트로베리 1box (6개입)</h3>
-																	</div>
-																	<div data-v-51586166=""
-																		class="row--v-center row--h-end order-item__info info-right">
-																		<span data-v-51586166=""><em data-v-51586166="">1</em>
-																			개</span> <span data-v-51586166=""><em
-																			data-v-51586166="">5,900</em> 원</span>
-																		<!---->
-																	</div>
-																</header>
-															</section></li>
+													
+														<c:forEach var="list1" items="${list1 }" varStatus="i">
+															<li data-v-1b1887ad=""><section data-v-51586166=""
+																	data-v-1b1887ad="" class="order-item">
+																	<header data-v-51586166=""
+																		class="row--v-center order-item__header">
+																		<figure data-v-51586166="" class="">
+																			<i data-v-51586166=""
+																				style="background-image: url(&quot;${list2[i.index].item_image}&quot;);">image</i>
+																		</figure>
+																		<div data-v-51586166="" class="col">
+																			<h3 data-v-51586166="" class="">${list1.payment_item_mapping_item_name_size }</h3>
+																		</div>
+																		<div data-v-51586166=""
+																			class="row--v-center row--h-end order-item__info info-right">
+																			<span data-v-51586166=""><em data-v-51586166="">${list1.payment_item_mapping_item_quantity }</em>
+																				개</span> <span data-v-51586166=""><em
+																				data-v-51586166=""><fmt:formatNumber value="${list1.payment_item_mapping_item_price }" pattern="#,###" /></em> 원</span>
+																			<!---->
+																		</div>
+																	</header>
+																</section>
+															</li>
+														</c:forEach>
+														
 													</ul>
 												</div>
 											</div>
@@ -478,7 +442,7 @@ function page_move(tagNum){
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">주문번호</dt>
-														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col ">810829</dd>
+														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col ">${vo.payment_code }</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">
@@ -490,7 +454,7 @@ function page_move(tagNum){
 														class="row--v-center">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">주문(결제)일시</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">
-															2022-01-25 10:33</dd>
+															${vo.payment_now_date }</dd>
 													</dl>
 												</div>
 											</section>
@@ -509,30 +473,40 @@ function page_move(tagNum){
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">받는분</dt>
-														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">신준혁</dd>
+														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">${vo.payment_recipient }</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">연락처</dt>
-														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">01057113386</dd>
+														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">${vo.payment_recipient_phone }</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">배송방법</dt>
-														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">택배배송</dd>
+														<c:if test="${vo.payment_delivery_type == 0 }">
+															<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">새벽배송</dd>
+														</c:if>
+														<c:if test="${vo.payment_delivery_type == 1 }">
+															<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">택배배송</dd>
+														</c:if>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">배송주소</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col">
-															(22765)인천 서구 청라한내로 40 593동 1801호</dd>
+															(${vo.payment_zipcode })${vo.payment_address }</dd>
 													</dl>
 													<!---->
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">
-														<dt data-v-ae81dc8e="" data-v-421abad8="">배송메모</dt>
-														<dd data-v-ae81dc8e="" data-v-421abad8=""
-															class="col none-delivery-msg">없음</dd>
+														<c:if test="${vo.payment_delivery_type == 0 }">
+															<dt data-v-ae81dc8e="" data-v-421abad8="">출입방법</dt>
+															<dd data-v-ae81dc8e="" data-v-421abad8="" class="col none-delivery-msg">${vo.payment_memo }</dd>
+														</c:if>
+														<c:if test="${vo.payment_delivery_type == 1 }">
+															<dt data-v-ae81dc8e="" data-v-421abad8="">배송메모</dt>
+															<dd data-v-ae81dc8e="" data-v-421abad8="" class="col none-delivery-msg">${vo.payment_memo }</dd>
+														</c:if>
 													</dl>
 													<!---->
 												</div>
@@ -547,21 +521,21 @@ function page_move(tagNum){
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">상품금액</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<em data-v-ae81dc8e="" data-v-421abad8="">11,400</em>원
+															<em data-v-ae81dc8e="" data-v-421abad8=""><fmt:formatNumber value="${vo.payment_price }" pattern="#,###" /></em>원
 														</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">배송비</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<em data-v-ae81dc8e="" data-v-421abad8="">3,500</em>원
+															<em data-v-ae81dc8e="" data-v-421abad8=""><fmt:formatNumber value="${vo.payment_delivery_price }" pattern="#,###" /></em>원
 														</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">합계</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<em data-v-ae81dc8e="" data-v-421abad8="">14,900</em>원
+															<em data-v-ae81dc8e="" data-v-421abad8=""><fmt:formatNumber value="${vo.payment_sum_price }" pattern="#,###" /></em>원
 														</dd>
 													</dl>
 													<hr data-v-ae81dc8e="" data-v-421abad8="">
@@ -569,21 +543,21 @@ function page_move(tagNum){
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">쿠폰 사용</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<em data-v-ae81dc8e="" data-v-421abad8=""> 0</em>원
+															<em data-v-ae81dc8e="" data-v-421abad8=""><fmt:formatNumber value="${vo.payment_coupon_price }" pattern="#,###" /></em>원
 														</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">포인트 사용</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<em data-v-ae81dc8e="" data-v-421abad8=""> 0</em>원
+															<em data-v-ae81dc8e="" data-v-421abad8=""><fmt:formatNumber value="${vo.payment_point_price }" pattern="#,###" /></em>원
 														</dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">상품 할인</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<em data-v-ae81dc8e="" data-v-421abad8="">- 590</em>원
+															<em data-v-ae81dc8e="" data-v-421abad8="">- <fmt:formatNumber value="${vo.payment_sail_price }" pattern="#,###" /></em>원
 														</dd>
 													</dl>
 													<!---->
@@ -592,7 +566,7 @@ function page_move(tagNum){
 														class="row--v-center row--h-between">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">결제금액</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="">
-															<b data-v-ae81dc8e="" data-v-421abad8="">14,310</b>원
+															<b data-v-ae81dc8e="" data-v-421abad8=""><fmt:formatNumber value="${vo.payment_final_price }" pattern="#,###" /></b>원
 														</dd>
 													</dl>
 													<!---->
@@ -600,7 +574,7 @@ function page_move(tagNum){
 												<nav data-v-ae81dc8e="" data-v-421abad8=""
 													class="row--v-center row--h-center order-field__nav">
 													<button data-v-a1c889e0="" data-v-ae81dc8e="" type="button"
-														title=""
+														title="" onclick="location.href='myPayInfo.do'"
 														class="button button-list button--inline button--side-padding"
 														data-v-421abad8="">
 														<span data-v-a1c889e0="" class="button__wrap">목록으로

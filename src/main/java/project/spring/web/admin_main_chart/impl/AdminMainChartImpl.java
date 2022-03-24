@@ -1,7 +1,6 @@
 package project.spring.web.admin_main_chart.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class AdminMainChartImpl implements AdminMainChartService {
 	@Override
 	public List<AdminMainChartVO> dayChart(AdminMainChartVO vo) {
 		
-		return adminChartDAO.dayChart();
+		return adminChartDAO.dayChart(vo);
 	}
 	
 	// 다음 버튼 수행시 차트

@@ -15,5 +15,8 @@
 <select id="getAdminMember" resultMap="adminmemberResult" >
 SELECT * FROM member 
 </select>
+	<delete id="deleteMember">
+		DELETE FROM member WHERE memberCode = #{memberCode}
+	</delete>
 </mapper>
 

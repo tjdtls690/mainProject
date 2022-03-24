@@ -18,11 +18,37 @@
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
 <link rel="stylesheet" href="${path }/css/style.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-	crossorigin="anonymous"></script>
-</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+
+/*function memberDel(memberCode){
+	if(confirm("해당 회원을 삭제하시겠습니까")){
+		location.href="./memberDel?memberCode="+memberCode;
+	}
+}*/
+
+$(function(){
+	$(document).on('click','.btn.btn-dark', function(){
+		var memberDelete = $(this).attr('id');
+		if(confirm('삭제하시겠습니까?')) {
+			$.ajax({
+				url : 'deleteMember.mdo',
+				type : 'post',
+				data : {
+					"memberDelete" : memberDelete
+				},
+				success : function(data){
+					location.reload();
+				}
+			})
+		}
+	})
+})
+
+</script>
+</head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
@@ -190,6 +216,9 @@
 														<li><a class="dropdown-item" href="#">휴먼</a></li>
 													</ul>
 												</div>
+											</td>
+											<td>
+												<button type="button" class="btn btn-dark" id="${adminMember.memberCode }">삭제</button>
 											</td>
 										</tr>
 

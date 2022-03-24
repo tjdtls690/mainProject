@@ -17,5 +17,10 @@ public class AdminReportDayDAO {
 		System.out.println("-->mybatis reportDay");
 		return sqlSessionTemplate.selectList("adminMainReportDayDAO.reportDay", vo);
 	}
+	
+	public List<AdminReportDayVO> reportMonth(AdminReportDayVO vo){
+		System.out.println("-->mybatis reportMonth");
+		return sqlSessionTemplate.selectList("adminMainReportDayDAO.reportMonth", vo);
+	}
 
 }

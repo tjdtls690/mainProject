@@ -6,4 +6,6 @@ public interface AdminReportDayService {
 	
 	List<AdminReportDayVO> reportDay(AdminReportDayVO vo);
 
+	List<AdminReportDayVO> reportMonth(AdminReportDayVO vo);
+
 }

@@ -1,6 +1,10 @@
 package project.spring.web.admin_main.report.day;
 
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,8 +45,31 @@ public class AdminReportDayController {
 		@RequestMapping(value = "/excelDown.mdo")
 		public void excelDown(HttpServletResponse response) throws Exception {
 			System.out.println("엑셀 ");
-		    // 날짜 는 2022-03-23 기준으로 하겠다.
-			List<AdminReportDayVO> list = adminReportDayService.reportDay(null);
+			// 날짜용 메서드
+			LocalDate now = LocalDate.now();
+			DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+			
+	        // 이번 년도	--> 2022
+	        int year = now.getYear();
+	        //이번달		--> 03
+	      	String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+	      	// 오늘 날짜만 --> 23
+	        int thisDay = now.getDayOfMonth();
+	        // 이번 년도 + 이번달 + 오늘
+	        String today = year+"-"+month+"-"+thisDay;
+			// 이번주 첫째날
+			currentCalendar.add(Calendar.DATE, 2 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
+		    String firstWeekDay = df.format(currentCalendar.get(Calendar.DATE));  
+		    // 이번주의 날짜
+	        String thisWeek = year+"-"+month+"-"+firstWeekDay;
+			
+			
+			
+			
+			AdminReportDayVO vo = new AdminReportDayVO();
+			vo.setDate(thisWeek);
+			List<AdminReportDayVO> list = adminReportDayService.reportDay(vo);
 			
 			
 		    // 워크북 생성
@@ -171,6 +198,7 @@ public class AdminReportDayController {
 		@RequestMapping("/pdfDown.mdo")
 		public void pdfDown()throws Exception{
 			System.out.println("pdfDown 접근");
+			
 	        try {
 	            Document document = new Document(); // pdf문서를 처리하는 객체
 	 
@@ -233,9 +261,31 @@ public class AdminReportDayController {
 	            table.addCell(cell7);
 	            table.addCell(cell8);
 	            table.addCell(cell9);
+	            
+				// 날짜용 메서드
+				LocalDate now = LocalDate.now();
+				DecimalFormat df = new DecimalFormat("00");
+		        Calendar currentCalendar = Calendar.getInstance();
+				
+		        // 이번 년도	--> 2022
+		        int year = now.getYear();
+		        //이번달		--> 03
+		      	String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+		      	// 오늘 날짜만 --> 23
+		        int thisDay = now.getDayOfMonth();
+		        // 이번 년도 + 이번달 + 오늘
+		        String today = year+"-"+month+"-"+thisDay;
+				// 이번주 첫째날
+				currentCalendar.add(Calendar.DATE, 2 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
+			    String firstWeekDay = df.format(currentCalendar.get(Calendar.DATE));  
+			    // 이번주의 날짜
+		        String thisWeek = year+"-"+month+"-"+firstWeekDay;
+				
+				AdminReportDayVO vo = new AdminReportDayVO();
+				vo.setDate(thisWeek);
 
 	
-	            List<AdminReportDayVO> list = adminReportDayService.reportDay(null);
+	            List<AdminReportDayVO> list = adminReportDayService.reportDay(vo);
 	            
 	            for(int i=0; i < list.size(); i++) {
 	            	System.out.println("for문 실행");

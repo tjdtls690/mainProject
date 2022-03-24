@@ -23,7 +23,7 @@
    			var myLineChart = new Chart(ctx, {
    			  type: 'line',
    			  data: {
-   			    labels: [ "2021-04-01", "2021-04-02", "2021-04-03", "2021-04-04", 
+   			    labels: [ ${today}, "2021-04-02", "2021-04-03", "2021-04-04", 
    			    	      "2021-04-05", "2021-04-06", "2021-04-07", "2021-04-08", 
    			    	      "2021-04-09", "2021-04-10", "2021-04-11", "2021-04-12", "2021-04-13"],
    			    datasets: [{
@@ -502,20 +502,36 @@
        			
        			
        		})
- // 금주 매출       		
-       		$(document).on('click','.col-xl-3.col-md-6:eq(1)',function(){
-       			alert("hi");
-       			
+       		
+
+
+       		
+ // 금주 매출  pdf 다운로드     		
+       		$(document).on('click','.btn.btn-outline-danger:eq(0)',function(){	
+       			alert("금주 pdf 다운");
        			$.ajax({
        				url : 'pdfDown.mdo',
-       				success : function(){
-       					alert("성공");
+       				success : function(htmlOut){
+       					alert("pdf 다운 완료");
+       					
        				}
        			})
        			
        		})
-       		
-       		
+ // 금달 매출  pdf 다운로드     		
+       		$(document).on('click','.btn.btn-outline-danger:eq(1)',function(){	
+       			alert("금달 pdf 다운");
+       			$.ajax({
+       				url : 'pdfDown2.mdo',
+       				success : function(htmlOut){
+       					alert("pdf 다운 완료");
+       					
+       				}
+       			})
+       			
+       		})
+
+
 //      ------------------------  		
        	}) 
 
@@ -525,7 +541,7 @@
         
         // Applying the top margin on modal dialog to align it vertically center
         modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
-        modalDialog.css("margin-left", Math.max(0, ($(window).height() - modalDialog.height()) / 0.35));
+//         modalDialog.css("margin-left", Math.max(0, ($(window).height() - modalDialog.height()) / 0.35));
     }
     // Align modal when it is displayed
     $(".modal").on("shown.bs.modal", alignModal);
@@ -542,6 +558,7 @@
     	<input type="hidden" name="firstDay" value="${startDay}">
     	<input type="hidden" name="lastDay" value="${startDay2}">
     	<input type="hidden" name="month" value="2022">
+    	<input type="hidden" name="today" value="${today }">
 <%--     	<input type="hidden" name="startDay2" value="${startDay2}"> --%>
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
@@ -649,155 +666,62 @@
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="background-color:transparent; border:none;">
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">자세히보기</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <div class="small text-white">
+                                        	<i class="fas fa-angle-right"></i>
+                                        </div>
                                     </div>
                                     </button>
-                                    <div class="modal" id="myModal">
-                                    <form name="" action = "" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
-								                        <div class="modal-content" style="width:160%;">
-								                          <div class="modal-header" style="background-color:#BF5656 !important;">
-								                             <h5 class="modal-title">금 주 매출</h5>
-								                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								                          </div>
-								                          <div class="modal-body">
+<!-- 									모달추가 -->
+									<div class="modal" id="myModal">
+										<form name="" action = "" enctype = "multipart/form-data">
+											<div class="modal-dialog">
+												<div class="modal-content" style="width:160%;">
+													<div class="modal-header" style="background-color:#BF5656 !important;">
+														<h5 class="modal-title">금 주 매출</h5>
+														<button type="button" class="btn-close week" id="btn-week" data-bs-dismiss="modal"></button>
+													</div>
+													<div class="modal-body">
 														<table class="table table-striped" style="text-align:center;">
-														<thead style="font-size:13px;">
-					                                        <tr>
-					                                            <th>날짜</th>
-					                                            <th>판매건수</th>
-					                                            <th>원가</th>
-																<th>배송비</th>   
-																<th>총가격</th>
-																<th>쿠폰가</th>
-																<th>포인트사용</th>
-																<th>할인</th>
-																<th>결제금액</th>                               
-					                                        </tr>
-					                                    </thead>
-					                                    <tbody style="font-size:12px;">
-					                                        <tr>
-					                                            <td>3월 1일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 2일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 3일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 4일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 5일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 6일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 7일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 8일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 9일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 10일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        </tbody>  
-	           							                </table>
-	           							            	</div>
-	           						              
-							                        	<div class="modal-footer">
-							                        	<button type="button" onclick="location.href='#'" class="btn btn-outline-success" style="float-left:-60px;">Excel</button>
-								                        <button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >PDF</button>
-							                       		</div>
-							                       	</div>
-							                       </div>
-							                </form>
-							      	</div> <!-- modal -->
+															<thead style="font-size:13px;">
+									                             <tr>
+									                                <th>날짜</th>
+									                                <th>판매건수</th>
+									                                <th>원가</th>
+																	<th>배송비</th>   
+																	<th>총가격</th>
+																	<th>쿠폰가</th>
+																	<th>포인트사용</th>
+																	<th>할인</th>
+																	<th>결제금액</th>                               
+									                             </tr>
+									                        </thead>
+									                    	<tbody style="font-size:12px;">
+									                    	<c:forEach var="info" items="${modal}">
+									                    		<tr>
+													                 <td>${info.date }</td>
+													                 <td>${info.count }</td>
+													                 <td>${info.price }원</td>
+													                 <td>${info.delivery }원</td>
+													                 <td>${info.priceSum }원</td>
+													                 <td>${info.priceCoupon }원</td>
+													                 <td>${info.pricepoint }원</td>
+													                 <td>${info.priceSail }원</td>
+													                 <td>${info.priceFinal }원</td>
+													            </tr>
+									                    	</c:forEach>
+									                    	
+
+									             			</tbody>  
+									   					</table>
+													</div>
+													<div class="modal-footer">
+														<button type="button" onclick="location.href='excelDown.mdo'" class="btn btn-outline-success" style="float-left:-60px;">Excel</button>
+														<button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >PDF</button>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
@@ -834,122 +758,25 @@
 					                                        </tr>
 					                                    </thead>
 					                                    <tbody style="font-size:12px;">
-					                                        <tr>
-					                                            <td>3월 1일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 2일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 3일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 4일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 5일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 6일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 7일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 8일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 9일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        <tr>
-					                                            <td>3월 10일</td>
-					                                            <td>14건</td>
-					                                            <td>24000원</td>
-					                                            <td>3000원</td>
-					                                            <td>27000원</td>
-					                                            <td>2500원</td>
-					                                            <td>1430원</td>
-					                                            <td>1500원</td>
-					                                            <td>250000원</td>
-					                                        </tr>
-					                                        </tbody>  
+					                                    	<c:forEach var="info" items="${modalMonth}">
+									                    		<tr>
+													                 <td>${info.date }</td>
+													                 <td>${info.count }</td>
+													                 <td>${info.price }원</td>
+													                 <td>${info.delivery }원</td>
+													                 <td>${info.priceSum }원</td>
+													                 <td>${info.priceCoupon }원</td>
+													                 <td>${info.pricepoint }원</td>
+													                 <td>${info.priceSail }원</td>
+													                 <td>${info.priceFinal }원</td>
+													            </tr>
+									                    	</c:forEach>   
+					                                    </tbody>  
 	           							                </table>
 	           							            	</div>
 	           						              
 							                        	<div class="modal-footer">
-							                        	<button type="button" onclick="location.href='#'" class="btn btn-outline-success" style="float-left:-60px;">Excel</button>
+							                        	<button type="button" onclick="location.href='excelDown2.mdo'" class="btn btn-outline-success" style="float-left:-60px;">Excel</button>
 								                        <button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >PDF</button>
 							                       		</div>
 							                       	</div>

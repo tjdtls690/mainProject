@@ -19,11 +19,12 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
        	$(function(){
+       	
        		var ctx = document.getElementById("myAreaChart");
    			var myLineChart = new Chart(ctx, {
    			  type: 'line',
    			  data: {
-   			    labels: [ ${today}, "2021-04-02", "2021-04-03", "2021-04-04", 
+   			    labels: [ "2021-04-01", "2021-04-02", "2021-04-03", "2021-04-04", 
    			    	      "2021-04-05", "2021-04-06", "2021-04-07", "2021-04-08", 
    			    	      "2021-04-09", "2021-04-10", "2021-04-11", "2021-04-12", "2021-04-13"],
    			    datasets: [{
@@ -558,8 +559,7 @@
     	<input type="hidden" name="firstDay" value="${startDay}">
     	<input type="hidden" name="lastDay" value="${startDay2}">
     	<input type="hidden" name="month" value="2022">
-    	<input type="hidden" name="today" value="${today }">
-<%--     	<input type="hidden" name="startDay2" value="${startDay2}"> --%>
+    	<input type="hidden" name="today" id="today" value="${today }">
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
 	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -880,67 +880,14 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                	<c:forEach var="rank" items="${rankList}" varStatus="status"> 
                                         <tr>
-                                            <td>1위</td>
-                                            <td>아쉬파 샐러드</td>
-                                            <td>77</td>
-                                            <td>999999999원</td>
+                                            <td>${status.count }위</td>
+                                            <td>${rank.size }</td>                      
+                                            <td>${rank.totalCount }</td>
+                                            <td>${rank.sum}원</td>
                                         </tr>
-                                        <tr>
-                                            <td>2위</td>
-                                            <td>잠봉 시저 샐러드</td>
-                                            <td>73</td>
-                                            <td>995657759원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3위</td>
-                                            <td>홀그레인 로스트비프 바게트 샌드</td>
-                                            <td>68</td>
-                                            <td>945274555원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4위</td>
-                                            <td>바베큐 풀드포크 바게트 샌드</td>
-                                            <td>60</td>
-                                            <td>934662453원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5위</td>
-                                            <td>[올가니카]플랜트 왕교자</td>                      
-                                            <td>56</td>
-                                            <td>457457388원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6위</td>
-                                            <td>[그리팅]땅콩호박스프</td>                      
-                                            <td>50</td>
-                                            <td>456453788원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7위</td>
-                                            <td>샐러드와 고구마 든든세트</td>                      
-                                            <td>48</td>
-                                            <td>453344336원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8위</td>
-                                            <td>샐러드와 계란 촉촉세트</td>                      
-                                            <td>45</td>
-                                            <td>421243235원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9위</td>
-                                            <td>딸기 바닐라 크림치즈 샐러드</td>                      
-                                            <td>35</td>
-                                            <td>234346555원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10위</td>
-                                            <td>들기름 메밀면 샐러드</td>                      
-                                            <td>22</td>
-                                            <td>212334555원</td>
-                                        </tr>
-
+									</c:forEach>
                                      
                                     </tbody>
                                 </table>

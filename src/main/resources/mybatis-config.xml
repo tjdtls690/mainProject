@@ -29,6 +29,8 @@
 		<typeAlias type="project.spring.web.admin_item.AdminSubVO" alias="adminSub" />
 		<typeAlias type="project.spring.web.admin_main.report.day.AdminReportDayVO" alias="adminMainReportDay"/>
 		<typeAlias type="project.spring.web.admin_main_rank.AdminMainRankVO" alias="adminRank"/>
+		<typeAlias type="project.spring.web.admin_main_rank.AdminMainRankVO" alias="adminRank"/>
+		<typeAlias type="project.spring.web.point_history.PointHistoryVO" alias="pointHistory"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -53,5 +55,6 @@
 		<mapper resource="mappings/adminItem-mapping.xml"/>
 		<mapper resource="mappings/adminMainReportDay-mapping.xml"/>
 		<mapper resource="mappings/adminMainRank-mapping.xml"/>
+		<mapper resource="mappings/pointHistory-mapping.xml"/>
 	</mappers>
 </configuration>

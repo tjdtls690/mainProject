@@ -2449,7 +2449,6 @@ $(function() {
     
     // 기본 배송지로 설정 버튼
     $(document).on('click', '.delivery_default_select', function(){
-    	// todo
     	$.ajax({
     		url : 'orderDefaultDeliveryCheckModal.do',
     		dataType : 'html',

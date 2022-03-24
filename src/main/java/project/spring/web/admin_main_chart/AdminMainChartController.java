@@ -1,5 +1,9 @@
 package project.spring.web.admin_main_chart;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,29 +13,84 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.admin_main.report.day.AdminReportDayService;
+import project.spring.web.admin_main.report.day.AdminReportDayVO;
+
 @Controller
 public class AdminMainChartController {
 	
 	@Autowired
 	private AdminMainChartService adminMainChartService;
+	@Autowired
+	private AdminReportDayService adminReportDayService;
 	
 	@RequestMapping("/adminMainChart.mdo")
 	public ModelAndView adminMainChartDo(ModelAndView mav) {
+		// 날짜용 매서드
+		LocalDate now = LocalDate.now();
+		DecimalFormat df = new DecimalFormat("00");
+        Calendar currentCalendar = Calendar.getInstance();
+
+        // 이번 년도	--> 2022
+        int year = now.getYear();
+        //이번달		--> 03
+      	String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+      	// 오늘 날짜만 --> 23
+        int thisDay = now.getDayOfMonth();
+        // 이번 년도 + 이번달 + 오늘
+        String today = year+"-"+month+"-"+thisDay;
+		// 이번주 첫째날
+		currentCalendar.add(Calendar.DATE, 2 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
+	    String firstWeekDay = df.format(currentCalendar.get(Calendar.DATE));  
+	    // 이번주 마지막날
+	    currentCalendar.add(Calendar.DATE, 8 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
+        String lastWeekDay = df.format(currentCalendar.get(Calendar.DATE)); 
+        // 이번주의 첫째날 
+        String thisWeek = year+"-"+month+"-"+firstWeekDay;
 		
-		List<AdminMainChartVO> dayChartList = adminMainChartService.dayChart(null);
-//	값이 잘 넘어오는지 테스트
+// 처음 시작시 input에 시작 날짜 넣기 . 라인차트 값넣기		
+		AdminMainChartVO vo = new AdminMainChartVO();
+		vo.setDate(today);
+		List<AdminMainChartVO> dayChartList = adminMainChartService.dayChart(vo);
+
+		//	값이 잘 넘어오는지 테스트
 		for(int i=0; i<13; i++) {
-//			System.out.println("라인차트");
-//			System.out.print(i+"번째 date : "+dayChartList.get(i).getDate());
-//			System.out.print(i+"번째 sum : "+dayChartList.get(i).getDaySum());
+			//System.out.println("라인차트");
+			//System.out.print(i+"번째 date :  "+dayChartList.get(i).getDate());
+			//System.out.print(i+"번째 sum : "+dayChartList.get(i).getDaySum ());
 			
 			mav.addObject("check"+i, dayChartList.get(i).getDaySum());
+			mav.addObject("checkk"+i, dayChartList.get(i).getDate());
 		}
 		mav.addObject("startDay2",dayChartList.get(0).getDate());
 		mav.addObject("startDay", dayChartList.get(12).getDate());
 		mav.addObject("dayChart", dayChartList);
 		
-		// 바 차트에 처음 보여줄 값
+// 금주 매출 보여주기 모달창에 값넣기.
+		
+		AdminReportDayVO vo2 = new AdminReportDayVO();
+		vo2.setDate(thisWeek);
+		List<AdminReportDayVO> list2 = adminReportDayService.reportDay(vo2);
+		mav.addObject("modal",list2);
+		
+// 금달 매출 보여주기 모달창에 값넣기
+		
+		// 이번달 시작일
+		String startDay = year+"-"+month+"-"+"01";
+		// 이번달 마지막일
+		int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String endDay = year+"-"+month+"-"+str;
+		
+		AdminReportDayVO vo3 = new AdminReportDayVO();
+		vo3.setDate(startDay);
+		vo3.setImpl(endDay);
+		
+		List<AdminReportDayVO> list3 = adminReportDayService.reportMonth(vo3);
+        mav.addObject("modalMonth",list3);
+
+		
+
+// 바 차트에 처음 보여줄 값
 		List<AdminMainChartVO> monthChartList = adminMainChartService.getMonthChart(null);
 		for(int i=0; i<12; i++) {
 //			System.out.println("바차트");
@@ -111,6 +170,17 @@ public class AdminMainChartController {
 		mav.setViewName("mainForBar");
 		return mav;
 	}
+	
+
+	@RequestMapping("/thisWeek.mdo")
+	public ModelAndView thisWeek(HttpServletRequest request, ModelAndView mav) {
+		System.out.println("thisWeek 들어옴");
+		mav.setViewName("mainTableWeekModal");
+		return mav;
+	}
+	
+
+
 	
 	
 	

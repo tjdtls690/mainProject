@@ -7,6 +7,7 @@ public class PaymentMyDetailSideInfoVO {
 	private int payment_member_code;
 	private String payment_date_impl;
 	private LocalDate payment_date;
+	private LocalDate payment_now_date;
 	private String payment_recipient;
 	private String payment_recipient_phone;
 	private String payment_delivery_type;
@@ -20,6 +21,14 @@ public class PaymentMyDetailSideInfoVO {
 	private String payment_point_price;
 	private String payment_sail_price;
 	private String payment_final_price;
+
+	public LocalDate getPayment_now_date() {
+		return payment_now_date;
+	}
+
+	public void setPayment_now_date(LocalDate payment_now_date) {
+		this.payment_now_date = payment_now_date;
+	}
 
 	public String getPayment_date_impl() {
 		return payment_date_impl;
@@ -161,13 +170,13 @@ public class PaymentMyDetailSideInfoVO {
 	public String toString() {
 		return "PaymentMyDetailSideInfoVO [payment_code=" + payment_code + ", payment_member_code="
 				+ payment_member_code + ", payment_date_impl=" + payment_date_impl + ", payment_date=" + payment_date
-				+ ", payment_recipient=" + payment_recipient + ", payment_recipient_phone=" + payment_recipient_phone
-				+ ", payment_delivery_type=" + payment_delivery_type + ", payment_zipcode=" + payment_zipcode
-				+ ", payment_address=" + payment_address + ", payment_memo=" + payment_memo + ", payment_price="
-				+ payment_price + ", payment_delivery_price=" + payment_delivery_price + ", payment_sum_price="
-				+ payment_sum_price + ", payment_coupon_price=" + payment_coupon_price + ", payment_point_price="
-				+ payment_point_price + ", payment_sail_price=" + payment_sail_price + ", payment_final_price="
-				+ payment_final_price + "]";
+				+ ", payment_now_date=" + payment_now_date + ", payment_recipient=" + payment_recipient
+				+ ", payment_recipient_phone=" + payment_recipient_phone + ", payment_delivery_type="
+				+ payment_delivery_type + ", payment_zipcode=" + payment_zipcode + ", payment_address="
+				+ payment_address + ", payment_memo=" + payment_memo + ", payment_price=" + payment_price
+				+ ", payment_delivery_price=" + payment_delivery_price + ", payment_sum_price=" + payment_sum_price
+				+ ", payment_coupon_price=" + payment_coupon_price + ", payment_point_price=" + payment_point_price
+				+ ", payment_sail_price=" + payment_sail_price + ", payment_final_price=" + payment_final_price + "]";
 	}
 
 }

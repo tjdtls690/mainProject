@@ -59,8 +59,8 @@
         	 $(function(){
         		$(document).on('click', '.btn.btn-outline-secondary.insert', function(){
         			var count = $('.bannerID').length;
-        		
-        			]if (count >= 5) {
+        			
+        			if (count >= 5) {
         				alert("배너등록은 최대 5개까지만 가능합니다.");
         				location.href="bannerManagement.mdo";
         				
@@ -70,9 +70,10 @@
             				dataType : 'html',
             				success : function(htmlOut){
             					$('body').append(htmlOut);
+            					location.href="bannerManagement.mdo";
             				}
             			}); 
-        			}
+         			}
 
         		});
         	}); 
@@ -87,13 +88,19 @@
 					var count = $('.bannerID').length; 
 					var deleteItemId = [];
 					var data = {};
-
+					var cc = 0;
 					
 					for (var i=0; i < count; i++) {
 						var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
 						if (check == true) {
 							deleteItemId[i] = $('.bannerID').eq(i).children('#bannerId').val();
+							cc += 1;
 						}
+					}
+					
+					if (cc == 0) {
+						alert("삭제할 항목을 선택해주세요");
+						return false;
 					}
 					
 					var newDeleteItemId = deleteItemId.filter(word => {
@@ -129,35 +136,40 @@
 
 // 				});
 // 			});
-		$(function (){
-		$(document).on('click','.btn.btn-primary.submit', function(){
-			alert("modaljsp");
-// 					var url = $('.table.table-bordered.dataTable').children('#banner_url').innerHTML;
-// 					alert(url);
-			var url = document.getElementById("banner_url").value;
-			var name = document.getElementById("banner_name").value;
-			var id = document.getElementById("banner_id").value;
-			var content = document.getElementById("banner_content").value;
-			var mobile = document.getElementById("banner_mobile").value;
+// 		$(function (){
+// 		$(document).on('click','.btn.btn-primary.submit', function(){
+// 			alert("modaljsp");
+// // 					var url = $('.table.table-bordered.dataTable').children('#banner_url').innerHTML;
+// // 					alert(url);
+// 			var url = document.getElementById("banner_url").value;
+// 			var name = document.getElementById("banner_name").value;
+// 			var id = document.getElementById("banner_id").value;
+// 			var content = document.getElementById("banner_content").value;
+// 			var mobile = document.getElementById("banner_mobile").value;
 			
-			$.ajax({
-				url : 'bannerInsert.mdo',
-				type : 'post',
-				datatype : 'html',
-				data : {
-					"url" : url,
-					"name" : name,
-					"id" : id,
-					"content" : content,
-					"mobile" : mobile
-				},
-				success : function(data){
-					 alert("등록 성공");
-					 location.href="bannerManagement.mdo";
-				}
-			});
-		});
-	});
+			
+// 			var fileupload = $("#uploadFileDesk");
+// 			var files = fileupload[0].files;
+			
+// 			$.ajax({
+// 				url : 'bannerInsert.mdo',
+// 				type : 'post',
+// 				datatype : 'html',
+// 				data : {
+// 					"url" : url,
+// 					"name" : name,
+// 					"id" : id,
+// 					"content" : content,
+// 					"mobile" : mobile,
+// 					"files" : files
+// 				},
+// 				success : function(data){
+// 					 alert("등록 성공");
+// 					 location.href="bannerManagement.mdo";
+// 				}
+// 			});
+// 		});
+// 	});
 		
 		$(document).ready(function(){
 		    function alignModal(){
@@ -291,71 +303,26 @@
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
-								            form
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data" id="frm1">
+								           
+	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
 	           							
-	           							table
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
 	           						
-	           								<tr>
-												<th scope="row" width=70>
-													TAG
-												</th>
-												<td width=150>
-													<div class="row">
-													  <div class="col" style = "margin-right : 0%;">
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-													    <option selected>main</option>
-													    <option value="1">100</option>
-													    <option value="2">200</option>
-													    <option value="3">300</option>
-													    <option value="3">400</option>
-													    <option value="3">500</option>
-													    <option value="3">600</option>
-													    <option value="3">700</option>
-													  </select>
-													  </div>
-													  <div class="col" >
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-													    <option selected>sub</option>
-													    <option value="1">101</option>
-													    <option value="2">102</option>
-													    <option value="3">103</option>
-													  </select>
-													  </div>
-													</div>
-												</td>
-											</tr>
+
 											<tr>
 												<th scope="row">
-													MAIN
+													DESK
 												</th>
 												<td>
 													<input type="file" name="uploadFile" id="uploadFileDesk" />
 												</td>
 											</tr>
-											<tr>
+												<tr>
 												<th scope="row">
 													MOBILE
 												</th>
 												<td>
-													<input type="file" name="uploadFile" id="uploadFileMobile"/>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													PAGE URL
-												</th>
-												<td>
-													<input type="text" name="banner_url" id="banner_url" placeholder="서버에 저장된 url 입력"/>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													MOBILE URL
-												</th>
-												<td>
-													<input type="text" name="banner_url" id="banner_mobile" placeholder="서버에 저장된 url 입력"/>
+													<input type="file" name="uploadFile" id="uploadFileDesk" />
 												</td>
 											</tr>
 											<tr>
@@ -371,7 +338,7 @@
 													ID
 												</th>
 												<td>
-													<input type="text" name="banner_id" id="banner_id" placeholder="slide00"/>
+													<input type="text" name="banner_id" id="banner_id" placeholder="slide00 / slide00_1"/>
 												</td>
 											</tr>
 											<tr>
@@ -383,13 +350,13 @@
 												</td>
 											</tr>
 	           							</table>
-	           							// table
+
+							         <button type="submit" class="btn btn-primary submit" >Upload</button>
 	           						</form>
-	           						<!—-// form -—>
+
 	           						
 							         </div>
 							         <div class="modal-footer">
-							         <button type="submit" class="btn btn-primary submit" >Upload</button>
 							         </div>
 							         </div>
 							         </div>
@@ -403,19 +370,21 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                        	<th>선택</th>
+                                        	<th></th>
                                             <th>배너이름</th>
                                             <th>배너내용</th>
-											<th>배너이미지</th> 
+											<th>배너이미지(데스크탑)</th> 
+											<th>배너이미지(모바일)</th> 
 											<th>배너 ID </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        	<th>선택</th>
+                                        	<th></th>
                                             <th>배너이름</th>
                                             <th>배너내용</th>
-											<th>배너이미지</th> 
+											<th>배너이미지(데스크탑)</th> 
+											<th>배너이미지(모바일)</th> 
 											<th>배너 ID</th>
                                         </tr>
                                     </tfoot>
@@ -426,6 +395,7 @@
                                             <td><input type="hidden" value="${banner.name}" id="bannerName" />${banner.name}</td>
                                             <td><input type="hidden" value="${banner.content }" id="bannerContent" />${banner.content }</td>
                                             <td><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
+                                            <td><a href="${banner.mobile}"><input type="hidden" value="${banner.mobile }" id="bannerMobile" />${banner.mobile }</a></td>
                                             <td class="bannerID"><input type="hidden" value="${banner.id}" id="bannerId" />${banner.id}</td>
                                         </tr>
                                         </c:forEach>											

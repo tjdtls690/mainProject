@@ -13,7 +13,7 @@
 		SELECT DATE(`payment_date`) AS `date`,
 		sum(`payment_price`)
 		FROM payment_info
-		WHERE DATE(`payment_date`) >= STR_TO_DATE('2021-04-01', '%Y-%m-%d')
+		WHERE DATE(`payment_date`) >= STR_TO_DATE(#{date}, '%Y-%m-%d')
 		GROUP BY `date` LIMIT 0,13;
 	</select>
 <!-- 	라인차트 +버튼 -->
@@ -49,5 +49,6 @@
 		WHERE  DATE_FORMAT(payment_date,'%Y') = DATE_FORMAT(now(),'2022')
 		GROUP BY date;
 	</select>
+
 	
 </mapper>

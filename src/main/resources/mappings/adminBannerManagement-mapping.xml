@@ -8,7 +8,7 @@
 		<result property="name" column="name"/>
 		<result property="content" column="content"/>
 		<result property="id" column="id"/>
-		<result property="mobile" column="mobile" />
+		<result property="image" column="image" />
 	</resultMap>
 	<select id="getBanner" resultMap="bannerResult">
 		SELECT * FROM banner ORDER BY seq

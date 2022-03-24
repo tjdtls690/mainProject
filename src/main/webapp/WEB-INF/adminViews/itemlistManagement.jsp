@@ -268,5 +268,5 @@ $(function() {
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script src="${path }/js/datatables-simple-demo.js"></script>
-</body>
+
 </html>

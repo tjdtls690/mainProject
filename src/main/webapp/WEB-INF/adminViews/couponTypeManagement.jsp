@@ -159,12 +159,11 @@ $(document).ready(function(){
                                     <a class="nav-link" href="#">리뷰관리</a>
                                 </nav>
                             </div>
-                            
                         </div>
                     </div>
                 </nav>
             </div>
-
+         
 			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -172,80 +171,68 @@ $(document).ready(function(){
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">(Coupon Management)</li>
                         </ol>
-                       
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Coupon List !
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
-                                <div class="modal" id="myModal">
-                                <form name="couponInsert" action = "couponInsert.mdo" enctype = "multipart/form-data">
-                                
-								   <div class="modal-dialog">
-								      <div class="modal-content">
-								         <div class="modal-header">
-								            <h5 class="modal-title">Coupon</h5>
-								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								         </div>
-								         <div class="modal-body">
-								            <!-- form -->
+                                  <div class="modal" id="myModal">
+                                    <form name="couponInsert" action = "couponInsert.mdo" enctype = "multipart/form-data">
+								                      <div class="modal-dialog">
+								                        <div class="modal-content">
+								                          <div class="modal-header">
+								                             <h5 class="modal-title">Coupon</h5>
+								                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								                          </div>
+								                          <div class="modal-body">
+								                          <!-- form -->
 	           							
-	           							<!-- table -->
-	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
-	           								<!-- <tr>
-												<th scope="row">
-													coupon code
-												</th>
-												<td>
-													<input type="text" name="coupon_code"/>
-												</td>
-											</tr> -->
-	           								<tr>
-												<th scope="row" width=70>
-													coupon pack number
-												</th>
-												<td width=150>
-													<div class="row">
-													  <div class="col" style = "margin-right : 40%;">
-													    <select name="coupon_pack" class="form-select" id="couponPack" aria-label="Floating label select example">
-													    <option selected>---</option>
-													    <option value="100">100</option>
-													    <option value="200">200</option>
-													    <option value="300">300</option>
-													  </select>
-													  </div>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													coupon name
-												</th>
-												<td>
-													<input type="text" name="coupon_type"/>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													coupon explain
-												</th>
-												<td>
-													<input type="text" name="coupon_explain"/>
-												</td>
-											</tr>
-	           							</table>
-	           							<!--// table -->
-	           						</form>
-	           						
-	           						
-         </div>
-         <div class="modal-footer">
-         <button type="submit" class="btn btn-primary">등록</button>
-         </div>
-         </div>
-         </div>
-   </div>
-</div>
+	           							                  <!-- table -->
+	           							               	  <table class = "table table-bordered dataTable" cellspacing = "0" >
+				                                            <tr>
+				                                              <th scope="row" width=70>
+				                                                pack number
+				                                              </th>
+				                                              <td width=150>
+				                                                <div class="row">
+				                                                  <div class="col" style = "margin-right : 40%;">
+				                                                    <select name="coupon_pack" class="form-select" id="couponPack" aria-label="Floating label select example">
+				                                                    <option selected>---</option>
+				                                                    <option value="100">100</option>
+				                                                    <option value="200">200</option>
+				                                                    <option value="300">300</option>
+				                                                  </select>
+				                                                  </div>
+				                                                </div>
+				                                              </td>
+				                                            </tr>
+				                                            <tr>
+				                                              <th scope="row">
+				                                                name
+				                                              </th>
+				                                              <td>
+				                                                <input type="text" name="coupon_type"/>
+				                                              </td>
+				                                            </tr>
+				                                            <tr>
+				                                              <th scope="row">
+				                                                explain
+				                                              </th>
+				                                              <td>
+				                                                <input type="text" name="coupon_explain"/>
+				                                              </td>
+				                                            </tr>
+	           							                </table>
+	           							            	</div>
+	           						              
+							                        	<div class="modal-footer">
+							                        	<button type="submit" class="btn btn-primary">등록</button>
+							                       		</div>
+							                       	</div>
+							                       </div>
+							                </form>
+							      	</div> <!-- modal -->
+							</div> <!-- card header -->
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
@@ -281,12 +268,13 @@ $(document).ready(function(){
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        </div>
-                        </main>
-                    </div>   
-            </div>
+                             </div> <!-- card-body -->
+                         </div> <!-- card mb-4 -->
+                      </div> <!-- container-fluid px-4 -->
+                    </main>
+                 </div> <!-- layoutSidenav_content -->
+            </div> <!-- layoutSidenav -->
+                        
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path }/js/scripts.js"></script>

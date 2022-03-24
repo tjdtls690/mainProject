@@ -648,6 +648,11 @@
                                 </nav>
                             </div>
                             
+                            <a class="nav-link" href="#">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 매출/상품통계관리
+							</a>
                         </div>
                     </div>
                 </nav>

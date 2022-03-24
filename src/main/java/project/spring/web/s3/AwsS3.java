@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
@@ -19,6 +20,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
 //파일 업로드를 위한 s3 패키지
 //이렇게 하는게 맞는지 자신은 없음... 거지같네 그냥 url때려박으면 안되는건가
+@Service
 public class AwsS3 {
 	private final static String NAMESPACE = "AdminBannerManagementDAO";
 	
@@ -28,8 +30,8 @@ public class AwsS3 {
 	private AmazonS3 s3Client;
 	
 	//보안상의 문제로 수정 요망
-	private String accessKey = "";	//IAM 에서 만든 엑세스
-	private String secretKey = "";	//IAM에서 받은 시크릿 엑세스
+	private String accessKey = "=";	//IAM 에서 만든 엑세스
+	private String secretKey = "=";	//IAM에서 받은 시크릿 엑세스
 	private Regions clientRegion = Regions.AP_NORTHEAST_2;
 	private String bucket = "";	//버킷 명
 

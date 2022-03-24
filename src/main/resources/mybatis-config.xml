@@ -25,6 +25,8 @@
 		<typeAlias type="project.spring.web.admin_banner_management.AdminBannerManagementVO" alias="myBanner" />
 		<typeAlias type="project.spring.web.paymentComplete.PaymentCompletePointVO" alias="myPoint" />
 		<typeAlias type="project.spring.web.adminMemberManagement.AdminMemberManagementVO" alias="myAdminMember" />
+		<typeAlias type="project.spring.web.admin_item.AdminItemVO" alias="adminItem" />
+		<typeAlias type="project.spring.web.admin_item.AdminSubVO" alias="adminSub" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -46,5 +48,6 @@
 		<mapper resource="mappings/adminMainChart-mapping.xml"/>
 		<mapper resource="mappings/adminBannerManagement-mapping.xml"/>
 		<mapper resource="mappings/adminMemberManagement-mapping.xml"/>
+		<mapper resource="mappings/adminItem-mapping.xml"/>
 	</mappers>
 </configuration>

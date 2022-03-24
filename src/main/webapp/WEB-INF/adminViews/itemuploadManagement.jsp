@@ -15,6 +15,56 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="${path }/css/style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+/* $(function() {
+	$(document).on('click', '.btn.btn-success', function(){
+		var tagMain = document.itemInsert.item_tag_main.value
+		var tagSub = document.itemInsert.item_tag_sub.value
+		var itemName = document.itemInsert.item_name.value
+		var itemSummary = document.itemInsert.item_summary.value
+		var itemEx = document.itemInsert.item_explain.value
+		alert(itemName);
+		$.ajax({
+			url : 'itemInsert.mdo',
+			type : 'post',
+			data : {
+				"tagMain" : tagMain,
+				"tagSub" : tagSub,
+				"itemName" : itemName,
+				"itemSummary" : itemSummary,
+				"itemEx" : itemEx
+			},
+			success : function(data){
+				location.reload();
+			}
+		})
+	})
+}); */
+function tagChange(e) {
+	$('#item_tag_sub').empty();
+	var subTag200 = [201, 202, 203, 204];
+	var subTag300 = [301, 302];
+	var subTag400 = [401, 402];
+	var subTag500 = [501, 502];
+	var target = document.getElementById("item_tag_sub");
+	
+	if(e.value == "200") var d = subTag200;
+	else if(e.value == "300") var d = subTag300;
+	else if(e.value == "400") var d = subTag400;
+	else if(e.value == "500") var d = subTag500;
+	
+	target.options.length = 0;
+	
+	for(x in d) {
+		var opt = document.createElement("option");
+		opt.value = d[x];
+		opt.innerHTML = d[x];
+		target.appendChild(opt);
+	}
+}
+
+</script>       
     </head>
     
 <body class="sb-nav-fixed">
@@ -135,7 +185,7 @@
 	           					<div class = "col-sm-12">
 	           						
 	           						<!-- form -->
-	           						<form action = "admin_bannerInsert.mdo" method = "POST" enctype = "multipart/form-data">
+	           						<form action="itemInsertSuccess.mdo" method="POST" enctype="multipart/form-data">
 	           							
 	           							<!-- table -->
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
@@ -147,19 +197,18 @@
 												<td colspan="3" style="width:35%;">
 													<div class="row">
 													  <div class="col" style = "margin-right : -60%;">
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 													    <option selected>main</option>
-													    <option value="1">100</option>
-													    <option value="2">200</option>
-													    <option value="3">300</option>
-													    <option value="3">400</option>
-													    <option value="3">500</option>
-													    <option value="3">600</option>
-													    <option value="3">700</option>
+													    <option value="200">200</option>
+													    <option value="300">300</option>
+													    <option value="400">400</option>
+													    <option value="500">500</option>
+													    <option value="700">700</option>
+													    <option value="800">800</option>
 													  </select>
 													  </div>
 													  <div class="col" >
-													    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+													    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example">
 													    <option selected>sub</option>
 													    <option value="1">101</option>
 													    <option value="2">102</option>
@@ -174,7 +223,7 @@
 													상품명
 												</th>
 												<td>
-													<input type="text" name="banner_contents" style="width:80%;"/>
+													<input type="text" name="item_name" id="item_name" class="item_name" style="width:80%;"/>
 												</td>
 													<th scope="row" style="width:15%;">
 													초코베리머치
@@ -207,7 +256,7 @@
 													상품요약정보
 												</th>
 												<td colspan="3">
-													<input type="text" name="banner_contents" style="width:70%;"/>
+													<input type="text" name="item_summary" style="width:70%;"/>
 													
 												</td>
 											</tr>
@@ -216,7 +265,7 @@
 													상품설명
 												</th>
 												<td colspan="3">
-													<textarea name="banner_subcontents" style="width:70%;"></textarea>
+													<textarea name="item_explain" style="width:70%;"></textarea>
 												</td>
 											</tr>
 											
@@ -422,13 +471,13 @@
 													m가격
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="item_price_m_sub"/>
 												</td>
 												<th scope="row" style="width:15%;">
 												m할인가격
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="item_price_m"/>
 												</td>
 											</tr>
 											<tr>
@@ -436,21 +485,13 @@
 													L가격
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
+													<input type="text" name="banner_subcontents"/>
 												</td>
 												<th scope="row" style="width:15%;">
 												L할인가격
 												</th>
 												<td>
-													<input type="text" name="banner_contents"/>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													이미지
-												</th>
-												<td colspan="3">
-													<input type="file" name="uploadFile" />
+													<input type="text" name="banner_subcontents"/>
 												</td>
 											</tr>
 											<tr>
@@ -458,7 +499,7 @@
 													상세 정보 이미지
 												</th>
 												<td colspan="3">
-													<input type="file" name="uploadFile" />
+													<input multiple="multiple" type="file" name="infoImages" />
 												</td>
 											</tr>
 	           							</table>
@@ -466,11 +507,11 @@
 	           							<!--// table -->
 	           							
 	           							<!-- button -->
-				           				<button type = "reset" class="btn btn-success" value = "초기화하기" style = "float:right;">등록</button>
-	           							<!—// button —>
+				           				<button type = "submit" class="btn btn-success" value = "초기화하기" style = "float:right;">등록</button>
+	           							<!-- // button -->
 	           							
 	           						</form>
-	           						<!—// form —>
+	           						<!-- // form -->
 	           						
 	           					</div>
 	           				</div>

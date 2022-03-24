@@ -63,17 +63,7 @@
         			if (count >= 5) {
         				alert("배너등록은 최대 5개까지만 가능합니다.");
         				location.href="bannerManagement.mdo";
-        				
-        			}else {
-        				$.ajax({
-            				url : 'bannerModal.mdo',
-            				dataType : 'html',
-            				success : function(htmlOut){
-            					$('body').append(htmlOut);
-            					location.href="bannerManagement.mdo";
-            				}
-            			}); 
-         			}
+        			}	
 
         		});
         	}); 
@@ -330,7 +320,7 @@
 													NAME
 												</th>
 												<td>
-													<input type="text" name="banner_name" id="banner_name" placeholder="상품 이름"/>
+													<input type="text" name="banner_name" id="banner_name" placeholder="배너 이름"/>
 												</td>
 											</tr>
 											<tr>
@@ -338,7 +328,7 @@
 													ID
 												</th>
 												<td>
-													<input type="text" name="banner_id" id="banner_id" placeholder="slide00 / slide00_1"/>
+													<input type="text" name="banner_id" id="banner_id" placeholder="slide00"/>
 												</td>
 											</tr>
 											<tr>

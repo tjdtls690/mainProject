@@ -61,6 +61,7 @@ public class MyBesongjiController {
 			if(list1.get(i).getMember_default_address().equals("y")) {
 				list1.get(i).setMember_default_address("n");
 				memberZipcodeService.updateZipcodeDefaultAddress(list1.get(i));
+				break;
 			}
 		}
 		
@@ -85,5 +86,62 @@ public class MyBesongjiController {
 	public ModelAndView myBesongjiKakaoAddressContainerDo(ModelAndView mav) {
 		mav.setViewName("myBesongjiKakaoAddressContainer");
 		return mav;
+	}
+	
+	@RequestMapping("/myBesongjiModalDetail2.do")
+	public ModelAndView myBesongjiModalDetail2Do(ModelAndView mav, HttpServletRequest request, MemberZipcodeVO vo) {
+		
+		HttpSession session = request.getSession();
+		MemberVO tmp = (MemberVO)session.getAttribute("member");
+		vo.setMember_code(tmp.getMemberCode());
+		
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(vo);
+		mav.addObject("list", list);
+		mav.setViewName("myBesongjiModalDetail2");
+		return mav;
+	}
+	
+	@RequestMapping("/myBesongjiCommonDetail.do")
+	public ModelAndView myBesongjiCommonDetailDo(ModelAndView mav, HttpServletRequest request, MemberZipcodeVO vo) {
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		vo.setMember_code(vo1.getMemberCode());
+		List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(vo);
+		
+		mav.addObject("list", list);
+		mav.setViewName("myBesongjiCommonDetail");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/myBesongjiDeleteZipcode.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String myBesongjiDeleteZipcodeDo(MemberZipcodeVO vo) {
+		memberZipcodeService.deleteZipcode(vo);
+		return null;
+	}
+	
+	@RequestMapping(value = "/myBesongjiUpdateZipcode.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String myBesongjiUpdateZipcodeDo(HttpServletRequest request, MemberZipcodeVO vo) {
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		vo.setMember_code(vo1.getMemberCode());
+		int zipAmount = memberZipcodeService.getZipcodeAmount(vo);
+		
+		if(zipAmount > 0) {
+			// 제일 처음 주소 기본 배송지로 설정
+			List<MemberZipcodeVO> list = memberZipcodeService.getZipcodeAll(vo);
+			int check = 0;
+			for(int i = 0; i< list.size(); i++) {
+				if(list.get(i).getMember_default_address().equals("y")) {
+					check++;
+				}
+			}
+			if(check == 0) {
+				list.get(0).setMember_default_address("y");
+				memberZipcodeService.updateZipcodeDefaultAddress(list.get(0));
+			}
+		}
+		return null;
 	}
 }

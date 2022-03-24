@@ -6,6 +6,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+input {
+  padding:10px;
+	font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  border-radius: 0 !important;
+}
+
+.form-control {
+  border-radius: 0 !important;
+  font-size: 12x;
+}
+
+.clickable { cursor: pointer; }
+</style>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -551,6 +568,42 @@
         $(".modal:visible").each(alignModal);
     });   
 });
+       	
+       	//Datepicker
+       	$(function(){
+       	var nowTemp = new Date();
+       	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+       	var checkin = $('#dp1').datepicker({
+
+       	  beforeShowDay: function(date) {
+       	    return date.valueOf() >= now.valueOf();
+       	  },
+       	  autoclose: true
+
+       	}).on('changeDate', function(ev) {
+       	  if (ev.date.valueOf() > checkout.datepicker("getDate").valueOf() || !checkout.datepicker("getDate").valueOf()) {
+
+       	    var newDate = new Date(ev.date);
+       	    newDate.setDate(newDate.getDate() + 1);
+       	    checkout.datepicker("update", newDate);
+
+       	  }
+       	  $('#dp2')[0].focus();
+       	});
+
+
+       	var checkout = $('#dp2').datepicker({
+       	  beforeShowDay: function(date) {
+       	    if (!checkin.datepicker("getDate").valueOf()) {
+       	      return date.valueOf() >= new Date().valueOf();
+       	    } else {
+       	      return date.valueOf() > checkin.datepicker("getDate").valueOf();
+       	    }
+       	  },
+       	  autoclose: true
+
+       	}).on('changeDate', function(ev) {});
         </script>
     </head>
     
@@ -663,220 +716,35 @@
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">금 주 매출</div>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="background-color:transparent; border:none;">
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">자세히보기</a>
-                                        <div class="small text-white">
-                                        	<i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </div>
-                                    </button>
-<!-- 									모달추가 -->
-									<div class="modal" id="myModal">
-										<form name="" action = "" enctype = "multipart/form-data">
-											<div class="modal-dialog">
-												<div class="modal-content" style="width:160%;">
-													<div class="modal-header" style="background-color:#BF5656 !important;">
-														<h5 class="modal-title">금 주 매출</h5>
-														<button type="button" class="btn-close week" id="btn-week" data-bs-dismiss="modal"></button>
-													</div>
-													<div class="modal-body">
-														<table class="table table-striped" style="text-align:center;">
-															<thead style="font-size:13px;">
-									                             <tr>
-									                                <th>날짜</th>
-									                                <th>판매건수</th>
-									                                <th>원가</th>
-																	<th>배송비</th>   
-																	<th>총가격</th>
-																	<th>쿠폰가</th>
-																	<th>포인트사용</th>
-																	<th>할인</th>
-																	<th>결제금액</th>                               
-									                             </tr>
-									                        </thead>
-									                    	<tbody style="font-size:12px;">
-									                    	<c:forEach var="info" items="${modal}">
-									                    		<tr>
-													                 <td>${info.date }</td>
-													                 <td>${info.count }</td>
-													                 <td>${info.price }원</td>
-													                 <td>${info.delivery }원</td>
-													                 <td>${info.priceSum }원</td>
-													                 <td>${info.priceCoupon }원</td>
-													                 <td>${info.pricepoint }원</td>
-													                 <td>${info.priceSail }원</td>
-													                 <td>${info.priceFinal }원</td>
-													            </tr>
-									                    	</c:forEach>
-									                    	
-
-									             			</tbody>  
-									   					</table>
-													</div>
-													<div class="modal-footer">
-														<button type="button" onclick="location.href='excelDown.mdo'" class="btn btn-outline-success" style="float-left:-60px;">Excel</button>
-														<button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >PDF</button>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">금 달 매출</div>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#myModal1" data-toggle="modal" data-target="#exampleModalCenter" style="background-color:transparent; border:none;">
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-<!--                                         <a class="small text-white stretched-link" href="pdfDown.mdo">자세히보기</a> -->
-                                        <a class="small text-white stretched-link" href="#">자세히보기</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                    </button>
-                                    <div class="modal" id="myModal1">
-                                    <form name="" action = "" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
-								                        <div class="modal-content" style="width:160%;">
-								                          <div class="modal-header" style="background-color:#BF5656 !important;">
-								                             <h5 class="modal-title">금 달 매출</h5>
-								                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								                          </div>
-								                          <div class="modal-body">
-														<table class="table table-striped" style="text-align:center;">
-														<thead style="font-size:13px;">
-					                                        <tr>
-					                                            <th>날짜</th>
-					                                            <th>판매건수</th>
-					                                            <th>원가</th>
-																<th>배송비</th>   
-																<th>총가격</th>
-																<th>쿠폰가</th>
-																<th>포인트사용</th>
-																<th>할인</th>
-																<th>결제금액</th>                               
-					                                        </tr>
-					                                    </thead>
-					                                    <tbody style="font-size:12px;">
-					                                    	<c:forEach var="info" items="${modalMonth}">
-									                    		<tr>
-													                 <td>${info.date }</td>
-													                 <td>${info.count }</td>
-													                 <td>${info.price }원</td>
-													                 <td>${info.delivery }원</td>
-													                 <td>${info.priceSum }원</td>
-													                 <td>${info.priceCoupon }원</td>
-													                 <td>${info.pricepoint }원</td>
-													                 <td>${info.priceSail }원</td>
-													                 <td>${info.priceFinal }원</td>
-													            </tr>
-									                    	</c:forEach>   
-					                                    </tbody>  
-	           							                </table>
-	           							            	</div>
-	           						              
-							                        	<div class="modal-footer">
-							                        	<button type="button" onclick="location.href='excelDown2.mdo'" class="btn btn-outline-success" style="float-left:-60px;">Excel</button>
-								                        <button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >PDF</button>
-							                       		</div>
-							                       	</div>
-							                       </div>
-							                </form>
-							      	</div> <!-- modal -->
-                                </div>
-                            </div>
-                                    
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">주문 요청(결제완료)</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">5건</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">1:1 문의/상품 문의</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">8건</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        일 별 차트
-                                        <div style="float:right; height:17px;">
-	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">  
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-												  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-												</svg>
-											</button>
-											<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-												  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-												</svg>
-											</button>
-										</div>
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        월 별 차트
-                                        <div style="float:right; height:17px;" class='month-btn'>
-<!-- 	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">   -->
-<!-- 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-left" viewBox="0 0 16 16"> -->
-<!-- 												  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/> -->
-<!-- 												</svg> -->
-<!-- 											</button> -->
-											<button type="button" class="btn btn-link" style="padding:5px 5px; margin-top:-8px;">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-right" viewBox="0 0 16 16">
-												  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-												</svg>
-											</button>
-										</div>
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
+                        </ol>  
                         
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Best Top 10 !
+                                매출통계
                             </div>
                             <div class="card-body">
+                            <div class="form-group">
+							  <input id="dp1" type="text" class="form-control clickable input-md" id="DtChkIn" placeholder="&#xf133;  Check-In">
+							</div>
+							<div class="form-group">
+							  <input id="dp2" type="text" class="form-control clickable input-md" id="DtChkOut" placeholder="&#xf133;  Check-Out">
+							</div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>랭크</th>
-                                            <th>상품명</th>
-                                            <th>판매횟수</th>
-											<th>총 판매금액</th>                                         
+                                            <th>주문날짜</th>
+                                            <th>판매금액</th>
+                                            <th>뿅</th>
+											<th>뿡</th>                                         
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>랭크</th>
-                                            <th>상품명</th>
-                                            <th>판매횟수</th>
-											<th>총 판매금액</th> 
+                                            <th>주문날짜</th>
+                                            <th>판매금액</th>
+                                            <th>뿅</th>
+											<th>뿡</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>

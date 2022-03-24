@@ -241,50 +241,50 @@
 	    })
 	    
 	    $(document).on('click', '.modal-wrap', function(e){
-    	
-    	if(!$(e.target).hasClass("content-name") && !$(e.target).hasClass("content-price-wrap") && !$(e.target).hasClass("content-right") && 
-    			!$(e.target).hasClass("dropdown") && !$(e.target).hasClass("add-items-group-body-contents") && !$(e.target).hasClass("content-wrap") && 
-    			!$(e.target).hasClass("add-items-group") && !$(e.target).hasClass("content-discounted-price") && !$(e.target).hasClass("detail-wrap")
-    			&& !$(e.target).hasClass("modal-list-img") && !$(e.target).hasClass("order_modal_btn") && !$(e.target).hasClass("menu-tab")
-    			&& !$(e.target).hasClass("order-modal-tab-name") && !$(e.target).hasClass("dropdown-icon") && !$(e.target).hasClass("modal-header-slot-title")
-    			&& !$(e.target).hasClass("modal-header-slot") && !$(e.target).hasClass("add-items") && !$(e.target).hasClass("except1") && !$(e.target).hasClass("except2")
-    			&& !$(e.target).hasClass("add-items-selected") && !$(e.target).hasClass("add-items-selected-text") && !$(e.target).hasClass("count-and-price")
-    			&& !$(e.target).hasClass("button__wrap") && !$(e.target).hasClass("confirm-icon") && !$(e.target).hasClass("add-items-content-wrap")
-    			&& !$(e.target).hasClass("content-left") && !$(e.target).hasClass("dropdown-btn") && !$(e.target).hasClass("dropdown-content") && !$(e.target).hasClass("except3")
-    			&& !$(e.target).hasClass("confirm-list") && !$(e.target).hasClass("confirm-list-delete") && !$(e.target).hasClass("except4") && !$(e.target).hasClass("order-menu-temp-name")
-    			&& !$(e.target).hasClass("except5") && !$(e.target).hasClass("except6") && !$(e.target).hasClass("button button--size-large") && !$(e.target).hasClass("hidden-save-close")
-    			&& !$(e.target).hasClass("toggle-drop-down") && !$(e.target).hasClass("order-modal-select") && !$(e.target).hasClass("content-price") && !$(e.target).hasClass("order-menu-temp-discount")
-    			&& !$(e.target).hasClass("discount-price") && !$(e.target).hasClass("order-menu-temp-price") && !$(e.target).hasClass("page-header--modal") && !$(e.target).hasClass("col")
-    			&& !$(e.target).hasClass("address-index") && !$(e.target).hasClass("address-index__body") && !$(e.target).hasClass("error-list") && !$(e.target).hasClass("button--size-large-mobile")
-    			&& !$(e.target).hasClass("add-search__back") && !$(e.target).hasClass("modal-wrap__body") && !$(e.target).hasClass("add-confirm__back") && !$(e.target).hasClass("add-confirm__body")
-    			&& !$(e.target).hasClass("add-confirm__address") && !$(e.target).hasClass("form-text") && !$(e.target).hasClass("form-fieldset") && !$(e.target).hasClass("form-field")
-    			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
-    			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
-    			&& !$(e.target).hasClass("disable-place-text") && !$(e.target).hasClass("name-wrap") && !$(e.target).hasClass("item__head") && !$(e.target).hasClass("round-text")
-    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small") && !$(e.target).hasClass("item")){
-    		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
-        	for (let i = 0; i < TimeoutId; i++) {
-        	  clearTimeout(i);
-        	}
-    		
-        	$('html').attr('class', '');
-        	$('body').attr('class', '');
-        	$('noscript').removeAttr('aria-hidden');
-        	$('#__nuxt').removeAttr('aria-hidden');
-        	$(window).scrollTop(200);
-        	$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
-        	setTimeout(function() {
-        		$('.modal').detach();
-			}, 500);
-    	}
-    })
+	    	if(!$(e.target).hasClass("content-name") && !$(e.target).hasClass("content-price-wrap") && !$(e.target).hasClass("content-right") && 
+	    			!$(e.target).hasClass("dropdown") && !$(e.target).hasClass("add-items-group-body-contents") && !$(e.target).hasClass("content-wrap") && 
+	    			!$(e.target).hasClass("add-items-group") && !$(e.target).hasClass("content-discounted-price") && !$(e.target).hasClass("detail-wrap")
+	    			&& !$(e.target).hasClass("modal-list-img") && !$(e.target).hasClass("order_modal_btn") && !$(e.target).hasClass("menu-tab")
+	    			&& !$(e.target).hasClass("order-modal-tab-name") && !$(e.target).hasClass("dropdown-icon") && !$(e.target).hasClass("modal-header-slot-title")
+	    			&& !$(e.target).hasClass("modal-header-slot") && !$(e.target).hasClass("add-items") && !$(e.target).hasClass("except1") && !$(e.target).hasClass("except2")
+	    			&& !$(e.target).hasClass("add-items-selected") && !$(e.target).hasClass("add-items-selected-text") && !$(e.target).hasClass("count-and-price")
+	    			&& !$(e.target).hasClass("button__wrap") && !$(e.target).hasClass("confirm-icon") && !$(e.target).hasClass("add-items-content-wrap")
+	    			&& !$(e.target).hasClass("content-left") && !$(e.target).hasClass("dropdown-btn") && !$(e.target).hasClass("dropdown-content") && !$(e.target).hasClass("except3")
+	    			&& !$(e.target).hasClass("confirm-list") && !$(e.target).hasClass("confirm-list-delete") && !$(e.target).hasClass("except4") && !$(e.target).hasClass("order-menu-temp-name")
+	    			&& !$(e.target).hasClass("except5") && !$(e.target).hasClass("except6") && !$(e.target).hasClass("button button--size-large") && !$(e.target).hasClass("hidden-save-close")
+	    			&& !$(e.target).hasClass("toggle-drop-down") && !$(e.target).hasClass("order-modal-select") && !$(e.target).hasClass("content-price") && !$(e.target).hasClass("order-menu-temp-discount")
+	    			&& !$(e.target).hasClass("discount-price") && !$(e.target).hasClass("order-menu-temp-price") && !$(e.target).hasClass("page-header--modal") && !$(e.target).hasClass("col")
+	    			&& !$(e.target).hasClass("address-index") && !$(e.target).hasClass("address-index__body") && !$(e.target).hasClass("error-list") && !$(e.target).hasClass("button--size-large-mobile")
+	    			&& !$(e.target).hasClass("add-search__back") && !$(e.target).hasClass("modal-wrap__body") && !$(e.target).hasClass("add-confirm__back") && !$(e.target).hasClass("add-confirm__body")
+	    			&& !$(e.target).hasClass("add-confirm__address") && !$(e.target).hasClass("form-text") && !$(e.target).hasClass("form-fieldset") && !$(e.target).hasClass("form-field")
+	    			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
+	    			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
+	    			&& !$(e.target).hasClass("disable-place-text") && !$(e.target).hasClass("name-wrap") && !$(e.target).hasClass("item__head") && !$(e.target).hasClass("round-text")
+	    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small") && !$(e.target).hasClass("item")
+	    			&& !$(e.target).hasClass("vue-daum-postcode")){
+	    		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
+	        	for (let i = 0; i < TimeoutId; i++) {
+	        	  clearTimeout(i);
+	        	}
+	    		
+	        	$('html').attr('class', '');
+	        	$('body').attr('class', '');
+	        	$('noscript').removeAttr('aria-hidden');
+	        	$('#__nuxt').removeAttr('aria-hidden');
+	        	$(window).scrollTop(200);
+	        	$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+	        	setTimeout(function() {
+	        		$('.modal').detach();
+				}, 500);
+	    	}
+	    })
 	    	
 	    $(document).on('click', '#closeModal', function(){
 	    	$('.swal2-container').detach();
 	    })
 	    
 	    
-	    // 배송지 추가 버튼
+	    // 페이지에서의 배송지 추가 버튼
 	    $(document).on('click', '.address-index__nav .button__wrap.button1', function(){
 	    	var member_delivery_type = $('#deliveryType').val();
 	    	$.ajax({
@@ -377,6 +377,247 @@
 	    			$('#region_name').attr('placeholder', '예) 판교역로 235, 분당 주공');
 	    		}
 	    	})
+	 	});
+	
+		
+	 	// 카카오톡 주소 api 화면에서 백 화살표 버튼
+	 	$(document).on('click', '.add-search__back', function(){
+	 		var member_delivery_type = $('#deliveryType').val();
+	    	
+	    	$.ajax({
+	    		url : 'myBesongjiModalDetail2.do',
+	    		dataType : 'html',
+	    		type : 'post',
+	    		data : {
+	    			'member_delivery_type' : member_delivery_type
+	    		},
+	    		success : function(htmlOut){
+	    			$('.modal-wrap__body').html(htmlOut);
+	    		}
+	    	})
+	    });
+	 	
+	 	// 새벽배송에서 너무 먼 지역 클릭해서 불가능 모달 떴을 때 뒤로 가는 화살표 버튼
+	    $(document).on('click', '.add-confirm__back', function(){
+	    	$.ajax({
+	    		url : 'myBesongjiKakaoAddressContainer.do',
+	    		dataType : 'html',
+	    		success : function(htmlOut){
+	    			$('.modal-wrap__body').html(htmlOut);
+	    			
+	    			kakaoAddressStart();
+	    			
+	    			$('.placeholder').css('display', 'none');
+	    			$('#region_name').attr('placeholder', '예) 판교역로 235, 분당 주공');
+	    		}
+	    	})
+	    });
+	    
+	 	// 새벽배송 불가능 지역 창 확인 버튼
+	    $(document).on('click', '.button.add-confirm__empty__button .button__wrap', function(){
+	    	$.ajax({
+	    		url : 'myBesongjiKakaoAddressContainer.do',
+	    		dataType : 'html',
+	    		success : function(htmlOut){
+	    			$('.modal-wrap__body').html(htmlOut);
+	    			
+	    			kakaoAddressStart();
+	    			
+	    			$('.placeholder').css('display', 'none');
+	    			$('#region_name').attr('placeholder', '예) 판교역로 235, 분당 주공');
+	    		}
+	    	})
+	    });
+	    
+	 	// 기본 배송지 설정 체크 박스
+	    $(document).on('click', '#f_dest_is_main', function(){
+	    	if($('#defaultBesongjiCheck').val() == 'n'){
+	    		$('#defaultBesongjiCheck').val('y');
+	    	}else{
+	    		$('#defaultBesongjiCheck').val('n');
+	    	}
+	    });
+	 	
+	 	
+	 	// 배송지 등록 버튼
+	    $(document).on('click', '.kakaoFinalRegistration', function(){
+	    	if($('.form-text').eq(0).val().length == 0){
+	    		alert('상세주소를 입력해주세요.');
+	    		return false;
+	    	}else if($('.form-text').eq(1).val().length == 0){
+	    		alert('배송지명을 입력해주세요.');
+	    		return false;
+	    	}
+	    	
+	    	var zonecode = $('.add-confirm__address').children('em').text();
+	    	var address = $('.add-confirm__address').children('span').text();
+	    	var detailAddress = $('.form-text').eq(0).val();
+	    	var shippingAddress = $('.form-text').eq(1).val();
+	    	var defaultAddressCheck = $('#defaultBesongjiCheck').val();
+	    	var deliveryType = $('#deliveryType').val();
+	    	
+	    	$(window).scrollTop(200);
+	    	$('.modal').detach();
+	    	
+	    	$.ajax({
+	    		url : 'memberZipcodeRegistration.do',
+	    		type : 'post',
+	    		data : {
+	    			'member_zipcode' : zonecode,
+	    			'member_address' : address,
+	    			'member_detail_address' : detailAddress,
+	    			'member_shipping_address' : shippingAddress,
+	    			'member_default_address' : defaultAddressCheck,
+	    			'member_delivery_type' : deliveryType
+	    		},
+	    		success : function(data){
+	    			$.ajax({
+	    	    		url : 'orderBesongjiRegistrationCompleteCheckModal.do',
+	    	    		dataType : 'html',
+	    	    		success : function(htmlOut){
+	    	    			$('html').attr('class', 'swal2-toast-shown swal2-shown');
+	    	    	    	$('body').attr('class', 'swal2-toast-shown swal2-shown');
+	    	    			$('body').append(htmlOut);
+	    	    			
+	    	    			setTimeout(function() {
+	    	    				$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').css('overflow-y', 'auto');
+	    	    				
+	    	    				setTimeout(function() {
+	    	    					$('.swal2-container.swal2-bottom.toast-container-class.swal2-backdrop-show').detach();
+	    	    					$('html').attr('class', '');
+	    	    					$('body').attr('class', '');
+	    	    				}, 3000);
+	    	    			}, 500);
+	    	    			
+	    	    			$.ajax({
+	    	    				url : 'myBesongjiCommonDetail.do',
+	    	    				dataType : 'html',
+	    	    				type : 'post',
+	    	    				data : {
+	    	    					'member_delivery_type' : deliveryType
+	    	    				},
+	    	    				success : function(htmlOut){
+	    	    					$('.mypage-destination__body').html(htmlOut);
+	    	    					$('#defaultBesongjiCheck').val('n');
+	    	    				}
+	    	    			})
+	    	    		}
+	    	    	});
+	    		}
+	    	})
+	    });
+	 	
+	 	
+	 	// 새벽배송 탭 버튼
+	 	$(document).on('click', '.nav-tab__wrap div:even', function(){
+	 		$('#deliveryType').val(0);
+	 		var deliveryType = $('#deliveryType').val();
+	 		$(this).attr('class', 'on');
+	 		$(this).siblings('div').attr('class', '');
+	 		$.ajax({
+				url : 'myBesongjiCommonDetail.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'member_delivery_type' : deliveryType
+				},
+				success : function(htmlOut){
+					$('.mypage-destination__body').html(htmlOut);
+					$('#defaultBesongjiCheck').val('n');
+				}
+			})
+	 	})
+	 	
+	 	// 택배배송 탭 버튼
+	 	$(document).on('click', '.nav-tab__wrap div:odd', function(){
+	 		$('#deliveryType').val(1);
+	 		var deliveryType = $('#deliveryType').val();
+	 		$(this).attr('class', 'on');
+	 		$(this).siblings('div').attr('class', '');
+	 		$.ajax({
+				url : 'myBesongjiCommonDetail.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'member_delivery_type' : deliveryType
+				},
+				success : function(htmlOut){
+					$('.mypage-destination__body').html(htmlOut);
+					$('#defaultBesongjiCheck').val('n');
+				}
+			})
+	 	});
+	 	
+	 	
+	 	// 배송지 삭제 버튼
+	 	$(document).on('click', '.zip-delete-button', function(){
+	 		var member_zipcode_code = $(this).closest('li').find('input').val();
+	 		var member_delivery_type = $('#deliveryType').val();
+	 		if(confirm("선택하신 배송지를 삭제하시겠습니까?") == true){
+	 			$.ajax({
+	 				url : 'myBesongjiDeleteZipcode.do',
+	 				type : 'post',
+	 				data : {
+	 					'member_zipcode_code' : member_zipcode_code
+	 				},
+	 				success : function(data1){
+	 					$.ajax({
+	 						url : 'myBesongjiUpdateZipcode.do',
+	 						type : 'post',
+	 						data : {
+	 							'member_delivery_type' : member_delivery_type
+	 						},
+	 						success : function(data2){
+	 							$.ajax({
+	 								url : 'myBesongjiCommonDetail.do',
+	 								dataType : 'html',
+	 								type : 'post',
+	 								data : {
+	 									'member_delivery_type' : member_delivery_type
+	 								},
+	 								success : function(htmlOut){
+	 									$('.mypage-destination__body').html(htmlOut);
+	 								}
+	 							})
+	 						}
+	 					})
+	 				}
+	 			})
+	 	    }else{
+	 	        return ;
+	 	    }
+	 	});
+	 	
+	 	// 배송지 기본 배송지 설정 버튼
+	 	$(document).on('click', '.zip-default-check-button', function(){
+	 		var member_zipcode_code = $(this).closest('li').find('input').val();
+	 		var member_delivery_type = $('#deliveryType').val();
+	 		
+	 		if(confirm("선택하신 배송지를 기본 배송지로 설정하시겠습니까?") == true){
+	 			$.ajax({
+		    		url : 'myBesongjiDefaultZipCheck.do',
+		    		type : 'post',
+		    		data : {
+		    			'member_zipcode_code' : member_zipcode_code,
+		    			'member_delivery_type' : member_delivery_type
+		    		},
+		    		success : function(data){
+		    			$.ajax({
+							url : 'myBesongjiCommonDetail.do',
+							dataType : 'html',
+							type : 'post',
+							data : {
+								'member_delivery_type' : member_delivery_type
+							},
+							success : function(htmlOut){
+								$('.mypage-destination__body').html(htmlOut);
+							}
+						})
+		    		}
+		    	})
+	 		}else{
+	 	        return ;
+	 	    }
 	 	})
 	})
 </script>
@@ -401,6 +642,7 @@
 						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<input type="hidden" value="0" id="deliveryType">
+					<input type="hidden" value="n" id="defaultBesongjiCheck">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -678,7 +920,7 @@
 																					type="button" title=""
 																					class="button button button--side-padding button--size-small button--color-gray button--outline"
 																					data-v-421abad8="">
-																					<span data-v-a1c889e0="" class="button__wrap">
+																					<span data-v-a1c889e0="" class="button__wrap zip-delete-button">
 																						삭제 </span>
 																				</button>
 																			</div>
@@ -713,7 +955,7 @@
 																					type="button" title=""
 																					class="button button button--side-padding button--size-small button--color-gray button--outline"
 																					data-v-421abad8="">
-																					<span data-v-a1c889e0="" class="button__wrap">
+																					<span data-v-a1c889e0="" class="button__wrap zip-default-check-button">
 																						기본 배송지 설정 </span>
 																				</button>
 																			</div>
@@ -722,7 +964,7 @@
 																					type="button" title=""
 																					class="button button button--side-padding button--size-small button--color-gray button--outline"
 																					data-v-421abad8="">
-																					<span data-v-a1c889e0="" class="button__wrap">
+																					<span data-v-a1c889e0="" class="button__wrap zip-delete-button">
 																						삭제 </span>
 																				</button>
 																			</div>

@@ -38,5 +38,10 @@ public class MemberZipcodeServiceImpl implements MemberZipcodeService{
 	public MemberZipcodeVO getZipcodeAll2(MemberZipcodeVO vo) {
 		return memberZipcodeDAO.getZipcodeAll2(vo);
 	}
+
+	@Override
+	public int deleteZipcode(MemberZipcodeVO vo) {
+		return memberZipcodeDAO.deleteZipcode(vo);
+	}
 	
 }

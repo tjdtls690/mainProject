@@ -8,4 +8,5 @@ public interface MemberZipcodeService {
 	int getZipcodeAmount(MemberZipcodeVO vo);
 	int insertZipcode(MemberZipcodeVO vo);
 	public int updateZipcodeDefaultAddress(MemberZipcodeVO vo);
+	public int deleteZipcode(MemberZipcodeVO vo);
 }

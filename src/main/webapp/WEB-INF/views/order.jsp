@@ -2271,7 +2271,7 @@ $(function() {
     	})
     });
     
-    
+    // 카카오톡 주소 api 화면에서 백 화살표 버튼
     $(document).on('click', '.add-search__back', function(){
     	var member_delivery_type = $('#deliveryType').val();
     	
@@ -2289,6 +2289,7 @@ $(function() {
     });
     
     
+    // 새벽배송에서 너무 먼 지역 클릭해서 불가능 모달 떴을 때 뒤로 가는 화살표 버튼
     $(document).on('click', '.add-confirm__back', function(){
     	$.ajax({
     		url : 'orderKakaoAddressContainer.do',

@@ -15,9 +15,47 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="${path }/css/style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+$(function() {
+	$(document).on('click','.btn.btn-dark', function(){
+		var seq = $(this).attr('id');
+		var name = $(this).parent().siblings('td').eq(2).text();
+		var content = $(this).parent().siblings('td').eq(7).text();
+		$('#reviewSeq').val(seq);
+		$('#user_name').val(name);
+		$('#content').val(content);
+		alert(content);
+	})
+	
+	$(document).on('click', '.btn.btn-primary', function(){
+		var seq = $('#reviewSeq').val();
+		var user_name = $('#user_name').val();
+		var content = $('#content').val();
+		var reply_content = $('#reply_content').val();
+		$.ajax({
+			url : 'replyInsertSuccess.mdo',
+			type : 'post',
+			dataType : 'text',
+			data : {
+				"seq" : seq,
+				"user_name" : user_name,
+				"content" : content,
+				"reply_content" : reply_content
+			},
+			success : function(data){
+				 location.href = "reviewManagement.mdo";
+			}
+		})
+		location.href = "reviewManagement.mdo";
+	})
+});
+
+</script>
     </head>
     
 <body class="sb-nav-fixed">
+		
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -139,7 +177,6 @@
                                             <th>아이디</th>
                                             <th>날짜</th>
 											<th>메인태그</th>
-                                            <th>서브태그</th>
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
@@ -155,7 +192,6 @@
                                             <th>아이디</th>
                                             <th>날짜</th>
 											<th>메인태그</th>
-                                            <th>서브태그</th>
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
@@ -163,216 +199,147 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                        	<td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>1</td>
-                                            <td>asfg4321</td>
-                                            <td>2021.01.15</td>
-                                            <td>600</td>
-                                            <td>602</td>
-                                            <td>1</td>
-                                            <td>아쉬파샐러드</td>
-                                            <td>우웩</td>
-                                            <th>
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-dark">답변등록</button>
-                                             
-                                            <div class="modal" id="myModal">
-                                <!-- form -->
-                                <form action = "" method = "POST" enctype = "multipart/form-data" name="">
-								   <div class="modal-dialog">
-								      <div class="modal-content">
-								         <div class="modal-header">
-								            <h5 class="modal-title">답변등록</h5>
-								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								         </div>
-								         <div class="modal-body">
-	           							<!-- table -->
-	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
-	           						
-	           								<tr>
-												<th scope="row" style="width:15%;">
-													아이디
-												</th>
-												<td>
-													<input type="text" name="item_name" id="item_name" class="item_name" style="width:40%;"/>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													내용
-												</th>
-												<td colspan="3">
-													<textarea name="item_explain" rows="10" style="width:100%;"></textarea>
-												</td>		
-											</tr>
-											<tr>
-												<th scope="row">
-													답변
-												</th>
-												<td colspan="3">
-													<textarea name="item_explain" rows="7" style="width:100%;"></textarea>
-												</td>		
-											</tr>
-										</table>
-         								</div>
-		         						<div class="modal-footer">
-		         							<button type="button" class="btn btn-primary">등록</button>
-		         						</div>
-         						
-			         						</div>
-			         						</div>
-			         						<!-- </div> -->
-			         						</form>
-			   							</div>
-                                        </th>   
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
- 											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    	<c:forEach var="subReviewList" items="${subReviewList }">
+										<tr>
+											<td><input class="form-check-input" type="checkbox"
+												id="checkboxNoLabel" value="" aria-label="..."></td>
+											<td>${subReviewList.seq }</td>
+											<td>${subReviewList.user_name }</td>
+											<td>${subReviewList.write_date }</td>
+											<td>${subReviewList.subscribe_tag_main }</td>
+											<td>${subReviewList.subscribe_code }</td>
+											<td>${subReviewList.subscribe_name }</td>
+											<td>${subReviewList.content }</td>
+											<th>
+												<button type="button" id="${subReviewList.seq }"
+													data-bs-toggle="modal" data-bs-target="#myModal"
+													data-toggle="modal" data-target="#exampleModalCenter"
+													class="btn btn-dark">답변등록</button>
+
+												<div class="modal" id="myModal">
+													<!-- form -->
+													<form action="" method="POST" enctype="multipart/form-data"
+														name="">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">답변등록</h5>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="modal"></button>
+																</div>
+																<input type="hidden" id="seq" value="">
+																<div class="modal-body">
+																	<!-- table -->
+																	<table class="table table-bordered dataTable"
+																		cellspacing="0">
+																		<tr>
+																			<th scope="row" style="width: 15%;">리뷰번호</th>
+																			<td><input type="text" name="reviewSeq"
+																				id="reviewSeq" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row" style="width: 15%;">아이디</th>
+																			<td><input type="text" name="user_id"
+																				id="user_name" class="item_name" style="width: 40%;" disabled/>
+																			</td>
+																		</tr>
+																		<tr>
+																			<th scope="row">내용</th>
+																			<td colspan="3"><textarea name="content" id="content"
+																					rows="10" style="width: 100%;" disabled></textarea></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">답변</th>
+																			<td colspan="3"><textarea name="reply_content" id="reply_content"
+																					rows="7" style="width: 100%;"></textarea></td>
+																		</tr>
+																	</table>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-primary">등록</button>
+																</div>
+
+															</div>
+														</div>
+														<!-- </div> -->
+													</form>
+												</div>
+											</th>
+										</tr>
+									</c:forEach>
+									<c:forEach var="itemReviewList" items="${itemReviewList }">
+										<tr>
+											<td><input class="form-check-input" type="checkbox"
+												id="checkboxNoLabel" value="" aria-label="..."></td>
+											<td>${itemReviewList.seq }</td>
+											<td>${itemReviewList.user_name }</td>
+											<td>${itemReviewList.write_date }</td>
+											<td>${itemReviewList.item_tag_main }</td>
+											<td>${itemReviewList.item_code }</td>
+											<td>${itemReviewList.item_name }</td>
+											<td>${itemReviewList.content }</td>
+											<th>
+												<button type="button"
+													onclick="replyInsert('${itemReviewList.seq}');"
+													id="${itemReviewList.seq }" data-bs-toggle="modal"
+													data-bs-target="#myModal" data-toggle="modal"
+													data-target="#exampleModalCenter" class="btn btn-dark">답변등록</button>
+
+												<div class="modal" id="myModal">
+													<!-- form -->
+													<form action="replyInsertSuccess.mdo" method="POST" name="reply">
+														<input type="hidden" name="seq" value="">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">답변등록</h5>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="modal"></button>
+																</div>
+																<div class="modal-body">
+																	<!-- table -->
+																	<table class="table table-bordered dataTable"
+																		cellspacing="0">
+																		<tr>
+																			<th scope="row" style="width: 15%;">리뷰번호</th>
+																			<td><input type="text" name="reviewSeq"
+																				id="reviewSeq" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row" style="width: 15%;">아이디</th>
+																			<td><input type="text" name="user_name"
+																				id="user_name" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">내용</th>
+																			<td colspan="3"><textarea name="content"
+																					id="content" rows="10" style="width: 100%;"
+																					disabled></textarea></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">답변</th>
+																			<td colspan="3"><textarea name="reply_content" id="reply_content"
+																					id="reply" rows="7" style="width: 100%;"></textarea>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-primary" id="">등록</button>
+																</div>
+
+															</div>
+														</div>
+														<!-- </div> -->
+													</form>
+												</div>
+											</th>
+										</tr>
+									</c:forEach>
+								</tbody>
                                 </table>
                             </div>
                         </div>

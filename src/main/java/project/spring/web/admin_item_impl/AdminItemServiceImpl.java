@@ -45,4 +45,14 @@ public class AdminItemServiceImpl implements AdminItemService {
 	public void itemInfoInsert(AdminItemInfoVO vo) {
 		adminItemDAO.itemInfoInsert(vo);
 	}
+
+	@Override
+	public AdminItemVO getItemName(AdminItemVO vo) {
+		return adminItemDAO.getItemName(vo);
+	}
+
+	@Override
+	public AdminSubVO getSubName(AdminSubVO vo) {
+		return adminItemDAO.getSubName(vo);
+	}
 }

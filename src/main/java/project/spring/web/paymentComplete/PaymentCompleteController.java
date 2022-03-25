@@ -19,6 +19,8 @@ import project.spring.web.basket.BasketService;
 import project.spring.web.basket.BasketVO;
 import project.spring.web.event.CouponVO;
 import project.spring.web.member.MemberVO;
+import project.spring.web.point_history.PointHistoryService;
+import project.spring.web.point_history.PointHistoryVO;
 
 @Controller
 public class PaymentCompleteController {
@@ -27,6 +29,8 @@ public class PaymentCompleteController {
 	PaymentCompleteService paymentCompleteService;
 	@Autowired
 	BasketService basketService;
+	@Autowired
+	PointHistoryService pointHistoryService;
 	
 	
 	@RequestMapping("/paymentComplete.do")
@@ -113,6 +117,13 @@ public class PaymentCompleteController {
 		int paymentFinalPrice = Integer.parseInt(vo.getPayment_final_price());
 		int point = Math.round(paymentFinalPrice / 20);
 		System.out.println("적립된 포인트 : " + point);
+		
+		// point_history 테이블에도 저장
+		PointHistoryVO vo6 = new PointHistoryVO();
+		vo6.setPoint_history_member_code(vo1.getMemberCode());
+		vo6.setPoint_history_point(point);
+		vo6.setPoint_history_explain("상품 결제 포인트");
+		pointHistoryService.insertPointHistory(vo6);
 		
 		PaymentCompletePointVO vo4 = new PaymentCompletePointVO();
 		vo4.setPayment_member_code(vo1.getMemberCode());

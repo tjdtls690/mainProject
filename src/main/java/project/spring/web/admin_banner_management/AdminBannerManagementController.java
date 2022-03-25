@@ -56,46 +56,7 @@ public class AdminBannerManagementController {
 
 		return mav;
 	}
-
-	@RequestMapping("/bannerModal.mdo")
-	public ModelAndView bannerModalDo(ModelAndView mav) {
-
-		mav.setViewName("bannerModal");
-		return mav;
-	}
-
-//	@RequestMapping("/bannerInsert.mdo")
-//	public ModelAndView bannerInsertDo(ModelAndView mav, HttpServletRequest request) {
-//		
-//		String url = request.getParameter("url");
-//		String name = request.getParameter("name");
-//		String id = request.getParameter("id");
-//		String content = request.getParameter("content");
-//		String mobile = request.getParameter("mobile");
-//		
-//		System.out.println(url);
-//		System.out.println(name);
-//		System.out.println(id);
-//		System.out.println(content);
-//		
-//		
-//		awsS3.upload(null, mobile);
-//		
-//		AdminBannerManagementVO vo2 = new AdminBannerManagementVO();
-//		vo2.setName(name);
-//		vo2.setContent(content);
-//		vo2.setId(id);
-//		vo2.setImage(url);
-//		vo2.setMobile(mobile);
-//		bannerService.insertBanner(vo2);
-//		
-//		AdminBannerManagementVO vo = new AdminBannerManagementVO();
-//		List<AdminBannerManagementVO> bannerList = bannerService.getBanner(vo);
-//		mav.addObject("banner", bannerList);
-//		mav.setViewName("bannerManagement");
-//		
-//		return mav;
-//	}
+	
 	@RequestMapping("/admin_bannerInsert.mdo")
 	public ModelAndView bannerInsertDo(ModelAndView mav, HttpServletRequest request, MultipartFile uploadFile, AdminBannerManagementVO banner, MultipartHttpServletRequest mtrequest) {
 		System.out.println("admin_bannerInser.mdo 왔다");
@@ -148,7 +109,7 @@ public class AdminBannerManagementController {
 		AdminBannerManagementVO vo = new AdminBannerManagementVO();
 		List<AdminBannerManagementVO> bannerList = bannerService.getBanner(vo);
 		mav.addObject("banner", bannerList);
-		mav.setViewName("bannerManagement");
+		mav.setViewName("redirect:bannerManagement.mdo");
 
 		return mav;
 	}

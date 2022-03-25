@@ -46,7 +46,7 @@
 	<select id="getMemberAllPaymentInfo" resultType="paymentDetailSide">
 		select * from payment_info 
 		where payment_member_code = #{payment_member_code} 
-		and payment_code &gt; 1404
+		and payment_code &gt; 1409
 	</select>
 	<select id="getMemberPaymentDeailInfo" resultType="paymentDetailSide">
 		select * from payment_info 

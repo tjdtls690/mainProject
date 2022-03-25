@@ -32,4 +32,8 @@ public class MemberZipcodeDAO {
 	public int updateZipcodeDefaultAddress(MemberZipcodeVO vo) {
 		return sqlSessionTemplate.update("MemberZipcodeDAO.updateZipcodeDefaultAddress", vo);
 	}
+	
+	public int deleteZipcode(MemberZipcodeVO vo) {
+		return sqlSessionTemplate.delete("MemberZipcodeDAO.deleteZipcode", vo);
+	}
 }

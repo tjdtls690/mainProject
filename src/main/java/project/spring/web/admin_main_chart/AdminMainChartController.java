@@ -3,6 +3,7 @@ package project.spring.web.admin_main_chart;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.admin_main.report.day.AdminReportDayService;
 import project.spring.web.admin_main.report.day.AdminReportDayVO;
+import project.spring.web.admin_main_rank.AdminMainRankService;
+import project.spring.web.admin_main_rank.AdminMainRankVO;
 
 @Controller
 public class AdminMainChartController {
@@ -23,6 +26,8 @@ public class AdminMainChartController {
 	private AdminMainChartService adminMainChartService;
 	@Autowired
 	private AdminReportDayService adminReportDayService;
+	@Autowired
+	private AdminMainRankService adminMainRankService;
 	
 	@RequestMapping("/adminMainChart.mdo")
 	public ModelAndView adminMainChartDo(ModelAndView mav) {
@@ -39,6 +44,22 @@ public class AdminMainChartController {
         int thisDay = now.getDayOfMonth();
         // 이번 년도 + 이번달 + 오늘
         String today = year+"-"+month+"-"+thisDay;
+//        System.out.println("오늘은!? : "+today);
+        mav.addObject("today",today);
+        
+//        List<String> showList = new ArrayList<String>();
+//        for(int i =0; i<14; i++) {
+//        	if((thisDay+i)>30) {
+//        		thisDay=0;
+//        		month +=1;
+//        	}
+//        	String impl = year+"-"+month+"-"+(thisDay+i);
+//        	showList.add(impl);
+//        }
+//        for(int i=0; i<showList.size(); i++) {
+//        	System.out.println(i+"번째 값 : "+showList.get(i));
+//        }
+        
 		// 이번주 첫째날
 		currentCalendar.add(Calendar.DATE, 2 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
 	    String firstWeekDay = df.format(currentCalendar.get(Calendar.DATE));  
@@ -98,6 +119,10 @@ public class AdminMainChartController {
 //			System.out.println(i+"번째 sum : "+monthChartList.get(i).getDaySum());
 			mav.addObject("month"+i, monthChartList.get(i).getDaySum());
 		}
+		
+// 판매량 랭킹 top 10 차트
+		List<AdminMainRankVO> rankList = adminMainRankService.saleRank10();
+		mav.addObject("rankList",rankList);
 		
 		
 		mav.setViewName("mainChart");

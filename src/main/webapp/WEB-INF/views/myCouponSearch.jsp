@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/myCouponSearch"/>
 <!DOCTYPE html>
 <html class="">
@@ -412,52 +414,6 @@
 											<h2 data-v-2c0651a8="" class="col">쿠폰 조회</h2>
 											<!---->
 										</header>
-										<div data-v-31b582a4="" data-v-421abad8=""
-											class="mypage-coupons-sms">
-											문자 수신에 동의하실 경우 프레시코드의 깜짝 쿠폰 혜택을 우대 제공해드리며, <b
-												data-v-31b582a4="" data-v-421abad8="">다양한 이벤트 소식과 쿠폰 지급
-												내용은 문자/카카오 알림톡을 통해 안내드립니다.</b>
-											<div data-v-31b582a4="" data-v-421abad8="" class="row">
-												<label data-v-31b582a4="" data-v-421abad8=""
-													class="row--v-center"><label data-v-2673f877=""
-													data-v-31b582a4="" class="form-checkbox" data-v-421abad8=""><input
-														data-v-2673f877="" type="checkbox" value="false">
-														<span data-v-2673f877=""><svg data-v-2673f877=""
-																xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																<path data-v-2673f877="" fill="currentColor"
-																	fill-rule="nonzero"
-																	d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-													<span data-v-31b582a4="" data-v-421abad8=""
-													style="cursor: pointer;">SMS 수신 동의하고 이벤트 소식과 쿠폰 혜택
-														받기 </span></label>
-											</div>
-										</div>
-										<div data-v-31b582a4="" data-v-421abad8=""
-											class="mypage-coupons-register">
-											<p data-v-31b582a4="" data-v-421abad8=""
-												class="mypage-coupons-register__label">
-												<label data-v-31b582a4="" data-v-421abad8=""
-													for="f_coupon_number">쿠폰 등록</label>
-											</p>
-											<div data-v-31b582a4="" data-v-421abad8=""
-												class="row mypage-coupons-register__field">
-												<div data-v-31b582a4="" data-v-421abad8="" class="col">
-													
-															<input data-v-8bb17226="" data-v-31b582a4="" value=""
-														id="f_coupon_number" type="text" name="f_coupon_number"
-														placeholder="쿠폰번호를 입력해 주세요" autocorrect="off"
-														autocapitalize="off" class="form-text" data-v-421abad8="">
-												
-												</div>
-												<div data-v-31b582a4="" data-v-421abad8="">
-													<button data-v-a1c889e0="" data-v-31b582a4="" type="button"
-														title="" class="button button--side-padding"
-														data-v-421abad8="">
-														<span data-v-a1c889e0="" class="button__wrap">등록</span>
-													</button>
-												</div>
-											</div>
-										</div>
 										<hr data-v-31b582a4="" data-v-421abad8=""
 											class="line-bold mypage-coupons__line">
 										<div data-v-31b582a4="" data-v-421abad8=""
@@ -473,17 +429,16 @@
 															${couponDetail.coupon_type}</strong>
 															<span data-v-31b582a4=""
 																data-v-421abad8="">${couponDetail.coupon_explain }</span>
-															<span data-v-31b582a4="" data-v-421abad8="">사용
-																가능 메뉴: 정기배송/전체 상품</span>
 														</div>
 														<div data-v-31b582a4="" data-v-421abad8=""
 															class="mypage-coupons-item__info">
 															<p data-v-31b582a4="" data-v-421abad8="" class="price">
-																<em data-v-31b582a4="" data-v-421abad8="">50</em> %
-															</p>
-															<p data-v-31b582a4="" data-v-421abad8="" class="date">
-																<em data-v-31b582a4="" data-v-421abad8="">2022.03.06
-																</em> 까지
+																<c:if test="${couponDetail.coupon_type_summary == 0 }">
+																	<em data-v-31b582a4="" data-v-421abad8=""><fmt:formatNumber value="${couponDetail.coupon_sail_price }" pattern="#,###" /></em> 원
+																</c:if>
+																<c:if test="${couponDetail.coupon_type_summary == 1 }">
+																	<em data-v-31b582a4="" data-v-421abad8="">${couponDetail.coupon_sail_price }</em> %
+																</c:if>
 															</p>
 														</div>
 													</div>

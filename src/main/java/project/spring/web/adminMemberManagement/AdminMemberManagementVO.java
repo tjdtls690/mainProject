@@ -59,6 +59,7 @@ public class AdminMemberManagementVO {
 				+ ", memberBirthday=" + memberBirthday + ", memberPhone=" + memberPhone + "]";
 	}
 	
+	
 
 	
 }

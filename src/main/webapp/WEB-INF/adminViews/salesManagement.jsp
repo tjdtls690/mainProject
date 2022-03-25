@@ -7,184 +7,94 @@
 <html lang="en">
 <head>
 <style>
-.fa-calendar {
-    position: absolute;
-    top: 13px;
-    font-size: 20px;
-    color: #1976D2;
-    z-index: 1000
-}
+ .ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
 
-#fa-1 {
-    left: calc(50% - 40px)
-}
+ .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
 
-#fa-2 {
-    left: calc(100% - 40px)
-}
+ .ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; } 
 
-.form-control-placeholder {
-    position: absolute;
-    top: -10px !important;
-    padding: 12px 2px 0 2px;
-    opacity: 0.5
-}
+ .ui-state-default,
+ .ui-widget-content .ui-state-default,
+ .ui-widget-header .ui-state-default,
+ .ui-button,
+ html .ui-button.ui-state-disabled:hover,
+ html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
 
-#end-p {
-    left: calc(50% + 4px)
-}
+ .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
 
-.form-control:focus+.form-control-placeholder,
-.form-control:valid+.form-control-placeholder {
-    font-size: 95%;
-    top: 10px;
-    transform: translate3d(0, -100%, 0);
-    opacity: 1
-}
+ .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
 
-::placeholder {
-    color: #BDBDBD;
-    opacity: 1
-}
+ .ui-widget.ui-widget-content { border: 1px solid #eee; } 
 
-:-ms-input-placeholder {
-    color: #BDBDBD
-}
+ #datepicker:focus>.ui-datepicker { display: block; } 
 
-::-ms-input-placeholder {
-    color: #BDBDBD
-}
+ .ui-datepicker-prev,
+ .ui-datepicker-next { cursor: pointer; } 
 
-.datepicker {
-    background-color: #fff;
-    border-radius: 0 !important;
-    align-content: center !important;
-    padding: 0 !important
-}
+ .ui-datepicker-next { float: right; } 
 
-.datepicker-dropdown {
-    top: 180px !important;
-    left: calc(50% - 173.5px) !important;
-    border-right: #1976D2;
-    border-left: #1976D2
-}
+ .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
 
-.datepicker-dropdown.datepicker-orient-left:before {
-    left: calc(50% - 6px) !important
-}
+ .ui-datepicker-title { text-align: center; padding: 10px; font-weight: 100; font-size: 20px; } 
 
-.datepicker-dropdown.datepicker-orient-left:after {
-    left: calc(50% - 5px) !important;
-    border-bottom-color: #1976D2
-}
+ .ui-datepicker-calendar { width: 100%; } 
 
-.datepicker-dropdown.datepicker-orient-right:after {
-    border-bottom-color: #1976D2
-}
+ .ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; } 
 
-.datepicker table tr td.today,
-span.focused {
-    border-radius: 50% !important;
-    background-image: linear-gradient(#FFF3E0, #FFE0B2)
-}
+ .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
 
-tbody tr td {
-    padding: 10px !important
-}
+ .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
 
-tfoot tr:nth-child(2) th {
-    padding: 10px !important;
-    border-top: 1px solid #CFD8DC !important
-}
+ .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; } 
 
-.cw {
-    font-size: 14px !important;
-    background-color: #E8EAF6 !important;
-    border-radius: 0px !important;
-    padding: 0px 20px !important;
-    margin-right: 10px solid #fff !important
-}
+ .ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; } 
 
-.old,
-.day,
-.new {
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 0px !important
-}
+ .ui-state-hover,
+ .ui-widget-content .ui-state-hover,
+ .ui-widget-header .ui-state-hover,
+ .ui-state-focus,
+ .ui-widget-content .ui-state-focus,
+ .ui-widget-header .ui-state-focus,
+ .ui-button:hover,
+ .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
 
-.day.old,
-.day.new {
-    color: #E0E0E0 !important
-}
+ .ui-widget-header .ui-icon { background-image: url('./btns.png'); } 
 
-.day.old:hover,
-.day.new:hover {
-    border-radius: 50% !important
-}
+ .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
 
-.old-day:hover,
-.day:hover,
-.new-day:hover,
-.month:hover,
-.year:hover,
-.decade:hover,
-.century:hover {
-    border-radius: 50% !important;
-    background-color: #eee
-}
+ .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
 
-.range-start,
-.range-end {
-    border-radius: 50% !important;
-    background-image: linear-gradient(#1976D2, #1976D2) !important
-}
+ .ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; } 
 
-.range {
-    background-color: #E3F2FD !important
-}
+ .ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; } 
 
-.prev,
-.next,
-.datepicker-switch {
-    border-radius: 0 !important;
-    padding: 10px 10px 10px 10px !important;
-    font-size: 18px;
-    opacity: 0.7;
-    color: #fff
-}
+ .ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; } 
 
-.prev:hover,
-.next:hover,
-.datepicker-switch:hover {
-    background-color: inherit !important;
-    opacity: 1
-}
+ .ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; } 
 
-@media screen and (max-width: 726px) {
-    .datepicker-dropdown.datepicker-orient-right:before {
-        right: calc(50% - 6px)
-    }
+ .ui-state-highlight,
+ .ui-widget-content .ui-state-highlight,
+ .ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 50%; padding-top: 10px; padding-bottom: 10px; } 
 
-    .datepicker-dropdown.datepicker-orient-right:after {
-        right: calc(50% - 5px)
-    }
-}
-</style>
+ .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
+
+ .inp:focus { outline: none; background-color: #eee; } 
+ </style>
+ 
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Saladit-admin</title>
+	<title>Saladit-sales</title>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 	<link href="${path}/css/style.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script>
        	$(function(){
        		var ctx = document.getElementById("myAreaChart");
@@ -243,17 +153,6 @@ tfoot tr:nth-child(2) th {
    			  }
    			});
        		
-   			$(document).ready(function(){
-
-   				$('.input-daterange').datepicker({
-   				format: 'dd-mm-yyyy',
-   				autoclose: true,
-   				calendarWeeks : true,
-   				clearBtn: true,
-   				disableTouchKeyboard: true
-   				});
-
-   				});
         </script>
     </head>
     
@@ -374,15 +273,7 @@ tfoot tr:nth-child(2) th {
                                 매출통계
                             </div>
                             <div class="card-body">
-                            	<div class="container px-1 px-sm-5 mx-auto">
-								    <form autocomplete="off">
-								        <div class="flex-row d-flex justify-content-center">
-								            <div class="col-lg-6 col-11 px-1">
-								                <div class="input-group input-daterange"> <input type="text" id="start" class="form-control text-left mr-2"> <label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date</label> <span class="fa fa-calendar" id="fa-1"></span> <input type="text" id="end" class="form-control text-left ml-2"> <label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date</label> <span class="fa fa-calendar" id="fa-2"></span> </div>
-								            </div>
-								        </div>
-								    </form>
-								</div>
+                            	<input class="datepicker">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -479,8 +370,5 @@ tfoot tr:nth-child(2) th {
 <%--         <script src="${path}/assets/demo/chart-bar-demo.js"></script> --%>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path}/js/datatables-simple-demo.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" crossorigin="anonymous"></script>
     </body>
 </html>

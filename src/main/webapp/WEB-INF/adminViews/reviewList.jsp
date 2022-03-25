@@ -188,10 +188,56 @@
 								                          <div class="modal-body">
 														<table class="table table-striped" style="text-align:center;">
 														<thead style="font-size:13px;">
-					                                        
+					                                        답변등록
 					                                    </thead>
 					                                    <tbody style="font-size:12px;">
-					                                       
+					                                      <div class = "table-responsive">
+										           				<div class = "row">
+										           					<div class = "col-sm-12">
+										           						
+										           						<!-- form -->
+										           						<form action="itemInsertSuccess.mdo" method="POST" enctype="multipart/form-data">
+										           							
+										           							<!-- table -->
+										           							<table class = "table table-bordered dataTable" cellspacing = "0" >
+										           						
+										           								<tr>
+																					<th scope="row">
+																						아이디
+																					</th>
+																					<td>
+																						<input type="text" name="item_name" id="item_name" class="item_name" style="width:80%;"/>
+																					</td>
+																				</tr>
+																				<tr>
+																					<th scope="row">
+																						내용
+																					</th>
+																					<td colspan="3">
+																						<textarea name="item_explain" style="width:70%;"></textarea>
+																					</td>
+																				</tr>
+																				<tr>
+																					<th scope="row">
+																						답변내용
+																					</th>
+																					<td colspan="3">
+																						<textarea name="item_explain" style="width:70%;"></textarea>
+																					</td>
+																				</tr>
+										           							</table>
+										           							
+										           							<!--// table -->
+										           							
+										           							<!-- button -->
+													           				<button type = "submit" class="btn btn-success" value = "등록하기" style = "float:right;">등록</button>
+
+										           						</form>
+										           						<!-- // form -->
+										           						
+										           					</div>
+										           				</div>
+										           			</div>
 					                                        </tbody>  
 	           							                </table>
 	           							            	</div>

@@ -19,14 +19,27 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
        	$(function(){
-       	
+       		var today = $("input[name=today]").val();
+       		var day0 = $("input[name=thisDay0]").val();
+       		var day1 = $("input[name=thisDay1]").val();
+       		var day2 = $("input[name=thisDay2]").val();
+       		var day3 = $("input[name=thisDay3]").val();
+       		var day4 = $("input[name=thisDay4]").val();
+       		var day5 = $("input[name=thisDay5]").val();
+       		var day6 = $("input[name=thisDay6]").val();
+       		var day7 = $("input[name=thisDay7]").val();
+       		var day8 = $("input[name=thisDay8]").val();
+       		var day9 = $("input[name=thisDay9]").val();
+       		var day10 = $("input[name=thisDay10]").val();
+       		var day11 = $("input[name=thisDay11]").val();
+       		var day12 = $("input[name=thisDay12]").val();
        		var ctx = document.getElementById("myAreaChart");
    			var myLineChart = new Chart(ctx, {
    			  type: 'line',
    			  data: {
-   			    labels: [ "2021-04-01", "2021-04-02", "2021-04-03", "2021-04-04", 
-   			    	      "2021-04-05", "2021-04-06", "2021-04-07", "2021-04-08", 
-   			    	      "2021-04-09", "2021-04-10", "2021-04-11", "2021-04-12", "2021-04-13"],
+   			    labels: [ today, day0, day1, day2, day3, 
+   			    		  day4, day5, day6, day7, 
+   			    		  day8, day9, day10, day11],
    			    datasets: [{
    			      label: "Sessions",
    			      lineTension: 0.3,
@@ -559,7 +572,22 @@
     	<input type="hidden" name="firstDay" value="${startDay}">
     	<input type="hidden" name="lastDay" value="${startDay2}">
     	<input type="hidden" name="month" value="2022">
-    	<input type="hidden" name="today" id="today" value="${today }">
+    	<input type="hidden" name="today" id="today" value="${today }" >
+    	<input type="hidden" name="thisDay0"  value="${thisDay0}">
+    	<input type="hidden" name="thisDay1"  value="${thisDay1}">
+    	<input type="hidden" name="thisDay2"  value="${thisDay2}">
+    	<input type="hidden" name="thisDay3"  value="${thisDay3}">
+    	<input type="hidden" name="thisDay4"  value="${thisDay4}">
+    	<input type="hidden" name="thisDay5"  value="${thisDay5}">
+    	<input type="hidden" name="thisDay6"  value="${thisDay6}">
+    	<input type="hidden" name="thisDay7"  value="${thisDay7}">
+    	<input type="hidden" name="thisDay8"  value="${thisDay8}">
+    	<input type="hidden" name="thisDay9"  value="${thisDay9}">
+    	<input type="hidden" name="thisDay10"  value="${thisDay10}">
+    	<input type="hidden" name="thisDay11"  value="${thisDay11}">
+    	<input type="hidden" name="thisDay12"  value="${thisDay12}">
+
+
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
 	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -859,7 +887,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Best Top 10 !
+                                판매금액 Best Top 10 !
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">

@@ -37,6 +37,56 @@
     		    form.submit();
     		});
     	}); 
+        
+        $('input:checkbox[name="point-check"]').prop("checked",true);
+		$('input:checkbox[name="point-check"]').prop("checked",false);
+		
+		// 선택삭제 
+		$(function (){
+			$(document).on('click','.btn.btn-outline-secondary.com', function(){
+
+				var count = $('.paymentCode').length; 
+				var deleteItemId = [];
+				var data = {};
+				var cc = 0;
+				alert(count);
+				
+				for (var i=0; i < count; i++) {
+					var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
+					if (check == true) {
+						deleteItemId[i] = $('.paymentCode').eq(i).children('#paymentCode').val();
+						cc += 1;
+					}
+				}
+				
+				if (cc == 0) {
+					alert("변경할 항목을 선택해주세요");
+					return false;
+				}
+				
+				var newDeleteItemId = deleteItemId.filter(word => {
+					return word.length >= 1;
+				});
+
+				data.newDeleteItemId = newDeleteItemId;
+				jQuery.ajaxSettings.traditional = true;
+				
+				$.ajax({
+		    		url : 'orderManagementDeliveryChange.mdo',
+		    		dataType : 'json',
+		    		type : 'post',
+		    		data : data,
+		    		success : function(){
+		    			alert("변경되었습니다");
+		   			},
+		    		complete : function() {
+		    			location.reload();
+		    		}
+				});
+			});
+		});
+		
+		
         </script>
     </head>
     
@@ -138,20 +188,23 @@
 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">주문관리</h1>
+                        <h1 class="mt-4">배송관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">결제완료/목록</li>
+                            <li class="breadcrumb-item active">배송중 목록</li>
                         </ol>
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                결제완료/배송준비중
+                                배송중
+                                <button type="button" class="btn btn-outline-secondary com" style="padding:0px 30px; float:right;">배송완료 확정</button>
+                                
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                        <tr>
+                                       		<th></th>
                                             <th>주문번호</th>
                                             <th>주문날짜</th>
 											<th>수령인이름</th>
@@ -163,6 +216,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        	<th></th>
                                             <th>주문번호</th>
                                             <th>주문날짜</th>
 											<th>수령인이름</th>
@@ -175,7 +229,7 @@
                                     <tbody>
                                     	<c:forEach var="orderList" items="${orderList }">
 	                                        <tr>
-												</td>
+												<td align="center"><input type="checkbox" name="point-check" id="point-check" class ="point-check"></td>
 	                                            <td>
 	                                            	<a class="paymentCode"><input type="hidden" id="paymentCode" value="${orderList.payment_code}" />${orderList.payment_code}</a>
 	                                            </td>
@@ -184,7 +238,7 @@
 	                                            <td>${orderList.payment_recipient_phone }</td>
 	                                            <td>${orderList.payment_address }</td>
 	                                            <td>${orderList.payment_final_price}원</td>
-	                                            <td>배송준비중</td>
+	                                            <td>${orderList.payment_delivery_condition}</td>
 	                                        </tr>
 										</c:forEach>
                                     </tbody>

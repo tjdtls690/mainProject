@@ -455,7 +455,14 @@ function payDetailInfoPage(payNum){ // 결제 고유 번호를 통해 주문 상
 																				<div data-v-72acf1f8=""
 																					class="complete-order-text-wrapper">
 																					<span data-v-72acf1f8=""
-																						class="complete-order-text only-desktop complete">배송완료</span>
+																						class="complete-order-text only-desktop complete">
+																						<c:if test="${list1.payment_delivery_condition eq null}">
+																							배송준비중
+																						</c:if>
+																						<c:if test="${list1.payment_delivery_condition ne null }">
+																							${list1.payment_delivery_condition}
+																						</c:if>
+																					</span>
 																				</div>
 																			</div>
 																		</div>

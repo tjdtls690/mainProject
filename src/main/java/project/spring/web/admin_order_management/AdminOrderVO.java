@@ -19,6 +19,15 @@ public class AdminOrderVO {
 	private String payment_point_price;
 	private String payment_sail_price;
 	private String payment_final_price;
+	private String payment_delivery_condition;
+	
+	
+	public String getPayment_delivery_condition() {
+		return payment_delivery_condition;
+	}
+	public void setPayment_delivery_condition(String payment_delivery_condition) {
+		this.payment_delivery_condition = payment_delivery_condition;
+	}
 	public int getPayment_code() {
 		return payment_code;
 	}
@@ -115,6 +124,7 @@ public class AdminOrderVO {
 	public void setPayment_final_price(String payment_final_price) {
 		this.payment_final_price = payment_final_price;
 	}
+	
 	@Override
 	public String toString() {
 		return "AdminOrderVO [payment_code=" + payment_code + ", payment_member_code=" + payment_member_code
@@ -124,7 +134,8 @@ public class AdminOrderVO {
 				+ payment_address + ", payment_memo=" + payment_memo + ", payment_price=" + payment_price
 				+ ", payment_delivery_price=" + payment_delivery_price + ", payment_sum_price=" + payment_sum_price
 				+ ", payment_coupon_price=" + payment_coupon_price + ", payment_point_price=" + payment_point_price
-				+ ", payment_sail_price=" + payment_sail_price + ", payment_final_price=" + payment_final_price + "]";
+				+ ", payment_sail_price=" + payment_sail_price + ", payment_final_price=" + payment_final_price
+				+ ", payment_delivery_condition=" + payment_delivery_condition + "]";
 	}
-	
+
 }

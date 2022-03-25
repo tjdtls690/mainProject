@@ -21,7 +21,10 @@ public class PaymentMyDetailSideInfoVO {
 	private String payment_point_price;
 	private String payment_sail_price;
 	private String payment_final_price;
+	private String payment_delivery_condition;
 
+	
+	
 	public LocalDate getPayment_now_date() {
 		return payment_now_date;
 	}
@@ -166,6 +169,14 @@ public class PaymentMyDetailSideInfoVO {
 		this.payment_final_price = payment_final_price;
 	}
 
+	public String getPayment_delivery_condition() {
+		return payment_delivery_condition;
+	}
+
+	public void setPayment_delivery_condition(String payment_delivery_condition) {
+		this.payment_delivery_condition = payment_delivery_condition;
+	}
+
 	@Override
 	public String toString() {
 		return "PaymentMyDetailSideInfoVO [payment_code=" + payment_code + ", payment_member_code="
@@ -176,7 +187,9 @@ public class PaymentMyDetailSideInfoVO {
 				+ payment_address + ", payment_memo=" + payment_memo + ", payment_price=" + payment_price
 				+ ", payment_delivery_price=" + payment_delivery_price + ", payment_sum_price=" + payment_sum_price
 				+ ", payment_coupon_price=" + payment_coupon_price + ", payment_point_price=" + payment_point_price
-				+ ", payment_sail_price=" + payment_sail_price + ", payment_final_price=" + payment_final_price + "]";
+				+ ", payment_sail_price=" + payment_sail_price + ", payment_final_price=" + payment_final_price
+				+ ", payment_delivery_condition=" + payment_delivery_condition + "]";
 	}
+
 
 }

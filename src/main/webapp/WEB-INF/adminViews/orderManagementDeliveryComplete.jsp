@@ -32,7 +32,7 @@
     		    form.appendChild(objs1);
     		    
     		    form.setAttribute('method', 'post'); //get,post 가능
-    		    form.setAttribute('action', "orderManagementModal.mdo"); //보내는 url
+    		    form.setAttribute('action', "orderManagementModal2.mdo"); //보내는 url
     		    document.body.appendChild(form);
     		    form.submit();
     		});
@@ -146,7 +146,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                결제완료/배송준비중
+                                결제완료/배송완료
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -184,7 +184,7 @@
 	                                            <td>${orderList.payment_recipient_phone }</td>
 	                                            <td>${orderList.payment_address }</td>
 	                                            <td>${orderList.payment_final_price}원</td>
-	                                            <td>배송준비중</td>
+	                                            <td>${orderList.payment_delivery_condition}</td>
 	                                        </tr>
 										</c:forEach>
                                     </tbody>

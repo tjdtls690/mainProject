@@ -28,6 +28,7 @@
 		<typeAlias type="project.spring.web.admin_item.AdminItemVO" alias="adminItem" />
 		<typeAlias type="project.spring.web.admin_item.AdminSubVO" alias="adminSub" />
 		<typeAlias type="project.spring.web.admin_main.report.day.AdminReportDayVO" alias="adminMainReportDay"/>
+		<typeAlias type="project.spring.web.admin_order_management.AdminOrderInfoVO" alias="adminOrderInfo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />

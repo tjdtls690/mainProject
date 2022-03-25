@@ -9,6 +9,8 @@
 		<result property="coupon_explain" column="coupon_explain"/>
 		<result property="user_code" column="user_code"/>
 		<result property="coupon_pack" column="coupon_pack"/>
+		<result property="coupon_type_summary" column="coupon_type_summary"/>
+		<result property="coupon_sail_price" column="coupoon_sail_price"/>
 	</resultMap>
 	
 	<select id="getCoupon" resultMap="couponResult">
@@ -51,7 +53,7 @@
 	</delete>
 	
 	<insert id="couponInsert">
-		INSERT INTO coupon(coupon_pack, coupon_type, coupon_explain)
-		VALUES(#{coupon_pack}, #{coupon_type}, #{coupon_explain})
+		INSERT INTO coupon(coupon_pack, coupon_type, coupon_explain, coupon_type_summary, coupon_sail_price)
+		VALUES(#{coupon_pack}, #{coupon_type}, #{coupon_explain}, #{coupon_type_summary}, #{coupon_sail_price})
 	</insert>
 </mapper>

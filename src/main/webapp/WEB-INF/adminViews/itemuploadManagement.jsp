@@ -186,7 +186,7 @@ function tagChange(e) {
 	           						
 	           						<!-- form -->
 	           						<form action="itemInsertSuccess.mdo" method="POST" enctype="multipart/form-data">
-	           							
+	           							<input type="hidden" name="item_code" value="${lastItemCode }">
 	           							<!-- table -->
 	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
 	           						
@@ -230,13 +230,13 @@ function tagChange(e) {
 													</th>
 													<td>
 														<div class="form-check" style="float:left; margin-right:30%">
-														  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+														  <input value="1" class="form-check-input" type="radio" name="choco" id="flexRadioDefault1">
 														  <label class="form-check-label" for="flexRadioDefault1">
 														    Y
 														  </label>
 														</div>
 														<div class="form-check">
-														  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+														  <input value="0" class="form-check-input" type="radio" name="choco" id="flexRadioDefault1">
 														  <label class="form-check-label" for="flexRadioDefault1">
 														    N
 														  </label>
@@ -280,7 +280,7 @@ function tagChange(e) {
 																영양정보
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 																
 															</td>
 														</tr>
@@ -289,7 +289,7 @@ function tagChange(e) {
 																총 내용량 당
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -297,7 +297,7 @@ function tagChange(e) {
 																나트륨
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -305,7 +305,7 @@ function tagChange(e) {
 																탄수화물
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -313,7 +313,7 @@ function tagChange(e) {
 																당류
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 				           								<tr>
@@ -321,7 +321,7 @@ function tagChange(e) {
 																지방
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -329,7 +329,7 @@ function tagChange(e) {
 																트랜스지방
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -337,7 +337,7 @@ function tagChange(e) {
 																포화지방
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -345,7 +345,7 @@ function tagChange(e) {
 																콜레스테롤
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -353,7 +353,7 @@ function tagChange(e) {
 																단백질
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="itme_nutrition" style="width:54%;"/>
 															</td>
 														</tr>
 				           							</table>
@@ -371,7 +371,7 @@ function tagChange(e) {
 																내용량
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 																
 															</td>
 														</tr>
@@ -380,7 +380,7 @@ function tagChange(e) {
 																식품의 유형
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -388,7 +388,7 @@ function tagChange(e) {
 																원재료 및 함량
 															</th>
 															<td>
-																<textarea name="banner_subcontents" style="width:54%;"></textarea>
+																<textarea name="item_ingredient" style="width:54%;"></textarea>
 															</td>
 														</tr>
 														<tr>
@@ -396,7 +396,7 @@ function tagChange(e) {
 																영양정보
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -404,7 +404,7 @@ function tagChange(e) {
 																알레르기 물질 함유
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 				           								<tr>
@@ -412,7 +412,7 @@ function tagChange(e) {
 																유통기한
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -420,7 +420,7 @@ function tagChange(e) {
 																포장재질
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -428,7 +428,7 @@ function tagChange(e) {
 																업소명 및 소재지
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -436,7 +436,7 @@ function tagChange(e) {
 																보관방법
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -444,7 +444,7 @@ function tagChange(e) {
 																소비자 상담실
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -452,7 +452,7 @@ function tagChange(e) {
 																반품 및 교환장소
 															</th>
 															<td>
-																<input type="text" name="banner_contents" style="width:54%;"/>
+																<input type="text" name="item_info" style="width:54%;"/>
 															</td>
 														</tr>
 														<tr>
@@ -460,7 +460,7 @@ function tagChange(e) {
 																주의사항
 															</th>
 															<td>
-																<textarea name="banner_subcontents" style="width:54%;"></textarea>
+																<textarea name="item_warning" style="width:54%;"></textarea>
 															</td>
 														</tr>
 				           							</table>
@@ -485,13 +485,13 @@ function tagChange(e) {
 													L가격
 												</th>
 												<td>
-													<input type="text" name="banner_subcontents"/>
+													<input type="text" name="itemPriceLSub"/>
 												</td>
 												<th scope="row" style="width:15%;">
 												L할인가격
 												</th>
 												<td>
-													<input type="text" name="banner_subcontents"/>
+													<input type="text" name="itemPriceL"/>
 												</td>
 											</tr>
 											<tr>

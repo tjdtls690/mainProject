@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.spring.web.admin_item.AdminItemInfoVO;
 import project.spring.web.admin_item.AdminItemService;
 import project.spring.web.admin_item.AdminItemVO;
 import project.spring.web.admin_item.AdminSubVO;
@@ -40,4 +41,8 @@ public class AdminItemServiceImpl implements AdminItemService {
 		adminItemDAO.itemInsert(vo);
 	}
 
+	@Override
+	public void itemInfoInsert(AdminItemInfoVO vo) {
+		adminItemDAO.itemInfoInsert(vo);
+	}
 }

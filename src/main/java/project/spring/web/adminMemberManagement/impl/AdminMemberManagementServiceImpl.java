@@ -18,6 +18,15 @@ public class AdminMemberManagementServiceImpl implements AdminMemberManagementSe
 		
 		return adminMemberManagementDAO.getAdminMember(vo);
 	}
-	
+	/*
+	 * @Override public List<AdminMemberManagementVO>
+	 * getMemberDelite(AdminMemberManagementVO vo) {
+	 * 
+	 * return adminMemberManagementDAO.getAdminMember(vo); }
+	 */
+	@Override
+	public void deleteMember(AdminMemberManagementVO vo) {
+		adminMemberManagementDAO.deleteMember(vo);
+	}
 
 }

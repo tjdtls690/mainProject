@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminMainRankDAO">
+	<resultMap type="adminRank" id="mainRank">
+	
+	</resultMap>
+
+	<select id="saleRank10" resultMap="mainRank">
+		SELECT
+	       	tagMain, itemCode, sailCount, totalCount, size,sum
+		   	 	from (select 
+		        payment_item_mapping_tag_main as tagMain,
+		        payment_item_mapping_item_code as itemCode,
+		        count(payment_item_mapping_item_price) as sailCount,
+		        sum(payment_item_mapping_item_quantity) as totalCount,
+		        payment_item_mapping_item_name_size as size,
+		        sum(payment_item_mapping_item_price) as sum        
+        FROM payment_item_mapping  group by size) as cnt 
+   		ORDER BY sum DESC limit 0,10;
+	</select>
+	
+	<select  id="countRank10" resultMap="mainRank">
+		SELECT
+	       	tagMain, itemCode, sailCount, totalCount, size,sum
+		   	 	from (select 
+		        payment_item_mapping_tag_main as tagMain,
+		        payment_item_mapping_item_code as itemCode,
+		        count(payment_item_mapping_item_price) as sailCount,
+		        sum(payment_item_mapping_item_quantity) as totalCount,
+		        payment_item_mapping_item_name_size as size,
+		        sum(payment_item_mapping_item_price) as sum        
+        FROM payment_item_mapping  group by size) as cnt 
+   		ORDER BY totalCount DESC limit 0,10;
+	</select>
+
+
+</mapper>
+

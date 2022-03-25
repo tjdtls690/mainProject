@@ -143,9 +143,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </th>
+											<th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -161,9 +159,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </th>
+											<th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -180,35 +176,57 @@
                                             <td>아쉬파샐러드</td>
                                             <td>우웩</td>
                                             <th>
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal1" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-dark">답변등록</button>
-                                            <div class="modal" id="myModal1">
-                                    <form name="" action = "" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
-								                        <div class="modal-content" style="width:160%;">
-								                          <div class="modal-header">
-								                             <h5 class="modal-title">답변등록</h5>
-								                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								                          </div>
-								                          <div class="modal-body">
-														<table class="table table-striped" style="text-align:center;">
-														<thead style="font-size:13px;">
-					                                        
-					                                    </thead>
-					                                    <tbody style="font-size:12px;">
-					                                       
-					                                        </tbody>  
-	           							                </table>
-	           							            	</div>
-	           						              
-							                        	<div class="modal-footer">
-							                        	<button type="button" onclick="location.href='#'" class="btn btn-outline-success" style="float-left:-60px;">목록</button>
-								                        <button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >등록</button>
-							                       		</div>
-							                       	</div>
-							                       </div>
-							                </form>
-							      	</div> <!-- modal -->
-                                            </th>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-dark">답변등록</button>
+                                             
+                                            <div class="modal" id="myModal">
+                                <!-- form -->
+                                <form action = "" method = "POST" enctype = "multipart/form-data" name="">
+								   <div class="modal-dialog">
+								      <div class="modal-content">
+								         <div class="modal-header">
+								            <h5 class="modal-title">답변등록</h5>
+								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								         </div>
+								         <div class="modal-body">
+	           							<!-- table -->
+	           							<table class = "table table-bordered dataTable" cellspacing = "0" >
+	           						
+	           								<tr>
+												<th scope="row" style="width:15%;">
+													아이디
+												</th>
+												<td>
+													<input type="text" name="item_name" id="item_name" class="item_name" style="width:40%;"/>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													내용
+												</th>
+												<td colspan="3">
+													<textarea name="item_explain" rows="10" style="width:100%;"></textarea>
+												</td>		
+											</tr>
+											<tr>
+												<th scope="row">
+													답변
+												</th>
+												<td colspan="3">
+													<textarea name="item_explain" rows="7" style="width:100%;"></textarea>
+												</td>		
+											</tr>
+										</table>
+         								</div>
+		         						<div class="modal-footer">
+		         							<button type="button" class="btn btn-primary">등록</button>
+		         						</div>
+         						
+			         						</div>
+			         						</div>
+			         						<!-- </div> -->
+			         						</form>
+			   							</div>
+                                        </th>   
                                         </tr>
                                         <tr>
                                             <td>

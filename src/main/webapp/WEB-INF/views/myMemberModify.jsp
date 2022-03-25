@@ -47,8 +47,54 @@
 	   f.method="post";//POST방식
 	   f.submit();
 	}
-
+	
 		$(function(){
+			// 값을 넘길 변수들
+			var realGender = '';
+			
+			
+			
+			// 생년월일 초기값
+			var arrTmp = $('#birthdayTmp').val().split('-');
+			
+			if(arrTmp != ''){
+				for(var i = 0; i < $('#f_birth1').children('option').length; i++){
+					if($('#f_birth1').children('option').eq(i).val() == arrTmp[0]){
+						$('#f_birth1').children('option').eq(0).removeAttr('selected');
+						$('#f_birth1').children('option').eq(i).attr('selected', 'selected');
+					}
+				}
+			}
+			
+			for(var i = 0; i < $('#f_birth2').children('option').length; i++){
+				if($('#f_birth2').children('option').eq(i).val() == arrTmp[1]){
+					$('#f_birth2').children('option').eq(0).removeAttr('selected');
+					$('#f_birth2').children('option').eq(i).attr('selected', 'selected');
+				}
+			}
+			
+			for(var i = 0; i < $('#f_birth3').children('option').length; i++){
+				if($('#f_birth3').children('option').eq(i).val() == arrTmp[2]){
+					$('#f_birth3').children('option').eq(0).removeAttr('selected');
+					$('#f_birth3').children('option').eq(i).attr('selected', 'selected');
+				}
+			}
+			
+			// 성별 초기값
+			var gender = $('#genderTmp').val();
+			if(gender == '여자'){
+				$('.form-radio').eq(0).children('span').trigger('click');
+				realGender = $('.form-radio').eq(0).next().text();
+			}else if(gender == '남자'){
+				$('.form-radio').eq(1).children('span').trigger('click');
+				realGender = $('.form-radio').eq(1).next().text();
+			}else{
+				$('.form-radio').eq(2).children('span').trigger('click');
+				realGender = $('.form-radio').eq(2).next().text();
+			}
+			$('html').scrollTop(0);
+			
+			
 			$(document).on('click', '#closeFinalCheck', function(){
 				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
@@ -127,6 +173,20 @@
 		    $(document).on('click', '#closeModal', function(){
 		    	$('.swal2-container').detach();
 		    })
+		    
+		    
+		    
+		    
+		    // 성별 선택 시 (전역변수 : realGender)
+		    $(document).on('click', '.form-radio input', function(){
+		    	$(this).closest('.row--v-center').children('input').val(1);
+	    		realGender = $(this).parent().siblings('span').text();
+		    	for(var i = 0; i < $(this).closest('.row--v-center').siblings('.row--v-center').length; i++){
+		    		$(this).closest('.row--v-center').siblings('.row--v-center').eq(i).find('input').eq(1).val(0);	
+		    	}
+		    })
+		    
+		    
 		})
 </script>
 </head>
@@ -145,8 +205,10 @@
 						<!---->
 					</div>
 					<form name="paging">
-								<input type="hidden" name="tagMain01" value="">
-							</form>
+						<input type="hidden" name="tagMain01" value="">
+					</form>
+					<input type="hidden" id="birthdayTmp" value="${birthday }">
+					<input type="hidden" id="genderTmp" value="${member.gender }">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -685,67 +747,33 @@
 															for="f_gender">성별</label>
 													</p>
 													<div data-v-0b634006="" data-v-421abad8="" class="row">
-														<label data-v-0b634006="" data-v-421abad8=""
-															class="row--v-center"><label data-v-12d1ffd0=""
-															data-v-0b634006="" class="form-radio" data-v-421abad8=""><input
-																data-v-12d1ffd0="" type="radio" name="spot-search-radio"
-																value="female"> <span data-v-12d1ffd0=""><i
-																	data-v-12d1ffd0=""></i></span></label> <span data-v-0b634006=""
-															data-v-421abad8="">여성</span></label> <label data-v-0b634006=""
-															data-v-421abad8="" class="row--v-center"><label
-															data-v-12d1ffd0="" data-v-0b634006="" class="form-radio"
-															data-v-421abad8=""><input data-v-12d1ffd0=""
-																type="radio" name="spot-search-radio" value="male">
-																<span data-v-12d1ffd0=""><i data-v-12d1ffd0=""></i></span></label>
-															<span data-v-0b634006="" data-v-421abad8="">남성</span></label> <label
-															data-v-0b634006="" data-v-421abad8=""
-															class="row--v-center"><label data-v-12d1ffd0=""
-															data-v-0b634006="" class="form-radio" data-v-421abad8=""><input
-																data-v-12d1ffd0="" type="radio" name="spot-search-radio"
-																value="-"> <span data-v-12d1ffd0=""><i
-																	data-v-12d1ffd0=""></i></span></label> <span data-v-0b634006=""
-															data-v-421abad8="">선택 안 함</span></label>
-													</div>
-												</div>
-											</fieldset>
-											<fieldset data-v-0b634006="" data-v-421abad8=""
-												class="form-fieldset update-news-letter">
-												<legend data-v-0b634006="" data-v-421abad8="">마케팅
-													알림 수신 입력폼</legend>
-												<h3 data-v-0b634006="" data-v-421abad8="">추가 정보</h3>
-												<div data-v-0b634006="" data-v-421abad8=""
-													class="form-field -section__field">
-													<p data-v-0b634006="" data-v-421abad8="" class="form-label">
-														<label data-v-0b634006="" data-v-421abad8="">마케팅
-															알림 수신</label> <span data-v-0b634006="" data-v-421abad8="">이메일,
-															SMS 모두 수신 동의시 2,000원 할인 쿠폰 지급! <span data-v-0b634006=""
-															data-v-421abad8="" class="mobile">(1인 최대 1회 지급)</span>
-														</span>
-													</p>
-													<div data-v-0b634006="" data-v-421abad8=""
-														class="row update-extra__body update-extra__notification">
-														<label data-v-0b634006="" data-v-421abad8=""
-															class="row--v-center"><label data-v-2673f877=""
-															data-v-0b634006="" class="form-checkbox"
-															data-v-421abad8=""><input data-v-2673f877=""
-																type="checkbox" value="false"> <span
-																data-v-2673f877=""><svg data-v-2673f877=""
-																		xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																		<path data-v-2673f877="" fill="currentColor"
-																			fill-rule="nonzero"
-																			d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-															<span data-v-0b634006="" data-v-421abad8="">이메일 수신</span></label>
-														<label data-v-0b634006="" data-v-421abad8=""
-															class="row--v-center"><label data-v-2673f877=""
-															data-v-0b634006="" class="form-checkbox"
-															data-v-421abad8=""><input data-v-2673f877=""
-																type="checkbox" value="false"> <span
-																data-v-2673f877=""><svg data-v-2673f877=""
-																		xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-																		<path data-v-2673f877="" fill="currentColor"
-																			fill-rule="nonzero"
-																			d="M8.489 13.597l7.304-7.304a1 1 0 0 1 1.414 1.414l-8 8a1 1 0 0 1-1.403.011l-4-3.875a1 1 0 1 1 1.392-1.436l3.293 3.19z"></path></svg></span></label>
-															<span data-v-0b634006="" data-v-421abad8="">SMS수신</span></label>
+														<label data-v-0b634006="" data-v-421abad8="" class="row--v-center">
+															<label data-v-12d1ffd0="" data-v-0b634006="" class="form-radio" data-v-421abad8="">
+																<input data-v-12d1ffd0="" type="radio" name="spot-search-radio" value="female"> 
+																<span data-v-12d1ffd0="">
+																	<i data-v-12d1ffd0=""></i>
+																</span>
+															</label> 
+															<span data-v-0b634006="" data-v-421abad8="">여자</span>
+														</label> 
+														<label data-v-0b634006="" data-v-421abad8="" class="row--v-center">
+															<label data-v-12d1ffd0="" data-v-0b634006="" class="form-radio" data-v-421abad8="">
+																<input data-v-12d1ffd0="" type="radio" name="spot-search-radio" value="male">
+																<span data-v-12d1ffd0="">
+																	<i data-v-12d1ffd0=""></i>
+																</span>
+															</label>
+															<span data-v-0b634006="" data-v-421abad8="">남자</span>
+														</label> 
+														<label data-v-0b634006="" data-v-421abad8="" class="row--v-center">
+															<label data-v-12d1ffd0="" data-v-0b634006="" class="form-radio" data-v-421abad8="">
+																<input data-v-12d1ffd0="" type="radio" name="spot-search-radio" value="-"> 
+																<span data-v-12d1ffd0="">
+																	<i data-v-12d1ffd0=""></i>
+																</span>
+															</label> 
+															<span data-v-0b634006="" data-v-421abad8="">선택 안 함</span>
+														</label>
 													</div>
 												</div>
 											</fieldset>

@@ -206,6 +206,23 @@ $(document).ready(function(){
 				                                                </div>
 				                                              </td>
 				                                            </tr>
+				                                            
+				                                            <tr>
+				                                              <th scope="row" width=70>
+				                                                블라블라
+				                                              </th>
+				                                              <td width=150>
+				                                                <div class="form-check form-check-inline">
+																  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+																  <label class="form-check-label" for="inlineRadio1">0</label>
+																</div>
+																<div class="form-check form-check-inline">
+																  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+																  <label class="form-check-label" for="inlineRadio2">1</label>
+																</div>
+				                                              </td>
+				                                            </tr>
+				                                            
 				                                            <tr>
 				                                              <th scope="row">
 				                                                name
@@ -214,6 +231,7 @@ $(document).ready(function(){
 				                                                <input type="text" name="coupon_type"/>
 				                                              </td>
 				                                            </tr>
+				                                            
 				                                            <tr>
 				                                              <th scope="row">
 				                                                explain
@@ -222,6 +240,16 @@ $(document).ready(function(){
 				                                                <input type="text" name="coupon_explain"/>
 				                                              </td>
 				                                            </tr>
+				                                            
+				                                            <tr>
+				                                              <th scope="row">
+				                                                discount
+				                                              </th>
+				                                              <td>
+				                                                <input type="text" name="coupon_type"/>
+				                                              </td>
+				                                            </tr>
+				                                            <tr>
 	           							                </table>
 	           							            	</div>
 	           						              

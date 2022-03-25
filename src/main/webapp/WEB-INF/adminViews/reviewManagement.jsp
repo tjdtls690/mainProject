@@ -139,9 +139,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </th>
+											<th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -154,9 +152,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </th>
+											<th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>

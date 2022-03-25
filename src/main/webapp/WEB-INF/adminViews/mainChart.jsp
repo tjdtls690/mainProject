@@ -208,7 +208,7 @@
    			    	// 데이터 들어가있는 input 추가
    			    		$('#input').append(html);
    			    	
-   			    		$('.chartjs-size-monitor').detach();
+   			    	$('.chartjs-size-monitor').detach();
    			    	$('#myAreaChart').detach()
    			    	$('#myAreaChart' + check01).detach();
    			    	check01++;
@@ -365,6 +365,11 @@
    			    		// 데이터 들어가있는 input 추가
    			    		$('#input').append(htmlOut);
    			    		
+   			    		
+   			    		$('#myBarChart').detach()
+   			    		$('#myBarChart' + check02).detach();
+   	   			    	check02++;
+   	   			 		 $('.card-body').eq(5).append('<canvas id="myBarChart' + check02 + '" width="100%" height="40"></canvas>');
    			    		var month = [];
    						//날짜 집어넣기.
 						for(var i = 0; i<13; i++){
@@ -374,7 +379,7 @@
 						}
        					
        					
-       		       		var ctx = document.getElementById("myBarChart");
+       		       		var ctx = document.getElementById("myBarChart"+check02);
        		       		var myLineChart = new Chart(ctx, {
        		       		  type: 'bar',
        		       		  data: {
@@ -455,6 +460,13 @@
    			    		// 데이터 들어가있는 input 추가
    			    		$('#input').append(htmlOut);
    			    		
+   			    		
+//    			    		$('.chartjs-size-monitor').detach();
+   			    		$('#myBarChart').detach()
+   			    		$('#myBarChart' + check02).detach();
+   	   			    	check02++;
+   	   			 		 $('.card-body').eq(5).append('<canvas id="myBarChart' + check02 + '" width="100%" height="40"></canvas>');
+   			    		
    			    		var month = [];
    						//날짜 집어넣기.
 						for(var i = 0; i<13; i++){
@@ -463,7 +475,7 @@
 							
 						}
        					
-       					var ctx = document.getElementById("myBarChart");
+       					var ctx = document.getElementById("myBarChart"+check02);
        		       		var myLineChart = new Chart(ctx, {
        		       		  type: 'bar',
        		       		  data: {

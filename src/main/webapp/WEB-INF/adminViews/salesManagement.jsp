@@ -246,15 +246,38 @@ tfoot tr:nth-child(2) th {
    		        $(".modal:visible").each(alignModal);
    		    });   
    		});
+   			
+   	$(function(){
+		$(document).on('click','.dropdown-item.month',function(){
+   			var getMonth = $(this).text();
+   			alert(getMonth);
+   			
+   			
+   			$.ajax({
+   				url : 'getMonthList.mdo',
+   				type : 'post',
+   				dataType: 'html',
+   				data : {
+   					"getMonth" : getMonth
+   				},
+   				success:function(html){
+   					alert("성공");
+   					
+   					
+   					
+   				}
+   				
+   			})
+   			
+   		})
+
+   	})
+   				
+   			
         </script>
     </head>
     
     <body class="sb-nav-fixed">
-    	<input type="hidden" name="firstDay" value="${startDay}">
-    	<input type="hidden" name="lastDay" value="${startDay2}">
-    	<input type="hidden" name="month" value="2022">
-    	<input type="hidden" name="today" value="${today }">
-<%--     	<input type="hidden" name="startDay2" value="${startDay2}"> --%>
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
 	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -441,10 +464,10 @@ tfoot tr:nth-child(2) th {
 											  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 											    ----------------
 											  </button>
-											  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-											    <li><button class="dropdown-item" type="button">뭐이씨</button></li>
-											    <li><button class="dropdown-item" type="button">최근 6개월</button></li>
-											    <li><button class="dropdown-item" type="button">최근 3개월</button></li>
+											  <ul class="dropdown-menu month" aria-labelledby="dropdownMenu2">
+											    <li><button class="dropdown-item month" type="button">최근 1개월</button></li>
+											    <li><button class="dropdown-item month" type="button">최근 3개월</button></li>
+											    <li><button class="dropdown-item month" type="button">최근 6개월</button></li>
 											  </ul>
 											</div>
 												</div> <!-- card header -->

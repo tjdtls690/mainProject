@@ -8,4 +8,5 @@ public interface AdminItemService {
 	public void itemDelete(AdminItemVO vo);
 	public void subDelete(AdminSubVO vo);
 	public void itemInsert(AdminItemVO vo);
+	public void itemInfoInsert(AdminItemInfoVO vo);
 }

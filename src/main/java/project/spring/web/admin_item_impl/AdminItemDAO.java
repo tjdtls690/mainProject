@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import project.spring.web.admin_item.AdminItemInfoVO;
 import project.spring.web.admin_item.AdminItemVO;
 import project.spring.web.admin_item.AdminSubVO;
 
@@ -33,5 +34,9 @@ public class AdminItemDAO {
 	
 	public void itemInsert(AdminItemVO vo) {
 		sqlsessionTemplate.insert("adminItemDAO.itemInsert", vo);
+	}
+	
+	public void itemInfoInsert(AdminItemInfoVO vo) {
+		sqlsessionTemplate.insert("adminItemDAO.itemInfoInsert", vo);
 	}
 }

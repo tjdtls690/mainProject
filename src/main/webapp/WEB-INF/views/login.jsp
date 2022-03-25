@@ -137,6 +137,12 @@
   }
   
   $(function(){
+	  // 이메일 겹칠 시 경고창
+	  if($('#loginCheck10').val() != ''){
+		  alert($('#loginCheck10').val());
+	  }
+	  
+	  
 	  $('.first-order-banner').on('click', function(){
 			$(location).attr( "href" , "firstEvent01.do" );
 		})
@@ -243,8 +249,9 @@
 						<!---->
 					</div>
 					<form name="paging">
-								<input type="hidden" name="tagMain01" value="">
-							</form>
+						<input type="hidden" name="tagMain01" value="">
+					</form>
+					<input type="hidden" id="loginCheck10" value="${alertM }">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>

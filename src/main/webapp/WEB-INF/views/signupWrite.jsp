@@ -116,7 +116,7 @@ $(function(){
 		}else if(genderTmp == 1){
 			gender = "남자";
 		}else{
-			gender = "미선택";
+			gender = "선택 안 함";
 		}
 		var memberType = $('#member_type').val();
 		
@@ -298,7 +298,7 @@ $(function(){
 	});
 	
 	$('#f_name').keyup(function(){
-		var check_num = /[0-9]/; // 숫자 
+		var check_num = /[0-9]/; // 숫자 todo
 		var check_eng = /[a-zA-Z]/; // 문자 
 		var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자 
 		var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크

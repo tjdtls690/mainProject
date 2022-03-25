@@ -34,10 +34,17 @@ public class LoginController {
 		System.out.println("googleLoginDo 실행");
 		HttpSession session = request.getSession();
 		int emailCheck = memberService.checkEmail(vo);
-		if(emailCheck == 1) {
+		MemberVO vo1 = memberService.getMember(vo);
+		if(emailCheck == 1 && vo1.getMemberType().equals("g")) {
 			session.removeAttribute("member");
 			session.setAttribute("member", memberService.getMember(vo));
 			mav.setViewName("index");
+		}else if(emailCheck == 1 && vo1.getMemberType().equals("k")) {
+			mav.addObject("alertM", "카카오톡으로 로그인해주세요.");
+			mav.setViewName("login");
+		}else if(emailCheck == 1 && vo1.getMemberType().equals("e")) {
+			mav.addObject("alertM", "샐러딧 전용 이메일로 로그인해주세요.");
+			mav.setViewName("login");
 		}else {
 			session.removeAttribute("member");
 			session.setAttribute("member", vo);
@@ -59,10 +66,17 @@ public class LoginController {
 		System.out.println("kakaoDataDo 실행");
 		HttpSession session = request.getSession();
 		int emailCheck = memberService.checkEmail(vo);
-		if(emailCheck == 1) {
+		MemberVO vo1 = memberService.getMember(vo);
+		if(emailCheck == 1 && vo1.getMemberType().equals("k")) {
 			session.removeAttribute("member");
 			session.setAttribute("member", memberService.getMember(vo));
 			mav.setViewName("index");
+		}else if(emailCheck == 1 && vo1.getMemberType().equals("e")) {
+			mav.addObject("alertM", "샐러딧 전용 이메일로 로그인해주세요.");
+			mav.setViewName("login");
+		}else if(emailCheck == 1 && vo1.getMemberType().equals("g")) {
+			mav.addObject("alertM", "구글로 로그인해주세요.");
+			mav.setViewName("login");
 		}else {
 			mav.addObject("memberType", "k");
 			session.removeAttribute("member");

@@ -35,6 +35,11 @@
 		<result property="subscribe_info_image" column="subscribe_info_image" />
 	</resultMap>
 	
+	<resultMap type="adminItemInfo" id="adminItemInfo">
+		<id property="item_code" column="item_code"/>
+		<result property="item_info" column="item_info"/>
+	</resultMap>
+	
 	<select id="getAdminItem" resultMap="adminItem">
 		SELECT * FROM item
 	</select>
@@ -51,8 +56,13 @@
 		DELETE FROM subscribe WHERE subscribe_tag_main = #{subscribe_tag_main} and subscribe_code = #{subscribe_code}
 	</delete>
 	
-	<insert id="itemInsert" parameterType="adminItem">
-		INSERT INTO item(item_tag_main, item_tag_sub, item_tag_event, item_name, item_summary, item_explain, item_price_l, item_price_l_sub, item_price_m_sub, item_price_m, item_image, item_info_image)
-		VALUES(#{item_tag_main}, #{item_tag_sub}, #{item_tag_event}, #{item_name}, #{item_summary}, #{item_explain}, #{item_price_l}, #{item_price_l_sub}, #{item_price_m_sub}, #{item_price_m}, #{item_image}, #{item_info_image})
+	<insert id="itemInsert" parameterType="adminItem" useGeneratedKeys="true" keyProperty="item_code">
+		INSERT INTO item(item_tag_main, item_tag_sub, item_tag_event, item_name, item_summary, item_explain, item_price_l, item_price_l_sub, item_price_m_sub, item_price_m, item_image, item_info_image, item_nut)
+		VALUES(#{item_tag_main}, #{item_tag_sub}, #{item_tag_event}, #{item_name}, #{item_summary}, #{item_explain}, #{item_price_l}, #{item_price_l_sub}, #{item_price_m_sub}, #{item_price_m}, #{item_image}, #{item_info_image}, #{item_nut})
+	</insert>
+	
+	<insert id="itemInfoInsert">
+		INSERT INTO item_info(item_code, item_info)
+		VALUES(#{item_code}, #{item_info})
 	</insert>
 </mapper>

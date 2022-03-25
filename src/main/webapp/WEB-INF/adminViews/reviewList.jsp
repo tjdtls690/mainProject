@@ -143,9 +143,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </th>
+											<th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -161,9 +159,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th>
-                                            <button type="button" class="btn btn-dark">답변등록</button>
-                                            </th>
+											<th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -201,7 +197,7 @@
 	           							            	</div>
 	           						              
 							                        	<div class="modal-footer">
-							                        	<button type="button" onclick="location.href='#'" class="btn btn-outline-success" style="float-left:-60px;">목록</button>
+							                        	<button type="button" onclick="location.href=''" class="btn btn-outline-success" style="float-left:-60px;">목록</button>
 								                        <button type="button" onclick="location.href='#'" class="btn btn-outline-danger" >등록</button>
 							                       		</div>
 							                       	</div>

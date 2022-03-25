@@ -492,6 +492,7 @@
 	    		var birth1 = $('#f_birth1').val();
 	    		var birth2 = $('#f_birth2').val();
 	    		var birth3 = $('#f_birth3').val();
+	    		var birthday = '';
 	    		
 	    		var emailCheck = $('#emailCheck').val();
 	    		var nameCheck = $('#nameCheck').val();
@@ -542,7 +543,33 @@
 	    				}
 	    			})
 	    			return false;
-	    		} //todo
+	    		}else{
+	    			if(birth1 == null || birth2 == null || birth3 == null ||
+	    					birth1 == '' || birth2 == '' || birth3 == ''){
+	    		    	birthday = null;
+	    		    }else{
+	    		    	birthday = String(birth1) + '-' + String(birth2) + '-' + String(birth3)
+	    		    }
+	    			
+	    			$.ajax({
+	    				url : 'myMemberModifySuccessCheckModal.do',
+	    				dataType : 'html',
+	    				type : 'post',
+	    				data : {
+	    					'email' : email,
+	    					'name' : name,
+	    					'nickname' : nickname,
+	    					'phone' : tel,
+	    					'birthdayTmp' : birthday,
+	    					'gender' : realGender
+	    				},
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    		} //todo 생년월일, 성별 두 가지만 정리해서 넘기면 됨
+	    		
+	    		
 	    	})
 	    	
 		})

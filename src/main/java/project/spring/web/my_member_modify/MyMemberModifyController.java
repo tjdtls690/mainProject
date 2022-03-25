@@ -138,4 +138,28 @@ public class MyMemberModifyController {
 		mav.setViewName("myMemberModifyFinalPhoneCheckModal");
 		return mav;
 	}
+	
+	@RequestMapping("/myMemberModifySuccessCheckModal.do")
+	public ModelAndView myMemberModifySuccessCheckModalDo(HttpServletRequest request, ModelAndView mav, MemberVO vo) {
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		vo.setMemberCode(vo1.getMemberCode());
+		
+		// 화면에서 null 로 보내도 자바에선 null 이 아닌 "" 로 받는다
+		if(vo.getBirthdayTmp().equals("")) {
+			vo.setBirthday(null);
+		}else {
+			String string = vo.getBirthdayTmp();
+	        vo.setBirthday(LocalDate.parse(string, DateTimeFormatter.ISO_DATE));
+		}
+		
+		memberService.updateMemberInfo(vo);
+		vo = memberService.getMember(vo);
+		
+		session.removeAttribute("member");
+		session.setAttribute("member", vo);
+		
+		mav.setViewName("myMemberModifySuccessCheckModal");
+		return mav;
+	}
 }

@@ -75,4 +75,10 @@
 	<select id="EmailPhoneGetMember" resultMap="getMemberMapping">
 		SELECT * FROM member WHERE member_email = #{email} AND member_phone = #{phone}
 	</select>
+	<update id="updateMemberInfo">
+		update member 
+		set member_email = #{email},  member_name = #{name}, member_nickname = #{nickname},
+		member_birthday = #{birthday}, member_gender = #{gender}, member_phone = #{phone}
+		where member_code = #{memberCode}
+	</update>
 </mapper>

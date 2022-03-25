@@ -65,4 +65,8 @@ public class MemberDAO {
 	public List<MemberVO> getAllMember(MemberVO vo) {
 		return sqlSessionTemplate.selectList("MemberDAO.getAllMember");
 	}
+	
+	public int updateMemberInfo(MemberVO vo) {
+		return sqlSessionTemplate.update("MemberDAO.updateMemberInfo", vo);
+	}
 }

@@ -187,7 +187,7 @@
 			</div>
 			<div class="swal2-content">
 				<div id="swal2-content" class="swal2-html-container"
-					style="display: block;">해당 번호는 샐러딧 이메일로 가입된 계정입니다. 카카오로 로그인해
+					style="display: block;">해당 번호는 샐러딧 이메일로 가입된 계정입니다. 샐러딧 이메일로 로그인해
 					주세요.</div>
 				<input class="swal2-input" style="display: none;"><input
 					type="file" class="swal2-file" style="display: none;">

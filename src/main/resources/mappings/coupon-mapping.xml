@@ -10,7 +10,7 @@
 		<result property="user_code" column="user_code"/>
 		<result property="coupon_pack" column="coupon_pack"/>
 		<result property="coupon_type_summary" column="coupon_type_summary"/>
-		<result property="coupon_sail_price" column="coupoon_sail_price"/>
+		<result property="coupon_sail_price" column="coupon_sail_price"/>
 	</resultMap>
 	
 	<select id="getCoupon" resultMap="couponResult">

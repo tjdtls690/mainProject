@@ -1,8 +1,8 @@
 package project.spring.web.admin_main_chart;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,21 +44,17 @@ public class AdminMainChartController {
         int thisDay = now.getDayOfMonth();
         // 이번 년도 + 이번달 + 오늘
         String today = year+"-"+month+"-"+thisDay;
-//        System.out.println("오늘은!? : "+today);
+        //System.out.println("오늘은!? : "+today);
         mav.addObject("today",today);
         
-//        List<String> showList = new ArrayList<String>();
-//        for(int i =0; i<14; i++) {
-//        	if((thisDay+i)>30) {
-//        		thisDay=0;
-//        		month +=1;
-//        	}
-//        	String impl = year+"-"+month+"-"+(thisDay+i);
-//        	showList.add(impl);
-//        }
-//        for(int i=0; i<showList.size(); i++) {
-//        	System.out.println(i+"번째 값 : "+showList.get(i));
-//        }
+// 메인페이지 처음에 보여줄 날짜 셋팅.
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");        
+        for(int i=0; i<13; i++) {
+        	currentCalendar.add(Calendar.DAY_OF_MONTH,+1);
+        	System.out.println(i+"번째 : "+format.format(currentCalendar.getTime()));
+        	mav.addObject("thisDay"+i,format.format(currentCalendar.getTime()));
+        }
+
         
 		// 이번주 첫째날
 		currentCalendar.add(Calendar.DATE, 2 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
@@ -99,9 +95,10 @@ public class AdminMainChartController {
 		// 이번달 시작일
 		String startDay = year+"-"+month+"-"+"01";
 		// 이번달 마지막일
-		int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)+1;
+		System.out.println("마지막 일 : "+str);
 		String endDay = year+"-"+month+"-"+str;
-		
+		System.out.println("마지막날 : "+endDay);
 		AdminReportDayVO vo3 = new AdminReportDayVO();
 		vo3.setDate(startDay);
 		vo3.setImpl(endDay);

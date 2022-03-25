@@ -20,9 +20,35 @@
 		<result property="payment_point_price" column="payment_point_price"/>
 		<result property="payment_sail_price" column="payment_sail_price"/>
 		<result property="payment_final_price" column="payment_final_price"/>
+		<result property="payment_delivery_condition" column="payment_delivery_condition"/>
 	</resultMap>
-	
+	<resultMap type="adminOrderInfo" id="adminOrderInfo">
+		<id property="payment_code" column="payment_code"/>
+		<result property="payment_item_mapping_code" column="payment_item_mapping_code" />
+		<result property="payment_member_code" column="payment_member_code" />
+		<result property="payment_item_mapping_tag_main" column="payment_item_mapping_tag_main" />
+		<result property="payment_item_mapping_item_code" column="payment_item_mapping_item_code" />
+		<result property="payment_item_mapping_item_name_size" column="payment_item_mapping_item_name_size" />
+		<result property="payment_item_mapping_item_quantity" column="payment_item_mapping_item_quantity" />
+		<result property="payment_item_mapping_item_price" column="payment_item_mapping_item_price" />
+	</resultMap>
+
 	<select id="getOrderList" resultMap="adminOrder">
-		SELECT * FROM payment_info
+		SELECT * FROM payment_info WHERE payment_code > 1400 AND payment_delivery_condition is null
+	</select>
+	<select id="getInfoList" resultMap="adminOrderInfo">
+		SELECT * FROM payment_item_mapping WHERE payment_code = #{payment_code}
+	</select>
+	<select id="orderDeliveryChange" resultMap="adminOrder">
+		UPDATE payment_info SET payment_delivery_condition = #{payment_delivery_condition} WHERE payment_code = #{payment_code}
+	</select>
+	<select id="getOrderDeliveryList" resultMap="adminOrder">
+		SELECT * FROM payment_info WHERE payment_code > 1400 AND payment_delivery_condition Like '%배송중%'
+	</select>
+	<select id="orderDeliveryComplete" resultMap="adminOrder">
+		UPDATE payment_info SET payment_delivery_condition = #{payment_delivery_condition} WHERE payment_code = #{payment_code}
+	</select>
+	<select id="getOrderDeliveryCompleteList" resultMap="adminOrder">
+		SELECT * FROM payment_info WHERE payment_code > 1400 AND payment_delivery_condition Like '%배송완료%'
 	</select>
 </mapper>

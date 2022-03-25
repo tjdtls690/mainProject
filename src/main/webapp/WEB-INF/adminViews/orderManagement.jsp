@@ -14,10 +14,34 @@
         <title>Saladit-order</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="${path }/css/style.css">
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        $(function(){
+    		$(document).on('click', '.paymentCode', function(){
+
+    			var code = $(this).children('#paymentCode').val();
+    			var form = document.createElement('form'); // 폼객체 생성
+    			var objs1;
+    		    objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+    		    objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+    		    objs1.setAttribute('name', 'itemCode'); // 객체이름
+    		    objs1.setAttribute('value', code); //객체값
+    		    form.appendChild(objs1);
+    		    
+    		    form.setAttribute('method', 'post'); //get,post 가능
+    		    form.setAttribute('action', "orderManagementModal.mdo"); //보내는 url
+    		    document.body.appendChild(form);
+    		    form.submit();
+    		});
+    	}); 
+        </script>
     </head>
     
 <body class="sb-nav-fixed">
+	<div id="ModalDiv"></div>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -110,7 +134,7 @@
                     </div>
                 </nav>
             </div>
-
+         
 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -128,11 +152,6 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                        <tr>
-                                            <th>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-                                            </th>
                                             <th>주문번호</th>
                                             <th>주문날짜</th>
 											<th>수령인이름</th>
@@ -144,11 +163,6 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-                                            </th>
                                             <th>주문번호</th>
                                             <th>주문날짜</th>
 											<th>수령인이름</th>
@@ -161,33 +175,21 @@
                                     <tbody>
                                     	<c:forEach var="orderList" items="${orderList }">
 	                                        <tr>
-	                                            <td>
-	                                            <div>
-												  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-												</div>
 												</td>
-	                                            <td>${orderList.payment_code }</td>
+	                                            <td>
+	                                            	<a class="paymentCode"><input type="hidden" id="paymentCode" value="${orderList.payment_code}" />${orderList.payment_code}</a>
+	                                            </td>
 	                                            <td>${orderList.payment_date }</td>
 	                                            <td>${orderList.payment_recipient }</td>
 	                                            <td>${orderList.payment_recipient_phone }</td>
 	                                            <td>${orderList.payment_address }</td>
 	                                            <td>${orderList.payment_final_price}원</td>
-	                                            <td>
-	                                            <div class="btn-group">
-												  <button type="button" class="btn btn-secondary">배송준비중</button>
-												  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-												    <span class="visually-hidden">Toggle Dropdown</span>
-												  </button>
-												  <ul class="dropdown-menu">
-												    <li><a class="dropdown-item" href="#">배송중</a></li>
-												    <li><a class="dropdown-item" href="#">배송준비중</a></li>
-												  </ul>
-												</div>
-												</td>
+	                                            <td>배송준비중</td>
 	                                        </tr>
 										</c:forEach>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>

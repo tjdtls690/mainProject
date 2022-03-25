@@ -63,11 +63,12 @@ public class DetailController {
 		int tagMain01 = Integer.parseInt(a);
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
 		String sub = request.getParameter("tagSub01");
+		if(sub !=null) {
 		int tagSub01 = Integer.parseInt(sub);
-		System.out.println("넘어온 tagSub01 값 : "+tagSub01);
+		//System.out.println("넘어온 tagSub01 값 : "+tagSub01);
 		
 		mav.addObject("tagSub",tagSub01);
-		
+		}
 		
 		DetailVO VO1 = new DetailVO();
 		

@@ -8,6 +8,17 @@ public class PaymentMyDetailInfoVO {
 	private String payment_item_mapping_item_name_size;
 	private int payment_item_mapping_item_quantity;
 	private int payment_item_mapping_item_price;
+	private String payment_delivery_condition;
+
+	
+	
+	public String getPayment_delivery_condition() {
+		return payment_delivery_condition;
+	}
+
+	public void setPayment_delivery_condition(String payment_delivery_condition) {
+		this.payment_delivery_condition = payment_delivery_condition;
+	}
 
 	public int getPayment_code() {
 		return payment_code;
@@ -72,7 +83,9 @@ public class PaymentMyDetailInfoVO {
 				+ ", payment_item_mapping_item_code=" + payment_item_mapping_item_code
 				+ ", payment_item_mapping_item_name_size=" + payment_item_mapping_item_name_size
 				+ ", payment_item_mapping_item_quantity=" + payment_item_mapping_item_quantity
-				+ ", payment_item_mapping_item_price=" + payment_item_mapping_item_price + "]";
+				+ ", payment_item_mapping_item_price=" + payment_item_mapping_item_price
+				+ ", payment_delivery_condition=" + payment_delivery_condition + "]";
 	}
+
 
 }

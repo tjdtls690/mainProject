@@ -15,9 +15,68 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="${path }/css/style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+                <style>
+        input[type="checkbox"] {
+	   		-webkit-appearance: none;
+	   		position: relative;
+	   		vertical-align:middle;
+	    	width: 30px;
+		    height: 22px;
+		    cursor: pointer;
+		    outline: none !important;
+		    border: 1px solid #eeeeee;
+		    border-radius: 2px;
+		    background: #eee;
+		}
+		input[type="checkbox"]:checked {
+		    -webkit-appearance: none;
+		    position: relative;
+		    width: 30px;
+		    height: 22px;
+		    cursor: pointer;
+		    vertical-align:middle;
+		    outline: none !important;
+		    border: 1px solid #eeeeee;
+		    border-radius: 2px;
+ 		    background: #1E90FF;
+		    background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_check.png);
+		    background-position: 50%;
+		    background-size: 12px 8px;
+		    background-repeat: no-repeat;
+		}
+        </style>
+        <script type="text/javascript">
+
+		// 배송 확정 
+		$(function (){
+			$(document).on('click','.btn.btn-outline-secondary.del', function(){
+
+				var formData = parseInt($('.payment_code').eq(0).children('#paymentCode').val());
+
+				var form = document.createElement('form'); // 폼객체 생성
+    			var objs1;
+    		    objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+    		    objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+    		    objs1.setAttribute('name', 'itemCode'); // 객체이름
+    		    objs1.setAttribute('value', formData); //객체값
+    		    form.appendChild(objs1);
+    		    
+    		    form.setAttribute('method', 'post'); //get,post 가능
+    		    form.setAttribute('action', "orderDelivery.mdo"); //보내는 url
+    		    document.body.appendChild(form);
+    		    form.submit();
+				
+    		    alert("배송상태가 변경되었습니다");
+			});
+		});
+        </script>
+
     </head>
     
 <body class="sb-nav-fixed">
+	<div id="ModalDiv"></div>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -44,7 +103,7 @@
             </ul>
         </nav>
         
-        <div id="layoutSidenav">
+         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
@@ -110,84 +169,54 @@
                     </div>
                 </nav>
             </div>
-
+         
 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">주문관리</h1>
+                        <h1 class="mt-4">주문상세</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">배송완료 목록</li>
+                            <li class="breadcrumb-item active">결제완료/목록</li>
                         </ol>
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                배송완료
+                                결제완료/배송준비중
+                                 <button type="button" class="btn btn-outline-secondary del" style="padding:0px 30px; float:right;">배송확정하기</button>
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                        <tr>
-                                            <th>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-                                            </th>
                                             <th>주문번호</th>
-                                            <th>날짜</th>
-											<th>이름(아이디)</th>
-                                            <th>번호</th>
-                                            <th>배송지</th>
-                                            <th>주문금액</th>
-											<th>배송상태</th>
+                                            <th>제품분류번호</th>
+											<th>제품번호</th>
+                                            <th>제품이름/사이즈</th>
+                                            <th>수량</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>
-                                            <div>
-											  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-											</div>
-                                            </th>
                                             <th>주문번호</th>
-                                            <th>날짜</th>
-											<th>이름(아이디)</th>
-                                            <th>번호</th>
-                                            <th>배송지</th>
-                                            <th>주문금액</th>
-											<th>배송상태</th>
+                                            <th>제품분류번호</th>
+											<th>제품번호</th>
+                                            <th>제품이름/사이즈</th>
+                                            <th>수량</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="paymentList" items="${paymentList }">
+                                    	<c:forEach var="info" items="${info}">
 	                                        <tr>
-	                                            <td>
-	                                            <div>
-												  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-												</div>
-												</td>
-	                                            <td>${paymentList.payment_code }</td>
-	                                            <td>${paymentList.payment_date }</td>
-	                                            <td>${paymentList.payment_recipient }</td>
-	                                            <td>${paymentList.payment_recipient_phone }</td>
-	                                            <td>${paymentList.payment_address }</td>
-	                                            <td>${paymentList.payment_final_price }원</td>
-	                                            <td>
-	                                            <div class="btn-group">
-												  <button type="button" class="btn btn-secondary">배송중</button>
-												  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-												    <span class="visually-hidden">Toggle Dropdown</span>
-												  </button>
-												  <ul class="dropdown-menu">
-												    <li><a class="dropdown-item" href="#">배송중</a></li>
-												    <li><a class="dropdown-item" href="#">배송완료</a></li>
-												  </ul>
-												</div>
-												</td>
+	                                            <td class="payment_code"><input type="hidden" id="paymentCode" value="${info.payment_code}" />${info.payment_code}</td>
+	                                            <td>${info.payment_item_mapping_tag_main }</td>
+	                                            <td>${info.payment_item_mapping_item_code }</td>
+	                                            <td>${info.payment_item_mapping_item_name_size}</td>
+												<td>${info.payment_item_mapping_item_quantity}</td>
 	                                        </tr>
-                                        </c:forEach>
+										</c:forEach>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -203,4 +232,4 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>
     </body>
-</html>
+</html>							 

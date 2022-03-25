@@ -37,7 +37,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
+<link href="${path}/style2.css?ver=2" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function page_move(tagNum){
@@ -184,9 +184,394 @@
 		    	for(var i = 0; i < $(this).closest('.row--v-center').siblings('.row--v-center').length; i++){
 		    		$(this).closest('.row--v-center').siblings('.row--v-center').eq(i).find('input').eq(1).val(0);	
 		    	}
-		    })
+		    });
 		    
 		    
+	    	// 비밀번호 변경 버튼 누를 시
+	    	$(document).on('click', '.password button', function(){
+	    		$.ajax({
+	    			url : 'myMemberModifyPasswordModal.do',
+	    			dataType : 'html',
+	    			success : function(htmlOut){
+	    				$('.mypage-layout__body').append(htmlOut);
+	    				$('html').attr('class', 'mode-popup');
+	    			}
+	    		})
+	    	})
+	    	
+	    	
+	    	// 비밀번호 변경 모달창 안의 비밀번호 변경 완료 버튼
+	    	$(document).on('click', '.change-password__nav button', function(){
+	    		var currentPassword = $('#pw1').val();
+	    		var changePassword1 = $('#pw2').val();
+	    		var changePassword2 = $('#pw3').val();
+	    		
+	    		if(currentPassword.length == 0){
+	    			alert('기존 비밀번호를 입력해 주세요.');
+	    			return false;
+	    		}else if(currentPassword.length < 8){
+	    			alert('기존 비밀번호를 8자이상 입력해주세요.');
+	    			return false;
+	    		}else if(changePassword1.length < 8){
+	    			alert('새 비밀번호를 8자이상 입력해주세요.');
+	    			return false;
+	    		}else if(changePassword2.length < 8){
+	    			alert('새 비밀번호를 다시한번 8자이상 입력해주세요.');
+	    			return false;
+	    		}
+	    		
+	    		$.ajax({
+	    			url : 'myMemberModifyCurrentPasswordCheckModal.do',
+	    			type : 'post',
+	    			data : {
+	    				'currentPassword' : currentPassword
+	    			},
+	    			success : function(data){
+	    				if(data == 0){
+	    					alert('인증정보를 다시 확인해주세요.');
+	    				}else{
+	    					if(changePassword1 != changePassword2){
+	    						alert('비밀번호 확인이 맞지 않습니다.');
+	    					}else{
+	    						$.ajax({
+	    							url : 'myMemberModifyUpdatePasswordModal.do',
+	    							type : 'post',
+	    							data : {
+	    								'changePassword1' : changePassword1
+	    							},
+	    							success : function(data){
+	    								alert('비밀번호가 수정되었습니다.');
+	    								$('html').attr('class', '');
+	    								$(window).scrollTop(200);
+	    								$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+	    								setTimeout(function() {
+	    									$('.modal').detach();
+	    								}, 400);
+	    							}
+	    						})
+	    					}
+	    				}
+	    			}
+	    		})
+	    	})
+	    	
+	    	
+	    	// 패스워드 변경 모달창 엑스 버튼
+	    	$(document).on('click', '.change-password__header button', function(){
+	    		$('html').attr('class', '');
+	    		$(window).scrollTop(200);
+				$('.modal').attr('class', 'modal modal-leave-active modal-leave-to');
+				setTimeout(function() {
+					$('.modal').detach();
+				}, 400);
+	    	})
+	    	
+	    	
+	    	// 이름 영문, 한글만 가능
+	    	$('#f_name').keyup(function(){
+				var check_num = /[0-9]/; // 숫자 
+				var check_eng = /[a-zA-Z]/; // 문자 
+				var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자 
+				var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+				var nameCheck = $('#f_name').val();
+				
+				if( check_num.test(nameCheck) || check_spc.test(nameCheck) ) {
+					$('.form-field.name').eq(0).children('.validation.error').detach();
+					$('.form-field.name').eq(0).append('<p data-v-5781a129="" class="validation error">이름은 한글/영문만 입력 가능합니다.</p>')
+					$('#nameCheck').val(-1);
+					return false; 
+				}
+		
+				var name = $('#f_name').val().length;
+				$('.form-field.name').eq(0).children('.validation').detach();
+				if(name > 0){
+					$('#nameCheck').val(1);
+				}else{
+					$('#nameCheck').val(0);
+				}
+			});
+	    	
+	    	
+	    	// 다른 번호 인증 버튼 클릭 시
+	    	$(document).on('click', '.form-field.mobile-number .button__wrap', function(){
+	    		var buttonStr = $('.form-field.mobile-number .button__wrap').text();
+	    		if(buttonStr == '다른 번호 인증'){
+	    			$('.form-field.mobile-number .button__wrap').text('인증번호 받기');
+	    			$('#f_tel').removeAttr('readonly');
+	    			$('#f_tel').val('');
+	    			$('#phoneCheck').val(0);
+	    		}else if(buttonStr == '인증번호 받기'){
+	    			var tel = $('#f_tel').val();
+	    			var check;
+	    			$.ajax({
+	    				url : 'phoneBeforeCheck.do',
+	    				type : 'post',
+	    				data : {
+	    					'phone' : tel
+	    				},
+	    				success : function(data){
+	    					if(data == "1"){
+	    						
+	    						$.ajax({
+	    							url : 'myMemberModifyPhoneCheck.do',
+	    							type : 'post',
+	    							dataType : 'html',
+	    							data : {
+	    								'phone' : tel
+	    							},
+	    							success : function(htmlOut){
+	    								$('.form-field.mobile-number').children('.form-field-group').detach();
+	    								$('.form-field.mobile-number').append(htmlOut);
+	    								
+	    								$.ajax({
+	    									url : 'checkBox.do',
+	    									type : 'post',
+	    									dataType : 'html',
+	    									success : function(htmlOut01){
+	    										$('body').append(htmlOut01);
+	    										
+	    										$.ajax({
+	    											url : 'smsCheck.do',
+	    											type : 'post',
+	    											data : {
+	    												'phone' : tel
+	    											},
+	    											success : function(){
+	    											}
+	    										});
+	    									}
+	    								});
+	    							}
+	    						});
+	    					}else{
+	    						$.ajax({
+	    							url : 'phoneCheckFail.do',
+	    							type : 'post',
+	    							dataType : 'html',
+	    							data : {
+	    								'phone' : tel
+	    							},
+	    							success : function(htmlOut){
+	    								$('body').append(htmlOut);
+	    							}
+	    						});
+	    					}
+	    				}
+	    			});
+	    		}
+	    	})
+	    	
+	    	
+	    	// 재요청 버튼
+	    	$(document).on('click', '#phoneCheckRe', function(){
+	    		$('#phoneCheck').val(0);
+	    		var tel = $('#f_tel').val();
+    			var check;
+    			$.ajax({
+    				url : 'phoneBeforeCheck.do',
+    				type : 'post',
+    				data : {
+    					'phone' : tel
+    				},
+    				success : function(data){
+    					if(data == "1"){
+    						
+    						$.ajax({
+    							url : 'myMemberModifyPhoneCheck.do',
+    							type : 'post',
+    							dataType : 'html',
+    							data : {
+    								'phone' : tel
+    							},
+    							success : function(htmlOut){
+    								$('.form-field.mobile-number').children('.form-field-group').detach();
+    								$('.form-field.mobile-number').append(htmlOut);
+    								
+    								$.ajax({
+    									url : 'checkBox.do',
+    									type : 'post',
+    									dataType : 'html',
+    									success : function(htmlOut01){
+    										$('body').append(htmlOut01);
+    										
+    										$.ajax({
+    											url : 'smsCheck.do',
+    											type : 'post',
+    											data : {
+    												'phone' : tel
+    											},
+    											success : function(){
+    											}
+    										});
+    									}
+    								});
+    							}
+    						});
+    					}else{
+    						$.ajax({
+    							url : 'phoneCheckFail.do',
+    							type : 'post',
+    							dataType : 'html',
+    							data : {
+    								'phone' : tel
+    							},
+    							success : function(htmlOut){
+    								$('body').append(htmlOut);
+    							}
+    						});
+    					}
+    				}
+    			});
+	    	})
+	    	
+	    	
+	    	// 인증번호 확인 버튼
+	    	$(document).on('click', '#certificationBtn', function(){
+				var certification = $('#certification').val();
+				if(certification.length == 0){
+					alert("인증번호를 입력해주세요.");
+					return false;
+				}
+				$.ajax({
+					url : 'certificationCheck.do',
+					type : 'post',
+					data : {
+						'certification' : certification
+					},
+					success : function(data){
+						if(data == 1){
+							$('.form-field.mobile-number').children('.form-field-group').children('p.validation').detach();
+							$('.form-field.mobile-number').children('.form-field-group').append('<p data-v-3e2784be="" class="validation">인증번호가 확인 되었습니다.</p>');
+							$('#phoneCheck').val(1);
+							$('#certificationBtn').attr('disabled', 'disabled');
+							$('#certificationBtn').attr('class', 'button button--disabled');
+							$('#certification').attr('disabled', 'disabled');
+						}else{
+							$('.form-field.mobile-number').children('.form-field-group').children('p.validation').detach();
+							$('.form-field.mobile-number').children('.form-field-group').append('<p data-v-3e2784be="" class="validation error">유효한 인증번호가 아닙니다. 다시 한 번 확인해주세요</p>');
+							$('#phoneCheck').val(0);
+						}
+					}
+				})
+			})
+	    	
+	    	
+	    	// 이메일 검증
+	    	$('#f_email').keyup(function(){
+	    		var email = $('#f_email').val();
+	    		if(email.length == 0) {
+	    			$('#emailCheck').val(0);
+	    			return "";
+	    		}else if(email == $('#oldEmail').val()){
+	    			$('.form-field.email').children('p').eq(1).detach();
+	    			$('#emailCheck').val(1);
+	    			return false;
+	    		}
+	    		$.ajax({
+	    			url : 'emailCheck.do',
+	    			type : 'post',
+	    			dataType : 'html',
+	    			data : {
+	    				'email' : email
+	    			},
+	    			success : function(htmlOut){
+	    				$('.form-field.email').children('.validation').detach();
+	    				$('.form-field.email').append(htmlOut);
+	    			}
+	    		})
+	    	})
+	    	
+	    	
+	    	// 저장하기 버튼 클릭 시
+	    	$(document).on('click', '.update__nav button', function(){
+	    		// 성별 전역변수 : realGender
+	    		var email = $('#f_email').val();
+	    		var tel = $('#f_tel').val();
+	    		var nickname = $('#f_nickname').val();
+	    		var name = $('#f_name').val();
+	    		var birth1 = $('#f_birth1').val();
+	    		var birth2 = $('#f_birth2').val();
+	    		var birth3 = $('#f_birth3').val();
+	    		var birthday = '';
+	    		
+	    		var emailCheck = $('#emailCheck').val();
+	    		var nameCheck = $('#nameCheck').val();
+	    		var phoneCheck = $('#phoneCheck').val();
+	    		
+	    		if(emailCheck != 1){
+	    			$.ajax({
+	    				url : 'myMemberModifyFinalEmailCheckModal.do',
+	    				dataType : 'html',
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    			return false;
+	    		}else if(name.length == 0){
+	    			$.ajax({
+	    				url : 'myMemberModifyFinalNameEmptyCheckModal.do',
+	    				dataType : 'html',
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    			return false;
+	    		}else if(nameCheck != 1){
+	    			$.ajax({
+	    				url : 'myMemberModifyFinalNameCheckModal.do',
+	    				dataType : 'html',
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    			return false;
+	    		}else if(tel.length == 0){
+	    			$.ajax({
+	    				url : 'myMemberModifyFinalPhoneEmptyCheckModal.do',
+	    				dataType : 'html',
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    			return false;
+	    		}else if(phoneCheck != 1){
+	    			$.ajax({
+	    				url : 'myMemberModifyFinalPhoneCheckModal.do',
+	    				dataType : 'html',
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    			return false;
+	    		}else{
+	    			if(birth1 == null || birth2 == null || birth3 == null ||
+	    					birth1 == '' || birth2 == '' || birth3 == ''){
+	    		    	birthday = null;
+	    		    }else{
+	    		    	birthday = String(birth1) + '-' + String(birth2) + '-' + String(birth3)
+	    		    }
+	    			
+	    			$.ajax({
+	    				url : 'myMemberModifySuccessCheckModal.do',
+	    				dataType : 'html',
+	    				type : 'post',
+	    				data : {
+	    					'email' : email,
+	    					'name' : name,
+	    					'nickname' : nickname,
+	    					'phone' : tel,
+	    					'birthdayTmp' : birthday,
+	    					'gender' : realGender
+	    				},
+	    				success : function(htmlOut){
+	    					$('body').append(htmlOut);
+	    				}
+	    			})
+	    		} //todo 생년월일, 성별 두 가지만 정리해서 넘기면 됨
+	    		
+	    		
+	    	})
+	    	
 		})
 </script>
 </head>
@@ -207,8 +592,11 @@
 					<form name="paging">
 						<input type="hidden" name="tagMain01" value="">
 					</form>
+					<input type="hidden" id="oldEmail" value="${member.email }">
 					<input type="hidden" id="birthdayTmp" value="${birthday }">
 					<input type="hidden" id="genderTmp" value="${member.gender }">
+					<input type="hidden" id="nameCheck" value="1">
+					<input type="hidden" id="phoneCheck" value="1">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
@@ -439,14 +827,43 @@
 													<div data-v-0b634006="" data-v-421abad8=""
 														class="form-field-group">
 														<div data-v-0b634006="" data-v-421abad8="" class="columns">
+														<c:if test="${member.memberType != 'e' }">
+															<input data-v-8bb17226="" data-v-0b634006="" id="f_email"
+																type="email" name="f_email"
+																placeholder="비밀번호 분실 시에 필요합니다. 정확하게 입력해주세요."
+																autocorrect="off" autocapitalize="off" value="${member.email }"
+																class="input form-text" readonly="readonly" data-v-421abad8="">
+														</c:if>
+														<c:if test="${member.memberType == 'e' }">
 															<input data-v-8bb17226="" data-v-0b634006="" id="f_email"
 																type="email" name="f_email"
 																placeholder="비밀번호 분실 시에 필요합니다. 정확하게 입력해주세요."
 																autocorrect="off" autocapitalize="off" value="${member.email }"
 																class="input form-text" data-v-421abad8="">
+														</c:if>
 														</div>
 													</div>
+													<input type="hidden" class="validation" name="emailCheck" id="emailCheck" value="1">
 												</div>
+												
+												<c:if test="${member.memberType == 'e' }">
+													<div data-v-0b634006="" data-v-421abad8=""
+														class="form-field update-section__field">
+														<p data-v-0b634006="" data-v-421abad8="" class="form-label">
+															<label data-v-0b634006="" data-v-421abad8=""
+																for="f_password" class="required">비밀번호</label>
+														</p>
+														<nav data-v-0b634006="" data-v-421abad8="" class="password">
+															<button data-v-a1c889e0="" data-v-0b634006=""
+																type="button" title="" class="button button--outline"
+																data-v-421abad8="">
+																<span data-v-a1c889e0="" class="button__wrap">비밀번호
+																	변경</span>
+															</button>
+														</nav>
+													</div>
+												</c:if>
+												
 												<!---->
 												<h3 data-v-0b634006="" data-v-421abad8="">개인 정보</h3>
 												<div data-v-0b634006="" data-v-421abad8=""
@@ -485,7 +902,7 @@
 														<div data-v-0b634006="" data-v-421abad8="" class="row">
 															<div data-v-0b634006="" data-v-421abad8="" class="col">
 																<input data-v-8bb17226="" data-v-0b634006="" id="f_tel"
-																	type="tel" name="f_tel" placeholder="" value="${member.phone }"
+																	type="tel" name="f_tel" placeholder="01012345678" value="${member.phone }"
 																	readonly="readonly" autocorrect="off"
 																	autocapitalize="off" class="form-text"
 																	data-v-421abad8="">
@@ -494,8 +911,7 @@
 																<button data-v-a1c889e0="" data-v-0b634006=""
 																	type="button" title="" class="button"
 																	data-v-421abad8="">
-																	<span data-v-a1c889e0="" class="button__wrap">다른
-																		번호 인증</span>
+																	<span data-v-a1c889e0="" class="button__wrap">다른 번호 인증</span>
 																</button>
 															</div>
 														</div>

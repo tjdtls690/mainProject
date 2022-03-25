@@ -7,78 +7,195 @@
 <html lang="en">
 <head>
 <style>
- .ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
 
- .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
+input:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #1976D2 !important;
+    outline-width: 0
+}
 
- .ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; } 
+.fa-calendar {
+    position: absolute;
+    top: 13px;
+    font-size: 20px;
+    color: #1976D2;
+    z-index: 1000
+}
 
- .ui-state-default,
- .ui-widget-content .ui-state-default,
- .ui-widget-header .ui-state-default,
- .ui-button,
- html .ui-button.ui-state-disabled:hover,
- html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
+#fa-1 {
+    left: calc(50% - 40px)
+}
 
- .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
+#fa-2 {
+    left: calc(100% - 40px)
+}
 
- .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
+.form-control-placeholder {
+    position: absolute;
+    top: -10px !important;
+    padding: 12px 2px 0 2px;
+    opacity: 0.5
+}
 
- .ui-widget.ui-widget-content { border: 1px solid #eee; } 
+#end-p {
+    left: calc(50% + 4px)
+}
 
- #datepicker:focus>.ui-datepicker { display: block; } 
+.form-control:focus+.form-control-placeholder,
+.form-control:valid+.form-control-placeholder {
+    font-size: 95%;
+    top: 10px;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1
+}
 
- .ui-datepicker-prev,
- .ui-datepicker-next { cursor: pointer; } 
+::placeholder {
+    color: #BDBDBD;
+    opacity: 1
+}
 
- .ui-datepicker-next { float: right; } 
+:-ms-input-placeholder {
+    color: #BDBDBD
+}
 
- .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
+::-ms-input-placeholder {
+    color: #BDBDBD
+}
 
- .ui-datepicker-title { text-align: center; padding: 10px; font-weight: 100; font-size: 20px; } 
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
 
- .ui-datepicker-calendar { width: 100%; } 
+.datepicker {
+    background-color: #fff;
+    border-radius: 0 !important;
+    align-content: center !important;
+    padding: 0 !important
+}
+/*
+ .datepicker-dropdown {
+    top: 180px !important;
+    left: calc(50% - 173.5px) !important;
+    border-right: #1976D2;
+    border-left: #1976D2
+} 
+*/
+.datepicker-dropdown.datepicker-orient-left:before {
+    left: calc(50% - 6px) !important
+}
 
- .ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; } 
+.datepicker-dropdown.datepicker-orient-left:after {
+    left: calc(50% - 5px) !important;
+    border-bottom-color: #1976D2
+}
 
- .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
+.datepicker-dropdown.datepicker-orient-right:after {
+    border-bottom-color: #1976D2
+}
 
- .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
+.datepicker table tr td.today,
+span.focused {
+    border-radius: 50% !important;
+    background-image: linear-gradient(#FFF3E0, #FFE0B2)
+}
 
- .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; } 
+thead tr:nth-child(2) {
+    background-color: #1976D2 !important
+}
 
- .ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; } 
+thead tr:nth-child(3) th {
+    font-weight: bold !important;
+    padding: 20px 10px !important;
+    color: #BDBDBD !important
+}
 
- .ui-state-hover,
- .ui-widget-content .ui-state-hover,
- .ui-widget-header .ui-state-hover,
- .ui-state-focus,
- .ui-widget-content .ui-state-focus,
- .ui-widget-header .ui-state-focus,
- .ui-button:hover,
- .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
+tbody tr td {
+    padding: 10px !important
+}
 
- .ui-widget-header .ui-icon { background-image: url('./btns.png'); } 
+tfoot tr:nth-child(2) th {
+    padding: 10px !important;
+    border-top: 1px solid #CFD8DC !important
+}
 
- .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
+.cw {
+    font-size: 14px !important;
+    background-color: #E8EAF6 !important;
+    border-radius: 0px !important;
+    padding: 0px 20px !important;
+    margin-right: 10px solid #fff !important
+}
 
- .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
+.old,
+.day,
+.new {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 0px !important
+}
 
- .ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; } 
+.day.old,
+.day.new {
+    color: #E0E0E0 !important
+}
 
- .ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; } 
+.day.old:hover,
+.day.new:hover {
+    border-radius: 50% !important
+}
 
- .ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; } 
+.old-day:hover,
+.day:hover,
+.new-day:hover,
+.month:hover,
+.year:hover,
+.decade:hover,
+.century:hover {
+    border-radius: 50% !important;
+    background-color: #eee
+}
 
- .ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; } 
+.range-start,
+.range-end {
+    border-radius: 50% !important;
+    background-image: linear-gradient(#1976D2, #1976D2) !important
+}
 
- .ui-state-highlight,
- .ui-widget-content .ui-state-highlight,
- .ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 50%; padding-top: 10px; padding-bottom: 10px; } 
+.range {
+    background-color: #E3F2FD !important
+}
 
- .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
+.prev,
+.next,
+.datepicker-switch {
+    border-radius: 0 !important;
+    padding: 10px 10px 10px 10px !important;
+    font-size: 18px;
+    opacity: 0.7;
+    color: #fff
+}
 
- .inp:focus { outline: none; background-color: #eee; } 
+.prev:hover,
+.next:hover,
+.datepicker-switch:hover {
+    background-color: inherit !important;
+    opacity: 1
+}
+
+@media screen and (max-width: 726px) {
+    .datepicker-dropdown.datepicker-orient-right:before {
+        right: calc(50% - 6px)
+    }
+
+    .datepicker-dropdown.datepicker-orient-right:after {
+        right: calc(50% - 5px)
+    }
+}
  </style>
  
 	<meta charset="utf-8" />
@@ -87,81 +204,80 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Saladit-sales</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+	<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 	<link href="${path}/css/style.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
 	<script>
-       	$(function(){
-       		var ctx = document.getElementById("myAreaChart");
-   			var myLineChart = new Chart(ctx, {
-   			  type: 'line',
-   			  data: {
-   			    labels: [ ${today}, "2021-04-02", "2021-04-03", "2021-04-04", 
-   			    	      "2021-04-05", "2021-04-06", "2021-04-07", "2021-04-08", 
-   			    	      "2021-04-09", "2021-04-10", "2021-04-11", "2021-04-12", "2021-04-13"],
-   			    datasets: [{
-   			      label: "Sessions",
-   			      lineTension: 0.3,
-   			      backgroundColor: "rgba(2,117,216,0.2)",
-   			      borderColor: "rgba(2,117,216,1)",
-   			      pointRadius: 5,
-   			      pointBackgroundColor: "rgba(2,117,216,1)",
-   			      pointBorderColor: "rgba(255,255,255,0.8)",
-   			      pointHoverRadius: 5,
-   			      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-   			      pointHitRadius: 50,
-   			      pointBorderWidth: 2,
-   			      data: [
-   			    	  	${check0}, ${check1}, ${check2}, ${check3}, ${check4}, ${check5}, ${check6},
-   			    	  	${check7}, ${check8}, ${check9}, ${check10}, ${check11}, ${check12}
- 
-   			    	  ],
-   			    }],
-   			  },
-   			  options: {
-   			    scales: {
-   			      xAxes: [{
-   			        time: {
-   			          unit: 'date'
-   			        },
-   			        gridLines: {
-   			          display: false
-   			        },
-   			        ticks: {
-   			          maxTicksLimit: 7
-   			        }
-   			      }],
-   			      yAxes: [{
-   			        ticks: {
-   			          min: 0,
-   			          max: 400000,
-   			          maxTicksLimit: 8
-   			        },
-   			        gridLines: {
-   			          color: "rgba(0, 0, 0, .125)",
-   			        }
-   			      }],
-   			    },
-   			    legend: {
-   			      display: false
-   			    }
-   			  }
+   
+   			//datepicker	
+   		 $(document).ready(function(){
+
+   			$('.input-daterange').datepicker({
+   			format: 'yyyy-mm-dd',
+   			autoclose: true,
+   			calendarWeeks : true,
+   			clearBtn: true,
+   			disableTouchKeyboard: true
    			});
-       		
+
+   			});
+   		 
+   			//modal
+   		$(document).ready(function(){
+   		    function alignModal(){
+   		        var modalDialog = $(this).find(".modal-dialog");
+   		        
+   		        // Applying the top margin on modal dialog to align it vertically center
+   		        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+   		    }
+   		    // Align modal when it is displayed
+   		    $(".modal").on("shown.bs.modal", alignModal);
+   		    
+   		    // Align modal when user resize the window
+   		    $(window).on("resize", function(){
+   		        $(".modal:visible").each(alignModal);
+   		    });   
+   		});
+   			
+   	$(function(){
+		$(document).on('click','.dropdown-item.month',function(){
+   			var getMonth = $(this).text();
+   			alert(getMonth);
+   			
+   			
+   			$.ajax({
+   				url : 'getMonthList.mdo',
+   				type : 'post',
+   				dataType: 'html',
+   				data : {
+   					"getMonth" : getMonth
+   				},
+   				success:function(html){
+   					alert("성공");
+   					
+   					
+   					
+   				}
+   				
+   			})
+   			
+   		})
+
+   	})
+   				
+   			
         </script>
     </head>
     
     <body class="sb-nav-fixed">
-    	<input type="hidden" name="firstDay" value="${startDay}">
-    	<input type="hidden" name="lastDay" value="${startDay2}">
-    	<input type="hidden" name="month" value="2022">
-    	<input type="hidden" name="today" value="${today }">
-<%--     	<input type="hidden" name="startDay2" value="${startDay2}"> --%>
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
 	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
@@ -263,18 +379,102 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">매출통계</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">매출통계</li>
-                        </ol>  
-                        
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                매출통계
-                            </div>
+                         <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">상세검색</button>
+                                  <div class="modal" id="myModal">
+                                    <form name="" action = "" enctype = "multipart/form-data">
+								                      <div class="modal-dialog">
+								                        <div class="modal-content">
+								                          <div class="modal-header">
+								                             <h5 class="modal-title">매출상세검색</h5>
+								                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								                          </div>
+								                          <div class="modal-body">
+								                          <!-- form -->
+	           							
+	           							                  <!-- table -->
+	           							               	  <table class = "table table-bordered dataTable" cellspacing = "0" >
+				                                            <tr>
+				                                            <th scope="row" width=50>
+				                                            기간
+				                                            </th>
+				                                              <td width=150>
+				                                                <form autocomplete="off">
+															        <div class="flex-row d-flex justify-content-center">
+															            <div class="col-lg-6 col-11 px-1">
+															                <div class="input-group input-daterange" style="width:auto;"> 
+															                	<input type="text" id="start" class="form-control text-left mr-2">
+															                	<label class="ml-3 form-control-placeholder" id="start-p" for="start"></label> 
+															                	<span class="fa fa-calendar" id="fa-1"></span> 
+															                	<input type="text" id="end" class="form-control text-left ml-2"> 
+															                	<label class="ml-3 form-control-placeholder" id="end-p" for="end"></label> 
+															                	<span class="fa fa-calendar" id="fa-2"></span> 
+															                </div>
+															            </div>
+															        </div>       
+															    </form>
+				                                              </td>
+				                                            </tr>
+				                                            
+				                                            <tr>
+				                                              <th scope="row" width=50>
+				                                                카테고리
+				                                              </th>
+				                                              <td width=150>
+																<div class="row">
+																  <div class="col">
+																    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+																    <option selected>main</option>
+																    <option value="200">200</option>
+																    <option value="300">300</option>
+																    <option value="400">400</option>
+																    <option value="500">500</option>
+																    <option value="700">700</option>
+																    <option value="800">800</option>
+																  </select>
+																  </div>
+																  <div class="col" >
+																    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example">
+																    <option selected>list</option>
+																    <option value="1">101</option>
+																    <option value="2">102</option>
+																    <option value="3">103</option>
+																  </select>
+																  </div>
+																</div>
+															</td>
+				                                            </tr>
+	           							                </table>
+	           							            	</div>
+	           						              
+							                        	<div class="modal-footer"">
+							                        	<button type="button" class="btn btn-primary btn-sm">검색</button>
+							                       		</div>
+							                       	</div>
+							                       </div>
+							                </form>
+							      	</div> <!-- modal --></li>
+			                        </ol>
+			         				
+			                        <div class="card mb-4">
+			                            <div class="card-header">
+			                                <i class="fas fa-table me-1"></i>
+			                                매출통계
+			                               <div class="dropdown" style="float:right;">
+											  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+											    ----------------
+											  </button>
+											  <ul class="dropdown-menu month" aria-labelledby="dropdownMenu2">
+											    <li><button class="dropdown-item month" type="button">최근 1개월</button></li>
+											    <li><button class="dropdown-item month" type="button">최근 3개월</button></li>
+											    <li><button class="dropdown-item month" type="button">최근 6개월</button></li>
+											  </ul>
+											</div>
+												</div> <!-- card header -->
+
                             <div class="card-body">
-                            	<input class="datepicker">
-                                <table id="datatablesSimple">
+                            
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>주문날짜</th>
@@ -283,14 +483,6 @@
 											<th>뿡</th>                                         
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>주문날짜</th>
-                                            <th>판매금액</th>
-                                            <th>뿅</th>
-											<th>뿡</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         <tr>
                                             <td>1위</td>
@@ -356,12 +548,12 @@
                                      
                                     </tbody>
                                 </table>
+                                </div>
                             </div> <!-- card mb-4 -->
                         </div> <!-- container-fluid px-4 -->
-                        </div>
                         </main>
-                    </div> <!-- layoutSidenav_content -->            
-            </div> <!-- layoutSidenav -->
+                        </div>
+                    </div> <!-- layoutSidenav_content -->            <!-- layoutSidenav -->
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/js/scripts.js"></script>

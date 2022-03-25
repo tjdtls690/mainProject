@@ -393,7 +393,12 @@ function page_move(tagNum){
 														<!---->
 														<div data-v-1b1887ad=""
 															class="text-color-key text-wrapper">
-															<span data-v-1b1887ad="" class="text-status">배송완료
+															<span data-v-1b1887ad="" class="text-status"><c:if test="${vo.payment_delivery_condition eq null}">
+																배송준비중
+															</c:if>
+															<c:if test="${vo.payment_delivery_condition ne null }">
+																${vo.payment_delivery_condition}
+															</c:if>
 																${vo.payment_date }</span>
 															<div data-v-1b1887ad="" class="invoice-wrapper">
 																<span data-v-1b1887ad="" class="invoice-label">운송장번호</span>
@@ -448,7 +453,12 @@ function page_move(tagNum){
 														class="row--v-center">
 														<dt data-v-ae81dc8e="" data-v-421abad8="">주문상태</dt>
 														<dd data-v-ae81dc8e="" data-v-421abad8="" class="col ">
-															배송완료</dd>
+															<c:if test="${vo.payment_delivery_condition eq null}">
+																배송준비중
+															</c:if>
+															<c:if test="${vo.payment_delivery_condition ne null }">
+																${vo.payment_delivery_condition}
+															</c:if></dd>
 													</dl>
 													<dl data-v-ae81dc8e="" data-v-421abad8=""
 														class="row--v-center">

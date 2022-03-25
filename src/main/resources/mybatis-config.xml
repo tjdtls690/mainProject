@@ -28,6 +28,7 @@
 		<typeAlias type="project.spring.web.admin_item.AdminItemVO" alias="adminItem" />
 		<typeAlias type="project.spring.web.admin_item.AdminSubVO" alias="adminSub" />
 		<typeAlias type="project.spring.web.admin_main.report.day.AdminReportDayVO" alias="adminMainReportDay"/>
+		<typeAlias type="project.spring.web.admin_order_management.AdminOrderInfoVO" alias="adminOrderInfo"/>
 		<typeAlias type="project.spring.web.admin_item.AdminItemInfoVO" alias="adminItemInfo"/>
 		<typeAlias type="project.spring.web.admin_main_rank.AdminMainRankVO" alias="adminRank"/>
 		<typeAlias type="project.spring.web.admin_main_rank.AdminMainRankVO" alias="adminRank"/>

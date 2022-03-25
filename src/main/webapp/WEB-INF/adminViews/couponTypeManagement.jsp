@@ -35,16 +35,20 @@ $(function() {
 	})
 	
 	$(document).on('click', '.btn.btn-primary', function(){
-		var couponPack = $('#couponPack').val();
-		var couponType = document.couponInsert.coupon_type.value
-		var couponEx = document.couponInsert.coupon_explain.value
+		var coupon_pack = $('#couponPack').val();
+		var coupon_name = document.couponInsert.coupon_name.value
+		var coupon_ex = document.couponInsert.coupon_explain.value
+		var coupon_type = document.couponInsert.coupon_type.value
+		var coupon_sail = document.couponInsert.coupon_sail.value
 		$.ajax({
 			url : 'couponInsert.mdo',
 			type : 'post',
 			data : {
-				"couponPack" : couponPack,
-				"couponType" : couponType,
-				"couponEx" : couponEx
+				"coupon_pack" : coupon_pack,
+				"coupon_name" : coupon_name,
+				"coupon_ex" : coupon_ex,
+				"coupon_type" : coupon_type,
+				"coupon_sail" : coupon_sail
 			},
 			success : function(data){
 				location.reload();
@@ -191,7 +195,7 @@ $(document).ready(function(){
 	           							               	  <table class = "table table-bordered dataTable" cellspacing = "0" >
 				                                            <tr>
 				                                              <th scope="row" width=70>
-				                                                pack number
+				                                                쿠폰팩번호
 				                                              </th>
 				                                              <td width=150>
 				                                                <div class="row">
@@ -209,32 +213,34 @@ $(document).ready(function(){
 				                                            
 				                                            <tr>
 				                                              <th scope="row" width=70>
-				                                                블라블라
+				                                                쿠폰타입
 				                                              </th>
 				                                              <td width=150>
 				                                                <div class="form-check form-check-inline">
-																  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-																  <label class="form-check-label" for="inlineRadio1">0</label>
+				                                                  <label class="form-check-label" for="inlineRadio1">쿠폰 할인가격</label>
+																  <input class="form-check-input" type="radio" name="coupon_type" id="inlineRadio1" value="0">
+																  
 																</div>
 																<div class="form-check form-check-inline">
-																  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-																  <label class="form-check-label" for="inlineRadio2">1</label>
+																  <label class="form-check-label" for="inlineRadio2">쿠폰 할인율</label>
+																  <input class="form-check-input" type="radio" name="coupon_type" id="inlineRadio2" value="1">
+																  
 																</div>
 				                                              </td>
 				                                            </tr>
 				                                            
 				                                            <tr>
 				                                              <th scope="row">
-				                                                name
+				                                                쿠폰이름
 				                                              </th>
 				                                              <td>
-				                                                <input type="text" name="coupon_type"/>
+				                                                <input type="text" name="coupon_name"/>
 				                                              </td>
 				                                            </tr>
 				                                            
 				                                            <tr>
 				                                              <th scope="row">
-				                                                explain
+				                                                쿠폰설명
 				                                              </th>
 				                                              <td>
 				                                                <input type="text" name="coupon_explain"/>
@@ -243,10 +249,10 @@ $(document).ready(function(){
 				                                            
 				                                            <tr>
 				                                              <th scope="row">
-				                                                discount
+				                                                할인율 / 할인가격
 				                                              </th>
 				                                              <td>
-				                                                <input type="text" name="coupon_type"/>
+				                                                <input type="text" name="coupon_sail"/>
 				                                              </td>
 				                                            </tr>
 				                                            <tr>
@@ -254,7 +260,7 @@ $(document).ready(function(){
 	           							            	</div>
 	           						              
 							                        	<div class="modal-footer">
-							                        	<button type="submit" class="btn btn-primary">등록</button>
+							                        	<button type="button" class="btn btn-primary">등록</button>
 							                       		</div>
 							                       	</div>
 							                       </div>

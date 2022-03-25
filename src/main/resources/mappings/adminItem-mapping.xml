@@ -65,4 +65,12 @@
 		INSERT INTO item_info(item_code, item_info)
 		VALUES(#{item_code}, #{item_info})
 	</insert>
+	
+	<select id="getItemName" resultMap="adminItem">
+		SELECT * FROM item WHERE item_code = #{item_code}
+	</select>
+	
+	<select id="getSubName" resultMap="adminSub">
+		SELECT * FROM subscribe WHERE subscribe_code = #{subscribe_code}
+	</select>
 </mapper>

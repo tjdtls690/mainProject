@@ -39,4 +39,12 @@ public class AdminItemDAO {
 	public void itemInfoInsert(AdminItemInfoVO vo) {
 		sqlsessionTemplate.insert("adminItemDAO.itemInfoInsert", vo);
 	}
+	
+	public AdminItemVO getItemName(AdminItemVO vo) {
+		return sqlsessionTemplate.selectOne("adminItemDAO.getItemName", vo);
+	}
+	
+	public AdminSubVO getSubName(AdminSubVO vo) {
+		return sqlsessionTemplate.selectOne("adminItemDAO.getSubName", vo);
+	}
 }

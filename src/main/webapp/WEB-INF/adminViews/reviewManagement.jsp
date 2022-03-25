@@ -135,7 +135,6 @@
                                             <th>아이디</th>
                                             <th>날짜</th>
 											<th>메인태그</th>
-                                            <th>서브태그</th>
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
@@ -148,7 +147,6 @@
                                             <th>아이디</th>
                                             <th>날짜</th>
 											<th>메인태그</th>
-                                            <th>서브태그</th>
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
@@ -156,136 +154,34 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>asfg4321</td>
-                                            <td>2021.01.15</td>
-                                            <td>600</td>
-                                            <td>602</td>
-                                            <td>1</td>
-                                            <td>아쉬파샐러드</td>
-                                            <td>우웩</td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                           <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="button" class="btn btn-dark">수정</button>
-                                            </td>
-                                        </tr>
+                                    	<c:forEach var="subReviewList" items="${subReviewList }">
+	                                        <tr>
+	                                            <td>${subReviewList.seq }</td>
+												<td>${subReviewList.user_name }</td>
+												<td>${subReviewList.write_date }</td>
+												<td>${subReviewList.subscribe_tag_main }</td>
+												<td>${subReviewList.subscribe_code }</td>
+												<td>${subReviewList.subscribe_name }</td>
+												<td>${subReviewList.content }</td>
+	                                            <td>
+	                                            	<button type="button" class="btn btn-dark">답변확인</button>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
+                                        <c:forEach var="itemReviewList" items="${itemReviewList }">
+	                                        <tr>
+	                                            <td>${itemReviewList.seq }</td>
+												<td>${itemReviewList.user_name }</td>
+												<td>${itemReviewList.write_date }</td>
+												<td>${itemReviewList.item_tag_main }</td>
+												<td>${itemReviewList.item_code }</td>
+												<td>${itemReviewList.item_name }</td>
+												<td>${itemReviewList.content }</td>
+	                                            <td>
+	                                            	<button type="button" class="btn btn-dark">답변확인</button>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.paymentSingle.PaymentSingleCouponInfoVO;
 
 @Repository
@@ -16,5 +17,9 @@ public class PaymentSingleDAO {
 	
 	public List<PaymentSingleCouponInfoVO> getMyPaymentCoupon(PaymentSingleCouponInfoVO vo){
 		return sqlSessionTemplate.selectList("PaymentDAO.paymentGetCoupon", vo);
+	}
+	
+	public int updatePaymentMappingCode(PaymentMyDetailInfoVO vo){
+		return sqlSessionTemplate.update("PaymentDAO.updatePaymentMappingCode", vo);
 	}
 }

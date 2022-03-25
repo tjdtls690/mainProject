@@ -4,7 +4,7 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="project.spring.web.review.WriteReviewVO" alias="myreview" />
+		<typeAlias type="project.spring.web.my_review_write.MyReviewWriteVO" alias="myreview" />
 		<typeAlias type="project.spring.web.tapPage.TapPageVO" alias="mytap" />
 		<typeAlias type="project.spring.web.tag.TagVO" alias="mytag" />
 		<typeAlias type="project.spring.web.detail.DetailVO" alias="mydetail" />

@@ -28,8 +28,12 @@
 		<result property="reply" column="reply" />
 	</resultMap>
 	<insert id="insertReview" parameterType="myreview">
-		INSERT INTO reviewboard(item_code, star, user_name, content, image, reply)
-		VALUES(#{item_code}, #{star}, #{user_name}, #{content}, #{image}, #{reply})
+		INSERT INTO reviewboard(item_code, star, user_name, content, image, payment_item_mapping_code)
+		VALUES(#{item_code}, #{star}, #{user_name}, #{content}, #{image}, #{payment_item_mapping_code})
+	</insert>
+	<insert id="insertSubReview" parameterType="myreview">
+		INSERT INTO reviewboard(subscribe_code, star, user_name, content, image, payment_item_mapping_code)
+		VALUES(#{subscribe_code}, #{star}, #{user_name}, #{content}, #{image}, #{payment_item_mapping_code})
 	</insert>
 	<update id="updateReview" parameterType="myreview">
 		UPDATE reviewboard

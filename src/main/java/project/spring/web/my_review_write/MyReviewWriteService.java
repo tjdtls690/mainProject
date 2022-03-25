@@ -1,4 +1,4 @@
-package project.spring.web.review;
+package project.spring.web.my_review_write;
 
 import java.util.List;
 import java.util.Map;
@@ -6,16 +6,16 @@ import java.util.Map;
 import project.spring.web.utill.Criteria;
 import project.spring.web.utill.PageMaker;
 
-public interface WriteReviewService {
-	void insertReview(WriteReviewVO vo);
+public interface MyReviewWriteService {
+	void insertReview(MyReviewWriteVO vo);
 
-	void updateReview(WriteReviewVO vo);
+	void updateReview(MyReviewWriteVO vo);
 
-	void deleteReview(WriteReviewVO vo);
+	void deleteReview(MyReviewWriteVO vo);
 
-	WriteReviewVO getReview(WriteReviewVO vo);
+	MyReviewWriteVO getReview(MyReviewWriteVO vo);
 
-	List<WriteReviewVO> getReviewList(WriteReviewVO vo);
+	List<MyReviewWriteVO> getReviewList(MyReviewWriteVO vo);
 
 // 페이징 처리
 	List<Map<String, Object>> selectBoardList(Criteria cri);
@@ -25,5 +25,7 @@ public interface WriteReviewService {
 	int countBoardListTotal(PageMaker pageMaker);
 	
 	int countBoardListTotal2(PageMaker pageMaker);
+	
+	public int insertSubReview(MyReviewWriteVO vo);
 
 }

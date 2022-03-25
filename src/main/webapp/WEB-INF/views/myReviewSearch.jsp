@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/myReviewSearch"/>
 <!DOCTYPE html>
 <html>
@@ -37,7 +39,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
+<link href="${path}/style2.css?ver=2" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function page_move(tagNum){
@@ -127,6 +129,83 @@ function page_move(tagNum){
 		    $(document).on('click', '#closeModal', function(){
 		    	$('.swal2-container').detach();
 		    })
+	    	
+	    	
+	    	// 후기 남기기 desktop 버튼
+	    	$(document).on('click', '.review-write-wrap button', function(){
+	    		var tagMain = $(this).siblings('input').eq(0).val();
+	    		var itemCode = $(this).siblings('input').eq(1).val();
+	    		var mappingCode = $(this).siblings('input').eq(2).val();
+	    		
+	    		var form = document.createElement('form'); // 폼객체 생성
+	    		
+	    		// 메인 태그 번호
+	     		var objs1;
+	     		objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs1.setAttribute('name', 'tagMain'); // 객체이름
+	     		objs1.setAttribute('value', tagMain); //객체값
+	            form.appendChild(objs1);
+	     		
+	         	// 아이템 코드
+	     		var objs2;
+	     		objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs2.setAttribute('name', 'itemCode'); // 객체이름
+	     		objs2.setAttribute('value', itemCode); //객체값
+	            form.appendChild(objs2);
+	     		
+	        	// 매핑 코드 (고유 번호)
+	     		var objs3;
+	     		objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs3.setAttribute('name', 'mappingCode'); // 객체이름
+	     		objs3.setAttribute('value', mappingCode); //객체값
+	            form.appendChild(objs3);
+	     		
+	            form.setAttribute('method', 'post'); //get,post 가능
+	            form.setAttribute('action', "myReviewWrite.do"); //보내는 url
+	            document.body.appendChild(form);
+	            form.submit();
+	    	})
+	    	
+	    	// 후기 남기기 mobile 버튼
+	    	$(document).on('click', '.review-write-wrap-mobile button', function(){
+	    		var tagMain = $(this).siblings('input').eq(0).val();
+	    		var itemCode = $(this).siblings('input').eq(1).val();
+	    		var mappingCode = $(this).siblings('input').eq(2).val();
+	    		
+	    		var form = document.createElement('form'); // 폼객체 생성
+	    		
+	    		// 메인 태그 번호
+	     		var objs1;
+	     		objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs1.setAttribute('name', 'tagMain'); // 객체이름
+	     		objs1.setAttribute('value', tagMain); //객체값
+	            form.appendChild(objs1);
+	     		
+	         	// 아이템 코드
+	     		var objs2;
+	     		objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs2.setAttribute('name', 'itemCode'); // 객체이름
+	     		objs2.setAttribute('value', itemCode); //객체값
+	            form.appendChild(objs2);
+	     		
+	        	// 매핑 코드 (고유 번호)
+	     		var objs3;
+	     		objs3 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs3.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs3.setAttribute('name', 'mappingCode'); // 객체이름
+	     		objs3.setAttribute('value', mappingCode); //객체값
+	            form.appendChild(objs3);
+	     		
+	            form.setAttribute('method', 'post'); //get,post 가능
+	            form.setAttribute('action', "myReviewWrite.do"); //보내는 url
+	            document.body.appendChild(form);
+	            form.submit();
+	    	})
 		})
 </script>
 </head>
@@ -377,18 +456,95 @@ function page_move(tagNum){
 												</div>
 											</div>
 										</nav>
-										<div data-v-6b53621a="" data-v-d06869c8="" class="error-list"
-											data-v-421abad8="">
-											<p data-v-6b53621a="">작성가능한 후기가 없습니다.</p>
-										</div>
-										<nav data-v-d06869c8="" data-v-421abad8=""
-											class="review-index__more">
-											<button data-v-a1c889e0="" data-v-d06869c8="" type="button"
-												title="" class="button button--color-none"
+										
+										<!-- todo -->
+										<c:if test="${fn:length(list1) == 0}">
+											<div data-v-6b53621a="" data-v-d06869c8="" class="error-list"
 												data-v-421abad8="">
-												<span data-v-a1c889e0="" class="button__wrap">더보기</span>
-											</button>
-										</nav>
+												<p data-v-6b53621a="">작성가능한 후기가 없습니다.</p>
+											</div>
+										</c:if>
+										
+										<c:if test="${fn:length(list1) > 1}">
+											<div data-v-d06869c8="" data-v-421abad8=""
+												class="review-index__index">
+												<ul data-v-d06869c8="" data-v-421abad8="">
+												
+													<c:forEach var="list1" items="${list1 }" varStatus="i">
+														<c:forEach var="list2" items="${list2[i.index] }" varStatus="j">
+															<c:if test="${list2.payment_item_mapping_review == 0 }">
+																<li data-v-d06869c8="" data-v-421abad8=""><div
+																		data-v-290d27aa="" data-v-d06869c8="" class="review-item"
+																		data-v-421abad8="">
+																		<p data-v-290d27aa="" class="review-item__date">
+																			<c:if test="${list1.payment_delivery_condition eq null}">
+																				배송준비중
+																			</c:if>
+																			<c:if test="${list1.payment_delivery_condition ne null }">
+																				${list1.payment_delivery_condition}
+																			</c:if>
+																			<em data-v-290d27aa="">${list1.payment_date}</em>
+																		</p>
+																		<div data-v-290d27aa="" class="row--v-center">
+																			<div data-v-290d27aa="" href="#" target="_blank"
+																				class="col-12 col--lg review-item__body">
+																				<dl data-v-290d27aa="" class="row">
+																					<dt data-v-290d27aa="">
+																						<figure data-v-290d27aa=""
+																							style="background-image: url(&quot;${list3[i.index][j.index].item_image}&quot;);"></figure>
+																					</dt>
+																					<dd data-v-290d27aa="" class="col">
+																						<strong data-v-290d27aa="">
+																							${list2.payment_item_mapping_item_name_size } ${list2.payment_item_mapping_item_quantity }개
+																						</strong>
+																					</dd>
+																				</dl>
+																			</div>
+																			<nav data-v-290d27aa="" class="col-12 col--lg-auto">
+																				<div data-v-290d27aa="" class="review-write-wrap">
+																					<div data-v-290d27aa="">
+																						<button data-v-a1c889e0="" data-v-290d27aa=""
+																							type="button" title=""
+																							class="button button--outline2">
+																							<span data-v-a1c889e0="" class="button__wrap">후기
+																								남기기</span>
+																						</button>
+																						<input type="hidden" value="${list3[i.index][j.index].item_tag_main }">
+																						<input type="hidden" value="${list3[i.index][j.index].item_code }">
+																						<input type="hidden" value="${list2.payment_item_mapping_code }">
+																					</div>
+																					<div data-v-290d27aa="">
+																						<span data-v-290d27aa="" class="review-write-due"></span>
+																					</div>
+																				</div>
+																				<div data-v-290d27aa="" class="review-write-wrap-mobile">
+																					<div data-v-290d27aa="">
+																						<span data-v-290d27aa="" class="review-write-due"></span>
+																					</div>
+																					<div data-v-290d27aa="">
+																						<button data-v-a1c889e0="" data-v-290d27aa=""
+																							type="button" title=""
+																							class="button button--side-padding button--outline2">
+																							<span data-v-a1c889e0="" class="button__wrap">후기
+																								남기기</span>
+																						</button>
+																						<input type="hidden" value="${list3[i.index][j.index].item_tag_main }">
+																						<input type="hidden" value="${list3[i.index][j.index].item_code }">
+																						<input type="hidden" value="${list2.payment_item_mapping_code }">
+																					</div>
+																				</div>
+																			</nav>
+																		</div>
+																	</div>
+																</li>
+															</c:if>
+														</c:forEach>
+													</c:forEach>
+													
+													<!---->
+												</ul>
+											</div>
+										</c:if>
 									</article>
 								</div>
 							</div>

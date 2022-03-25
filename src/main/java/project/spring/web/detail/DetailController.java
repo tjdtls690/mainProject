@@ -24,7 +24,7 @@ import project.spring.web.mapping.MappingVO;
 import project.spring.web.member.MemberVO;
 import project.spring.web.modal.ModalService;
 import project.spring.web.modal.ModalVO;
-import project.spring.web.review.WriteReviewService;
+import project.spring.web.my_review_write.MyReviewWriteService;
 import project.spring.web.tapPage.TapPageService;
 import project.spring.web.tapPage.TapPageVO;
 import project.spring.web.utill.Criteria;
@@ -39,7 +39,7 @@ public class DetailController {
 	@Autowired
 	private TapPageService tapPageService;
 	@Autowired
-	private WriteReviewService writeReviewService;
+	private MyReviewWriteService writeReviewService;
 	@Autowired
 	private MappingService mappingService;
 	@Autowired

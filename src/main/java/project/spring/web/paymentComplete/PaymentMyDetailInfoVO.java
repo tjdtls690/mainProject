@@ -1,6 +1,7 @@
 package project.spring.web.paymentComplete;
 
 public class PaymentMyDetailInfoVO {
+	private int payment_item_mapping_code;
 	private int payment_code;
 	private int payment_member_code;
 	private int payment_item_mapping_tag_main;
@@ -9,9 +10,24 @@ public class PaymentMyDetailInfoVO {
 	private int payment_item_mapping_item_quantity;
 	private int payment_item_mapping_item_price;
 	private String payment_delivery_condition;
+	private int payment_item_mapping_review;
 
-	
-	
+	public int getPayment_item_mapping_code() {
+		return payment_item_mapping_code;
+	}
+
+	public void setPayment_item_mapping_code(int payment_item_mapping_code) {
+		this.payment_item_mapping_code = payment_item_mapping_code;
+	}
+
+	public int getPayment_item_mapping_review() {
+		return payment_item_mapping_review;
+	}
+
+	public void setPayment_item_mapping_review(int payment_item_mapping_review) {
+		this.payment_item_mapping_review = payment_item_mapping_review;
+	}
+
 	public String getPayment_delivery_condition() {
 		return payment_delivery_condition;
 	}
@@ -78,14 +94,14 @@ public class PaymentMyDetailInfoVO {
 
 	@Override
 	public String toString() {
-		return "PaymentMyDetailInfoVO [payment_code=" + payment_code + ", payment_member_code=" + payment_member_code
-				+ ", payment_item_mapping_tag_main=" + payment_item_mapping_tag_main
-				+ ", payment_item_mapping_item_code=" + payment_item_mapping_item_code
+		return "PaymentMyDetailInfoVO [payment_item_mapping_code=" + payment_item_mapping_code + ", payment_code="
+				+ payment_code + ", payment_member_code=" + payment_member_code + ", payment_item_mapping_tag_main="
+				+ payment_item_mapping_tag_main + ", payment_item_mapping_item_code=" + payment_item_mapping_item_code
 				+ ", payment_item_mapping_item_name_size=" + payment_item_mapping_item_name_size
 				+ ", payment_item_mapping_item_quantity=" + payment_item_mapping_item_quantity
 				+ ", payment_item_mapping_item_price=" + payment_item_mapping_item_price
-				+ ", payment_delivery_condition=" + payment_delivery_condition + "]";
+				+ ", payment_delivery_condition=" + payment_delivery_condition + ", payment_item_mapping_review="
+				+ payment_item_mapping_review + "]";
 	}
-
 
 }

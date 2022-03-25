@@ -1,4 +1,4 @@
-package project.spring.web.review.impl;
+package project.spring.web.my_review_write.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -6,39 +6,44 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.web.review.WriteReviewService;
-import project.spring.web.review.WriteReviewVO;
+import project.spring.web.my_review_write.MyReviewWriteService;
+import project.spring.web.my_review_write.MyReviewWriteVO;
 import project.spring.web.utill.Criteria;
 import project.spring.web.utill.PageMaker;
 
 @Service
-public class WriteReviewServiceImpl implements WriteReviewService{
+public class MyReviewWriteServiceImpl implements MyReviewWriteService{
 	
 	@Autowired
-	WriteReviewDAO writeReviewDAO;
+	MyReviewWriteDAO writeReviewDAO;
 
 	@Override
-	public void insertReview(WriteReviewVO vo) {
+	public void insertReview(MyReviewWriteVO vo) {
 		writeReviewDAO.insertReview(vo);
+	}
+	
+	@Override
+	public int insertSubReview(MyReviewWriteVO vo) {
+		return writeReviewDAO.insertSubReview(vo);
 	}
 
 	@Override
-	public void updateReview(WriteReviewVO vo) {
+	public void updateReview(MyReviewWriteVO vo) {
 		writeReviewDAO.updateReview(vo);
 	}
 
 	@Override
-	public void deleteReview(WriteReviewVO vo) {
+	public void deleteReview(MyReviewWriteVO vo) {
 		writeReviewDAO.deleteReview(vo);
 	}
 
 	@Override
-	public WriteReviewVO getReview(WriteReviewVO vo) {
+	public MyReviewWriteVO getReview(MyReviewWriteVO vo) {
 		return writeReviewDAO.getReview(vo);
 	}
 	
 	@Override
-	public List<WriteReviewVO> getReviewList(WriteReviewVO vo) {
+	public List<MyReviewWriteVO> getReviewList(MyReviewWriteVO vo) {
 		System.out.println(vo.getTagMain());
 		System.out.println(vo.getItem_code());
 		if(vo.getTagMain() / 100 != 1 && vo.getTagMain() / 100 != 6) return writeReviewDAO.getReviewList01(vo);

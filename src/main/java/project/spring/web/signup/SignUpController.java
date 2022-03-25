@@ -123,7 +123,12 @@ public class SignUpController {
 	public String certificationCheckDo(HttpServletRequest request, String certification) {
 		HttpSession session = request.getSession();
 		MemberVO vo = (MemberVO)session.getAttribute("member");
-		int certificationNum = Integer.parseInt(certification);
+		int certificationNum = 0;
+		try {
+			certificationNum = Integer.parseInt(certification);
+		}catch(NumberFormatException e) {
+			return "0";
+		}
 		
 		if(certificationNum == vo.getSmsCheck()) return "1";
 		else return "0";

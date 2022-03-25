@@ -41,7 +41,7 @@
         $('input:checkbox[name="point-check"]').prop("checked",true);
 		$('input:checkbox[name="point-check"]').prop("checked",false);
 		
-		// 선택삭제 
+		// 변경
 		$(function (){
 			$(document).on('click','.btn.btn-outline-secondary.com', function(){
 
@@ -49,7 +49,6 @@
 				var deleteItemId = [];
 				var data = {};
 				var cc = 0;
-				alert(count);
 				
 				for (var i=0; i < count; i++) {
 					var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
@@ -77,9 +76,9 @@
 		    		type : 'post',
 		    		data : data,
 		    		success : function(){
-		    			alert("변경되었습니다");
 		   			},
 		    		complete : function() {
+		    			alert("변경되었습니다");
 		    			location.reload();
 		    		}
 				});

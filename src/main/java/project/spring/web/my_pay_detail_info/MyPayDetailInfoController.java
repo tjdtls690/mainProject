@@ -24,7 +24,7 @@ public class MyPayDetailInfoController {
 	
 	@RequestMapping("/myPayDetailInfo.do")
 	public ModelAndView myPayDetailDo(ModelAndView mav, PaymentMyDetailSideInfoVO vo) {
-		vo = myPayDetailInfoService.getMemberPaymentDeailInfo(vo);
+		vo = myPayDetailInfoService.getMemberPaymentDetailInfo(vo);
 		
 		PaymentMyDetailInfoVO vo1 = new PaymentMyDetailInfoVO();
 		vo1.setPayment_code(vo.getPayment_code());

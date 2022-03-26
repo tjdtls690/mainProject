@@ -6,6 +6,6 @@ import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.paymentComplete.PaymentMyDetailSideInfoVO;
 
 public interface MyPayDetailInfoService {
-	public PaymentMyDetailSideInfoVO getMemberPaymentDeailInfo(PaymentMyDetailSideInfoVO vo);
+	public PaymentMyDetailSideInfoVO getMemberPaymentDetailInfo(PaymentMyDetailSideInfoVO vo);
 	public List<PaymentMyDetailInfoVO> getMemberPayMappingItemInfo(PaymentMyDetailInfoVO vo);
 }

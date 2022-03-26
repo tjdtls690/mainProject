@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import project.spring.web.my_review_write.MyReviewWriteService;
 import project.spring.web.my_review_write.MyReviewWriteVO;
+import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.utill.Criteria;
 import project.spring.web.utill.PageMaker;
 
@@ -70,6 +71,11 @@ public class MyReviewWriteServiceImpl implements MyReviewWriteService{
 	public int countBoardListTotal2(PageMaker pageMaker) {
 		System.out.println("countBoardListTotal2 serviceImpl");
 		return writeReviewDAO.countBoardList2(pageMaker);
+	}
+
+	@Override
+	public PaymentMyDetailInfoVO getMemberPayMappingItemInfoOne(PaymentMyDetailInfoVO vo) {
+		return writeReviewDAO.getMemberPayMappingItemInfoOne(vo);
 	}
 	
 }

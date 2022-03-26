@@ -472,7 +472,7 @@
 																<div data-v-5371d1c8="" data-v-421abad8=""
 																	class="mypage-points-item__point">
 																	<em data-v-5371d1c8="" data-v-421abad8="" class="plus"
-																		style="text-align: right;">+${list.point_history_point }</em> 
+																		style="text-align: right;">+<fmt:formatNumber value="${list.point_history_point }" pattern="#,###" /></em> 
 																</div>
 															</div>
 														</li>

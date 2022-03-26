@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import project.spring.web.my_review_write.MyReviewWriteVO;
+import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.utill.Criteria;
 import project.spring.web.utill.PageMaker;
 
@@ -72,5 +73,9 @@ public class MyReviewWriteDAO {
 	public int countBoardList2(PageMaker pageMaker){
 		System.out.println("--->MyBatis countBoardList 실행");
 	    return sqlSessionTemplate.selectOne("WriteReviewDAO.countBoardList2", pageMaker);
+	}
+	
+	public PaymentMyDetailInfoVO getMemberPayMappingItemInfoOne(PaymentMyDetailInfoVO vo){
+	    return sqlSessionTemplate.selectOne("PaymentDAO.getMemberPayMappingItemInfoOne", vo);
 	}
 }

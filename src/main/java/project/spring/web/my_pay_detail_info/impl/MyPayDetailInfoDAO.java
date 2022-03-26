@@ -15,8 +15,8 @@ public class MyPayDetailInfoDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public PaymentMyDetailSideInfoVO getMemberPaymentDeailInfo(PaymentMyDetailSideInfoVO vo) {
-		return sqlSessionTemplate.selectOne("PaymentDAO.getMemberPaymentDeailInfo", vo);
+	public PaymentMyDetailSideInfoVO getMemberPaymentDetailInfo(PaymentMyDetailSideInfoVO vo) {
+		return sqlSessionTemplate.selectOne("PaymentDAO.getMemberPaymentDetailInfo", vo);
 	}
 	
 	public List<PaymentMyDetailInfoVO> getMemberPayMappingItemInfo(PaymentMyDetailInfoVO vo) {

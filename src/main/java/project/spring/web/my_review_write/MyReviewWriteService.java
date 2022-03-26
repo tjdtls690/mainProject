@@ -3,6 +3,7 @@ package project.spring.web.my_review_write;
 import java.util.List;
 import java.util.Map;
 
+import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.utill.Criteria;
 import project.spring.web.utill.PageMaker;
 
@@ -27,5 +28,6 @@ public interface MyReviewWriteService {
 	int countBoardListTotal2(PageMaker pageMaker);
 	
 	public int insertSubReview(MyReviewWriteVO vo);
-
+	
+	public PaymentMyDetailInfoVO getMemberPayMappingItemInfoOne(PaymentMyDetailInfoVO vo);
 }

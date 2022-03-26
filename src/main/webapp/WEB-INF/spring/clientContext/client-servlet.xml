@@ -29,4 +29,11 @@
 <!-- 		<property name="username" value="mytest"/> -->
 <!-- 		<property name="password" value="mytest"/> -->
 <!-- 	</bean> -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="-1"></property>
+	</bean>
+	
+	<bean id = "awsS3" class = "project.spring.web.s3.AwsS3" scope = "singleton">
+		<constructor-arg ref = "sqlSessionTemplate"></constructor-arg>
+	</bean>
 </beans>

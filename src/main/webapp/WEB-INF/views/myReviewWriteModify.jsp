@@ -108,6 +108,33 @@
 	}
 
 	$(function(){
+		// 리뷰 내용 30자 기준 점검 초기화
+		var contentSuFirst = $('#contentFirst').val().length;
+		var countFirst = 30 - contentSuFirst;
+		if(countFirst > 0){
+			$('.form__count').html('<span data-v-89f34e0a="" data-v-421abad8="" class="msg">' + countFirst + '자만 더 쓰면 포인트 적립 조건 충족!</span>' + String(contentSuFirst) + '/1000');
+			$('#contentCheck').val(0);
+		}else{
+			$('.form__count').html('<span data-v-89f34e0a="" data-v-421abad8="" class="msg">글자수 조건 충족!</span>' + String(contentSuFirst) + '/1000');
+			$('#contentCheck').val(1);
+		}
+		
+		// 별점 초기화
+		var starFirst = $('#star').val();
+		for(var i = 0; i < $('.star-rating').children('.star').length; i++){
+			if((String(starFirst) + '-stars') == $('.star-rating').children('.star').eq(i).attr('for')){
+				$('.star-rating').children('.star').eq(i).trigger('click');
+				$('html').scrollTop(0);
+			}
+		}
+		
+		
+		// 내용 삽입
+		$('#form-review-textarea').val($('#contentFirst').val());
+		
+		
+		
+		
 		$(document).on('click', '#closeFinalCheck', function(){
 			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
@@ -462,13 +489,13 @@
 											class="review-item review-write__item" data-v-421abad8=""
 											style="border: 1px solid rgb(231, 231, 231); padding: 24px; margin: 3px 0px 0px;">
 											<p data-v-290d27aa="" class="review-item__date">
-												<c:if test="${paymentSideInfo.payment_delivery_condition eq null}">
+												<c:if test="${paymentInfo.payment_delivery_condition eq null}">
 													배송준비중
 												</c:if>
-												<c:if test="${paymentSideInfo.payment_delivery_condition ne null }">
-													${paymentSideInfo.payment_delivery_condition}
+												<c:if test="${paymentInfo.payment_delivery_condition ne null }">
+													${paymentInfo.payment_delivery_condition}
 												</c:if> 
-												<em data-v-290d27aa="">${paymentSideInfo.payment_date }</em>
+												<em data-v-290d27aa="">${paymentInfo.payment_date }</em>
 											</p>
 											<div data-v-290d27aa="" class="row--v-center">
 												<div data-v-290d27aa="" href="#" target="_blank"
@@ -479,7 +506,7 @@
 																style="background-image: url(&quot;${itemInfo.item_image}&quot;);"></figure>
 														</dt>
 														<dd data-v-290d27aa="" class="col">
-															<strong data-v-290d27aa="">${paymentInfo.payment_item_mapping_item_name_size }</strong>
+															<strong data-v-290d27aa="">${paymentMappingInfo.payment_item_mapping_item_name_size }</strong>
 														</dd>
 													</dl>
 												</div>
@@ -490,12 +517,14 @@
 										<!-- todo -->
 										<form name="review_form" action="insertReview.do" data-v-89f34e0a="" data-v-421abad8="" method="POST" enctype="multipart/form-data"
 												onsubmit="return checkForm()">
-											<input id="tagMain" name="tagMain" type="hidden" value="${tagMain }"/>
-											<input id="itemCode" name="itemCode" type="hidden" value="${itemCode }"/>
-											<input id="mappingCode" name="mappingCode" type="hidden" value="${mappingCode }"/>
+											<input id="tagMain" name="tagMain" type="hidden" value="${paymentMappingInfo.payment_item_mapping_tag_main }"/>
+											<input id="item_code" name="item_code" type="hidden" value="${paymentMappingInfo.payment_item_mapping_item_code }"/>
+											<input id="mappingCode" name="mappingCode" type="hidden" value="${paymentMappingInfo.payment_item_mapping_code }"/>
 											<input id="contentCheck" name="contentCheck" type="hidden" value="0"/>
 											<input id="imageCheck" name="imageCheck" type="hidden" value="0"/>
-											<input id="star" name="star" type="hidden" value="0"/>
+											<input id="star" name="star" type="hidden" value="${reviewInfo.star }"/>
+											<input id="seq" name="seq" type="hidden" value="${reviewInfo.seq }"/>
+											<input id="contentFirst" type="hidden" value="${reviewInfo.content}">
 											<div data-v-89f34e0a="" data-v-421abad8=""
 												class="review-write__rating">
 												<h3 data-v-89f34e0a="" data-v-421abad8="">만족도는 어느정도
@@ -639,7 +668,7 @@
 													<div class="col">
 														<button data-v-a1c889e0="" 
 															type="submit" class="button" >
-															<span>등록</span>
+															<span>수정</span>
 														</button>
 													</div>
 												</div>

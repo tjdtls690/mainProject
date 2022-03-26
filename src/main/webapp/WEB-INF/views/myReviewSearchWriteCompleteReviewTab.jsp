@@ -234,6 +234,7 @@
 									style="color: rgb(201, 202, 204); padding-left: 5px; padding-right: 5px;">|</span>
 								<span data-v-2e8f90f6="" class="modify-review" style="cursor: pointer;">수정</span>
 								<input type="hidden" value="${list1.payment_item_mapping_code }">
+								<input type="hidden" value="${list2[i.index].seq }">
 							</div>
 						</div>
 						<!---->

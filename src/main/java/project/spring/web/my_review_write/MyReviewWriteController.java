@@ -215,4 +215,38 @@ public class MyReviewWriteController {
 		mav.setViewName("myReviewSearch");
 		return mav;
 	}
+	
+	@RequestMapping("/myReviewWriteModify.do")
+	public ModelAndView myReviewWriteModifyDo(ModelAndView mav, HttpServletRequest request, PaymentMyDetailInfoVO vo, MyReviewWriteVO vo1) {
+		// payment_code 를 얻기 위해 매핑 데이터 먼저 가져오기
+		vo = myReviewWriteService.getMemberPayMappingItemInfoOne(vo);
+		
+		// vo(payment_code)를 이용해서 payment_info 데이터 가져오기
+		// 배송상태, 날짜를 얻기 위함
+		PaymentMyDetailSideInfoVO vo2 = new PaymentMyDetailSideInfoVO();
+		vo2.setPayment_code(vo.getPayment_code());
+		vo2 = myPayDetailInfoService.getMemberPaymentDetailInfo(vo2);
+		
+		// item 테이블에서 아이템 정보 가져오기
+		// 아이템 이미지를 가져오기 위함
+		DetailVO vo3 = new DetailVO();
+		vo3.setItem_code(vo.getPayment_item_mapping_item_code());
+		if(vo.getPayment_item_mapping_tag_main() == 100 || vo.getPayment_item_mapping_tag_main() == 600) {
+			vo3 = detailService.getSubItem(vo3);
+		}else {
+			vo3 = detailService.getItem(vo3);
+		}
+		
+		// 리뷰 테이블 데이터 가져오기
+		// 리뷰 내용, 별점을 가져오기 위함
+		vo1 = myReviewWriteService.getReview(vo1);
+		
+		
+		mav.addObject("paymentInfo", vo2); // 배송상태, 날짜를 얻기 위함
+		mav.addObject("paymentMappingInfo", vo); // 아이템 코드, 태그 메인, 아이템 이름
+		mav.addObject("itemInfo", vo3); // 아이템 이미지를 가져오기 위함
+		mav.addObject("reviewInfo", vo1); // 리뷰 내용, 별점을 가져오기 위함
+		mav.setViewName("myReviewWriteModify");
+		return mav;
+	}
 }

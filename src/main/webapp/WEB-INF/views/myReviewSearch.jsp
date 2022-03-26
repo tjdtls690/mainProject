@@ -260,7 +260,7 @@ function page_move(tagNum){
 	    	// 작성한 후기 탭에서 삭제 버튼 todo
 	    	$(document).on('click', '.delete-review', function(){
 	    		if(confirm("작성하신 후기를 삭제하시겠습니까?") == true){
-	    			var payment_item_mapping_code = $(this).siblings('input').val();
+	    			var payment_item_mapping_code = $(this).siblings('input').eq(0).val();
 		    		
 		    		$.ajax({
 		    			url : 'mySearchReviewDelete.do',
@@ -285,6 +285,37 @@ function page_move(tagNum){
 			    }else{
 			        return ;
 			    }
+	    	})
+	    	
+	    	
+	    	// 작성한 후기 수정 버튼
+	    	$(document).on('click', '.modify-review', function(){
+	    		var payment_item_mapping_code = $(this).siblings('input').eq(0).val();
+	    		var seq = $(this).siblings('input').eq(1).val();
+	    		
+	    		
+				var form = document.createElement('form'); // 폼객체 생성
+	    		
+	    		// 리뷰 시퀀스 번호 (고유 번호)
+	     		var objs1;
+	     		objs1 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs1.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs1.setAttribute('name', 'seq'); // 객체이름
+	     		objs1.setAttribute('value', seq); //객체값
+	            form.appendChild(objs1);
+	     		
+	         	// 페이먼트 매핑 테이블 고유번호 (고유 번호)
+	     		var objs2;
+	     		objs2 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs2.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs2.setAttribute('name', 'payment_item_mapping_code'); // 객체이름
+	     		objs2.setAttribute('value', payment_item_mapping_code); //객체값
+	            form.appendChild(objs2);
+	     		
+	            form.setAttribute('method', 'post'); //get,post 가능
+	            form.setAttribute('action', "myReviewWriteModify.do"); //보내는 url
+	            document.body.appendChild(form);
+	            form.submit();
 	    	})
 		})
 </script>

@@ -178,7 +178,59 @@
 												<td>${itemReviewList.item_name }</td>
 												<td>${itemReviewList.content }</td>
 	                                            <td>
-	                                            	<button type="button" class="btn btn-dark">답변확인</button>
+	                                            	<button type="button" data-bs-toggle="modal"
+													data-bs-target="#myModal" data-toggle="modal"
+													data-target="#exampleModalCenter" class="btn btn-dark">답변확인</button>
+													<div class="modal" id="myModal">
+													<!-- form -->
+													<form action="replyInsertSuccess.mdo" method="POST" name="reply">
+														<input type="hidden" name="seq" value="">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">답변확인</h5>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="modal"></button>
+																</div>
+																<div class="modal-body">
+																	<!-- table -->
+																	<table class="table table-bordered dataTable"
+																		cellspacing="0">
+																		<tr>
+																			<th scope="row" style="width: 15%;">리뷰번호</th>
+																			<td><input type="text" name="reviewSeq"
+																				id="reviewSeq" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row" style="width: 15%;">아이디</th>
+																			<td><input type="text" name="user_name"
+																				id="user_name" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">내용</th>
+																			<td colspan="3"><textarea name="content"
+																					id="content" rows="10" style="width: 100%;"
+																					disabled></textarea></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">답변</th>
+																			<td colspan="3"><textarea name="reply_content" id="reply_content"
+																					id="reply" rows="7" style="width: 100%;"></textarea>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-primary" id="">수정</button>
+																</div>
+
+															</div>
+														</div>
+														<!-- </div> -->
+													</form>
+												</div>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

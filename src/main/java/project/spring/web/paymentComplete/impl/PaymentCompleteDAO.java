@@ -48,4 +48,8 @@ public class PaymentCompleteDAO {
 	public int insertMemberPoint(PaymentCompletePointVO vo) {
 		return sqlSessionTemplate.insert("PaymentDAO.insertMemberPoint", vo);
 	}
+	
+	public List<PaymentMyDetailInfoVO> getMemberPayMappingMemberCodeInfo(PaymentMyDetailInfoVO vo) {
+		return sqlSessionTemplate.selectList("PaymentDAO.getMemberPayMappingMemberCodeInfo", vo);
+	}
 }

@@ -50,7 +50,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
-<link href="${path}/style2.css?ver=1" rel="stylesheet" type="text/css" />
+<link href="${path}/style2.css?ver=2" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function page_move(tagNum){
@@ -59,6 +59,52 @@
 	   f.action="tapPage.do";//이동할 페이지
 	   f.method="post";//POST방식
 	   f.submit();
+	}
+	
+	function checkForm(){
+		var content = $('#form-review-textarea').val();
+		
+		if(content.length == 0){
+			alert('후기 내용을 입력해주세요');
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function readURL1(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+				$('.row--h-center.files').append('<label data-v-89f34e0a="" data-v-421abad8=""><em data-v-89f34e0a="" data-v-421abad8="" class="preview-images1">image</em></label>');
+	        	$(".preview-images1").css({"background":"url(" + e.target.result + ")"}); 	
+	        	$(".preview-images1").css('background-repeat', 'no-repeat');
+	        	$(".preview-images1").css('background-color', '#fbfbfb');
+	        	$(".preview-images1").css('background-position', '50% 50%');
+	        	$(".preview-images1").css('background-size', 'cover');
+	        	$('#imageCheck').val(1);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	    
+	    $('#image-file-button1').parent().css('display', 'none');
+	    $('#image-file-button2').parent().css('display', '');
+	}
+	
+	function readURL2(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+				$('.row--h-center.files').append('<label data-v-89f34e0a="" data-v-421abad8=""><em data-v-89f34e0a="" data-v-421abad8="" class="preview-images2">image</em></label>');
+	        	$(".preview-images2").css({"background":"url(" + e.target.result + ")"}); 	
+	        	$(".preview-images2").css('background-repeat', 'no-repeat');
+	        	$(".preview-images2").css('background-color', '#fbfbfb');
+	        	$(".preview-images2").css('background-position', '50% 50%');
+	        	$(".preview-images2").css('background-size', 'cover');
+	        	$('#imageCheck').val(1);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
 	}
 
 	$(function(){
@@ -133,30 +179,70 @@
 			document.review_form.star.value = $('.star-rating').children('input#' + star).val();
 		})
 		
-		// 등록 버튼
-		$(document).on('click', '.btnFinalOK', function(){
-			var tagMain = $('#tagMain').val();
-			var itemCode = $('#itemCode').val();
-			var star = $('#star').val();
-			var content = $('#form-review-textarea').val();
-			var mappingCode = $('#mappingCode').val();
-			alert("하하 : " + mappingCode);
-				
-			$.ajax({
-				url : 'insertReview.do',
-				type : 'post',
-				data : {
-					'tagMain' : tagMain,
-					'itemCode' : itemCode,
-					'star' : star,
-					'content' : content,
-					'mappingCode' : mappingCode
-				},
-				success : function(data){
-					$(location).attr("href", "myReviewSearch.do");
-				}
-			})
+		
+		// 사진 등록 버튼1
+		$("#image-file-button1").on('change', function(){
+			if($('.preview-images1').length == 1 && $('.preview-images2').length == 1){
+				alert('사진은 2개까지만 등록 가능합니다.');
+				return false;
+			}
+	    	readURL1(this);
+	    });
+	    
+		// 사진 등록 버튼2
+		$("#image-file-button2").on('change', function(){
+			if($('.preview-images1').length == 1 && $('.preview-images2').length == 1){
+				alert('사진은 2개까지만 등록 가능합니다.');
+				return false;
+			}
+	    	readURL2(this);
+	    });
+		
+		// 사진 프리뷰 버튼1
+		$(document).on('click', '.preview-images1', function(){
+			$(this).parent().detach();
+			$('#image-file-button1').val('');
+			$("#image-file-button1").parent().css('display', '');
+			$("#image-file-button2").parent().css('display', 'none');
+			
+			if($('.preview-images1').length == 0 && $('.preview-images2').length == 0){
+				$('#imageCheck').val(0);
+			}
 		})
+		
+		// 사진 프리뷰 버튼2
+		$(document).on('click', '.preview-images2', function(){
+			$(this).parent().detach();
+			if($('.preview-images1').length == 0){
+				$('#image-file-button2').val('');
+				$("#image-file-button1").parent().css('display', '');
+				$("#image-file-button2").parent().css('display', 'none');
+			}else{
+				$('#image-file-button2').val('');
+				$("#image-file-button1").parent().css('display', 'none');
+				$("#image-file-button2").parent().css('display', '');
+			}
+			
+			if($('.preview-images1').length == 0 && $('.preview-images2').length == 0){
+				$('#imageCheck').val(0);
+			}
+		})
+		
+		
+		// 리뷰 내용 글자 수 카운트
+		$(document).on('keyup', '#form-review-textarea', function(){
+			var contentSu = $('#form-review-textarea').val().length;
+			var count = 30 - contentSu;
+			if(count > 0){
+				$('.form__count').html('<span data-v-89f34e0a="" data-v-421abad8="" class="msg">' + count + '자만 더 쓰면 포인트 적립 조건 충족!</span>' + String(contentSu) + '/1000');
+				$('#contentCheck').val(0);
+			}else{
+				$('.form__count').html('<span data-v-89f34e0a="" data-v-421abad8="" class="msg">글자수 조건 충족!</span>' + String(contentSu) + '/1000');
+				$('#contentCheck').val(1);
+			}
+		})
+
+		
 	});
 </script>
 </head>
@@ -310,46 +396,6 @@
 									</p>
 								</div>
 							</div>
-							<div data-v-3e2784be="" class="mypage-header-invite">
-								<div data-v-3e2784be="" class="mypage-header-invite__wrap">
-									<div data-v-3e2784be="" class="mypage-header-invite__message">
-										<a data-v-3e2784be="" href="/mypage/invite" class=""><p
-												data-v-3e2784be="" class="title">친구 초대하고 친구랑 같이 포인트
-												적립하세요!</p>
-											<p data-v-3e2784be="" class="msg">
-												<span data-v-3e2784be="">친구가 내 추천코드로 가입하면 친구에게 3,000
-													포인트!</span><br data-v-3e2784be=""> <span data-v-3e2784be="">친구가
-													첫 주문하면 나한테도 3,000 포인트 선물이!</span>
-											</p></a>
-									</div>
-									<div data-v-3e2784be="" class="mypage-header-invite__share">
-										<div data-v-3e2784be="" class="code">
-											<strong data-v-3e2784be="">내 추천코드</strong>
-											<code data-v-3e2784be="">1sby67m4cf</code>
-										</div>
-										<div data-v-3e2784be="" class="share">
-											<strong data-v-3e2784be="">공유하기</strong>
-											<div data-v-3e2784be="" class="share__body">
-												<div data-v-3e2784be="">
-													<span data-v-3e2784be="" tabindex="0"
-														data-link="#share-facebook"
-														class="button share-button-mypage-header"><span
-														class="row--v-center"><img
-															src="/images/ico-share-facebook.svg" alt=""> <em
-															class="col">페이스북</em></span></span>
-												</div>
-												<div data-v-3e2784be="">
-													<button data-v-3e2784be="" type="button">
-														<span data-v-3e2784be="" class="row--v-center"><img
-															data-v-3e2784be="" src="/images/ico-share-link.svg"
-															alt=""> <em data-v-3e2784be="" class="col">링크복사</em></span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 						<div data-v-421abad8="" class="mypage-layout__container-wrap">
 							<div data-v-421abad8="" class="mypage-layout__container">
@@ -422,7 +468,13 @@
 											class="review-item review-write__item" data-v-421abad8=""
 											style="border: 1px solid rgb(231, 231, 231); padding: 24px; margin: 3px 0px 0px;">
 											<p data-v-290d27aa="" class="review-item__date">
-												배송완료 <em data-v-290d27aa="">2022/01/26</em>
+												<c:if test="${paymentSideInfo.payment_delivery_condition eq null}">
+													배송준비중
+												</c:if>
+												<c:if test="${paymentSideInfo.payment_delivery_condition ne null }">
+													${vo.payment_delivery_condition}
+												</c:if> 
+												<em data-v-290d27aa="">${paymentSideInfo.payment_date }</em>
 											</p>
 											<div data-v-290d27aa="" class="row--v-center">
 												<div data-v-290d27aa="" href="#" target="_blank"
@@ -430,20 +482,25 @@
 													<dl data-v-290d27aa="" class="row">
 														<dt data-v-290d27aa="">
 															<figure data-v-290d27aa=""
-																style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/origin/267_20210427171253&quot;);"></figure>
+																style="background-image: url(&quot;${itemInfo.item_image}&quot;);"></figure>
 														</dt>
 														<dd data-v-290d27aa="" class="col">
-															<strong data-v-290d27aa="">[키토제니] 방탄커피 / 1개입</strong>
+															<strong data-v-290d27aa="">${paymentInfo.payment_item_mapping_item_name_size }</strong>
 														</dd>
 													</dl>
 												</div>
 												<!---->
 											</div>
 										</div>
-										<form name="review_form" data-v-89f34e0a="" data-v-421abad8="">
+										
+										<!-- todo -->
+										<form name="review_form" action="insertReview.do" data-v-89f34e0a="" data-v-421abad8="" method="POST" enctype="multipart/form-data"
+												onsubmit="return checkForm()">
 											<input id="tagMain" name="tagMain" type="hidden" value="${tagMain }"/>
 											<input id="itemCode" name="itemCode" type="hidden" value="${itemCode }"/>
 											<input id="mappingCode" name="mappingCode" type="hidden" value="${mappingCode }"/>
+											<input id="contentCheck" name="contentCheck" type="hidden" value="0"/>
+											<input id="imageCheck" name="imageCheck" type="hidden" value="0"/>
 											<input id="star" name="star" type="hidden" value="0"/>
 											<div data-v-89f34e0a="" data-v-421abad8=""
 												class="review-write__rating">
@@ -474,8 +531,7 @@
 													<textarea data-v-8bb17226="" data-v-89f34e0a="" name="content"
 														id="form-review-textarea"
 														placeholder="
-[일반상품] 텍스트후기: 100 포인트 / 사진후기: 300 포인트
-[정기배송] 텍스트후기: 1,000 포인트 / 이미지후기: 3,000 포인트
+텍스트후기: 100 포인트 / 사진후기: 300 포인트
 
 <공통 조건>
 - 후기 작성 후 조건에 부합할 시 포인트가 자동 지급
@@ -505,8 +561,8 @@
 													가능해요</p>
 												<div data-v-89f34e0a="" data-v-421abad8=""
 													class="row--h-center files">
-													<label data-v-89f34e0a="" data-v-421abad8=""> <input
-														data-v-89f34e0a="" data-v-421abad8="" type="file"
+													<label data-v-89f34e0a="" data-v-421abad8=""> <input id="image-file-button1"
+														data-v-89f34e0a="" data-v-421abad8="" type="file" name="uploadFile1"
 														accept="image/*"> <i data-v-89f34e0a=""
 														data-v-421abad8=""> <svg data-v-89f34e0a=""
 																xmlns="http://www.w3.org/2000/svg" width="24"
@@ -517,8 +573,23 @@
 																	d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2v9z"></path>
 																</g>
 															</svg>
-													</i>
+														</i>
 													</label>
+													<label data-v-89f34e0a="" data-v-421abad8="" style="display:none"> <input id="image-file-button2"
+														data-v-89f34e0a="" data-v-421abad8="" type="file" name="uploadFile2"
+														accept="image/*"> <i data-v-89f34e0a=""
+														data-v-421abad8=""> <svg data-v-89f34e0a=""
+																xmlns="http://www.w3.org/2000/svg" width="24"
+																height="24" viewBox="0 0 24 24" aria-labelledby="plus"
+																role="presentation" class="icon" data-v-421abad8="">
+																<g fill="none" fill-rule="evenodd"> 
+																	<path fill="currentColor" fill-rule="evenodd"
+																	d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2v9z"></path>
+																</g>
+															</svg>
+														</i>
+													</label>
+													<!-- todo -->
 												</div>
 												<p data-v-89f34e0a="" data-v-421abad8=""
 													style="font-size: 12px; font-weight: 300; color: rgb(246, 100, 62);">
@@ -548,12 +619,6 @@
 													<div data-v-89f34e0a="" data-v-421abad8=""
 														class="col-12 footer-drawer-contents">
 														<ul data-v-89f34e0a="" data-v-421abad8="">
-															<li data-v-89f34e0a="" data-v-421abad8="">
-																[샐러드/건강간식/세트 상품] 수령일 기준 7일 내 제품만 등록 가능</li>
-															<li data-v-89f34e0a="" data-v-421abad8="">[정기배송 상품]
-																2회 수령 후 30일 내 등록 가능</li>
-															<li data-v-89f34e0a="" data-v-421abad8="">후기 작성일 기준
-																2-3일 내 적립금 자동 지급(영업일 외 명절 및 공휴일은 지연될 수 있음)</li>
 															<li data-v-89f34e0a="" data-v-421abad8="">상품마다 개별
 																작성건만 해당 가능</li>
 															<li data-v-89f34e0a="" data-v-421abad8="">사진 후기는 자사
@@ -579,7 +644,7 @@
 													</div>
 													<div class="col">
 														<button data-v-a1c889e0="" 
-															type="button" class="button btnFinalOK" >
+															type="submit" class="button" >
 															<span>등록</span>
 														</button>
 													</div>

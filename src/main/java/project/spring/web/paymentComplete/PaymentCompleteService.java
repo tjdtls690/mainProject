@@ -12,4 +12,5 @@ public interface PaymentCompleteService {
 	public PaymentCompletePointVO getMemberPoint(PaymentCompletePointVO vo);
 	public int updateMemberPoint(PaymentCompletePointVO vo);
 	public int insertMemberPoint(PaymentCompletePointVO vo);
+	public List<PaymentMyDetailInfoVO> getMemberPayMappingMemberCodeInfo(PaymentMyDetailInfoVO vo);
 }

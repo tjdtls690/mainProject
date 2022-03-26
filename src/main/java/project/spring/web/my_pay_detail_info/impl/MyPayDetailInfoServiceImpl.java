@@ -16,8 +16,8 @@ public class MyPayDetailInfoServiceImpl implements MyPayDetailInfoService{
 	MyPayDetailInfoDAO myPayDetailInfoDAO;
 
 	@Override
-	public PaymentMyDetailSideInfoVO getMemberPaymentDeailInfo(PaymentMyDetailSideInfoVO vo) {
-		return myPayDetailInfoDAO.getMemberPaymentDeailInfo(vo);
+	public PaymentMyDetailSideInfoVO getMemberPaymentDetailInfo(PaymentMyDetailSideInfoVO vo) {
+		return myPayDetailInfoDAO.getMemberPaymentDetailInfo(vo);
 	}
 
 	@Override

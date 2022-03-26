@@ -55,6 +55,11 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 	public int insertMemberPoint(PaymentCompletePointVO vo) {
 		return paymentCompleteDAO.insertMemberPoint(vo);
 	}
+
+	@Override
+	public List<PaymentMyDetailInfoVO> getMemberPayMappingMemberCodeInfo(PaymentMyDetailInfoVO vo) {
+		return paymentCompleteDAO.getMemberPayMappingMemberCodeInfo(vo);
+	}
 	
 	
 }

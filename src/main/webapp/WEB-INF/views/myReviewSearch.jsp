@@ -129,6 +129,36 @@ function page_move(tagNum){
 		    $(document).on('click', '#closeModal', function(){
 		    	$('.swal2-container').detach();
 		    })
+		    
+		    // 후기 작성 탭 버튼 누를 시
+		    $(document).on('click', '.nav-tab__wrap button:even', function(){
+		    	$(this).parent().attr('class', 'on');
+		    	$(this).parent().siblings().attr('class', '');
+		    	
+		    	$.ajax({
+		    		url : 'myReviewSearchWriteReviewTab.do',
+		    		dataType : 'html',
+		    		success : function(htmlOut){
+		    			$('.review-index').children('div').detach();
+		    			$('.review-index').append(htmlOut);
+		    		}
+		    	})
+		    })
+		    
+		    // 작성한 후기 탭 버튼 누를 시
+		    $(document).on('click', '.nav-tab__wrap button:odd', function(){
+		    	$(this).parent().attr('class', 'on');
+		    	$(this).parent().siblings().attr('class', '');
+		    	
+		    	$.ajax({
+		    		url : 'myReviewSearchWriteCompleteReviewTab.do',
+		    		dataType : 'html',
+		    		success : function(htmlOut){
+		    			$('.review-index').children('div').detach();
+		    			$('.review-index').append(htmlOut);
+		    		}
+		    	})
+		    })
 	    	
 	    	
 	    	// 후기 남기기 desktop 버튼
@@ -136,6 +166,7 @@ function page_move(tagNum){
 	    		var tagMain = $(this).siblings('input').eq(0).val();
 	    		var itemCode = $(this).siblings('input').eq(1).val();
 	    		var mappingCode = $(this).siblings('input').eq(2).val();
+	    		var paymentCode = $(this).siblings('input').eq(3).val();
 	    		
 	    		var form = document.createElement('form'); // 폼객체 생성
 	    		
@@ -162,6 +193,14 @@ function page_move(tagNum){
 	     		objs3.setAttribute('name', 'mappingCode'); // 객체이름
 	     		objs3.setAttribute('value', mappingCode); //객체값
 	            form.appendChild(objs3);
+	     		
+	         	// 페이먼트 코드 (고유 번호)
+	     		var objs4;
+	     		objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs4.setAttribute('name', 'paymentCode'); // 객체이름
+	     		objs4.setAttribute('value', paymentCode); //객체값
+	            form.appendChild(objs4);
 	     		
 	            form.setAttribute('method', 'post'); //get,post 가능
 	            form.setAttribute('action', "myReviewWrite.do"); //보내는 url
@@ -174,6 +213,7 @@ function page_move(tagNum){
 	    		var tagMain = $(this).siblings('input').eq(0).val();
 	    		var itemCode = $(this).siblings('input').eq(1).val();
 	    		var mappingCode = $(this).siblings('input').eq(2).val();
+	    		var paymentCode = $(this).siblings('input').eq(3).val();
 	    		
 	    		var form = document.createElement('form'); // 폼객체 생성
 	    		
@@ -201,10 +241,50 @@ function page_move(tagNum){
 	     		objs3.setAttribute('value', mappingCode); //객체값
 	            form.appendChild(objs3);
 	     		
+	     		
+	         	// 페이먼트 코드 (고유 번호)
+	     		var objs4;
+	     		objs4 = document.createElement('input'); // 값이 들어있는 녀석의 형식
+	     		objs4.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
+	     		objs4.setAttribute('name', 'paymentCode'); // 객체이름
+	     		objs4.setAttribute('value', paymentCode); //객체값
+	            form.appendChild(objs4);
+	     		
 	            form.setAttribute('method', 'post'); //get,post 가능
 	            form.setAttribute('action', "myReviewWrite.do"); //보내는 url
 	            document.body.appendChild(form);
 	            form.submit();
+	    	});
+	    	
+	    	
+	    	// 작성한 후기 탭에서 삭제 버튼 todo
+	    	$(document).on('click', '.delete-review', function(){
+	    		if(confirm("작성하신 후기를 삭제하시겠습니까?") == true){
+	    			var payment_item_mapping_code = $(this).siblings('input').val();
+		    		
+		    		$.ajax({
+		    			url : 'mySearchReviewDelete.do',
+		    			type : 'post',
+		    			data : {
+		    				'payment_item_mapping_code' : payment_item_mapping_code
+		    			},
+		    			success : function(data){
+		    				$('.nav-tab__wrap button:odd').parent().attr('class', 'on');
+		    		    	$('.nav-tab__wrap button:odd').parent().siblings().attr('class', '');
+		    		    	
+		    		    	$.ajax({
+		    		    		url : 'myReviewSearchWriteCompleteReviewTab.do',
+		    		    		dataType : 'html',
+		    		    		success : function(htmlOut){
+		    		    			$('.review-index').children('div').detach();
+		    		    			$('.review-index').append(htmlOut);
+		    		    		}
+		    		    	})
+		    			}
+		    		})
+			    }else{
+			        return ;
+			    }
 	    	})
 		})
 </script>
@@ -436,9 +516,7 @@ function page_move(tagNum){
 										</header>
 										<p data-v-d06869c8="" data-v-421abad8="" id="page-description"
 											class="page-description">
-											[일반상품] 텍스트후기: 100 포인트 / 이미지후기: 300 포인트<br data-v-d06869c8=""
-												data-v-421abad8=""> [정기배송] 텍스트후기: 1,000 포인트 / 이미지후기:
-											3,000 포인트
+											텍스트후기: 100 포인트 / 이미지후기: 300 포인트
 										</p>
 										<nav data-v-610ea6d8="" data-v-d06869c8=""
 											class="nav-tab review-index__tab" data-v-421abad8="">
@@ -457,15 +535,14 @@ function page_move(tagNum){
 											</div>
 										</nav>
 										
-										<!-- todo -->
-										<c:if test="${fn:length(list1) == 0}">
+										<c:if test="${check == 0}">
 											<div data-v-6b53621a="" data-v-d06869c8="" class="error-list"
 												data-v-421abad8="">
 												<p data-v-6b53621a="">작성가능한 후기가 없습니다.</p>
 											</div>
 										</c:if>
 										
-										<c:if test="${fn:length(list1) > 1}">
+										<c:if test="${check > 1}">
 											<div data-v-d06869c8="" data-v-421abad8=""
 												class="review-index__index">
 												<ul data-v-d06869c8="" data-v-421abad8="">
@@ -512,6 +589,7 @@ function page_move(tagNum){
 																						<input type="hidden" value="${list3[i.index][j.index].item_tag_main }">
 																						<input type="hidden" value="${list3[i.index][j.index].item_code }">
 																						<input type="hidden" value="${list2.payment_item_mapping_code }">
+																						<input type="hidden" value="${list1.payment_code }">
 																					</div>
 																					<div data-v-290d27aa="">
 																						<span data-v-290d27aa="" class="review-write-due"></span>
@@ -531,6 +609,7 @@ function page_move(tagNum){
 																						<input type="hidden" value="${list3[i.index][j.index].item_tag_main }">
 																						<input type="hidden" value="${list3[i.index][j.index].item_code }">
 																						<input type="hidden" value="${list2.payment_item_mapping_code }">
+																						<input type="hidden" value="${list1.payment_code }">
 																					</div>
 																				</div>
 																			</nav>

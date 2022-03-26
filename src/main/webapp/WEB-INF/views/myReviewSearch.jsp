@@ -257,16 +257,18 @@ function page_move(tagNum){
 	    	});
 	    	
 	    	
-	    	// 작성한 후기 탭에서 삭제 버튼 todo
+	    	// 작성한 후기 탭에서 삭제 버튼
 	    	$(document).on('click', '.delete-review', function(){
 	    		if(confirm("작성하신 후기를 삭제하시겠습니까?") == true){
 	    			var payment_item_mapping_code = $(this).siblings('input').eq(0).val();
-		    		
+	    			var seq = $(this).siblings('input').eq(1).val();
+	    			
 		    		$.ajax({
 		    			url : 'mySearchReviewDelete.do',
 		    			type : 'post',
 		    			data : {
-		    				'payment_item_mapping_code' : payment_item_mapping_code
+		    				'payment_item_mapping_code' : payment_item_mapping_code,
+		    				'seq' : seq
 		    			},
 		    			success : function(data){
 		    				$('.nav-tab__wrap button:odd').parent().attr('class', 'on');
@@ -433,8 +435,7 @@ function page_move(tagNum){
 					<!---->
 					<!---->
 				</header>
-				<div class="container" style="padding-top: 182px;"
-					data-v-0f5971ec="">
+				<div class="container" data-v-0f5971ec="">
 					<div data-v-421abad8="" data-v-d06869c8="" data-v-0f5971ec=""
 						class="mypage-layout">
 						<div data-v-3e2784be="" data-v-421abad8=""
@@ -573,7 +574,7 @@ function page_move(tagNum){
 											</div>
 										</c:if>
 										
-										<c:if test="${check > 1}">
+										<c:if test="${check > 0}">
 											<div data-v-d06869c8="" data-v-421abad8=""
 												class="review-index__index">
 												<ul data-v-d06869c8="" data-v-421abad8="">

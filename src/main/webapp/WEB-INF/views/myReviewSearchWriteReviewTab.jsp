@@ -11,7 +11,7 @@
 	</div>
 </c:if>
 
-<c:if test="${check > 1}">
+<c:if test="${check > 0}">
 	<div data-v-d06869c8="" data-v-421abad8=""
 		class="review-index__index">
 		<ul data-v-d06869c8="" data-v-421abad8="">

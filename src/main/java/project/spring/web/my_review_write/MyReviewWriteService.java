@@ -30,4 +30,6 @@ public interface MyReviewWriteService {
 	public int insertSubReview(MyReviewWriteVO vo);
 	
 	public PaymentMyDetailInfoVO getMemberPayMappingItemInfoOne(PaymentMyDetailInfoVO vo);
+	
+	public int updateReviewModify(MyReviewWriteVO vo);
 }

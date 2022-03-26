@@ -268,6 +268,11 @@
 				$('#contentCheck').val(1);
 			}
 		})
+		
+		// 취소 버튼
+		$(document).on('click', '.row--gutter .button.button--outline', function(){
+			$(location).attr("href", "myReviewSearch.do");
+		})
 
 		
 	});
@@ -515,10 +520,10 @@
 										</div>
 										
 										<!-- todo -->
-										<form name="review_form" action="insertReview.do" data-v-89f34e0a="" data-v-421abad8="" method="POST" enctype="multipart/form-data"
+										<form name="review_form" action="modifyReview.do" data-v-89f34e0a="" data-v-421abad8="" method="POST" enctype="multipart/form-data"
 												onsubmit="return checkForm()">
 											<input id="tagMain" name="tagMain" type="hidden" value="${paymentMappingInfo.payment_item_mapping_tag_main }"/>
-											<input id="item_code" name="item_code" type="hidden" value="${paymentMappingInfo.payment_item_mapping_item_code }"/>
+											<input id="itemCode" name="itemCode" type="hidden" value="${paymentMappingInfo.payment_item_mapping_item_code }"/>
 											<input id="mappingCode" name="mappingCode" type="hidden" value="${paymentMappingInfo.payment_item_mapping_code }"/>
 											<input id="contentCheck" name="contentCheck" type="hidden" value="0"/>
 											<input id="imageCheck" name="imageCheck" type="hidden" value="0"/>

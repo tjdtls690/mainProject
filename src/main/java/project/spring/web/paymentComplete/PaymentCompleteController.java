@@ -123,6 +123,7 @@ public class PaymentCompleteController {
 		vo6.setPoint_history_member_code(vo1.getMemberCode());
 		vo6.setPoint_history_point(point);
 		vo6.setPoint_history_explain("상품 결제 포인트");
+		vo6.setPoint_history_type(1);
 		pointHistoryService.insertPointHistory(vo6);
 		
 		PaymentCompletePointVO vo4 = new PaymentCompletePointVO();

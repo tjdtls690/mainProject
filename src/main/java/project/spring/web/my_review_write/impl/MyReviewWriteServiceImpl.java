@@ -77,5 +77,10 @@ public class MyReviewWriteServiceImpl implements MyReviewWriteService{
 	public PaymentMyDetailInfoVO getMemberPayMappingItemInfoOne(PaymentMyDetailInfoVO vo) {
 		return writeReviewDAO.getMemberPayMappingItemInfoOne(vo);
 	}
+
+	@Override
+	public int updateReviewModify(MyReviewWriteVO vo) {
+		return writeReviewDAO.updateReviewModify(vo);
+	}
 	
 }

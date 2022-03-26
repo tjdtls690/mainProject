@@ -78,4 +78,8 @@ public class MyReviewWriteDAO {
 	public PaymentMyDetailInfoVO getMemberPayMappingItemInfoOne(PaymentMyDetailInfoVO vo){
 	    return sqlSessionTemplate.selectOne("PaymentDAO.getMemberPayMappingItemInfoOne", vo);
 	}
+	
+	public int updateReviewModify(MyReviewWriteVO vo){
+	    return sqlSessionTemplate.update("WriteReviewDAO.updateReviewModify", vo);
+	}
 }

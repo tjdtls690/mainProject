@@ -8,6 +8,15 @@ public class PointHistoryVO {
 	private int point_history_point;
 	private LocalDate point_history_date;
 	private String point_history_explain;
+	private int point_history_type;
+
+	public int getPoint_history_type() {
+		return point_history_type;
+	}
+
+	public void setPoint_history_type(int point_history_type) {
+		this.point_history_type = point_history_type;
+	}
 
 	public int getPoint_history_code() {
 		return point_history_code;
@@ -53,7 +62,8 @@ public class PointHistoryVO {
 	public String toString() {
 		return "PointHistoryVO [point_history_code=" + point_history_code + ", point_history_member_code="
 				+ point_history_member_code + ", point_history_point=" + point_history_point + ", point_history_date="
-				+ point_history_date + ", point_history_explain=" + point_history_explain + "]";
+				+ point_history_date + ", point_history_explain=" + point_history_explain + ", point_history_type="
+				+ point_history_type + "]";
 	}
 
 }

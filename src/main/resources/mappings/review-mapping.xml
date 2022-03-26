@@ -39,6 +39,10 @@
 		UPDATE reviewboard
 		SET content=#{content} WHERE seq = #{seq}
 	</update>
+	<update id="updateReviewModify" parameterType="myreview">
+		UPDATE reviewboard
+		SET star = #{star}, content = #{content}, image = #{image} WHERE seq = #{seq}
+	</update>
 	<delete id="deleteReview" parameterType="myreview">
 		DELETE FROM reviewboard WHERE seq = #{seq}
 	</delete>

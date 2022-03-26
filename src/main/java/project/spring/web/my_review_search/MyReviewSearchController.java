@@ -16,11 +16,15 @@ import project.spring.web.detail.DetailService;
 import project.spring.web.detail.DetailVO;
 import project.spring.web.member.MemberVO;
 import project.spring.web.my_pay_info.MyPayInfoService;
+import project.spring.web.my_review_write.MyReviewWriteService;
 import project.spring.web.my_review_write.MyReviewWriteVO;
+import project.spring.web.paymentComplete.PaymentCompletePointVO;
 import project.spring.web.paymentComplete.PaymentCompleteService;
 import project.spring.web.paymentComplete.PaymentMyDetailInfoVO;
 import project.spring.web.paymentComplete.PaymentMyDetailSideInfoVO;
 import project.spring.web.paymentSingle.PaymentSingleService;
+import project.spring.web.point_history.PointHistoryService;
+import project.spring.web.point_history.PointHistoryVO;
 
 @Controller
 public class MyReviewSearchController {
@@ -35,6 +39,10 @@ public class MyReviewSearchController {
 	PaymentCompleteService paymentCompleteService;
 	@Autowired
 	PaymentSingleService paymentSingleService;
+	@Autowired
+	MyReviewWriteService myReviewWriteService;
+	@Autowired
+	PointHistoryService pointHistoryService;
 	
 	@RequestMapping("/myReviewSearch.do")
 	public ModelAndView myReviewSearchDo(ModelAndView mav, HttpServletRequest request) {
@@ -168,7 +176,36 @@ public class MyReviewSearchController {
 	
 	@RequestMapping(value = "/mySearchReviewDelete.do", produces = "application/text; charset=utf8")
 	@ResponseBody
-	public String mySearchReviewDeleteDo(ModelAndView mav, PaymentMyDetailInfoVO vo) {
+	public String mySearchReviewDeleteDo(ModelAndView mav, HttpServletRequest request, PaymentMyDetailInfoVO vo, MyReviewWriteVO vo1) {
+		HttpSession session = request.getSession();
+		MemberVO vo2 = (MemberVO)session.getAttribute("member");
+		
+		vo1 = myReviewWriteService.getReview(vo1);
+		PaymentCompletePointVO pointTmpVO = new PaymentCompletePointVO();
+		PointHistoryVO pointHistoryVO = new PointHistoryVO();
+		pointTmpVO.setPayment_member_code(vo2.getMemberCode());
+		pointHistoryVO.setPoint_history_member_code(vo2.getMemberCode());
+		
+		if(vo1.getContent().length() >= 30 && vo1.getImage().length() == 0) {
+			pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+			pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() - 100);
+			paymentCompleteService.updateMemberPoint(pointTmpVO);
+			
+			pointHistoryVO.setPoint_history_point(100);
+			pointHistoryVO.setPoint_history_explain("후기 삭제 차감 포인트");
+			pointHistoryVO.setPoint_history_type(0);
+			pointHistoryService.insertPointHistory(pointHistoryVO);
+		}else if(vo1.getContent().length() >= 30 && vo1.getImage().length() > 0) {
+			pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+			pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() - 300);
+			paymentCompleteService.updateMemberPoint(pointTmpVO);
+			
+			pointHistoryVO.setPoint_history_point(300);
+			pointHistoryVO.setPoint_history_explain("후기 삭제 차감 포인트");
+			pointHistoryVO.setPoint_history_type(0);
+			pointHistoryService.insertPointHistory(pointHistoryVO);
+		}
+		
 		vo.setPayment_item_mapping_review(2);
 		paymentSingleService.updatePaymentMappingCode(vo);
 		

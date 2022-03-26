@@ -471,8 +471,14 @@
 																</div>
 																<div data-v-5371d1c8="" data-v-421abad8=""
 																	class="mypage-points-item__point">
+																<c:if test="${list.point_history_type == 1 }">
 																	<em data-v-5371d1c8="" data-v-421abad8="" class="plus"
-																		style="text-align: right;">+<fmt:formatNumber value="${list.point_history_point }" pattern="#,###" /></em> 
+																		style="text-align: right;">+<fmt:formatNumber value="${list.point_history_point }" pattern="#,###" /></em>
+																</c:if> 
+																<c:if test="${list.point_history_type == 0 }">
+																	<em data-v-5371d1c8="" data-v-421abad8="" class="plus"
+																		style="text-align: right;">-<fmt:formatNumber value="${list.point_history_point }" pattern="#,###" /></em>
+																</c:if>
 																</div>
 															</div>
 														</li>

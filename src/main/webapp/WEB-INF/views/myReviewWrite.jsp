@@ -241,6 +241,12 @@
 				$('#contentCheck').val(1);
 			}
 		})
+		
+		
+		// 취소 버튼
+		$(document).on('click', '.row--gutter .button.button--outline', function(){
+			$(location).attr("href", "myReviewSearch.do");
+		})
 
 		
 	});

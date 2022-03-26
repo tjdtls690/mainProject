@@ -82,7 +82,6 @@ public class MyReviewWriteController {
 	@RequestMapping(value = "/insertReview.do", produces = "application/text; charset=utf8")
 	public ModelAndView insertReview(HttpServletRequest request, ModelAndView mav, String tagMain, String contentCheck, String imageCheck,
 			String itemCode, String star, String content, String mappingCode, MultipartFile uploadFile1, MultipartFile uploadFile2) {
-		System.out.println("리뷰내용 길이 : " + content.length());
 		String imageURL = "";
 		
 		HttpSession session = request.getSession();
@@ -165,6 +164,7 @@ public class MyReviewWriteController {
 			vo7.setPoint_history_member_code(vo1.getMemberCode());
 			vo7.setPoint_history_point(point);
 			vo7.setPoint_history_explain(pointExplain);
+			vo7.setPoint_history_type(1);
 			pointHistoryService.insertPointHistory(vo7);
 		}
 		
@@ -247,6 +247,216 @@ public class MyReviewWriteController {
 		mav.addObject("itemInfo", vo3); // 아이템 이미지를 가져오기 위함
 		mav.addObject("reviewInfo", vo1); // 리뷰 내용, 별점을 가져오기 위함
 		mav.setViewName("myReviewWriteModify");
+		return mav;
+	}
+	
+	
+	@RequestMapping("/modifyReview.do")
+	public ModelAndView modifyReviewDo(ModelAndView mav, HttpServletRequest request, String seq, String contentCheck, String imageCheck,
+			String star, String content, MultipartFile uploadFile1, MultipartFile uploadFile2) {
+		String imageURL = "";
+		
+		HttpSession session = request.getSession();
+		MemberVO vo1 = (MemberVO)session.getAttribute("member");
+		int star1 = Integer.parseInt(star);
+		
+		MyReviewWriteVO vo = new MyReviewWriteVO();
+		vo.setSeq(Integer.parseInt(seq));
+		vo.setStar(star1);
+		vo.setContent(content);
+		
+		// 이미지 업로드1
+		if(!uploadFile1.getOriginalFilename().equals("")) {
+			try {
+				String key = "review/" + uploadFile1.getOriginalFilename();
+				InputStream is = uploadFile1.getInputStream();
+				String contentType = uploadFile1.getContentType();
+				long contentLength = uploadFile1.getSize();
+				awsS3.upload(is, key, contentType, contentLength);
+				imageURL += (url + key);
+			} catch (IOException e) {
+				System.out.println("메인이미지 업로드 실패");
+			}
+		}
+		
+		// 이미지 업로드2
+		if(!uploadFile2.getOriginalFilename().equals("")) {
+			try {
+				String key = "review/" + uploadFile2.getOriginalFilename();
+				InputStream is = uploadFile2.getInputStream();
+				String contentType = uploadFile2.getContentType();
+				long contentLength = uploadFile2.getSize();
+				awsS3.upload(is, key, contentType, contentLength);
+				if(imageURL.length() != 0) {
+					imageURL += ":;:";
+				}
+				imageURL += (url + key);
+			} catch (IOException e) {
+				System.out.println("메인이미지 업로드 실패");
+			}
+		}
+		
+		MyReviewWriteVO voTmp = myReviewWriteService.getReview(vo);
+		if(imageURL.length() == 0) {
+			vo.setImage(voTmp.getImage());
+		}else {
+			vo.setImage(imageURL);
+		}
+		
+		// 리뷰테이블 수정
+		myReviewWriteService.updateReviewModify(vo);
+		
+		
+		
+		// 포인트 정리 (payment_point, point_history)
+		// 페이먼트 포인트 = 멤버코드, 합산 포인트
+		// 포인트 히스토리 = 멤버코드, 추가 포인트, 설명, 타입
+		PaymentCompletePointVO pointTmpVO = new PaymentCompletePointVO();
+		PointHistoryVO pointHistoryVO = new PointHistoryVO();
+		pointTmpVO.setPayment_member_code(vo1.getMemberCode());
+		pointHistoryVO.setPoint_history_member_code(vo1.getMemberCode());
+		System.out.println("원래 내용 길이 : " + voTmp.getContent().length());
+		System.out.println("원래 이미지 길이 : " + voTmp.getImage().length());
+		if(voTmp.getContent().length() < 30 && voTmp.getImage().length() == 0) {
+			// 원래 0점
+			if(Integer.parseInt(contentCheck) == 0) {
+				System.out.println("1번");
+				// 0점
+			}else if(Integer.parseInt(contentCheck) == 1 && Integer.parseInt(imageCheck) == 0) {
+				System.out.println("2번");
+				// 100점 추가
+				pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+				pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() + 100);
+				paymentCompleteService.updateMemberPoint(pointTmpVO);
+				
+				pointHistoryVO.setPoint_history_point(100);
+				pointHistoryVO.setPoint_history_explain("후기 수정 포인트");
+				pointHistoryVO.setPoint_history_type(1);
+				pointHistoryService.insertPointHistory(pointHistoryVO);
+			}else {
+				System.out.println("3번");
+				// 300점 추가
+				pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+				pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() + 300);
+				paymentCompleteService.updateMemberPoint(pointTmpVO);
+				
+				pointHistoryVO.setPoint_history_point(300);
+				pointHistoryVO.setPoint_history_explain("후기 수정 포인트");
+				pointHistoryVO.setPoint_history_type(1);
+				pointHistoryService.insertPointHistory(pointHistoryVO);
+			}
+		}else if(voTmp.getContent().length() >= 30 && voTmp.getImage().length() == 0) {
+			// 원래 100점
+			if(Integer.parseInt(contentCheck) == 0) {
+				System.out.println("4번");
+				// - 100점
+				pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+				pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() - 100);
+				paymentCompleteService.updateMemberPoint(pointTmpVO);
+				
+				pointHistoryVO.setPoint_history_point(100);
+				pointHistoryVO.setPoint_history_explain("후기 수정 포인트");
+				pointHistoryVO.setPoint_history_type(0);
+				pointHistoryService.insertPointHistory(pointHistoryVO);
+			}else if(Integer.parseInt(contentCheck) == 1 && Integer.parseInt(imageCheck) == 0) {
+				System.out.println("5번");
+				// 0점 
+			}else {
+				System.out.println("6번");
+				// 200점 추가
+				pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+				pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() + 200);
+				paymentCompleteService.updateMemberPoint(pointTmpVO);
+				
+				pointHistoryVO.setPoint_history_point(200);
+				pointHistoryVO.setPoint_history_explain("후기 수정 포인트");
+				pointHistoryVO.setPoint_history_type(1);
+				pointHistoryService.insertPointHistory(pointHistoryVO);
+			}
+		}else if(voTmp.getContent().length() < 30 && voTmp.getImage().length() > 0) {
+			// 원래 0점
+			if(Integer.parseInt(contentCheck) == 0) {
+				System.out.println("10번");
+				// 0점
+			}else {
+				System.out.println("11번");
+				// 300점 추가 
+				pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+				pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() + 300);
+				paymentCompleteService.updateMemberPoint(pointTmpVO);
+				
+				pointHistoryVO.setPoint_history_point(300);
+				pointHistoryVO.setPoint_history_explain("후기 수정 포인트");
+				pointHistoryVO.setPoint_history_type(1);
+				pointHistoryService.insertPointHistory(pointHistoryVO);
+			}
+		}else {
+			// 원래 300점
+			if(Integer.parseInt(contentCheck) == 0) {
+				System.out.println("7번");
+				// - 300점
+				pointTmpVO = paymentCompleteService.getMemberPoint(pointTmpVO);
+				pointTmpVO.setPayment_point(pointTmpVO.getPayment_point() - 300);
+				paymentCompleteService.updateMemberPoint(pointTmpVO);
+				
+				pointHistoryVO.setPoint_history_point(300);
+				pointHistoryVO.setPoint_history_explain("후기 수정 포인트");
+				pointHistoryVO.setPoint_history_type(0);
+				pointHistoryService.insertPointHistory(pointHistoryVO);
+			}else if(Integer.parseInt(contentCheck) == 1 && Integer.parseInt(imageCheck) == 0) {
+				System.out.println("8번");
+				// 0점
+			}else {
+				System.out.println("9번");
+				// 0점
+			}
+		}
+		
+		
+		
+		// 마이페이지 나의 후기 페이지로 이동하는 과정
+		PaymentMyDetailSideInfoVO vo2 = new PaymentMyDetailSideInfoVO();
+		vo2.setPayment_member_code(vo1.getMemberCode());
+		List<PaymentMyDetailSideInfoVO> list1 = myPayInfoService.getMemberAllPaymentInfo(vo2);
+		List<List<PaymentMyDetailInfoVO>> list2 = new ArrayList<List<PaymentMyDetailInfoVO>>();
+		List<List<DetailVO>> list4 = new ArrayList<List<DetailVO>>();
+		for(int i = 0; i < list1.size(); i++) {
+			PaymentMyDetailInfoVO vo3 = new PaymentMyDetailInfoVO();
+			vo3.setPayment_code(list1.get(i).getPayment_code());
+			List<PaymentMyDetailInfoVO> list3 = myPayInfoService.getMemberPayMappingItemInfo(vo3);
+			list2.add(list3);
+		}
+		
+		for(int i = 0; i < list2.size(); i++) {
+			List<DetailVO> list5 = new ArrayList<DetailVO>();
+			for(int j = 0; j < list2.get(i).size(); j++) {
+				DetailVO vo4 = new DetailVO();
+				vo4.setItem_code(list2.get(i).get(j).getPayment_item_mapping_item_code());
+				if(list2.get(i).get(j).getPayment_item_mapping_tag_main() != 100 && list2.get(i).get(j).getPayment_item_mapping_tag_main() != 600) {
+					list5.add(detailService.getItem(vo4));
+				}else {
+					list5.add(detailService.getSubItem(vo4));
+				}
+			}
+			
+			list4.add(list5);
+		}
+		
+		int check = 0;
+		for(int i = 0; i < list2.size(); i++) {
+			for(int j = 0; j < list2.get(i).size(); j++) {
+				if(list2.get(i).get(j).getPayment_item_mapping_review() == 0) {
+					check++;
+				}
+			}
+		}
+		
+		
+		mav.addObject("check", check);
+		mav.addObject("list1", list1);
+		mav.addObject("list2", list2);
+		mav.addObject("list3", list4);
+		mav.setViewName("myReviewSearch");
 		return mav;
 	}
 }

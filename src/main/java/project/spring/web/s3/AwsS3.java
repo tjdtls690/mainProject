@@ -30,10 +30,10 @@ public class AwsS3 {
 	private AmazonS3 s3Client;
 
 	// 보안상의 문제로 수정 요망
-	private String accessKey = ""; // IAM 에서 만든 엑세스
-	private String secretKey = ""; // IAM에서 받은 시크릿 엑세스
+	private String accessKey = "AKIAZI224T6ADGZF4CML"; // IAM 에서 만든 엑세스
+	private String secretKey = "tstWvOI9H8ooB+6mSIlLeuuEeHr2jUt5pGlxhrWJ"; // IAM에서 받은 시크릿 엑세스
 	private Regions clientRegion = Regions.AP_NORTHEAST_2;
-	private String bucket = ""; // 버킷 명
+	private String bucket = "saladits3"; // 버킷 명
 
 	// 기본 생성자
 	public AwsS3() {

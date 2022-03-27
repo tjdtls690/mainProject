@@ -51,10 +51,6 @@ public class OrderController {
 			
 			if(orderItemSizeSummary != null) {
 				for(int i = 0; i < orderItemSizeSummary.length; i++) {
-					System.out.println("길이 : " + orderItemSizeSummary.length);
-					System.out.println("장바구니에서 넘어온 아이템 코드 " + i + "번째 : " + orderItemCode[i]);
-					System.out.println("장바구니에서 넘어온 아이템 수량 " + i + "번째 : " + orderQuantity[i]);
-					System.out.println("장바구니에서 넘어온 아이템 사이즈 요약 " + i + "번째 : " + orderItemSizeSummary[i]);
 					if(!orderItemSizeSummary[i].equals(null) && !orderItemSizeSummary[i].equals("") && !orderItemSizeSummary[i].equals("0")) {
 						DetailVO tmpVO = new DetailVO();
 						tmpVO.setItem_code(Integer.parseInt(orderItemCode[i]));
@@ -474,6 +470,12 @@ public class OrderController {
 		MemberZipcodeVO vo1 = memberZipcodeService.getZipcodeAll2(vo);
 		mav.addObject("memberZipcode", vo1);
 		mav.setViewName("orderCommonBesongji");
+		return mav;
+	}
+	
+	@RequestMapping("/orderInitializationModal.do")
+	public ModelAndView orderInitializationModalDo(ModelAndView mav) {
+		mav.setViewName("orderInitializationModal");
 		return mav;
 	}
 }

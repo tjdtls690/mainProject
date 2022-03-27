@@ -15,4 +15,6 @@ public interface DetailService {
 	public List<DetailVO> getTagItem(DetailVO vo);
 	
 	public List<DetailVO> getTagSubscribe(DetailVO vo);
+	
+	public List<DetailVO> getSubAllItem();
 }

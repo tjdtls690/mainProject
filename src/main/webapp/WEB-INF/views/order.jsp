@@ -31,7 +31,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=5">
+<link rel="stylesheet" href="${path }/style2.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -339,7 +339,7 @@ $(function() {
     			&& !$(e.target).hasClass("form-label") && !$(e.target).hasClass("row--v-center") && !$(e.target).hasClass("add-confirm-form") && !$(e.target).hasClass("add-confirm__empty")
     			&& !$(e.target).hasClass("result-text") && !$(e.target).hasClass("result-text-sub") && !$(e.target).hasClass("result-text-sub-morning") && !$(e.target).hasClass("disable-place-title")
     			&& !$(e.target).hasClass("disable-place-text") && !$(e.target).hasClass("name-wrap") && !$(e.target).hasClass("item__head") && !$(e.target).hasClass("round-text")
-    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small")){
+    			&& !$(e.target).hasClass("item__address") && !$(e.target).hasClass("item__nav") && !$(e.target).hasClass("button--size-small") && !$(e.target).hasClass("vue-daum-postcode")){
     		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
         	for (let i = 0; i < TimeoutId; i++) {
         	  clearTimeout(i);
@@ -2505,7 +2505,6 @@ $(function() {
  	
  	// 배송지 목록 선택 버튼
  	$(document).on('click', '.button.button--side-padding.button--size-small.select', function(){
- 		// todo
  		var member_zipcode_code = $(this).closest('li').find('input').val();
  		$('.modal').detach();
  		$.ajax({
@@ -2543,7 +2542,7 @@ $(function() {
  		})
  	});
  	
- 	// 배송지 목록 선택 버튼
+ 	// 앞으로 갔다가 뒤로가기 버튼 누른 뒤 배송지 목록 선택 버튼
  	$(document).on('click', '.button__wrap.delivery_select', function(){
  		var member_zipcode_code = $(this).closest('li').find('input').val();
  		$('.modal').detach();
@@ -2923,6 +2922,30 @@ $(function() {
         form.setAttribute('action', "paymentSingle.do"); //보내는 url
         document.body.appendChild(form);
         form.submit();
+ 	})
+ 	
+ 	
+ 	// 정기배송 주문 버튼
+ 	$(document).on('click', '.nav-tab__wrap button:odd', function(){
+ 		// 선택해놓은 물품들이 있다면 확인 모달창 띄우기
+ 		// 선택해놓은 물품들이 없다면 바로 넘기기
+ 		if($('.hidden-div-real').children('div').length > 0){
+ 			$.ajax({
+ 				url : 'orderInitializationModal.do',
+ 				dataType : 'html',
+ 				success : function(htmlOut){
+ 					$('body').append(htmlOut);
+ 				}
+ 			})
+ 		}else{
+ 			$(location).attr("href", "orderSub.do");
+ 		}
+ 	});
+ 	
+ 	
+ 	// 정기배송 주문으로 넘어가냐고 물어보는 모달창 확인 버튼
+ 	$(document).on('click', '#orderToSubPaging', function(){
+ 		$(location).attr("href", "orderSub.do");
  	})
     
  });

@@ -12,12 +12,13 @@ import project.spring.web.adminMemberManagement.AdminMemberManagementVO;
 public class AdminMemberManagementServiceImpl implements AdminMemberManagementService {
 	@Autowired
 	AdminMemberManagementDAO adminMemberManagementDAO;
-	
+
 	@Override
 	public List<AdminMemberManagementVO> getAdminMember(AdminMemberManagementVO vo) {
-		
+
 		return adminMemberManagementDAO.getAdminMember(vo);
 	}
+
 	/*
 	 * @Override public List<AdminMemberManagementVO>
 	 * getMemberDelite(AdminMemberManagementVO vo) {
@@ -29,4 +30,8 @@ public class AdminMemberManagementServiceImpl implements AdminMemberManagementSe
 		adminMemberManagementDAO.deleteMember(vo);
 	}
 
+	@Override
+	public void getActiveMember(AdminMemberManagementVO vo) {
+		adminMemberManagementDAO.getActiveMember(vo);
+	}
 }

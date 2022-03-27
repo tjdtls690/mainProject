@@ -17,7 +17,7 @@ public interface AdminMemberManagementService {
 
 	public void deleteMember(AdminMemberManagementVO vo); 
 
-
+	public void getActiveMember(AdminMemberManagementVO vo);
 	}
 
 

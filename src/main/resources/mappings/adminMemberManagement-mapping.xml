@@ -11,12 +11,16 @@
 <result property="memberBirthday" column="member_birthday"/>
 <result property="memberGender" column="member_gender"/>
 <result property="memberEmail" column="member_email"/>
+<result property="memberStop" column="member_stop"/>
 </resultMap>
 <select id="getAdminMember" resultMap="adminmemberResult" >
 SELECT * FROM member 
 </select>
 	<delete id="deleteMember">
-		DELETE FROM member WHERE member_Code = #{memberCode}
+		DELETE FROM member WHERE member_code = #{memberCode}
 	</delete>
+<update id="getActiveMember">
+UPDATE member set member_stop =#{memberStop} WHERE member_code = #{memberCode}
+</update>
 </mapper>
 

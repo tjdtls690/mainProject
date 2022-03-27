@@ -10,6 +10,7 @@ public class AdminMemberManagementVO {
 	private String memberGender;
 	private LocalDate memberBirthday;
 	private String memberPhone;
+	private String memberStop;
 	public int getMemberCode() {
 		return memberCode;
 	}
@@ -52,14 +53,18 @@ public class AdminMemberManagementVO {
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
+	public String getMemberStop() {
+		return memberStop;
+	}
+	public void setMemberStop(String memberStop) {
+		this.memberStop = memberStop;
+	}
 	@Override
 	public String toString() {
 		return "AdminMemberManagementVO [memberCode=" + memberCode + ", memberName=" + memberName + ", memberNickname="
 				+ memberNickname + ", memberEmail=" + memberEmail + ", memberGender=" + memberGender
-				+ ", memberBirthday=" + memberBirthday + ", memberPhone=" + memberPhone + "]";
+				+ ", memberBirthday=" + memberBirthday + ", memberPhone=" + memberPhone + ", memberStop=" + memberStop
+				+ "]";
 	}
-	
-	
-
 	
 }

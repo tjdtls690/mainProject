@@ -52,5 +52,34 @@ public class AdminMemberManagementController {
 		mav.setViewName("memberManagement");
 		return mav;
 	}
-	
+//	@RequestMapping(value = "/selectMember.mdo", method =RequestMethod.POST)
+//	public ModelAndView selectMemberDo(ModelAndView mav, HttpServletRequest request) {
+//		String a = request.getParameter(null);
+//		String 
+//	}
+//	
+	@RequestMapping("/activeMember.mdo")
+	public ModelAndView activeMemberDo(ModelAndView mav, HttpServletRequest request) {
+		String memberActive = request.getParameter("memberActive");
+		String b = request.getParameter("memberCode");
+		int memberCode = Integer.parseInt(b);
+		AdminMemberManagementVO vo = new AdminMemberManagementVO();
+		
+		vo.setMemberStop(memberActive);
+		vo.setMemberCode(memberCode);
+		
+		adminMemberManagementService.getActiveMember(vo);
+		AdminMemberManagementVO vo2 = new AdminMemberManagementVO();
+		List<AdminMemberManagementVO> adminMember = adminMemberManagementService.getAdminMember(vo2);
+		mav.addObject("adminMember", adminMember);
+		mav.setViewName("memberManagement");
+		
+		return mav;
+		
+		// request 로 활성 비활성 받고
+		
+				// adminMemberManagementService.deleteMember(vo); --> service 실행
+				
+				//처음에 불러오는 애들 한번더 실행
+	}
 }

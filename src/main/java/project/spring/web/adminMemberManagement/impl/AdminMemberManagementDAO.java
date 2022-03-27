@@ -21,7 +21,9 @@ public class AdminMemberManagementDAO {
 	public void deleteMember(AdminMemberManagementVO vo) {
 		sqlSessionTemplate.delete("AdminMemberManagementDAO.deleteMember", vo);
 	}
-
+	public void getActiveMember(AdminMemberManagementVO vo){
+		 sqlSessionTemplate.update("AdminMemberManagementDAO.getActiveMember", vo);
+	}
 	/*
 	 * public List<AdminMemberManagementVO> getMemberDelite(AdminMemberManagementVO
 	 * vo){ return

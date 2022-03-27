@@ -29,6 +29,11 @@ public class DetailDAO {
 		return sqlSessionTemplate.selectOne("DetailDAO.getSubItem", vo);
 	}
 	
+	public List<DetailVO> getSubAllItem() {
+//		System.out.println("--->myBatis getSubItem");
+		return sqlSessionTemplate.selectList("DetailDAO.getSubAllItem");
+	}
+	
 	public List<DetailVO> getRandom(DetailVO vo){
 //		System.out.println("--->MyBatis getRandom");
 		return sqlSessionTemplate.selectList("DetailDAO.getRandom", vo);

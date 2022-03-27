@@ -47,4 +47,9 @@ public class DetailServiceImpl implements DetailService {
 		return detailDAO.getTagSubscribe(vo);
 	}
 
+	@Override
+	public List<DetailVO> getSubAllItem() {
+		return detailDAO.getSubAllItem();
+	}
+
 }

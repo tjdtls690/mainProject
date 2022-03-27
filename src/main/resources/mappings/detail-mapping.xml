@@ -34,6 +34,7 @@
 		<result property="item_price_l_sub" column="subscribe_price_l_sub" />
 		<result property="item_image" column="subscribe_image" />
 		<result property="item_info_image" column="subscribe_info_image" />
+		<result property="subscribe_delivery_type_summary" column="subscribe_delivery_type_summary" />
 	</resultMap>
 	
 	<resultMap type="mydetail" id="detailInfo">
@@ -53,6 +54,9 @@
 	</select>
 	<select id="getSubItem" resultMap="detailResult02">
 		select * from subscribe WHERE subscribe_code = #{item_code}
+	</select>
+	<select id="getSubAllItem" resultMap="detailResult02">
+		select * from subscribe
 	</select>
 <!-- 	<select id="getRandom" resultMap="detailResult"> -->
 <!-- 		select * from item where item_tag_main= #{item_tag_main} order by rand() Limit 9; -->

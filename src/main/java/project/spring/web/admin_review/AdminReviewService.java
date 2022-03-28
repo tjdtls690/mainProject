@@ -8,4 +8,5 @@ public interface AdminReviewService {
 	public void reviewDelete(AdminReviewVO vo);
 	public void reviewReplyInsert(ReviewReplyVO vo);
 	public void reviewUpdate(AdminReviewVO vo);
+	public ReviewReplyVO getReviewReply(ReviewReplyVO vo);
 }

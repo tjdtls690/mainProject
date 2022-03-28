@@ -1,5 +1,6 @@
 package project.spring.web.admin_review;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.admin_item.AdminItemService;
@@ -47,7 +47,27 @@ public class AdminReviewController {
 		AdminReviewVO vo1 = new AdminReviewVO();
 		vo1.setReply("y");
 		List<AdminReviewVO> subReviewList = adminReviewService.getAdminSubList(vo1);
+		System.out.println("subReviewList"+subReviewList);
 		mav.addObject("subReviewList",subReviewList);
+
+		ReviewReplyVO rvo2 = new ReviewReplyVO();
+		List<ReviewReplyVO> itemReplyList = new ArrayList<ReviewReplyVO>();
+		for(int i = 0; i < itemReviewList.size(); i++) {
+			rvo2.setSeq(itemReviewList.get(i).getSeq());
+			ReviewReplyVO getReply = adminReviewService.getReviewReply(rvo2);
+			itemReplyList.add(getReply);
+		}
+		
+		ReviewReplyVO rvo3 = new ReviewReplyVO();
+		List<ReviewReplyVO> subReplyList = new ArrayList<ReviewReplyVO>();
+		for(int i = 0; i < subReviewList.size(); i++) {
+			rvo3.setSeq(subReviewList.get(i).getSeq());
+			ReviewReplyVO getReply = adminReviewService.getReviewReply(rvo3);
+			subReplyList.add(getReply);
+		}
+		
+		mav.addObject("itemReplyList", itemReplyList);
+		mav.addObject("subReplyList",subReplyList);
 		mav.setViewName("reviewManagement");
 		return mav;
 	}
@@ -64,6 +84,7 @@ public class AdminReviewController {
 		rvo.setSeq(seq);
 		rvo.setReplycontents(reply);
 		adminReviewService.reviewReplyInsert(rvo);
+//		ReviewReplyVO getReply = adminReviewService.getReviewReply(rvo);
 		
 		//reviewboard�뀒�씠釉붿뿉 reply瑜� y濡� 諛붽씀湲�
 		AdminReviewVO avo = new AdminReviewVO();
@@ -79,7 +100,7 @@ public class AdminReviewController {
 		vo1.setReply("y");
 		List<AdminReviewVO> subReviewList = adminReviewService.getAdminSubList(vo1);
 		mav.addObject("subReviewList",subReviewList);
-		
+
 		mav.setViewName("reviewManagement");
 		return mav;
 	}

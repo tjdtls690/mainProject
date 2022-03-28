@@ -34,4 +34,8 @@ public class AdminReviewDAO {
 	public void reviewUpdate(AdminReviewVO vo) {
 		sqlSessionTemplate.update("adminReviewDAO.reviewUpdate", vo);
 	}
+	
+	public ReviewReplyVO getReviewReply(ReviewReplyVO vo) {
+		return sqlSessionTemplate.selectOne("adminReviewDAO.getReviewReply", vo);
+	}
 }

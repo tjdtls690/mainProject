@@ -15,6 +15,22 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="${path }/css/style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>       
+<script type="text/javascript">
+$(function() {
+	$(document).on('click','.btn.btn-dark', function(){
+		var seq = $(this).attr('id');
+		var name = $(this).parent().siblings('td').eq(2).text();
+		var content = $(this).parent().siblings('td').eq(6).text();
+		var reply = $(this).parent().siblings('td').eq(7).text();
+		$('#reviewSeq').val(seq);
+		$('#user_name').val(name);
+		$('#content').val(content);
+		$('#reply_content').val(reply);
+		alert(reply);
+	})
+});
+</script>    
     </head>
     
 <body class="sb-nav-fixed">
@@ -138,6 +154,7 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
+											<th>답글</th>
 											<th></th>
                                         </tr>
                                     </thead>
@@ -150,11 +167,12 @@
                                             <th>아이템코드</th>
 											<th>상품명</th>
 											<th>내용</th>
+											<th>답글</th>
 											<th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="subReviewList" items="${subReviewList }">
+                                    	<c:forEach var="subReviewList" items="${subReviewList }" varStatus="i">
 	                                        <tr>
 	                                            <td>${subReviewList.seq }</td>
 												<td>${subReviewList.user_name }</td>
@@ -163,23 +181,10 @@
 												<td>${subReviewList.subscribe_code }</td>
 												<td>${subReviewList.subscribe_name }</td>
 												<td>${subReviewList.content }</td>
-	                                            <td>
-	                                            	<button type="button" class="btn btn-dark">답변확인</button>
-	                                            </td>
-	                                        </tr>
-                                        </c:forEach>
-                                        <c:forEach var="itemReviewList" items="${itemReviewList }">
-	                                        <tr>
-	                                            <td>${itemReviewList.seq }</td>
-												<td>${itemReviewList.user_name }</td>
-												<td>${itemReviewList.write_date }</td>
-												<td>${itemReviewList.item_tag_main }</td>
-												<td>${itemReviewList.item_code }</td>
-												<td>${itemReviewList.item_name }</td>
-												<td>${itemReviewList.content }</td>
+												<td>${subReplyList[i.index].replycontents }</td>
 	                                            <td>
 	                                            	<button type="button" data-bs-toggle="modal"
-													data-bs-target="#myModal" data-toggle="modal"
+													data-bs-target="#myModal" data-toggle="modal" id="${subReviewList.seq }"
 													data-target="#exampleModalCenter" class="btn btn-dark">답변확인</button>
 													<div class="modal" id="myModal">
 													<!-- form -->
@@ -217,15 +222,74 @@
 																		<tr>
 																			<th scope="row">답변</th>
 																			<td colspan="3"><textarea name="reply_content" id="reply_content"
-																					id="reply" rows="7" style="width: 100%;"></textarea>
+																					rows="7" style="width: 100%;" disabled></textarea>
 																			</td>
 																		</tr>
 																	</table>
 																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-primary" id="">수정</button>
+															</div>
+														</div>
+														<!-- </div> -->
+													</form>
+												</div>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
+                                        <c:forEach var="itemReviewList" items="${itemReviewList }" varStatus="i">
+	                                        <tr>
+	                                            <td>${itemReviewList.seq }</td>
+												<td>${itemReviewList.user_name }</td>
+												<td>${itemReviewList.write_date }</td>
+												<td>${itemReviewList.item_tag_main }</td>
+												<td>${itemReviewList.item_code }</td>
+												<td>${itemReviewList.item_name }</td>
+												<td>${itemReviewList.content }</td>
+												<td>${itemReplyList[i.index].replycontents }</td>
+	                                            <td>
+	                                            	<button type="button" data-bs-toggle="modal"
+													data-bs-target="#myModal" data-toggle="modal" id="${itemReviewList.seq }"
+													data-target="#exampleModalCenter" class="btn btn-dark">답변확인</button>
+													<div class="modal" id="myModal">
+													<!-- form -->
+													<form action="replyInsertSuccess.mdo" method="POST" name="reply">
+														<input type="hidden" name="seq" value="">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">답변확인</h5>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="modal"></button>
 																</div>
-
+																<div class="modal-body">
+																	<!-- table -->
+																	<table class="table table-bordered dataTable"
+																		cellspacing="0">
+																		<tr>
+																			<th scope="row" style="width: 15%;">리뷰번호</th>
+																			<td><input type="text" name="reviewSeq"
+																				id="reviewSeq" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row" style="width: 15%;">아이디</th>
+																			<td><input type="text" name="user_name"
+																				id="user_name" class="item_name" style="width: 40%;"
+																				disabled /></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">내용</th>
+																			<td colspan="3"><textarea name="content"
+																					id="content" rows="10" style="width: 100%;"
+																					disabled></textarea></td>
+																		</tr>
+																		<tr>
+																			<th scope="row">답변</th>
+																			<td colspan="3"><textarea name="reply_content" id="reply_content"
+																					rows="7" style="width: 100%;" disabled></textarea>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
 															</div>
 														</div>
 														<!-- </div> -->

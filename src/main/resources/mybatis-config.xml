@@ -36,7 +36,8 @@
 		<typeAlias type="project.spring.web.admin_review.AdminReviewVO" alias="adminReview"/>
 		<typeAlias type="project.spring.web.admin_statistics.AdminStatisticsVO" alias="adminStatistics"/>
 		<typeAlias type="project.spring.web.admin_statisticsDetail.AdminStatisticsDetailVO" alias="adminStatisticsDetail"/>
-		<typeAlias type="project.spring.web.my_review_write.MyReviewWriteVO" alias="myReview"/>
+		<typeAlias type="project.spring.web.admin_review.ReviewReplyVO" alias="reviewReply"/>
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />

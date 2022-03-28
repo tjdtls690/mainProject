@@ -7,7 +7,7 @@
 	<!-- 직접 프로퍼티 하나하나 매핑 시켜주는 역할 -->
 	<!-- 지금 같은 상황에선 안써도 되지만 연습삼아 쓴다. -->
 	<!-- seq(reviewNym), itemNum, title -->
-	<resultMap type="myReview" id="reviewResult01">
+	<resultMap type="myreview" id="reviewResult01">
 		<id property="seq" column="seq" />
 		<result property="item_code" column="item_code" />
 		<result property="star" column="star" />
@@ -17,7 +17,7 @@
 		<result property="image" column="image" />
 		<result property="reply" column="reply" />
 	</resultMap>
-	<resultMap type="myReview" id="reviewResult02">
+	<resultMap type="myreview" id="reviewResult02">
 		<id property="seq" column="seq" />
 		<result property="item_code" column="subscribe_code" />
 		<result property="star" column="star" />
@@ -27,26 +27,26 @@
 		<result property="image" column="image" />
 		<result property="reply" column="reply" />
 	</resultMap>
-	<insert id="insertReview" parameterType="myReview">
+	<insert id="insertReview" parameterType="myreview">
 		INSERT INTO reviewboard(item_code, star, user_name, content, image, payment_item_mapping_code)
 		VALUES(#{item_code}, #{star}, #{user_name}, #{content}, #{image}, #{payment_item_mapping_code})
 	</insert>
-	<insert id="insertSubReview" parameterType="myReview">
+	<insert id="insertSubReview" parameterType="myreview">
 		INSERT INTO reviewboard(subscribe_code, star, user_name, content, image, payment_item_mapping_code)
 		VALUES(#{subscribe_code}, #{star}, #{user_name}, #{content}, #{image}, #{payment_item_mapping_code})
 	</insert>
-	<update id="updateReview" parameterType="myReview">
+	<update id="updateReview" parameterType="myreview">
 		UPDATE reviewboard
 		SET content=#{content} WHERE seq = #{seq}
 	</update>
-	<update id="updateReviewModify" parameterType="myReview">
+	<update id="updateReviewModify" parameterType="myreview">
 		UPDATE reviewboard
 		SET star = #{star}, content = #{content}, image = #{image} WHERE seq = #{seq}
 	</update>
-	<delete id="deleteReview" parameterType="myReview">
+	<delete id="deleteReview" parameterType="myreview">
 		DELETE FROM reviewboard WHERE seq = #{seq}
 	</delete>
-	<select id="getReview" resultType="myReview">
+	<select id="getReview" resultType="myreview">
 		SELECT * FROM reviewboard WHERE seq = #{seq}
 	</select>
 	<!-- 리턴값이 그냥 VO 값으로 넘어가면 resultType 을 쓰지만 -->
@@ -76,7 +76,7 @@
 	<select id="countBoardList2" resultType="Integer">
         SELECT count(*) FROM reviewboard WHERE subscribe_code = #{item_code}
 	</select>
-	<select id="getPaymentItemMappingCodeReview" resultType="myReview">
+	<select id="getPaymentItemMappingCodeReview" resultType="myreview">
         SELECT * FROM reviewboard WHERE payment_item_mapping_code = #{payment_item_mapping_code}
 	</select>
 </mapper>

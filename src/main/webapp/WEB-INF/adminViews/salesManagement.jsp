@@ -204,13 +204,15 @@ tfoot tr:nth-child(2) th {
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Saladit-sales</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+	
 	<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-	<link href="${path}/css/style.css" rel="stylesheet" />
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link href="${path}/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
@@ -504,7 +506,7 @@ tfoot tr:nth-child(2) th {
                             <li class="breadcrumb-item active"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">상세검색</button>
                                   <div class="modal" id="myModal">
                                     <form name="" action = "" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
+								                      <div class="modal-dialog modal-centered">
 								                        <div class="modal-content">
 								                          <div class="modal-header">
 								                             <h5 class="modal-title">매출상세검색</h5>
@@ -523,7 +525,7 @@ tfoot tr:nth-child(2) th {
 				                                                <form autocomplete="off">
 															        <div class="flex-row d-flex justify-content-center">
 															            <div class="col-lg-6 col-11 px-1">
-															                <div class="input-group input-daterange" style="width:auto;"> 
+															                <div class="input-group input-daterange" style="width:100%;"> 
 															                	<input type="text" id="start" class="form-control text-left mr-2">
 															                	<label class="ml-3 form-control-placeholder" id="start-p" for="start"></label> 
 															                	<span class="fa fa-calendar" id="fa-1"></span> 
@@ -544,8 +546,8 @@ tfoot tr:nth-child(2) th {
 				                                              <td width=150>
 																<div class="row">
 																  <div class="col">
-																    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
-																    <option selected>tagMain</option>
+																    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example" style="width:100%;">
+																    <option selected>Main tag</option>
 																    <option value="100">100. 정기구독</option>
 																    <option value="200">200. 샐러드</option>
 																    <option value="300">300. 샌드위치/랩</option>
@@ -557,8 +559,8 @@ tfoot tr:nth-child(2) th {
 																  </select>
 																  </div>
 																  <div class="col" >
-																    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example">
-																    <option selected>itemCode</option>
+																    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example" style="width:100%;">
+																    <option selected>Item Code</option>
 																  </select>
 																  </div>
 																</div>

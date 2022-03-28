@@ -140,7 +140,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">주문관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">결제완료/목록</li>
+                            <li class="breadcrumb-item active">(order Management)</li>
                         </ol>
                        
                         <div class="card mb-4">
@@ -175,7 +175,6 @@
                                     <tbody>
                                     	<c:forEach var="orderList" items="${orderList }">
 	                                        <tr>
-												</td>
 	                                            <td>
 	                                            	<a class="paymentCode"><input type="hidden" id="paymentCode" value="${orderList.payment_code}" />${orderList.payment_code}</a>
 	                                            </td>

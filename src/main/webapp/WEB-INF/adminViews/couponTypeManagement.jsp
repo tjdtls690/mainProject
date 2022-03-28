@@ -13,7 +13,7 @@
         <meta name="author" content="" />
         <title>Saladit-coupon</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="${path }/css/style.css?ver=2">
+        <link rel="stylesheet" href="${path }/css/style.css?ver=3">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -182,7 +182,7 @@ $(document).ready(function(){
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                   <div class="modal" id="myModal">
                                     <form name="couponInsert" action = "couponInsert.mdo" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
+								                      <div class="modal-dialog modal-dialog-centered">
 								                        <div class="modal-content">
 								                          <div class="modal-header">
 								                             <h5 class="modal-title">Coupon</h5>
@@ -199,8 +199,8 @@ $(document).ready(function(){
 				                                              </th>
 				                                              <td width=150>
 				                                                <div class="row">
-				                                                  <div class="col" style = "margin-right : 40%;">
-				                                                    <select name="coupon_pack" class="form-select" id="couponPack" aria-label="Floating label select example">
+				                                                  <div class="col">
+				                                                    <select name="coupon_pack" class="form-select" id="couponPack" aria-label="Floating label select example" style="width:50%;">
 				                                                    <option selected>---</option>
 				                                                    <option value="100">100</option>
 				                                                    <option value="200">200</option>

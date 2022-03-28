@@ -187,12 +187,12 @@ $(function(){
             <div class="container-fluid px-4">
                <h1 class="mt-4">회원관리</h1>
                <ol class="breadcrumb mb-4">
-                  <li class="breadcrumb-item active">관리자에서 회원관리를 하는 페이지 입니다.</li>
+                  <li class="breadcrumb-item active">(Member Management)</li>
                </ol>
 
                <div class="card mb-4">
                   <div class="card-header">
-                     <i class="fas fa-table me-1"></i> 회원목록
+                     <i class="fas fa-table me-1"></i> Member List !
                   </div>
                   <div class="card-body">
                      <table id="datatablesSimple">
@@ -238,7 +238,7 @@ $(function(){
                                        </button>
                                        <ul class="dropdown-menu">
                                           <li value="활성"><a class="dropdown-item" href="#">활성<input type="hidden" value="${adminMember.memberCode }" id="memberCode" /><input type="hidden" value="활성" id="memberActive" /></a></li>
-                                          <li value="휴면"><a class="dropdown-item" href="#">휴면<input type="hidden" value="${adminMember.memberCode }" id="memberCode" /><input type="hidden" value="휴면" id="memberActive" /></a></li>
+                                          <li value="휴먼"><a class="dropdown-item" href="#">휴먼<input type="hidden" value="${adminMember.memberCode }" id="memberCode" /><input type="hidden" value="휴먼" id="memberActive" /></a></li>
                                        </ul>
                                     </div>
                                  </td>

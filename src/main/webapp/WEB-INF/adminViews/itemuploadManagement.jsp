@@ -164,14 +164,6 @@ function tagChange(e) {
 
 		 	<div id="layoutSidenav_content">
                 <main>
-                    <!--<div class="container-fluid px-4">
-                        <h1 class="mt-4">상품등록</h1>
-                         
-                        <div class="card mb-4">
-                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                     
-                            </div> -->
                             <div class = "card shadow mb-4">
            			<!-- banner Title -->
            			<div class = "card-header py-3">

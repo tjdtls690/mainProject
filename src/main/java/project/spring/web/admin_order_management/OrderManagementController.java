@@ -52,6 +52,20 @@ public class OrderManagementController {
 		mav.setViewName("orderManagementModal2");
 		return mav;
 	}
+	
+	@RequestMapping("/orderManagementModal3.mdo")
+	public ModelAndView orderManagementModal3(ModelAndView mav, AdminOrderInfoVO vo, HttpServletRequest request) {
+
+		String code = request.getParameter("itemCode");
+		int itemCode = Integer.parseInt(code);
+		System.out.println(itemCode);
+		vo.setPayment_code(itemCode);
+		
+		List<AdminOrderInfoVO> infoList = adminOrderService.getInfoList(vo);
+		mav.addObject("info", infoList);
+		mav.setViewName("orderManagementModal3");
+		return mav;
+	}
 
 	@RequestMapping("/orderDelivery.mdo")
 	public ModelAndView orderDeliveryChange(ModelAndView mav, AdminOrderVO vo, HttpServletRequest request) {

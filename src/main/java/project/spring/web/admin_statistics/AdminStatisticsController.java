@@ -6,9 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.admin_statisticsDetail.AdminStatisticsDetailService;
+import project.spring.web.admin_statisticsDetail.AdminStatisticsDetailVO;
 import project.spring.web.detail.DetailService;
 import project.spring.web.detail.DetailVO;
 
@@ -17,6 +20,8 @@ public class AdminStatisticsController {
 	
 	@Autowired
 	AdminStatisticsService adminStatisticsService;
+	@Autowired
+	AdminStatisticsDetailService adminStatisticsDetailService;
 	@Autowired
 	DetailService detailService;
 	
@@ -103,6 +108,53 @@ public class AdminStatisticsController {
 		
 		mav.setViewName("saleStatisticsTag");
 		return mav;	
+	}
+	
+	// 상세 검색시 나올것들
+	@RequestMapping("/getDetailList.mdo")
+	public ModelAndView getDetailList(ModelAndView mav,HttpServletRequest request) {
+		System.out.println("getDetailList.mdo 진입");
+		
+		String str = request.getParameter("tagMain");
+		int tagMain = Integer.parseInt(str);
+		String str2 = request.getParameter("itemCode");
+		int itemCode = Integer.parseInt(str2);
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		//System.out.println("태그메인 : "+tagMain+"아이템 코드 : "+itemCode+" 시작일 : "+start+" 마지막일 : "+end);
+		
+		
+		if(tagMain == 100 || tagMain == 600) {// 구독/세트 일때
+			
+			AdminStatisticsDetailVO vo = new AdminStatisticsDetailVO();
+			vo.setCode(itemCode);
+			vo.setTagMain(tagMain);
+			vo.setStart(start);
+			vo.setEnd(end);
+			List<AdminStatisticsDetailVO> list = adminStatisticsDetailService.getSetReportDetail(vo);
+			mav.addObject("list",list);	
+//			for(int i =0; i<list.size(); i++) {
+//				System.out.println("아이템 코드 : "+ list.get(i).getItem_code());
+//			}
+			mav.setViewName("salesStatisticsDetail");
+			
+		}else {	//단품일때
+			
+			AdminStatisticsDetailVO vo = new AdminStatisticsDetailVO();
+			vo.setCode(itemCode);
+			vo.setTagMain(tagMain);
+			vo.setStart(start);
+			vo.setEnd(end);
+			List<AdminStatisticsDetailVO> list = adminStatisticsDetailService.getItemReportDetail(vo);
+			mav.addObject("list",list);
+//			for(int i =0; i<list.size(); i++) {
+//				System.out.println("아이템 코드 : "+ list.get(i).getDate());
+//			}
+			mav.setViewName("salesStatisticsDetail");
+			
+		}
+		
+		return mav;
 	}
 	
 

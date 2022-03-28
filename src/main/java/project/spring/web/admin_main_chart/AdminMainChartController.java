@@ -118,7 +118,7 @@ public class AdminMainChartController {
 		}
 		
 // 판매량 랭킹 top 10 차트
-		List<AdminMainRankVO> rankList = adminMainRankService.saleRank10();
+		List<AdminMainRankVO> rankList = adminMainRankService.countRank10();
 		mav.addObject("rankList",rankList);
 		
 		

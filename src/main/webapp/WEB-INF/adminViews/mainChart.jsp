@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/admin"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +76,7 @@
    			      yAxes: [{
    			        ticks: {
    			          min: 0,
-   			          max: 400000,
+   			          max: 800000,
    			          maxTicksLimit: 8
    			        },
    			        gridLines: {
@@ -167,7 +168,7 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 400000,
+   	        			          max: 800000,
    	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
@@ -270,7 +271,7 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 400000,
+   	        			          max: 800000,
    	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
@@ -745,13 +746,20 @@
 									                    		<tr>
 													                 <td>${info.date }</td>
 													                 <td>${info.count }</td>
-													                 <td>${info.price }원</td>
-													                 <td>${info.delivery }원</td>
-													                 <td>${info.priceSum }원</td>
-													                 <td>${info.priceCoupon }원</td>
-													                 <td>${info.pricepoint }원</td>
-													                 <td>${info.priceSail }원</td>
-													                 <td>${info.priceFinal }원</td>
+													                 <td><fmt:formatNumber value="${info.price }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.delivery }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceSum }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceCoupon }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.pricepoint }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceSail }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceFinal }" pattern="#,### 원" /></td>
+<%-- 													                 <td>${info.price }원</td> --%>
+<%-- 													                 <td>${info.delivery }원</td> --%>
+<%-- 													                 <td>${info.priceSum }원</td> --%>
+<%-- 													                 <td>${info.priceCoupon }원</td> --%>
+<%-- 													                 <td>${info.pricepoint }원</td> --%>
+<%-- 													                 <td>${info.priceSail }원</td> --%>
+<%-- 													                 <td>${info.priceFinal }원</td> --%>
 													            </tr>
 									                    	</c:forEach>
 									                    	
@@ -807,13 +815,13 @@
 									                    		<tr>
 													                 <td>${info.date }</td>
 													                 <td>${info.count }</td>
-													                 <td>${info.price }원</td>
-													                 <td>${info.delivery }원</td>
-													                 <td>${info.priceSum }원</td>
-													                 <td>${info.priceCoupon }원</td>
-													                 <td>${info.pricepoint }원</td>
-													                 <td>${info.priceSail }원</td>
-													                 <td>${info.priceFinal }원</td>
+													                 <td><fmt:formatNumber value="${info.price }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.delivery }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceSum }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceCoupon }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.pricepoint }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceSail }" pattern="#,### 원" /></td>
+													                 <td><fmt:formatNumber value="${info.priceFinal }" pattern="#,### 원" /></td>
 													            </tr>
 									                    	</c:forEach>   
 					                                    </tbody>  
@@ -899,7 +907,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                판매금액 Best Top 10 !
+                                판매 순위 Best Top 10 !
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -925,7 +933,7 @@
                                             <td>${status.count }위</td>
                                             <td>${rank.size }</td>                      
                                             <td>${rank.totalCount }</td>
-                                            <td>${rank.sum}원</td>
+                                            <td><fmt:formatNumber value="${rank.sum}" pattern="#,### 원" /></td>
                                         </tr>
 									</c:forEach>
                                      

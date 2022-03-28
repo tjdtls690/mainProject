@@ -354,15 +354,30 @@ tfoot tr:nth-child(2) th {
    		
    		$(document).on('click','.btn.btn-primary.btn-sm',function(){
    			var tagMain = $("#item_tag_main option:selected").val();
-   			alert("tagMain : "+tagMain); 
+   			//alert("tagMain : "+tagMain); 
    			var itemCode = $("#item_tag_sub option:selected").val();
-   			alert("itemCode : "+itemCode);
+   			//alert("itemCode : "+itemCode);
    			var start = $('#start').val();
    			var end = $('#end').val();
    			//alert("시작일 : "+start+" 마지막일 : "+end);
    			
    			
-   			
+   			$.ajax({
+   				url : 'getDetailList.mdo',
+   				type : 'post',
+   				dataType: 'html',
+   				data : {
+					"tagMain" : tagMain,
+					"itemCode" : itemCode,
+					"start" : start,
+					"end" : end
+   				},
+   				success:function(htmlOut){
+   					$('.table.table-striped').children().remove();
+   					$('.table.table-striped').append(htmlOut);
+   				}
+   				
+   			});
    			
    			//검색 눌렀을시 모달창 닫을때 필요한것들
    			$('#myModal').attr('style',"display: none");
@@ -373,7 +388,7 @@ tfoot tr:nth-child(2) th {
    			$('body').removeAttr('style');
    			
    			
-   		})
+   		});
    		
    		
 

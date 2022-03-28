@@ -259,21 +259,109 @@
 
 // 리뷰, faq 클릭 이벤트
       $(function(){
-          $('.review-item').on('click', function(){
+          $(document).on('click', '.review-item', function(){
 	            $(this).children('.review-item__head').toggleClass("border-bottom-desktop-show");
 	            $(this).children('.review-desktop-toggle').toggleClass("review-hide");
           });
           
-          $('.menu-info-table-wrap').on('click',function(){
+          $(document).on('click', '.menu-info-table-wrap', function(){
               $(this).children('.menu-info-table-opener').toggleClass("border-bottom-desktop-show");
               $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
            });
        });
 // 페이징 처리
-		$(document).on('clik','',function(){
-
+		$(document).on('click','.fa.pageNum',function(){
+			var pageNum = $(this).children('#PageNumValue').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
 			
-		})
+			$.ajax({
+				url : 'paging.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode
+				},
+				success : function(data) {
+					alert("성공");
+					$('.johntest').html(data);
+				}
+			});
+		});
+		// 왼쪽 클릭
+		$(document).on('click','.fa.fa-chevron-left',function(){
+			var pageNum = $(this).children('#PageNumValuePrev').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+		
+			$.ajax({
+				url : 'pagingPrev.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode
+				},
+				success : function(data) {
+					alert("성공");
+					$('.johntest').html(data);
+				},
+				complete : function() {
+					var pageNum2 = $('.fa.fa-chevron-left').children('#PageNumValuePrev').val();
+					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			
+					
+					$.ajax({
+						url : 'bottomPrev.do',
+						type : 'post',
+						datatype : 'html',
+						data : {
+							"pageNum2" : pageNum2,
+							"itemCode2" : itemCode2
+						},
+						success : function(data2) {
+							$('.nav-paginate-wrap').html(data2);
+						}
+					});
+				}
+			});
+		});
+		// 오른쪽 클릭
+		$(document).on('click','.fa.fa-chevron-right',function(){
+			var pageNum = $(this).children('#PageNumValueNext').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			
+			$.ajax({
+				url : 'pagingNext.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode
+				},
+				success : function(data) {
+					alert("성공");
+					$('.johntest').html(data);
+				},
+				complete : function() {
+					var pageNum2 = $('.fa.fa-chevron-right').children('#PageNumValueNext').val();
+					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+					
+					
+					$.ajax({
+						url : 'bottomNext.do',
+						type : 'post',
+						datatype : 'html',
+						data : {
+							"pageNum2" : pageNum2,
+							"itemCode2" : itemCode2
+						},
+						success : function(data2) {
+							$('.nav-paginate-wrap').html(data2);
+						}
+					});
+				}
+			});
+		});
 // 드롭 다운
 		$(document).on('click','.button.dropdown',function(event){	
 			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
@@ -1676,8 +1764,8 @@
                                </div>
                             </section>
                             <section data-v-f8b893b0="" class="menu-review__index">
-                               <ul data-v-f8b893b0="">
-                               
+                            	<input type="hidden" value="${detail.item_code}" id="ItemCodeValueTest" >
+                               <ul data-v-f8b893b0="" class="johntest">
                                
                                
 	                               	  <c:forEach var="board" items="${boardList }">
@@ -1734,7 +1822,7 @@
                                         <ul class="btn-group pagination">
 										    <c:if test="${pageMaker.prev }">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
+											        <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'>
 														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
 											        <i class="fa fa-chevron-left"><img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
 											        </a>
@@ -1742,15 +1830,20 @@
 										    </c:if>
 										    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
-													<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-											        <i class="fa">${pageNum }  </i> 
+											        <a href='<c:url value="/detail.do?page=${pageNum }"/>'>
+													<a data-v-43f58a9c="" href="#">
+											        <i class="fa pageNum">
+											        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
+											        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
+											        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
+											        	${pageNum }  
+											        </i> 
 											        </a>
 											    </li>
 										    </c:forEach>
 										    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
+											        <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'>
 														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
 											        <i class="fa fa-chevron-right"><img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png"></i>
 											        </a>
@@ -1767,29 +1860,41 @@
 										<ul class="btn-group pagination">
 										    <c:if test="${pageMaker.prev }">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
-													<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
+											    	<button>
 											        	<i class="fa fa-chevron-left">
-											        	<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
-											        </a>
+											        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
+												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValuePrev" >
+											        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
+											        	</i>
+											        </button>
 											    </li>
 										    </c:if>
 										    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
-													<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-											        	<i class="fa">${pageNum }  </i> 
-											        </a>
+													<button >
+											        	<i class="fa pageNum">
+												        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
+												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
+												        	${pageNum }
+											        	 </i> 
+											   		</button>
 											    </li>
+											    &nbsp;&nbsp;&nbsp;
 										    </c:forEach>
 										    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
-														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
+													<button>
 											        	<i class="fa fa-chevron-right">
+											        		<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
+											        		<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNext" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueNext" >
 											        		<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
 											        	</i>
-											        </a>
+											        </button>
 											    </li>
 										    </c:if>
 										</ul>

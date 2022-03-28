@@ -13,7 +13,6 @@ public class Criteria { // 페이지 조회 클래스
 	public Criteria() {
 		this.page = 1;
 		this.perPageNum= 5;
-		this.item_code = 14;
 	}
 
 	public int getPage() {

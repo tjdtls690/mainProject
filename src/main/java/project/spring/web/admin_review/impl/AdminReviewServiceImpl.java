@@ -9,7 +9,7 @@ import project.spring.web.admin_review.AdminReviewService;
 import project.spring.web.admin_review.AdminReviewVO;
 import project.spring.web.admin_review.ReviewReplyVO;
 
-@Service
+@Service("AdminReviewService")
 public class AdminReviewServiceImpl implements AdminReviewService {
 	
 	@Autowired

@@ -21,8 +21,8 @@ public class AdminReviewController {
 	@Autowired
 	AdminItemService adminItemService;
 	
-	@RequestMapping("/reviewList.mdo")
-	public ModelAndView ReviewList(ModelAndView mav) {
+	@RequestMapping("/reviewListAdmin.mdo")
+	public ModelAndView ReviewList2(ModelAndView mav) {
 		AdminReviewVO vo = new AdminReviewVO();
 		vo.setReply("n");
 		List<AdminReviewVO> itemReviewList = adminReviewService.getAdminItemList(vo);
@@ -37,7 +37,7 @@ public class AdminReviewController {
 		return mav;
 	}
 	
-	@RequestMapping("/reviewManagement.mdo")
+	@RequestMapping("/reviewManagementAdmin.mdo")
 	public ModelAndView ReviewManagement(ModelAndView mav) {
 		AdminReviewVO vo = new AdminReviewVO();
 		vo.setReply("y");
@@ -59,13 +59,13 @@ public class AdminReviewController {
 		String reply = request.getParameter("reply_content");
 		System.out.println("seq : " + seq + "reply : " + reply);
 		
-		//review답글 테이블에 insert
+		//review�떟湲� �뀒�씠釉붿뿉 insert
 		ReviewReplyVO rvo = new ReviewReplyVO();
 		rvo.setSeq(seq);
 		rvo.setReplycontents(reply);
 		adminReviewService.reviewReplyInsert(rvo);
 		
-		//reviewboard테이블에 reply를 y로 바꾸기
+		//reviewboard�뀒�씠釉붿뿉 reply瑜� y濡� 諛붽씀湲�
 		AdminReviewVO avo = new AdminReviewVO();
 		avo.setSeq(seq);
 		adminReviewService.reviewUpdate(avo);

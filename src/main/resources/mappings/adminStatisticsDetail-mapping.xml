@@ -5,9 +5,93 @@
 <mapper namespace="adminStatisticsDetailDAO">
 	<resultMap type="adminStatisticsDetail" id="StatisticsDetail">
 	
-	
 	</resultMap>
 
+<!--     단품일때 -->
+	<select id="getItemReportDetail" resultMap="StatisticsDetail">
+ 	SELECT 
+	    a.payment_code as code,
+	    a.payment_date as date,
+	    b.payment_item_mapping_tag_main as tagMain,
+	    b.payment_item_mapping_item_code as itemCode,
+	    b.payment_item_mapping_item_name_size as name,
+	    b.payment_item_mapping_item_quantity as quantity,
+	    b.payment_item_mapping_item_price as price
+	 
+	FROM payment_item_mapping b  left join payment_info a on a.payment_code = b.payment_code where a.payment_code >'1396' 
+		and a.payment_date >= #{start} 
+		and a.payment_date <![CDATA[<=]]> #{end}
+		and b.payment_item_mapping_item_code= #{code}
+		and b.payment_item_mapping_tag_main != 600
+	ORDER BY payment_date;
+	</select>
+<!--     세트 일때 -->
+	<select id="getSetReportDetail" resultMap="StatisticsDetail">
+ 	SELECT 
+	    a.payment_code as code,
+	    a.payment_date as date,
+	    b.payment_item_mapping_tag_main as tagMain,
+	    b.payment_item_mapping_item_code as itemCode,
+	    b.payment_item_mapping_item_name_size as name,
+	    b.payment_item_mapping_item_quantity as quantity,
+	    b.payment_item_mapping_item_price as price
+	 
+	FROM payment_item_mapping b  left join payment_info a on a.payment_code = b.payment_code where a.payment_code >'1396' 
+		and a.payment_date >= #{start} 
+		and a.payment_date <![CDATA[<=]]> #{end}
+		and b.payment_item_mapping_item_code= #{code}
+		and b.payment_item_mapping_tag_main = 600
+	ORDER BY payment_date;
+	</select>
+<!-- 	파이차트 처음에 보여줄것 -->
+	<select id="getHowManyDetault" resultMap="StatisticsDetail">
+		SELECT
+            payment_item_mapping_tag_main as tagMain,
+            sum(payment_item_mapping_item_quantity) as count
+        FROM payment_item_mapping 
+        GROUP BY payment_item_mapping_tag_main;
+	</select>
+	
+<!-- 수량으로 랭크 10	 -->
+	<select id="getTagMainRank" resultMap="StatisticsDetail">
+       SELECT
+	       	tagMain, itemCode, count, quantity, name, price
+		   	 	from (select 
+		        payment_item_mapping_tag_main as tagMain,
+		        payment_item_mapping_item_code as itemCode,
+		        count(payment_item_mapping_item_price) as count,
+		        sum(payment_item_mapping_item_quantity) as quantity,
+		        payment_item_mapping_item_name_size as name,
+		        sum(payment_item_mapping_item_price) as price    
+        FROM payment_item_mapping  group by name) as cnt 
+        	where tagMain=#{tagMain}
+   		ORDER BY quantity DESC limit 0,10;
+	</select>
+<!-- 판매액으로 랭크 10	 -->
+	<select id="getTagMainRank2" resultMap="StatisticsDetail">
+       SELECT
+	       	tagMain, itemCode, count, quantity, name, price
+		   	 	from (select 
+		        payment_item_mapping_tag_main as tagMain,
+		        payment_item_mapping_item_code as itemCode,
+		        count(payment_item_mapping_item_price) as count,
+		        sum(payment_item_mapping_item_quantity) as quantity,
+		        payment_item_mapping_item_name_size as name,
+		        sum(payment_item_mapping_item_price) as price    
+        FROM payment_item_mapping  group by name) as cnt 
+        	where tagMain=#{tagMain}
+   		ORDER BY price DESC limit 0,10;
+	</select>
+	
+<!-- 	전체 요약 보여줄것 -->
+	<select id="getSummary" resultMap="StatisticsDetail">
+		SELECT
+            payment_item_mapping_tag_main as tagMain,
+            sum(payment_item_mapping_item_quantity) as count ,
+            sum(payment_item_mapping_item_price) as sum
+        FROM payment_item_mapping 
+        GROUP BY payment_item_mapping_tag_main  order by count desc;
+	</select>
 
 
 

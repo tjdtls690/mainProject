@@ -156,31 +156,31 @@ public class AdminReportDayController {
 		    	
 		    	cell =row.createCell(2);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getPrice());
+		    	cell.setCellValue(list.get(i).getPrice()+"원");
 		    	
 		    	cell =row.createCell(3);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getDelivery());
+		    	cell.setCellValue(list.get(i).getDelivery()+"원");
 		    	
 		    	cell =row.createCell(4);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getPriceSum());
+		    	cell.setCellValue(list.get(i).getPriceSum()+"원");
 		    	
 		    	cell =row.createCell(5);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getPriceCoupon());
+		    	cell.setCellValue(list.get(i).getPriceCoupon()+"원");
 		    	
 		    	cell =row.createCell(6);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getPricepoint());
+		    	cell.setCellValue(list.get(i).getPricepoint()+"원");
 		    	
 		    	cell =row.createCell(7);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getPriceSail());
+		    	cell.setCellValue(list.get(i).getPriceSail()+"원");
 		    	
 		    	cell =row.createCell(8);
 		    	cell.setCellStyle(bodyStyle);
-		    	cell.setCellValue(list.get(i).getPriceFinal());
+		    	cell.setCellValue(list.get(i).getPriceFinal()+"원");
 		    }
 		    
 

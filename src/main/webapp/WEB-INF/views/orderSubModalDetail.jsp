@@ -14,8 +14,7 @@
 			</div>
 			<div data-v-067cf1c4="" class="header-content">
 				<div data-v-067cf1c4="" class="header-content-left">
-					<div data-v-067cf1c4="" class="header-content-title">
-						${vo.item_name }</div>
+					<div data-v-067cf1c4="" class="header-content-title">${vo.item_name }</div>
 					<div data-v-067cf1c4="" class="header-content-badge"></div>
 					<div data-v-067cf1c4="" class="header-content-price-wrap">
 						<div data-v-067cf1c4="" class="header-content-discounted-price">
@@ -84,7 +83,7 @@
 										class="vc-popover-content-wrapper">
 										<!---->
 									</div></span> <img data-v-2706028c=""
-									src="/images/icon-calendar-active@3x.png" alt="시작일 선택 달력 아이콘"
+									src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_calendar-disabled%403x.png" alt="시작일 선택 달력 아이콘"
 									class="date-select-calendar-icon" style="cursor: pointer;">
 							</div>
 						</li>

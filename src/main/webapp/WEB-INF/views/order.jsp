@@ -1777,7 +1777,7 @@ $(function() {
     
     
     
-    
+    // 달력 펼치기 todo
     var solidCheckYear = 0; // 현재 연, 월 (불변 값) 
     var solidCheckMonth = 0;
     var solidCheckDay = 0;

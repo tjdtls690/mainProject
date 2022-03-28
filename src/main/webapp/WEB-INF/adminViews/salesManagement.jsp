@@ -249,9 +249,7 @@ tfoot tr:nth-child(2) th {
    			
    	$(function(){
 		$(document).on('click','.dropdown-item.month',function(){
-   			var getMonth = $(this).text();
-   			alert(getMonth);
-   			
+   			var getMonth = $(this).text();	
    			
    			$.ajax({
    				url : 'getMonthList.mdo',
@@ -260,16 +258,124 @@ tfoot tr:nth-child(2) th {
    				data : {
    					"getMonth" : getMonth
    				},
-   				success:function(html){
-   					alert("성공");
-   					
-   					
-   					
+   				success:function(htmlOut){
+   					$('.table.table-striped').children().remove();
+   					$('.table.table-striped').append(htmlOut);
+	
    				}
    				
    			})
    			
    		})
+   		
+//    		$(document).on('click','#item_tag_main',function(){
+   			
+//    		})
+  
+// 메인태그 클릭시 서브태그 변경  -> ajax 처리하기에 작아서 뷰에서 처리 -> subTag없어서 변경
+   		$(document).ready(function(){
+   			$('#item_tag_main').on('change',function(){
+   				var tagMain = $("#item_tag_main option:selected").val();
+   				$('#item_tag_sub').children().remove();
+   				
+   				$.ajax({
+   					url : 'getItemList.mdo',
+   					type: 'post',
+   					dataType : 'html',
+   					data :{
+   						"tagMain" : tagMain
+   					},
+   					success:function(htmlOut){
+   						$('#item_tag_sub').append(htmlOut);
+   					}
+   				
+   				
+   					
+   				})
+//    	   			if(tagMain == 100){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="101">101</option>');
+//    					$('#item_tag_sub').append('<option value="102">102</option>');
+//    	   			}else if(tagMain == 200){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="201">201</option>');
+//    					$('#item_tag_sub').append('<option value="202">202</option>');
+//    					$('#item_tag_sub').append('<option value="203">203</option>');
+//    					$('#item_tag_sub').append('<option value="204">204</option>');
+   	   				
+//    	   			}else if(tagMain == 300){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="301">301</option>');
+//    					$('#item_tag_sub').append('<option value="302">302</option>');
+   	   				
+//    	   			}else if(tagMain == 400){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="401">401</option>');
+//    					$('#item_tag_sub').append('<option value="402">402</option>');
+   	   				
+//    	   			}else if(tagMain == 500){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="501">501</option>');
+//    					$('#item_tag_sub').append('<option value="502">502</option>');
+   	   				
+//    	   			}else if(tagMain == 600){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="201">601</option>');
+//    					$('#item_tag_sub').append('<option value="602">602</option>');
+//    					$('#item_tag_sub').append('<option value="603">603</option>');
+   	   				
+//    	   			}else if(tagMain == 700){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="700">x</option>');
+   	   				
+//    	   			}else if(tagMain == 800){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="800">x</option>');
+   	   				
+//    	   			}else if(tagMain == 900){
+//    					$('#item_tag_sub').children().remove();
+//    					$('#item_tag_sub').append('<option selected>tagSub</option>');
+//    					$('#item_tag_sub').append('<option value="900">x</option>');
+   	   				
+//    	   			}
+	
+			 
+   			})
+   			
+   		})
+   		
+   		$(document).on('click','.btn.btn-primary.btn-sm',function(){
+   			var tagMain = $("#item_tag_main option:selected").val();
+   			alert("tagMain : "+tagMain); 
+   			var itemCode = $("#item_tag_sub option:selected").val();
+   			alert("itemCode : "+itemCode);
+   			var start = $('#start').val();
+   			var end = $('#end').val();
+   			//alert("시작일 : "+start+" 마지막일 : "+end);
+   			
+   			
+   			
+   			
+   			//검색 눌렀을시 모달창 닫을때 필요한것들
+   			$('#myModal').attr('style',"display: none");
+   			$('#myModal').toggleClass('show');
+   			$('#myModal').removeAttr('role');
+   			$('.modal-backdrop.show').remove();	
+   			$('body').toggleClass('modal-open');
+   			$('body').removeAttr('style');
+   			
+   			
+   		})
+   		
+   		
 
    	})
    				
@@ -424,21 +530,20 @@ tfoot tr:nth-child(2) th {
 																<div class="row">
 																  <div class="col">
 																    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
-																    <option selected>main</option>
-																    <option value="200">200</option>
-																    <option value="300">300</option>
-																    <option value="400">400</option>
-																    <option value="500">500</option>
-																    <option value="700">700</option>
-																    <option value="800">800</option>
+																    <option selected>tagMain</option>
+																    <option value="100">100. 정기구독</option>
+																    <option value="200">200. 샐러드</option>
+																    <option value="300">300. 샌드위치/랩</option>
+																    <option value="400">400. 도시락/간편식</option>
+																    <option value="500">500. 죽/스프</option>
+																    <option value="700">600. 세트상품</option>
+																    <option value="700">700. 간식</option>
+																    <option value="800">800. 음료</option>
 																  </select>
 																  </div>
 																  <div class="col" >
 																    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example">
-																    <option selected>list</option>
-																    <option value="1">101</option>
-																    <option value="2">102</option>
-																    <option value="3">103</option>
+																    <option selected>itemCode</option>
 																  </select>
 																  </div>
 																</div>

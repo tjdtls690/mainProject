@@ -5,10 +5,61 @@
 <mapper namespace="adminStatisticsDAO">
 	<resultMap type="adminStatistics" id="Statistics">
 	
-	
 	</resultMap>
 
-
+<!-- 	최근 일주일 통계 -->
+	<select id="getWeek" resultMap="Statistics">
+	 		SELECT
+					payment_date ,
+					payment_price  ,
+					payment_delivery_price ,
+					payment_sum_price ,
+					payment_coupon_price  ,
+					payment_point_price  ,
+					payment_sail_price  ,
+					payment_final_price 
+ 			FROM payment_info WHERE payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 week ) AND NOW() order by payment_date;
+	
+	</select>
+<!-- 	최근 한달 통계 -->
+	<select id="getMonth" resultMap="Statistics">
+		 	SELECT
+					payment_date ,
+					payment_price,
+					payment_delivery_price  ,
+					payment_sum_price  ,
+					payment_coupon_price  ,
+					payment_point_price ,
+					payment_sail_price  ,
+					payment_final_price
+ 			FROM payment_info WHERE payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 month ) AND NOW() order by payment_date;
+	</select>
+<!-- 	최근 세달 통계 -->
+	<select id="getMonth3" resultMap="Statistics">
+		 	SELECT
+					payment_date ,
+					payment_price,
+					payment_delivery_price  ,
+					payment_sum_price  ,
+					payment_coupon_price  ,
+					payment_point_price ,
+					payment_sail_price  ,
+					payment_final_price
+ 			FROM payment_info WHERE payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -3 month ) AND NOW() order by payment_date;
+	</select>
+<!-- 	최근 6개월 통계 -->
+	<select id="getMonth6" resultMap="Statistics">
+	 		SELECT
+					payment_date ,
+					payment_price ,
+					payment_delivery_price  ,
+					payment_sum_price ,
+					payment_coupon_price ,
+					payment_point_price  ,
+					payment_sail_price  ,
+					payment_final_price 
+ 			FROM payment_info WHERE payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -6 month ) AND NOW() order by payment_date;
+	</select>
 
 
 </mapper>

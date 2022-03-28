@@ -1874,3 +1874,26 @@ span.buttonText {
 	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_order-exit%402x.png);
 	}
 }
+
+@media (min-width: 1024px){
+	.modal-header-slot .modal-header-slot-back[data-v-3222e1c8] {
+	    top: 15px;
+	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_white.png);
+	}
+}
+
+@media (max-width: 1023px){
+	.modal-header-slot .modal-header-slot-back[data-v-3222e1c8] {
+	    left: 14px;
+	    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png);
+	}
+}
+
+.dropdown-btn .button.dropdown[data-v-4837bb91] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png);
+}
+
+.dropdown-btn-flex-wrap.disabled * .button.dropdown[data-v-4837bb91] {
+    cursor: default;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_dropdown_disabled.png);
+}

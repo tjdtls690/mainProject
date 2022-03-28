@@ -44,10 +44,9 @@ $(function() {
 				"reply_content" : reply_content
 			},
 			success : function(data){
-				 location.href = "reviewManagement.mdo";
+				location.href = "reviewManagementAdmin.mdo";
 			}
 		})
-		location.href = "reviewManagement.mdo";
 	})
 });
 

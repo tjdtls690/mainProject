@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.detail.DetailService;
@@ -119,5 +120,83 @@ public class OrderSubController {
 		mav.addObject("deliveryType", deliveryType);
 		mav.setViewName("orderSubModalFirstDetail");
 		return mav;
+	}
+	
+	@RequestMapping("/orderSubModalBackInitializationCheckModal.do")
+	public ModelAndView orderSubModalBackInitializationCheckModalDo(ModelAndView mav) {
+		mav.setViewName("orderSubModalBackInitializationCheckModal");
+		return mav;
+	}
+	
+	@RequestMapping("/orderSubModalCalendar.do")
+	public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String month, String day, String getDay) {
+		System.out.println(Integer.parseInt(month));
+		String[] dateNum;
+		if(Integer.parseInt(month) == 1 || Integer.parseInt(month) == 3 || Integer.parseInt(month) == 5 || Integer.parseInt(month) == 7
+				 || Integer.parseInt(month) == 8 || Integer.parseInt(month) == 10 || Integer.parseInt(month) == 12) {
+			dateNum = new String[38];
+		}else if(Integer.parseInt(month) == 2) {
+			if(Integer.parseInt(year) % 4 == 0){
+	            if(Integer.parseInt(year) % 400 != 0 && Integer.parseInt(year) % 100 == 0) {
+	            	dateNum = new String[35];
+	            }else {
+	            	dateNum = new String[36];
+	            }
+	        }else {
+	        	dateNum = new String[35];
+	        }
+		}else {
+			dateNum = new String[37];
+		}
+		int getDayNum = Integer.parseInt(getDay);
+		String[] getD = new String[getDayNum];
+		int mon = Integer.parseInt(month);
+		
+		mav.addObject("remainSu", getDayNum);
+		mav.addObject("remainCheck", getD);
+		mav.addObject("year", year);
+		mav.addObject("check", day);
+		mav.addObject("month", mon);
+		mav.addObject("list", dateNum);
+		mav.setViewName("orderSubModalCalendar");
+		return mav;
+	}
+	
+	@RequestMapping("/orderSubModalSelectResultAjax.do")
+	public ModelAndView orderSubModalSelectResultAjaxDo(ModelAndView mav, String subItemName, String subItemSize, String subItemWeek
+			, String subItemStartDay) {
+		
+		mav.addObject("subItemName", subItemName);
+		mav.addObject("subItemSize", subItemSize);
+		mav.addObject("subItemWeek", subItemWeek);
+		mav.addObject("subItemStartDay", subItemStartDay);
+		mav.setViewName("orderSubModalSelectResultAjax");
+		return mav;
+	}
+	
+	@RequestMapping("/orderSubModalDetailUL.do")
+	public ModelAndView orderSubModalDetailULDo(ModelAndView mav, DetailVO vo) {
+		vo = detailService.getSubItem(vo);
+		
+		mav.addObject("vo", vo);
+		mav.setViewName("orderSubModalDetailUL");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/orderSubModalPriceCal.do", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String orderSubModalPriceCalDo(ModelAndView mav, DetailVO vo, String subItemWeek, String subItemSize) {
+		vo = detailService.getSubItem(vo);
+		
+		int week = Integer.parseInt(subItemWeek);
+		String price = "";
+		
+		if(subItemSize.equals("Medium")) {
+			price = String.valueOf(Integer.parseInt(vo.getItem_price_m().replace(",", "")) * week) + "/" + String.valueOf(Integer.parseInt(vo.getItem_price_m_sub().replace(",", "")) * week);
+		}else {
+			price = String.valueOf(Integer.parseInt(vo.getItem_price_l().replace(",", "")) * week) + "/" + String.valueOf(Integer.parseInt(vo.getItem_price_l_sub().replace(",", "")) * week);
+		}
+		
+		return price;
 	}
 }

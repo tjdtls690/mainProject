@@ -14,9 +14,9 @@
 	<meta name="author" content="" />
 	<title>Saladit-admin</title>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-	<link href="${path}/css/style.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link href="${path}/css/style.css?ver=2" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
        	$(function(){
@@ -603,7 +603,8 @@
 
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
-	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
+	            <a class="navbar-brand ps-3" href="adminMainChart.mdo">
+				<img src=""></a>
 	        <!-- Sidebar Toggle-->
 	            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 	        <!-- Navbar Search-->
@@ -618,9 +619,9 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+	                        <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
 	                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
+	                        <li><hr class="dropdown-divider" /></li>-->
 	                        <li><a class="dropdown-item" href="#!">Logout</a></li>
 	                    </ul>
 	                </li>
@@ -685,15 +686,30 @@
                             <div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
                                     <a class="nav-link" href="memberManagement.mdo">회원관리</a>
-                                    <a class="nav-link" href="#">리뷰관리</a>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#UserCollapseAuth" aria-expanded="false" aria-controls="UserCollapseAuth">
+                                    리뷰관리
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="UserCollapseAuth" aria-labelledby="headingFour-four" data-bs-parent="#sidenavAccordionUser">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="reviewListAdmin.mdo">답변대기</a>
+                                            <a class="nav-link" href="reviewManagementAdmin.mdo">답변완료</a>
+                                        </nav>
+                                    </div>
                                 </nav>
                             </div>
                             
-                            <a class="nav-link" href="salesManagement.mdo">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-chart-area"></i>
-							</div> 매출/상품통계관리
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
+							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> 
+							매출/상품통계관리
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 							</a>
+							<div class="collapse" id="collapseSales" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
+                                    <a class="nav-link" href="salesManagement.mdo">매출/상품통계</a>
+                                    <a class="nav-link" href="#">카테고리별 통계</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -722,7 +738,7 @@
 										<form name="" action = "" enctype = "multipart/form-data">
 											<div class="modal-dialog">
 												<div class="modal-content" style="width:160%;">
-													<div class="modal-header" style="background-color:#BF5656 !important;">
+													<div class="modal-header" style="background-color:#F2D194 !important;">
 														<h5 class="modal-title">금 주 매출</h5>
 														<button type="button" class="btn-close week" id="btn-week" data-bs-dismiss="modal"></button>
 													</div>
@@ -791,12 +807,12 @@
                                     <form name="" action = "" enctype = "multipart/form-data">
 								                      <div class="modal-dialog">
 								                        <div class="modal-content" style="width:160%;">
-								                          <div class="modal-header" style="background-color:#BF5656 !important;">
+								                          <div class="modal-header" style="background-color:#F2D6B3 !important;">
 								                             <h5 class="modal-title">금 달 매출</h5>
 								                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								                          </div>
 								                          <div class="modal-body">
-														<table class="table table-striped" style="text-align:center;">
+														<table id="datatablesSimple" style="text-align:center;">
 														<thead style="font-size:13px;">
 					                                        <tr>
 					                                            <th>날짜</th>
@@ -910,7 +926,7 @@
                                 판매 순위 Best Top 10 !
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table table-bordered" style="font-size:14px;">
                                     <thead>
                                         <tr>
                                             <th>랭크</th>
@@ -919,14 +935,6 @@
 											<th>총 판매금액</th>                                         
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>랭크</th>
-                                            <th>상품명</th>
-                                            <th>판매횟수</th>
-											<th>총 판매금액</th> 
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                 	<c:forEach var="rank" items="${rankList}" varStatus="status"> 
                                         <tr>

@@ -273,6 +273,7 @@
 		$(document).on('click','.fa.pageNum',function(){
 			var pageNum = $(this).children('#PageNumValue').val();
 			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
 			
 			$.ajax({
 				url : 'paging.do',
@@ -280,10 +281,10 @@
 				datatype : 'html',
 				data : {
 					"pageNum" : pageNum,
-					"itemCode" : itemCode
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
 				},
 				success : function(data) {
-					alert("성공");
 					$('.johntest').html(data);
 				}
 			});
@@ -292,6 +293,7 @@
 		$(document).on('click','.fa.fa-chevron-left',function(){
 			var pageNum = $(this).children('#PageNumValuePrev').val();
 			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
 		
 			$.ajax({
 				url : 'pagingPrev.do',
@@ -299,15 +301,16 @@
 				datatype : 'html',
 				data : {
 					"pageNum" : pageNum,
-					"itemCode" : itemCode
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
 				},
 				success : function(data) {
-					alert("성공");
 					$('.johntest').html(data);
 				},
 				complete : function() {
 					var pageNum2 = $('.fa.fa-chevron-left').children('#PageNumValuePrev').val();
 					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+					var tagMain2 = $('.menu-review__index').children('#TagMainValueTest').val();
 			
 					
 					$.ajax({
@@ -316,7 +319,8 @@
 						datatype : 'html',
 						data : {
 							"pageNum2" : pageNum2,
-							"itemCode2" : itemCode2
+							"itemCode2" : itemCode2,
+							"tagMain2" : tagMain2
 						},
 						success : function(data2) {
 							$('.nav-paginate-wrap').html(data2);
@@ -329,6 +333,7 @@
 		$(document).on('click','.fa.fa-chevron-right',function(){
 			var pageNum = $(this).children('#PageNumValueNext').val();
 			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
 			
 			$.ajax({
 				url : 'pagingNext.do',
@@ -336,24 +341,25 @@
 				datatype : 'html',
 				data : {
 					"pageNum" : pageNum,
-					"itemCode" : itemCode
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
 				},
 				success : function(data) {
-					alert("성공");
 					$('.johntest').html(data);
 				},
 				complete : function() {
 					var pageNum2 = $('.fa.fa-chevron-right').children('#PageNumValueNext').val();
 					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
-					
-					
+					var tagMain2 = $('.menu-review__index').children('#TagMainValueTest').val();
+										
 					$.ajax({
 						url : 'bottomNext.do',
 						type : 'post',
 						datatype : 'html',
 						data : {
 							"pageNum2" : pageNum2,
-							"itemCode2" : itemCode2
+							"itemCode2" : itemCode2,
+							"tagMain2" : tagMain2
 						},
 						success : function(data2) {
 							$('.nav-paginate-wrap').html(data2);
@@ -1765,6 +1771,7 @@
                             </section>
                             <section data-v-f8b893b0="" class="menu-review__index">
                             	<input type="hidden" value="${detail.item_code}" id="ItemCodeValueTest" >
+                            	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueTest" >
                                <ul data-v-f8b893b0="" class="johntest">
                                
                                

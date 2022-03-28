@@ -15,7 +15,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="${path}/css/style.css?ver=2" rel="stylesheet" />
+	<link href="${path}/css/style.css?ver=3" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
        	$(function(){
@@ -561,7 +561,7 @@
 //      ------------------------  		
        	}) 
 
-       	$(document).ready(function(){
+         	$(document).ready(function(){
     function alignModal(){
         var modalDialog = $(this).find(".modal-dialog");
         
@@ -577,6 +577,8 @@
         $(".modal:visible").each(alignModal);
     });   
 });
+       	
+ 
         </script>
     </head>
     
@@ -658,9 +660,7 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="adminItemList.mdo" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        조회/등록/수정
-                                    </a>  
+                                	<a class="nav-link" href="adminItemList.mdo">조회/등록/수정</a>
                                 </nav>
                             </div>
                             
@@ -671,9 +671,9 @@
                             </a>
                             <div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
-                                    <a class="nav-link" href="#">주문목록</a>
-                                    <a class="nav-link" href="#">배송중</a>
-                                    <a class="nav-link" href="#">배송완료</a>
+                                    <a class="nav-link" href="orderManagement.mdo">주문목록</a>
+                                    <a class="nav-link" href="orderManagementDelivery.mdo">배송중</a>
+                                    <a class="nav-link" href="orderManagementDeliveryComplete.mdo">배송완료</a>
                                 </nav>
                             </div>
                             
@@ -735,8 +735,8 @@
 <!-- 									모달추가 -->
 									<div class="modal" id="myModal">
 										<form name="" action = "" enctype = "multipart/form-data">
-											<div class="modal-dialog">
-												<div class="modal-content" style="width:160%;">
+											<div class="modal-dialog modal-dialog-centered modal-lg">
+												<div class="modal-content">
 													<div class="modal-header" style="background-color:#F2D194 !important;">
 														<h5 class="modal-title">금 주 매출</h5>
 														<button type="button" class="btn-close week" id="btn-week" data-bs-dismiss="modal"></button>
@@ -797,7 +797,7 @@
                                     </button>
                                     <div class="modal" id="myModal1">
                                     <form name="" action = "" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
+								                      <div class="modal-dialog modal-dialog-centered modal-lg">
 								                        <div class="modal-content" style="width:160%;">
 								                          <div class="modal-header" style="background-color:#F2D6B3 !important;">
 								                             <h5 class="modal-title">금 달 매출</h5>

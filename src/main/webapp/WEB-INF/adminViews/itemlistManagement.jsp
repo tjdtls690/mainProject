@@ -187,12 +187,12 @@ $(function() {
 				<div class="container-fluid px-4">
 					<h1 class="mt-4">상품</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">(상품목록)</li>
+						<li class="breadcrumb-item active">(item Management)</li>
 					</ol>
 
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-table me-1"></i> 상품목록
+							<i class="fas fa-table me-1"></i> item List !
 							<button type="button" class="btn btn-outline-secondary"
 								style="padding: 0px 30px; float: right;">등록</button>
 
@@ -201,9 +201,9 @@ $(function() {
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>메인태그</th>
-										<th>서브태그</th>
-										<th>아이템코드</th>
+										<th>main</th>
+										<th>sub</th>
+										<th>code</th>
 										<th>상품명</th>
 										<th>상품명서브</th>
 										<th></th>
@@ -211,9 +211,9 @@ $(function() {
 								</thead>
 								<tfoot>
 									<tr>
-										<th>메인태그</th>
-										<th>서브태그</th>
-										<th>아이템코드</th>
+										<th>main</th>
+										<th>sub</th>
+										<th>code</th>
 										<th>상품명</th>
 										<th>상품명서브</th>
 										<th></th>

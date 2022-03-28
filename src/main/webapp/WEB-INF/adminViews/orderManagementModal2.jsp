@@ -124,7 +124,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">주문상세</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">결제완료/목록</li>
+                            <li class="breadcrumb-item active">(결제완료)</li>
                         </ol>
                        
                         <div class="card mb-4">

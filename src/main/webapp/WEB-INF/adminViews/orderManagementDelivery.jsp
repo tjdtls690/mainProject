@@ -189,7 +189,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">배송관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">배송중 목록</li>
+                            <li class="breadcrumb-item active">(delivery Management)</li>
                         </ol>
                        
                         <div class="card mb-4">

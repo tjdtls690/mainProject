@@ -13,48 +13,13 @@
         <meta name="author" content="" />
         <title>Saladit-banner</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="${path }/css/style.css?ver=1" rel="stylesheet" />
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="${path }/css/style.css?ver=1" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         
-        <style>
-       .modal-header{
-       background: #F7941E;
-       color: #fff;
-       }
-       .modal-dialog{
-       width-bottom: -50%; 
-       }
-       input[type="checkbox"] {
-	   		-webkit-appearance: none;
-	   		position: relative;
-	   		vertical-align:middle;
-	    	width: 30px;
-		    height: 22px;
-		    cursor: pointer;
-		    outline: none !important;
-		    border: 1px solid #eeeeee;
-		    border-radius: 2px;
-		    background: #eee;
-		}
-		input[type="checkbox"]:checked {
-		    -webkit-appearance: none;
-		    position: relative;
-		    width: 30px;
-		    height: 22px;
-		    cursor: pointer;
-		    vertical-align:middle;
-		    outline: none !important;
-		    border: 1px solid #eeeeee;
-		    border-radius: 2px;
- 		    background: #1E90FF;
-		    background-image : url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_check.png);
-		    background-position: 50%;
-		    background-size: 12px 8px;
-		    background-repeat: no-repeat;
-		}
-    </style>
+
         <script type="text/javascript">
         	 $(function(){
         		$(document).on('click', '.btn.btn-outline-secondary.insert', function(){
@@ -277,19 +242,19 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Banner</h1>
-                        
-                       
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">(Banner Management)</li>
+                        </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                배너목록
-                                <button type="button" class="btn btn-outline-secondary del" style="padding:0px 30px; float:right;">삭제</button>
-                                <button type="button" class="btn btn-outline-secondary insert" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
+                                Banner List !
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">등록</button>
                                  <div class="modal" id="myModal">
-								   <div class="modal-dialog">
+								   <div class="modal-dialog modal-centered">
 								      <div class="modal-content">
 								         <div class="modal-header">
-								            <h5 class="modal-title">Banner 등록</h5>
+								            <h5 class="modal-title">Banner</h5>
 								            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								         </div>
 								         <div class="modal-body">
@@ -340,58 +305,54 @@
 												</td>
 											</tr>
 	           							</table>
-
-							         <button type="submit" class="btn btn-primary submit" >Upload</button>
 	           						</form>
-
-	           						
 							         </div>
 							         <div class="modal-footer">
+							         <button type="submit" class="btn btn-primary submit" >Upload</button>
 							         </div>
 							         </div>
 							         </div>
 							         </div>
 							   </div>
 							                                
-                                
-                                
-                            </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                        	<th></th>
-                                            <th>배너이름</th>
+                                            <th>이름</th>
                                             <th>배너내용</th>
 											<th>배너이미지(데스크탑)</th> 
 											<th>배너이미지(모바일)</th> 
-											<th>배너 ID </th>
+											<th>ID</th>
+											<th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        	<th></th>
-                                            <th>배너이름</th>
+                                            <th>이름</th>
                                             <th>배너내용</th>
 											<th>배너이미지(데스크탑)</th> 
 											<th>배너이미지(모바일)</th> 
-											<th>배너 ID</th>
+											<th>ID</th>
+											<th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     	<c:forEach var="banner" items="${banner}">
                                         <tr>
-                                        	<td align="center"><input type="checkbox" name="point-check" id="point-check" class ="point-check"></td>
                                             <td><input type="hidden" value="${banner.name}" id="bannerName" />${banner.name}</td>
                                             <td><input type="hidden" value="${banner.content }" id="bannerContent" />${banner.content }</td>
                                             <td><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
                                             <td><a href="${banner.mobile}"><input type="hidden" value="${banner.mobile }" id="bannerMobile" />${banner.mobile }</a></td>
                                             <td class="bannerID"><input type="hidden" value="${banner.id}" id="bannerId" />${banner.id}</td>
+                                            <td>
+	                                            <button type="button" class="btn btn-dark" id="${coupon.coupon_code }">삭제</button>
+	                                        </td>
                                         </tr>
                                         </c:forEach>											
                                     </tbody>
                                 </table>
-                              
+                              </div>
                             </div>
                             </div> 
                             </main>
@@ -405,35 +366,5 @@
         <script src="${path }/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${path }/js/datatables-simple-demo.js"></script>
-<!--         <div class="modal" id="myModal"> -->
-<!--    <div class="modal-dialog" style="margin-bottom:-50%;"> -->
-<!--       <div class="modal-content"> -->
-<!--          <div class="modal-header"> -->
-<!--             <h5 class="modal-title">Contact us</h5> -->
-<!--             <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
-<!--          </div> -->
-<!--          <div class="modal-body"> -->
-<!--             <form> -->
-<!--                <div class="mb-3"> -->
-<!--                   <label class="form-label">Name</label> -->
-<!--                   <input type="text" class="form-control"> -->
-<!--                </div> -->
-<!--                <div class="mb-3"> -->
-<!--                   <label class="form-label">Email</label> -->
-<!--                   <input type="text" class="form-control"> -->
-<!--                </div> -->
-<!--                <div class="mb-3"> -->
-<!--                   <label class="form-label">Type your message here</label> -->
-<!--                   <textarea class="form-control"></textarea> -->
-<!--                </div> -->
-<!--             </form> -->
-<!--          </div> -->
-<!--          <div class="modal-footer"> -->
-<!--          <button type="submit" class="btn btn-primary">Submit</button> -->
-<!--          <button type="submit" class="btn btn-primary">Cancel</button> -->
-<!--          </div> -->
-<!--          </div> -->
-<!--          </div> -->
-<!--          </div> -->
     </body>
 </html>

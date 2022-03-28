@@ -175,9 +175,9 @@ $(function() {
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">리뷰</h1>
+					<h1 class="mt-4">Review</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">(리뷰목록)</li>
+						<li class="breadcrumb-item active">(Review List)</li>
 					</ol>
 
 					<div class="card mb-4">
@@ -187,13 +187,14 @@ $(function() {
 						</div>
 						<div class="card-body">
 							<table id="datatablesSimple">
-								<thead>
+								<thead style="padding:50%;">
 									<tr>
 										<th>no.</th>
-										<th>아이디</th>
+										<th>ID</th>
 										<th>날짜</th>
-										<th>메인태그</th>
-										<th>아이템코드</th>
+										<th>Main tag</th>
+										<th>Item
+										code</th>
 										<th>상품명</th>
 										<th>내용</th>
 										<th>답글</th>
@@ -203,10 +204,11 @@ $(function() {
 								<tfoot>
 									<tr>
 										<th>no.</th>
-										<th>아이디</th>
+										<th>ID</th>
 										<th>날짜</th>
-										<th>메인태그</th>
-										<th>아이템코드</th>
+										<th>Main tag</th>
+										<th>Item
+										code</th>
 										<th>상품명</th>
 										<th>내용</th>
 										<th>답글</th>

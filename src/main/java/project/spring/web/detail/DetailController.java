@@ -386,34 +386,62 @@ public class DetailController {
 		
 		String str = request.getParameter("itemCode");
 		int menuNum = Integer.parseInt(str);
-		System.out.println("paging.do 넘어온 itemCode :"+menuNum);
-
+		
+		String a = request.getParameter("tagMain");
+		int tagMain01 = Integer.parseInt(a);
+		
 		String sub = request.getParameter("pageNum");
 		int pageNum = Integer.parseInt(sub);
-		System.out.println("넘어온 pageNum 값 : "+ pageNum);
 		
-		int test = cri.getPerPageNum();
-		System.out.println(test);
-		
-//		리뷰보드( 각 품목 불러오기 )
-		cri.setItem_code(menuNum);
-		cri.setPage(pageNum);
-		
-	    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
-	    mav.addObject("boardList", list);
-//		페이징 처리
-		System.out.println("페이징 처리");
-		PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setItem_code(menuNum);
-	    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
-	    mav.addObject("pageMaker", pageMaker);
-	    System.out.println("cri.getItem_code : "+cri.getItem_code());
-	    System.out.println("");
-	    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
-		mav.setViewName("detailPaging");
-		
-		return mav;
+		if(tagMain01 == 100 ) {
+			int test = cri.getPerPageNum();
+			System.out.println(test);
+			
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+			cri.setPage(pageNum);
+			
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
+			System.out.println("페이징 처리");
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setItem_code(menuNum);
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal2(pageMaker));
+		    mav.addObject("pageMaker", pageMaker);
+		    System.out.println("cri.getItem_code : "+cri.getItem_code());
+		    System.out.println("");
+		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+			mav.setViewName("detailPaging");
+			
+			return mav;
+			
+		}else {
+			int test = cri.getPerPageNum();
+			System.out.println(test);
+			
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+			cri.setPage(pageNum);
+			
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
+			System.out.println("페이징 처리");
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setItem_code(menuNum);
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+		    mav.addObject("pageMaker", pageMaker);
+		    System.out.println("cri.getItem_code : "+cri.getItem_code());
+		    System.out.println("");
+		    System.out.println("totalcount 값 :" + pageMaker.getTotalCount());
+			mav.setViewName("detailPaging");
+			
+			return mav;
+		}
+
 	}
 	
 	@RequestMapping("/pagingNext.do")
@@ -421,24 +449,37 @@ public class DetailController {
 		
 		String str = request.getParameter("itemCode");
 		int menuNum = Integer.parseInt(str);
-		System.out.println("paging.do 넘어온 itemCode :"+menuNum);
-		
 		
 		String sub = request.getParameter("pageNum");
 		int pageNum = Integer.parseInt(sub);
-		System.out.println("넘어온 pageNum 값 : "+ pageNum);
 		
+		String a = request.getParameter("tagMain");
+		int tagMain01 = Integer.parseInt(a);
 		
-//		리뷰보드( 각 품목 불러오기 )
-		cri.setItem_code(menuNum);
-		cri.setPage(pageNum);
-	    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
-	    mav.addObject("boardList", list);
-//		페이징 처리
+		if (tagMain01 == 100) {
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+			cri.setPage(pageNum);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
 
-		mav.setViewName("detailPaging");
-		
-		return mav;
+			mav.setViewName("detailPaging");
+			
+			return mav;
+		}else {
+//			리뷰보드( 각 품목 불러오기 )
+			cri.setItem_code(menuNum);
+			cri.setPage(pageNum);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    mav.addObject("boardList", list);
+//			페이징 처리
+
+			mav.setViewName("detailPaging");
+			
+			return mav;
+		}
+
 	}
 	
 	@RequestMapping("/bottomNext.do")
@@ -446,65 +487,28 @@ public class DetailController {
 		
 		String str = request.getParameter("itemCode2");
 		int menuNum = Integer.parseInt(str);
-		System.out.println("paging.do 넘어온 itemCode :"+menuNum);
-		
 		
 		String sub = request.getParameter("pageNum2");
 		int pageNum = Integer.parseInt(sub);
-		System.out.println("넘어온 pageNum 값 : "+ pageNum);
 		
+		String a = request.getParameter("tagMain2");
+		int tagMain01 = Integer.parseInt(a);
 		
-//		리뷰보드( 각 품목 불러오기 )
-		cri.setItem_code(menuNum);
-		cri.setPage(pageNum);
-//		페이징 처리
-		PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setItem_code(menuNum);
-	    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
-	    mav.addObject("pageMaker", pageMaker);
-
-		mav.setViewName("detailPaging2");
-		
-		return mav;
-	}
-		@RequestMapping("/pagingPrev.do")
-		public ModelAndView pagingPrev(HttpServletRequest request,ModelAndView mav, Criteria cri) {
-			
-			String str = request.getParameter("itemCode");
-			int menuNum = Integer.parseInt(str);
-			System.out.println("paging.do 넘어온 itemCode :"+menuNum);
-			
-			
-			String sub = request.getParameter("pageNum");
-			int pageNum = Integer.parseInt(sub);
-			System.out.println("넘어온 pageNum 값 : "+ pageNum);
-			
-			
+		if(tagMain01 == 100) {
 //			리뷰보드( 각 품목 불러오기 )
 			cri.setItem_code(menuNum);
 			cri.setPage(pageNum);
-		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
-		    mav.addObject("boardList", list);
+//			페이징 처리
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setItem_code(menuNum);
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal2(pageMaker));
+		    mav.addObject("pageMaker", pageMaker);
 
-			mav.setViewName("detailPaging");
+			mav.setViewName("detailPaging2");
 			
 			return mav;
-		}
-		
-		@RequestMapping("/bottomPrev.do")
-		public ModelAndView bottomPrev(HttpServletRequest request,ModelAndView mav, Criteria cri) {
-			
-			String str = request.getParameter("itemCode2");
-			int menuNum = Integer.parseInt(str);
-			System.out.println("paging.do 넘어온 itemCode :"+menuNum);
-			
-			
-			String sub = request.getParameter("pageNum2");
-			int pageNum = Integer.parseInt(sub);
-			System.out.println("넘어온 pageNum 값 : "+ pageNum);
-			
-			
+		}else {
 //			리뷰보드( 각 품목 불러오기 )
 			cri.setItem_code(menuNum);
 			cri.setPage(pageNum);
@@ -518,6 +522,85 @@ public class DetailController {
 			mav.setViewName("detailPaging2");
 			
 			return mav;
+		}
+
+	}
+		@RequestMapping("/pagingPrev.do")
+		public ModelAndView pagingPrev(HttpServletRequest request,ModelAndView mav, Criteria cri) {
+			
+			String str = request.getParameter("itemCode");
+			int menuNum = Integer.parseInt(str);			
+			
+			String sub = request.getParameter("pageNum");
+			int pageNum = Integer.parseInt(sub);
+			
+			String a = request.getParameter("tagMain");
+			int tagMain01 = Integer.parseInt(a);
+			
+			if(tagMain01 == 100) {
+//				리뷰보드( 각 품목 불러오기 )
+				cri.setItem_code(menuNum);
+				cri.setPage(pageNum);
+			    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
+			    mav.addObject("boardList", list);
+
+				mav.setViewName("detailPaging");
+				
+				return mav;
+			}else {
+//				리뷰보드( 각 품목 불러오기 )
+				cri.setItem_code(menuNum);
+				cri.setPage(pageNum);
+			    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+			    mav.addObject("boardList", list);
+
+				mav.setViewName("detailPaging");
+				
+				return mav;
+			}
+
+		}
+		
+		@RequestMapping("/bottomPrev.do")
+		public ModelAndView bottomPrev(HttpServletRequest request,ModelAndView mav, Criteria cri) {
+			
+			String str = request.getParameter("itemCode2");
+			int menuNum = Integer.parseInt(str);			
+			
+			String sub = request.getParameter("pageNum2");
+			int pageNum = Integer.parseInt(sub);
+			
+			String a = request.getParameter("tagMain2");
+			int tagMain01 = Integer.parseInt(a);
+			
+			if(tagMain01 == 100) {
+				cri.setItem_code(menuNum);
+				cri.setPage(pageNum);
+//				페이징 처리
+				PageMaker pageMaker = new PageMaker();
+			    pageMaker.setCri(cri);
+			    pageMaker.setItem_code(menuNum);
+			    pageMaker.setTotalCount(writeReviewService.countBoardListTotal2(pageMaker));
+			    mav.addObject("pageMaker", pageMaker);
+
+				mav.setViewName("detailPaging2");
+				
+				return mav;
+			}else {
+				cri.setItem_code(menuNum);
+				cri.setPage(pageNum);
+//				페이징 처리
+				PageMaker pageMaker = new PageMaker();
+			    pageMaker.setCri(cri);
+			    pageMaker.setItem_code(menuNum);
+			    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+			    mav.addObject("pageMaker", pageMaker);
+
+				mav.setViewName("detailPaging2");
+				
+				return mav;
+			}
+
 		}
 
 

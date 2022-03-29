@@ -29,8 +29,8 @@
 // 			    	정기구독은 한개도 팔린게 없어서 값 10을 고정값으로 주었다..
 			      data: [10,${tagMain0}, ${tagMain1}, ${tagMain2}, ${tagMain3},
 			    	     ${tagMain4}, ${tagMain5}, ${tagMain6}],
-			      backgroundColor: ['red', 'orange', 'yellow', 'green',
-			    	  				'blue','indigo','purple','gray'],
+			      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
+	    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6'],
 			    }],
 			  },
 			});
@@ -88,8 +88,8 @@
 		   					    	  	  count[5], count[6], count[7], count[8], count[9], 
 		   					    	  
 		   					      ],
-		   					      backgroundColor: ['red', 'orange', 'yellow', 'green',
-		   					    	  				'blue','indigo','purple','gray'],
+		   					      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
+		   					    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6','#002E6E','#944CF6'],
 		   					    }],
 		   					  },
 		   					});

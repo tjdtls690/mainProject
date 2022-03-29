@@ -60,7 +60,7 @@
          
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
-     	$(document).on('click','#nut',function(){  
+     	$(document).on('click','.menu__tab-info-title.menu-info:odd',function(){  
     		//alert("영양 정보 숨기기");
     	    if($("#item_nut_show").css("display") == "none"){   
     	        $('#item_nut_show').show(); 
@@ -69,7 +69,7 @@
     	    }  
     	}); 
 // 상품 정보 고시 숨기기
-     	$(document).on('click','#info',function(){  
+     	$(document).on('click','.menu__tab-info-title.menu-info:even',function(){  
     		//alert("상품 정보 숨기기");
     	    if($("#item_info_show").css("display") == "none"){   
     	        $('#item_info_show').show(); 
@@ -259,14 +259,14 @@
 
 // 리뷰, faq 클릭 이벤트
       $(function(){
-          $(document).on('click', '.review-item', function(){
-	            $(this).children('.review-item__head').toggleClass("border-bottom-desktop-show");
-	            $(this).children('.review-desktop-toggle').toggleClass("review-hide");
+          $(document).on('click', '.review-item__head', function(){
+	            $(this).toggleClass("border-bottom-desktop-show");
+	            $(this).siblings('.review-desktop-toggle').toggleClass("review-hide");
           });
           
-          $(document).on('click', '.menu-info-table-wrap', function(){
-              $(this).children('.menu-info-table-opener').toggleClass("border-bottom-desktop-show");
-              $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
+          $(document).on('click', '.menu-info-table-opener', function(){
+              $(this).toggleClass("border-bottom-desktop-show");
+              $(this).siblings('.menu-info-table-content-wrap').toggleClass("review-hide");
            });
        });
 // 페이징 처리
@@ -414,7 +414,7 @@
 			if($(this).children().last().children().length==2){
 				priceM_Sub = $(this).children().last().children().first().text();
 				priceM_Sub = Number(priceM_Sub.replace('원', '').replace(',', ''));
-				alert("원 가격 : "+priceM_Sub);
+// 				alert("원 가격 : "+priceM_Sub);
 			}
 			var image = $('.menu__body').children().first().val();
 			var tagSub = $('#tagSub').val();
@@ -443,7 +443,7 @@
 				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
 //				test = 리스트의 id .. testM/testL = 목록 M/L 의 class
 					if(testM ==null && testL ==null){
-						alert("M / L 둘다 없다");
+// 						alert("M / L 둘다 없다");
 	 					$('.selected-detail-list').append(htmlOut);					
 	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 	 					price = Number(price.slice(0, -1));
@@ -456,10 +456,10 @@
 					else if(testM != null && testL == null){
 					    if( test == '1001'){
 					    // 클릭시 미디움이 이미 있을때
-					    alert("M은 있고 L은 없는데 M을 클릭했다.");
+// 					    alert("M은 있고 L은 없는데 M을 클릭했다.");
 							$('.1001:eq(0)').parent().next().trigger('click');
 					    }else{
-						alert("M은 있고 L은 없는데 L을 클릭했다.");
+// 						alert("M은 있고 L은 없는데 L을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);				
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 		 					price = Number(price.slice(0, -1));
@@ -471,7 +471,7 @@
 					}
 					else if(testM == null && testL !=null){
 					    if( test == '1001'){
-							alert("L는 있고 M은없는데 M을 클릭했다.");
+// 							alert("L는 있고 M은없는데 M을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 		 					price = Number(price.slice(0, -1));
@@ -481,18 +481,18 @@
 		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
 		 					
 					    }else{
-							alert("L는 있고 L를 클릭했다");
+// 							alert("L는 있고 L를 클릭했다");
 							$('.1002:eq(0)').parent().next().trigger('click');
 
 					    }
 					}
 					else if(testM != null && testL !=null){
 					    if( test == '1001'){
-					    	alert("둘다있는데 M을 클릭");
+// 					    	alert("둘다있는데 M을 클릭");
 					    	$('.1001:eq(0)').parent().next().trigger('click');
 					    	 
 					    }else{
-					    	alert("둘다있는데 L을 클릭")
+// 					    	alert("둘다있는데 L을 클릭")
 					    	$('.1002:eq(0)').parent().next().trigger('click');
 					    	
 					    }
@@ -1527,9 +1527,6 @@
                     data-gtm-vis-first-on-screen-7693391_542="15381"
                     data-gtm-vis-total-visible-time-7693391_542="3000"
                     data-gtm-vis-has-fired-7693391_542="1">
-                        <a data-v-32a18372 href="#" class>
-                            <div data-v-32a18372 class="menu__tab-review-banner"></div>
-                        </a>
                         <div data-v-f8b893b0="" data-v-32a18372="" class="menu-review">
 <!--                             <section data-v-f8b893b0="" class="menu-review__album"> -->
 <!--                                 <h3 data-v-f8b893b0="" class="menu-review__album-title"> -->
@@ -1775,7 +1772,7 @@
                                <ul data-v-f8b893b0="" class="johntest">
                                
                                
-	                               	  <c:forEach var="board" items="${boardList }">
+	                               	  <c:forEach var="board" items="${boardList }" varStatus="i">
 		                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
 		                                     <div data-v-22105fb8="" class="review-item__head">
 		                                        <div data-v-22105fb8="" class="head-rating">
@@ -1786,8 +1783,10 @@
 		                                        </div>
 		                                        <div data-v-22105fb8="" class="head-summary">
 		                                           <div data-v-22105fb8="" class="head-summary-left">
-<!-- 		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png" -->
-<!-- 		                                                  class="summary-photo"> -->
+		                                           <c:if test="${!empty board.image }">
+		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pics.png"
+		                                                  class="summary-photo">
+													</c:if>
 		                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
 		                                           </div>
 		                                           <!---->
@@ -1802,14 +1801,16 @@
 		                                        <div data-v-22105fb8="" class="review-item__body">
 		                                           <div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
 		                                           <div data-v-22105fb8="" class="review-item__photos">
-		                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-		                                                 <div data-v-22105fb8="" class="review-item__photo"
-		                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
-		                                              </div>
-		                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-		                                                 <div data-v-22105fb8="" class="review-item__photo"
-		                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
-		                                              </div>
+		                                           
+			                                           <c:forEach var="reviewImage" items="${reviewImage[i.index] }" varStatus="j">
+				                                           <c:if test="${reviewImage != '0' }">
+				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
+				                                                 <div data-v-22105fb8="" class="review-item__photo"
+				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                              </div>
+				                                           </c:if>
+		                                              </c:forEach>
+		                                              
 		                                           </div>
 		                                        </div>
 		                                        <!---->

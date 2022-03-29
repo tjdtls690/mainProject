@@ -64,11 +64,15 @@ public class DetailController {
 		System.out.println("넘어온 tagMain01 값 : "+ tagMain01);
 		String sub = request.getParameter("tagSub01");
 		if(sub !=null) {
-		int tagSub01 = Integer.parseInt(sub);
-		//System.out.println("넘어온 tagSub01 값 : "+tagSub01);
-		
-		mav.addObject("tagSub",tagSub01);
+			int tagSub01 = Integer.parseInt(sub);
+			//System.out.println("넘어온 tagSub01 값 : "+tagSub01);
+			
+			
+			
+			mav.addObject("tagSub",tagSub01);
 		}
+		
+		List<List<String>> reviewImage = new ArrayList<List<String>>();
 		
 		DetailVO VO1 = new DetailVO();
 		
@@ -127,6 +131,23 @@ public class DetailController {
 			cri.setItem_code(menuNum);
 		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
 		    mav.addObject("boardList", list);
+		    
+		    
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
@@ -230,17 +251,33 @@ public class DetailController {
 //			아이템 평균별점/게시글카운트
 			TapPageVO VO2 = new TapPageVO();
 			VO2.setItemCode(menuNum);
-			mav.addObject("avgCount", tapPageService.getAvgCount(VO2));
+			mav.addObject("avgCount", tapPageService.getAvgCount2(VO2));
+			
+			
 //			리뷰보드( 각 품목 불러오기 )
 			cri.setItem_code(menuNum);
-		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
+		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
 		    mav.addObject("boardList", list);
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
 		    pageMaker.setCri(cri);
 		    pageMaker.setItem_code(menuNum);
-		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal(pageMaker));
+		    pageMaker.setTotalCount(writeReviewService.countBoardListTotal2(pageMaker));
 		    mav.addObject("pageMaker", pageMaker);
 		    System.out.println("cri.getItem_code : "+cri.getItem_code());
 		    System.out.println("");
@@ -348,6 +385,20 @@ public class DetailController {
 			cri.setItem_code(menuNum);
 		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
 		    mav.addObject("boardList", list);
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
@@ -383,7 +434,7 @@ public class DetailController {
 
 	@RequestMapping("/paging.do")
 	public ModelAndView paging(HttpServletRequest request,ModelAndView mav, Criteria cri) {
-		
+		List<List<String>> reviewImage = new ArrayList<List<String>>();
 		String str = request.getParameter("itemCode");
 		int menuNum = Integer.parseInt(str);
 		
@@ -393,7 +444,7 @@ public class DetailController {
 		String sub = request.getParameter("pageNum");
 		int pageNum = Integer.parseInt(sub);
 		
-		if(tagMain01 == 100 ) {
+		if(tagMain01 == 100 || tagMain01 == 600) {
 			int test = cri.getPerPageNum();
 			System.out.println(test);
 			
@@ -403,6 +454,20 @@ public class DetailController {
 			
 		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
 		    mav.addObject("boardList", list);
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
@@ -427,6 +492,20 @@ public class DetailController {
 			
 		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
 		    mav.addObject("boardList", list);
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
@@ -446,7 +525,7 @@ public class DetailController {
 	
 	@RequestMapping("/pagingNext.do")
 	public ModelAndView pagingNext(HttpServletRequest request,ModelAndView mav, Criteria cri) {
-		
+		List<List<String>> reviewImage = new ArrayList<List<String>>();
 		String str = request.getParameter("itemCode");
 		int menuNum = Integer.parseInt(str);
 		
@@ -456,12 +535,26 @@ public class DetailController {
 		String a = request.getParameter("tagMain");
 		int tagMain01 = Integer.parseInt(a);
 		
-		if (tagMain01 == 100) {
+		if (tagMain01 == 100 || tagMain01 == 600) {
 //			리뷰보드( 각 품목 불러오기 )
 			cri.setItem_code(menuNum);
 			cri.setPage(pageNum);
 		    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
 		    mav.addObject("boardList", list);
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
 //			페이징 처리
 
 			mav.setViewName("detailPaging");
@@ -473,6 +566,20 @@ public class DetailController {
 			cri.setPage(pageNum);
 		    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
 		    mav.addObject("boardList", list);
+		    for(int i = 0; i < list.size(); i++) {//TODO
+		    	List<String> tmpImageList = new ArrayList<String>();
+		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+		    		tmpImageList.add("0");
+		    	}else {
+		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+		    		while(st1.hasMoreTokens()) {
+		    			tmpImageList.add(String.valueOf(st1.nextToken()));
+		    		}
+		    	}
+		    	reviewImage.add(tmpImageList);
+		    }
+		    mav.addObject("reviewImage", reviewImage);
+		    
 //			페이징 처리
 
 			mav.setViewName("detailPaging");
@@ -494,7 +601,7 @@ public class DetailController {
 		String a = request.getParameter("tagMain2");
 		int tagMain01 = Integer.parseInt(a);
 		
-		if(tagMain01 == 100) {
+		if(tagMain01 == 100 || tagMain01 == 600) {
 //			리뷰보드( 각 품목 불러오기 )
 			cri.setItem_code(menuNum);
 			cri.setPage(pageNum);
@@ -527,7 +634,7 @@ public class DetailController {
 	}
 		@RequestMapping("/pagingPrev.do")
 		public ModelAndView pagingPrev(HttpServletRequest request,ModelAndView mav, Criteria cri) {
-			
+			List<List<String>> reviewImage = new ArrayList<List<String>>();
 			String str = request.getParameter("itemCode");
 			int menuNum = Integer.parseInt(str);			
 			
@@ -537,12 +644,25 @@ public class DetailController {
 			String a = request.getParameter("tagMain");
 			int tagMain01 = Integer.parseInt(a);
 			
-			if(tagMain01 == 100) {
+			if(tagMain01 == 100 || tagMain01 == 600) {
 //				리뷰보드( 각 품목 불러오기 )
 				cri.setItem_code(menuNum);
 				cri.setPage(pageNum);
 			    List<Map<String,Object>> list = writeReviewService.selectBoardList2(cri);
 			    mav.addObject("boardList", list);
+			    for(int i = 0; i < list.size(); i++) {//TODO
+			    	List<String> tmpImageList = new ArrayList<String>();
+			    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+			    		tmpImageList.add("0");
+			    	}else {
+			    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+			    		while(st1.hasMoreTokens()) {
+			    			tmpImageList.add(String.valueOf(st1.nextToken()));
+			    		}
+			    	}
+			    	reviewImage.add(tmpImageList);
+			    }
+			    mav.addObject("reviewImage", reviewImage);
 
 				mav.setViewName("detailPaging");
 				
@@ -553,6 +673,19 @@ public class DetailController {
 				cri.setPage(pageNum);
 			    List<Map<String,Object>> list = writeReviewService.selectBoardList(cri);
 			    mav.addObject("boardList", list);
+			    for(int i = 0; i < list.size(); i++) {//TODO
+			    	List<String> tmpImageList = new ArrayList<String>();
+			    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
+			    		tmpImageList.add("0");
+			    	}else {
+			    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
+			    		while(st1.hasMoreTokens()) {
+			    			tmpImageList.add(String.valueOf(st1.nextToken()));
+			    		}
+			    	}
+			    	reviewImage.add(tmpImageList);
+			    }
+			    mav.addObject("reviewImage", reviewImage);
 
 				mav.setViewName("detailPaging");
 				
@@ -573,7 +706,7 @@ public class DetailController {
 			String a = request.getParameter("tagMain2");
 			int tagMain01 = Integer.parseInt(a);
 			
-			if(tagMain01 == 100) {
+			if(tagMain01 == 100 || tagMain01 == 600) {
 				cri.setItem_code(menuNum);
 				cri.setPage(pageNum);
 //				페이징 처리

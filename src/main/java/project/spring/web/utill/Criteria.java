@@ -4,7 +4,18 @@ package project.spring.web.utill;
 public class Criteria { // 페이지 조회 클래스
 	private int page;	// 현재 페이지 번호
 	private int perPageNum;	// 한페이지당 보여줄 게시글의 갯수
+	private int item_code;
 	
+	
+	
+	public int getItem_code() {
+		return item_code;
+	}
+
+	public void setItem_code(int item_code) {
+		this.item_code = item_code;
+	}
+
 	private int getPageStart() {	// 특정 페이지의 게시글 시작번호(게시글 시작행)
 		return (this.page-1)*perPageNum;
 	}

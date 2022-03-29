@@ -85,7 +85,7 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
    <link rel="stylesheet" href="${path }/style.css">
-   <link rel="stylesheet" href="${path }/style2.css">
+   <link rel="stylesheet" href="${path }/style2.css?ver=1">
    <script type="text/javascript">
    function page_move(tagNum){
 	   var f = document.paging; //폼 name
@@ -684,6 +684,30 @@
 		
 		})
 		
+		// 이미지 버튼 (이미지 크게 보이기)
+		$(document).on('click', '.review-item__photo', function(){
+			var image = $(this).siblings('input').val();
+			
+			$.ajax({
+				url : 'detailReviewImageModal.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'image' : image
+				},
+				success : function(htmlOut){
+					$('html').attr('class', 'mode-popup');
+					$('.menu-review').append(htmlOut);
+				}
+			})
+		})
+		
+		// 커진 이미지 클릭시 닫기
+		$(document).on('click', '.menu-review .modal', function(){
+			$(this).detach();
+			$('html').attr('class', '');
+		})
+		
 		
 
      }); //function 끝
@@ -855,10 +879,10 @@
 											</div>
 										</div>
 										<div data-v-32a18372="" class="price-wrap">
-											<b>${detail.item_price_m }원 </b>
+											<b data-v-32a18372>${detail.item_price_m }원 </b>
 											<c:if test="${detail.item_price_m_sub !='' }">
-												<b>~</b>
-												<del>${detail.item_price_m_sub }원</del>
+												<b data-v-32a18372>~</b>
+												<del data-v-32a18372>${detail.item_price_m_sub }원</del>
 											</c:if>
 										</div>
 										<ul data-v-32a18372 class="menu-detail">
@@ -1487,41 +1511,52 @@
 									<section data-v-f8b893b0="" class="menu-review__index">
 										<ul data-v-f8b893b0="">
 <!--  리뷰  -->										
-											<c:forEach var="board" items="${boardList }">
-												<li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
-													<div data-v-22105fb8="" class="review-item__head">
-														<div data-v-22105fb8="" class="head-rating">
-															<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png" class="rating-img">
-															<div data-v-22105fb8="" class="rating-count">${board.star }</div>
-														</div>
-														<div data-v-22105fb8="" class="head-summary">
-															<div data-v-22105fb8="" class="head-summary-left">
-																<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png" class="summary-photo">
-																<div data-v-22105fb8="" class="summary-text">${board.content }</div>
-															</div>
-															<!---->
-														</div>
-														<div data-v-22105fb8="" class="head-text">
-															<div data-v-22105fb8="" class="text-name">${board.user_name }</div>
-															<div data-v-22105fb8="" class="text-date">${fn:substring(board.write_date, 0, 10)}</div>
-														</div>
-													</div>
-													<div data-v-22105fb8="" class="review-desktop-toggle review-hide">
-														<div data-v-22105fb8="" class="review-item__body">
-															<div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
-															<div data-v-22105fb8="" class="review-item__photos">
-																<div data-v-22105fb8="" class="review-item__photo-wrap">
-																	<div data-v-22105fb8="" class="review-item__photo" style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
-																</div>
-																<div data-v-22105fb8="" class="review-item__photo-wrap">
-																	<div data-v-22105fb8="" class="review-item__photo" style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
-																</div>
-															</div>
-														</div>
-														<!---->
-													</div>
-												</li>
-											</c:forEach>
+											<c:forEach var="board" items="${boardList }" varStatus="i">
+		                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
+		                                     <div data-v-22105fb8="" class="review-item__head">
+		                                        <div data-v-22105fb8="" class="head-rating">
+		                                           <img data-v-22105fb8=""
+		                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png" 
+		                                              class="rating-img">
+		                                           <div data-v-22105fb8="" class="rating-count">${board.star }</div>
+		                                        </div>
+		                                        <div data-v-22105fb8="" class="head-summary">
+		                                           <div data-v-22105fb8="" class="head-summary-left">
+		                                           <c:if test="${!empty board.image }">
+		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pics.png"
+		                                                  class="summary-photo">
+													</c:if>
+		                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
+		                                           </div>
+		                                           <!---->
+		                                        </div>
+		                                        <div data-v-22105fb8="" class="head-text">
+		                                           <div data-v-22105fb8="" class="text-name">${board.user_name }</div>
+		                                           <div data-v-22105fb8="" class="text-date">${fn:substring(board.write_date, 0, 10)}</div>
+		                                        </div>
+		                                     </div>
+		                                     <div data-v-22105fb8=""
+		                                        class="review-desktop-toggle review-hide">
+		                                        <div data-v-22105fb8="" class="review-item__body">
+		                                           <div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
+		                                           <div data-v-22105fb8="" class="review-item__photos">
+		                                           
+			                                           <c:forEach var="reviewImage" items="${reviewImage[i.index] }" varStatus="j">
+				                                           <c:if test="${reviewImage != '0' }">
+				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
+				                                                 <div data-v-22105fb8="" class="review-item__photo"
+				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                                 <input type="hidden" value="${reviewImage }">
+				                                              </div>
+				                                           </c:if>
+		                                              </c:forEach>
+		                                              
+		                                           </div>
+		                                        </div>
+		                                        <!---->
+		                                     </div>
+		                                  </li>
+	                                  </c:forEach>
 											
 											<!-- 댓글 내용 열 시 추가 되어야 할 클래스 이름 :  review-item__head 부분에 border-bottom-desktop-show -->
 											<!-- 댓글 내용 열 시 사라져야 할 클래스 이름 : review-desktop-toggle 부분에 review-hide -->

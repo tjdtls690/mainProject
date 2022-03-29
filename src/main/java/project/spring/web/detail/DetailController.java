@@ -136,7 +136,7 @@ public class DetailController {
 		    for(int i = 0; i < list.size(); i++) {//TODO
 		    	List<String> tmpImageList = new ArrayList<String>();
 		    	if((list.get(i).get("image")) == null || ((String)(list.get(i).get("image"))).length() == 0) {
-		    		tmpImageList.add("0");
+		    		tmpImageList.add("0");//payment_item_mapping_code
 		    	}else {
 		    		StringTokenizer st1 = new StringTokenizer(((String)(list.get(i).get("image"))).replace(":;:", "\\"), "\\");
 		    		while(st1.hasMoreTokens()) {
@@ -1105,20 +1105,11 @@ public class DetailController {
 	}
 	
 	
-	@RequestMapping("/aaa.do")
-	public ModelAndView aaa(HttpServletRequest request, ModelAndView mav) {
-		String price = request.getParameter("price");
-		String priceSub = request.getParameter("priceSub");
-		String size = request.getParameter("size");
-		String start = request.getParameter("start");
-		String week = request.getParameter("week");
-		String code = request.getParameter("code");
-		String tag = request.getParameter("tag");
+	@RequestMapping("/detailReviewImageModal.do")
+	public ModelAndView detailReviewImageModalDo(ModelAndView mav, String image) {
 		
-		System.out.println(" "+price+" "+priceSub+" "+size+" "+start+" "+week+" "+code+" "+tag);
-		
-		
-		
+		mav.addObject("image", image);
+		mav.setViewName("detailReviewImageModal");
 		return mav;
 		
 	}

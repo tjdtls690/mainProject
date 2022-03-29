@@ -16,14 +16,11 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="${path }/style.css">
    <link rel="stylesheet" href="${path }/hmm2.css">
-   <link rel="stylesheet" href="${path }/style2.css?ver=2">
+   <link rel="stylesheet" href="${path }/style2.css?ver=5">
    
    
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
-   
-
-	 
       $(function() { 
 // 헤더 패딩
          var lastScrollTop = 0,
@@ -691,6 +688,29 @@
 		
 		})
 		
+		// 이미지 버튼 (이미지 크게 보이기)
+		$(document).on('click', '.review-item__photo', function(){
+			var image = $(this).siblings('input').val();
+			
+			$.ajax({
+				url : 'detailReviewImageModal.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'image' : image
+				},
+				success : function(htmlOut){
+					$('html').attr('class', 'mode-popup');
+					$('.menu-review').append(htmlOut);
+				}
+			})
+		})
+		
+		// 커진 이미지 클릭시 닫기
+		$(document).on('click', '.menu-review .modal', function(){
+			$(this).detach();
+			$('html').attr('class', '');
+		})
 		
 		
      }); //function 끝
@@ -722,8 +742,10 @@
     <title>Saladit!</title>
 </head>
 <body>
-    <div id="container">
-        <header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
+	<div id="__nuxt">
+	<div id="__layout">
+	<main class="viewport" data-v-67c7ff33="">
+	<header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
             <div class="header-banner-wrap" data-v-30697495><!----></div> 
             <div id="header__body" class="header__body" data-v-30697495>
                <div class="header__top" data-v-30697495>
@@ -923,6 +945,7 @@
             <!----> 
             <!---->
         </header> 
+    <div id="container">
         <div id="home">
             <!--위에 container에 padding-top:182px 주는 이유:
             헤더가 스크롤에 따라 바뀌면서 그 아래 container가 스크롤을 올리면 잘 안보임-->
@@ -1807,6 +1830,7 @@
 				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
 				                                                 <div data-v-22105fb8="" class="review-item__photo"
 				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                                 <input type="hidden" value="${reviewImage }">
 				                                              </div>
 				                                           </c:if>
 		                                              </c:forEach>
@@ -2005,6 +2029,9 @@
             
          </footer>
          
+    </div>
+    </main>
+    </div>
     </div>
     	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script

@@ -38,6 +38,7 @@
 				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
 				                                                 <div data-v-22105fb8="" class="review-item__photo"
 				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                                 <input type="hidden" value="${reviewImage }">
 				                                              </div>
 				                                           </c:if>
 		                                              </c:forEach>

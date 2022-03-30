@@ -150,7 +150,7 @@ $(function() {
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Coupon List !
+                                User Coupon List !
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">

@@ -40,6 +40,10 @@
 		VALUES(#{seq}, #{replycontents})
 	</insert>
 	
+	<select id="getReviewReply" resultType="reviewReply">
+		SELECT * FROM review_reply WHERE seq = #{seq}
+	</select>
+	
 	<update id="reviewUpdate">
 		UPDATE reviewboard SET reply = 'y' WHERE seq = #{seq}
 	</update>

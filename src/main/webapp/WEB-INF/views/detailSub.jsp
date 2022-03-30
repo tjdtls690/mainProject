@@ -48,7 +48,7 @@ $(function() {
      		var tag = $(this).children('#tagMain').attr('value');
      		f.tagMain01.value = tag;
      		f.itemCode01.value = code;
-     		alert(code);
+//      		alert(code);
      		f.action="detail.do"; 
      		f.method="post";
      		f.submit();
@@ -56,8 +56,8 @@ $(function() {
          
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
-     	$(document).on('click','#nutrition-info',function(){  
-    		alert("영양 정보 숨기기");
+     	$(document).on('click','.menu__tab-info-title.menu-info:odd',function(){  
+//     		alert("영양 정보 숨기기");
     	    if($("#item_nut_show").css("display") == "none"){   
     	        $('#item_nut_show').show(); 
     	    } else {  
@@ -66,8 +66,8 @@ $(function() {
     	}); 
      	
 // 상품 정보 고시 숨기기
-     	$(document).on('click','#product-info',function(){  
-    		alert("상품 정보 숨기기");
+     	$(document).on('click','.menu__tab-info-title.menu-info:even',function(){  
+//     		alert("상품 정보 숨기기");
     	    if($("#item_info_show").css("display") == "none"){   
     	        $('#item_info_show').show(); 
     	    } else {  
@@ -80,7 +80,7 @@ $(function() {
 			var p = document.passNum;
 			var code = $(this).children('#itemCode').attr('value');
 			var tag = $(this).children('#tagMain').attr('value');
-			alert("code의 값 :" +code);
+// 			alert("code의 값 :" +code);
 			p.itemCode.value = code;
 			p.tagMain.value = tag;
 			p.action="test.do";
@@ -90,15 +90,15 @@ $(function() {
 
 // 리뷰, faq 클릭 이벤트
       $(function(){
-          $('.review-item').on('click', function(){
-	            $(this).children('.review-item__head').toggleClass("border-bottom-desktop-show");
-	            $(this).children('.review-desktop-toggle').toggleClass("review-hide");
-          });
-          
-          $('.menu-info-table-wrap').on('click',function(){
-              $(this).children('.menu-info-table-opener').toggleClass("border-bottom-desktop-show");
-              $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
-           });
+    	  $(document).on('click', '.review-item__head', function(){
+	            $(this).toggleClass("border-bottom-desktop-show");
+	            $(this).siblings('.review-desktop-toggle').toggleClass("review-hide");
+        });
+        
+        $(document).on('click', '.menu-info-table-opener', function(){
+            $(this).toggleClass("border-bottom-desktop-show");
+            $(this).siblings('.menu-info-table-content-wrap').toggleClass("review-hide");
+         });
        });
        
 // 페이징 처리
@@ -159,24 +159,23 @@ $(function() {
 			var size = $('.setSize').val();
 
 	//미디움 클릭후 가격 셋팅		
-			if(size =='Medium'){ 			
-				alert("미디움일때");
+			if(size =='Medium'){ 		
 				$('.setPrice').val(subPriceM);
 				var setPrice = $('.setPrice').val();
 				var totalPrice = setPrice*selectedWeek;
 				$('.setTotal').val(totalPrice);
 			
-				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+// 				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 			
 	// 라지 클릭후 가격 셋팅					
 			}else if(size =="Large"){							
-				alert("라지일때");
+// 				alert("라지일때");
 				$('.setPrice').val(subPriceL);
 				var setPrice = $('.setPrice').val();
 				var totalPrice = setPrice*selectedWeek;
 				$('.setTotal').val(totalPrice);
 				
-				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
+// 				alert("주당 가격 : "+setPrice+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 				
 			}else{
 				alert("사이즈를 먼저 선택해주세요");
@@ -211,7 +210,7 @@ $(function() {
 				$('div').detach('.vc-popover-content-wrapper:eq(1)'); // 이름이 같아서 2번째인 달력을 detach
 				$('.vc-popover-content-wrapper').removeAttr('style'); //스타일을 다지워줌
 			}else{	
-				alert("없음");
+// 				alert("없음");
 				$.ajax({
 					url : 'calendar.do',
 					type : 'post',
@@ -220,7 +219,7 @@ $(function() {
 						"test" : test
 					},
 					success : function(htmlOut){
-						alert("success");
+// 						alert("success");
 						$('.v-date-custom').append(htmlOut);
 						
 					}
@@ -261,7 +260,7 @@ $(function() {
 					"start": start
 				},
 				success : function(htmlOut){
-					alert("성공!");
+// 					alert("성공!");
 					$('.menu__select-size').append(htmlOut);
 					
 					
@@ -286,7 +285,7 @@ $(function() {
 		
 // 구독 상세명서 삭제 버튼		
 		$(document).on('click','.selected-detail__close',function(){
-			alert("삭제버튼");
+// 			alert("삭제버튼");
 			$('.selected-detail-wrap').detach();
 		// 현재 저장되어있는 값 초기화.
 			var nothing ="";
@@ -300,7 +299,7 @@ $(function() {
 		
 // 식단확인 및 변경 클릭
 		$(document).on('click','.selected-detail__btn',function(){
-			alert("식단변경");
+// 			alert("식단변경");
 			var test ="";
 			$.ajax({
 				url : 'modal.do',
@@ -310,9 +309,9 @@ $(function() {
 					'test' : test
 				},
 				success : function(htmlOut){
-					alert("ajax들어옴");
+// 					alert("ajax들어옴");
 					$('.menu').append(htmlOut);
-					alert("성공!");
+// 					alert("성공!");
 				}
 			}); // ajax 끝
 			
@@ -1230,234 +1229,7 @@ $(function() {
                     data-gtm-vis-first-on-screen-7693391_542="15381"
                     data-gtm-vis-total-visible-time-7693391_542="3000"
                     data-gtm-vis-has-fired-7693391_542="1">
-                        <a data-v-32a18372 href="#" class>
-                            <div data-v-32a18372 class="menu__tab-review-banner"></div>
-                        </a>
                         <div data-v-f8b893b0="" data-v-32a18372="" class="menu-review">
-                            <section data-v-f8b893b0="" class="menu-review__album">
-                                <h3 data-v-f8b893b0="" class="menu-review__album-title">
-                                  고객 후기 사진 (13)
-                                </h3>
-                                <div data-v-f8b893b0="" class="images">
-                                  <div data-v-f8b893b0="">
-                                     <span id="carousel_prev_nj8u0ztnu9d" style=""></span>
-                                     <div id="carousel_ola7225lcr9"
-                                        class="owl-carousel owl-theme owl-loaded">
-                                        <div class="owl-stage-outer">
-                                           <div class="owl-stage"
-                                              style="transform: translate3d(-1224px, 0px, 0px); transition: all 0s ease 0s; width: 5100px;">
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="7"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44177_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="8"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44178_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="9"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44144_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="10"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44145_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="11"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44112_20220119135334&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="12"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44090_20220119113045&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="0"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="1"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="2"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="3"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44276_20220121141048&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="4"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44231_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item active"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="5"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44232_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="6"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44194_20220120145825&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="7"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44177_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="8"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44178_20220120123659&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="9"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44144_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="10"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44145_20220120071145&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="11"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44112_20220119135334&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="12"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44090_20220119113045&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="0"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="1"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="2"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44324_20220122204821&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="3"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44276_20220121141048&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="4"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44231_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                              <div class="owl-item cloned"
-                                                 style="width: 180px; margin-right: 24px;">
-                                                 <div data-v-f8b893b0="" class="images__image">
-                                                    <a data-v-f8b893b0="" href="#"><i
-                                                       data-v-f8b893b0="" id="5"
-                                                       style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44232_20220121072316&quot;);"></i></a>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <div class="owl-nav">
-                                           <div class="owl-prev">next</div>
-                                           <div class="owl-next">prev</div>
-                                        </div>
-                                        <div class="owl-dots disabled"></div>
-                                     </div>
-                                     <span id="carousel_next_tc5wlekmakl"></span>
-                                  </div>
-                               </div>
-                            </section>
                             <section data-v-f8b893b0="" class="menu-review__rating">
                                <div data-v-f8b893b0="" class="wrap">
                                   <h3 data-v-f8b893b0="">고객 후기</h3>

@@ -7,7 +7,10 @@
 <html lang="en">
 <head>
 <style>
-
+/*   input {
+	display:inline-block;
+	} */
+	
 input:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
@@ -17,8 +20,8 @@ input:focus {
 }
 
 .fa-calendar {
-    position: absolute;
-    top: 13px;
+    /* position: absolute;
+    top: 13px; */
     font-size: 20px;
     color: #1976D2;
     z-index: 1000
@@ -77,14 +80,14 @@ button:focus {
     align-content: center !important;
     padding: 0 !important
 }
-/*
- .datepicker-dropdown {
+
+/*  .datepicker-dropdown {
     top: 180px !important;
     left: calc(50% - 173.5px) !important;
     border-right: #1976D2;
     border-left: #1976D2
 } 
-*/
+
 .datepicker-dropdown.datepicker-orient-left:before {
     left: calc(50% - 6px) !important
 }
@@ -96,7 +99,7 @@ button:focus {
 
 .datepicker-dropdown.datepicker-orient-right:after {
     border-bottom-color: #1976D2
-}
+} */
 
 .datepicker table tr td.today,
 span.focused {
@@ -204,13 +207,15 @@ tfoot tr:nth-child(2) th {
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Saladit-sales</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+	
 	<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-	<link href="${path}/css/style.css" rel="stylesheet" />
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link href="${path}/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
@@ -401,7 +406,7 @@ tfoot tr:nth-child(2) th {
     <body class="sb-nav-fixed">
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
-	            <a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
+	            <a class="navbar-brand ps-3" href="adminMainChart.mdo">Saladit - admin</a>
 	        <!-- Sidebar Toggle-->
 	            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 	        <!-- Navbar Search-->
@@ -416,9 +421,7 @@ tfoot tr:nth-child(2) th {
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-	                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
+	                        
 	                        <li><a class="dropdown-item" href="#!">Logout</a></li>
 	                    </ul>
 	                </li>
@@ -456,9 +459,7 @@ tfoot tr:nth-child(2) th {
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        조회/등록/수정
-                                    </a>  
+                                	<a class="nav-link" href="adminItemList.mdo">조회/등록/수정</a>
                                 </nav>
                             </div>
                             
@@ -469,9 +470,9 @@ tfoot tr:nth-child(2) th {
                             </a>
                             <div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
-                                    <a class="nav-link" href="#">주문목록</a>
-                                    <a class="nav-link" href="#">배송중</a>
-                                    <a class="nav-link" href="#">배송완료</a>
+                                    <a class="nav-link" href="orderManagement.mdo">주문목록</a>
+                                    <a class="nav-link" href="orderManagementDelivery.mdo">배송중</a>
+                                    <a class="nav-link" href="orderManagementDeliveryComplete.mdo">배송완료</a>
                                 </nav>
                             </div>
                             
@@ -483,15 +484,30 @@ tfoot tr:nth-child(2) th {
                             <div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
                                     <a class="nav-link" href="memberManagement.mdo">회원관리</a>
-                                    <a class="nav-link" href="#">리뷰관리</a>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#UserCollapseAuth" aria-expanded="false" aria-controls="UserCollapseAuth">
+                                    리뷰관리
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="UserCollapseAuth" aria-labelledby="headingFour-four" data-bs-parent="#sidenavAccordionUser">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="reviewListAdmin.mdo">답변대기</a>
+                                            <a class="nav-link" href="reviewManagementAdmin.mdo">답변완료</a>
+                                        </nav>
+                                    </div>
                                 </nav>
                             </div>
                             
-                            <a class="nav-link" href="#">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-chart-area"></i>
-							</div> 매출/상품통계관리
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
+							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> 
+							매출/상품통계관리
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 							</a>
+							<div class="collapse" id="collapseSales" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
+                                    <a class="nav-link" href="salesManagement.mdo">매출/상품통계</a>
+                                    <a class="nav-link" href="pieChart.mdo">카테고리별 통계</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -500,11 +516,12 @@ tfoot tr:nth-child(2) th {
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">매출통계</h1>
-                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">상세검색</button>
+                         <ol class="breadcrumb mb-4" >
+                            <li class="breadcrumb-item active" >
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">상세검색</button>
                                   <div class="modal" id="myModal">
                                     <form name="" action = "" enctype = "multipart/form-data">
-								                      <div class="modal-dialog">
+								                      <div class="modal-dialog modal-centered modal-lg">
 								                        <div class="modal-content">
 								                          <div class="modal-header">
 								                             <h5 class="modal-title">매출상세검색</h5>
@@ -523,16 +540,16 @@ tfoot tr:nth-child(2) th {
 				                                                <form autocomplete="off">
 															        <div class="flex-row d-flex justify-content-center">
 															            <div class="col-lg-6 col-11 px-1">
-															                <div class="input-group input-daterange" style="width:auto;"> 
-															                	<input type="text" id="start" class="form-control text-left mr-2">
+															                <div class="input-group input-daterange"> 
+															                	<input type="text" id="start" class="form-control text-left mr-2" style="width:50px;">
 															                	<label class="ml-3 form-control-placeholder" id="start-p" for="start"></label> 
-															                	<span class="fa fa-calendar" id="fa-1"></span> 
-															                	<input type="text" id="end" class="form-control text-left ml-2"> 
+															                	<!-- <span class="fa fa-calendar" id="fa-1"></span>  -->
+															                	<input type="text" id="end" class="form-control text-left ml-2" style="width:50px;"> 
 															                	<label class="ml-3 form-control-placeholder" id="end-p" for="end"></label> 
-															                	<span class="fa fa-calendar" id="fa-2"></span> 
+															                	<!-- <span class="fa fa-calendar" id="fa-2"></span>  -->
 															                </div>
 															            </div>
-															        </div>       
+															        </div>      
 															    </form>
 				                                              </td>
 				                                            </tr>
@@ -544,8 +561,8 @@ tfoot tr:nth-child(2) th {
 				                                              <td width=150>
 																<div class="row">
 																  <div class="col">
-																    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
-																    <option selected>tagMain</option>
+																    <select name="item_tag_main" id="item_tag_main" onchange="tagChange(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example" style="width:100%;">
+																    <option selected>Main tag</option>
 																    <option value="100">100. 정기구독</option>
 																    <option value="200">200. 샐러드</option>
 																    <option value="300">300. 샌드위치/랩</option>
@@ -557,8 +574,8 @@ tfoot tr:nth-child(2) th {
 																  </select>
 																  </div>
 																  <div class="col" >
-																    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example">
-																    <option selected>itemCode</option>
+																    <select name="item_tag_sub" id="item_tag_sub" class="form-select" id="subTag" aria-label="Floating label select example" style="width:100%;">
+																    <option selected>Item Code</option>
 																  </select>
 																  </div>
 																</div>
@@ -580,7 +597,7 @@ tfoot tr:nth-child(2) th {
 			                            <div class="card-header">
 			                                <i class="fas fa-table me-1"></i>
 			                                매출통계
-			                               <div class="dropdown" style="float:right;">
+			                                             <div class="dropdown" style="float:right;">
 											  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 											    ----------------
 											  </button>
@@ -590,6 +607,7 @@ tfoot tr:nth-child(2) th {
 											    <li><button class="dropdown-item month" type="button">최근 6개월</button></li>
 											  </ul>
 											</div>
+			                               
 												</div> <!-- card header -->
 
                             <div class="card-body">
@@ -603,7 +621,6 @@ tfoot tr:nth-child(2) th {
 											<th>결제 금액</th>                                         
                                         </tr>
                                     </thead>
-
                                 </table>
                                 </div>
                             </div> <!-- card mb-4 -->

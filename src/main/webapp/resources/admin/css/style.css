@@ -33,22 +33,22 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #C2C0A6;
+  --bs-primary:  #F2D194;
   --bs-secondary: #6c757d;
-  --bs-success: #198754;
+  --bs-success: #F2B885;
   --bs-info: #0dcaf0;
-  --bs-warning: #A8B545;
-  --bs-danger: #dc3545;
+  --bs-warning:#F2D6B3;
+  --bs-danger: #D98D62;
   --bs-light: #f8f9fa;
-  --bs-dark: #024554;
-  --bs-primary-rgb: 194, 192, 166;
+  --bs-dark:  #454C59;
+  --bs-primary-rgb: 242, 209, 148;
   --bs-secondary-rgb: 108, 117, 125;
-  --bs-success-rgb: 25, 135, 84;
+  --bs-success-rgb: 242, 184, 133;
   --bs-info-rgb: 13, 202, 240;
-  --bs-warning-rgb: 168, 181, 69;
-  --bs-danger-rgb: 220, 53, 69;
+  --bs-warning-rgb: 242, 214, 179;
+  --bs-danger-rgb: 217, 141, 98;
   --bs-light-rgb: 248, 249, 250;
-  --bs-dark-rgb: 2, 69, 84;
+  --bs-dark-rgb: 69, 76, 89;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
@@ -109,7 +109,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 }
 
 h1, .h1 {
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(1rem + 1.5vw);
 }
 @media (min-width: 1200px) {
   h1, .h1 {
@@ -392,6 +392,7 @@ button:not(:disabled),
 
 textarea {
   resize: vertical;
+  width: 50%;
 }
 
 fieldset {
@@ -2000,6 +2001,7 @@ progress {
 }
 .table-bordered > :not(caption) > * > *, .dataTable-table > :not(caption) > * > * {
   border-width: 0 1px;
+  
 }
 
 .table-borderless > :not(caption) > * > * {
@@ -2406,7 +2408,7 @@ textarea.form-control-lg {
 
 .form-select, .dataTable-selector {
   display: block;
-  width: 100%;
+  width: 20%;
   padding: 0.375rem 2.25rem 0.375rem 0.75rem;
   -moz-padding-start: calc(0.75rem - 3px);
   font-size: 1rem;
@@ -3046,13 +3048,13 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #F2D6B3;
+  border-color: #F2D6B3;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
+  background-color: #F2B885;
+  border-color: #F2B885;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
@@ -3108,8 +3110,8 @@ textarea.form-control-lg {
 
 .btn-success {
   color: #fff;
-  background-color: #198754;
-  border-color: #198754;
+  background-color: #D98D62;
+  border-color: #D98D62;
 }
 .btn-success:hover {
   color: #fff;
@@ -3138,13 +3140,13 @@ textarea.form-control-lg {
 
 .btn-info {
   color: #000;
-  background-color: #0dcaf0;
-  border-color: #0dcaf0;
+  background-color: #F2D6B3;
+  border-color: #F2D6B3;
 }
 .btn-info:hover {
   color: #000;
-  background-color: #31d2f2;
-  border-color: #25cff2;
+  background-color: #F2B885;
+  border-color: #F2B885;
 }
 .btn-check:focus + .btn-info, .btn-info:focus {
   color: #000;
@@ -3258,8 +3260,8 @@ textarea.form-control-lg {
 
 .btn-dark {
   color: #fff;
-  background-color: #212529;
-  border-color: #212529;
+  background-color: #454C59;
+  border-color: #454C59; 
   padding: 1px 10px;
    font-size: 13px;
 }
@@ -3314,13 +3316,13 @@ textarea.form-control-lg {
 }
 
 .btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
+  color: #D98D62;
+  border-color: #D98D62;
 }
 .btn-outline-secondary:hover {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #D98D62;
+  border-color: #D98D62;
 }
 .btn-check:focus + .btn-outline-secondary, .btn-outline-secondary:focus {
   box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
@@ -3490,7 +3492,7 @@ textarea.form-control-lg {
 
 .btn-link {
   font-weight: 400;
-  color: #0d6efd;
+  color: #000000;
   text-decoration: underline;
 }
 .btn-link:hover {
@@ -4499,7 +4501,7 @@ textarea.form-control-lg {
   color: #fff;
 }
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgb(255, 255, 255);
 }
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
   color: rgba(255, 255, 255, 0.75);
@@ -4823,7 +4825,7 @@ textarea.form-control-lg {
 .page-link, .dataTable-pagination a {
   position: relative;
   display: block;
-  color: #0d6efd;
+  color: #454C59;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -4836,13 +4838,13 @@ textarea.form-control-lg {
 }
 .page-link:hover, .dataTable-pagination a:hover {
   z-index: 2;
-  color: #0a58ca;
+  color: #A28B59;
   background-color: #e9ecef;
   border-color: #dee2e6;
 }
 .page-link:focus, .dataTable-pagination a:focus {
   z-index: 3;
-  color: #0a58ca;
+  color: #A28B59;
   background-color: #e9ecef;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
@@ -4854,8 +4856,8 @@ textarea.form-control-lg {
 .page-item.active .page-link, .page-item.active .dataTable-pagination a, .dataTable-pagination .page-item.active a, .dataTable-pagination li.active .page-link, .dataTable-pagination li.active a {
   z-index: 3;
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #454C59;
+  border-color: #454C59;
 }
 .page-item.disabled .page-link, .page-item.disabled .dataTable-pagination a, .dataTable-pagination .page-item.disabled a, .dataTable-pagination li.disabled .page-link, .dataTable-pagination li.disabled a {
   color: #6c757d;
@@ -11432,7 +11434,7 @@ body {
   margin: 0;
 }
 .sb-topnav.navbar-dark #sidebarToggle {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
 }
 .sb-topnav.navbar-light #sidebarToggle {
   color: #212529;
@@ -11485,12 +11487,12 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #024554;
-  color: rgba(2, 69, 84, 0.5);
+  background-color: rgb(69, 76, 89);
+  color: rgba(69, 76, 89, 1);
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: rgba(2, 69, 84, 0.5);
+  color: rgba(69, 76, 89, 1);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
   color: rgba(255, 255, 255, 0.5);
@@ -11597,7 +11599,7 @@ body {
 .dataTable-pagination .active a,
 .dataTable-pagination .active a:focus,
 .dataTable-pagination .active a:hover {
-  background-color: #0d6efd;
+  background-color: #454C59;
 }
 
 .dataTable-pagination .ellipsis a,
@@ -11703,4 +11705,9 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
+}
+
+.banner_subcontents {
+	width : 500px;
+	height : 70px;
 }

@@ -40,7 +40,7 @@
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
 <link rel="stylesheet" href="${path }/style3.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=5">
+<link rel="stylesheet" href="${path }/style2.css?ver=7">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -231,11 +231,29 @@
         			&& !$(e.target).hasClass("form-radio-circle-interior") && !$(e.target).hasClass("radio-side-text") && !$(e.target).hasClass("menu__period-select") && !$(e.target).hasClass("dropdown-btn-flex-wrap")
         			&& !$(e.target).hasClass("bundle-modal-style") && !$(e.target).hasClass("date-picker-with-icon") && !$(e.target).hasClass("date-picker-input") && !$(e.target).hasClass("date-select-calendar-icon")
         			&& !$(e.target).hasClass("menu-select-panel") && !$(e.target).hasClass("menu__price") && !$(e.target).hasClass("menu__price-current-price") && !$(e.target).hasClass("add-items-button")
-        			&& !$(e.target).hasClass("form-radio-input") && !$(e.target).hasClass("modal-header-slot-back")){
+        			&& !$(e.target).hasClass("form-radio-input") && !$(e.target).hasClass("modal-header-slot-back") && !$(e.target).hasClass("detail-name-and-badge") && !$(e.target).hasClass("selected-content")
+        			&& !$(e.target).hasClass("vc-popover-content-wrapper") && !$(e.target).hasClass("vc-popover-content") && !$(e.target).hasClass("vc-container") && !$(e.target).hasClass("vc-grid-cell")
+        			&& !$(e.target).hasClass("vc-pane") && !$(e.target).hasClass("vc-header") && !$(e.target).hasClass("vc-title-layout") && !$(e.target).hasClass("vc-title-wrapper")
+        			&& !$(e.target).hasClass("vc-title") && !$(e.target).hasClass("vc-grid-container") && !$(e.target).hasClass("vc-weekday") && !$(e.target).hasClass("vc-day") && !$(e.target).hasClass("vc-day-content")
+        			&& !$(e.target).hasClass("vc-h-full") && !$(e.target).hasClass("vc-nav-container") && !$(e.target).hasClass("vc-nav-arrow") && !$(e.target).hasClass("vc-svg-icon") && !$(e.target).hasClass("vc-nav-title")
+        			&& !$(e.target).hasClass("vc-w-12") && !$(e.target).hasClass("vc-popover-caret") && !$(e.target).hasClass("vc-nav-title") && !$(e.target).hasClass("vc-nav-title") && !$(e.target).hasClass("vc-nav-title")
+        			&& !$(e.target).hasClass("selected-detail-wrap") && !$(e.target).hasClass("selected-detail") && !$(e.target).hasClass("selected-detail__close") && !$(e.target).hasClass("selected-detail__title")
+        			&& !$(e.target).hasClass("selected-detail__text") && !$(e.target).hasClass("selected-detail__text-label") && !$(e.target).hasClass("selected-detail__title") && !$(e.target).hasClass("selected-detail__title")
+        			&& !$(e.target).hasClass("menu__price-prior-price")){
 //         		const TimeoutId = setTimeout(() => console.log('timeout'), 1000);
 //             	for (let i = 0; i < TimeoutId; i++) {
 //             	  clearTimeout(i);
 //             	}
+				// 달력 모달 초기화
+				$('#firstModalCheck').val(0);
+        		$('#secondModalCheck').val(0);
+        		$('#thirdModalCheck').val(0);
+        		
+        		$('#checkWeek').val(0);
+        		$('#selectWeek').val(0);
+        		$('#selectItemName').val("");
+            	$('#selectItemDay').val("");
+
             	$('.swal2-container').detach();
         		$('html').attr('class', '');
         		$('body').attr('class', '');
@@ -243,6 +261,8 @@
         		$('.modal').detach();
         		$('#addressModalCheck').val(0);
         		$('#defaultBesongjiCheck').val('n');
+        		
+        		$('#subModalWeekListOpenCloseCheck').val(0);
         		
         		$('.modal-wrap').detach();
             	$('html').attr('class', '');
@@ -633,10 +653,11 @@
      		})
      	})
      	
-     	
+     	var itemCode = '';
      	// 모달창에서 선택 버튼
      	$(document).on('click', '.subscribe-select', function(){
      		var item_code = $(this).parent().siblings('input').val();
+     		itemCode = item_code;
      		
      		$.ajax({
      			url : 'orderSubModalDetail.do',
@@ -661,7 +682,23 @@
      	
      	// 모달창 뒤로가기 버튼
      	$(document).on('click', '.modal-header-slot-back', function(){
-     		var deliveryType = $('#deliveryType').val();
+     		$.ajax({
+     			url : 'orderSubModalBackInitializationCheckModal.do',
+     			dataType : 'html',
+     			success : function(htmlOut){
+     				$('body').append(htmlOut);
+     			}
+     		})
+     	})
+     	
+     	// 모달창 뒤로가기 체크 모달 확인 버튼
+     	$(document).on('click', '#orderSubModalBackConfirmBtn', function(){
+     		$('#selectWeek').val(0);
+     		$('#checkWeek').val(0);
+     		$('#selectItemName').val("");
+        	$('#selectItemDay').val("");
+     		
+			var deliveryType = $('#deliveryType').val();
      		
      		$.ajax({
      			url : 'orderSubModalFirstDetail.do',
@@ -672,24 +709,638 @@
      			},
      			success : function(htmlOut){
      				$('.modal-content.modal-content-height-full').html(htmlOut);
+     				$('.modal-header-slot-back').detach();
      			}
      		})
      	})
      	
-     	// 모달창 기간선택 버튼 todo
+     	// 모달창 기간선택 버튼
      	$(document).on('click', '.button.dropdown', function(){
      		// 리스트가 드랍된 상태에서 다시 클릭하면 닫혀야 함
+     		if($('#checkWeek').val() == 1){
+     			return false;
+     		}
+     		var subModalWeekListOpenCloseCheck = $('#subModalWeekListOpenCloseCheck').val();
      		
-     		$('.dropdown-btn').attr('class', 'dropdown-btn dropdown-open');
-     		
-     		$.ajax({
-     			url : 'orderSubModalList.do',
-     			dataType : 'html',
-     			success : function(htmlOut){
-     				$('.dropdown-btn.dropdown-open').append(htmlOut);
-     			}
-     		})
+     		if(subModalWeekListOpenCloseCheck == 0){
+         		$.ajax({
+         			url : 'orderSubModalList.do',
+         			dataType : 'html',
+         			success : function(htmlOut){
+         				$('.dropdown-btn').attr('class', 'dropdown-btn dropdown-open');
+         				$('.dropdown-btn.dropdown-open').append(htmlOut);
+         				$('#subModalWeekListOpenCloseCheck').val(1);
+         			}
+         		})
+     		}else{
+     			$('.toggle-drop-down').detach();
+     			$('#subModalWeekListOpenCloseCheck').val(0);
+     			$('.dropdown-btn.dropdown-open').attr('class', 'dropdown-btn');
+     		}
      	})
+     	
+     	// 기간 리스트 바깥 클릭 시 리스트 닫기
+     	$(document).on('click', '.modal-wrap', function(e){
+     		if (!$(e.target).hasClass("toggle-drop-down") && !$(e.target).hasClass("except1") && !$(e.target).hasClass("detail-name-and-badge")
+     				&& !$(e.target).hasClass("dropdown") && !$(e.target).hasClass("dropdown-btn") && !$(e.target).hasClass("dropdown-btn-flex-wrap")) {
+     			$('.toggle-drop-down').detach();
+     			$('#subModalWeekListOpenCloseCheck').val(0);
+     			$('.dropdown-btn.dropdown-open').attr('class', 'dropdown-btn');
+     		}
+     	})
+     	
+     	
+     	// 기간 리스트 클릭 시 몇주인지 저장
+     	$(document).on('click', '.detail-name-and-badge', function(){
+     		var week = $(this).attr('id');
+     		
+     		$('.date-picker-with-icon').children('img').attr('src', 'https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_calendar-active%403x.png');
+     		
+     		$('.v-date-custom').removeAttr('disabled');
+     		$('.date-picker-input').removeAttr('disabled');
+     		
+     		$('.button.dropdown').html('<div data-v-4837bb91="" class="selected-content">' + week + '주</div>');
+     		$('#selectWeek').val(week);
+     		$('.toggle-drop-down').detach();
+ 			$('#subModalWeekListOpenCloseCheck').val(0);
+ 			$('.dropdown-btn.dropdown-open').attr('class', 'dropdown-btn');
+     	})
+     	
+     	
+     	// 달력 펼치기
+     	var solidCheckYear = 0; // 현재 연, 월 (불변 값) 
+        var solidCheckMonth = 0;
+        var solidCheckDay = 0;
+        var todayCheckYear = 0; // 현재 연, 월을 선택한 값
+        var todayCheckMonth = 0;
+        var todayCheckDay = 0;
+        var currentCheckYear = 0; // 화살표로 넘길 시 임의로 저장하는 값
+        var currentCheckMonth = 0;
+        $(document).on('click', '.date-picker-input', function(){
+        	if($('#firstModalCheck').val() == 0){
+        		$('#firstModalCheck').val(1);
+            	
+            	var today = new Date();
+
+            	var todayYear = today.getFullYear();
+            	var todayMonth = ('0' + (today.getMonth() + 1)).slice(-2);
+            	var todayDay = ('0' + today.getDate()).slice(-2);
+//             	var weekList = new Array('일', '월', '화', '수', '목', '금', '토');
+//             	var todayWeek = weekList[today.getDay()];
+//             	var todayGetDay = today.getDay();
+    			solidCheckYear = Number(todayYear);
+    			solidCheckMonth = Number(todayMonth);
+    			solidCheckDay = Number(todayDay);
+            	todayCheckYear = Number(todayYear);
+            	todayCheckMonth = Number(todayMonth);
+            	todayCheckDay = Number(todayDay);
+            	currentCheckYear = Number(todayYear);
+            	currentCheckMonth = Number(todayMonth);
+            	
+            	var getD = new Date(Number(solidCheckYear), Number(solidCheckMonth) - 1, Number(01));
+            	var year = getD.getFullYear();
+            	var month = ('0' + (getD.getMonth() + 1)).slice(-2);
+            	var day = ('0' + getD.getDate()).slice(-2);
+            	var getDay = getD.getDay();
+            	
+            	$('.vc-popover-content-wrapper').attr('class', 'vc-popover-content-wrapper is-interactive');
+            	$('.vc-popover-content-wrapper').css('position', 'absolute');
+            	$('.vc-popover-content-wrapper').css('transform', 'translate3d(0px, 46px, 0px)');
+            	$('.vc-popover-content-wrapper').css('top', '0px');
+            	$('.vc-popover-content-wrapper').css('left', '0px');
+            	$('.vc-popover-content-wrapper').css('will-change', 'transform');
+            	$('.vc-popover-content-wrapper').attr('x-placement', 'bottom-start');
+            	
+            	$.ajax({
+            		url : 'orderSubModalCalendar.do',
+            		dataType : 'html',
+            		type : 'post',
+            		data : {
+            			'year' : year,
+            			'month' : month,
+            			'day' : todayDay,
+            			'getDay' : getDay
+            		},
+            		success : function(htmlOut){
+            			$('.vc-popover-content-wrapper').html(htmlOut);
+            			setTimeout(function() {
+            	    		$('.vc-popover-content').attr('class', 'vc-popover-content direction-bottom vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg');
+            			}, 200);
+            		}
+            	})
+        	}else{
+        		$('#firstModalCheck').val(0);
+        		$('#secondModalCheck').val(0);
+        		$('#thirdModalCheck').val(0);
+        		$('.vc-popover-content.direction-bottom.vc-text-gray-900.vc-bg-white.vc-border.vc-border-gray-400.vc-rounded-lg').attr('class', 'vc-popover-content direction-bottom vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg slide-fade-leave-active slide-fade-leave-to');
+        		setTimeout(function() {
+        			$('.vc-popover-content.direction-bottom.vc-text-gray-900.vc-bg-white.vc-border.vc-border-gray-400.vc-rounded-lg').detach();
+        			$('.v-date-custom .vc-popover-content-wrapper').attr('class', 'vc-popover-content-wrapper');
+        			$('.v-date-custom .vc-popover-content-wrapper').removeAttr('style');
+                	$('.v-date-custom .vc-popover-content-wrapper').removeAttr('x-placement');
+    			}, 300);
+        	}
+        	
+        });
+        
+        
+        // 달력 모달에서 타이틀 클릭해서 월 모달 띄우고 닫기
+        $(document).on('click', '.vc-title-wrapper .vc-title.vc-text-lg.vc-text-gray-800.vc-font-semibold', function(){
+        	if($('#thirdModalCheck').val() == 1 && $('#secondModalCheck').val() == 0){
+        		$('#thirdModalCheck').val(0);
+        	}
+        	if($('#secondModalCheck').val() == 0){
+        		$('#secondModalCheck').val(1);
+            	
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').attr('class', 'vc-popover-content-wrapper is-interactive');
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').attr('x-placement', 'bottom');
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').css('position', 'absolute');
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').css('transform', 'translate3d(-38px, 27px, 0px)');
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').css('top', '0px');
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').css('left', '0px');
+            	$('.vc-title-wrapper .vc-popover-content-wrapper').css('will-change', 'transform');
+            	
+            	currentCheckYear = todayCheckYear;
+            	currentCheckMonth = todayCheckMonth;
+            	
+            	$.ajax({
+            		url : 'orderSelectPopover.do',
+            		dataType : 'html',
+            		type : 'post',
+            		data : {
+            			'year' : todayCheckYear,
+            			'month' : todayCheckMonth,
+            			'currentCheckYear' : currentCheckYear,
+            			'currentCheckMonth' : currentCheckMonth,
+            			'solidCheckYear' : solidCheckYear,
+            			'solidCheckMonth' : solidCheckMonth,
+            			'realCheck' : 1
+            		},
+            		success : function(htmlOut){
+            			$('#modalWrap1').html(htmlOut);
+            			
+            			if(todayCheckYear == currentCheckYear){
+        	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+        	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == currentCheckYear + '/' + currentCheckMonth + '/00'){
+        	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+        	    					break;
+        	    				}
+        	    			}
+            			}
+            			setTimeout(function() {
+            	    		$('.vc-popover-content.direction-bottom.vc-rounded-lg.vc-text-sm.vc-font-semibold.vc-text-white.vc-bg-gray-800.vc-border.vc-border-gray-700.vc-p-1.vc-shadow').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow');
+            			}, 200);
+            		}
+            	});
+        	}else{
+        		$('#secondModalCheck').val(0);
+    			$('.vc-title-wrapper .vc-popover-content-wrapper .vc-popover-content').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow slide-fade-leave-active slide-fade-leave-to');
+    			setTimeout(function() {
+    				$('.vc-title-wrapper .vc-popover-content-wrapper .vc-popover-content').detach();
+    				$('.vc-title-wrapper .vc-popover-content-wrapper').removeAttr('style');
+        			$('.vc-title-wrapper .vc-popover-content-wrapper').attr('class', 'vc-popover-content-wrapper');
+        			$('.vc-title-wrapper .vc-popover-content-wrapper').removeAttr('x-placement');
+        			
+    			}, 300);
+        	}
+        	
+        });
+        
+        
+        $(document).on('click', '.vc-svg-icon:even', function(){
+        	// 이전 연도
+        	
+        	if($('#secondModalCheck').val() == 0){
+        		return false;
+        	}
+        	
+        	currentCheckYear--;
+        	$.ajax({
+        		url : 'orderSelectPopover.do',
+        		dataType : 'html',
+        		type : 'post',
+        		data : {
+        			'year' : todayCheckYear,
+        			'month' : todayCheckMonth,
+        			'currentCheckYear' : currentCheckYear,
+        			'currentCheckMonth' : currentCheckMonth,
+        			'solidCheckYear' : solidCheckYear,
+        			'solidCheckMonth' : solidCheckMonth,
+        			'realCheck' : 0
+        		},
+        		success : function(htmlOut){
+        			$('#modalWrap1').html(htmlOut);
+        			if(todayCheckYear == currentCheckYear){
+    	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+    	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == currentCheckYear + '/' + currentCheckMonth + '/00'){
+    	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+    	    					break;
+    	    				}
+    	    			}
+        			}
+        			setTimeout(function() {
+        	    		$('.vc-popover-content.direction-bottom.vc-rounded-lg.vc-text-sm.vc-font-semibold.vc-text-white.vc-bg-gray-800.vc-border.vc-border-gray-700.vc-p-1.vc-shadow').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow');
+        			}, 200);
+        		}
+        	});
+        });
+        
+        $(document).on('click', '.vc-svg-icon:odd', function(){
+        	// 다음 연도
+        	
+        	if($('#secondModalCheck').val() == 0){
+        		return false;
+        	}
+        	currentCheckYear++;
+        	$.ajax({
+        		url : 'orderSelectPopover.do',
+        		dataType : 'html',
+        		type : 'post',
+        		data : {
+        			'year' : todayCheckYear,
+        			'month' : todayCheckMonth,
+        			'currentCheckYear' : currentCheckYear,
+        			'currentCheckMonth' : currentCheckMonth,
+        			'solidCheckYear' : solidCheckYear,
+        			'solidCheckMonth' : solidCheckMonth,
+        			'realCheck' : 0
+        		},
+        		success : function(htmlOut){
+        			$('#modalWrap1').html(htmlOut);
+        			
+        			if(todayCheckYear == currentCheckYear){
+    	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+    	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == currentCheckYear + '/' + currentCheckMonth + '/00'){
+    	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+    	    					break;
+    	    				}
+    	    			}
+        			}
+        			setTimeout(function() {
+        	    		$('.vc-popover-content.direction-bottom.vc-rounded-lg.vc-text-sm.vc-font-semibold.vc-text-white.vc-bg-gray-800.vc-border.vc-border-gray-700.vc-p-1.vc-shadow').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow');
+        			}, 200);
+        		}
+        	});
+        });
+        
+        
+        // 월 찍기
+        $(document).on('click', '.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent', function(){
+        	// 포커싱은 아니지만 선택할 수 있는 달 이벤트
+        	// 달을 찍을 때 todayCheckYear, todayCheckMonth 에 저장하고 닫기
+        	if($('#thirdModalCheck').val() == 1){
+        		return false;
+        	}
+        	
+        	var arr = $(this).attr('id').split('/');
+        	todayCheckYear = arr[0];
+        	todayCheckMonth = arr[1];
+        	currentCheckYear = arr[0];
+        	currentCheckMonth = arr[1];
+        	
+        	var getD = new Date(Number(todayCheckYear), Number(todayCheckMonth) - 1, Number(01));
+        	var year = getD.getFullYear();
+        	var month = ('0' + (getD.getMonth() + 1)).slice(-2);
+        	var day = ('0' + getD.getDate()).slice(-2);
+        	day = Number(day) - 1;
+        	var getDay = getD.getDay();
+        	
+        	if(todayCheckYear == solidCheckYear && todayCheckMonth == solidCheckMonth){
+        		day = solidCheckDay;
+        	}
+        	
+        	$.ajax({
+        		url : 'orderSubModalCalendar.do',
+        		dataType : 'html',
+        		type : 'post',
+        		data : {
+        			'year' : todayCheckYear,
+        			'month' : todayCheckMonth, 
+        			'getDay' : getDay,
+        			'day' : day
+        		},
+        		success : function(htmlOut){
+    				$('.vc-title-wrapper .vc-popover-content-wrapper .vc-popover-content').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow slide-fade-leave-active slide-fade-leave-to');
+    				$('#secondModalCheck').val(0);
+        			setTimeout(function() {
+        				$('.vc-title-wrapper .vc-popover-content-wrapper .vc-popover-content').detach();
+        				$('.vc-title-wrapper .vc-popover-content-wrapper').removeAttr('style');
+            			$('.vc-title-wrapper .vc-popover-content-wrapper').attr('class', 'vc-popover-content-wrapper');
+            			$('.vc-title-wrapper .vc-popover-content-wrapper').removeAttr('x-placement');
+            			
+            			$('.vc-popover-content-wrapper').html(htmlOut);
+            			setTimeout(function() {
+            	    		$('.vc-popover-content').attr('class', 'vc-popover-content direction-bottom vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg');
+            	    		
+            			}, 200);
+        			}, 200);
+        		}
+        	})
+        });
+        
+        
+        // 연도 뭉탱이 모달
+        $(document).on('click', '.vc-nav-title', function(){
+        	if($('#secondModalCheck').val() == 0){
+        		$('#secondModalCheck').val(1);
+        		$('#thirdModalCheck').val(0);
+        		
+        		$.ajax({
+            		url : 'orderSelectPopover.do',
+            		dataType : 'html',
+            		type : 'post',
+            		data : {
+            			'year' : todayCheckYear,
+            			'month' : todayCheckMonth,
+            			'currentCheckYear' : currentCheckYear,
+            			'currentCheckMonth' : currentCheckMonth,
+            			'solidCheckYear' : solidCheckYear,
+            			'solidCheckMonth' : solidCheckMonth,
+            			'realCheck' : 0
+            		},
+            		success : function(htmlOut){
+            			$('#modalWrap1').html(htmlOut);
+            			if(todayCheckYear == currentCheckYear){
+        	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+        	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/' + todayCheckMonth + '/00'){
+        	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+        	    					break;
+        	    				}
+        	    			}
+            			}
+            			setTimeout(function() {
+            	    		$('.vc-popover-content.direction-bottom.vc-rounded-lg.vc-text-sm.vc-font-semibold.vc-text-white.vc-bg-gray-800.vc-border.vc-border-gray-700.vc-p-1.vc-shadow').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow');
+            			}, 200);
+            		}
+            	});
+        		
+        	}else{
+        		$('#secondModalCheck').val(0);
+        		$('#thirdModalCheck').val(1);
+        		
+        		$.ajax({
+            		url : 'orderSelectPopover2.do',
+            		dataType : 'html',
+            		type : 'post',
+            		data : {
+            			'year' : todayCheckYear,
+            			'currentCheckYear' : currentCheckYear,
+            			'solidCheckYear' : solidCheckYear
+            		},
+            		success : function(htmlOut){
+            			$('#modalWrap1').html(htmlOut);
+            			
+       	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+       	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/00/00'){
+       	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+       	    					break;
+       	    				}
+       	    			}
+            			
+            		}
+            	});
+        		
+        	}
+        });
+        
+        $(document).on('click', '.vc-svg-icon:even', function(){
+        	// 이전 연도들
+        	if($('#thirdModalCheck').val() == 0){
+        		return false;
+        	}
+        	
+        	currentCheckYear -= 12;
+        	
+        	$.ajax({
+        		url : 'orderSelectPopover2.do',
+        		dataType : 'html',
+        		type : 'post',
+        		data : {
+        			'year' : todayCheckYear,
+        			'currentCheckYear' : currentCheckYear,
+        			'solidCheckYear' : solidCheckYear
+        		},
+        		success : function(htmlOut){
+        			$('#modalWrap1').html(htmlOut);
+        			
+    	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+    	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/00/00'){
+    	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+    	    					break;
+    	    				}
+    	    			}
+        			
+        		}
+        	});
+        });
+        
+        $(document).on('click', '.vc-svg-icon:odd', function(){
+        	// 다음 연도들
+        	if($('#thirdModalCheck').val() == 0){
+        		return false;
+        	}
+        	
+    		currentCheckYear = Number(currentCheckYear) + 12;
+        	
+        	$.ajax({
+        		url : 'orderSelectPopover2.do',
+        		dataType : 'html',
+        		type : 'post',
+        		data : {
+        			'year' : todayCheckYear,
+        			'currentCheckYear' : currentCheckYear,
+        			'solidCheckYear' : solidCheckYear
+        		},
+        		success : function(htmlOut){
+        			$('#modalWrap1').html(htmlOut);
+        			
+        			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+        				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/00/00'){
+        					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+        					break;
+        				}
+        			}
+        		}
+        	});
+        });
+        
+        
+        // 연도 뭉탱이중 연도 찍기
+        $(document).on('click', '.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent', function(){
+        	if($('#secondModalCheck').val() == 1){
+        		return false;
+        	}
+        	
+        	var arr = $(this).attr('id').split('/');
+        	currentCheckYear = arr[0];
+        	
+        	$.ajax({
+        		url : 'orderSelectPopover.do',
+        		dataType : 'html',
+        		type : 'post',
+        		data : {
+        			'year' : todayCheckYear,
+        			'month' : todayCheckMonth,
+        			'currentCheckYear' : currentCheckYear,
+        			'currentCheckMonth' : currentCheckMonth,
+        			'solidCheckYear' : solidCheckYear,
+        			'solidCheckMonth' : solidCheckMonth,
+        			'realCheck' : 0
+        		},
+        		success : function(htmlOut){
+        			$('#secondModalCheck').val(1);
+        			$('#thirdModalCheck').val(0);
+        			$('#modalWrap1').html(htmlOut);
+        			if(todayCheckYear == currentCheckYear){
+    	    			for(var i = 0; i < $('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').length; i++){
+    	    				if($('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('id') == todayCheckYear + '/' + todayCheckMonth + '/00'){
+    	    					$('.vc-w-12.vc-font-semibold.vc-cursor-pointer.vc-text-center.vc-leading-snug.vc-py-1.vc-rounded.vc-border-2.vc-border-transparent').eq(i).attr('class', 'vc-w-12 vc-font-semibold vc-cursor-pointer vc-text-center vc-leading-snug vc-py-1 vc-rounded vc-border-2 vc-border-transparent hover:vc-bg-gray-900 hover:vc-shadow-inner hover:vc-text-white focus:vc-border-indigo-600 vc-bg-indigo-100 vc-text-indigo-900 vc-border-transparent vc-font-bold vc-shadow vc-grid-focus');
+    	    					break;
+    	    				}
+    	    			}
+        			}
+        			setTimeout(function() {
+        	    		$('.vc-popover-content.direction-bottom.vc-rounded-lg.vc-text-sm.vc-font-semibold.vc-text-white.vc-bg-gray-800.vc-border.vc-border-gray-700.vc-p-1.vc-shadow').attr('class', 'vc-popover-content direction-bottom vc-rounded-lg vc-text-sm vc-font-semibold vc-text-white vc-bg-gray-800 vc-border vc-border-gray-700 vc-p-1 vc-shadow');
+        			}, 200);
+        		}
+        	});
+        });
+        
+        
+        $(document).on('click', '.vc-day-content.vc-focusable.vc-font-medium.vc-text-sm.vc-cursor-pointer.real-check', function(){
+        	// 달력에서 최종 날짜 선택
+        	
+    		$('#firstModalCheck').val(0);
+        	$('#secondModalCheck').val(0);
+    		$('#thirdModalCheck').val(0);
+    		$('#checkWeek').val(1);
+//     		$('#checkCalendar').val(1);
+    		
+    		var arr = $(this).attr('id').split('/');
+    		year = arr[0];
+    		month = arr[1];
+    		day = arr[2];
+    		
+    		var date = new Date(Number(arr[0]), Number(arr[1]) - 1, Number(arr[2]));
+    		var weekdays = ["일", "월", "화", "수", "목", "금", "토"]; 
+    		var weekday = weekdays[date.getDay()];
+    		
+    		var subItemStartDay = year + '-' + month + '-' + day + ' (' + weekday + ')';
+    		$('#selectItemDay').val(subItemStartDay);
+    		
+    		$('.vc-popover-content.direction-bottom.vc-text-gray-900.vc-bg-white.vc-border.vc-border-gray-400.vc-rounded-lg').attr('class', 'vc-popover-content direction-bottom vc-text-gray-900 vc-bg-white vc-border vc-border-gray-400 vc-rounded-lg slide-fade-leave-active slide-fade-leave-to');
+    		
+    		$('.date-picker-with-icon').children('img').detach();
+    		$('.date-picker-with-icon').append('<img data-v-2706028c="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_calendar-disabled%403x.png" alt="시작일 선택 달력 아이콘" class="date-select-calendar-icon" style="cursor: not-allowed;">')
+    		$('.button.dropdown').html('<div data-v-4837bb91="" class="selected-content">기간 선택(기간이 길수록 더 많이 할인됩니다)</div>')
+    		$('.date-picker-input').attr('disabled', 'disabled');
+    		$('.v-date-custom').attr('disabled', 'disabled');
+    		$('.dropdown-btn-flex-wrap').attr('class', 'dropdown-btn-flex-wrap disabled');
+    		$('.menu__select-size-list .menu__label').attr('class', 'menu__label disabled-style');
+    		$('.radio-label').attr('class', 'row--v-center radio-label disabled-style');
+    		$('.form-radio').attr('class', 'form-radio form-radio--disabled');
+    		$('.form-radio-input').attr('disabled', 'disabled');
+    		$('.form-radio-circle').attr('class', 'form-radio-circle disabled-style');
+    		$('.radio-side-text').attr('class', 'radio-side-text disabled-style');
+    		
+    		$('.button.add-items-button').removeAttr('disabled');
+    		
+    		setTimeout(function() {
+    			$('.vc-popover-content.direction-bottom.vc-text-gray-900.vc-bg-white.vc-border.vc-border-gray-400.vc-rounded-lg').detach();
+    			$('.v-date-custom .vc-popover-content-wrapper').attr('class', 'vc-popover-content-wrapper');
+    			$('.v-date-custom .vc-popover-content-wrapper').removeAttr('style');
+            	$('.v-date-custom .vc-popover-content-wrapper').removeAttr('x-placement');
+    		}, 300);
+    		
+//     		button_activation();
+
+			var subItemName = $('.header-content-title').text();
+			$('#selectItemName').val(subItemName);
+			var subItemSize = $('#subModalSizeCheck').val();
+			var subItemWeek = $('#selectWeek').val();
+			// 날짜 : subItemStartDay -> #selectItemDay
+			
+			$.ajax({
+				url : 'orderSubModalSelectResultAjax.do',
+				type : 'post',
+				dataType : 'html',
+				data : {
+					'subItemName' : subItemName,
+					'subItemSize' : subItemSize,
+					'subItemWeek' : subItemWeek,
+					'subItemStartDay' : subItemStartDay
+				},
+				success : function(htmlOut){
+					$('.menu__select-size.bundle-modal-style').append(htmlOut);
+					
+					$.ajax({
+						url : 'orderSubModalPriceCal.do',
+						type : 'post',
+						data : {
+							'item_code' : itemCode,
+							'subItemSize' : subItemSize,
+							'subItemWeek' : subItemWeek
+						},
+						success : function(data){
+							var arr = data.split('/');
+							$('.menu__price-current-price').text(Number(arr[0]).toLocaleString('en') + '원');
+							$('.menu__price-right').prepend('<div data-v-2706028c="" class="menu__price-prior-price">' + Number(arr[1]).toLocaleString('en') + '</div>');
+							$('.add-items-group .button.add-items-button').attr('class', 'button add-items-button');
+						}
+					})
+				}
+			})
+        });
+        
+     	
+        // 선택한 구독 상품 취소
+        $(document).on('click', '.selected-detail__close', function(){
+        	$('#checkWeek').val(0);
+        	$('#selectWeek').val(0);
+        	$('#selectItemName').val("");
+        	$('#selectItemDay').val("");
+        	$('.selected-detail-wrap').detach();
+        	
+        	$.ajax({
+        		url : 'orderSubModalDetailUL.do',
+        		type : 'post',
+        		dataType : 'html',
+        		data : {
+        			'item_code' : itemCode
+        		},
+        		success : function(htmlOut){
+        			$('.menu__select-size.bundle-modal-style').html(htmlOut);
+        			$('#Medium').trigger('click');
+        			$('.menu__price-current-price').text(0 + '원');
+        			$('.menu__price-prior-price').detach();
+        			$('.add-items-group .button.add-items-button').attr('class', 'button add-items-button button--disabled');
+        		}
+        	})
+        })
+        
+        // 구독 모달창 선택 완료 버튼
+        $(document).on('click', '.add-items-group .button.add-items-button', function(){
+        	$('#firstModalCheck').val(0);
+    		$('#secondModalCheck').val(0);
+    		$('#thirdModalCheck').val(0);
+
+			$('#subModalWeekListOpenCloseCheck').val(0);
+
+			$('.modal-wrap').detach();
+        	$('html').attr('class', '');
+        	
+//         	<input type="hidden" value="" id="subModalSizeCheck">
+// 			<input type="hidden" value="0" id="selectWeek">
+// 			<input type="hidden" value="" id="selectItemName">
+// 			<input type="hidden" value="" id="selectItemDay">
+
+			$('#subModalSizeCheckFinal').val($('#subModalSizeCheck').val());
+			$('#selectWeekFinal').val($('#selectWeek').val());
+			$('#selectItemNameFinal').val($('#selectItemName').val());
+			$('#selectItemDayFinal').val($('#selectItemDay').val());
+			
+			
+        })
 	})
 </script>
 </head>
@@ -716,6 +1367,18 @@
 					<input type="hidden" value="0" id="addressModalCheck">
 					<input type="hidden" value="n" id="defaultBesongjiCheck">
 					<input type="hidden" value="" id="subModalSizeCheck">
+					<input type="hidden" value="0" id="selectWeek">
+					<input type="hidden" value="" id="selectItemName">
+					<input type="hidden" value="" id="selectItemDay">
+					<input type="hidden" value="" id="subModalSizeCheckFinal">
+					<input type="hidden" value="0" id="selectWeekFinal">
+					<input type="hidden" value="" id="selectItemNameFinal">
+					<input type="hidden" value="" id="selectItemDayFinal">
+					<input type="hidden" value="0" id="subModalWeekListOpenCloseCheck">
+					<input type="hidden" value="0" id="firstModalCheck">
+					<input type="hidden" value="0" id="secondModalCheck">
+					<input type="hidden" value="0" id="thirdModalCheck">
+					<input type="hidden" value="0" id="checkWeek">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>

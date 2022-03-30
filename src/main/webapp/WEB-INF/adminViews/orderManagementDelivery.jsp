@@ -108,9 +108,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
+                      
                         <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
                 </li>
@@ -148,9 +146,7 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        조회/등록/수정
-                                    </a>  
+                                	<a class="nav-link" href="adminItemList.mdo">조회/등록/수정</a>
                                 </nav>
                             </div>
                             
@@ -161,9 +157,9 @@
                             </a>
                             <div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
-                                    <a class="nav-link" href="#">주문목록</a>
-                                    <a class="nav-link" href="#">배송중</a>
-                                    <a class="nav-link" href="#">배송완료</a>
+                                    <a class="nav-link" href="orderManagement.mdo">주문목록</a>
+                                    <a class="nav-link" href="orderManagementDelivery.mdo">배송중</a>
+                                    <a class="nav-link" href="orderManagementDeliveryComplete.mdo">배송완료</a>
                                 </nav>
                             </div>
                             
@@ -175,10 +171,29 @@
                             <div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
                                     <a class="nav-link" href="memberManagement.mdo">회원관리</a>
-                                    <a class="nav-link" href="#">리뷰관리</a>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#UserCollapseAuth" aria-expanded="false" aria-controls="UserCollapseAuth">
+                                    리뷰관리
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="UserCollapseAuth" aria-labelledby="headingFour-four" data-bs-parent="#sidenavAccordionUser">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="reviewListAdmin.mdo">답변대기</a>
+                                            <a class="nav-link" href="reviewManagementAdmin.mdo">답변완료</a>
+                                        </nav>
+                                    </div>
                                 </nav>
                             </div>
-                            
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
+							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> 
+							매출/상품통계관리
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							</a>
+							<div class="collapse" id="collapseSales" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
+                                    <a class="nav-link" href="salesManagement.mdo">매출/상품통계</a>
+                                    <a class="nav-link" href="pieChart.mdo">카테고리별 통계</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -189,7 +204,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">배송관리</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">배송중 목록</li>
+                            <li class="breadcrumb-item active">(delivery Management)</li>
                         </ol>
                        
                         <div class="card mb-4">

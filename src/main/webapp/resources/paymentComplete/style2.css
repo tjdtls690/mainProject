@@ -1521,3 +1521,9 @@ span.buttonText {
 	    color: #333;
 	}
 }
+
+@media (min-width: 1024px){
+	.checkout-finish[data-v-5a073676] {
+	    padding: 50px 0 418px;
+	}
+}

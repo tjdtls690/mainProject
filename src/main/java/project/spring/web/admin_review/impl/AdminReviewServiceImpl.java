@@ -39,4 +39,10 @@ public class AdminReviewServiceImpl implements AdminReviewService {
 	public void reviewUpdate(AdminReviewVO vo) {
 		adminReviewDAO.reviewUpdate(vo);
 	}
+	
+	@Override
+	public ReviewReplyVO getReviewReply(ReviewReplyVO vo) {
+		return adminReviewDAO.getReviewReply(vo);
+	}
+
 }

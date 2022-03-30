@@ -16,14 +16,11 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="${path }/style.css">
    <link rel="stylesheet" href="${path }/hmm2.css">
-   <link rel="stylesheet" href="${path }/style2.css?ver=2">
+   <link rel="stylesheet" href="${path }/style2.css?ver=5">
    
    
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
-   
-
-	 
       $(function() { 
 // 헤더 패딩
          var lastScrollTop = 0,
@@ -60,7 +57,7 @@
          
 // 영양 정보 고시 숨기기       
 		$('.menu-info-content-wrap').hide();  
-     	$(document).on('click','#nut',function(){  
+     	$(document).on('click','.menu__tab-info-title.menu-info:odd',function(){  
     		//alert("영양 정보 숨기기");
     	    if($("#item_nut_show").css("display") == "none"){   
     	        $('#item_nut_show').show(); 
@@ -69,7 +66,7 @@
     	    }  
     	}); 
 // 상품 정보 고시 숨기기
-     	$(document).on('click','#info',function(){  
+     	$(document).on('click','.menu__tab-info-title.menu-info:even',function(){  
     		//alert("상품 정보 숨기기");
     	    if($("#item_info_show").css("display") == "none"){   
     	        $('#item_info_show').show(); 
@@ -259,21 +256,115 @@
 
 // 리뷰, faq 클릭 이벤트
       $(function(){
-          $('.review-item').on('click', function(){
-	            $(this).children('.review-item__head').toggleClass("border-bottom-desktop-show");
-	            $(this).children('.review-desktop-toggle').toggleClass("review-hide");
+          $(document).on('click', '.review-item__head', function(){
+	            $(this).toggleClass("border-bottom-desktop-show");
+	            $(this).siblings('.review-desktop-toggle').toggleClass("review-hide");
           });
           
-          $('.menu-info-table-wrap').on('click',function(){
-              $(this).children('.menu-info-table-opener').toggleClass("border-bottom-desktop-show");
-              $(this).children('.menu-info-table-content-wrap').toggleClass("review-hide");
+          $(document).on('click', '.menu-info-table-opener', function(){
+              $(this).toggleClass("border-bottom-desktop-show");
+              $(this).siblings('.menu-info-table-content-wrap').toggleClass("review-hide");
            });
        });
 // 페이징 처리
-		$(document).on('clik','',function(){
-
+		$(document).on('click','.fa.pageNum',function(){
+			var pageNum = $(this).children('#PageNumValue').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
 			
-		})
+			$.ajax({
+				url : 'paging.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
+				},
+				success : function(data) {
+					$('.johntest').html(data);
+				}
+			});
+		});
+		// 왼쪽 클릭
+		$(document).on('click','.fa.fa-chevron-left',function(){
+			var pageNum = $(this).children('#PageNumValuePrev').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
+		
+			$.ajax({
+				url : 'pagingPrev.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
+				},
+				success : function(data) {
+					$('.johntest').html(data);
+				},
+				complete : function() {
+					var pageNum2 = $('.fa.fa-chevron-left').children('#PageNumValuePrev').val();
+					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+					var tagMain2 = $('.menu-review__index').children('#TagMainValueTest').val();
+			
+					
+					$.ajax({
+						url : 'bottomPrev.do',
+						type : 'post',
+						datatype : 'html',
+						data : {
+							"pageNum2" : pageNum2,
+							"itemCode2" : itemCode2,
+							"tagMain2" : tagMain2
+						},
+						success : function(data2) {
+							$('.nav-paginate-wrap').html(data2);
+						}
+					});
+				}
+			});
+		});
+		// 오른쪽 클릭
+		$(document).on('click','.fa.fa-chevron-right',function(){
+			var pageNum = $(this).children('#PageNumValueNext').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
+			
+			$.ajax({
+				url : 'pagingNext.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
+				},
+				success : function(data) {
+					$('.johntest').html(data);
+				},
+				complete : function() {
+					var pageNum2 = $('.fa.fa-chevron-right').children('#PageNumValueNext').val();
+					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+					var tagMain2 = $('.menu-review__index').children('#TagMainValueTest').val();
+										
+					$.ajax({
+						url : 'bottomNext.do',
+						type : 'post',
+						datatype : 'html',
+						data : {
+							"pageNum2" : pageNum2,
+							"itemCode2" : itemCode2,
+							"tagMain2" : tagMain2
+						},
+						success : function(data2) {
+							$('.nav-paginate-wrap').html(data2);
+						}
+					});
+				}
+			});
+		});
 // 드롭 다운
 		$(document).on('click','.button.dropdown',function(event){	
 			// 해당 페이지의 아이템 코드를 가져옴 ( 전에썻던거 그냥 써봄 )
@@ -320,7 +411,7 @@
 			if($(this).children().last().children().length==2){
 				priceM_Sub = $(this).children().last().children().first().text();
 				priceM_Sub = Number(priceM_Sub.replace('원', '').replace(',', ''));
-				alert("원 가격 : "+priceM_Sub);
+// 				alert("원 가격 : "+priceM_Sub);
 			}
 			var image = $('.menu__body').children().first().val();
 			var tagSub = $('#tagSub').val();
@@ -349,7 +440,7 @@
 				success : function(htmlOut){  // 531행 827행 에 넣어줘야함
 //				test = 리스트의 id .. testM/testL = 목록 M/L 의 class
 					if(testM ==null && testL ==null){
-						alert("M / L 둘다 없다");
+// 						alert("M / L 둘다 없다");
 	 					$('.selected-detail-list').append(htmlOut);					
 	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 	 					price = Number(price.slice(0, -1));
@@ -362,10 +453,10 @@
 					else if(testM != null && testL == null){
 					    if( test == '1001'){
 					    // 클릭시 미디움이 이미 있을때
-					    alert("M은 있고 L은 없는데 M을 클릭했다.");
+// 					    alert("M은 있고 L은 없는데 M을 클릭했다.");
 							$('.1001:eq(0)').parent().next().trigger('click');
 					    }else{
-						alert("M은 있고 L은 없는데 L을 클릭했다.");
+// 						alert("M은 있고 L은 없는데 L을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);				
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 		 					price = Number(price.slice(0, -1));
@@ -377,7 +468,7 @@
 					}
 					else if(testM == null && testL !=null){
 					    if( test == '1001'){
-							alert("L는 있고 M은없는데 M을 클릭했다.");
+// 							alert("L는 있고 M은없는데 M을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
 		 					price = Number(price.slice(0, -1));
@@ -387,18 +478,18 @@
 		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
 		 					
 					    }else{
-							alert("L는 있고 L를 클릭했다");
+// 							alert("L는 있고 L를 클릭했다");
 							$('.1002:eq(0)').parent().next().trigger('click');
 
 					    }
 					}
 					else if(testM != null && testL !=null){
 					    if( test == '1001'){
-					    	alert("둘다있는데 M을 클릭");
+// 					    	alert("둘다있는데 M을 클릭");
 					    	$('.1001:eq(0)').parent().next().trigger('click');
 					    	 
 					    }else{
-					    	alert("둘다있는데 L을 클릭")
+// 					    	alert("둘다있는데 L을 클릭")
 					    	$('.1002:eq(0)').parent().next().trigger('click');
 					    	
 					    }
@@ -597,6 +688,29 @@
 		
 		})
 		
+		// 이미지 버튼 (이미지 크게 보이기)
+		$(document).on('click', '.review-item__photo', function(){
+			var image = $(this).siblings('input').val();
+			
+			$.ajax({
+				url : 'detailReviewImageModal.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'image' : image
+				},
+				success : function(htmlOut){
+					$('html').attr('class', 'mode-popup');
+					$('.menu-review').append(htmlOut);
+				}
+			})
+		})
+		
+		// 커진 이미지 클릭시 닫기
+		$(document).on('click', '.menu-review .modal', function(){
+			$(this).detach();
+			$('html').attr('class', '');
+		})
 		
 		
      }); //function 끝
@@ -628,8 +742,10 @@
     <title>Saladit!</title>
 </head>
 <body>
-    <div id="container">
-        <header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
+	<div id="__nuxt">
+	<div id="__layout">
+	<main class="viewport" data-v-67c7ff33="">
+	<header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
             <div class="header-banner-wrap" data-v-30697495><!----></div> 
             <div id="header__body" class="header__body" data-v-30697495>
                <div class="header__top" data-v-30697495>
@@ -829,6 +945,7 @@
             <!----> 
             <!---->
         </header> 
+    <div id="container">
         <div id="home">
             <!--위에 container에 padding-top:182px 주는 이유:
             헤더가 스크롤에 따라 바뀌면서 그 아래 container가 스크롤을 올리면 잘 안보임-->
@@ -1320,7 +1437,6 @@
                                        </div>
                                        <div data-v-e3f957fc class="answer-column right">
                                           <div data-v-e3f957fc class="menu-info-table-content-description">▶ 일반상품 취소 가능 시점<br>
-                                             ●  점심/저녁 스팟,퀵배송은 배송 예정일 당일 오전 7시까지 홈페이지를 통해 직접 취소 가능
                                              ● 새벽/택배배송은 배송 예정일 D-1일 오후 3시까지 홈페이지를 통해 직접 취소 가능 
                                              ※ 신선식품 특성 상 주문취소시간 외 취소 및 변경 불가합니다.
 
@@ -1351,27 +1467,7 @@
 										</div>
 										<div data-v-e3f957fc="" class="answer-column right">
 											<div data-v-e3f957fc=""
-												class="menu-info-table-content-description"> ▶ 프코스팟 배송 <br>
-                                             프코스팟은 배송 장소에 따라 이용이 제한 될 수 있습니다.
-                                             사전에 이용이 가능한 스팟인지 꼭 확인하시고 주문해주시길 바랍니다.
-                                             
-                                             ● 프라이빗 스팟 : 임직원 및 멤버 전용 (예 : 회사 및 공유오피스등)
-                                             ● 퍼블릭 스팟 : 누구나 이용 가능한 스팟 (예 : gs25 및 헬스장등)
-                                             
-                                             최소 주문금액 6천원 이상, 배송비는 무료이며 
-                                             점심배송은 오전 11시 ~ 오후 12시 30분사이 배송이며
-                                             저녁배송은 오후 1시 ~ 오후5시 사이 배송 됩니다. 
-                                             
-                                             
-                                             ▶퀵배송
-                                             주변에 이용 가능한 프코스팟이 없다면 서울 전지역 점심/저녁 퀵 배송이 가능합니다.
-                                             최소 주문금액 1만원 이상, 배송비는 4천원이며 4만원 이상 구매 시, 무료배송 입니다.
-                                             
-                                              점심배송은 12시 30분 전/후로 배송 예정되며
-                                              저녁배송은 오후 1시~5시 사이 배송 됩니다.
-                                             
-                                             
-                                             ▶새벽배송
+												class="menu-info-table-content-description"> ▶ 새벽배송 <br>
                                              새벽배송은 00시 ~ 07시 사이 요청하신 장소로 배송이 되며
                                              새벽시간 특성 상 고객님께 별도 연락 없이, 배송완료가 되면 문자로 사진과 함께 안내 드리고 있습니다.
                                              
@@ -1433,9 +1529,6 @@
                     data-gtm-vis-first-on-screen-7693391_542="15381"
                     data-gtm-vis-total-visible-time-7693391_542="3000"
                     data-gtm-vis-has-fired-7693391_542="1">
-                        <a data-v-32a18372 href="#" class>
-                            <div data-v-32a18372 class="menu__tab-review-banner"></div>
-                        </a>
                         <div data-v-f8b893b0="" data-v-32a18372="" class="menu-review">
 <!--                             <section data-v-f8b893b0="" class="menu-review__album"> -->
 <!--                                 <h3 data-v-f8b893b0="" class="menu-review__album-title"> -->
@@ -1676,11 +1769,12 @@
                                </div>
                             </section>
                             <section data-v-f8b893b0="" class="menu-review__index">
-                               <ul data-v-f8b893b0="">
+                            	<input type="hidden" value="${detail.item_code}" id="ItemCodeValueTest" >
+                            	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueTest" >
+                               <ul data-v-f8b893b0="" class="johntest">
                                
                                
-                               
-	                               	  <c:forEach var="board" items="${boardList }">
+	                               	  <c:forEach var="board" items="${boardList }" varStatus="i">
 		                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
 		                                     <div data-v-22105fb8="" class="review-item__head">
 		                                        <div data-v-22105fb8="" class="head-rating">
@@ -1691,10 +1785,17 @@
 		                                        </div>
 		                                        <div data-v-22105fb8="" class="head-summary">
 		                                           <div data-v-22105fb8="" class="head-summary-left">
-<!-- 		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png" -->
-<!-- 		                                                  class="summary-photo"> -->
+		                                           <c:if test="${!empty board.image }">
+		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pics.png"
+		                                                  class="summary-photo">
+													</c:if>
 		                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
 		                                           </div>
+		                                           <c:forEach var="reviewReply" items="${reviewReply }">
+			                                           <c:if test="${reviewReply.seq == board.seq}">
+			                                           		<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_reply%402x.png" alt="관리자 댓글" class="summary-answer">
+		                                           		</c:if>
+		                                           </c:forEach>
 		                                           <!---->
 		                                        </div>
 		                                        <div data-v-22105fb8="" class="head-text">
@@ -1707,16 +1808,33 @@
 		                                        <div data-v-22105fb8="" class="review-item__body">
 		                                           <div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
 		                                           <div data-v-22105fb8="" class="review-item__photos">
-		                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-		                                                 <div data-v-22105fb8="" class="review-item__photo"
-		                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
-		                                              </div>
-		                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
-		                                                 <div data-v-22105fb8="" class="review-item__photo"
-		                                                    style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
-		                                              </div>
-		                                           </div>
+		                                           
+			                                           <c:forEach var="reviewImage" items="${reviewImage[i.index] }" varStatus="j">
+				                                           <c:if test="${reviewImage != '0' }">
+				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
+				                                                 <div data-v-22105fb8="" class="review-item__photo"
+				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                                 <input type="hidden" value="${reviewImage }">
+				                                              </div>
+				                                           </c:if>
+		                                              </c:forEach>
+													</div>
 		                                        </div>
+		                                        <c:forEach var="reviewReply" items="${reviewReply }">
+				                                           <c:if test="${reviewReply.seq == board.seq}">
+																<div data-v-22105fb8="" class="review-item__reply">
+																	<p data-v-22105fb8="" class="review-item__admin-name">
+																		샐러딧_운영자</p>
+																	<p data-v-22105fb8=""
+																		class="review-item__admin-comment">안녕하세요.
+																		샐러딧입니다 (୨୧ ❛ᴗ❛)✧ 소중한 시간에 이렇게 후기까지 남겨 주셔서 정말 감사합니다.
+		
+																		${reviewReply.replycontents }</p>
+																	<p data-v-22105fb8="" class="review-item__date">
+																		${reviewReply.replydate }</p>
+																</div>
+															</c:if>
+														</c:forEach>
 		                                        <!---->
 		                                     </div>
 		                                  </li>
@@ -1734,7 +1852,7 @@
                                         <ul class="btn-group pagination">
 										    <c:if test="${pageMaker.prev }">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
+											        <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'>
 														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
 											        <i class="fa fa-chevron-left"><img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
 											        </a>
@@ -1742,15 +1860,20 @@
 										    </c:if>
 										    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
-													<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-											        <i class="fa">${pageNum }  </i> 
+											        <a href='<c:url value="/detail.do?page=${pageNum }"/>'>
+													<a data-v-43f58a9c="" href="#">
+											        <i class="fa pageNum">
+											        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
+											        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
+											        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
+											        	${pageNum }  
+											        </i> 
 											        </a>
 											    </li>
 										    </c:forEach>
 										    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
+											        <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'>
 														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
 											        <i class="fa fa-chevron-right"><img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png"></i>
 											        </a>
@@ -1767,29 +1890,41 @@
 										<ul class="btn-group pagination">
 										    <c:if test="${pageMaker.prev }">
 											    <li>
-											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
-													<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
+											    	<button>
 											        	<i class="fa fa-chevron-left">
-											        	<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
-											        </a>
+											        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
+												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValuePrev" >
+											        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
+											        	</i>
+											        </button>
 											    </li>
 										    </c:if>
 										    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
-													<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-											        	<i class="fa">${pageNum }  </i> 
-											        </a>
+													<button >
+											        	<i class="fa pageNum">
+												        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
+												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
+												        	${pageNum }
+											        	 </i> 
+											   		</button>
 											    </li>
+											    &nbsp;&nbsp;&nbsp;
 										    </c:forEach>
 										    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 											    <li>
 											<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
-														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
+													<button>
 											        	<i class="fa fa-chevron-right">
+											        		<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
+											        		<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNext" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueNext" >
 											        		<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
 											        	</i>
-											        </a>
+											        </button>
 											    </li>
 										    </c:if>
 										</ul>
@@ -1892,6 +2027,9 @@
             
          </footer>
          
+    </div>
+    </main>
+    </div>
     </div>
     	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script

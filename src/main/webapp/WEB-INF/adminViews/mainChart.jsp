@@ -365,7 +365,7 @@
    			    		$("input[name='monthSum']").remove();
    			    		// 데이터 들어가있는 input 추가
    			    		$('#input').append(htmlOut);
-   			    		
+   			    		$('#barChartMonth').text("2022년도 월 별 차트");
    			    		
    			    		$('#myBarChart').detach()
    			    		$('#myBarChart' + check02).detach();
@@ -460,6 +460,7 @@
    			    		$("input[name='monthSum']").remove();
    			    		// 데이터 들어가있는 input 추가
    			    		$('#input').append(htmlOut);
+   			    		$('#barChartMonth').text("2021년도 월 별 차트");
    			    		
    			    		
 //    			    		$('.chartjs-size-monitor').detach();
@@ -901,7 +902,8 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        월 별 차트
+<!--                                         월 별 차트 -->
+										<i id="barChartMonth">2021년도 월 별 차트</i>
                                         <div style="float:right; height:17px;" class='month-btn'>
 <!-- 	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">   -->
 <!-- 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-left" viewBox="0 0 16 16"> -->

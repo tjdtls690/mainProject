@@ -20,8 +20,8 @@
 $(function() {
 	$(document).on('click','.btn.btn-dark', function(){
 		var seq = $(this).attr('id');
-		var name = $(this).parent().siblings('td').eq(2).text();
-		var content = $(this).parent().siblings('td').eq(7).text();
+		var name = $(this).parent().siblings('td').eq(1).text();
+		var content = $(this).parent().siblings('td').eq(6).text();
 		$('#reviewSeq').val(seq);
 		$('#user_name').val(name);
 		$('#content').val(content);

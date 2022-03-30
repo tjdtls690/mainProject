@@ -14,7 +14,7 @@
 	<div data-v-d06869c8="" data-v-421abad8="" class="review-index__index">
 	
 		<c:forEach var="list1" items="${list1 }" varStatus="i">
-			<c:if test="${list1.payment_item_mapping_review == 1 }">
+			<c:if test="${list1.payment_item_mapping_review == 1 && !empty list2[i.index]}">
 				<ul data-v-d06869c8="" data-v-421abad8="">
 					<!---->
 					<div data-v-2e8f90f6="" data-v-d06869c8="" class="wrote-review-wrap"

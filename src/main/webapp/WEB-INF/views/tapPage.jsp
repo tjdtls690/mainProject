@@ -252,7 +252,7 @@ $(function() {
  		$(this).prev().children().val(val);
  	// + 만큼 값 찍기
  		nowPrice += getPrice;
- 		$('.price-wrap').children('.price-right').text(nowPrice+"원");
+ 		$('.price-wrap').children('.price-right').text(Number(nowPrice).toLocaleString('en')+"원");
  	// 장바구니 담기 버튼 활성화
  		$('#mobCart').removeClass('button--disabled');
  		$('#mobCart').removeAttr('disabled');
@@ -275,7 +275,7 @@ $(function() {
 	 		val -=1;
 	 		$(this).next().children().val(val);
 	 		nowPrice -= getPrice;
-	 		$('.price-wrap').children('.price-right').text(nowPrice+"원");
+	 		$('.price-wrap').children('.price-right').text(Number(nowPrice).toLocaleString('en')+"원");
 		}
 		else{
 			val = 0;

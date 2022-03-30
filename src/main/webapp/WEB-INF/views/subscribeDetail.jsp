@@ -85,7 +85,7 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
    <link rel="stylesheet" href="${path }/style.css">
-   <link rel="stylesheet" href="${path }/style2.css">
+   <link rel="stylesheet" href="${path }/style2.css?ver=1">
    <script type="text/javascript">
    function page_move(tagNum){
 	   var f = document.paging; //폼 name
@@ -684,6 +684,30 @@
 		
 		})
 		
+		// 이미지 버튼 (이미지 크게 보이기)
+		$(document).on('click', '.review-item__photo', function(){
+			var image = $(this).siblings('input').val();
+			
+			$.ajax({
+				url : 'detailReviewImageModal.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'image' : image
+				},
+				success : function(htmlOut){
+					$('html').attr('class', 'mode-popup');
+					$('.menu-review').append(htmlOut);
+				}
+			})
+		})
+		
+		// 커진 이미지 클릭시 닫기
+		$(document).on('click', '.menu-review .modal', function(){
+			$(this).detach();
+			$('html').attr('class', '');
+		})
+		
 		
 
      }); //function 끝
@@ -855,10 +879,10 @@
 											</div>
 										</div>
 										<div data-v-32a18372="" class="price-wrap">
-											<b>${detail.item_price_m }원 </b>
+											<b data-v-32a18372>${detail.item_price_m }원 </b>
 											<c:if test="${detail.item_price_m_sub !='' }">
-												<b>~</b>
-												<del>${detail.item_price_m_sub }원</del>
+												<b data-v-32a18372>~</b>
+												<del data-v-32a18372>${detail.item_price_m_sub }원</del>
 											</c:if>
 										</div>
 										<ul data-v-32a18372 class="menu-detail">
@@ -1320,151 +1344,152 @@
 
 								</div>
 
-								<div data-v-32a18372="" id="faq" class="menu__tab-info tab_menu_detail navBar" style="">
-									<p data-v-32a18372="" class="menu__tab-info-title faq">FAQ</p>
-									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
-										<div data-v-e3f957fc class="menu-info-table-opener" id="section03">
-											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
-												<p data-v-e3f957fc class="menu-info-table-title">[결제 안내]</p>
-											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
+								<div data-v-32a18372="" id="faq" class="menu__tab-info tab_menu_detail navBar">
+                            <p data-v-32a18372="" class="menu__tab-info-title faq">FAQ</p>
+                            <div data-v-e3f957fc="" data-v-32a18372="" class="menu-info-table-wrap">
+                                <div data-v-e3f957fc="" class="menu-info-table-opener border-bottom-desktop-show">
+                                    <div data-v-e3f957fc="" class="menu-info-table-title-wrapper">
+                                        <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
+                                        <p data-v-e3f957fc="" class="menu-info-table-title">[결제 안내]</p>
+                                    </div>
+                                    <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
+                                </div>
+								<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
+									<div data-v-e3f957fc="" class="answer-wrapper">
+										<div data-v-e3f957fc="" class="answer-column left">
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
 										</div>
-										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
-											<div data-v-e3f957fc="" class="answer-wrapper">
-												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"class="menu-info-table-img answer">
-												</div>
-												<div data-v-e3f957fc="" class="answer-column right">
-													<div data-v-e3f957fc="" class="menu-info-table-content-description">
-														▶ 결제수단안내<br> 프레시코드에서는 프코페이, PAYCO, 신용카드,
-														kakaopay,toss,계좌이체가 가능합니다. GS25 편의점 스팟으로 주문 시, toss결제수단은
-														사용할 수 없으니 이용에 참고 부탁 드립니다.
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
-										<div data-v-e3f957fc class="menu-info-table-opener">
-											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
-												<p data-v-e3f957fc class="menu-info-table-title">[주문단계 안내]</p>
-											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png"class="menu-info-table-opener-arrow">
-										</div>
-										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
-											<div data-v-e3f957fc="" class="answer-wrapper">
-												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
-												</div>
-												<div data-v-e3f957fc="" class="answer-column right">
-													<div data-v-e3f957fc="" class="menu-info-table-content-description">
-														▶ 일반배송 주문 과정 안내<br> 1. 원하는 상품 선택. 2. 희망하는 배송방법 선택.
-														(프코스팟/퀵/새벽배송/택배배송) 3.구매하고자 하는 상품 및 수량 선택. 4. 유상 구매로 제공되는
-														일회용품 유/무 선택. 5. 희망 배송 날짜 선택. 6. 나의 배송지 정보 확인 7. 주문자 정보 확인
-														후 결제.
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
-										<div data-v-e3f957fc class="menu-info-table-opener">
-											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
-												<p data-v-e3f957fc class="menu-info-table-title">[취소 및 환불 안내]</p>
-											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
-										</div>
-										<div data-v-e3f957fc class="menu-info-table-content-wrap review-hide">
-											<div data-v-e3f957fc class="answer-wrapper">
-												<div data-v-e3f957fc class="answer-column left">
-													<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
-												</div>
-												<div data-v-e3f957fc class="answer-column right">
-													<div data-v-e3f957fc class="menu-info-table-content-description">
-														▶ 일반상품 취소 가능 시점<br> ● 점심/저녁 스팟,퀵배송은 배송 예정일 당일 오전 7시까지
-														홈페이지를 통해 직접 취소 가능 ● 새벽/택배배송은 배송 예정일 D-1일 오후 3시까지 홈페이지를 통해
-														직접 취소 가능 ※ 신선식품 특성 상 주문취소시간 외 취소 및 변경 불가합니다. ▶ 고객님의 단순
-														변심/개인사유 포함하여 취소 요청 시, 쿠폰 사용금액 제외한 실 결제금액에서 배송 완료된 모든 상품의
-														정상가 차감 후 나머지만 환불 됩니다. ▶ 제품 이상이 있거나, 오배송이 된 경우 반드시 사진 촬영을
-														해주신 후 고객센터로 문의 남겨주세요 ▶ 신선식품의 특성 상 재판매가 불가합니다. 고객님의 단순 변심
-														혹은 개인사유로 인해 취소 가능한 시점 이후에는 취소가 불가합니다. ▶ 고객의 부주의 혹은 잘못된
-														보관방법으로 인한 상품 변질은 취소 및 환불이 불가합니다.
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
-										<div data-v-e3f957fc class="menu-info-table-opener">
-											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
-												<p data-v-e3f957fc class="menu-info-table-title">[배송 안내]</p>
-											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
-										</div>
-										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
-											<div data-v-e3f957fc="" class="answer-wrapper">
-												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png"class="menu-info-table-img answer">
-												</div>
-												<div data-v-e3f957fc="" class="answer-column right">
-													<div data-v-e3f957fc="" class="menu-info-table-content-description">
-														▶ 프코스팟 배송 <br> 프코스팟은 배송 장소에 따라 이용이 제한 될 수 있습니다. 사전에
-														이용이 가능한 스팟인지 꼭 확인하시고 주문해주시길 바랍니다. ● 프라이빗 스팟 : 임직원 및 멤버 전용
-														(예 : 회사 및 공유오피스등) ● 퍼블릭 스팟 : 누구나 이용 가능한 스팟 (예 : gs25 및
-														헬스장등) 최소 주문금액 6천원 이상, 배송비는 무료이며 점심배송은 오전 11시 ~ 오후 12시
-														30분사이 배송이며 저녁배송은 오후 1시 ~ 오후5시 사이 배송 됩니다. ▶퀵배송 주변에 이용 가능한
-														프코스팟이 없다면 서울 전지역 점심/저녁 퀵 배송이 가능합니다. 최소 주문금액 1만원 이상, 배송비는
-														4천원이며 4만원 이상 구매 시, 무료배송 입니다. 점심배송은 12시 30분 전/후로 배송 예정되며
-														저녁배송은 오후 1시~5시 사이 배송 됩니다. ▶새벽배송 새벽배송은 00시 ~ 07시 사이 요청하신
-														장소로 배송이 되며 새벽시간 특성 상 고객님께 별도 연락 없이, 배송완료가 되면 문자로 사진과 함께 안내
-														드리고 있습니다. 안전한 배송을 위해 건물 출입 가능한 방법을 자세히 기재 해주셔야 하며 새벽배송 가능한
-														지역이라도 학교/기숙사/관공서/병원/쇼핑몰/군부대등 일부 장소는 배송이 불가하며 엘레베이터가 없는 6층
-														이상의 건물에는 1층에 대응배송을 하고 있습니다. (주소 및 출입방법을 정확히 작성하지 않아 발생한
-														문제에 대해서는 교환이나 환불이 불가합니다.) 최소 주문금액 1만원 이상, 배송비는 3500원이며
-														35,000원 이상 구매 시, 무료배송 입니다. ▶택배배송 제주도, 도서산간을 제외한 모든 지역이 배송이
-														가능하며 CJ 대한통운을 통해 배송이 됩니다. 최소 주문 금액 1만원 이상 배송비는 3500원이며
-														35,000원 구매 시 , 무료 배송입니다. CJ대한통운을 통해 배송이 되고 있으며, 각 지역의 물량이나
-														동선에 따라 도착시간이 다르기 때문에 배송관련한 문의는 CJ대한통운 고객센터로 문의 부탁 드립니다.
-														(CJ대한통운 고객센터 : 1588-1255)
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div data-v-e3f957fc data-v-32a18372 class="menu-info-table-wrap">
-										<div data-v-e3f957fc class="menu-info-table-opener">
-											<div data-v-e3f957fc class="menu-info-table-title-wrapper">
-												<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
-												<p data-v-e3f957fc class="menu-info-table-title">[기타 사항(자주 묻는 질문)]</p>
-											</div>
-											<img data-v-e3f957fc src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
-										</div>
-										<div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
-											<div data-v-e3f957fc="" class="answer-wrapper">
-												<div data-v-e3f957fc="" class="answer-column left">
-													<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
-												</div>
-												<div data-v-e3f957fc="" class="answer-column right">
-													<div data-v-e3f957fc="" class="menu-info-table-content-description">
-														▶ 배송일 변경이 가능한가요?<br> ● 프코스팟/퀵배송은 수령일 당일 오전 7시까지
-														홈페이지에서 직접 변경이 가능합니다. ● 새벽배송/택배배송의 경우 배송 예정일 D-1일 오후 3시까지
-														홈페이지에서 직접 변경이 가능합니다. ▶ 상품변경 혹은 주문내역 변경이 가능한가요? ● 프코스팟/퀵배송의
-														경우 수령일 당일 오전 7시까지 고객님께서 직접 홈페이지를 통해 기존 주문건 취소 후 재주문 해주셔야
-														합니다. ● 새벽배송/택배배송의 경우 배송 예정일 D-1일 오후 3시까지 고객님께서 직접 홈페이지를 통해
-														기존 주문건 취소 후 재주문 해주셔야 합니다. ▶샐러드에 못먹는 재료가 있는데 제외 가능한가요? ●
-														대량으로 일괄생산하고 있어, 특정 재료나 드레싱 제외가 불가합니다. ▶ 정기배송과 일반배송 합배송이
-														되나요? ● 정기배송과 일반배송 상품은 합배송이 불가하며, 같은 주소지로 동시에 배송 받으시더라도 개별로
-														배송비가 부과 됩니다.
-													</div>
-												</div>
-											</div>
+										<div data-v-e3f957fc="" class="answer-column right">
+											<div data-v-e3f957fc="" class="menu-info-table-content-description">▶ 결제수단안내<br>
+												프레시코드에서는 프코페이, PAYCO, 신용카드, kakaopay,toss,계좌이체가 가능합니다. 
+												GS25 편의점 스팟으로 주문 시, toss결제수단은 사용할 수 없으니 이용에 참고 부탁 드립니다.</div>
 										</div>
 									</div>
 								</div>
+							</div>
+                            <div data-v-e3f957fc="" data-v-32a18372="" class="menu-info-table-wrap">
+                                <div data-v-e3f957fc="" class="menu-info-table-opener border-bottom-desktop-show">
+                                    <div data-v-e3f957fc="" class="menu-info-table-title-wrapper">
+                                        <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
+                                        <p data-v-e3f957fc="" class="menu-info-table-title">[주문단계 안내]</p>
+                                    </div>
+                                    <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
+                                </div>
+                                <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
+									<div data-v-e3f957fc="" class="answer-wrapper">
+										<div data-v-e3f957fc="" class="answer-column left">
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
+										</div>
+										<div data-v-e3f957fc="" class="answer-column right">
+											<div data-v-e3f957fc="" class="menu-info-table-content-description">▶ 일반배송 주문 과정 안내<br>
+                                             1. 원하는 상품 선택.
+                                             2. 희망하는 배송방법 선택.
+                                             (프코스팟/퀵/새벽배송/택배배송)
+                                             3.구매하고자 하는 상품 및 수량 선택.
+                                             4. 유상 구매로 제공되는 일회용품 유/무 선택.
+                                             5. 희망 배송 날짜 선택.
+                                             6. 나의 배송지 정보 확인
+                                             7. 주문자 정보 확인 후 결제.</div>
+										</div>
+									</div>
+								</div>
+                            </div>
+                            <div data-v-e3f957fc="" data-v-32a18372="" class="menu-info-table-wrap">
+                                <div data-v-e3f957fc="" class="menu-info-table-opener">
+                                    <div data-v-e3f957fc="" class="menu-info-table-title-wrapper">
+                                        <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
+                                        <p data-v-e3f957fc="" class="menu-info-table-title">[취소 및 환불 안내]</p>
+                                    </div>
+                                    <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
+                                </div>
+                                <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide">
+                                    <div data-v-e3f957fc="" class="answer-wrapper">
+                                       <div data-v-e3f957fc="" class="answer-column left">
+                                          <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
+                                       </div>
+                                       <div data-v-e3f957fc="" class="answer-column right">
+                                          <div data-v-e3f957fc="" class="menu-info-table-content-description">▶ 일반상품 취소 가능 시점<br>
+                                             ● 새벽/택배배송은 배송 예정일 D-1일 오후 3시까지 홈페이지를 통해 직접 취소 가능 
+                                             ※ 신선식품 특성 상 주문취소시간 외 취소 및 변경 불가합니다.
+
+                                             ▶ 고객님의 단순 변심/개인사유 포함하여 취소 요청 시, 쿠폰 사용금액 제외한 실 결제금액에서 배송 완료된 모든 상품의 정상가 차감 후 나머지만 환불 됩니다.
+
+
+                                             ▶ 제품 이상이 있거나, 오배송이 된 경우 반드시 사진 촬영을 해주신 후 고객센터로 문의 남겨주세요
+                                             ▶ 신선식품의 특성 상 재판매가 불가합니다. 고객님의 단순 변심 혹은 개인사유로 인해 취소 가능한 시점 이후에는 취소가 불가합니다.
+                                             ▶ 고객의 부주의 혹은 잘못된 보관방법으로 인한 상품 변질은 취소 및 환불이 불가합니다.</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                            </div>
+                            <div data-v-e3f957fc="" data-v-32a18372="" class="menu-info-table-wrap">
+                                <div data-v-e3f957fc="" class="menu-info-table-opener">
+                                    <div data-v-e3f957fc="" class="menu-info-table-title-wrapper">
+                                        <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
+                                        <p data-v-e3f957fc="" class="menu-info-table-title">[배송 안내]</p>
+                                    </div>
+                                    <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
+                                </div>
+                                <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
+									<div data-v-e3f957fc="" class="answer-wrapper">
+										<div data-v-e3f957fc="" class="answer-column left">
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
+										</div>
+										<div data-v-e3f957fc="" class="answer-column right">
+											<div data-v-e3f957fc="" class="menu-info-table-content-description"> ▶ 새벽배송 <br>
+                                             새벽배송은 00시 ~ 07시 사이 요청하신 장소로 배송이 되며
+                                             새벽시간 특성 상 고객님께 별도 연락 없이, 배송완료가 되면 문자로 사진과 함께 안내 드리고 있습니다.
+                                             
+                                             안전한 배송을 위해 건물 출입 가능한 방법을 자세히 기재 해주셔야 하며
+                                             새벽배송 가능한 지역이라도 학교/기숙사/관공서/병원/쇼핑몰/군부대등 일부 장소는 배송이 불가하며
+                                             엘레베이터가 없는 6층 이상의 건물에는 1층에 대응배송을 하고 있습니다.
+                                             (주소 및 출입방법을 정확히 작성하지 않아 발생한 문제에 대해서는 교환이나 환불이 불가합니다.)
+                                             
+                                             최소 주문금액 1만원 이상, 배송비는 3500원이며 35,000원 이상 구매 시, 무료배송 입니다.
+                                             
+                                             ▶택배배송
+                                             제주도, 도서산간을 제외한 모든 지역이 배송이 가능하며 CJ 대한통운을 통해 배송이 됩니다.
+                                             최소 주문 금액 1만원 이상 배송비는 3500원이며 35,000원 구매 시 , 무료 배송입니다.
+                                             CJ대한통운을 통해 배송이 되고 있으며, 각 지역의 물량이나 동선에 따라 도착시간이 다르기 때문에 배송관련한 문의는 CJ대한통운 고객센터로 문의 부탁 드립니다. (CJ대한통운 고객센터 : 1588-1255)
+												</div>
+										</div>
+									</div>
+								</div>
+                            </div>
+                            <div data-v-e3f957fc="" data-v-32a18372="" class="menu-info-table-wrap">
+                                <div data-v-e3f957fc="" class="menu-info-table-opener">
+                                    <div data-v-e3f957fc="" class="menu-info-table-title-wrapper">
+                                        <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_question.png" class="menu-info-table-img question">
+                                        <p data-v-e3f957fc="" class="menu-info-table-title">[기타 사항(자주 묻는 질문)]</p>
+                                    </div>
+                                    <img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_down_s.png" class="menu-info-table-opener-arrow">
+                                </div>
+                                <div data-v-e3f957fc="" class="menu-info-table-content-wrap review-hide" style="border-bottom: 1px solid rgb(233, 233, 233);">
+									<div data-v-e3f957fc="" class="answer-wrapper">
+										<div data-v-e3f957fc="" class="answer-column left">
+											<img data-v-e3f957fc="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_answer.png" class="menu-info-table-img answer">
+										</div>
+										<div data-v-e3f957fc="" class="answer-column right">
+											<div data-v-e3f957fc="" class="menu-info-table-content-description">▶ 배송일 변경이 가능한가요?<br>
+                                             ● 프코스팟/퀵배송은 수령일 당일 오전 7시까지 홈페이지에서 직접 변경이 가능합니다.
+                                             ● 새벽배송/택배배송의 경우 배송 예정일 D-1일 오후 3시까지  홈페이지에서 직접 변경이 가능합니다.
+
+
+                                             ▶ 상품변경 혹은 주문내역 변경이 가능한가요?
+                                             ● 프코스팟/퀵배송의 경우 수령일 당일 오전 7시까지 고객님께서 직접 홈페이지를 통해 기존 주문건 취소 후 재주문 해주셔야 합니다.
+                                             ● 새벽배송/택배배송의 경우 배송 예정일 D-1일 오후 3시까지 고객님께서 직접 홈페이지를 통해 기존 주문건 취소 후 재주문 해주셔야 합니다.
+
+                                             ▶샐러드에 못먹는 재료가 있는데 제외 가능한가요?
+                                             ●  대량으로 일괄생산하고 있어, 특정 재료나 드레싱 제외가 불가합니다.
+
+                                             ▶ 정기배송과 일반배송 합배송이 되나요?
+                                             ● 정기배송과 일반배송 상품은 합배송이 불가하며, 같은 주소지로 동시에 배송 받으시더라도 개별로 배송비가 부과 됩니다.
+												</div>
+										</div>
+									</div>
+								</div>
+                            </div>
+                        </div>
 							</div>
 							<div data-v-32a18372="" class="menu__tab-review" id="review">
 								<div data-v-f8b893b0="" data-v-32a18372="" class="menu-review">
@@ -1487,41 +1512,52 @@
 									<section data-v-f8b893b0="" class="menu-review__index">
 										<ul data-v-f8b893b0="">
 <!--  리뷰  -->										
-											<c:forEach var="board" items="${boardList }">
-												<li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
-													<div data-v-22105fb8="" class="review-item__head">
-														<div data-v-22105fb8="" class="head-rating">
-															<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png" class="rating-img">
-															<div data-v-22105fb8="" class="rating-count">${board.star }</div>
-														</div>
-														<div data-v-22105fb8="" class="head-summary">
-															<div data-v-22105fb8="" class="head-summary-left">
-																<img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/pics%402x.png" class="summary-photo">
-																<div data-v-22105fb8="" class="summary-text">${board.content }</div>
-															</div>
-															<!---->
-														</div>
-														<div data-v-22105fb8="" class="head-text">
-															<div data-v-22105fb8="" class="text-name">${board.user_name }</div>
-															<div data-v-22105fb8="" class="text-date">${fn:substring(board.write_date, 0, 10)}</div>
-														</div>
-													</div>
-													<div data-v-22105fb8="" class="review-desktop-toggle review-hide">
-														<div data-v-22105fb8="" class="review-item__body">
-															<div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
-															<div data-v-22105fb8="" class="review-item__photos">
-																<div data-v-22105fb8="" class="review-item__photo-wrap">
-																	<div data-v-22105fb8="" class="review-item__photo" style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44381_20220124003124&quot;);"></div>
-																</div>
-																<div data-v-22105fb8="" class="review-item__photo-wrap">
-																	<div data-v-22105fb8="" class="review-item__photo" style="background-image: url(&quot;https://s3.ap-northeast-2.amazonaws.com/freshcode/menu/review/sm/44382_20220124003124&quot;);"></div>
-																</div>
-															</div>
-														</div>
-														<!---->
-													</div>
-												</li>
-											</c:forEach>
+											<c:forEach var="board" items="${boardList }" varStatus="i">
+		                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
+		                                     <div data-v-22105fb8="" class="review-item__head">
+		                                        <div data-v-22105fb8="" class="head-rating">
+		                                           <img data-v-22105fb8=""
+		                                              src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_star(full).png" 
+		                                              class="rating-img">
+		                                           <div data-v-22105fb8="" class="rating-count">${board.star }</div>
+		                                        </div>
+		                                        <div data-v-22105fb8="" class="head-summary">
+		                                           <div data-v-22105fb8="" class="head-summary-left">
+		                                           <c:if test="${!empty board.image }">
+		                                              <img data-v-22105fb8="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pics.png"
+		                                                  class="summary-photo">
+													</c:if>
+		                                              <div data-v-22105fb8="" class="summary-text">${board.content }</div>
+		                                           </div>
+		                                           <!---->
+		                                        </div>
+		                                        <div data-v-22105fb8="" class="head-text">
+		                                           <div data-v-22105fb8="" class="text-name">${board.user_name }</div>
+		                                           <div data-v-22105fb8="" class="text-date">${fn:substring(board.write_date, 0, 10)}</div>
+		                                        </div>
+		                                     </div>
+		                                     <div data-v-22105fb8=""
+		                                        class="review-desktop-toggle review-hide">
+		                                        <div data-v-22105fb8="" class="review-item__body">
+		                                           <div data-v-22105fb8="" class="review-item__comment">${board.content }</div>
+		                                           <div data-v-22105fb8="" class="review-item__photos">
+		                                           
+			                                           <c:forEach var="reviewImage" items="${reviewImage[i.index] }" varStatus="j">
+				                                           <c:if test="${reviewImage != '0' }">
+				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
+				                                                 <div data-v-22105fb8="" class="review-item__photo"
+				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                                 <input type="hidden" value="${reviewImage }">
+				                                              </div>
+				                                           </c:if>
+		                                              </c:forEach>
+		                                              
+		                                           </div>
+		                                        </div>
+		                                        <!---->
+		                                     </div>
+		                                  </li>
+	                                  </c:forEach>
 											
 											<!-- 댓글 내용 열 시 추가 되어야 할 클래스 이름 :  review-item__head 부분에 border-bottom-desktop-show -->
 											<!-- 댓글 내용 열 시 사라져야 할 클래스 이름 : review-desktop-toggle 부분에 review-hide -->

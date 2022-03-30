@@ -81,4 +81,7 @@
 		member_birthday = #{birthday}, member_gender = #{gender}, member_phone = #{phone}
 		where member_code = #{memberCode}
 	</update>
+	<delete id="deleteMember">
+		DELETE FROM member WHERE member_code = #{memberCode}
+	</delete>
 </mapper>

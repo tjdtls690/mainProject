@@ -52,4 +52,8 @@ public class PaymentCompleteDAO {
 	public List<PaymentMyDetailInfoVO> getMemberPayMappingMemberCodeInfo(PaymentMyDetailInfoVO vo) {
 		return sqlSessionTemplate.selectList("PaymentDAO.getMemberPayMappingMemberCodeInfo", vo);
 	}
+	
+	public int deleteMemberPoint(PaymentMyDetailInfoVO vo) {
+		return sqlSessionTemplate.delete("PaymentDAO.deleteMemberPoint", vo);
+	}
 }

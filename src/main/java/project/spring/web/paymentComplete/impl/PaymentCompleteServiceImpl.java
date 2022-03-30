@@ -60,6 +60,11 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 	public List<PaymentMyDetailInfoVO> getMemberPayMappingMemberCodeInfo(PaymentMyDetailInfoVO vo) {
 		return paymentCompleteDAO.getMemberPayMappingMemberCodeInfo(vo);
 	}
+
+	@Override
+	public int deleteMemberPoint(PaymentMyDetailInfoVO vo) {
+		return paymentCompleteDAO.deleteMemberPoint(vo);
+	}
 	
 	
 }

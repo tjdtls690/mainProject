@@ -17,4 +17,5 @@ public interface MemberService {
 	public MemberVO getMemberEmail(MemberVO vo);
 	public List<MemberVO> getAllMember(MemberVO vo);
 	public int updateMemberInfo(MemberVO vo);
+	public int deleteMember(MemberVO vo);
 }

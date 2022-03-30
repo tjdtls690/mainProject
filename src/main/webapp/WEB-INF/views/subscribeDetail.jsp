@@ -86,7 +86,7 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
    <link rel="stylesheet" href="${path }/style.css">
-   <link rel="stylesheet" href="${path }/style2.css?ver=1">
+   <link rel="stylesheet" href="${path }/style2.css?ver=2">
    <script type="text/javascript">
    function page_move(tagNum){
 	   var f = document.paging; //폼 name

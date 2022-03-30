@@ -40,6 +40,9 @@
 	<update id="updateMemberPoint">
 		update payment_point set payment_point = #{payment_point} where payment_member_code = #{payment_member_code}
 	</update>
+	<delete id="deleteMemberPoint">
+		DELETE FROM payment_point where payment_member_code = #{payment_member_code}
+	</delete>
 	<insert id="insertMemberPoint">
 		insert into payment_point(payment_member_code) values(#{payment_member_code})
 	</insert>

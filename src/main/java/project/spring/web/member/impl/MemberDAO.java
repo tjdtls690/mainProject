@@ -69,4 +69,8 @@ public class MemberDAO {
 	public int updateMemberInfo(MemberVO vo) {
 		return sqlSessionTemplate.update("MemberDAO.updateMemberInfo", vo);
 	}
+	
+	public int deleteMember(MemberVO vo) {
+		return sqlSessionTemplate.delete("MemberDAO.deleteMember", vo);
+	}
 }

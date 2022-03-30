@@ -16,7 +16,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="${path}/css/style.css?ver=3" rel="stylesheet" />
+	<link href="${path}/css/style.css?ver=4" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
        	$(function(){
@@ -606,7 +606,7 @@
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
 	            <a class="navbar-brand ps-3" href="adminMainChart.mdo">
-				<img src=""></a>
+				salad:it-admin</a>
 	        <!-- Sidebar Toggle-->
 	            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 	        <!-- Navbar Search-->
@@ -666,7 +666,7 @@
                             </div>
                             
                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 주문/배송
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -707,7 +707,7 @@
 							<div class="collapse" id="collapseSales" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
                                     <a class="nav-link" href="salesManagement.mdo">매출/상품통계</a>
-                                    <a class="nav-link" href="#">카테고리별 통계</a>
+                                    <a class="nav-link" href="pieChart.mdo">카테고리별 통계</a>
                                 </nav>
                             </div>
                         </div>

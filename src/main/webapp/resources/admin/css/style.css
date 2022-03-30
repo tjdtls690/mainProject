@@ -3048,13 +3048,13 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: #D98D62;
-  border-color: #D98D62;
+  background-color: #F2D6B3;
+  border-color: #F2D6B3;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
+  background-color: #F2B885;
+  border-color: #F2B885;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
@@ -3140,13 +3140,13 @@ textarea.form-control-lg {
 
 .btn-info {
   color: #000;
-  background-color: #0dcaf0;
-  border-color: #0dcaf0;
+  background-color: #F2D6B3;
+  border-color: #F2D6B3;
 }
 .btn-info:hover {
   color: #000;
-  background-color: #31d2f2;
-  border-color: #25cff2;
+  background-color: #F2B885;
+  border-color: #F2B885;
 }
 .btn-check:focus + .btn-info, .btn-info:focus {
   color: #000;
@@ -4825,7 +4825,7 @@ textarea.form-control-lg {
 .page-link, .dataTable-pagination a {
   position: relative;
   display: block;
-  color: #D98D62;
+  color: #454C59;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -4856,8 +4856,8 @@ textarea.form-control-lg {
 .page-item.active .page-link, .page-item.active .dataTable-pagination a, .dataTable-pagination .page-item.active a, .dataTable-pagination li.active .page-link, .dataTable-pagination li.active a {
   z-index: 3;
   color: #fff;
-  background-color: #D98D62;
-  border-color: #D98D62;
+  background-color: #454C59;
+  border-color: #454C59;
 }
 .page-item.disabled .page-link, .page-item.disabled .dataTable-pagination a, .dataTable-pagination .page-item.disabled a, .dataTable-pagination li.disabled .page-link, .dataTable-pagination li.disabled a {
   color: #6c757d;
@@ -11599,7 +11599,7 @@ body {
 .dataTable-pagination .active a,
 .dataTable-pagination .active a:focus,
 .dataTable-pagination .active a:hover {
-  background-color: #A28B59;
+  background-color: #454C59;
 }
 
 .dataTable-pagination .ellipsis a,

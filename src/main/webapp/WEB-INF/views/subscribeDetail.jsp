@@ -1667,7 +1667,6 @@
 												<nav data-v-43f58a9c="" data-v-20ad18c6="" class="nav-paginate">
 													<ul class="btn-group pagination">
 														<c:if test="${pageMaker.prev }">
-														    <li>
 														    	<button>
 														        	<i class="fa fa-chevron-left">
 														        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
@@ -1676,7 +1675,6 @@
 														        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
 														        	</i>
 														        </button>
-														    </li>
 													    </c:if>
 														<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 																<button >
@@ -1690,7 +1688,6 @@
 													    &nbsp;&nbsp;&nbsp;
 														</c:forEach>
 														<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-															<li>
 																<button>
 											        				<i class="fa fa-chevron-right">
 											        					<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
@@ -1699,7 +1696,6 @@
 											        					<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
 											        				</i>
 											       				 </button>
-											   				 </li>
 														</c:if>
 													</ul>
 												</nav>
@@ -1708,8 +1704,7 @@
 												<nav data-v-43f58a9c data-v-20ad18c6 class="nav-paginate">
 													<ul class="btn-group pagination">
 														<c:if test="${pageMaker.prev }">
-														    <li>
-														    	<button>
+														    	<button style="cursor: pointer">
 														        	<i class="fa fa-chevron-left">
 														        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
 															        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
@@ -1717,11 +1712,11 @@
 														        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
 														        	</i>
 														        </button>
-														    </li>
+														   	&nbsp;&nbsp;&nbsp;
 													    </c:if>
 														<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-																<button >
-														        	<i class="fa pageNum">
+																<button style="cursor: pointer">
+														        	<i class="fa pageNum" style="vertical-align:top">
 															        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
 															        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
 															        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
@@ -1731,16 +1726,14 @@
 													    &nbsp;&nbsp;&nbsp;
 														</c:forEach>
 														<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-															<li>
-																<button>
-											        				<i class="fa fa-chevron-right">
+																<button style="cursor: pointer">
+											        				<i class="fa fa-chevron-right" >
 											        					<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
 											        					<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNext" >
 												        				<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueNext" >
 											        					<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
 											        				</i>
 											       				 </button>
-											   				 </li>
 														</c:if>
 													</ul>
 													<!--                                         <a data-v-43f58a9c="" href="#" class="nav-paginate__dir nav-paginate-dir-next" style="opacity: 1;"> -->

@@ -207,8 +207,8 @@ $(function() {
                                             <th style="width:5%;">no.</th>
                                             <th>ID</th>
                                             <th>날짜</th>
-											<th style="width:5%;">Main tag</th>
-                                            <th style="width:7%;">Item Code</th>
+											<th style="width:5%;">tag</th>
+                                            <th style="width:7%;">Code</th>
 											<th>상품명</th>
 											<th>내용</th>
 											<th style="width:10px;"></th>

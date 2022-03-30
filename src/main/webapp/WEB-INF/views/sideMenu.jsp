@@ -73,17 +73,17 @@
 						<div data-v-93cadc98="" class="row--v-center meta">
 							<dl data-v-93cadc98=""
 								class="col row row--v-center row--h-between">
-								<dt data-v-93cadc98="">0</dt>
+								<dt data-v-93cadc98="">${deliveryNum }</dt>
 								<dd data-v-93cadc98="">배송예정</dd>
 							</dl>
 							<dl data-v-93cadc98=""
 								class="col row row--v-center row--h-between">
-								<dt data-v-93cadc98="">0</dt>
+								<dt data-v-93cadc98="">${point }</dt>
 								<dd data-v-93cadc98="">포인트</dd>
 							</dl>
 							<dl data-v-93cadc98=""
 								class="col row row--v-center row--h-between">
-								<dt data-v-93cadc98="">0</dt>
+								<dt data-v-93cadc98="">${couponNum }</dt>
 								<dd data-v-93cadc98="">쿠폰</dd>
 							</dl>
 						</div>
@@ -126,7 +126,12 @@
 										data-v-93cadc98="">
 										<img data-v-93cadc98=""
 											src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Drawer_Coupon.png" alt="coupon">
-										<em data-v-93cadc98="">1</em>
+										<c:if test="${couponNum < 10}">
+											<em data-v-93cadc98="">${couponNum }</em>
+										</c:if>
+										<c:if test="${couponNum >= 10}">
+											<em data-v-93cadc98="">9+</em>
+										</c:if>
 									</figure> <span data-v-93cadc98="">쿠폰 조회</span></a>
 							</div>
 							<div data-v-93cadc98="" class="col-4 item">

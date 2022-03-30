@@ -6,33 +6,41 @@
                                   <div data-v-20ad18c6="" class="nav-paginate-wrap__mobile">
                                      <nav data-v-43f58a9c="" data-v-20ad18c6="" class="nav-paginate">
                                         <ul class="btn-group pagination">
-										    <c:if test="${pageMaker.prev }">
+										     <c:if test="${pageMaker.prev }">
 											    <li>
-											        <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'>
-														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-											        <i class="fa fa-chevron-left"><img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png"></i>
-											        </a>
+											    	<button>
+											        	<i class="fa fa-chevron-left Mobile">
+											        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrevMobile" >
+												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrevMobile" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValuePrevMobile" >
+											        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
+											        	</i>
+											        </button>
 											    </li>
 										    </c:if>
-										    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+										     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 											    <li>
-											        <a href='<c:url value="/detail.do?page=${pageNum }"/>'>
-													<a data-v-43f58a9c="" href="#">
-											        <i class="fa pageNum">
-											        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
-											        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
-											        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
-											        	${pageNum }  
-											        </i> 
-											        </a>
+													<button >
+											        	<i class="fa pageNum Mobile">
+												        	<input type="hidden" value="${pageNum}" id="PageNumValueMobile" >
+												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValueMobile" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueMobile" >
+												        	${pageNum }
+											        	 </i> 
+											   		</button>
 											    </li>
+											    &nbsp;&nbsp;&nbsp;
 										    </c:forEach>
-										    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+										     <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 											    <li>
-											        <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'>
-														 <a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-											        <i class="fa fa-chevron-right"><img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png"></i>
-											        </a>
+													<button>
+											        	<i class="fa fa-chevron-right Mobile">
+											        		<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNextMobile" >
+											        		<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNextMobile" >
+												        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueNextMobile" >
+											        		<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
+											        	</i>
+											        </button>
 											    </li>
 										    </c:if>
 										</ul>
@@ -40,10 +48,13 @@
                                   </div>
                                   <div data-v-20ad18c6 class="nav-paginate-wrap__desktop">
                                      <nav data-v-43f58a9c data-v-20ad18c6 class="nav-paginate">
+<!--                                         <a data-v-43f58a9c href="#" class="nav-paginate__dir nav-paginate-dir-prev" style="opacity: 0.2;"> -->
+<!--                                             <img data-v-43f58a9c src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-left%402x.png"  class="nav-arrow arrow-left"> -->
+<!--                                         </a> -->
 										<ul class="btn-group pagination">
 										    <c:if test="${pageMaker.prev }">
 											    <li>
-													<button>
+											    	<button>
 											        	<i class="fa fa-chevron-left">
 											        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
 												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
@@ -79,7 +90,10 @@
 											    </li>
 										    </c:if>
 										</ul>
-										</nav>
+<!--                                         <a data-v-43f58a9c="" href="#" class="nav-paginate__dir nav-paginate-dir-next" style="opacity: 1;"> -->
+<!--                                            <img data-v-43f58a9c src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-right%402x.png"  class="nav-arrow arrow-right"> -->
+<!--                                         </a> -->
+                                     </nav>
                                   </div>
                                </div>
                             </section>

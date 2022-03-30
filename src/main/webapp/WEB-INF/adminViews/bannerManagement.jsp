@@ -22,7 +22,7 @@
 
         <script type="text/javascript">
         	 $(function(){
-        		$(document).on('click', '.btn.btn-outline-secondary.insert', function(){
+        		$(document).on('click', '.btn.btn-outline-secondary', function(){
         			var count = $('.bannerID').length;
         			
         			if (count >= 5) {
@@ -33,43 +33,23 @@
         		});
         	}); 
         	
-        	$('input:checkbox[name="point-check"]').prop("checked",true);
-			$('input:checkbox[name="point-check"]').prop("checked",false);
+//         	$('input:checkbox[name="point-check"]').prop("checked",true);
+// 			$('input:checkbox[name="point-check"]').prop("checked",false);
 			
 			// 선택삭제 
 			$(function (){
-				$(document).on('click','.btn.btn-outline-secondary.del', function(){
-
-					var count = $('.bannerID').length; 
-					var deleteItemId = [];
-					var data = {};
-					var cc = 0;
-					
-					for (var i=0; i < count; i++) {
-						var check = $('input:checkbox[name="point-check"]').eq(i).is(':checked');
-						if (check == true) {
-							deleteItemId[i] = $('.bannerID').eq(i).children('#bannerId').val();
-							cc += 1;
-						}
-					}
-					
-					if (cc == 0) {
-						alert("삭제할 항목을 선택해주세요");
-						return false;
-					}
-					
-					var newDeleteItemId = deleteItemId.filter(word => {
-						return word.length >= 1;
-					});
-
-					data.newDeleteItemId = newDeleteItemId;
-					jQuery.ajaxSettings.traditional = true;
-					
+				$(document).on('click','.delete-button-i', function(){
+					alert("클릭");
+					var formData = $(this).children('#bannerId').val();
+					alert(formData);
+	
 					$.ajax({
 			    		url : 'bannerSelectDelete.do',
 			    		dataType : 'json',
 			    		type : 'post',
-			    		data : data,
+			    		data : {
+			    			"deleteID" : formData
+			    		},
 			    		success : function(){
 			    			alert("삭제되었습니다");
 			   			},
@@ -357,11 +337,16 @@
                                         <tr>
                                             <td><input type="hidden" value="${banner.name}" id="bannerName" />${banner.name}</td>
                                             <td><input type="hidden" value="${banner.content }" id="bannerContent" />${banner.content }</td>
-                                            <td class="bannerID"><input type="hidden" value="${banner.id}" id="bannerId" />${banner.id}</td>
-                                            <td style="width:30%;"><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
-                                            <td style="width:30%;"><a href="${banner.mobile}"><input type="hidden" value="${banner.mobile }" id="bannerMobile" />${banner.mobile }</a></td>
-                                            <td style="width:7%;">
-	                                            <button type="button" class="btn btn-dark" id="${coupon.coupon_code }">삭제</button>
+                                            <td><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
+                                            <td><a href="${banner.mobile}"><input type="hidden" value="${banner.mobile }" id="bannerMobile" />${banner.mobile }</a></td>
+                                            <td class="bannerID">${banner.id}</td>
+                                            <td>
+	                                            <button type="button" class="btn btn-dark delete">
+	                                            	<i class="delete-button-i">
+	                                            		<input type="hidden" value="${banner.id}" id="bannerId" />
+	                                            		삭제
+	                                            	</i>
+	                                            </button>
 	                                        </td>
                                         </tr>
                                         </c:forEach>											

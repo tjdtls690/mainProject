@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="${path}/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${path}/css/util.css">
-	<link rel="stylesheet" type="text/css" href="${path}/css/main.css">
+	<link rel="stylesheet" type="text/css" href="${path}/css/main.css?ver=1">
 <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
@@ -64,7 +64,7 @@ $(function() {
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(${path}/images/banner.png);">
+				<div class="login100-form-title" style="background-image: url(${path}/images/banneradmin.png);">
 					 <!-- <span class="login100-form-title-1">
 						Sign In
 					</span> --> 
@@ -99,7 +99,7 @@ $(function() {
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="button">
+						<button class="login100-form-btn" type="button" style="margin-left:20%;">
 							Login
 						</button>
 					</div>

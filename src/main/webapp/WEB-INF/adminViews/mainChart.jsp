@@ -607,7 +607,7 @@
 	        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="input">
 	        <!-- Navbar Brand-->
 	            <a class="navbar-brand ps-3" href="adminMainChart.mdo">
-				<img src=""></a>
+				salad:it-admin</a>
 	        <!-- Sidebar Toggle-->
 	            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 	        <!-- Navbar Search-->
@@ -667,7 +667,7 @@
                             </div>
                             
                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 주문/배송
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -708,7 +708,7 @@
 							<div class="collapse" id="collapseSales" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
                                     <a class="nav-link" href="salesManagement.mdo">매출/상품통계</a>
-                                    <a class="nav-link" href="#">카테고리별 통계</a>
+                                    <a class="nav-link" href="pieChart.mdo">카테고리별 통계</a>
                                 </nav>
                             </div>
                         </div>

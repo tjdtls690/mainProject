@@ -16,14 +16,11 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="${path }/style.css">
    <link rel="stylesheet" href="${path }/hmm2.css">
-   <link rel="stylesheet" href="${path }/style2.css?ver=2">
+   <link rel="stylesheet" href="${path }/style2.css?ver=5">
    
    
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
-   
-
-	 
       $(function() { 
 // 헤더 패딩
          var lastScrollTop = 0,
@@ -691,6 +688,29 @@
 		
 		})
 		
+		// 이미지 버튼 (이미지 크게 보이기)
+		$(document).on('click', '.review-item__photo', function(){
+			var image = $(this).siblings('input').val();
+			
+			$.ajax({
+				url : 'detailReviewImageModal.do',
+				dataType : 'html',
+				type : 'post',
+				data : {
+					'image' : image
+				},
+				success : function(htmlOut){
+					$('html').attr('class', 'mode-popup');
+					$('.menu-review').append(htmlOut);
+				}
+			})
+		})
+		
+		// 커진 이미지 클릭시 닫기
+		$(document).on('click', '.menu-review .modal', function(){
+			$(this).detach();
+			$('html').attr('class', '');
+		})
 		
 		
      }); //function 끝
@@ -722,8 +742,10 @@
     <title>Saladit!</title>
 </head>
 <body>
-    <div id="container">
-        <header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
+	<div id="__nuxt">
+	<div id="__layout">
+	<main class="viewport" data-v-67c7ff33="">
+	<header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
             <div class="header-banner-wrap" data-v-30697495><!----></div> 
             <div id="header__body" class="header__body" data-v-30697495>
                <div class="header__top" data-v-30697495>
@@ -923,6 +945,7 @@
             <!----> 
             <!---->
         </header> 
+    <div id="container">
         <div id="home">
             <!--위에 container에 padding-top:182px 주는 이유:
             헤더가 스크롤에 따라 바뀌면서 그 아래 container가 스크롤을 올리면 잘 안보임-->
@@ -1414,7 +1437,6 @@
                                        </div>
                                        <div data-v-e3f957fc class="answer-column right">
                                           <div data-v-e3f957fc class="menu-info-table-content-description">▶ 일반상품 취소 가능 시점<br>
-                                             ●  점심/저녁 스팟,퀵배송은 배송 예정일 당일 오전 7시까지 홈페이지를 통해 직접 취소 가능
                                              ● 새벽/택배배송은 배송 예정일 D-1일 오후 3시까지 홈페이지를 통해 직접 취소 가능 
                                              ※ 신선식품 특성 상 주문취소시간 외 취소 및 변경 불가합니다.
 
@@ -1445,27 +1467,7 @@
 										</div>
 										<div data-v-e3f957fc="" class="answer-column right">
 											<div data-v-e3f957fc=""
-												class="menu-info-table-content-description"> ▶ 프코스팟 배송 <br>
-                                             프코스팟은 배송 장소에 따라 이용이 제한 될 수 있습니다.
-                                             사전에 이용이 가능한 스팟인지 꼭 확인하시고 주문해주시길 바랍니다.
-                                             
-                                             ● 프라이빗 스팟 : 임직원 및 멤버 전용 (예 : 회사 및 공유오피스등)
-                                             ● 퍼블릭 스팟 : 누구나 이용 가능한 스팟 (예 : gs25 및 헬스장등)
-                                             
-                                             최소 주문금액 6천원 이상, 배송비는 무료이며 
-                                             점심배송은 오전 11시 ~ 오후 12시 30분사이 배송이며
-                                             저녁배송은 오후 1시 ~ 오후5시 사이 배송 됩니다. 
-                                             
-                                             
-                                             ▶퀵배송
-                                             주변에 이용 가능한 프코스팟이 없다면 서울 전지역 점심/저녁 퀵 배송이 가능합니다.
-                                             최소 주문금액 1만원 이상, 배송비는 4천원이며 4만원 이상 구매 시, 무료배송 입니다.
-                                             
-                                              점심배송은 12시 30분 전/후로 배송 예정되며
-                                              저녁배송은 오후 1시~5시 사이 배송 됩니다.
-                                             
-                                             
-                                             ▶새벽배송
+												class="menu-info-table-content-description"> ▶ 새벽배송 <br>
                                              새벽배송은 00시 ~ 07시 사이 요청하신 장소로 배송이 되며
                                              새벽시간 특성 상 고객님께 별도 연락 없이, 배송완료가 되면 문자로 사진과 함께 안내 드리고 있습니다.
                                              
@@ -1807,6 +1809,7 @@
 				                                              <div data-v-22105fb8="" class="review-item__photo-wrap">
 				                                                 <div data-v-22105fb8="" class="review-item__photo"
 				                                                    style="background-image: url(&quot;${reviewImage}&quot;);"></div>
+				                                                 <input type="hidden" value="${reviewImage }">
 				                                              </div>
 				                                           </c:if>
 		                                              </c:forEach>
@@ -2005,6 +2008,9 @@
             
          </footer>
          
+    </div>
+    </main>
+    </div>
     </div>
     	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script

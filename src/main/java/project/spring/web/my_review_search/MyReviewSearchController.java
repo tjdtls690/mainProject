@@ -206,7 +206,7 @@ public class MyReviewSearchController {
 			pointHistoryService.insertPointHistory(pointHistoryVO);
 		}
 		
-		vo.setPayment_item_mapping_review(2);
+		vo.setPayment_item_mapping_review(2); // TODO
 		paymentSingleService.updatePaymentMappingCode(vo);
 		
 		mav.setViewName("mySearchReviewDelete");

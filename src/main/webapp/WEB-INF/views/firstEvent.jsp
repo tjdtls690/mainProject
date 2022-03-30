@@ -21,22 +21,30 @@
 <meta data-n-head="ssr" data-hid="fb:app_id" property="fb:app_id"
 	content="323001348061168">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-16.png" sizes="16x16">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-24.png" sizes="24x24">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-32.png" sizes="32x32">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-57.png" sizes="57x57">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-120.png" sizes="120x120">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-152.png" sizes="152x152">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
-	href="/fc-favicon-196.png" sizes="196x196">
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link href="${path}/style.css" rel="stylesheet" type="text/css" />
+<link href="${path}/style2.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+function page_move(tagNum){
+    var f = document.paging; //폼 name
+    f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+    f.action="tapPage.do";//이동할 페이지
+    f.method="post";//POST방식
+    f.submit();
+}
 $(function() {
 	
 		var lastScrollTop = 0,
@@ -201,7 +209,7 @@ function memberModify_page() {
 										<a data-v-30697495="" href="login.do">로그인</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name }
+										<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name }
 											<span data-v-30697495>님</span>
 										</a>
 									</c:otherwise>
@@ -215,6 +223,9 @@ function memberModify_page() {
 							<a data-v-7aa1f9b4="" href="/" class="nuxt-link-active"></a>
 							<!---->
 						</div>
+						<form name="paging">
+							<input type="hidden" name="tagMain01" value="">
+						</form>
 						<nav data-v-7aa1f9b4="" class="header__menus">
 							<div data-v-7aa1f9b4="">
 								<div data-v-7aa1f9b4="" class="dropdown">
@@ -222,64 +233,65 @@ function memberModify_page() {
 									<div data-v-7aa1f9b4="" class="dropdown">
 										<ul data-v-7aa1f9b4="">
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu" class=""> 전체보기 </a></li>
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad" class=""> 샐러드 </a></li>
+												href="javascript:page_move(100);" class=""> 샐러드 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/subscription" class="new"> 정기구독 </a></li>
+												href="javascript:page_move(200);" class="new"> 정기구독 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/salad-wrap" class="new"> 샌드위치·랩 </a></li>
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/meal" class="new"> 도시락·간편식 </a></li>
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soup" class=""> 죽·스프 </a></li>
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/set" class="new"> 세트상품 </a></li>
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/snack" class="new"> 간식 </a></li>
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/drink" class="new"> 음료 </a></li>
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/event" class="new"> 프코 편의점 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
-												href="/menu/soon" class=""> 오픈예정 </a></li>
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="/menu/subscription" class="item">정기구독
-								</a><a data-v-7aa1f9b4="" href="/menu/salad" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="/menu/salad-wrap" class="item">샌드위치·랩
-								</a><a data-v-7aa1f9b4="" href="/menu/event" class="item">프코 편의점
-								</a><a data-v-7aa1f9b4="" href="/event"
-									class="item nuxt-link-active">이벤트 </a><a data-v-7aa1f9b4=""
-									href="/fcospot" class="item">프코스팟 </a>
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do"
+									class="item nuxt-link-exact-active nuxt-link-active"
+									aria-current="page">이벤트 </a><a data-v-7aa1f9b4=""
+									href="purchase.do" class="item">프코스팟 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
-								<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-									data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
-									alt="메뉴 검색" class="search-logo-img"
-									style="width: 24px; height: 24px;">
-									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
-									href="/cart" class="cart-logo-wrap item"><div
-										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo">
-										<div data-v-7aa1f9b4="" class="cart-logo-count">3</div>
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="/order" class="item"><div
-										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo">
+									<img data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG" alt="메뉴 검색" class="search-logo-img" style="width: 24px; height: 24px;">
+									<div data-v-7aa1f9b4="">검색</div>
+								</a>
+								<a data-v-7aa1f9b4="" href="basket.do" class="cart-logo-wrap item">
+									<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_baguni.PNG" alt="프레시코드 장바구니" class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
+								  장바구니
+								</a> 
+								<a data-v-7aa1f9b4="" href="order.do" class="item">
+								<img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_pay.PNG" class="icon-order" style="width: 24px; height: 24px;" data-v-30697495>
+							      바로주문
+								</a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
-							<a data-v-7aa1f9b4="" href="/search" class="search-logo"><img
-								data-v-7aa1f9b4="" src="/images/ic-navi-search@3x.png"
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
 								style="width: 24px; height: 24px;"></a> <a data-v-7aa1f9b4=""
-								href="/cart" class="cart-logo-wrap item"><div
+								href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_baguni.PNG" class="cart-logo-wrap item"><div
 									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo">
 									<div data-v-7aa1f9b4="" class="cart-logo-count">3</div>
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="/images/header-img/menu_new@2x.png" alt="user-menu"
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
 										style="width: 24px; height: 24px;">
 								</button>
 							</nav>
@@ -290,12 +302,12 @@ function memberModify_page() {
 							<div data-v-7aa1f9b4="" class="mobile-nav-scroll">
 								<ul data-v-7aa1f9b4="" class="mobile-nav-contents">
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
-										data-v-7aa1f9b4="" href="/menu" class=""> 전체 메뉴 </a></li>
+										data-v-7aa1f9b4="" href="javascript:page_move(0);" class=""> 전체 메뉴 </a></li>
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
-										data-v-7aa1f9b4="" href="/menu/subscription" class="">
+										data-v-7aa1f9b4="" href="javascript:page_move(100);" class="">
 											정기구독 </a></li>
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
-										data-v-7aa1f9b4="" href="/menu/event" class=""> 프코 편의점 </a></li>
+										data-v-7aa1f9b4="" href="javascript:page_move(1);" class=""> 초코베리머치 </a></li>
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
 										data-v-7aa1f9b4="" href="/info" class=""> 배송안내 </a></li>
 									<li data-v-7aa1f9b4="" class="mobile-nav-contents-item"><a
@@ -307,49 +319,45 @@ function memberModify_page() {
 								<div data-v-7aa1f9b4="" class="all-menus-list-wrap">
 									<ul data-v-7aa1f9b4="" class="all-menus-list js-all-menus-list">
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu"
+											data-v-7aa1f9b4="" href="javascript:page_move(0);"
 											class="js-all-menus-item-link-0 all-menus-item-link">
 												전체보기 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/salad"
+											data-v-7aa1f9b4="" href="javascript:page_move(200);"
 											class="js-all-menus-item-link-2 all-menus-item-link"> 샐러드
 										</a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/subscription"
+											data-v-7aa1f9b4="" href="javascript:page_move(100);"
 											class="js-all-menus-item-link-1 all-menus-item-link new">
 												정기구독 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/salad-wrap"
+											data-v-7aa1f9b4="" href="javascript:page_move(300);"
 											class="js-all-menus-item-link-3 all-menus-item-link new">
 												샌드위치·랩 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/meal"
+											data-v-7aa1f9b4="" href="javascript:page_move(400);"
 											class="js-all-menus-item-link-4 all-menus-item-link new">
 												도시락·간편식 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/soup"
+											data-v-7aa1f9b4="" href="javascript:page_move(500);"
 											class="js-all-menus-item-link-10 all-menus-item-link">
 												죽·스프 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/set"
+											data-v-7aa1f9b4="" href="javascript:page_move(600);"
 											class="js-all-menus-item-link-5 all-menus-item-link new">
 												세트상품 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/snack"
+											data-v-7aa1f9b4="" href="javascript:page_move(700);"
 											class="js-all-menus-item-link-6 all-menus-item-link new">
 												간식 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/drink"
+											data-v-7aa1f9b4="" href="javascript:page_move(800);"
 											class="js-all-menus-item-link-7 all-menus-item-link new">
 												음료 </a></li>
 										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/event"
+											data-v-7aa1f9b4="" href="javascript:page_move(1);"
 											class="js-all-menus-item-link-8 all-menus-item-link new">
-												프코 편의점 </a></li>
-										<li data-v-7aa1f9b4="" class="all-menus-item"><a
-											data-v-7aa1f9b4="" href="/menu/soon"
-											class="js-all-menus-item-link-9 all-menus-item-link">
-												오픈예정 </a></li>
+												초코베리머치 </a></li>
 									</ul>
 								</div>
 								<div data-v-7aa1f9b4="" class="all-menus-shadow"></div>

@@ -749,7 +749,7 @@
 								<!--  -->
 								<!--  -->
 								<!--다른 고객들이 함께 본 상품-->
-								<div class="swiper-container">
+									<div class="swiper-container">
 									<div class="swiper-wrapper">
 
 										<c:forEach var="item" items="${random }">
@@ -831,7 +831,7 @@
 
 									<!-- 페이징 -->
 									<div class="swiper-pagination"></div>
-								</div>
+								</div>  
 								<!--  -->
 									<!-- 이동을위한 div  -->
 									<div id="section01"></div>

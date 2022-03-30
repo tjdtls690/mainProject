@@ -197,7 +197,7 @@ public class AdminReportMonthController {
 		        try {
 		            Document document = new Document(); // pdf문서를 처리하는 객체
 		 
-		            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Leo\\Downloads\\금달 매출.pdf"));
+		            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\금달 매출.pdf"));
 		            // pdf파일의 저장경로를 d드라이브의 sample.pdf로 한다는 뜻
 		 
 		            document.open(); // 웹페이지에 접근하는 객체를 연다

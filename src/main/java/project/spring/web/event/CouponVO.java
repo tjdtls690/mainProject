@@ -8,6 +8,15 @@ public class CouponVO {
 	private int coupon_pack;
 	private int coupon_type_summary;
 	private int coupon_sail_price;
+	private String coupon_check;
+
+	public String getCoupon_check() {
+		return coupon_check;
+	}
+
+	public void setCoupon_check(String coupon_check) {
+		this.coupon_check = coupon_check;
+	}
 
 	public int getCoupon_type_summary() {
 		return coupon_type_summary;
@@ -69,7 +78,8 @@ public class CouponVO {
 	public String toString() {
 		return "CouponVO [coupon_code=" + coupon_code + ", coupon_type=" + coupon_type + ", coupon_explain="
 				+ coupon_explain + ", user_code=" + user_code + ", coupon_pack=" + coupon_pack
-				+ ", coupon_type_summary=" + coupon_type_summary + ", coupon_sail_price=" + coupon_sail_price + "]";
+				+ ", coupon_type_summary=" + coupon_type_summary + ", coupon_sail_price=" + coupon_sail_price
+				+ ", coupon_check=" + coupon_check + "]";
 	}
 
 }

@@ -116,7 +116,6 @@ public class PaymentCompleteController {
 		// 포인트 계산 (5% 적입)
 		int paymentFinalPrice = Integer.parseInt(vo.getPayment_final_price());
 		int point = Math.round(paymentFinalPrice / 20);
-		System.out.println("적립된 포인트 : " + point);
 		
 		// point_history 테이블에도 저장
 		PointHistoryVO vo6 = new PointHistoryVO();
@@ -128,7 +127,6 @@ public class PaymentCompleteController {
 		
 		PaymentCompletePointVO vo4 = new PaymentCompletePointVO();
 		vo4.setPayment_member_code(vo1.getMemberCode());
-		System.out.println("??? : " + vo4.getPayment_member_code());
 		vo4 = paymentCompleteService.getMemberPoint(vo4);
 		vo4.setPayment_point(vo4.getPayment_point() + point);
 		paymentCompleteService.updateMemberPoint(vo4);

@@ -157,9 +157,6 @@
 											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
-								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
-									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
-									신청</a>
 							</div>
 						</div>
 						<!---->

@@ -62,7 +62,7 @@ public class PaymentCompleteServiceImpl  implements PaymentCompleteService{
 	}
 
 	@Override
-	public int deleteMemberPoint(PaymentMyDetailInfoVO vo) {
+	public int deleteMemberPoint(PaymentCompletePointVO vo) {
 		return paymentCompleteDAO.deleteMemberPoint(vo);
 	}
 	

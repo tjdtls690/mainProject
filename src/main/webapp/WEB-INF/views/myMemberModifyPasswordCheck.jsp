@@ -184,7 +184,7 @@
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
+							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>
@@ -196,9 +196,6 @@
 											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
-								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
-									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
-									신청</a>
 							</div>
 						</div>
 						<!---->
@@ -239,8 +236,8 @@
 								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
 									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
 								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
-									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(600);" class="item">세트상품 </a>
+									<a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
@@ -420,106 +417,62 @@
 					<p data-v-67c7ff33="" class="tooltip">'바로 주문'으로 간편하게!</p>
 					<div data-v-67c7ff33="" class="btn-order"></div>
 				</div>
-				<footer data-v-3bbad018="" data-v-67c7ff33="" class="footer">
-					<div data-v-3bbad018="" class="footer__wrap">
-						<h2 data-v-3bbad018="" class="footer__logo">
-							<img data-v-3bbad018="" src="/images/logo-20211111.png"
-								alt="FRESHCODE">
-							<div data-v-3bbad018="" class=""></div>
-						</h2>
-						<div data-v-3bbad018="" class="footer__body">
-							<nav data-v-3bbad018="" class="footer__menus">
-								<div data-v-3bbad018="" class="footer__menus-item">
-									<a data-v-3bbad018="" href="#">FAQ</a> <a data-v-3bbad018=""
-										href="/terms" class="">이용약관</a> <a data-v-3bbad018=""
-										href="/privacy" class="">개인정보처리방침</a>
-								</div>
-								<div data-v-3bbad018="" class="footer__menus-item">
-									<a data-v-3bbad018="" href="#">제휴문의</a> <a data-v-3bbad018=""
-										href="#">채용문의</a> <a data-v-3bbad018="" href="#">케이터링 문의</a>
-								</div>
-							</nav>
-							<address data-v-3bbad018="" class="footer__cs">
-								<h3 data-v-3bbad018="">프코고객센터</h3>
-								<div data-v-3bbad018="" class="cs-time">
-									<div data-v-3bbad018="" class="btn-channel-talk">1:1 문의하기</div>
-									<div data-v-3bbad018="" class="cs-time__inner">
-										<div data-v-3bbad018="">
-											<div data-v-3bbad018="" class="cs-time-text">
-												<b data-v-3bbad018="">평일</b>
-												<p data-v-3bbad018="">9:00 - 18:00 (점심시간 13:00 - 14:00)</p>
-											</div>
-											<div data-v-3bbad018="" class="cs-time-text">
-												<b data-v-3bbad018="">토요일</b>
-												<p data-v-3bbad018="">
-													9:00 - 13:00 <span data-v-3bbad018="">&nbsp;(홈페이지
-														채팅문의만 운영)</span>
-												</p>
-											</div>
-										</div>
-										<div data-v-3bbad018="">
-											<div data-v-3bbad018="" class="cs-time-text">
-												<b data-v-3bbad018="">공휴일</b>
-												<p data-v-3bbad018="">휴무</p>
-											</div>
-											<div data-v-3bbad018="" class="cs-time-text">
-												<b data-v-3bbad018="">고객센터</b>
-												<p data-v-3bbad018="">1644-4559</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</address>
-							<address data-v-3bbad018="" class="footer__address hide">
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">대표</b>정유석
-								</p>
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">주소</b> <span data-v-3bbad018="">서울특별시
-										성동구 왕십리로 115, 헤이그라운드 서울숲점 7층</span>
-								</p>
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">사업자등록번호</b>883-81-00307
-								</p>
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">통신판매업신고</b>제 2016-서울용산-00657
-								</p>
-							</address>
-							<address data-v-3bbad018="" class="footer__address help hide">
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">제휴문의</b><a data-v-3bbad018=""
-										href="mailto:biz@freshcode.me">biz@freshcode.me</a>
-								</p>
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">카카오ID</b><a data-v-3bbad018="" href="#">@프레시코드-freshcode</a>
-								</p>
-								<p data-v-3bbad018="">
-									<b data-v-3bbad018="">단체주문문의</b><a data-v-3bbad018=""
-										href="mailto:order@freshcode.me">order@freshcode.me</a>
-								</p>
-							</address>
-							<aside data-v-3bbad018="" class="footer__side">
-								<p data-v-3bbad018="" class="footer__copyright hide">
-									ⓒ 2020. FreshCode, Inc. All Rights Reserved<br
-										data-v-3bbad018="">프레시코드가 제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은
-									특허법, 저작권법, 부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-3bbad018="">무단
-									복제, 유사한 변형, 사용 등에 대하여는 법적 책임이 있음을 알려드립니다.
-								</p>
-								<div data-v-3bbad018="" class="footer__sns-wrap">
-									<nav data-v-3bbad018="" class="footer__sns">
-										<img data-v-3bbad018="" src="/images/instagram@2x.png"
-											title="instagram" class=""><img data-v-3bbad018=""
-											src="/images/facebook@2x.png" title="facebook" class=""><img
-											data-v-3bbad018="" src="/images/youtube@3x.png"
-											title="youtube" class=""><img data-v-3bbad018=""
-											src="/images/group-21@2x.png" title="blog" class=""><img
-											data-v-3bbad018="" src="/images/blog-post@2x.png"
-											title="Naver post" class=""><img data-v-3bbad018=""
-											src="/images/kakao-channel@2x.png" title="kakao channel"
-											class="">
-									</nav>
-								</div>
-							</aside>
+				<footer class="footer" data-v-438b4fe4="" data-v-0f5971ec="">
+					<div class="footer__wrap" data-v-438b4fe4="">
+						<h2 class="footer---logo" data-v-438b4fe4="">
+							<img class="footer--logo" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG" alt="SALAD:IT" data-v-438b4fe4=""> 
+							<div data-v-438b4fe4=""></div>
+						</h2> 
+						<div class="footer__body" data-v-438b4fe4="">
+							<address class="footer__cs" data-v-438b4fe4="">
+								<h3 data-v-438b4fe4="">샐러딧고객센터</h3> 
+								<div class="cs-time" data-v-438b4fe4="">
+									<div class="btn-channel-talk" data-v-438b4fe4="">1:1 문의하기</div> 
+									<div class="cs-time__inner" data-v-438b4fe4="">
+										<div data-v-438b4fe4="">
+											<div id="sa04" class="cs-time-text" data-v-438b4fe4="">
+												<b data-v-438b4fe4="">평일</b> 
+												<p data-v-438b4fe4="">9:00 - 18:00 (점심시간 13:00 - 14:00)</p>
+											</div> 
+											<div id="sa03" class="cs-time-text" data-v-438b4fe4="">
+												<b data-v-438b4fe4="">토요일</b> 
+												<p data-v-438b4fe4="">9:00 - 13:00
+		                  							<span data-v-438b4fe4=""> (홈페이지 채팅문의만 운영)</span>
+		                  						</p>
+		                  					</div>
+		                  				</div> 
+		                  				<div data-v-438b4fe4="">
+		                  					<div class="cs-time-text" data-v-438b4fe4="">
+		                  						<b data-v-438b4fe4="">공휴일</b> 
+		                  						<p data-v-438b4fe4="">휴무</p>
+		                  					</div> 
+		                  					<div class="cs-time-text" data-v-438b4fe4="">
+		                  						<b data-v-438b4fe4="">고객센터</b> 
+		                  						<p data-v-438b4fe4="">1644-4559</p>
+		                  					</div>
+		                  				</div>
+		                  			</div>
+		                  		</div>
+		                  	</address> 
+		                  	<address class="footer__address hide" data-v-438b4fe4="">
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">대표</b>신준혁</p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">주소</b> <span data-v-438b4fe4="">서울특별시 성동구 왕십리로 115, 헤이그라운드 서울숲점 7층</span></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">사업자등록번호</b>883-81-00307</p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">통신판매업신고</b>제 2016-서울용산-00657</p>
+		                  	</address> 
+		                  	<address class="footer__address help hide" data-v-438b4fe4="">
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">제휴문의</b><a href="mailto:biz@freshcode.me" data-v-438b4fe4="">biz@saladit.me</a></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">카카오ID</b><a href="#" data-v-438b4fe4="">@샐러딧-saladit</a></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">단체주문문의</b><a href="mailto:order@freshcode.me" data-v-438b4fe4="">order@saladit.me</a></p>
+		                  	</address> 
+		                  	<aside class="footer__side" data-v-438b4fe4="">
+		                  		<p class="footer__copyright hide" data-v-438b4fe4="">
+						          ⓒ 2020. Saladit, Inc. All Rights Reserved<br data-v-438b4fe4="">샐러딧이
+						          제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은 특허법, 저작권법,
+						          부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-438b4fe4="">무단 복제, 유사한
+						          변형, 사용 등에 대하여는 법적 책임이 있음을 알려드립니다.
+						        </p> 
+						    </aside>
 						</div>
 					</div>
 				</footer>

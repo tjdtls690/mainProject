@@ -140,7 +140,8 @@
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-1739428d="" class="viewport-none-footer">
-				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area" class="header">
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
@@ -153,6 +154,7 @@
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
+							
 								<c:choose>
 										<c:when test="${empty member.gender}">
 											<a href="signup.do" data-v-30697495="">회원가입</a>
@@ -162,9 +164,6 @@
 											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
-								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
-									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
-									신청</a>
 							</div>
 						</div>
 						<!---->

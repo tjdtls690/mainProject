@@ -28,9 +28,9 @@ public class MyMemberSecessionSuccessController {
 		session.removeAttribute("member");
 		memberService.deleteMember(vo);
 		
-//		PaymentCompletePointVO vo1 = new PaymentCompletePointVO();
-//		vo1.setPayment_member_code(vo.getMemberCode());
-//		paymentCompleteService.deleteMemberPoint(vo1);
+		PaymentCompletePointVO vo1 = new PaymentCompletePointVO();
+		vo1.setPayment_member_code(vo.getMemberCode());
+		paymentCompleteService.deleteMemberPoint(vo1);
 		
 		mav.setViewName("myMemberSecessionSuccess");
 		return mav;

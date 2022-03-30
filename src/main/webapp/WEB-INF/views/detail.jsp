@@ -16,12 +16,67 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="${path }/style.css">
    <link rel="stylesheet" href="${path }/hmm2.css">
-   <link rel="stylesheet" href="${path }/style2.css?ver=5">
+   <link rel="stylesheet" href="${path }/style2.css?ver=6">
    
    
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    <script type="text/javascript">
+   function page_move(tagNum){
+	   var f = document.paging; //폼 name
+	   f.tagMain01.value = tagNum; //POST방식으로 넘기고 싶은 값
+	   f.action="tapPage.do";//이동할 페이지
+	   f.method="post";//POST방식
+	   f.submit();
+	}
       $(function() { 
+    	  $(document).on('click', '#closeFinalCheck', function(){
+    			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+    			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+    			setTimeout(function() {
+    				$('.swal2-container').detach();
+    			}, 100);
+    		})
+    		
+    		$(document).on('click', '.swal2-container.swal2-center.swal2-backdrop-show', function(e){
+    			if (!$(e.target).hasClass("swal2-popup") && !$(e.target).hasClass("swal2-header") && !$(e.target).hasClass("swal2-content") && !$(e.target).hasClass("swal2-actions")
+    					&& !$(e.target).hasClass("swal2-icon") && !$(e.target).hasClass("swal2-icon-content") && !$(e.target).hasClass("swal2-html-container")) {
+    				$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
+    				$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');
+    				setTimeout(function() {
+    					$('.swal2-container').detach();
+    				}, 100);
+    			}
+    		});
+
+
+    		$(document).on('click', '#sideEvent', function(){
+    			$(location).attr("href", "event.do");
+    		});
+    		
+    		$(document).on('click', '#sideBasket', function(){
+    			$(location).attr("href", "basket.do");
+    		})
+    		
+    		$(document).on('click', '.header__toggle-button', function(){
+    			$('html').attr('class', 'mode-popup');
+    			$.ajax({
+    				url : 'sideMune.do',
+    				dataType : 'html',
+    				success : function(htmlOut){
+    					$('#header-area').after(htmlOut);
+    				}
+    			})
+    		});
+    		$(document).on('click', '.side-nav__overlay', function(e){
+    			if (!$(e.target).hasClass(".side-nav__wrap")) {
+    				$('.side-nav').attr('class', 'side-nav side-nav-leave-active side-nav-leave-to');
+    				$('html').removeClass('mode-popup');
+    				setTimeout(function() {
+    					$('.side-nav').detach();
+    				}, 350);
+    			}
+    		});
+    	  
 // 헤더 패딩
          var lastScrollTop = 0,
          delta = 100;
@@ -123,44 +178,54 @@
 			    data.itemQuantity = itemQuantity;
 			    jQuery.ajaxSettings.traditional = true;
 			    
-			    $.ajax({ // 장바구니 넣기 확인 모달
-			    	url : "test.do",
-			    	type : 'post',
-			    	dataType : 'html',
-			    	data : data,
-			    	success : function(html){
-			    		$('body').append(html);
-			    		setTimeout(function() {
-							$('.swal2-container').detach();
-						}, 2000);
-			   
-			    		
-			    	}
-			    }) //ajax 끝
-			    
-			    var thisItemImage =  $('.selected-detail-wrap').eq(0).children().eq(6).attr('value');
-			    var thisItemName = $('.selected-detail-wrap').eq(0).children().eq(4).attr('value')
-			 	var thisItemSize =  $('.selected-detail-wrap').eq(0).children().eq(5).attr('value')
+			    $.ajax({
+		 			url : 'detaillLginCheck.do',
+		 			success : function(data){
+		 				if(data == 1){
+		 					$.ajax({ // 장바구니 넣기 확인 모달
+		 				    	url : "test.do",
+		 				    	type : 'post',
+		 				    	dataType : 'html',
+		 				    	data : data,
+		 				    	success : function(html){
+		 				    		$('body').append(html);
+		 				    		setTimeout(function() {
+		 								$('.swal2-container').detach();
+		 							}, 2000);
+		 				   
+		 				    		
+		 				    	}
+		 				    }) //ajax 끝
+		 				    
+		 				    var thisItemImage =  $('.selected-detail-wrap').eq(0).children().eq(6).attr('value');
+		 				    var thisItemName = $('.selected-detail-wrap').eq(0).children().eq(4).attr('value')
+		 				 	var thisItemSize =  $('.selected-detail-wrap').eq(0).children().eq(5).attr('value')
 
-			    $.ajax({ // 장바구니 아래에 모달
-			    	url : "addCart.do",
-			    	type : 'post',
-			    	dataType : 'html',
-			    	data : {
-			    		"image" : thisItemImage,
-			    		"name" : thisItemName,
-			    		"size" : thisItemSize  		
-			    	},
-			    	success:function(html){
-			    		$('.cart-logo-wrap').append(html);
-			    		setTimeout(function() {
-							$('.add-cart-modal').detach();
-						}, 2000);
-			    		
-			    	}
-			    }) // ajax 끝
-			}
-			else{	// 아무것도 선택안할시 주문할 상품 선택하라고 모달
+		 				    $.ajax({ // 장바구니 아래에 모달
+		 				    	url : "addCart.do",
+		 				    	type : 'post',
+		 				    	dataType : 'html',
+		 				    	data : {
+		 				    		"image" : thisItemImage,
+		 				    		"name" : thisItemName,
+		 				    		"size" : thisItemSize  		
+		 				    	},
+		 				    	success:function(html){
+		 				    		$('.cart-logo-wrap').append(html);
+		 				    		setTimeout(function() {
+		 								$('.add-cart-modal').detach();
+		 							}, 2000);
+		 				    		
+		 				    	}
+		 				    }) // ajax 끝
+		 				}else{
+		 					$(location).attr("href", "login.do");
+		 				}
+		 			}
+		 		})
+		 		
+			    
+			}else{	// 아무것도 선택안할시 주문할 상품 선택하라고 모달
 				$.ajax({
 					url : "plzSelect.do",
 					success : function(html){
@@ -844,22 +909,37 @@
 	<div id="__nuxt">
 	<div id="__layout">
 	<main class="viewport" data-v-67c7ff33="">
-	<header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
-            <div class="header-banner-wrap" data-v-30697495><!----></div> 
-            <div id="header__body" class="header__body" data-v-30697495>
-               <div class="header__top" data-v-30697495>
-                  <a href="/info" class="header__top-left" data-v-30697495></a> 
-                  <div class="header__top-right" data-v-30697495>
-                     <a href="/mypage/orders" data-v-30697495>이예지 <span data-v-30697495>님</span></a> 
-                     <span data-v-30697495>1:1문의</span>
-                     <a href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank" data-v-30697495>B2B 신청</a>
-                  </div>
-               </div> <!---->
-               <div class="header__logo" data-v-30697495>
-                  <a href="#">
-                     <!--<img id="logoim" src="images/logo.PNG" width="200px">-->
-                  </a> <!---->
-               </div>
+	<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+					class="header">
+					<div data-v-7aa1f9b4="" class="header-banner-wrap">
+						<!---->
+					</div>
+					<form name="paging">
+						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
+					</form>
+					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
+						<div data-v-7aa1f9b4="" class="header__top">
+							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
+							<div data-v-7aa1f9b4="" class="header__top-right">
+							
+								<c:choose>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
+							</div>
+						</div>
+						<!---->
+						<div data-v-7aa1f9b4="" class="header__logo">
+							<a data-v-7aa1f9b4="" href="main.do" class="nuxt-link-active"></a>
+							<!---->
+						</div>
 <!--                form태그 -->
 <!--                form태그 -->
 <!--                form태그 -->
@@ -892,158 +972,78 @@
 				</form>
 				
 				
-               <nav class="header__menus" data-v-30697495>
-                  <div data-v-30697495>
-                     <div class="dropdown" data-v-30697495>
-                        <span class="item" data-v-30697495>
-                           <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/Icon_Hamberger_Gray%403x.png"  class="search-logo-img" style="width:24px;height:24px;" data-v-30697495>
-                           전체 카테고리
-                        </span> 
-                        <div class="dropdown" data-v-30697495>
-                           <ul data-v-30697495>
-                              <li data-v-30697495>
-                                 <a href="/menu" data-v-30697495>전체보기</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/subscription" data-v-30697495>정기배송</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/salad" data-v-30697495>샐러드</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/salad-wrap" data-v-30697495>랩·샌드위치</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/meal" data-v-30697495>도시락·간편식</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/set" data-v-30697495>세트상품</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/snack" data-v-30697495>간식</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/drink" data-v-30697495>음료</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/event" data-v-30697495>할인기획전</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/soon" data-v-30697495>오픈예정</a>
-                              </li>
-                              <li data-v-30697495>
-                                 <a href="/menu/soup" data-v-30697495>죽·스프</a>
-                              </li>
-                           </ul>
-                        </div>
-                     </div> 
-                     <a href="/menu/subscription" class="item" data-v-30697495>정기배송</a>
-                     <a href="/menu/salad" class="item" data-v-30697495>샐러드</a>
-                     <a href="/menu/salad-wrap" class="item" data-v-30697495>랩·샌드위치</a>
-                     <a href="/menu/event" class="item" data-v-30697495>할인기획전</a>
-                     <a href="/event" class="item" data-v-30697495>이벤트</a>
-                     <a href="/fcospot" class="item" data-v-30697495>프코스팟</a>
-                  </div> 
-                  <div class="header__menus-side" data-v-30697495>
-                     <a href="/search" class="search-logo" data-v-30697495>
-                        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/ic-navi-search%403x.png"  class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495> 
-                        <div data-v-30697495>검색</div>
-                     </a> 
-                     <a href="/cart" class="cart-logo-wrap item" data-v-30697495>
-                        <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/cart-header-icon%403x.png"  class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
-                         장바구니
-                       </a> 
-                       <a href="/order" class="item" data-v-30697495>
-                       <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon_order.png" class="icon-order" style="width: 24px; height: 24px;" data-v-30697495>
-                         바로주문
-                       </a>
-                   </div>
-                  </nav> 
-                  <div class="header__side" data-v-30697495>
-                        <a href="/search" class="search-logo" data-v-30697495>
-                           <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/ic-navi-search%403x.png" class="search-logo-img" style="width: 24px; height: 24px;" data-v-30697495></a>
-                        </a> 
-                        <a href="/cart" class="cart-logo-wrap item" data-v-30697495>
-                           <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/cart-header-icon%403x.png"  class="cart-logo empty" style="width: 24px; height: 24px;" data-v-30697495>
-                        </a> 
-                        <nav class="header__toggle-button" data-v-30697495>
-                           <button type="button" data-v-30697495>
-                              <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/ic-navi-search%403x.png"  style="width: 24px; height: 24px;" data-v-30697495>
-                           </button>
-                        </nav>
-                  </div>
-            </div> 
-            <div class="mobile-nav js-mobile-nav" data-v-30697495>
-               <div class="mobile-nav-wrap" data-v-30697495>
-                  <div class="mobile-nav-scroll" data-v-30697495>
-                     <ul class="mobile-nav-contents" data-v-30697495>
-                        <li class="mobile-nav-contents-item" data-v-30697495>
-                           <a href="/menu" data-v-30697495>전체 메뉴</a>
-                          </li>
-                          <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/menu/subscription" data-v-30697495>정기배송</a>
-                          </li>
-                          <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/menu/event" data-v-30697495>할인기획전</a>
-                          </li>
-                          <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/info" data-v-30697495>배송안내</a>
-                          </li>
-                          <li class="mobile-nav-contents-item" data-v-30697495>
-                             <a href="/fcospot" data-v-30697495>프코스팟</a>
-                          </li>
-                      </ul>
-                  </div> 
-                  <div class="all-menus-container" style="display:none;" data-v-30697495>
-                     <div class="all-menus-list-wrap" data-v-30697495>
-                        <ul class="all-menus-list js-all-menus-list" data-v-30697495>
-                           <li class="all-menus-item" data-v-30697495>
-                              <a href="/menu" class="js-all-menus-item-link-0 all-menus-item-link" data-v-30697495>
-                                    전체보기</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/subscription" class="js-all-menus-item-link-1 all-menus-item-link" data-v-30697495>
-                                    정기배송</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/salad" class="js-all-menus-item-link-2 all-menus-item-link" data-v-30697495>
-                                    샐러드</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/salad-wrap" class="js-all-menus-item-link-3 all-menus-item-link" data-v-30697495>
-                                    랩·샌드위치</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/meal" class="js-all-menus-item-link-4 all-menus-item-link" data-v-30697495>
-                                    도시락·간편식</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/set" class="js-all-menus-item-link-5 all-menus-item-link" data-v-30697495>
-                                    세트상품</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/snack" class="js-all-menus-item-link-6 all-menus-item-link" data-v-30697495>
-                                    간식</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/drink" class="js-all-menus-item-link-7 all-menus-item-link" data-v-30697495>
-                                    음료</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/event" class="js-all-menus-item-link-8 all-menus-item-link" data-v-30697495>
-                                    할인기획전</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/soon" class="js-all-menus-item-link-9 all-menus-item-link" data-v-30697495>
-                                    오픈예정</a>
-                              </li>
-                              <li class="all-menus-item" data-v-30697495><a href="/menu/soup" class="js-all-menus-item-link-10 all-menus-item-link" data-v-30697495>
-                                    죽·스프</a>
-                              </li>
-                          </ul>
-                      </div> 
-                      <div class="all-menus-shadow" data-v-30697495></div> 
-                      <div class="all-menus-arrow-wrap" data-v-30697495>
-                         <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/icon-arrow-down%402x.png"  class="all-menus-arrow" data-v-30697495>
-                        </div>
-                  </div>
-               </div>
-            </div> 
-            <!----> 
-            <!----> 
-            <!---->
-        </header> 
+               <nav data-v-7aa1f9b4="" class="header__menus">
+							<div data-v-7aa1f9b4="">
+								<div data-v-7aa1f9b4="" class="dropdown">
+									<span data-v-7aa1f9b4="" class="item">전체 카테고리</span>
+									<div data-v-7aa1f9b4="" class="dropdown">
+										<ul data-v-7aa1f9b4="">
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(700);" class="new"> 간식 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(800);" class="new"> 음료 </a></li>
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
+										</ul>
+									</div>
+								</div>
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
+									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
+							</div>
+							<div data-v-7aa1f9b4="" class="header__menus-side">
+								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+									alt="메뉴 검색" class="search-logo-img"
+									style="width: 30px; height: 30px;">
+									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
+									href="basket.do" class="cart-logo-wrap item"><div
+										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+										<!---->
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
+										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
+							</div>
+						</nav>
+						<div data-v-7aa1f9b4="" class="header__side">
+							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+								alt="메뉴 검색" class="search-logo-img"
+								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
+									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
+									<!---->
+								</div></a>
+							<nav data-v-7aa1f9b4="" class="header__toggle-button">
+								<button data-v-7aa1f9b4="" type="button">
+									<img data-v-7aa1f9b4=""
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
+								</button>
+							</nav>
+						</div>
+					</div>
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+				</header>
     <div id="container">
         <div id="home">
             <!--위에 container에 padding-top:182px 주는 이유:
@@ -2046,91 +2046,65 @@
                 </article>
             </div>
         </div>
-        <footer class="footer" data-v-438b4fe4 data-v-0f5971ec>
-            <div class="footer__wrap" data-v-438b4fe4 >
-               <h2 class="footer--logo" data-v-438b4fe4>
-                  <img class="footer-logo" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/02.png" alt="SALAD:IT" data-v-438b4fe4> 
-                  <div data-v-438b4fe4></div>
-               </h2> 
-               <div class="footer__body" data-v-438b4fe4>
-                  <nav class="footer__menus" data-v-438b4fe4>
-                     <div class="footer__menus-item" data-v-438b4fe4>
-                        <a href="#" data-v-438b4fe4>FAQ</a> 
-                        <a href="/terms" data-v-438b4fe4>이용약관</a> 
-                        <a href="/privacy" data-v-438b4fe4>개인정보처리방침</a>
-                     </div> 
-                     <div class="footer__menus-item" data-v-438b4fe4>
-                        <a href="#" data-v-438b4fe4>제휴문의</a> 
-                        <a href="#" data-v-438b4fe4>채용문의</a> 
-                        <a href="#" data-v-438b4fe4>케이터링 문의</a>
-                     </div>
-                  </nav> 
-                  <address class="footer__cs" data-v-438b4fe4>
-                     <h3 data-v-438b4fe4>프코고객센터</h3> 
-                     <div class="cs-time" data-v-438b4fe4>
-                        <div class="btn-channel-talk" data-v-438b4fe4>1:1 문의하기</div> 
-                        <div class="cs-time__inner" data-v-438b4fe4>
-                           <div data-v-438b4fe4>
-                              <div id="sa04" class="cs-time-text" data-v-438b4fe4>
-                                 <b data-v-438b4fe4>평일</b> 
-                                 <p data-v-438b4fe4>9:00 - 18:00 (점심시간 13:00 - 14:00)</p>
-                              </div> 
-                              <div id="sa03" class="cs-time-text" data-v-438b4fe4>
-                                 <b data-v-438b4fe4>토요일</b> 
-                                 <p data-v-438b4fe4>9:00 - 13:00
-                                          <span data-v-438b4fe4> (홈페이지 채팅문의만 운영)</span>
-                                       </p>
-                                    </div>
-                                 </div> 
-                                 <div data-v-438b4fe4>
-                                    <div class="cs-time-text" data-v-438b4fe4>
-                                       <b data-v-438b4fe4>공휴일</b> 
-                                       <p data-v-438b4fe4>휴무</p>
-                                    </div> 
-                                    <div class="cs-time-text" data-v-438b4fe4>
-                                       <b data-v-438b4fe4>고객센터</b> 
-                                       <p data-v-438b4fe4>1644-4559</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              
-                           </div>
-                        </address> 
-                        <address class="footer__address hide" data-v-438b4fe4>
-                           <p data-v-438b4fe4><b data-v-438b4fe4>대표</b>정유석</p> 
-                           <p data-v-438b4fe4><b data-v-438b4fe4>주소</b> <span data-v-438b4fe4>서울특별시 성동구 왕십리로 115, 헤이그라운드 서울숲점 7층</span></p> 
-                           <p data-v-438b4fe4><b data-v-438b4fe4>사업자등록번호</b>883-81-00307</p> 
-                           <p data-v-438b4fe4><b data-v-438b4fe4>통신판매업신고</b>제 2016-서울용산-00657</p>
-                        </address> 
-                        <address class="footer__address help hide" data-v-438b4fe4>
-                           <p data-v-438b4fe4><b data-v-438b4fe4>제휴문의</b><a href="mailto:biz@freshcode.me" data-v-438b4fe4>biz@freshcode.me</a></p> 
-                           <p data-v-438b4fe4><b data-v-438b4fe4>카카오ID</b><a href="#" data-v-438b4fe4>@프레시코드-freshcode</a></p> 
-                           <p data-v-438b4fe4><b data-v-438b4fe4>단체주문문의</b><a href="mailto:order@freshcode.me" data-v-438b4fe4>order@freshcode.me</a></p>
-                        </address> 
-                        <aside class="footer__side" data-v-438b4fe4>
-                           <p class="footer__copyright hide" data-v-438b4fe4>
-                         ⓒ 2020. FreshCode, Inc. All Rights Reserved<br data-v-438b4fe4>프레시코드가
-                         제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은 특허법, 저작권법,
-                         부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-438b4fe4>무단 복제, 유사한
-                         변형, 사용 등에 대하여는 법적 책임이 있음을 알려드립니다.
-                       </p> 
-                       <div class="footer__sns-wrap" data-v-438b4fe4>
-                          <nav class="footer__sns" data-v-438b4fe4>
-                             <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/instagram%402x.png" title="instagram" data-v-438b4fe4>
-                             <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/facebook%402x.png" title="facebook" data-v-438b4fe4>
-                             <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/youtube%403x.png" title="youtube" data-v-438b4fe4>
-                             <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/group-21%402x.png" title="blog" data-v-438b4fe4>
-                             <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/blog-post%402x.png" title="Naver post" data-v-438b4fe4>
-                             <img src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/kakao-channel%402x.png" title="kakao channel" data-v-438b4fe4>
-                          </nav>
-                       </div>
-                       
-                   </aside>
-               </div>
-               
-            </div>
-            
-         </footer>
+        <footer class="footer" data-v-438b4fe4="" data-v-0f5971ec="">
+					<div class="footer__wrap" data-v-438b4fe4="">
+						<h2 class="footer---logo" data-v-438b4fe4="">
+							<img class="footer--logo" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG" alt="SALAD:IT" data-v-438b4fe4=""> 
+							<div data-v-438b4fe4=""></div>
+						</h2> 
+						<div class="footer__body" data-v-438b4fe4="">
+							<address class="footer__cs" data-v-438b4fe4="">
+								<h3 data-v-438b4fe4="">샐러딧고객센터</h3> 
+								<div class="cs-time" data-v-438b4fe4="">
+									<div class="btn-channel-talk" data-v-438b4fe4="">1:1 문의하기</div> 
+									<div class="cs-time__inner" data-v-438b4fe4="">
+										<div data-v-438b4fe4="">
+											<div id="sa04" class="cs-time-text" data-v-438b4fe4="">
+												<b data-v-438b4fe4="">평일</b> 
+												<p data-v-438b4fe4="">9:00 - 18:00 (점심시간 13:00 - 14:00)</p>
+											</div> 
+											<div id="sa03" class="cs-time-text" data-v-438b4fe4="">
+												<b data-v-438b4fe4="">토요일</b> 
+												<p data-v-438b4fe4="">9:00 - 13:00
+		                  							<span data-v-438b4fe4=""> (홈페이지 채팅문의만 운영)</span>
+		                  						</p>
+		                  					</div>
+		                  				</div> 
+		                  				<div data-v-438b4fe4="">
+		                  					<div class="cs-time-text" data-v-438b4fe4="">
+		                  						<b data-v-438b4fe4="">공휴일</b> 
+		                  						<p data-v-438b4fe4="">휴무</p>
+		                  					</div> 
+		                  					<div class="cs-time-text" data-v-438b4fe4="">
+		                  						<b data-v-438b4fe4="">고객센터</b> 
+		                  						<p data-v-438b4fe4="">1644-4559</p>
+		                  					</div>
+		                  				</div>
+		                  			</div>
+		                  		</div>
+		                  	</address> 
+		                  	<address class="footer__address hide" data-v-438b4fe4="">
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">대표</b>신준혁</p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">주소</b> <span data-v-438b4fe4="">서울특별시 성동구 왕십리로 115, 헤이그라운드 서울숲점 7층</span></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">사업자등록번호</b>883-81-00307</p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">통신판매업신고</b>제 2016-서울용산-00657</p>
+		                  	</address> 
+		                  	<address class="footer__address help hide" data-v-438b4fe4="">
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">제휴문의</b><a href="mailto:biz@freshcode.me" data-v-438b4fe4="">biz@saladit.me</a></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">카카오ID</b><a href="#" data-v-438b4fe4="">@샐러딧-saladit</a></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">단체주문문의</b><a href="mailto:order@freshcode.me" data-v-438b4fe4="">order@saladit.me</a></p>
+		                  	</address> 
+		                  	<aside class="footer__side" data-v-438b4fe4="">
+		                  		<p class="footer__copyright hide" data-v-438b4fe4="">
+						          ⓒ 2020. Saladit, Inc. All Rights Reserved<br data-v-438b4fe4="">샐러딧이
+						          제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은 특허법, 저작권법,
+						          부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-438b4fe4="">무단 복제, 유사한
+						          변형, 사용 등에 대하여는 법적 책임이 있음을 알려드립니다.
+						        </p> 
+						    </aside>
+						</div>
+					</div>
+				</footer>
          
     </div>
     </main>

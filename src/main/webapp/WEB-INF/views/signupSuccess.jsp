@@ -193,32 +193,6 @@ $(function() {
 								<br data-v-6cb71114="">신규회원 특별혜택 받고 가볍게 시작해보세요.
 								</span>
 							</div>
-							<div data-v-6cb71114="" class="finish-main-promotion-wrap">
-								<div data-v-6cb71114="" class="finish-main-promotion-title">프로모션
-									코드</div>
-								<div data-v-6cb71114="" class="finish-main-promotion-text">
-									추천인 코드, 이벤트 할인 프로모션 코드 입력<br data-v-6cb71114=""> (가입 이후에도
-									마이페이지 &gt; 쿠폰조회 에서 등록 가능)
-								</div>
-								<div data-v-6cb71114="" class="finish-main-promotion-input-wrap">
-									<div data-v-6cb71114=""
-										class="finish-main-promotion-input-container">
-										<input data-v-8bb17226="" data-v-6cb71114=""
-											id="f_coupon_number" type="text" name="f_coupon_number"
-											placeholder="프로모션 코드를 입력해 주세요" autocorrect="off"
-											autocapitalize="off"
-											class="finish-main-promotion-input form-text">
-									</div>
-									<div data-v-6cb71114=""
-										class="finish-main-promotion-input-btn-wrap">
-										<button data-v-a1c889e0="" data-v-6cb71114="" type="button"
-											title="" disabled="disabled"
-											class="button finish-main-promotion-input-btn button--side-padding button--disabled">
-											<span data-v-a1c889e0="" class="button__wrap">등록</span>
-										</button>
-									</div>
-								</div>
-							</div>
 						</section>
 						<footer data-v-6cb71114="" class="finish-footer">
 							<div data-v-6cb71114="" class="btns-wrap">

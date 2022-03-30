@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.detail.DetailService;
 import project.spring.web.detail.DetailVO;
+import project.spring.web.event.CouponVO;
+import project.spring.web.event.EventService;
 import project.spring.web.member.MemberVO;
 import project.spring.web.my_pay_detail_info.MyPayDetailInfoService;
 import project.spring.web.my_pay_info.MyPayInfoService;
@@ -48,9 +50,15 @@ public class MyReviewWriteController {
 	PaymentCompleteService paymentCompleteService;
 	@Autowired
 	PointHistoryService pointHistoryService;
+	@Autowired
+	EventService eventService;
 	
 	@RequestMapping("/myReviewWrite.do")
-	public ModelAndView myReviewWriteDo(ModelAndView mav, String tagMain, String itemCode, String mappingCode, String paymentCode) {
+	public ModelAndView myReviewWriteDo(ModelAndView mav, String tagMain, String itemCode, String mappingCode, String paymentCode, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO)session.getAttribute("member");
+		
+		
 		PaymentMyDetailSideInfoVO vo = new PaymentMyDetailSideInfoVO();
 		vo.setPayment_code(Integer.parseInt(paymentCode));
 		vo = myPayDetailInfoService.getMemberPaymentDetailInfo(vo);
@@ -66,6 +74,36 @@ public class MyReviewWriteController {
 		}else {
 			vo2 = detailService.getItem(vo2);
 		}
+		
+		// 포인트 데이터
+		PaymentCompletePointVO vo5 = new PaymentCompletePointVO();
+		vo5.setPayment_member_code(mvo.getMemberCode());
+		vo5 = paymentCompleteService.getMemberPoint(vo5);
+		mav.addObject("point", vo5.getPayment_point());
+		
+		// 쿠폰 데이터
+		CouponVO cvo = new CouponVO();
+		cvo.setUser_code(mvo.getMemberCode());
+		List<CouponVO> userCoupon = eventService.getCoupon(cvo);
+		int check1 = 0;
+		for(int i = 0; i < userCoupon.size(); i++) {
+			if(userCoupon.get(i).getCoupon_check().equals("n")) {
+				check1++;
+			}
+		}
+		mav.addObject("couponNum", check1);
+		
+		// 배송 예정 데이터
+		PaymentMyDetailSideInfoVO vo6 = new PaymentMyDetailSideInfoVO();
+		vo6.setPayment_member_code(mvo.getMemberCode());
+		int check2 = 0;
+		List<PaymentMyDetailSideInfoVO> list = myPayInfoService.getMemberAllPaymentInfo(vo6);
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPayment_delivery_condition() == null || !list.get(i).getPayment_delivery_condition().equals("배송완료")) {
+				check2++;
+			}
+		}
+		mav.addObject("deliveryNum", check2);
 		
 		
 		mav.addObject("itemInfo", vo2);
@@ -206,6 +244,36 @@ public class MyReviewWriteController {
 				}
 			}
 		}
+		
+		// 포인트 데이터
+		PaymentCompletePointVO vo6 = new PaymentCompletePointVO();
+		vo6.setPayment_member_code(vo1.getMemberCode());
+		vo6 = paymentCompleteService.getMemberPoint(vo6);
+		mav.addObject("point", vo6.getPayment_point());
+		
+		// 쿠폰 데이터
+		CouponVO cvo = new CouponVO();
+		cvo.setUser_code(vo1.getMemberCode());
+		List<CouponVO> userCoupon = eventService.getCoupon(cvo);
+		int check1 = 0;
+		for(int i = 0; i < userCoupon.size(); i++) {
+			if(userCoupon.get(i).getCoupon_check().equals("n")) {
+				check1++;
+			}
+		}
+		mav.addObject("couponNum", check1);
+		
+		// 배송 예정 데이터
+		PaymentMyDetailSideInfoVO vo7 = new PaymentMyDetailSideInfoVO();
+		vo7.setPayment_member_code(vo1.getMemberCode());
+		int check2 = 0;
+		List<PaymentMyDetailSideInfoVO> list = myPayInfoService.getMemberAllPaymentInfo(vo7);
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPayment_delivery_condition() == null || !list.get(i).getPayment_delivery_condition().equals("배송완료")) {
+				check2++;
+			}
+		}
+		mav.addObject("deliveryNum", check2);
 		
 		
 		mav.addObject("check", check);

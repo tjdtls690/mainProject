@@ -94,37 +94,7 @@
 
 
 	<!---->
-	<div data-v-20ad18c6="" data-v-2e392260="" class="nav-paginate-wrap"
-		data-v-421abad8="">
-		<div data-v-20ad18c6="" class="nav-paginate-wrap__mobile">
-			<nav data-v-43f58a9c="" data-v-20ad18c6="" class="nav-paginate">
-				<a data-v-43f58a9c="" href="#"
-					class="nav-paginate__dir nav-paginate-dir-prev"
-					style="opacity: 0.2;"><img data-v-43f58a9c=""
-					src="/images/arrow-left@2x.png" alt="이전 페이지"
-					class="nav-arrow arrow-left"></a> <strong data-v-43f58a9c="">1</strong>
-				<a data-v-43f58a9c="" href="#"
-					class="nav-paginate__dir nav-paginate-dir-next"
-					style="opacity: 0.2;"><img data-v-43f58a9c=""
-					src="/images/arrow-right@2x.png" alt="다음 페이지"
-					class="nav-arrow arrow-right"></a>
-			</nav>
-		</div>
-		<div data-v-20ad18c6="" class="nav-paginate-wrap__desktop">
-			<nav data-v-43f58a9c="" data-v-20ad18c6="" class="nav-paginate">
-				<a data-v-43f58a9c="" href="#"
-					class="nav-paginate__dir nav-paginate-dir-prev"
-					style="opacity: 0.2;"><img data-v-43f58a9c=""
-					src="/images/arrow-left@2x.png" alt="이전 페이지"
-					class="nav-arrow arrow-left"></a> <strong data-v-43f58a9c="">1</strong>
-				<a data-v-43f58a9c="" href="#"
-					class="nav-paginate__dir nav-paginate-dir-next"
-					style="opacity: 0.2;"><img data-v-43f58a9c=""
-					src="/images/arrow-right@2x.png" alt="다음 페이지"
-					class="nav-arrow arrow-right"></a>
-			</nav>
-		</div>
-	</div>
+	
 </c:if>
 
 <c:if test="${check == 0}">

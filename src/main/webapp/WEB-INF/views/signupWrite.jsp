@@ -609,7 +609,7 @@ $(function(){
 	<div id="__nuxt">
 		<div id="__layout">
 			<main data-v-1739428d="" class="viewport-none-footer">
-								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
@@ -631,7 +631,7 @@ $(function(){
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
+							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>
@@ -643,9 +643,6 @@ $(function(){
 											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
-								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
-									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
-									신청</a>
 							</div>
 						</div>
 						<!---->
@@ -686,8 +683,8 @@ $(function(){
 								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
 									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
 								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
-									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(600);" class="item">세트상품 </a>
+									<a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img

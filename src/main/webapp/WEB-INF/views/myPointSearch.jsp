@@ -209,33 +209,30 @@
 	<div id="__nuxt">
 		<div id="__layout">
 			<main class="viewport" data-v-0f5971ec="">
-				<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
+								<header data-v-7aa1f9b4="" data-v-1739428d="" id="header-area"
 					class="header">
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
 					<form name="paging">
 						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="/info" class="header__top-left"></a>
+							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
-
+							
 								<c:choose>
-									<c:when test="${empty member.gender}">
-										<a href="signup.do" data-v-30697495="">회원가입</a>
-										<a data-v-30697495="" href="login.do">로그인</a>
-									</c:when>
-									<c:otherwise>
-										<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name }
-											<span data-v-30697495>님</span>
-										</a>
-									</c:otherwise>
-								</c:choose>
-								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
-									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
-									신청</a>
+										<c:when test="${empty member.gender}">
+											<a href="signup.do" data-v-30697495="">회원가입</a>
+											<a data-v-30697495="" href="login.do">로그인</a>
+										</c:when>
+										<c:otherwise>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+										</c:otherwise>
+									</c:choose>
 							</div>
 						</div>
 						<!---->
@@ -272,46 +269,40 @@
 										</ul>
 									</div>
 								</div>
-								<a data-v-7aa1f9b4="" href="javascript:page_move(100);"
-									class="item">정기구독 </a><a data-v-7aa1f9b4=""
-									href="javascript:page_move(200);" class="item">샐러드 </a><a
-									data-v-7aa1f9b4="" href="javascript:page_move(300);"
-									class="item">샌드위치·랩 </a><a data-v-7aa1f9b4=""
-									href="javascript:page_move(1);" class="item">초코베리머치 </a><a
-									data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
-									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
+								<a data-v-7aa1f9b4="" href="javascript:page_move(100);" class="item">정기구독
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
+									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(600);" class="item">세트상품 </a>
+									<a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
-									data-v-7aa1f9b4=""
-									src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+									data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 									alt="메뉴 검색" class="search-logo-img"
 									style="width: 30px; height: 30px;">
 									<div data-v-7aa1f9b4="">검색</div></a> <a data-v-7aa1f9b4=""
 									href="basket.do" class="cart-logo-wrap item"><div
 										data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 										<!---->
-									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do"
-									class="item"><div data-v-7aa1f9b4="" class="icon-order"></div>
-									바로주문 </a>
+									</div> <!----> 장바구니 </a> <a data-v-7aa1f9b4="" href="order.do" class="item"><div
+										data-v-7aa1f9b4="" class="icon-order"></div> 바로주문 </a>
 							</div>
 						</nav>
 						<div data-v-7aa1f9b4="" class="header__side">
 							<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img
-								data-v-7aa1f9b4=""
-								src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
+								data-v-7aa1f9b4="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_search_gray.PNG"
 								alt="메뉴 검색" class="search-logo-img"
 								style="width: 30px; height: 30px;"></a> <a data-v-7aa1f9b4=""
-								href="basket.do" class="cart-logo-wrap item"><div
-									style="width: 24px; height: 24px;" data-v-7aa1f9b4=""
-									alt="프레시코드 장바구니" class="cart-logo empty">
+								href="basket.do" class="cart-logo-wrap item"><div style="width: 24px; height: 24px;"
+									data-v-7aa1f9b4="" alt="프레시코드 장바구니" class="cart-logo empty">
 									<!---->
 								</div></a>
 							<nav data-v-7aa1f9b4="" class="header__toggle-button">
 								<button data-v-7aa1f9b4="" type="button">
 									<img data-v-7aa1f9b4=""
-										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG"
-										alt="user-menu" style="width: 30px; height: 30px;">
+										src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_menu.PNG" alt="user-menu"
+										style="width: 30px; height: 30px;">
 								</button>
 							</nav>
 						</div>
@@ -330,7 +321,7 @@
 								<div data-v-3e2784be=""
 									class="col row row--v-center mypage-header-info__profile">
 									<figure data-v-3e2784be="">
-										<img data-v-3e2784be="" src="/images/ico-leaf.svg" alt="">
+										<img data-v-3e2784be="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_ico-leaf.svg" alt="">
 									</figure>
 									<div data-v-3e2784be="">
 										<strong data-v-3e2784be="">${member.name }</strong> <span
@@ -340,62 +331,20 @@
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">배송예정</span> <a data-v-3e2784be=""
-											href="/mypage/delivery" class=""><em data-v-3e2784be="">0</em></a>
+											href="/mypage/delivery" class=""><em data-v-3e2784be="">${deliveryNum }</em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">포인트</span> <a data-v-3e2784be=""
-											href="/mypage/points" aria-current="page"
-											class="nuxt-link-exact-active nuxt-link-active"><em
-											data-v-3e2784be="">0</em></a>
+											href="/mypage/points" class=""><em data-v-3e2784be="">${point }</em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">보유 쿠폰</span> <a data-v-3e2784be=""
-											href="/mypage/coupons" class=""><em data-v-3e2784be="">1</em></a>
+											href="/mypage/coupons" class=""><em data-v-3e2784be="">${couponNum }</em></a>
 									</p>
-								</div>
-							</div>
-							<div data-v-3e2784be="" class="mypage-header-invite">
-								<div data-v-3e2784be="" class="mypage-header-invite__wrap">
-									<div data-v-3e2784be="" class="mypage-header-invite__message">
-										<a data-v-3e2784be="" href="/mypage/invite" class=""><p
-												data-v-3e2784be="" class="title">친구 초대하고 친구랑 같이 포인트
-												적립하세요!</p>
-											<p data-v-3e2784be="" class="msg">
-												<span data-v-3e2784be="">친구가 내 추천코드로 가입하면 친구에게 3,000
-													포인트!</span><br data-v-3e2784be=""> <span data-v-3e2784be="">친구가
-													첫 주문하면 나한테도 3,000 포인트 선물이!</span>
-											</p></a>
-									</div>
-									<div data-v-3e2784be="" class="mypage-header-invite__share">
-										<div data-v-3e2784be="" class="code">
-											<strong data-v-3e2784be="">내 추천코드</strong>
-											<code data-v-3e2784be="">1sby67m4cf</code>
-										</div>
-										<div data-v-3e2784be="" class="share">
-											<strong data-v-3e2784be="">공유하기</strong>
-											<div data-v-3e2784be="" class="share__body">
-												<div data-v-3e2784be="">
-													<span data-v-3e2784be="" tabindex="0"
-														data-link="#share-facebook"
-														class="button share-button-mypage-header"><span
-														class="row--v-center"><img
-															src="/images/ico-share-facebook.svg" alt=""> <em
-															class="col">페이스북</em></span></span>
-												</div>
-												<div data-v-3e2784be="">
-													<button data-v-3e2784be="" type="button">
-														<span data-v-3e2784be="" class="row--v-center"><img
-															data-v-3e2784be="" src="/images/ico-share-link.svg"
-															alt=""> <em data-v-3e2784be="" class="col">링크복사</em></span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -488,40 +437,7 @@
 											</c:if>
 
 										</div>
-										<div data-v-20ad18c6="" data-v-5371d1c8=""
-											class="nav-paginate-wrap mypage-points__paginate"
-											data-v-421abad8="">
-											<div data-v-20ad18c6="" class="nav-paginate-wrap__mobile">
-												<nav data-v-43f58a9c="" data-v-20ad18c6=""
-													class="nav-paginate">
-													<a data-v-43f58a9c="" href="#"
-														class="nav-paginate__dir nav-paginate-dir-prev"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-left@2x.png" alt="이전 페이지"
-														class="nav-arrow arrow-left"></a> <strong
-														data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
-														href="#" class="nav-paginate__dir nav-paginate-dir-next"
-														style="opacity: 1;"><img data-v-43f58a9c=""
-														src="/images/arrow-right@2x.png" alt="다음 페이지"
-														class="nav-arrow arrow-right"></a>
-												</nav>
-											</div>
-											<div data-v-20ad18c6="" class="nav-paginate-wrap__desktop">
-												<nav data-v-43f58a9c="" data-v-20ad18c6=""
-													class="nav-paginate">
-													<a data-v-43f58a9c="" href="#"
-														class="nav-paginate__dir nav-paginate-dir-prev"
-														style="opacity: 0.2;"><img data-v-43f58a9c=""
-														src="/images/arrow-left@2x.png" alt="이전 페이지"
-														class="nav-arrow arrow-left"></a> <strong
-														data-v-43f58a9c="">1</strong> <a data-v-43f58a9c=""
-														href="#" class="nav-paginate__dir nav-paginate-dir-next"
-														style="opacity: 1;"><img data-v-43f58a9c=""
-														src="/images/arrow-right@2x.png" alt="다음 페이지"
-														class="nav-arrow arrow-right"></a>
-												</nav>
-											</div>
-										</div>
+										
 									</article>
 								</div>
 							</div>
@@ -534,106 +450,60 @@
 				</div>
 				<footer class="footer" data-v-438b4fe4="" data-v-0f5971ec="">
 					<div class="footer__wrap" data-v-438b4fe4="">
-						<h2 class="footer__logo" data-v-438b4fe4="">
-							<img src="/images/logo-20211111.png" alt="FRESHCODE"
-								data-v-438b4fe4="">
-							<div data-v-438b4fe4="" class="open"></div>
-						</h2>
+						<h2 class="footer---logo" data-v-438b4fe4="">
+							<img class="footer--logo" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/banner/logo.PNG" alt="SALAD:IT" data-v-438b4fe4=""> 
+							<div data-v-438b4fe4=""></div>
+						</h2> 
 						<div class="footer__body" data-v-438b4fe4="">
-							<nav class="footer__menus" data-v-438b4fe4="">
-								<div class="footer__menus-item" data-v-438b4fe4="">
-									<a href="#" data-v-438b4fe4="">FAQ</a> <a href="/terms"
-										data-v-438b4fe4="" class="">이용약관</a> <a href="/privacy"
-										data-v-438b4fe4="" class="">개인정보처리방침</a>
-								</div>
-								<div class="footer__menus-item" data-v-438b4fe4="">
-									<a href="#" data-v-438b4fe4="">제휴문의</a> <a href="#"
-										data-v-438b4fe4="">채용문의</a> <a href="#" data-v-438b4fe4="">케이터링
-										문의</a>
-								</div>
-							</nav>
 							<address class="footer__cs" data-v-438b4fe4="">
-								<h3 data-v-438b4fe4="">프코고객센터</h3>
+								<h3 data-v-438b4fe4="">샐러딧고객센터</h3> 
 								<div class="cs-time" data-v-438b4fe4="">
-									<div class="btn-channel-talk" data-v-438b4fe4="">1:1 문의하기</div>
+									<div class="btn-channel-talk" data-v-438b4fe4="">1:1 문의하기</div> 
 									<div class="cs-time__inner" data-v-438b4fe4="">
 										<div data-v-438b4fe4="">
-											<div class="cs-time-text" data-v-438b4fe4="">
-												<b data-v-438b4fe4="">평일</b>
+											<div id="sa04" class="cs-time-text" data-v-438b4fe4="">
+												<b data-v-438b4fe4="">평일</b> 
 												<p data-v-438b4fe4="">9:00 - 18:00 (점심시간 13:00 - 14:00)</p>
-											</div>
-											<div class="cs-time-text" data-v-438b4fe4="">
-												<b data-v-438b4fe4="">토요일</b>
-												<p data-v-438b4fe4="">
-													9:00 - 13:00 <span data-v-438b4fe4="">&nbsp;(홈페이지
-														채팅문의만 운영)</span>
-												</p>
-											</div>
-										</div>
-										<div data-v-438b4fe4="">
-											<div class="cs-time-text" data-v-438b4fe4="">
-												<b data-v-438b4fe4="">공휴일</b>
-												<p data-v-438b4fe4="">휴무</p>
-											</div>
-											<div class="cs-time-text" data-v-438b4fe4="">
-												<b data-v-438b4fe4="">고객센터</b>
-												<p data-v-438b4fe4="">1644-4559</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</address>
-							<address class="footer__address" data-v-438b4fe4="">
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">대표</b>정유석
-								</p>
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">주소</b> <span data-v-438b4fe4="">서울특별시
-										성동구 왕십리로 115, 헤이그라운드 서울숲점 7층</span>
-								</p>
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">사업자등록번호</b>883-81-00307
-								</p>
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">통신판매업신고</b>제 2016-서울용산-00657
-								</p>
-							</address>
-							<address class="footer__address help" data-v-438b4fe4="">
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">제휴문의</b><a href="mailto:biz@freshcode.me"
-										data-v-438b4fe4="">biz@freshcode.me</a>
-								</p>
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">카카오ID</b><a href="#" data-v-438b4fe4="">@프레시코드-freshcode</a>
-								</p>
-								<p data-v-438b4fe4="">
-									<b data-v-438b4fe4="">단체주문문의</b><a
-										href="mailto:order@freshcode.me" data-v-438b4fe4="">order@freshcode.me</a>
-								</p>
-							</address>
-							<aside class="footer__side" data-v-438b4fe4="">
-								<p class="footer__copyright" data-v-438b4fe4="">
-									ⓒ 2020. FreshCode, Inc. All Rights Reserved<br
-										data-v-438b4fe4="">프레시코드가 제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은
-									특허법, 저작권법, 부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-438b4fe4="">무단
-									복제, 유사한 변형, 사용 등에 대하여는 법적 책임이 있음을 알려드립니다.
-								</p>
-								<div class="footer__sns-wrap" data-v-438b4fe4="">
-									<nav class="footer__sns" data-v-438b4fe4="">
-										<img src="/images/instagram@2x.png" title="instagram"
-											data-v-438b4fe4="" class=""><img
-											src="/images/facebook@2x.png" title="facebook"
-											data-v-438b4fe4="" class=""><img
-											src="/images/youtube@3x.png" title="youtube"
-											data-v-438b4fe4="" class=""><img
-											src="/images/group-21@2x.png" title="blog" data-v-438b4fe4=""
-											class=""><img src="/images/blog-post@2x.png"
-											title="Naver post" data-v-438b4fe4="" class=""><img
-											src="/images/kakao-channel@2x.png" title="kakao channel"
-											data-v-438b4fe4="" class="">
-									</nav>
-								</div>
-							</aside>
+											</div> 
+											<div id="sa03" class="cs-time-text" data-v-438b4fe4="">
+												<b data-v-438b4fe4="">토요일</b> 
+												<p data-v-438b4fe4="">9:00 - 13:00
+		                  							<span data-v-438b4fe4=""> (홈페이지 채팅문의만 운영)</span>
+		                  						</p>
+		                  					</div>
+		                  				</div> 
+		                  				<div data-v-438b4fe4="">
+		                  					<div class="cs-time-text" data-v-438b4fe4="">
+		                  						<b data-v-438b4fe4="">공휴일</b> 
+		                  						<p data-v-438b4fe4="">휴무</p>
+		                  					</div> 
+		                  					<div class="cs-time-text" data-v-438b4fe4="">
+		                  						<b data-v-438b4fe4="">고객센터</b> 
+		                  						<p data-v-438b4fe4="">1644-4559</p>
+		                  					</div>
+		                  				</div>
+		                  			</div>
+		                  		</div>
+		                  	</address> 
+		                  	<address class="footer__address hide" data-v-438b4fe4="">
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">대표</b>신준혁</p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">주소</b> <span data-v-438b4fe4="">서울특별시 성동구 왕십리로 115, 헤이그라운드 서울숲점 7층</span></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">사업자등록번호</b>883-81-00307</p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">통신판매업신고</b>제 2016-서울용산-00657</p>
+		                  	</address> 
+		                  	<address class="footer__address help hide" data-v-438b4fe4="">
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">제휴문의</b><a href="mailto:biz@freshcode.me" data-v-438b4fe4="">biz@saladit.me</a></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">카카오ID</b><a href="#" data-v-438b4fe4="">@샐러딧-saladit</a></p> 
+		                  		<p data-v-438b4fe4=""><b data-v-438b4fe4="">단체주문문의</b><a href="mailto:order@freshcode.me" data-v-438b4fe4="">order@saladit.me</a></p>
+		                  	</address> 
+		                  	<aside class="footer__side" data-v-438b4fe4="">
+		                  		<p class="footer__copyright hide" data-v-438b4fe4="">
+						          ⓒ 2020. Saladit, Inc. All Rights Reserved<br data-v-438b4fe4="">샐러딧이
+						          제공하는 UI/UX, 프로그램, 콘텐츠, 디자인 등은 특허법, 저작권법,
+						          부정경쟁방지법 등에 의해 보호 받고 있습니다.<br data-v-438b4fe4="">무단 복제, 유사한
+						          변형, 사용 등에 대하여는 법적 책임이 있음을 알려드립니다.
+						        </p> 
+						    </aside>
 						</div>
 					</div>
 				</footer>

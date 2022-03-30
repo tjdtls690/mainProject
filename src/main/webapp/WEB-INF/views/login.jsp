@@ -250,6 +250,8 @@
 					</div>
 					<form name="paging">
 						<input type="hidden" name="tagMain01" value="">
+						<input type="hidden" name="itemCode01" value="">
+						<input type="hidden" name="tagSub01" value="">
 					</form>
 					<input type="hidden" id="loginCheck10" value="${alertM }">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
@@ -263,12 +265,9 @@
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/mypage/orders" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
-								<span data-v-7aa1f9b4="">1:1문의</span> <a data-v-7aa1f9b4=""
-									href="https://forms.gle/92o1ctx6U4CYe2yF9" target="_blank">B2B
-									신청</a>
 							</div>
 						</div>
 						<!---->
@@ -379,12 +378,14 @@
 									name="password" placeholder="비밀번호 입력" required="required"
 									autocorrect="off" autocapitalize="off" class="form-text password" onkeypress="if( event.keyCode == 13 ){enterKey();}">
 							</div>
-							<p data-v-d3dff3a6="" class="row row--v-center">
-								<input data-v-d3dff3a6="" id="auto-login" type="checkbox"
-									name="auto-login" class="auto-login-checkbox"> <label
-									data-v-d3dff3a6="" for="auto-login"><span
-									data-v-d3dff3a6="">자동로그인</span></label>
-							</p>
+<!-- 							<p data-v-d3dff3a6="" class="row row--v-center"> -->
+<!-- 								<input data-v-d3dff3a6="" id="auto-login" type="checkbox" -->
+<!-- 									name="auto-login" class="auto-login-checkbox">  -->
+<!-- 									<label -->
+<!-- 									data-v-d3dff3a6="" for="auto-login"> -->
+<!-- 									<span -->
+<!-- 									data-v-d3dff3a6=""></span></label> -->
+<!-- 							</p> -->
 							<nav data-v-d3dff3a6="">
 								<button data-v-a1c889e0="" data-v-d3dff3a6="" type="button"
 									title="" class="button"

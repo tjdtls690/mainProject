@@ -22,6 +22,8 @@ import project.spring.web.mapping.MappingVO;
 import project.spring.web.member.MemberVO;
 import project.spring.web.modal.ModalService;
 import project.spring.web.modal.ModalVO;
+import project.spring.web.my_review_reply.MyReviewReplyService;
+import project.spring.web.my_review_reply.MyReviewReplyVO;
 import project.spring.web.my_review_write.MyReviewWriteService;
 import project.spring.web.tapPage.TapPageService;
 import project.spring.web.tapPage.TapPageVO;
@@ -44,6 +46,8 @@ public class DetailController {
 	private ModalService modalService;
 	@Autowired
 	private BasketService BasketService;
+	@Autowired
+	private MyReviewReplyService myReviewReplyService;
 	
 	
 	public DetailController() {
@@ -144,6 +148,9 @@ public class DetailController {
 		    	reviewImage.add(tmpImageList);
 		    }
 		    mav.addObject("reviewImage", reviewImage);
+		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
 		    
 		    
 //			페이징 처리
@@ -269,6 +276,9 @@ public class DetailController {
 		    	reviewImage.add(tmpImageList);
 		    }
 		    mav.addObject("reviewImage", reviewImage);
+		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
 		    
 //			페이징 처리
 			System.out.println("페이징 처리");
@@ -397,6 +407,9 @@ public class DetailController {
 		    }
 		    mav.addObject("reviewImage", reviewImage);
 		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
@@ -466,6 +479,9 @@ public class DetailController {
 		    }
 		    mav.addObject("reviewImage", reviewImage);
 		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
+		    
 //			페이징 처리
 			System.out.println("페이징 처리");
 			PageMaker pageMaker = new PageMaker();
@@ -503,6 +519,9 @@ public class DetailController {
 		    	reviewImage.add(tmpImageList);
 		    }
 		    mav.addObject("reviewImage", reviewImage);
+		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
 		    
 //			페이징 처리
 			System.out.println("페이징 처리");
@@ -553,6 +572,9 @@ public class DetailController {
 		    }
 		    mav.addObject("reviewImage", reviewImage);
 		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
+		    
 //			페이징 처리
 
 			mav.setViewName("detailPaging");
@@ -577,6 +599,9 @@ public class DetailController {
 		    	reviewImage.add(tmpImageList);
 		    }
 		    mav.addObject("reviewImage", reviewImage);
+		    
+		    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+		    mav.addObject("reviewReply", list1);
 		    
 //			페이징 처리
 
@@ -661,6 +686,9 @@ public class DetailController {
 			    	reviewImage.add(tmpImageList);
 			    }
 			    mav.addObject("reviewImage", reviewImage);
+			    
+			    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+			    mav.addObject("reviewReply", list1);
 
 				mav.setViewName("detailPaging");
 				
@@ -684,6 +712,9 @@ public class DetailController {
 			    	reviewImage.add(tmpImageList);
 			    }
 			    mav.addObject("reviewImage", reviewImage);
+			    
+			    List<MyReviewReplyVO> list1 = myReviewReplyService.getReviewReply();
+			    mav.addObject("reviewReply", list1);
 
 				mav.setViewName("detailPaging");
 				

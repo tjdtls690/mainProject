@@ -184,19 +184,19 @@ $(function() {
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
-                                    <thead style="padding:50%;">
+                                    <thead>
                                        <tr>
                                        		<!-- <th>
  											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
 											</th> -->
-                                            <th>no.</th>
+                                            <th style="width:5%;">no.</th>
                                             <th>ID</th>
                                             <th>날짜</th>
-											<th style="width:7%;">Main tag</th>
-                                            <th style="width:7%;">Item Code</th>
+											<th style="width:5%;">tag</th>
+                                            <th style="width:7%;">Code</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th></th>
+											<th style="width:10px;"></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -204,14 +204,14 @@ $(function() {
                                         	<!-- <th>
  											<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
 											</th> -->
-                                            <th>no.</th>
+                                            <th style="width:5%;">no.</th>
                                             <th>ID</th>
                                             <th>날짜</th>
-											<th style="width:7%;">Main tag</th>
-                                            <th style="width:7%;">Item Code</th>
+											<th style="width:5%;">tag</th>
+                                            <th style="width:7%;">Code</th>
 											<th>상품명</th>
 											<th>내용</th>
-											<th></th>
+											<th style="width:10px;"></th>
                                         </tr>
                                     </tfoot>
                                     <tbody style="padding:50%;">
@@ -219,14 +219,14 @@ $(function() {
 										<tr>
 											<!-- <td><input class="form-check-input" type="checkbox"
 												id="checkboxNoLabel" value="" aria-label="..."></td> -->
-											<td>${subReviewList.seq }</td>
+											<td style="width:5%;">${subReviewList.seq }</td>
 											<td>${subReviewList.user_name }</td>
 											<td>${subReviewList.write_date }</td>
-											<td style="width:7%;">${subReviewList.subscribe_tag_main }</td>
+											<td style="width:5%;">${subReviewList.subscribe_tag_main }</td>
 											<td style="width:7%;">${subReviewList.subscribe_code }</td>
 											<td>${subReviewList.subscribe_name }</td>
 											<td>${subReviewList.content }</td>
-											<th>
+											<td style="width:10px;">
 												<button type="button" id="${subReviewList.seq }"
 													data-bs-toggle="modal" data-bs-target="#myModal"
 													data-toggle="modal" data-target="#exampleModalCenter"
@@ -281,7 +281,7 @@ $(function() {
 														<!-- </div> -->
 													</form>
 												</div>
-											</th>
+											</td>
 										</tr>
 									</c:forEach>
 									<c:forEach var="itemReviewList" items="${itemReviewList }">

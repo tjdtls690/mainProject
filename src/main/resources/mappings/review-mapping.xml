@@ -79,4 +79,7 @@
 	<select id="getPaymentItemMappingCodeReview" resultType="myReview">
         SELECT * FROM reviewboard WHERE payment_item_mapping_code = #{payment_item_mapping_code}
 	</select>
+	<select id="getReviewReply" resultType="myReviewReply">
+        select * from review_reply;
+	</select>
 </mapper>

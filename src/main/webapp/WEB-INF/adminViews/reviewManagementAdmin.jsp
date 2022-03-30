@@ -44,7 +44,7 @@ $(function() {
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
-		<a class="navbar-brand ps-3" href="index.html">Saladit - admin</a>
+		<a class="navbar-brand ps-3" href="adminMainChart.mdo">Saladit - admin</a>
 		<!-- Sidebar Toggle-->
 		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
 			id="sidebarToggle" href="#!">
@@ -69,9 +69,7 @@ $(function() {
 					class="fas fa-user fa-fw"></i></a>
 				<ul class="dropdown-menu dropdown-menu-end"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#!">Settings</a></li>
-					<li><a class="dropdown-item" href="#!">Activity Log</a></li>
-					<li><hr class="dropdown-divider" /></li>
+					
 					<li><a class="dropdown-item" href="#!">Logout</a></li>
 				</ul></li>
 		</ul>
@@ -107,64 +105,61 @@ $(function() {
 							</nav>
 						</div>
 
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapsePages" aria-expanded="false"
-							aria-controls="collapsePages">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-book-open"></i>
-							</div> 상품/판매
-							<div class="sb-sidenav-collapse-arrow">
-								<i class="fas fa-angle-down"></i>
-							</div>
-						</a>
-						<div class="collapse" id="collapsePages"
-							aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-									data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-									aria-controls="pagesCollapseAuth"> 조회/등록/수정 </a>
-							</nav>
-						</div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                상품/판매
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+						<div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                	<a class="nav-link" href="adminItemList.mdo">조회/등록/수정</a>
+                                </nav>
+                            </div>
 
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseOrders" aria-expanded="false"
-							aria-controls="collapseOrders">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-columns"></i>
-							</div> 주문/배송
-							<div class="sb-sidenav-collapse-arrow">
-								<i class="fas fa-angle-down"></i>
-							</div>
-						</a>
-						<div class="collapse" id="collapseOrders"
-							aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionOrders">
-								<a class="nav-link" href="#">주문목록</a> <a class="nav-link"
-									href="#">배송중</a> <a class="nav-link" href="#">배송완료</a>
-							</nav>
-						</div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                주문/배송
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+						<div class="collapse" id="collapseOrders" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionOrders">
+                                    <a class="nav-link" href="orderManagement.mdo">주문목록</a>
+                                    <a class="nav-link" href="orderManagementDelivery.mdo">배송중</a>
+                                    <a class="nav-link" href="orderManagementDeliveryComplete.mdo">배송완료</a>
+                                </nav>
+                            </div>
 
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseUser" aria-expanded="false"
-							aria-controls="collapseUser">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-columns"></i>
-							</div> 회원
-							<div class="sb-sidenav-collapse-arrow">
-								<i class="fas fa-angle-down"></i>
-							</div>
-						</a>
-						<div class="collapse" id="collapseUser"
-							aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionUser">
-								<a class="nav-link" href="memberManagement.mdo">회원관리</a> <a
-									class="nav-link" href="#">리뷰관리</a>
-							</nav>
-						</div>
-
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                회원
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+						<div class="collapse" id="collapseUser" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionUser">
+                                    <a class="nav-link" href="memberManagement.mdo">회원관리</a>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#UserCollapseAuth" aria-expanded="false" aria-controls="UserCollapseAuth">
+                                    리뷰관리
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="UserCollapseAuth" aria-labelledby="headingFour-four" data-bs-parent="#sidenavAccordionUser">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="reviewListAdmin.mdo">답변대기</a>
+                                            <a class="nav-link" href="reviewManagementAdmin.mdo">답변완료</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+						 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
+							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> 
+							매출/상품통계관리
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							</a>
+							<div class="collapse" id="collapseSales" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
+                                    <a class="nav-link" href="salesManagement.mdo">매출/상품통계</a>
+                                    <a class="nav-link" href="pieChart.mdo">카테고리별 통계</a>
+                                </nav>
+                            </div>
 					</div>
 				</div>
 			</nav>
@@ -190,13 +185,13 @@ $(function() {
 								<thead style="padding:50%;">
 									<tr>
 										<th>no.</th>
-										<th>ID</th>
+										<th style="width:10%;">ID</th>
 										<th>날짜</th>
-										<th>Main tag</th>
-										<th>Item
+										<th style="width:7%;">Main tag</th>
+										<th style="width:7%;">Item
 										code</th>
 										<th>상품명</th>
-										<th>내용</th>
+										<th style="width:15%;">내용</th>
 										<th>답글</th>
 										<th></th>
 									</tr>
@@ -204,13 +199,13 @@ $(function() {
 								<tfoot>
 									<tr>
 										<th>no.</th>
-										<th>ID</th>
+										<th style="width:10%;">ID</th>
 										<th>날짜</th>
-										<th>Main tag</th>
-										<th>Item
+										<th style="width:7%;">Main tag</th>
+										<th style="width:7%;">Item
 										code</th>
 										<th>상품명</th>
-										<th>내용</th>
+										<th style="width:15%;">내용</th>
 										<th>답글</th>
 										<th></th>
 									</tr>
@@ -220,12 +215,12 @@ $(function() {
 										varStatus="i">
 										<tr>
 											<td>${subReviewList.seq }</td>
-											<td>${subReviewList.user_name }</td>
+											<td style="width:10%;">${subReviewList.user_name }</td>
 											<td>${subReviewList.write_date }</td>
-											<td>${subReviewList.subscribe_tag_main }</td>
-											<td>${subReviewList.subscribe_code }</td>
+											<td style="width:7%;">${subReviewList.subscribe_tag_main }</td>
+											<td style="width:7%;">${subReviewList.subscribe_code }</td>
 											<td>${subReviewList.subscribe_name }</td>
-											<td>${subReviewList.content }</td>
+											<td style="width:15%;">${subReviewList.content }</td>
 											<td>${subReplyList[i.index].replycontents }</td>
 											<td>
 												<button type="button" data-bs-toggle="modal"

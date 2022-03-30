@@ -44,7 +44,7 @@ public class AdminLoginController {
 		
 		List<AdminLoginVO> avo = adminLoginService.getAdminInfo(vo);
 		session.setAttribute("admin", avo.get(0));
-		mav.setViewName("mainChart");
+		mav.setViewName("redirect:adminMainChart.mdo");
 		return mav;
 	}
 }

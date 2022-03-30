@@ -152,8 +152,8 @@
 		   					    	  	  count[5], count[6]
 		   					    	  
 		   					      ],
-		   					      backgroundColor: ['red', 'orange', 'yellow', 'green',
-		   					    	  				'blue','indigo','purple','gray'],
+		   					      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
+		  	    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6'],
 		   					    }],
 		   					  },
 		   					});
@@ -163,23 +163,23 @@
 	   					
 	   					
 						if(getTagMain == 100){
-							$('#text').text("정기구독 상위 10 판매횟수 비교");
+							$('#text').text("정기구독 상위 TOP10 판매횟수 비교");
 						}else if(getTagMain == 200){
-	   						$('#text').text("샐러드 상위 10 판매횟수 비교");
+	   						$('#text').text("샐러드 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 300){
-	   						$('#text').text("샌드위치/랩 상위 10 판매횟수 비교");
+	   						$('#text').text("샌드위치/랩 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 400){
-	   						$('#text').text("도시락/간편식 상위 10 판매횟수 비교");
+	   						$('#text').text("도시락/간편식 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 500){
-	   						$('#text').text("죽/스프 상위 10 판매횟수 비교");
+	   						$('#text').text("죽/스프 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 600){
-	   						$('#text').text("세트상품 상위 10 판매횟수 비교");
+	   						$('#text').text("세트상품 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 700){
-	   						$('#text').text("간식 상위 10 판매횟수 비교");
+	   						$('#text').text("간식 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 800){
-	   						$('#text').text("음료 상위 10 판매횟수 비교");
+	   						$('#text').text("음료 상위 TOP10 판매횟수 비교");
 	   					}else if(getTagMain == 1000){
-	   						$('#text').text("올해의 판매비교 요약");
+	   						$('#text').text("전체 판매비교 요약");
 	   					}
  					
 	   				} // success 끝
@@ -292,15 +292,14 @@
 			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Charts</h1>
+                        <h1 class="mt-4">매출 통계 비교</h1>
 						<ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Charts</li>
                         </ol>
                         <div class="card mb-4">
                            <div class="card-header">
                                         <i class="fas fa-chart-pie me-1" ></i>
-                                        <i id="text">올해의 판매 비교 요약</i>
+                                        <i id="text">전체 판매 비교 요약</i>
                                         <div class="dropdown" style="float:right;">
 											<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 											    --tagMain--
@@ -322,7 +321,7 @@
                                     <div class="card-body">
                                    		<canvas id="myPieChart" width="200%" height="50"></canvas>
                                     </div>
-                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                                    <div class="card-footer small text-muted">※실제 판매 금액과는 약간 다를수 있습니다. 실제 판매 금액은 ""을 참고 해주세요</div>
                         </div>
                                                 <div class="card mb-4">
                             <div class="card-header">

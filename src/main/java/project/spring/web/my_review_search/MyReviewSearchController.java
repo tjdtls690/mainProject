@@ -161,7 +161,9 @@ public class MyReviewSearchController {
 		
 		int check = 0;
 		for(int i = 0; i < list1.size(); i++) {
-			if(list1.get(i).getPayment_item_mapping_review() == 1) {
+			MyReviewWriteVO vo3 = new MyReviewWriteVO();
+			vo3.setPayment_item_mapping_code(list1.get(i).getPayment_item_mapping_code());
+			if(list1.get(i).getPayment_item_mapping_review() == 1 && myReviewSearchService.getPaymentItemMappingCodeReview(vo3) != null) {
 				check++;
 			}
 		}
@@ -206,10 +208,7 @@ public class MyReviewSearchController {
 			pointHistoryService.insertPointHistory(pointHistoryVO);
 		}
 		
-		vo.setPayment_item_mapping_review(2); // TODO
-		paymentSingleService.updatePaymentMappingCode(vo);
-		
-		mav.setViewName("mySearchReviewDelete");
+		myReviewWriteService.deleteReview(vo1);
 		return null;
 	}
 }

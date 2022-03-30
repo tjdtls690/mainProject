@@ -1997,7 +1997,7 @@
 										<ul class="btn-group pagination">
 										    <c:if test="${pageMaker.prev }">
 											    <li>
-											    	<button>
+											    	<button style="cursor: pointer">
 											        	<i class="fa fa-chevron-left">
 											        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
 												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
@@ -2009,7 +2009,7 @@
 										    </c:if>
 										    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 											    <li>
-													<button >
+													<button style="cursor: pointer" >
 											        	<i class="fa pageNum">
 												        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
 												        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
@@ -2022,7 +2022,7 @@
 										    </c:forEach>
 										    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 											    <li>
-													<button>
+													<button style="cursor: pointer">
 											        	<i class="fa fa-chevron-right">
 											        		<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
 											        		<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNext" >

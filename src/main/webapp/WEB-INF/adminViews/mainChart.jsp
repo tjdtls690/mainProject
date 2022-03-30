@@ -16,7 +16,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="${path}/css/style.css?ver=3" rel="stylesheet" />
+	<link href="${path}/css/style.css?ver=4" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
        	$(function(){
@@ -365,7 +365,7 @@
    			    		$("input[name='monthSum']").remove();
    			    		// 데이터 들어가있는 input 추가
    			    		$('#input').append(htmlOut);
-   			    		
+   			    		$('#barChartMonth').text("2022년도 월 별 차트");
    			    		
    			    		$('#myBarChart').detach()
    			    		$('#myBarChart' + check02).detach();
@@ -460,6 +460,7 @@
    			    		$("input[name='monthSum']").remove();
    			    		// 데이터 들어가있는 input 추가
    			    		$('#input').append(htmlOut);
+   			    		$('#barChartMonth').text("2021년도 월 별 차트");
    			    		
    			    		
 //    			    		$('.chartjs-size-monitor').detach();
@@ -901,7 +902,8 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        월 별 차트
+<!--                                         월 별 차트 -->
+										<i id="barChartMonth">2021년도 월 별 차트</i>
                                         <div style="float:right; height:17px;" class='month-btn'>
 <!-- 	                                       	<button type="button" class="btn btn-link"  style="padding:5px 5px; margin-top:-8px;">   -->
 <!-- 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bar-chevron-left" viewBox="0 0 16 16"> -->

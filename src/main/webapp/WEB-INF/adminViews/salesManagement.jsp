@@ -502,8 +502,9 @@ tfoot tr:nth-child(2) th {
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">매출통계</h1>
-                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">상세검색</button>
+                         <ol class="breadcrumb mb-4" >
+                            <li class="breadcrumb-item active" >
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-toggle="modal" data-target="#exampleModalCenter" style="padding:0px 30px; float:right;">상세검색</button>
                                   <div class="modal" id="myModal">
                                     <form name="" action = "" enctype = "multipart/form-data">
 								                      <div class="modal-dialog modal-centered">
@@ -582,7 +583,7 @@ tfoot tr:nth-child(2) th {
 			                            <div class="card-header">
 			                                <i class="fas fa-table me-1"></i>
 			                                매출통계
-			                               <div class="dropdown" style="float:right;">
+			                                             <div class="dropdown" style="float:right;">
 											  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 											    ----------------
 											  </button>
@@ -592,83 +593,84 @@ tfoot tr:nth-child(2) th {
 											    <li><button class="dropdown-item month" type="button">최근 6개월</button></li>
 											  </ul>
 											</div>
+			                               
 												</div> <!-- card header -->
 
                             <div class="card-body">
                             
                                 <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>주문날짜</th>
-                                            <th>판매금액</th>
-                                            <th>뿅</th>
-											<th>뿡</th>                                         
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1위</td>
-                                            <td>아쉬파 샐러드</td>
-                                            <td>77</td>
-                                            <td>999999999원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2위</td>
-                                            <td>잠봉 시저 샐러드</td>
-                                            <td>73</td>
-                                            <td>995657759원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3위</td>
-                                            <td>홀그레인 로스트비프 바게트 샌드</td>
-                                            <td>68</td>
-                                            <td>945274555원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4위</td>
-                                            <td>바베큐 풀드포크 바게트 샌드</td>
-                                            <td>60</td>
-                                            <td>934662453원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5위</td>
-                                            <td>[올가니카]플랜트 왕교자</td>                      
-                                            <td>56</td>
-                                            <td>457457388원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6위</td>
-                                            <td>[그리팅]땅콩호박스프</td>                      
-                                            <td>50</td>
-                                            <td>456453788원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7위</td>
-                                            <td>샐러드와 고구마 든든세트</td>                      
-                                            <td>48</td>
-                                            <td>453344336원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8위</td>
-                                            <td>샐러드와 계란 촉촉세트</td>                      
-                                            <td>45</td>
-                                            <td>421243235원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9위</td>
-                                            <td>딸기 바닐라 크림치즈 샐러드</td>                      
-                                            <td>35</td>
-                                            <td>234346555원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10위</td>
-                                            <td>들기름 메밀면 샐러드</td>                      
-                                            <td>22</td>
-                                            <td>212334555원</td>
-                                        </tr>
+<!--                                     <thead> -->
+<!--                                         <tr> -->
+<!--                                             <th>주문날짜</th> -->
+<!--                                             <th>판매금액</th> -->
+<!--                                             <th>뿅</th> -->
+<!-- 											<th>뿡</th>                                          -->
+<!--                                         </tr> -->
+<!--                                     </thead> -->
+<!--                                     <tbody> -->
+<!--                                         <tr> -->
+<!--                                             <td>1위</td> -->
+<!--                                             <td>아쉬파 샐러드</td> -->
+<!--                                             <td>77</td> -->
+<!--                                             <td>999999999원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>2위</td> -->
+<!--                                             <td>잠봉 시저 샐러드</td> -->
+<!--                                             <td>73</td> -->
+<!--                                             <td>995657759원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>3위</td> -->
+<!--                                             <td>홀그레인 로스트비프 바게트 샌드</td> -->
+<!--                                             <td>68</td> -->
+<!--                                             <td>945274555원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>4위</td> -->
+<!--                                             <td>바베큐 풀드포크 바게트 샌드</td> -->
+<!--                                             <td>60</td> -->
+<!--                                             <td>934662453원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>5위</td> -->
+<!--                                             <td>[올가니카]플랜트 왕교자</td>                       -->
+<!--                                             <td>56</td> -->
+<!--                                             <td>457457388원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>6위</td> -->
+<!--                                             <td>[그리팅]땅콩호박스프</td>                       -->
+<!--                                             <td>50</td> -->
+<!--                                             <td>456453788원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>7위</td> -->
+<!--                                             <td>샐러드와 고구마 든든세트</td>                       -->
+<!--                                             <td>48</td> -->
+<!--                                             <td>453344336원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>8위</td> -->
+<!--                                             <td>샐러드와 계란 촉촉세트</td>                       -->
+<!--                                             <td>45</td> -->
+<!--                                             <td>421243235원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>9위</td> -->
+<!--                                             <td>딸기 바닐라 크림치즈 샐러드</td>                       -->
+<!--                                             <td>35</td> -->
+<!--                                             <td>234346555원</td> -->
+<!--                                         </tr> -->
+<!--                                         <tr> -->
+<!--                                             <td>10위</td> -->
+<!--                                             <td>들기름 메밀면 샐러드</td>                       -->
+<!--                                             <td>22</td> -->
+<!--                                             <td>212334555원</td> -->
+<!--                                         </tr> -->
 
                                      
-                                    </tbody>
+<!--                                     </tbody> -->
                                 </table>
                                 </div>
                             </div> <!-- card mb-4 -->

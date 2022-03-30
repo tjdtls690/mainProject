@@ -37,17 +37,12 @@ public class AdminBannerManagementController {
 	}
 
 	@RequestMapping("/bannerSelectDelete.do")
-	public ModelAndView bannerDelete(ModelAndView mav, String[] newDeleteItemId) {
-		List<String> list1 = new ArrayList<>();
-
-		for (int i = 0; i < newDeleteItemId.length; i++) {
-			System.out.println(newDeleteItemId[i]);
-			AdminBannerManagementVO vo = new AdminBannerManagementVO();
-			list1.add(newDeleteItemId[i]);
-			String s = list1.get(i);
-			vo.setId(s);
-			bannerService.deleteBanner(vo);
-		}
+	public ModelAndView bannerDelete(ModelAndView mav, HttpServletRequest request) {
+		
+		String id = request.getParameter("deleteID");
+		AdminBannerManagementVO vo = new AdminBannerManagementVO();
+		vo.setId(id);
+		bannerService.deleteBanner(vo);
 
 		AdminBannerManagementVO vo2 = new AdminBannerManagementVO();
 		List<AdminBannerManagementVO> bannerList = bannerService.getBanner(vo2);

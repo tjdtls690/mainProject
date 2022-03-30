@@ -8,6 +8,7 @@
 <html class="">
 <head>
 <style>
+
 .gm-style-moc {
 	background-color: rgba(0, 0, 0, 0.45);
 	pointer-events: none;
@@ -220,11 +221,106 @@
        });
       
        });
-// 페이징 처리
-		$(document).on('clik','',function(){
+		// 페이징 처리
+		$(document).on('click','.fa.pageNum',function(){
+			var pageNum = $(this).children('#PageNumValue').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
 
 			
-		})
+			$.ajax({
+				url : 'paging.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
+				},
+				success : function(data) {
+					$('.johntest').html(data);
+				}
+			});
+		});
+		// 왼쪽 클릭
+		$(document).on('click','.fa.fa-chevron-left',function(){
+			var pageNum = $(this).children('#PageNumValuePrev').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
+		
+			$.ajax({
+				url : 'pagingPrev.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
+				},
+				success : function(data) {
+					$('.johntest').html(data);
+				},
+				complete : function() {
+					var pageNum2 = $('.fa.fa-chevron-left').children('#PageNumValuePrev').val();
+					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+					var tagMain2 = $('.menu-review__index').children('#TagMainValueTest').val();
+			
+					
+					$.ajax({
+						url : 'bottomPrev.do',
+						type : 'post',
+						datatype : 'html',
+						data : {
+							"pageNum2" : pageNum2,
+							"itemCode2" : itemCode2,
+							"tagMain2" : tagMain2
+						},
+						success : function(data2) {
+							$('.nav-paginate-wrap').html(data2);
+						}
+					});
+				}
+			});
+		});
+		// 오른쪽 클릭
+		$(document).on('click','.fa.fa-chevron-right',function(){
+			var pageNum = $(this).children('#PageNumValueNext').val();
+			var itemCode = $('.menu-review__index').children('#ItemCodeValueTest').val();
+			var tagMain = $('.menu-review__index').children('#TagMainValueTest').val();
+			
+			$.ajax({
+				url : 'pagingNext.do',
+				type : 'post',
+				datatype : 'html',
+				data : {
+					"pageNum" : pageNum,
+					"itemCode" : itemCode,
+					"tagMain" : tagMain
+				},
+				success : function(data) {
+					$('.johntest').html(data);
+				},
+				complete : function() {
+					var pageNum2 = $('.fa.fa-chevron-right').children('#PageNumValueNext').val();
+					var itemCode2 = $('.menu-review__index').children('#ItemCodeValueTest').val();
+					var tagMain2 = $('.menu-review__index').children('#TagMainValueTest').val();
+										
+					$.ajax({
+						url : 'bottomNext.do',
+						type : 'post',
+						datatype : 'html',
+						data : {
+							"pageNum2" : pageNum2,
+							"itemCode2" : itemCode2,
+							"tagMain2" : tagMain2
+						},
+						success : function(data2) {
+							$('.nav-paginate-wrap').html(data2);
+						}
+					});
+				}
+			});
+		});
 // 사이즈 선택
 		$(document).on('click','.form-radio-input',function(){
 			var size = $(this).val();
@@ -1510,7 +1606,9 @@
 										</div>
 									</section>
 									<section data-v-f8b893b0="" class="menu-review__index">
-										<ul data-v-f8b893b0="">
+											<input type="hidden" value="${detail.item_code}" id="ItemCodeValueTest" >
+	                            			<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueTest" >
+										<ul data-v-f8b893b0="" class="johntest">
 <!--  리뷰  -->										
 											<c:forEach var="board" items="${boardList }" varStatus="i">
 		                               	  <li data-v-22105fb8="" data-v-f8b893b0="" class="review-item">
@@ -1571,64 +1669,80 @@
 												<nav data-v-43f58a9c="" data-v-20ad18c6="" class="nav-paginate">
 													<ul class="btn-group pagination">
 														<c:if test="${pageMaker.prev }">
-															<li>
-																<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
-																<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-																	<i class="fa fa-chevron-left">
-																	<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
-																</a>
-															</li>
-														</c:if>
+														    <li>
+														    	<button>
+														        	<i class="fa fa-chevron-left">
+														        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
+															        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
+															        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValuePrev" >
+														        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
+														        	</i>
+														        </button>
+														    </li>
+													    </c:if>
 														<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-															<li>
-																<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
-																<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-																	<i class="fa">${pageNum } </i>
-																</a>
-															</li>
+																<button >
+														        	<i class="fa pageNum">
+															        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
+															        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
+															        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
+															        	${pageNum }
+														        	 </i> 
+													   			</button>
+													    &nbsp;&nbsp;&nbsp;
 														</c:forEach>
 														<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 															<li>
-																<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
-																<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-																	<i class="fa fa-chevron-right"><img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png"></i>
-																</a>
-															</li>
+																<button>
+											        				<i class="fa fa-chevron-right">
+											        					<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
+											        					<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNext" >
+												        				<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueNext" >
+											        					<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
+											        				</i>
+											       				 </button>
+											   				 </li>
 														</c:if>
 													</ul>
 												</nav>
 											</div>
 											<div data-v-20ad18c6 class="nav-paginate-wrap__desktop">
 												<nav data-v-43f58a9c data-v-20ad18c6 class="nav-paginate">
-													<!--                                         <a data-v-43f58a9c href="#" class="nav-paginate__dir nav-paginate-dir-prev" style="opacity: 0.2;"> -->
-													<!--                                             <img data-v-43f58a9c src="https://saladits3.s3.ap-northeast-2.amazonaws.com/productsdetailpage/images/arrow-left%402x.png"  class="nav-arrow arrow-left"> -->
-													<!--                                         </a> -->
 													<ul class="btn-group pagination">
 														<c:if test="${pageMaker.prev }">
-															<li>
-																<%--         <a href='<c:url value="/detail.do?page=${pageMaker.startPage-1 }"/>'> --%>
-																<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.startPage-1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-																	<i class="fa fa-chevron-left">
-																	<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left(s).png"></i>
-																</a>
-															</li>
-														</c:if>
+														    <li>
+														    	<button>
+														        	<i class="fa fa-chevron-left">
+														        		<input type="hidden" value="${pageMaker.startPage-1}" id="PageNumValuePrev" >
+															        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValuePrev" >
+															        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValuePrev" >
+														        		<img data-v-43f58a9c class="nav-arrow arrow-left" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_left_s.png">
+														        	</i>
+														        </button>
+														    </li>
+													    </c:if>
 														<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-															<li>
-																<%--         <a href='<c:url value="/detail.do?page=${pageNum }"/>'> --%>
-																<a data-v-43f58a9c="" href="detail.do?page=${pageNum }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}">
-																	<i class="fa">${pageNum } </i>
-																</a>
-															</li>
+																<button >
+														        	<i class="fa pageNum">
+															        	<input type="hidden" value="${pageNum}" id="PageNumValue" >
+															        	<input type="hidden" value="${detail.item_code}" id="ItemCodeValue" >
+															        	<input type="hidden" value="${detail.item_tag_main}" id="TagMainValue" >
+															        	${pageNum }
+														        	 </i> 
+													   			</button>
+													    &nbsp;&nbsp;&nbsp;
 														</c:forEach>
 														<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 															<li>
-																<%--         <a href='<c:url value="/detail.do?page=${pageMaker.endPage+1 }"/>'> --%>
-																<a data-v-43f58a9c="" href='detail.do?page=${pageMaker.endPage+1 }&itemCode01=${detail.item_code}&tagMain01=${detail.item_tag_main}'>
-																	<i class="fa fa-chevron-right">
-																	<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png"></i>
-																</a>
-															</li>
+																<button>
+											        				<i class="fa fa-chevron-right">
+											        					<input type="hidden" value="${pageMaker.endPage + 1}" id="PageNumValueNext" >
+											        					<input type="hidden" value="${detail.item_code}" id="ItemCodeValueNext" >
+												        				<input type="hidden" value="${detail.item_tag_main}" id="TagMainValueNext" >
+											        					<img data-v-43f58a9c class="nav-arrow arrow-right" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_arrow_right(s).png">
+											        				</i>
+											       				 </button>
+											   				 </li>
 														</c:if>
 													</ul>
 													<!--                                         <a data-v-43f58a9c="" href="#" class="nav-paginate__dir nav-paginate-dir-next" style="opacity: 1;"> -->

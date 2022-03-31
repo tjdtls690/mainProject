@@ -324,8 +324,8 @@
        		      yAxes: [{
        		        ticks: {
        		          min: 0,
-       		          max: 10000000,
-       		          maxTicksLimit: 5
+       		          max: 12000000,
+       		          maxTicksLimit: 12
        		        },
        		        gridLines: {
        		          display: true
@@ -412,8 +412,8 @@
        		       		      yAxes: [{
        		       		        ticks: {
        		       		          min: 0,
-       		       		          max: 10000000,
-       		       		          maxTicksLimit: 5
+       		       		          max: 12000000,
+       		       		          maxTicksLimit: 12
        		       		        },
        		       		        gridLines: {
        		       		          display: true
@@ -509,8 +509,8 @@
        		       		      yAxes: [{
        		       		        ticks: {
        		       		          min: 0,
-       		       		          max: 10000000,
-       		       		          maxTicksLimit: 5
+       		       		          max: 12000000,
+       		       		          maxTicksLimit: 12
        		       		        },
        		       		        gridLines: {
        		       		          display: true

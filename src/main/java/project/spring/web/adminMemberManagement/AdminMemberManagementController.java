@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.spring.web.paymentComplete.PaymentCompletePointVO;
+import project.spring.web.paymentComplete.PaymentCompleteService;
+
 @Controller
 public class AdminMemberManagementController {
 
 	@Autowired
 	AdminMemberManagementService adminMemberManagementService;
+	@Autowired
+	PaymentCompleteService paymentCompleteService;
 
 	@RequestMapping("/memberManagement.mdo")
 	public ModelAndView memberManagementDo(ModelAndView mav, AdminMemberManagementVO vo) {
@@ -49,6 +54,11 @@ public class AdminMemberManagementController {
 		AdminMemberManagementVO vo = new AdminMemberManagementVO();
 		vo.setMemberCode(memberDelete);
 		adminMemberManagementService.deleteMember(vo);
+		
+		PaymentCompletePointVO vo1 = new PaymentCompletePointVO();
+		vo1.setPayment_member_code(memberDelete);
+		paymentCompleteService.deleteMemberPoint(vo1);
+		
 		mav.setViewName("memberManagement");
 		return mav;
 	}
@@ -76,10 +86,10 @@ public class AdminMemberManagementController {
 		
 		return mav;
 		
-		// request ·Î È°¼º ºñÈ°¼º ¹Þ°í
+		// request ï¿½ï¿½ È°ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½ ï¿½Þ°ï¿½
 		
-				// adminMemberManagementService.deleteMember(vo); --> service ½ÇÇà
+				// adminMemberManagementService.deleteMember(vo); --> service ï¿½ï¿½ï¿½ï¿½
 				
-				//Ã³À½¿¡ ºÒ·¯¿À´Â ¾Öµé ÇÑ¹ø´õ ½ÇÇà
+				//Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 }

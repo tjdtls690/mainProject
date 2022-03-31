@@ -599,7 +599,7 @@ tfoot tr:nth-child(2) th {
 			                                매출통계
 			                                             <div class="dropdown" style="float:right;">
 											  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-											    ----------------
+											    최근 개월
 											  </button>
 											  <ul class="dropdown-menu month" aria-labelledby="dropdownMenu2">
 											    <li><button class="dropdown-item month" type="button">최근 1개월</button></li>

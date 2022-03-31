@@ -300,10 +300,10 @@
 												</td>
 											</tr>
 	           							</table>
+	           							<button type="submit" class="btn btn-primary submit" >Upload</button>
 	           						</form>
 							         </div>
 							         <div class="modal-footer">
-							         <button type="submit" class="btn btn-primary submit" >Upload</button>
 							         </div>
 							         </div>
 							         </div>

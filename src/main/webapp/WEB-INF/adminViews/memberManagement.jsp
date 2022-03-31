@@ -249,7 +249,7 @@ $(function(){
                                        </button>
                                        <ul class="dropdown-menu">
                                           <li value="활성"><a class="dropdown-item" href="#">활성<input type="hidden" value="${adminMember.memberCode }" id="memberCode" /><input type="hidden" value="활성" id="memberActive" /></a></li>
-                                          <li value="휴면"><a class="dropdown-item" href="#">휴면<input type="hidden" value="${adminMember.memberCode }" id="memberCode" /><input type="hidden" value="휴먼" id="memberActive" /></a></li>
+                                          <li value="휴면"><a class="dropdown-item" href="#">휴면<input type="hidden" value="${adminMember.memberCode }" id="memberCode" /><input type="hidden" value="휴면" id="memberActive" /></a></li>
                                        </ul>
                                     </div>
                                  </td>

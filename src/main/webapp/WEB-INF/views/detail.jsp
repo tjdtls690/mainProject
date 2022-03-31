@@ -149,7 +149,7 @@
 			//alert("장바구니 클릭");
 		// 장바구니 담길것이 있을때와 없을때를 구분.
 			if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
-				//alert("있다");
+				alert("있다");
 				var itemCode = [], data = {};
 				var tagMain = [];
 				var price = [];
@@ -193,8 +193,8 @@
 			    
 			    $.ajax({
 		 			url : 'detaillLginCheck.do',
-		 			success : function(data){
-		 				if(data == 1){
+		 			success : function(data1){
+		 				if(data1 == 1){
 		 					$.ajax({ // 장바구니 넣기 확인 모달
 		 				    	url : "test.do",
 		 				    	type : 'post',

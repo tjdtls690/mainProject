@@ -91,6 +91,9 @@
 	}
 
 	$(function() {
+		$(document).on('click', '.btn-order', function(){
+			$(location).attr("href", "order.do");
+		})
 		$(document)
 				.on(
 						'click',

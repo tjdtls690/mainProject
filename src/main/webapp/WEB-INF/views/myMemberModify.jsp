@@ -51,6 +51,10 @@
 	}
 	
 		$(function(){
+			
+			$(document).on('click', '.btn-order', function(){
+				$(location).attr("href", "order.do");
+			})
 			// 값을 넘길 변수들
 			var realGender = '';
 			

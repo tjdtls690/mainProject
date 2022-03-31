@@ -108,6 +108,10 @@
 	}
 
 	$(function(){
+		$(document).on('click', '.btn-order', function(){
+			$(location).attr("href", "order.do");
+		})
+		
 		// 리뷰 내용 30자 기준 점검 초기화
 		var contentSuFirst = $('#contentFirst').val().length;
 		var countFirst = 30 - contentSuFirst;

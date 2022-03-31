@@ -63,6 +63,9 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 
 //ajax 태그기능 넣을 함수
 $(function(){
+	$(document).on('click', '.btn-order', function(){
+		$(location).attr("href", "order.do");
+	})
 	
 	 $("#search-input").keydown(function(key) {
         if (key.keyCode == 13) {

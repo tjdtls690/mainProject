@@ -49,6 +49,10 @@
 	}
 	
 	function enterkey() {
+		$(document).on('click', '.btn-order', function(){
+			$(location).attr("href", "order.do");
+		})
+		
 		if (window.event.keyCode == 13) {
 			var password = $('.user-password__body').find('input').val();
 	    	if(password.length == 0){

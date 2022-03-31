@@ -362,7 +362,7 @@ $(function() {
             <div class="header-banner-wrap" data-v-30697495><!----></div> 
             <div id="header__body" class="header__body" data-v-30697495>
                <div class="header__top" data-v-30697495>
-                  <a href="/info" class="header__top-left" data-v-30697495></a> 
+                  <a href="#" class="header__top-left" data-v-30697495></a> 
                   <div class="header__top-right" data-v-30697495>
                      <a href="/mypage/orders" data-v-30697495>이예지 <span data-v-30697495>님</span></a> 
                      <span data-v-30697495>1:1문의</span>
@@ -435,8 +435,8 @@ $(function() {
                      <a href="/menu/salad" class="item" data-v-30697495>샐러드</a>
                      <a href="/menu/salad-wrap" class="item" data-v-30697495>랩·샌드위치</a>
                      <a href="/menu/event" class="item" data-v-30697495>할인기획전</a>
-                     <a href="/event" class="item" data-v-30697495>이벤트</a>
-                     <a href="/fcospot" class="item" data-v-30697495>프코스팟</a>
+                     <a data-v-7aa1f9b4="" href="javascript:page_move(600);" class="item">세트상품 </a>
+					 <a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a>
                   </div> 
                   <div class="header__menus-side" data-v-30697495>
                      <a href="/search" class="search-logo" data-v-30697495>

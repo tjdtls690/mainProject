@@ -321,12 +321,54 @@
 				}
 			});
 		});
-// 사이즈 선택
-		$(document).on('click','.form-radio-input',function(){
-			var size = $(this).val();
-			$('.setSize').val(size);
-			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.			
-		});
+		
+		var length = $('.form-radio-input').length;
+		
+		if(length == 3){
+			$(document).on('click','.row--v-center.radio-label.m1',function(){
+				var size = $(this).children().children().val();
+				$('.setSize').val(size);
+				alert("사이즈 : "+size);
+				// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
+
+				if(length == 3){
+					alert("미디움만");
+	 				$('.row--v-center.radio-label.m2').checked();
+	 				$('.row--v-center.radio-label.m3').click();
+// 	 				$('.form-radio-circle').eq(2).click();
+
+				}else {
+					alert("라지도");
+				}
+
+
+//	 			$('.form-radio-input').eq(0).trigger('click');
+
+			});
+			
+		}
+		
+		
+// // 사이즈 선택
+// 		$(document).on('click','.form-radio-input:eq(1)',function(){
+// 			var size = $(this).val();
+// 			$('.setSize').val(size);
+// 			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
+			
+// 			var length = $('.form-radio-input').length;
+			
+// 			if(length == 3){
+// 				alert("미디움만");
+// // 				$('.form-radio:eq(0)').click();
+
+// 			}else {
+// 				alert("라지도");
+// 			}
+
+
+// // 			$('.form-radio-input').eq(0).trigger('click');
+
+// 		});
 		
 
 		
@@ -1030,21 +1072,21 @@
 															<!--  -->
 															<c:if test="${ empty detail.item_price_l  }">
 																<div data-v-2706028c=""
-																	class="row--v-center radio-label">
-																	<label data-v-3f971378="" data-v-2706028c=""
-																		class="form-radio"> <input data-v-3f971378=""
-																		id="Medium" type="radio" name="menu-sizeboth"
-																		class="form-radio-input" value="Medium"> <span
-																		data-v-3f971378="" class="form-radio-circle"> <i
-																			data-v-3f971378="" class="form-radio-circle-interior"></i>
-																	</span> Medium
-																	</label> <label data-v-2706028c="" for="Medium"
-																		class="radio-side-text">Medium</label>
+																	class="row--v-center radio-label m1">
+																	<label data-v-3f971378="" data-v-2706028c="" class="form-radio"> 
+																		<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth"class="form-radio-input" value="Medium"> 
+																			<span data-v-3f971378="" class="form-radio-circle"> 
+																				<i data-v-3f971378="" class="form-radio-circle-interior"></i>
+																			</span> Medium
+																	</label> 
+																	<label data-v-2706028c="" for="Medium" class="radio-side-text">
+																		Medium
+																	</label>
 																</div>
 															</c:if>
 															<c:if test="${ not empty detail.item_price_l }">
 																<div data-v-2706028c=""
-																	class="row--v-center radio-label">
+																	class="row--v-center radio-label m1">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
 																		id="Medium" type="radio" name="menu-sizeboth"
@@ -1063,7 +1105,7 @@
 																		class="form-radio-input" value="Large"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
-																	</span> Medium
+																	</span> Large
 																	</label> <label data-v-2706028c="" for="Large"
 																		class="radio-side-text">Large</label>
 																</div>
@@ -1308,26 +1350,46 @@
 													<li data-v-2706028c="" class="menu__options">
 														<label data-v-2706028c="" class="menu__label" style="width: 108px;">사이즈 선택</label>
 														<div data-v-2706028c="" class="row--v-center">
-															<div data-v-2706028c="" class="row--v-center radio-label">
-																<label data-v-3f971378="" data-v-2706028c="" class="form-radio">
-																	<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizedesktop" class="form-radio-input" value="Medium"> 
-																	<span data-v-3f971378="" class="form-radio-circle">
-																		<i data-v-3f971378="" class="form-radio-circle-interior"></i>
-																	</span>
-																	Medium 
-																</label> 
-																<label data-v-2706028c="" for="Medium" class="radio-side-text">Medium</label>
-															</div>
-															<div data-v-2706028c="" class="row--v-center radio-label">
-																<label data-v-3f971378="" data-v-2706028c="" class="form-radio">
-																<input data-v-3f971378="" id="Large" type="radio" name="menu-sizedesktop" class="form-radio-input" value="Large"> 
-																	<span data-v-3f971378="" class="form-radio-circle">
-																		<i data-v-3f971378="" class="form-radio-circle-interior"></i>
-																	</span>
-																	Medium 
-																</label> 
-																<label data-v-2706028c="" for="Large" class="radio-side-text">Large</label>
-															</div>
+														<c:if test="${ empty detail.item_price_l  }">
+																<div data-v-2706028c=""
+																	class="row--v-center radio-label m2">
+																	<label data-v-3f971378="" data-v-2706028c=""
+																		class="form-radio"> <input data-v-3f971378=""
+																		id="Medium" type="radio" name="menu-sizeboth"
+																		class="form-radio-input" value="Medium"> <span
+																		data-v-3f971378="" class="form-radio-circle"> <i
+																			data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span> Medium
+																	</label> <label data-v-2706028c="" for="Medium"
+																		class="radio-side-text">Medium</label>
+																</div>
+															</c:if>
+															<c:if test="${ not empty detail.item_price_l }">
+																<div data-v-2706028c=""
+																	class="row--v-center radio-label m2">
+																	<label data-v-3f971378="" data-v-2706028c=""
+																		class="form-radio"> <input data-v-3f971378=""
+																		id="Medium" type="radio" name="menu-sizeboth"
+																		class="form-radio-input" value="Medium"> <span
+																		data-v-3f971378="" class="form-radio-circle"> <i
+																			data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span> Medium
+																	</label> <label data-v-2706028c="" for="Medium"
+																		class="radio-side-text">Medium</label>
+																</div>
+																<div data-v-2706028c=""
+																	class="row--v-center radio-label">
+																	<label data-v-3f971378="" data-v-2706028c=""
+																		class="form-radio"> <input data-v-3f971378=""
+																		id="Large" type="radio" name="menu-sizeboth"
+																		class="form-radio-input" value="Large"> <span
+																		data-v-3f971378="" class="form-radio-circle"> <i
+																			data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span> Large
+																	</label> <label data-v-2706028c="" for="Large"
+																		class="radio-side-text">Large</label>
+																</div>
+															</c:if>
 														</div>
 													</li>
 													<li data-v-2706028c="" class="menu__period-select">
@@ -1776,30 +1838,46 @@
 																style="margin-top: -4px;"><label data-v-2706028c=""
 																class="menu__label">사이즈 선택</label>
 																<div data-v-2706028c="" class="row--v-center">
-																	<div data-v-2706028c=""
-																		class="row--v-center radio-label">
-																		<label data-v-3f971378="" data-v-2706028c=""
-																			class="form-radio"><input data-v-3f971378=""
-																			id="Medium" type="radio" name="menu-sizemobile"
-																			class="form-radio-input" value="Medium"> <span
-																			data-v-3f971378="" class="form-radio-circle"><i
-																				data-v-3f971378=""
-																				class="form-radio-circle-interior"></i></span> Medium </label> <label
-																			data-v-2706028c="" for="Medium"
-																			class="radio-side-text">Medium</label>
-																	</div>
-																	<div data-v-2706028c=""
-																		class="row--v-center radio-label">
-																		<label data-v-3f971378="" data-v-2706028c=""
-																			class="form-radio"><input data-v-3f971378=""
-																			id="Large" type="radio" name="menu-sizemobile"
-																			class="form-radio-input" value="Large"> <span
-																			data-v-3f971378="" class="form-radio-circle"><i
-																				data-v-3f971378=""
-																				class="form-radio-circle-interior"></i></span> Medium </label> <label
-																			data-v-2706028c="" for="Large"
-																			class="radio-side-text">Large</label>
-																	</div>
+																<c:if test="${ empty detail.item_price_l  }">
+																<div data-v-2706028c=""
+																	class="row--v-center radio-label m3">
+																	<label data-v-3f971378="" data-v-2706028c=""
+																		class="form-radio"> <input data-v-3f971378=""
+																		id="Medium" type="radio" name="menu-sizeboth"
+																		class="form-radio-input" value="Medium"> <span
+																		data-v-3f971378="" class="form-radio-circle"> <i
+																			data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span> Medium
+																	</label> <label data-v-2706028c="" for="Medium"
+																		class="radio-side-text">Medium</label>
+																</div>
+															</c:if>
+															<c:if test="${ not empty detail.item_price_l }">
+																<div data-v-2706028c=""
+																	class="row--v-center radio-label m3">
+																	<label data-v-3f971378="" data-v-2706028c=""
+																		class="form-radio"> <input data-v-3f971378=""
+																		id="Medium" type="radio" name="menu-sizeboth"
+																		class="form-radio-input" value="Medium"> <span
+																		data-v-3f971378="" class="form-radio-circle"> <i
+																			data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span> Medium
+																	</label> <label data-v-2706028c="" for="Medium"
+																		class="radio-side-text">Medium</label>
+																</div>
+																<div data-v-2706028c=""
+																	class="row--v-center radio-label">
+																	<label data-v-3f971378="" data-v-2706028c=""
+																		class="form-radio"> <input data-v-3f971378=""
+																		id="Large" type="radio" name="menu-sizeboth"
+																		class="form-radio-input" value="Large"> <span
+																		data-v-3f971378="" class="form-radio-circle"> <i
+																			data-v-3f971378="" class="form-radio-circle-interior"></i>
+																	</span> Large
+																	</label> <label data-v-2706028c="" for="Large"
+																		class="radio-side-text">Large</label>
+																</div>
+															</c:if>
 																</div></li>
 															<li data-v-2706028c="" class="menu__period-select">
 																<!---->

@@ -147,8 +147,6 @@ public class MyReviewWriteController {
 				AwsS3VO avo = awsS3Service.getKey();
 				awsS3.setAccessKey(avo.getA_key());
 				awsS3.setSecretKey(avo.getS_key());
-				System.out.println("a?? : " + avo.getA_key());
-				System.out.println("s?? : " + avo.getS_key());
 				awsS3.createS3Client();
 				String key = "review/" + uploadFile1.getOriginalFilename();
 				InputStream is = uploadFile1.getInputStream();

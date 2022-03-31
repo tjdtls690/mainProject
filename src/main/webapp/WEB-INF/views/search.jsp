@@ -38,6 +38,23 @@
 <link rel="stylesheet" href="${path }/style.css">
 <link rel="stylesheet" href="${path }/style3.css?ver=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<style type="text/css">
+.btn-cart[data-v-15082832] {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    background-color: #35ad73;
+    opacity: .9;
+    border-radius: 100%;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_cart_white2.png);
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 50%;
+}
+
+</style>
 <script type="text/javascript">
 function page_move(tagNum){
    var f = document.paging; //폼 name
@@ -193,6 +210,17 @@ $(function(){
 				}, 350);
 			}
 		});
+		
+//작은 장바구니
+		 $(document).on('click','.btn-cart',function(e){	
+			 	e.stopPropagation();
+			 	//alert("클릭");
+			 	var code = $('article.item').children('#itemCode').attr('value');
+			 	var tagMain = $('article.item').children('#tagMain').attr('value');
+			 	var tagSub = $('article.item').children('#tagSub').attr('value');
+			 	//alert('code : '+code+' tagMain : '+tagMain+' tagSub : '+tagSub);
+
+		    })
 
 		var lastScrollTop = 0,
 	    	delta = 90;
@@ -210,9 +238,26 @@ $(function(){
 	    		}
 	    		lastScrollTop = st;
 	    	});
+	    	
+	    	
 	 
 })  
 </script>
+<style>	
+a[data-v-7aa1f9b44]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+}
+
+</style>	
 <body class="" style="padding-right: 0px;">
 	<div id="__nuxt">
 		<div id="__layout">
@@ -229,7 +274,7 @@ $(function(){
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
+							<a data-v-7aa1f9b44="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>
@@ -359,6 +404,9 @@ $(function(){
 																	alt=" ${item.itemName }"
 																	title=" ${item.itemName }"
 																	class="for-loop-cloned-item-825">
+																	<c:if test="${item.tagMain ne 100}">
+																		<div data-v-15082832="" class="btn-cart js-btn-cart"></div>
+																	</c:if>
 																<!---->
 																<!---->
 															</figure>

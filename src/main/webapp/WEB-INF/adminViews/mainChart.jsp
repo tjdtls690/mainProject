@@ -76,7 +76,7 @@
    			      yAxes: [{
    			        ticks: {
    			          min: 0,
-   			          max: 800000,
+   			          max: 1500000,
    			          maxTicksLimit: 8
    			        },
    			        gridLines: {
@@ -168,7 +168,7 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 800000,
+   	        			          max: 1500000,
    	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
@@ -271,7 +271,7 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 800000,
+   	        			          max: 1500000,
    	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
@@ -536,7 +536,7 @@
        		
  // 금주 매출  pdf 다운로드     		
        		$(document).on('click','.btn.btn-outline-danger:eq(0)',function(){	
-       			alert("금주 pdf 다운");
+       			//alert("금주 pdf 다운");
        			$.ajax({
        				url : 'pdfDown.mdo',
        				success : function(htmlOut){
@@ -548,7 +548,7 @@
        		})
  // 금달 매출  pdf 다운로드     		
        		$(document).on('click','.btn.btn-outline-danger:eq(1)',function(){	
-       			alert("금달 pdf 다운");
+       			//alert("금달 pdf 다운");
        			$.ajax({
        				url : 'pdfDown2.mdo',
        				success : function(htmlOut){

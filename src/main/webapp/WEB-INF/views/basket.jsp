@@ -34,6 +34,21 @@ input[type="checkbox"]:checked {
     background-repeat: no-repeat;
 }
 </style>
+<style>	
+a[data-v-7aa1f9b44]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+}
+
+</style>	
 <title>샐러딧 - 프리미엄 샐러드 배달 서비스</title>
 <meta data-n-head="ssr" charset="utf-8">
 <meta data-n-head="ssr" name="viewport"
@@ -974,7 +989,7 @@ $(function(){
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
+							<a data-v-7aa1f9b44="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>

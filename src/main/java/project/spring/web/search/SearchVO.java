@@ -15,7 +15,18 @@ public class SearchVO {
 	private String search;
 	// item_Tag_sub �߰�
 	
+	// 아이템 종류를위해 추가
+	private String kind;
 	
+	
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 
 	public int getItemTagsub() {
 		return itemTagsub;

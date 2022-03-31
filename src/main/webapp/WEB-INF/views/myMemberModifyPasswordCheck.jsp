@@ -299,19 +299,19 @@
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">배송예정</span> <a data-v-3e2784be=""
-											href="/mypage/delivery" class=""><em data-v-3e2784be="">0</em></a>
+											href="/mypage/delivery" class=""><em data-v-3e2784be="">${deliveryNum }</em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">포인트</span> <a data-v-3e2784be=""
-											href="/mypage/points" class=""><em data-v-3e2784be="">0</em></a>
+											href="/mypage/points" class=""><em data-v-3e2784be=""><fmt:formatNumber value="${point }" pattern="#,###" /></em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">보유 쿠폰</span> <a data-v-3e2784be=""
-											href="/mypage/coupons" class=""><em data-v-3e2784be="">2</em></a>
+											href="/mypage/coupons" class=""><em data-v-3e2784be="">${couponNum }</em></a>
 									</p>
 								</div>
 							</div>

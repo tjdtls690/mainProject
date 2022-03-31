@@ -322,38 +322,38 @@
 			});
 		});
 		
-		var length = $('.form-radio-input').length;
+// 		var length = $('.form-radio-input').length;
 		
-		if(length == 3){
-			$(document).on('click','.row--v-center.radio-label.m1',function(){
-				var size = $(this).children().children().val();
-				$('.setSize').val(size);
-				alert("사이즈 : "+size);
-				// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
+// 		if(length == 3){
+// 			$(document).on('click','.row--v-center.radio-label.m1',function(){
+// 				var size = $(this).children().children().val();
+// 				$('.setSize').val(size);
+// 				alert("사이즈 : "+size);
+// 				// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
 
-				if(length == 3){
-					alert("미디움만");
-	 				$('.row--v-center.radio-label.m2').checked();
-	 				$('.row--v-center.radio-label.m3').click();
-// 	 				$('.form-radio-circle').eq(2).click();
+// 				if(length == 3){
+// 					alert("미디움만");
+// 	 				$('.row--v-center.radio-label.m2').checked();
+// 	 				$('.row--v-center.radio-label.m3').click();
+// // 	 				$('.form-radio-circle').eq(2).click();
 
-				}else {
-					alert("라지도");
-				}
+// 				}else {
+// 					alert("라지도");
+// 				}
 
 
-//	 			$('.form-radio-input').eq(0).trigger('click');
+// //	 			$('.form-radio-input').eq(0).trigger('click');
 
-			});
+// 			});
 			
-		}
+// 		}
 		
 		
-// // 사이즈 선택
-// 		$(document).on('click','.form-radio-input:eq(1)',function(){
-// 			var size = $(this).val();
-// 			$('.setSize').val(size);
-// 			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
+// 사이즈 선택
+		$(document).on('click','.form-radio-input',function(){
+			var size = $(this).val();
+			$('.setSize').val(size);
+			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
 			
 // 			var length = $('.form-radio-input').length;
 			
@@ -366,9 +366,9 @@
 // 			}
 
 
-// // 			$('.form-radio-input').eq(0).trigger('click');
+// 			$('.form-radio-input').eq(0).trigger('click');
 
-// 		});
+		});
 		
 
 		

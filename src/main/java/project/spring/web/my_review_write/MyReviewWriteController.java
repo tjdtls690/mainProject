@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +30,13 @@ import project.spring.web.paymentSingle.PaymentSingleService;
 import project.spring.web.point_history.PointHistoryService;
 import project.spring.web.point_history.PointHistoryVO;
 import project.spring.web.s3.AwsS3;
+import project.spring.web.s3.AwsS3Service;
+import project.spring.web.s3.AwsS3VO;
 
 @Controller
 public class MyReviewWriteController {
 	
 	private String url = "https://saladits3.s3.ap-northeast-2.amazonaws.com/";
-	@Autowired
-	private AwsS3 awsS3;
 	@Autowired
 	MyReviewWriteService myReviewWriteService;
 	@Autowired
@@ -52,6 +53,10 @@ public class MyReviewWriteController {
 	PointHistoryService pointHistoryService;
 	@Autowired
 	EventService eventService;
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
+	AwsS3Service awsS3Service;
 	
 	@RequestMapping("/myReviewWrite.do")
 	public ModelAndView myReviewWriteDo(ModelAndView mav, String tagMain, String itemCode, String mappingCode, String paymentCode, HttpServletRequest request) {
@@ -138,6 +143,13 @@ public class MyReviewWriteController {
 		// 이미지 업로드1
 		if(!uploadFile1.getOriginalFilename().equals("")) {
 			try {
+				AwsS3 awsS3 = new AwsS3();
+				AwsS3VO avo = awsS3Service.getKey();
+				awsS3.setAccessKey(avo.getA_key());
+				awsS3.setSecretKey(avo.getS_key());
+				System.out.println("a?? : " + avo.getA_key());
+				System.out.println("s?? : " + avo.getS_key());
+				awsS3.createS3Client();
 				String key = "review/" + uploadFile1.getOriginalFilename();
 				InputStream is = uploadFile1.getInputStream();
 				String contentType = uploadFile1.getContentType();
@@ -152,6 +164,11 @@ public class MyReviewWriteController {
 		// 이미지 업로드2
 		if(!uploadFile2.getOriginalFilename().equals("")) {
 			try {
+				AwsS3 awsS3 = new AwsS3();
+				AwsS3VO avo = awsS3Service.getKey();
+				awsS3.setAccessKey(avo.getA_key());
+				awsS3.setSecretKey(avo.getS_key());
+				awsS3.createS3Client();
 				String key = "review/" + uploadFile2.getOriginalFilename();
 				InputStream is = uploadFile2.getInputStream();
 				String contentType = uploadFile2.getContentType();
@@ -369,6 +386,11 @@ public class MyReviewWriteController {
 		// 이미지 업로드1
 		if(!uploadFile1.getOriginalFilename().equals("")) {
 			try {
+				AwsS3 awsS3 = new AwsS3();
+				AwsS3VO avo = awsS3Service.getKey();
+				awsS3.setAccessKey(avo.getA_key());
+				awsS3.setSecretKey(avo.getS_key());
+				awsS3.createS3Client();
 				String key = "review/" + uploadFile1.getOriginalFilename();
 				InputStream is = uploadFile1.getInputStream();
 				String contentType = uploadFile1.getContentType();
@@ -383,6 +405,11 @@ public class MyReviewWriteController {
 		// 이미지 업로드2
 		if(!uploadFile2.getOriginalFilename().equals("")) {
 			try {
+				AwsS3 awsS3 = new AwsS3();
+				AwsS3VO avo = awsS3Service.getKey();
+				awsS3.setAccessKey(avo.getA_key());
+				awsS3.setSecretKey(avo.getS_key());
+				awsS3.createS3Client();
 				String key = "review/" + uploadFile2.getOriginalFilename();
 				InputStream is = uploadFile2.getInputStream();
 				String contentType = uploadFile2.getContentType();

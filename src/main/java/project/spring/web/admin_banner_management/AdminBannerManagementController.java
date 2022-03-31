@@ -2,12 +2,11 @@ package project.spring.web.admin_banner_management;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +15,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.s3.AwsS3;
+import project.spring.web.s3.AwsS3Service;
+import project.spring.web.s3.AwsS3VO;
 
 @Controller
 public class AdminBannerManagementController {
 	private String url = "https://saladits3.s3.ap-northeast-2.amazonaws.com/";
-//	//DB
 	@Autowired
-	private AwsS3 awsS3;
+	SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
+	AwsS3Service awsS3Service;
+//	//DB
 
 	@Autowired
 	private AdminBannerManagementService bannerService;
@@ -55,7 +58,13 @@ public class AdminBannerManagementController {
 	@RequestMapping("/admin_bannerInsert.mdo")
 	public ModelAndView bannerInsertDo(ModelAndView mav, HttpServletRequest request, MultipartFile uploadFile, AdminBannerManagementVO banner, MultipartHttpServletRequest mtrequest) {
 		System.out.println("admin_bannerInser.mdo 왔다");
-
+		
+		AwsS3 awsS3 = new AwsS3();
+		AwsS3VO avo = awsS3Service.getKey();
+		awsS3.setAccessKey(avo.getA_key());
+		awsS3.setSecretKey(avo.getS_key());
+		awsS3.createS3Client();
+		
 		String name = request.getParameter("banner_name");
 		String id = request.getParameter("banner_id");
 		String content = request.getParameter("banner_content");

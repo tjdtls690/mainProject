@@ -104,7 +104,7 @@ var email = "";
 
 $(function(){
 	$('.first-order-banner').on('click', function(){
-		$(location).attr( "href" , "firstEvent01.do" );
+		$(location).attr( "href" , "firstEvent.do" );
 	})
 	
 	$(document).on('click', '#sideEvent', function(){

@@ -222,8 +222,8 @@ function payDetailInfoPage(payNum){ // 결제 고유 번호를 통해 주문 상
 								</a><a data-v-7aa1f9b4="" href="javascript:page_move(200);" class="item">샐러드 </a><a
 									data-v-7aa1f9b4="" href="javascript:page_move(300);" class="item">샌드위치·랩
 								</a><a data-v-7aa1f9b4="" href="javascript:page_move(1);" class="item">초코베리머치
-								</a><a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a><a
-									data-v-7aa1f9b4="" href="/fcospot" class="item">프코스팟 </a>
+								</a><a data-v-7aa1f9b4="" href="javascript:page_move(600);" class="item">세트상품 </a>
+									<a data-v-7aa1f9b4="" href="event.do" class="item">이벤트 </a>
 							</div>
 							<div data-v-7aa1f9b4="" class="header__menus-side">
 								<a data-v-7aa1f9b4="" href="search.do" class="search-logo"><img

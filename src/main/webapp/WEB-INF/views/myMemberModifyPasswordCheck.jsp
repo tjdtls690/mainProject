@@ -292,8 +292,8 @@
 										<img data-v-3e2784be="" src="/images/ico-leaf.svg" alt="">
 									</figure>
 									<div data-v-3e2784be="">
-										<strong data-v-3e2784be="">이소영</strong> <span
-											data-v-3e2784be="">so6284@hanmail.net</span>
+										<strong data-v-3e2784be="">${member.name }</strong> <span
+											data-v-3e2784be="">${member.email }</span>
 									</div>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">

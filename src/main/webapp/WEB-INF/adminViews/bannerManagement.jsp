@@ -315,20 +315,20 @@
                                     <thead>
                                         <tr>
                                             <th>이름</th>
-                                            <th>배너내용</th>
+                                            <th>타입</th>
                                             <th>ID</th>
 											<th style="width:30%;">배너이미지(데스크탑)</th> 
-											<th style="width:30%;">배너이미지(모바일)</th>
+											<th style="width:30%;">(모바일)</th>
 											<th style="width:7%;"></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>이름</th>
-                                            <th>배너내용</th>
+                                            <th>타입</th>
                                             <th>ID</th>
 											<th style="width:30%;">배너이미지(데스크탑)</th> 
-											<th style="width:30%;">배너이미지(모바일)</th> 
+											<th style="width:30%;">(모바일)</th> 
 											<th style="width:7%;"></th>
                                         </tr>
                                     </tfoot>
@@ -337,9 +337,9 @@
                                         <tr>
                                             <td><input type="hidden" value="${banner.name}" id="bannerName" />${banner.name}</td>
                                             <td><input type="hidden" value="${banner.content }" id="bannerContent" />${banner.content }</td>
+                                            <td class="bannerID">${banner.id}</td>
                                             <td><a href="${banner.image}"><input type="hidden" value="${banner.image }" id="bannerImage" />${banner.image }</a></td>
                                             <td><a href="${banner.mobile}"><input type="hidden" value="${banner.mobile }" id="bannerMobile" />${banner.mobile }</a></td>
-                                            <td class="bannerID">${banner.id}</td>
                                             <td>
 	                                            <button type="button" class="btn btn-dark delete">
 	                                            	<i class="delete-button-i">

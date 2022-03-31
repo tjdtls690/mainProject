@@ -237,25 +237,25 @@ new Swiper('.swiper-container', {
 									<span data-v-7aa1f9b4="" class="item">전체 카테고리</span>
 									<div data-v-7aa1f9b4="" class="dropdown">
 										<ul data-v-7aa1f9b4="">
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(0);" class=""> 전체보기 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(200);" class=""> 샐러드 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(100);" class="new"> 정기구독 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(300);" class="new"> 샌드위치·랩 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(400);" class="new"> 도시락·간편식 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(500);" class=""> 죽·스프 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(600);" class="new"> 세트상품 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(700);" class="new"> 간식 </a></li>
 											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
 												href="javascript:page_move(800);" class="new"> 음료 </a></li>
-											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4=""
+											<li data-v-7aa1f9b4=""><a data-v-7aa1f9b4="" style="text-decoration:none"
 												href="javascript:page_move(1);" class="new"> 초코베리머치 </a></li>
 										</ul>
 									</div>

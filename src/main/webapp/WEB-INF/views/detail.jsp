@@ -97,7 +97,6 @@
          
 // 이미지 슬라이드 아이템 클릭시 상세페이지로 이동         
          $(document).on('click', '.swiper-slide', function(){ 
-        	//alert("클릭");
      		var f = document.paging;
      		var code = $(this).children('#itemCode').attr('value');
      		var tag = $(this).children('#tagMain').attr('value');
@@ -611,7 +610,7 @@
 //	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 	 					price += priceM; 
 //	 					price= price.toLocaleString('ko-KR');   --> , 찍기
-	 					$('.menu__price-current-price__wrapper').children().text(price+"원");
+	 					$('.menu__price-current-price__wrapper').children().text(price.toLocaleString('en')+"원");
 	 					
 					}
 					else if(testM != null && testL == null){
@@ -627,7 +626,7 @@
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기
-		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
+		 					$('.menu__price-current-price__wrapper').children().text(price.toLocaleString('en')+"원");
 					    }
 					}
 					else if(testM == null && testL !=null){
@@ -639,7 +638,7 @@
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기
-		 					$('.menu__price-current-price__wrapper').children().text(price+"원");
+		 					$('.menu__price-current-price__wrapper').children().text(price.toLocaleString('en')+"원");
 		 					
 					    }else{
 // 							alert("L는 있고 L를 클릭했다");
@@ -689,7 +688,7 @@
 //						price = Number(price.slice(0, -1));
 //						price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 						realPrice -= price;  
-						$('.menu__price-current-price__wrapper').children().text(realPrice+"원");
+						$('.menu__price-current-price__wrapper').children().text(realPrice.toLocaleString('en')+"원");
 						
 					}else{
 						val -=1;
@@ -699,7 +698,7 @@
 //						price = Number(price.slice(0, -1));
 //						price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 						realPrice -= price;  
-						$('.menu__price-current-price__wrapper').children().text(realPrice+"원");
+						$('.menu__price-current-price__wrapper').children().text(realPrice.toLocaleString('en')+"원");
 					}
 					
 				}else{
@@ -734,7 +733,7 @@
 //				price = Number(price.slice(0, -1));
 //				price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 				realPrice += price;  
-				$('.menu__price-current-price__wrapper').children().text(realPrice+"원");
+				$('.menu__price-current-price__wrapper').children().text(realPrice.toLocaleString('en')+"원");
 				
 			});	// + 버튼 처리 끝
 			
@@ -767,7 +766,7 @@
 				$('.1001:eq(0)').parent().parent().parent().parent().parent().detach();
 				$('.1001:eq(0)').parent().parent().parent().parent().parent().detach();
 				
-				$('.menu__price-current-price__wrapper').children().text(numPrice+"원");
+				$('.menu__price-current-price__wrapper').children().text(numPrice.toLocaleString('en')+"원");
 				
 			}else{ // 라지 삭제
 				var price = Number($('.1002:eq(0)').attr('id'));
@@ -778,7 +777,7 @@
 				$('.1002:eq(0)').parent().parent().parent().parent().parent().detach();
 				$('.1002:eq(0)').parent().parent().parent().parent().parent().detach();
 				
-				$('.menu__price-current-price__wrapper').children().text(numPrice+"원");
+				$('.menu__price-current-price__wrapper').children().text(numPrice.toLocaleString('en')+"원");
 				
 			}					
 		});
@@ -914,11 +913,6 @@
 					<div data-v-7aa1f9b4="" class="header-banner-wrap">
 						<!---->
 					</div>
-					<form name="paging">
-						<input type="hidden" name="tagMain01" value="">
-						<input type="hidden" name="itemCode01" value="">
-						<input type="hidden" name="tagSub01" value="">
-					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
 							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
@@ -1331,44 +1325,44 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li data-v-2706028c class="menu-option">
-                                                <div data-v-2706028c class="menu-option-wrap">
-                                                    <label data-v-2706028c class="menu__label">함께 드시면 좋을 MD 추천 상품</label>
-                                                    <div data-v-2706028c class="menu-option-item isDesktop">
-                                                        <div data-v-2706028c class="menu-option-left">
-                                                            <input data-v-2706028c class="menu-option-checkbox-508-desktop" name="menu-option-checkbox-508" type="checkbox" class="menu-option-checkbox" value="508">
-                                                            <label data-v-2706028c for="menu-option-checkbox-508" class="menu-option-label">
-                                                                <span data-v-2706028c class="menu-option-text">[맛꾼푸드] 아이스 엿구마 1봉</span>
-                                                            </label>
-                                                        </div>
-                                                        <div data-v-2706028c class="meni-option-right">
-                                                            3,000원
-                                                        </div>
-                                                    </div>
-                                                    <div data-v-2706028c class="menu-option-item isDesktop">
-                                                        <div data-v-2706028c class="menu-option-left">
-                                                            <input data-v-2706028c class="menu-option-checkbox-508-desktop" name="menu-option-checkbox-508" type="checkbox" class="menu-option-checkbox" value="508">
-                                                            <label data-v-2706028c for="menu-option-checkbox-508" class="menu-option-label">
-                                                                <span data-v-2706028c class="menu-option-text">[아임얼라이브] 유기농 콤부차 4종 석류</span>
-                                                            </label>
-                                                        </div>
-                                                        <div data-v-2706028c class="menu-option-right">
-                                                            3,600원
-                                                        </div>
-                                                    </div>
-                                                    <div data-v-2706028c class="menu-option-item isDesktop">
-                                                        <div data-v-2706028c class="menu-option-left">
-                                                            <input data-v-2706028c class="menu-option-checkbox-508-desktop" name="menu-option-checkbox-508" type="checkbox" class="menu-option-checkbox" value="508">
-                                                            <label data-v-2706028c for="menu-option-checkbox-508" class="menu-option-label">
-                                                                <span data-v-2706028c class="menu-option-text">[그릭데이] 그릭요거트 2종 시그니처 1개</span>
-                                                            </label>
-                                                        </div>
-                                                        <div data-v-2706028c class="menu-option-right">
-                                                            3,300원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
+<!--                                             <li data-v-2706028c class="menu-option"> -->
+<!--                                                 <div data-v-2706028c class="menu-option-wrap"> -->
+<!--                                                     <label data-v-2706028c class="menu__label">함께 드시면 좋을 MD 추천 상품</label> -->
+<!--                                                     <div data-v-2706028c class="menu-option-item isDesktop"> -->
+<!--                                                         <div data-v-2706028c class="menu-option-left"> -->
+<!--                                                             <input data-v-2706028c class="menu-option-checkbox-508-desktop" name="menu-option-checkbox-508" type="checkbox" class="menu-option-checkbox" value="508"> -->
+<!--                                                             <label data-v-2706028c for="menu-option-checkbox-508" class="menu-option-label"> -->
+<!--                                                                 <span data-v-2706028c class="menu-option-text">[맛꾼푸드] 아이스 엿구마 1봉</span> -->
+<!--                                                             </label> -->
+<!--                                                         </div> -->
+<!--                                                         <div data-v-2706028c class="meni-option-right"> -->
+<!--                                                             3,000원 -->
+<!--                                                         </div> -->
+<!--                                                     </div> -->
+<!--                                                     <div data-v-2706028c class="menu-option-item isDesktop"> -->
+<!--                                                         <div data-v-2706028c class="menu-option-left"> -->
+<!--                                                             <input data-v-2706028c class="menu-option-checkbox-508-desktop" name="menu-option-checkbox-508" type="checkbox" class="menu-option-checkbox" value="508"> -->
+<!--                                                             <label data-v-2706028c for="menu-option-checkbox-508" class="menu-option-label"> -->
+<!--                                                                 <span data-v-2706028c class="menu-option-text">[아임얼라이브] 유기농 콤부차 4종 석류</span> -->
+<!--                                                             </label> -->
+<!--                                                         </div> -->
+<!--                                                         <div data-v-2706028c class="menu-option-right"> -->
+<!--                                                             3,600원 -->
+<!--                                                         </div> -->
+<!--                                                     </div> -->
+<!--                                                     <div data-v-2706028c class="menu-option-item isDesktop"> -->
+<!--                                                         <div data-v-2706028c class="menu-option-left"> -->
+<!--                                                             <input data-v-2706028c class="menu-option-checkbox-508-desktop" name="menu-option-checkbox-508" type="checkbox" class="menu-option-checkbox" value="508"> -->
+<!--                                                             <label data-v-2706028c for="menu-option-checkbox-508" class="menu-option-label"> -->
+<!--                                                                 <span data-v-2706028c class="menu-option-text">[그릭데이] 그릭요거트 2종 시그니처 1개</span> -->
+<!--                                                             </label> -->
+<!--                                                         </div> -->
+<!--                                                         <div data-v-2706028c class="menu-option-right"> -->
+<!--                                                             3,300원 -->
+<!--                                                         </div> -->
+<!--                                                     </div> -->
+<!--                                                 </div> -->
+<!--                                             </li> -->
                                         </ul>
                                         <ul data-v-2706028c class="selected-detail-list isDesktop" id='abcd'>
   <!--  여기에 추가되어야함  -->                                      

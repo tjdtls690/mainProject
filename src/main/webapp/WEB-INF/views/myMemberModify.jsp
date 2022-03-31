@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}/resources/myMemberModify"/>
 <!DOCTYPE html>
 <html>
@@ -715,19 +717,19 @@
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">배송예정</span> <a data-v-3e2784be=""
-											href="/mypage/delivery" class=""><em data-v-3e2784be="">${deliveryNum }</em></a>
+											href="myDelivery.do" class=""><em data-v-3e2784be="">${deliveryNum }</em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">포인트</span> <a data-v-3e2784be=""
-											href="/mypage/points" class=""><em data-v-3e2784be="">${point }</em></a>
+											href="myPointSearch.do" class=""><em data-v-3e2784be=""><fmt:formatNumber value="${point }" pattern="#,###" /></em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">보유 쿠폰</span> <a data-v-3e2784be=""
-											href="/mypage/coupons" class=""><em data-v-3e2784be="">${couponNum }</em></a>
+											href="myCouponSearch.do" class=""><em data-v-3e2784be="">${couponNum }</em></a>
 									</p>
 								</div>
 							</div>

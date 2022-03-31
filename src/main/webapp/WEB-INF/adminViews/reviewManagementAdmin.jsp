@@ -35,7 +35,6 @@ $(function() {
 		$('#user_name').val(name);
 		$('#content').val(content);
 		$('#reply_content').val(reply);
-		alert(reply);
 	})
 });
 </script>

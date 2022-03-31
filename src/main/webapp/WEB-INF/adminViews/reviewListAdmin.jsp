@@ -25,7 +25,6 @@ $(function() {
 		$('#reviewSeq').val(seq);
 		$('#user_name').val(name);
 		$('#content').val(content);
-		alert(content);
 	})
 	
 	$(document).on('click', '.btn.btn-primary', function(){

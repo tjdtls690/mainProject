@@ -9,6 +9,20 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="16x16">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="24x24">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="32x32">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="57x57">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="120x120">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="152x152">
+<link data-n-head="ssr" rel="icon" type="image/x-icon"
+	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
    <!-- for slide -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>   
@@ -135,7 +149,7 @@
 			//alert("장바구니 클릭");
 		// 장바구니 담길것이 있을때와 없을때를 구분.
 			if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
-				//alert("있다");
+				alert("있다");
 				var itemCode = [], data = {};
 				var tagMain = [];
 				var price = [];
@@ -179,8 +193,8 @@
 			    
 			    $.ajax({
 		 			url : 'detaillLginCheck.do',
-		 			success : function(data){
-		 				if(data == 1){
+		 			success : function(data1){
+		 				if(data1 == 1){
 		 					$.ajax({ // 장바구니 넣기 확인 모달
 		 				    	url : "test.do",
 		 				    	type : 'post',

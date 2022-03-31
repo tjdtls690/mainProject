@@ -69,7 +69,7 @@
 <link data-n-head="ssr" rel="icon" type="image/x-icon"
 	href="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_leaf.png" sizes="196x196">
 <link rel="stylesheet" href="${path }/style.css">
-<link rel="stylesheet" href="${path }/style2.css?ver=2">
+<link rel="stylesheet" href="${path }/style2.css?ver=3">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -163,6 +163,10 @@
 	}
 
 	$(function(){
+		$(document).on('click', '.btn-order', function(){
+			$(location).attr("href", "order.do");
+		})
+		
 		$(document).on('click', '#closeFinalCheck', function(){
 			$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');
 			$('.swal2-popup').attr('swal2-popup swal2-modal swal2-icon-info swal2-hide');

@@ -53,7 +53,7 @@
 
 <link href="${path}/css1/style.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="${path}/css/bootstrap.css?ver=1">
-  <link href="${path}/css1/style2.css?ver=4" rel="stylesheet" type="text/css" />
+  <link href="${path}/css1/style2.css" rel="stylesheet" type="text/css" />
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -66,6 +66,10 @@ function page_move(tagNum){
 }
 
 $(function() {
+	$(document).on('click', '.btn-order', function(){
+		$(location).attr("href", "order.do");
+	})
+	
 	
 	setInterval(function() {
 		$('#rightButton01').trigger("click");
@@ -1067,6 +1071,7 @@ new Swiper('.swiper-container', {
 							<!---->
 						</div>
 				<div class="btn-order-wrap" data-v-0f5971ec><!----> 
+					<p data-v-0f5971ec="" class="tooltip">'바로 주문'으로 간편하게!</p>
 					<div class="btn-order" data-v-0f5971ec></div>
 				</div> 
 				<footer class="footer" data-v-438b4fe4="" data-v-0f5971ec="">

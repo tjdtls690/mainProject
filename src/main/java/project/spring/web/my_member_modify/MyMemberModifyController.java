@@ -52,6 +52,7 @@ public class MyMemberModifyController {
 		}else {
 			mav.setViewName("myMemberModify");
 		}
+		
 		// 포인트 데이터
 		PaymentCompletePointVO vo5 = new PaymentCompletePointVO();
 		vo5.setPayment_member_code(vo.getMemberCode());
@@ -96,6 +97,36 @@ public class MyMemberModifyController {
 			String formattedString = localDate.format(formatter);
 			mav.addObject("birthday", formattedString);
 		}
+		
+		// 포인트 데이터
+		PaymentCompletePointVO vo5 = new PaymentCompletePointVO();
+		vo5.setPayment_member_code(vo.getMemberCode());
+		vo5 = paymentCompleteService.getMemberPoint(vo5);
+		mav.addObject("point", vo5.getPayment_point());
+		
+		// 쿠폰 데이터
+		CouponVO cvo = new CouponVO();
+		cvo.setUser_code(vo.getMemberCode());
+		List<CouponVO> userCoupon = eventService.getCoupon(cvo);
+		int check1 = 0;
+		for(int i = 0; i < userCoupon.size(); i++) {
+			if(userCoupon.get(i).getCoupon_check().equals("n")) {
+				check1++;
+			}
+		}
+		mav.addObject("couponNum", check1);
+		
+		// 배송 예정 데이터
+		PaymentMyDetailSideInfoVO vo6 = new PaymentMyDetailSideInfoVO();
+		vo6.setPayment_member_code(vo.getMemberCode());
+		int check2 = 0;
+		List<PaymentMyDetailSideInfoVO> list = myPayInfoService.getMemberAllPaymentInfo(vo6);
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPayment_delivery_condition() == null || !list.get(i).getPayment_delivery_condition().equals("배송완료")) {
+				check2++;
+			}
+		}
+		mav.addObject("deliveryNum", check2);
 		
 		mav.setViewName("myMemberModify");
 		return mav;

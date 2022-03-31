@@ -49,6 +49,10 @@
 	}
 	
 	function enterkey() {
+		$(document).on('click', '.btn-order', function(){
+			$(location).attr("href", "order.do");
+		})
+		
 		if (window.event.keyCode == 13) {
 			var password = $('.user-password__body').find('input').val();
 	    	if(password.length == 0){
@@ -288,67 +292,27 @@
 										<img data-v-3e2784be="" src="/images/ico-leaf.svg" alt="">
 									</figure>
 									<div data-v-3e2784be="">
-										<strong data-v-3e2784be="">이소영</strong> <span
-											data-v-3e2784be="">so6284@hanmail.net</span>
+										<strong data-v-3e2784be="">${member.name }</strong> <span
+											data-v-3e2784be="">${member.email }</span>
 									</div>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">배송예정</span> <a data-v-3e2784be=""
-											href="/mypage/delivery" class=""><em data-v-3e2784be="">0</em></a>
+											href="myDelivery.do" class=""><em data-v-3e2784be="">${deliveryNum }</em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">포인트</span> <a data-v-3e2784be=""
-											href="/mypage/points" class=""><em data-v-3e2784be="">0</em></a>
+											href="myPointSearch.do" class=""><em data-v-3e2784be=""><fmt:formatNumber value="${point }" pattern="#,###" /></em></a>
 									</p>
 								</div>
 								<div data-v-3e2784be="" class="mypage-header-info__meta">
 									<p data-v-3e2784be="">
 										<span data-v-3e2784be="">보유 쿠폰</span> <a data-v-3e2784be=""
-											href="/mypage/coupons" class=""><em data-v-3e2784be="">2</em></a>
+											href="myCouponSearch.do" class=""><em data-v-3e2784be="">${couponNum }</em></a>
 									</p>
-								</div>
-							</div>
-							<div data-v-3e2784be="" class="mypage-header-invite">
-								<div data-v-3e2784be="" class="mypage-header-invite__wrap">
-									<div data-v-3e2784be="" class="mypage-header-invite__message">
-										<a data-v-3e2784be="" href="/mypage/invite" class=""><p
-												data-v-3e2784be="" class="title">친구 초대하고 친구랑 같이 포인트
-												적립하세요!</p>
-											<p data-v-3e2784be="" class="msg">
-												<span data-v-3e2784be="">친구가 내 추천코드로 가입하면 친구에게 3,000
-													포인트!</span><br data-v-3e2784be=""> <span data-v-3e2784be="">친구가
-													첫 주문하면 나한테도 3,000 포인트 선물이!</span>
-											</p></a>
-									</div>
-									<div data-v-3e2784be="" class="mypage-header-invite__share">
-										<div data-v-3e2784be="" class="code">
-											<strong data-v-3e2784be="">내 추천코드</strong>
-											<code data-v-3e2784be="">qkg585tmwv</code>
-										</div>
-										<div data-v-3e2784be="" class="share">
-											<strong data-v-3e2784be="">공유하기</strong>
-											<div data-v-3e2784be="" class="share__body">
-												<div data-v-3e2784be="">
-													<span data-v-3e2784be="" tabindex="0"
-														data-link="#share-facebook"
-														class="button share-button-mypage-header"><span
-														class="row--v-center"><img
-															src="/images/ico-share-facebook.svg" alt=""> <em
-															class="col">페이스북</em></span></span>
-												</div>
-												<div data-v-3e2784be="">
-													<button data-v-3e2784be="" type="button">
-														<span data-v-3e2784be="" class="row--v-center"><img
-															data-v-3e2784be="" src="/images/ico-share-link.svg"
-															alt=""> <em data-v-3e2784be="" class="col">링크복사</em></span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>

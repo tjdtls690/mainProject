@@ -2364,3 +2364,23 @@ span.buttonText {
 	    cursor: pointer;
 	}
 }
+
+.btn-order[data-v-0f5971ec] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_order-white%402x.png);
+}
+
+.tooltip[data-v-0f5971ec] {
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(0,0,0,.8);
+    color: #fff;
+    border-radius: 2px;
+    padding: 8px 12px;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    right: 0;
+    word-break: keep-all;
+    cursor: pointer;
+}

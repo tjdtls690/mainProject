@@ -46,6 +46,9 @@ function page_move(tagNum){
     f.submit();
 }
 $(function() {
+	$(document).on('click', '.btn-order', function(){
+		$(location).attr("href", "order.do");
+	})
 	
 	$(document).on('click', '#closeFinalCheck', function(){
 		$('.swal2-container').attr('class', 'swal2-container swal2-center swal2-backdrop-hide');

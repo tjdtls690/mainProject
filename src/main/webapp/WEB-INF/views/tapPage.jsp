@@ -61,6 +61,10 @@ $(document).on('click', 'article.item', function(){ // 상세페이지와 연계
 
 
 $(function() { 
+	$(document).on('click', '.btn-order', function(){
+		$(location).attr("href", "order.do");
+	})
+	
 	var tagMainStart = ${tagMain};
 	$('#menu' + tagMainStart).attr('class','nuxt-link-exact-active nuxt-link-active all-menus-item-link');
 	

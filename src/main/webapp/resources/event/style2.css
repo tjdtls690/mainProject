@@ -2518,3 +2518,7 @@ button {
     border-color: #35ad73;
     color: #35ad73;
 }
+
+.btn-order[data-v-0f5971ec] {
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_order-white%402x.png);
+}

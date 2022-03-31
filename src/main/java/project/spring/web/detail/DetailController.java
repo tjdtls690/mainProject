@@ -11,12 +11,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.spring.web.basket.BasketService;
 import project.spring.web.basket.BasketVO;
+import project.spring.web.event.CouponVO;
+import project.spring.web.event.EventService;
 import project.spring.web.mapping.MappingService;
 import project.spring.web.mapping.MappingVO;
 import project.spring.web.member.MemberVO;
@@ -48,6 +51,8 @@ public class DetailController {
 	private BasketService BasketService;
 	@Autowired
 	private MyReviewReplyService myReviewReplyService;
+	@Autowired
+	private EventService eventService;
 	
 	
 	public DetailController() {
@@ -1141,6 +1146,32 @@ public class DetailController {
 		mav.setViewName("detailReviewImageModal");
 		return mav;
 		
+	}
+	
+	@RequestMapping(value = "/getCoupon.do", method = RequestMethod.POST)
+	public ModelAndView getCoponDo(ModelAndView mav, HttpServletRequest request) {
+		// 세션으로 내 정보를 가져옴 
+		HttpSession session = request.getSession();
+		//System.out.println(session.getAttribute("member"));
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		//System.out.println("멤버코드 : "+memberVO.getMemberCode());
+		CouponVO vo2 = new CouponVO();
+		vo2.setUser_code(memberVO.getMemberCode());
+		List<CouponVO> list = eventService.getCoupon(vo2);
+		for(int i=0; i <list.size(); i++) {
+			if(list.get(i).getCoupon_code() ==13) {
+				mav.setViewName("detailSubCoupon2");
+				return mav;
+			}
+		}
+		
+		CouponVO vo = new CouponVO();
+		vo.setCoupon_code(13);
+		vo.setUser_code(memberVO.getMemberCode());
+		eventService.insertCoupon(vo);
+		
+		mav.setViewName("detailSubCoupon");
+		return mav;
 	}
 	
 

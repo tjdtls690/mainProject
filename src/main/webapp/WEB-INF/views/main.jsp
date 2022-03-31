@@ -180,7 +180,7 @@ $(function() {
 new Swiper('.swiper-container', {
 	
 	slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
-	spaceBetween : 30, // 슬라이드간 간격
+	spaceBetween : 50, // 슬라이드간 간격
 	slidesPerGroup : 4, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 
 	// 그룹수가 맞지 않을 경우 빈칸으로 메우기
@@ -199,6 +199,21 @@ new Swiper('.swiper-container', {
 	},
 });
 </script>
+<style>	
+a[data-v-306974955]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+}
+
+</style>	
 </head>
 	<body >
 		<div data-server-rendered="true" id="__nuxt">
@@ -207,16 +222,17 @@ new Swiper('.swiper-container', {
 					                    <header id="header-area" class="header" data-v-30697495 data-v-0f5971ec>
                         <div class="header-banner-wrap" data-v-30697495><!----></div> 
                         <div id="header__body" class="header__body" data-v-30697495>
-                            <div class="header__top" data-v-30697495>
-                                <a href="#" class="header__top-left" data-v-30697495></a> 
+                            <div class="header__top" data-v-30697495> 
+                                <a href="#" class="header__top-left" data-v-306974955></a>                
                                 <div class="header__top-right" data-v-30697495>
                                     <c:choose>
 										<c:when test="${empty member.gender}">
 											<a href="signup.do" data-v-30697495="">회원가입</a>
 											<a data-v-30697495="" href="login.do">로그인</a>
 										</c:when>
+										
 										<c:otherwise>
-											<a href="myPayInfo.do" id="nickname" data-v-30697495>${member.name } <span data-v-30697495>님</span></a>
+											<a href="myPayInfo.do" id="nickname" data-v-30697495> ${member.name } <span data-v-30697495>님</span></a>
 										</c:otherwise>
 									</c:choose>
 							</div>

@@ -116,7 +116,7 @@
 <!-- ----------------------------- -->						
 						<div data-v-49ba6df3="">
 							<div data-v-49ba6df3="" class="menu-select-wrap__date">
-								<p data-v-49ba6df3="">2022. 03. 14 월 / 2회차 배송</p>
+								<p data-v-49ba6df3="">${day} ${day3 } / 2회차 배송</p>
 							</div>
 							<div data-v-49ba6df3="">
 								<!---->

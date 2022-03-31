@@ -21,7 +21,7 @@ $(function() {
 	$(document).on('click','.btn.btn-dark', function(){	
 		var email = $(this).attr('id');
 		var couponCode = $(this).parent().siblings('td').eq(2).text();
-		alert(couponCode);
+		//alert(couponCode);
 		if(confirm('쿠폰을 삭제하시겠습니까?')) {
 			$.ajax({
 				url : 'userCouponDelete.mdo',

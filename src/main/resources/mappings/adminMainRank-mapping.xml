@@ -34,6 +34,36 @@
         FROM payment_item_mapping  group by size) as cnt 
    		ORDER BY totalCount DESC limit 0,10;
 	</select>
+	
+<!-- 	공동순위체크 -->
+	<select id="countRankCount" resultMap="mainRank">
+	select payment_item_mapping_code,
+    payment_item_mapping_item_price,
+    rank
+	from (
+    select 
+        payment_item_mapping_code,
+        payment_item_mapping_item_price,
+        case
+        when @prev_value= payment_item_mapping_item_price then @vRank
+        when @prev_value := payment_item_mapping_item_price then @vRank := @vRank+1
+        end as rank
+    from payment_item_mapping as p , ( select @vRank :=0, @prev_value := null) as r
+    order by payment_item_mapping_item_price desc ) as cnt ;
+	</select>
+<!-- 	많이 팔린순 -->
+	<select id="CountRankSale" resultMap="mainRank">
+	select payment_item_mapping_code,
+    payment_item_mapping_item_price,
+    rank
+	from (
+    select 
+        payment_item_mapping_code,
+        payment_item_mapping_item_price,
+        @vRank := @vRank +1 as rank
+    from payment_item_mapping as p , ( select @vRank :=0) as r
+    order by payment_item_mapping_item_price desc ) as cnt ;
+	</select>
 
 
 </mapper>

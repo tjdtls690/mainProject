@@ -39,10 +39,7 @@
 			// 선택삭제 
 			$(function (){
 				$(document).on('click','.delete-button-i', function(){
-					alert("클릭");
 					var formData = $(this).children('#bannerId').val();
-					alert(formData);
-	
 					$.ajax({
 			    		url : 'bannerSelectDelete.do',
 			    		dataType : 'json',

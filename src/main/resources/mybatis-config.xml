@@ -39,6 +39,7 @@
 		<typeAlias type="project.spring.web.admin_statisticsDetail.AdminStatisticsDetailVO" alias="adminStatisticsDetail"/>
 		<typeAlias type="project.spring.web.my_review_write.MyReviewWriteVO" alias="myReview"/>
 		<typeAlias type="project.spring.web.my_review_reply.MyReviewReplyVO" alias="myReviewReply"/>
+		<typeAlias type="project.spring.web.s3.AwsS3VO" alias="myS3"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/review-mapping.xml" />
@@ -67,5 +68,6 @@
 		<mapper resource="mappings/adminReview-mapping.xml"/>
 		<mapper resource="mappings/adminStatistics-mapping.xml"/>
 		<mapper resource="mappings/adminStatisticsDetail-mapping.xml"/>
+		<mapper resource="mappings/aws-mapping.xml"/>
 	</mappers>
 </configuration>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.AmazonServiceException;
@@ -18,6 +19,8 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import project.spring.web.s3.impl.AwsS3ServiceImpl;
+
 //파일 업로드를 위한 s3 패키지
 //이렇게 하는게 맞는지 자신은 없음... 거지같네 그냥 url때려박으면 안되는건가
 @Service
@@ -30,24 +33,41 @@ public class AwsS3 {
 	private AmazonS3 s3Client;
 
 	// 보안상의 문제로 수정 요망
-	private String accessKey = ""; // IAM 에서 만든 엑세스
-	private String secretKey = ""; // IAM에서 받은 시크릿 엑세스
+	private String accessKey; // IAM 에서 만든 엑세스
+	private String secretKey; // IAM에서 받은 시크릿 엑세스
 	private Regions clientRegion = Regions.AP_NORTHEAST_2;
-	private String bucket = ""; // 버킷 명
+	private String bucket = "saladits3"; // 버킷 명
 
 	// 기본 생성자
 	public AwsS3() {
+		
+	}
 
+	public String getAccessKey() {
+		return accessKey;
+	}
+
+	public void setAccessKey(String accessKey) {
+		this.accessKey = accessKey;
+	}
+
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
 	}
 
 	// asw S3 Client 생성
 	public AwsS3(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
+		
 		createS3Client();
 	}
 
 	// asw S3 Client 생성
-	private void createS3Client() {
+	public void createS3Client() {
 
 //		
 //		//db에 넣은 암호화된s3값을 가져온다.

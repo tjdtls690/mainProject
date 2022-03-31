@@ -620,7 +620,7 @@
 // 						alert("M / L 둘다 없다");
 	 					$('.selected-detail-list').append(htmlOut);					
 	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-	 					price = Number(price.slice(0, -1));
+	 					price = Number(price.replace('원', '').replace(',', ''));
 //	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 	 					price += priceM; 
 //	 					price= price.toLocaleString('ko-KR');   --> , 찍기
@@ -636,7 +636,7 @@
 // 						alert("M은 있고 L은 없는데 L을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);				
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-		 					price = Number(price.slice(0, -1));
+		 					price = Number(price.replace('원', '').replace(',', ''));
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기
@@ -648,7 +648,7 @@
 // 							alert("L는 있고 M은없는데 M을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-		 					price = Number(price.slice(0, -1));
+		 					price = Number(price.replace('원', '').replace(',', ''));
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기

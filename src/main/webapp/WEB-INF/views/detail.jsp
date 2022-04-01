@@ -1061,6 +1061,27 @@ a[data-v-7aa1f9b44]{
 							</nav>
 						</div>
 					</div>
+					<div class="mobile-nav js-mobile-nav" data-v-7aa1f9b4="">
+						<div class="mobile-nav-wrap" data-v-7aa1f9b4="">
+							<div class="mobile-nav-scroll" data-v-7aa1f9b4="">
+								<ul class="mobile-nav-contents" data-v-7aa1f9b4="">
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(0);" class=""
+										data-v-7aa1f9b4=""> 전체 메뉴 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(100);" class="" data-v-7aa1f9b4="">
+											정기구독 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(1);" data-v-7aa1f9b4="" class=""> 초코베리머치 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(200);" data-v-7aa1f9b4="" class=""> 샐러드 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(300);" data-v-7aa1f9b4="" class=""> 샌드위치·랩 </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
 					<!---->
 					<!---->
 					<!---->

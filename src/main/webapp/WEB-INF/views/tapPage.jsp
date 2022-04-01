@@ -540,9 +540,9 @@ a[data-v-7aa1f9b44]{
 									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
 										href="javascript:page_move(1);" data-v-7aa1f9b4="" class=""> 초코베리머치 </a></li>
 									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
-										href="/info" data-v-7aa1f9b4="" class=""> 배송안내 </a></li>
+										href="javascript:page_move(200);" data-v-7aa1f9b4="" class=""> 샐러드 </a></li>
 									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
-										href="/fcospot" data-v-7aa1f9b4="" class=""> 프코스팟 </a></li>
+										href="javascript:page_move(300);" data-v-7aa1f9b4="" class=""> 샌드위치·랩 </a></li>
 								</ul>
 							</div>
 							<div class="all-menus-container" style="display:;"

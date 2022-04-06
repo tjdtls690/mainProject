@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.SetUtils.SetView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,28 +40,62 @@ public class AdminStatisticsDetailController {
 		int tagMain = Integer.parseInt(str);
 		System.out.println("얻은 tagMain : "+tagMain);
 		
-		if(tagMain != 1000) {
-			AdminStatisticsDetailVO vo = new AdminStatisticsDetailVO();
-			vo.setTagMain(tagMain);
+		String str2 = request.getParameter("getWhat");
+		int getWhat = Integer.parseInt(str2);
+		System.out.println("얻은 tagMain : "+tagMain+" 얻은 getWhat :"+getWhat);
+		
+		if(getWhat ==1) {
+			if(tagMain != 1000) {
+				AdminStatisticsDetailVO vo = new AdminStatisticsDetailVO();
+				vo.setTagMain(tagMain);
+				
+				// 수량으로 랭크 10
+				List<AdminStatisticsDetailVO> list = adminStatisticsDetailVOService.getTagMainRank(vo);
+				mav.addObject("list",list);
+				
+				// 판매액으로 랭크 10
+				List<AdminStatisticsDetailVO> list2 = adminStatisticsDetailVOService.getTagMainRank(vo);
+				mav.addObject("list2",list2);
+			}else { // 1000일때
+				System.out.println("1000일때");
+				List<AdminStatisticsDetailVO> list = adminStatisticsDetailVOService.getSummary(null);
+				mav.addObject("list",list);
+				
+//				for(int i=0; i<list.size(); i++) {
+//					System.out.println("tagMain : "+list.get(i).getTagMain()+" count : "+list.get(i).getCount()+" prcie : "+list.get(i).getSum());
+//				}
+				
+				List<AdminStatisticsDetailVO> list2 = adminStatisticsDetailVOService.getHowManyDetault(null);
+				mav.addObject("list2",list2);
+			}
+		}else {
+			if(tagMain != 1000) {
+				AdminStatisticsDetailVO vo = new AdminStatisticsDetailVO();
+				vo.setTagMain(tagMain);
+				
+				// 수량으로 랭크 10
+				List<AdminStatisticsDetailVO> list = adminStatisticsDetailVOService.getTagMainRank2(vo);
+				mav.addObject("list",list);
+				
+				// 판매액으로 랭크 10
+				List<AdminStatisticsDetailVO> list2 = adminStatisticsDetailVOService.getTagMainRank2(vo);
+				mav.addObject("list2",list2);
+			}else { // 1000일때
+				System.out.println("1000일때");
+				List<AdminStatisticsDetailVO> list = adminStatisticsDetailVOService.getSummary(null);
+				mav.addObject("list",list);
+				
+//				for(int i=0; i<list.size(); i++) {
+//					System.out.println("tagMain : "+list.get(i).getTagMain()+" count : "+list.get(i).getCount()+" prcie : "+list.get(i).getSum());
+//				}
+				
+				List<AdminStatisticsDetailVO> list2 = adminStatisticsDetailVOService.getHowManyDetault(null);
+				mav.addObject("list2",list2);
+			}
 			
-			// 수량으로 랭크 10
-			List<AdminStatisticsDetailVO> list = adminStatisticsDetailVOService.getTagMainRank(vo);
-			mav.addObject("list",list);
 			
-			// 판매액으로 랭크 10
-			List<AdminStatisticsDetailVO> list2 = adminStatisticsDetailVOService.getTagMainRank2(vo);
-			mav.addObject("list2",list2);
-		}else { // 1000일때
-			System.out.println("1000일때");
-			List<AdminStatisticsDetailVO> list = adminStatisticsDetailVOService.getSummary(null);
-			mav.addObject("list",list);
 			
-//			for(int i=0; i<list.size(); i++) {
-//				System.out.println("tagMain : "+list.get(i).getTagMain()+" count : "+list.get(i).getCount()+" prcie : "+list.get(i).getSum());
-//			}
 			
-			List<AdminStatisticsDetailVO> list2 = adminStatisticsDetailVOService.getHowManyDetault(null);
-			mav.addObject("list2",list2);
 		}
 		
 		
@@ -69,5 +104,6 @@ public class AdminStatisticsDetailController {
 		mav.setViewName("salesStatisticsRank");
 		return mav;
 	}
+
 
 }

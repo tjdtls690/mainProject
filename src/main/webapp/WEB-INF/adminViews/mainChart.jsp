@@ -537,13 +537,15 @@
  // 금주 매출  pdf 다운로드     		
        		$(document).on('click','.btn.btn-outline-danger:eq(0)',function(){	
        			//alert("금주 pdf 다운");
-       			$.ajax({
-       				url : 'pdfDown.mdo',
-       				success : function(htmlOut){
-       					alert("pdf 다운 완료");
+//        			$.ajax({
+//        				url : 'pdfDown.mdo',
+//        				type : 'post',
+//        				success : function(htmlOut){
+//        					alert("pdf 다운 완료");
        					
-       				}
-       			})
+//        				}
+//        			})
+       			$(location).attr("href", "pdfDown.mdo");
        			
        		})
  // 금달 매출  pdf 다운로드     		

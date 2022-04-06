@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpRequest;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -185,7 +187,6 @@ public class AdminReportDayController {
 		
 		@RequestMapping("/pdfDown.mdo")
 	   public String pdfDownload(Model model) {
-
 	      List<String> list = new ArrayList<String>();
 //		      list.add("Java");
 //		      list.add("파이썬");

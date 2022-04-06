@@ -860,22 +860,22 @@
                                     
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">주문 요청(결제완료)</div>
+                                    <div class="card-body">주문 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="orderManagement.mdo">+5 건</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
-<!--                             <div class="col-xl-3 col-md-6"> -->
-<!--                                 <div class="card bg-danger text-white mb-4"> -->
-<!--                                     <div class="card-body">1:1 문의/상품 문의</div> -->
-<!--                                     <div class="card-footer d-flex align-items-center justify-content-between"> -->
-<!--                                         <a class="small text-white stretched-link" href="#">8건</a> -->
-<!--                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">회원 관리</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="memberManagement.mdo">신규회원 : 0 명</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="row">
@@ -948,7 +948,6 @@
                                             <td><fmt:formatNumber value="${rank.sum}" pattern="#,### 원" /></td>
                                         </tr>
 									</c:forEach>
-                                     
                                     </tbody>
                                 </table>
                             </div>

@@ -1,14 +1,16 @@
 package project.spring.web.admin_main.report.day;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpRequest;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -22,7 +24,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -196,7 +197,7 @@ public class AdminReportDayController {
 		
 	// pdf로 내보내기	
 		@RequestMapping("/pdfDown.mdo")
-		public void pdfDown()throws Exception{
+		public void pdfDown(HttpServletRequest request)throws Exception{
 			System.out.println("pdfDown 접근");
 			
 	        try {
@@ -206,9 +207,11 @@ public class AdminReportDayController {
 	            // pdf파일의 저장경로를 d드라이브의 sample.pdf로 한다는 뜻
 	 
 	            document.open(); // 웹페이지에 접근하는 객체를 연다
-	 
-	            BaseFont baseFont = BaseFont.createFont("c:/windows/fonts/malgun.ttf", BaseFont.IDENTITY_H,
-	                    BaseFont.EMBEDDED);
+	            String path =request.getSession().getServletContext().getRealPath("/");
+	            BaseFont baseFont= BaseFont.createFont(path +"/resources/template/font/fresh.ttf".replace('/', File.separatorChar), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+	            
+	       
+	            
 	            // pdf가 기본적으로 한글처리가 안되기 때문에 한글폰트 처리를 따로 해주어야 한다.
 	            // createFont메소드에 사용할 폰트의 경로 (malgun.ttf)파일의 경로를 지정해준다.
 	            // 만약에 이 경로에 없을 경우엔 java파일로 만들어서 집어넣어야 한다.

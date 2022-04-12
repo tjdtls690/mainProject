@@ -236,7 +236,21 @@
 
 	  
   </script>
-  
+  <style>	
+a[data-v-7aa1f9b44]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+}
+
+</style>	
 </head>
 <body>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -256,7 +270,7 @@
 					<input type="hidden" id="loginCheck10" value="${alertM }">
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
+							<a data-v-7aa1f9b44="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>

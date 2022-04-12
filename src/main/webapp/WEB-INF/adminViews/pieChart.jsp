@@ -39,155 +39,174 @@
 			var check01 =0;
 			$(document).on('click','.dropdown-item.month',function(){
 				var getTagMain = $(this).attr('id');
+				var getWhat = $("input[name='what']").val();
 
-				$.ajax({
-	   				url : 'salesRank.mdo',
-	   				type : 'post',
-	   				dataType: 'html',
-	   				data : {
-	   					"getTagMain" : getTagMain
-	   				},
-	   				success:function(htmlOut){
-						// 기존 hidden 인풋 삭제
-	   					$("input[name='name']").remove();
-	   					$("input[name='count']").remove();
-	   					
-	 					// 랭크 10위 데이터 추가.
-	 					$('.table.table-striped').children().remove();
-	   					$('.table.table-striped').append(htmlOut);
-	   					
-	   					$('.chartjs-size-monitor').detach();
-	   					$("#myPieChart").detach();
-	   					$("#myPieChart"+check01).detach();
-	   					check01++;
-	   				 	$('.card-body').eq(0).append('<canvas id="myPieChart'+check01+'" width="200%" height="50"></canvas>');
-	   				 
-
-						if(getTagMain !=1000){
-		   					var size = $("input[name='name']").length;			
-		   					var name = [];
-		   					var count = [];
+				if(getWhat == ""){
+					alert("이전 항목을 먼저 선택해주세요.");
+				}else{
+					
+					$.ajax({
+		   				url : 'salesRank.mdo',
+		   				type : 'post',
+		   				dataType: 'html',
+		   				data : {
+		   					"getTagMain" : getTagMain ,
+		   					"getWhat" : getWhat
+		   				},
+		   				success:function(htmlOut){
+							// 기존 hidden 인풋 삭제
+		   					$("input[name='name']").remove();
+		   					$("input[name='count']").remove();
 		   					
-		   					for(var i =0; i<size; i++){
-		   						name[i] = $("input[name='name']").eq(i).val();
-		   						count[i] = $("input[name='count']").eq(i).val();
-		   					}
-							
-		   					var ctx = document.getElementById("myPieChart"+check01);
-		   					var myPieChart = new Chart(ctx, {
-		   					  type: 'pie',
-		   					  data: {
-		   					    labels: [ name[0], name[1], name[2], name[3], name[4], 
-		   					    	  	  name[5], name[6], name[7], name[8], name[9], 
-		   					    	
-		   					    ],
-		   					    
-		   					    datasets: [{
-	//	   		 			    	정기구독은 한개도 팔린게 없어서 값 10을 고정값으로 주었다..
-		   					      data: [ count[0], count[1], count[2], count[3], count[4], 
-		   					    	  	  count[5], count[6], count[7], count[8], count[9], 
-		   					    	  
-		   					      ],
-		   					      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
-		   					    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6','#002E6E','#944CF6'],
-		   					    }],
-		   					  },
-		   					});
+		 					// 랭크 10위 데이터 추가.
+		 					$('.table.table-striped').children().remove();
+		   					$('.table.table-striped').append(htmlOut);
 		   					
-						}else{ // tagMain ==1000 일때
-							//alert("1001");
-							var size = $("input[name='tagMain']").length;			
-		   					var tagMain = [];
-		   					var count = [];
+		   					$('.chartjs-size-monitor').detach();
+		   					$("#myPieChart").detach();
+		   					$("#myPieChart"+check01).detach();
+		   					check01++;
+		   				 	$('.card-body').eq(0).append('<canvas id="myPieChart'+check01+'" width="200%" height="50"></canvas>');
+		   				 
+	
+							if(getTagMain !=1000){
+			   					var size = $("input[name='name']").length;			
+			   					var name = [];
+			   					var count = [];
+			   					
+			   					for(var i =0; i<size; i++){
+			   						name[i] = $("input[name='name']").eq(i).val();
+			   						count[i] = $("input[name='count']").eq(i).val();
+			   					}
+								
+			   					var ctx = document.getElementById("myPieChart"+check01);
+			   					var myPieChart = new Chart(ctx, {
+			   					  type: 'pie',
+			   					  data: {
+			   					    labels: [ name[0], name[1], name[2], name[3], name[4], 
+			   					    	  	  name[5], name[6], name[7], name[8], name[9], 
+			   					    	
+			   					    ],
+			   					    
+			   					    datasets: [{
+		//	   		 			    	정기구독은 한개도 팔린게 없어서 값 10을 고정값으로 주었다..
+			   					      data: [ count[0], count[1], count[2], count[3], count[4], 
+			   					    	  	  count[5], count[6], count[7], count[8], count[9], 
+			   					    	  
+			   					      ],
+			   					      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
+			   					    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6','#002E6E','#944CF6'],
+			   					    }],
+			   					  },
+			   					});
+			   					
+							}else{ // tagMain ==1000 일때
+								//alert("1001");
+								var size = $("input[name='tagMain']").length;			
+			   					var tagMain = [];
+			   					var count = [];
+			   					
+			   					for(var i =0; i<size; i++){
+			   						tagMain[i] = $("input[name='tagMain']").eq(i).val();
+			   						count[i] = $("input[name='count']").eq(i).val();
+			   					}
+	
+			   					for(var i=0; i<size; i++){
+			   						
+			   						switch(tagMain[i]){
+				   						case '100':
+				   							tagMain[i]="1.정기구독";
+				   							break;
+				   						case '200':
+				   							tagMain[i]="2.샐러드";
+				   							break;
+				   						case '300':
+				   							tagMain[i]="3.샌드위치/랩";
+				   							break;
+				   						case '400':
+				   							tagMain[i]="4.도시락/간편식";
+				   							break;
+				   						case '500':
+				   							tagMain[i]="5.죽/스프";
+				   							break;
+				   						case '600':
+				   							tagMain[i]="6.세트상품";
+				   							break;
+				   						case '700':
+				   							tagMain[i]="7.간식";
+				   							break;
+				   						case '800':
+				   							tagMain[i]="8.음료";
+				   							break;
+				   						default :
+				   							tagMain[i]="?";
+			   						}	
+			   					}
+	
+								var ctx = document.getElementById("myPieChart"+check01);
+			   					var myPieChart = new Chart(ctx, {
+			   					  type: 'pie',
+			   					  data: {
+			   					    labels: [ "1.정기구독", tagMain[0], tagMain[1], tagMain[2], tagMain[3], tagMain[4], 
+			   					    		  tagMain[5], tagMain[6] //tagMain[7] 
+			   					    	
+			   					    ],
+			   					    
+			   					    datasets: [{
+		//	   		 			    	정기구독은 한개도 팔린게 없어서 값 10을 고정값으로 주었다..
+			   					      data: [ "10",count[0], count[1], count[2], count[3], count[4], 
+			   					    	  	  count[5], count[6]
+			   					    	  
+			   					      ],
+			   					      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
+			  	    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6'],
+			   					    }],
+			   					  },
+			   					});
+							}
 		   					
-		   					for(var i =0; i<size; i++){
-		   						tagMain[i] = $("input[name='tagMain']").eq(i).val();
-		   						count[i] = $("input[name='count']").eq(i).val();
+		   					
+		   					
+		   					
+							if(getTagMain == 100){
+								$('#text').text("정기구독 상위 TOP10 판매횟수 비교 -> 값이없습니다");
+							}else if(getTagMain == 200){
+		   						$('#text').text("샐러드 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 300){
+		   						$('#text').text("샌드위치/랩 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 400){
+		   						$('#text').text("도시락/간편식 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 500){
+		   						$('#text').text("죽/스프 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 600){
+		   						$('#text').text("세트상품 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 700){
+		   						$('#text').text("간식 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 800){
+		   						$('#text').text("음료 상위 TOP10 판매 비교");
+		   					}else if(getTagMain == 1000){
+		   						$('#text').text("전체 판매비교 요약");
 		   					}
-
-		   					for(var i=0; i<size; i++){
-		   						
-		   						switch(tagMain[i]){
-			   						case '100':
-			   							tagMain[i]="1.정기구독";
-			   							break;
-			   						case '200':
-			   							tagMain[i]="2.샐러드";
-			   							break;
-			   						case '300':
-			   							tagMain[i]="3.샌드위치/랩";
-			   							break;
-			   						case '400':
-			   							tagMain[i]="4.도시락/간편식";
-			   							break;
-			   						case '500':
-			   							tagMain[i]="5.죽/스프";
-			   							break;
-			   						case '600':
-			   							tagMain[i]="6.세트상품";
-			   							break;
-			   						case '700':
-			   							tagMain[i]="7.간식";
-			   							break;
-			   						case '800':
-			   							tagMain[i]="8.음료";
-			   							break;
-			   						default :
-			   							tagMain[i]="?";
-		   						}	
-		   					}
-
-							var ctx = document.getElementById("myPieChart"+check01);
-		   					var myPieChart = new Chart(ctx, {
-		   					  type: 'pie',
-		   					  data: {
-		   					    labels: [ "1.정기구독", tagMain[0], tagMain[1], tagMain[2], tagMain[3], tagMain[4], 
-		   					    		  tagMain[5], tagMain[6] //tagMain[7] 
-		   					    	
-		   					    ],
-		   					    
-		   					    datasets: [{
-	//	   		 			    	정기구독은 한개도 팔린게 없어서 값 10을 고정값으로 주었다..
-		   					      data: [ "10",count[0], count[1], count[2], count[3], count[4], 
-		   					    	  	  count[5], count[6]
-		   					    	  
-		   					      ],
-		   					      backgroundColor: ['#F23D4C', 'orange', 'yellow', '#17BA75',
-		  	    	  				'#2186C4','#00E3CC','#F2BBBB','#FFF6E6'],
-		   					    }],
-		   					  },
-		   					});
-						}
-	   					
-	   					
-	   					
-	   					
-						if(getTagMain == 100){
-							$('#text').text("정기구독 상위 TOP10 판매횟수 비교");
-						}else if(getTagMain == 200){
-	   						$('#text').text("샐러드 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 300){
-	   						$('#text').text("샌드위치/랩 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 400){
-	   						$('#text').text("도시락/간편식 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 500){
-	   						$('#text').text("죽/스프 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 600){
-	   						$('#text').text("세트상품 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 700){
-	   						$('#text').text("간식 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 800){
-	   						$('#text').text("음료 상위 TOP10 판매횟수 비교");
-	   					}else if(getTagMain == 1000){
-	   						$('#text').text("전체 판매비교 요약");
-	   					}
- 					
-	   				} // success 끝
-	   				
-	   			})//ajax 끝
+	 					
+		   				} // success 끝
+		   				
+		   			})//ajax 끝
+				}// else 끝
 				
 			})
 			
+			
+			$(document).on('click','.dropdown-item.what',function(){
+				var getID = $(this).attr('id');
+				if(getID ==1){
+					$('#dropdownMenu3').text("1.판매 횟수");
+				}else{
+					$('#dropdownMenu3').text("2.판매 금액");
+				}
+				
+				$("input[name='what']").val(getID);
+
+			})
 
 	
 		})
@@ -303,18 +322,26 @@
                     </div>
                 </nav>
             </div>
+            <input type="hidden" name="what" value="">
 			<div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">매출 통계 비교</h1>
 						<ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Charts</li>
+                            <li class="breadcrumb-item active">판매 비교</li>
                         </ol>
                         <div class="card mb-4">
                            <div class="card-header">
                                         <i class="fas fa-chart-pie me-1" ></i>
                                         <i id="text">전체 판매 비교 요약</i>
                                         <div class="dropdown" style="float:right;">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle2" type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">
+											    --원하는 통계--
+											</button>
+												<ul class="dropdown-menu month2" aria-labelledby="dropdownMenu3">
+												    <li><button class="dropdown-item what" type="button" id="1">1.판매 횟수 </button></li>
+												    <li><button class="dropdown-item what" type="button" id="2">2.판매 금액 </button></li>
+											  	</ul>
 											<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 											    --tagMain--
 											</button>
@@ -329,18 +356,19 @@
 												    <li><button class="dropdown-item month" type="button" id="700">700. 간식</button></li>
 												    <li><button class="dropdown-item month" type="button" id="800">800. 음료</button></li>
 											  	</ul>
+											  	
 										</div>
                             </div>
                                     
                                     <div class="card-body">
                                    		<canvas id="myPieChart" width="200%" height="50"></canvas>
                                     </div>
-                                    <div class="card-footer small text-muted">※실제 판매 금액과는 약간 다를수 있습니다. 실제 판매 금액은 ""을 참고 해주세요</div>
+                                    <div class="card-footer small text-muted">※실제 판매 금액과는 약간 다를수 있습니다. 실제 판매 금액은 "매출/상품 통계"를 참고 해주세요</div>
                         </div>
                                                 <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                판매금액 Best Top 10 !
+                                판매 Best Top 10 !
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped">

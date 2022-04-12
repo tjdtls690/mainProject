@@ -40,6 +40,7 @@ public class AdminMainChartController {
         int year = now.getYear();
         //이번달		--> 03
       	String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+      	System.out.println("이번달 : "+month);
       	// 오늘 날짜만 --> 23
         int thisDay = now.getDayOfMonth();
         // 이번 년도 + 이번달 + 오늘
@@ -54,16 +55,20 @@ public class AdminMainChartController {
         	System.out.println(i+"번째 : "+format.format(currentCalendar.getTime()));
         	mav.addObject("thisDay"+i,format.format(currentCalendar.getTime()));
         }
-
+        
+        // 테스트
+       
         
 		// 이번주 첫째날
-		currentCalendar.add(Calendar.DATE, 2 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
-	    String firstWeekDay = df.format(currentCalendar.get(Calendar.DATE));  
+        currentCalendar.add(Calendar.DATE, -12 - currentCalendar.get(Calendar.DAY_OF_WEEK));
+        String firstWeekDay = df.format(currentCalendar.get(Calendar.DATE));    
+	    System.out.println("이번주 시작일 " + firstWeekDay);
 	    // 이번주 마지막날
 	    currentCalendar.add(Calendar.DATE, 8 - currentCalendar.get(Calendar.DAY_OF_WEEK)); 
         String lastWeekDay = df.format(currentCalendar.get(Calendar.DATE)); 
+        System.out.println("이번주 마지막일 " + lastWeekDay);
         // 이번주의 첫째날 
-        String thisWeek = year+"-"+month+"-"+firstWeekDay;
+        String thisWeek = year+"-"+month+"-"+lastWeekDay;
 		
 // 처음 시작시 input에 시작 날짜 넣기 . 라인차트 값넣기		
 		AdminMainChartVO vo = new AdminMainChartVO();
@@ -72,9 +77,10 @@ public class AdminMainChartController {
 
 		//	값이 잘 넘어오는지 테스트
 		for(int i=0; i<13; i++) {
-			//System.out.println("라인차트");
-			//System.out.print(i+"번째 date :  "+dayChartList.get(i).getDate());
-			//System.out.print(i+"번째 sum : "+dayChartList.get(i).getDaySum ());
+//			System.out.println("라인차트");
+//			System.out.print(i+" 번째 date :  "+dayChartList.get(i).getDate());
+//			System.out.println();
+//			System.out.print(i+" 번째 sum : "+dayChartList.get(i).getDaySum ());
 			
 			mav.addObject("check"+i, dayChartList.get(i).getDaySum());
 			mav.addObject("checkk"+i, dayChartList.get(i).getDate());
@@ -87,6 +93,7 @@ public class AdminMainChartController {
 		
 		AdminReportDayVO vo2 = new AdminReportDayVO();
 		vo2.setDate(thisWeek);
+		System.out.println("시작일 "+thisWeek);
 		List<AdminReportDayVO> list2 = adminReportDayService.reportDay(vo2);
 		mav.addObject("modal",list2);
 		
@@ -94,11 +101,12 @@ public class AdminMainChartController {
 		
 		// 이번달 시작일
 		String startDay = year+"-"+month+"-"+"01";
+		//System.out.println("시작일 : "+startDay);
 		// 이번달 마지막일
 		int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)+1;
-		System.out.println("마지막 일 : "+str);
+		System.out.println("이번달 마지막 일 : "+str);
 		String endDay = year+"-"+month+"-"+str;
-		System.out.println("마지막날 : "+endDay);
+		//System.out.println("마지막날 : "+endDay);
 		AdminReportDayVO vo3 = new AdminReportDayVO();
 		vo3.setDate(startDay);
 		vo3.setImpl(endDay);

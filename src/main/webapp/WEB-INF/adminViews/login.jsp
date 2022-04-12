@@ -38,7 +38,7 @@ $(function() {
 	$(document).on('click','.login100-form-btn', function(){	
 		var id = $('.input100').eq(0).val();
 		var pwd = $('.input100').eq(1).val();
-		alert(id);
+		//alert(id);
 		$.ajax({
 			url : 'adminLoginCheck.mdo',
 			type : 'post',

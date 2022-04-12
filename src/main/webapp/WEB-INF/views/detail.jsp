@@ -149,7 +149,7 @@
 			//alert("장바구니 클릭");
 		// 장바구니 담길것이 있을때와 없을때를 구분.
 			if($('.selected-detail-list').children().hasClass('selected-detail-wrap')){
-				alert("있다");
+				//alert("있다");
 				var itemCode = [], data = {};
 				var tagMain = [];
 				var price = [];
@@ -620,7 +620,7 @@
 // 						alert("M / L 둘다 없다");
 	 					$('.selected-detail-list').append(htmlOut);					
 	 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-	 					price = Number(price.slice(0, -1));
+	 					price = Number(price.replace('원', '').replace(',', ''));
 //	 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 	 					price += priceM; 
 //	 					price= price.toLocaleString('ko-KR');   --> , 찍기
@@ -636,7 +636,7 @@
 // 						alert("M은 있고 L은 없는데 L을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);				
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-		 					price = Number(price.slice(0, -1));
+		 					price = Number(price.replace('원', '').replace(',', ''));
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기
@@ -648,7 +648,7 @@
 // 							alert("L는 있고 M은없는데 M을 클릭했다.");
 		 					$('.selected-detail-list').append(htmlOut);
 		 					var price = $('.menu__price-current-price__wrapper').children().first().text();
-		 					price = Number(price.slice(0, -1));
+		 					price = Number(price.replace('원', '').replace(',', ''));
 //		 					price = price.replace( , , ''); //--> 가격표에 콤마를 ''로 대체하는거 추가해야됨.
 		 					price += priceM;  
 //		 					price= price.toLocaleString('ko-KR');   --> , 찍기
@@ -915,7 +915,21 @@
 	}
 
 	</style>
-	
+	<style>	
+a[data-v-7aa1f9b44]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+}
+
+</style>	
     <title>Saladit!</title>
 </head>
 <body>
@@ -929,7 +943,7 @@
 					</div>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
+							<a data-v-7aa1f9b44="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>
@@ -1047,6 +1061,27 @@
 							</nav>
 						</div>
 					</div>
+					<div class="mobile-nav js-mobile-nav" data-v-7aa1f9b4="">
+						<div class="mobile-nav-wrap" data-v-7aa1f9b4="">
+							<div class="mobile-nav-scroll" data-v-7aa1f9b4="">
+								<ul class="mobile-nav-contents" data-v-7aa1f9b4="">
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(0);" class=""
+										data-v-7aa1f9b4=""> 전체 메뉴 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(100);" class="" data-v-7aa1f9b4="">
+											정기구독 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(1);" data-v-7aa1f9b4="" class=""> 초코베리머치 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(200);" data-v-7aa1f9b4="" class=""> 샐러드 </a></li>
+									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
+										href="javascript:page_move(300);" data-v-7aa1f9b4="" class=""> 샌드위치·랩 </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
 					<!---->
 					<!---->
 					<!---->

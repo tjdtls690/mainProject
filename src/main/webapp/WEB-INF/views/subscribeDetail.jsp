@@ -321,54 +321,44 @@
 				}
 			});
 		});
+
 		
+// 사이즈 선택   -
 		var length = $('.form-radio-input').length;
-		
-		if(length == 3){
-			$(document).on('click','.row--v-center.radio-label.m1',function(){
-				var size = $(this).children().children().val();
+
+		//미디움만 있을시
+		if(length == '3'){
+			$(document).on('click','.form-radio-input:eq(0)',function(e){
+				
+				var size = $(this).val();
 				$('.setSize').val(size);
-				alert("사이즈 : "+size);
+				//alert("사이즈 : "+size);
 				// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
-
-				if(length == 3){
-					alert("미디움만");
-	 				$('.row--v-center.radio-label.m2').checked();
-	 				$('.row--v-center.radio-label.m3').click();
-// 	 				$('.form-radio-circle').eq(2).click();
-
-				}else {
-					alert("라지도");
-				}
-
-
-//	 			$('.form-radio-input').eq(0).trigger('click');
-
+ 				$('.form-radio-input:eq(1)').click();
+ 				$('.form-radio-input:eq(2)').click();
 			});
+			
+			
+		}else{ //라지도있을시
+			$(document).on('click','.form-radio-input:eq(0)',function(){
+				var size = $(this).val();
+				$('.setSize').val(size);
+				//alert("사이즈 : "+size);
+				$('.form-radio-input:eq(2)').click();
+				$('.form-radio-input:eq(4)').click();
+			})
+			$(document).on('click','.form-radio-input:eq(1)',function(){
+				var size = $(this).val();
+				$('.setSize').val(size);
+				//alert("사이즈 : "+size);
+				$('.form-radio-input:eq(3)').click();
+				$('.form-radio-input:eq(5)').click();
+			})
+			
+			
 			
 		}
 		
-		
-// // 사이즈 선택
-// 		$(document).on('click','.form-radio-input:eq(1)',function(){
-// 			var size = $(this).val();
-// 			$('.setSize').val(size);
-// 			// 미디움 클릭시 Medium / 라지 클릭시 Large 를 셋팅해줌.	
-			
-// 			var length = $('.form-radio-input').length;
-			
-// 			if(length == 3){
-// 				alert("미디움만");
-// // 				$('.form-radio:eq(0)').click();
-
-// 			}else {
-// 				alert("라지도");
-// 			}
-
-
-// // 			$('.form-radio-input').eq(0).trigger('click');
-
-// 		});
 		
 
 		
@@ -410,8 +400,8 @@
 		//alert("2.드랍다운 아이템 클릭");
 			// 선택한 주를 text에 표기
 			$('.dropdown-btn.click').children().children().first().addClass('selected-content');
-			$('.dropdown-btn.click:eq(0)').children().children().first().text($(this).text());
-			$('.dropdown-btn.click:eq(1)').children().children().first().text($(this).text());
+// 			$('.dropdown-btn.click:eq(0)').children().children().first().text($(this).text());
+// 			$('.dropdown-btn.click:eq(1)').children().children().first().text($(this).text());
 
 			var week = $(this).text();
 			var selectedWeek = Number(week.replace('주', '').replace(',', ''));
@@ -452,6 +442,9 @@
 				var setPriceSub = $('.setPriceSub').val();
 				var totalPriceSub = setPriceSub*selectedWeek;
 				$('.setTotalSub').val(totalPriceSub);
+				
+				$('.dropdown-btn.click:eq(0)').children().children().first().text($(this).text());
+				$('.dropdown-btn.click:eq(1)').children().children().first().text($(this).text())
 			
 				//alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 			
@@ -467,6 +460,9 @@
 				var setPriceSub = $('.setPriceSub').val();
 				var totalPriceSub = setPriceSub*selectedWeek;
 				$('.setTotalSub').val(totalPriceSub);
+				
+				$('.dropdown-btn.click:eq(0)').children().children().first().text($(this).text());
+				$('.dropdown-btn.click:eq(1)').children().children().first().text($(this).text())
 				
 				//alert("주당 가격 : "+setPrice+"주당 할인전 가격 : "+setPriceSub+" 몇주 : "+selectedWeek+" 총 합계 : "+totalPrice);
 				
@@ -568,8 +564,9 @@
 			});// ajax 끝
 			
 			$("<div data-v-2706028c ></div>").insertBefore(".menu__price-current-price__wrapper").addClass('menu__price-prior-price');
-			$('.menu__price-prior-price').text(priceSub);
-			$('.menu__price-current-price').text(price+"원");
+			$('.menu__price-prior-price').text(Number(priceSub).toLocaleString('en')+"원");
+			$('.menu__price-current-price').text(Number(price).toLocaleString('en')+"원");
+			
 
 	// disable
 // 			// 사품금액 표기까지 같이묶여져서 다 토글클래스때리고 상품금액은 다시해서 disabled를 막았다.
@@ -638,47 +635,47 @@
 		})
 		
 // 식단확인 및 변경 클릭
-// 		$(document).on('click','.selected-detail__btn',function(){
-// 			alert("식단변경");
-// 			var price = $('.setPrice').val();	// 총 가격
-// 			var size = $('.setSize').val();		// 사이즈
-// 			var start = $('.startDate').val();	// 시작일
-// 			var week = $('.setWeek').val();		// 총 주
-// 			var code = $('.itemCode').val();	// 아이템 코드
-// 			var tag = $('.tagMain').val();
-// 			// 요일은 컨트롤러에서 자르자.
+		$(document).on('click','.selected-detail__btn',function(){
+			//alert("식단변경");
+			var price = $('.setPrice').val();	// 총 가격
+			var size = $('.setSize').val();		// 사이즈
+			var start = $('.startDate').val();	// 시작일
+			var week = $('.setWeek').val();		// 총 주
+			var code = $('.itemCode').val();	// 아이템 코드
+			var tag = $('.tagMain').val();
+			// 요일은 컨트롤러에서 자르자.
 			
-// 			$.ajax({
-// 	//			alert("ajax 들어옴");
-// 				url : 'modal.do',
-// 				type : 'post',
-// 				dataType : 'html',
-// 				data :{
-// 					'price' : price,
-// 					'size' : size,
-// 					'start' : start,
-// 					'week' : week,
-// 					'code' : code,
-// 					'tag' : tag
-// 				},
-// 				success : function(htmlOut){
-// 					alert("성공");
-// 					$('html').attr('class', 'mode-popup');
-// 					$('.menu').append(htmlOut);
-// 					$('.item-text:eq(0)').parent().addClass('selected');
-// 				}
-// 			});// ajax 끝
+			$.ajax({
+	//			alert("ajax 들어옴");
+				url : 'modal.do',
+				type : 'post',
+				dataType : 'html',
+				data :{
+					'price' : price,
+					'size' : size,
+					'start' : start,
+					'week' : week,
+					'code' : code,
+					'tag' : tag
+				},
+				success : function(htmlOut){
+					//alert("성공");
+					$('html').attr('class', 'mode-popup');
+					$('.menu').append(htmlOut);
+					$('.item-text:eq(0)').parent().addClass('selected');
+				}
+			});// ajax 끝
 			
-// 		})
+		})
 		
-// 모달창 닫기
-// 		$(document).on('click','.button--outline4',function(){
-// 			alert("닫기");
-// 			$('.modal').detach();
-// 			if($('html').hasClass('mode-popup')){
-// 				$('html').removeClass('mode-popup');
-// 			}
-// 		})
+//모달창 닫기
+		$(document).on('click','.button--outline4',function(){
+			//alert("닫기");
+			$('.modal').detach();
+			if($('html').hasClass('mode-popup')){
+				$('html').removeClass('mode-popup');
+			}
+		})
 
 // 몇주째 클릭 으로 초록색 바탕 보이고 나타내기 
 		$(document).on('click','.item-text',function(){
@@ -689,6 +686,7 @@
 
 
 		})
+		
 
 // 모달창 드랍다운 클릭
 
@@ -724,6 +722,19 @@
 			
 			
 //  		});	
+
+
+		$(document).on('click','.menu-promotion',function(){
+			
+			$.ajax({
+				url : 'getCoupon.do',
+				type : 'post',
+				success : function(htmlOut){
+					
+					$('body').append(htmlOut);
+				}
+			})//ajax끝
+		})
 
 		
 // 상품 이미지 더보기
@@ -781,6 +792,7 @@
 // 구독하기 클릭시 값 넘어감
 		$(document).on('click','.purchase-btn-wrap',function(){
 			//alert("구독하기 클릭");
+			alert("빠른시일내에 완성시키겠습니다..")
 			var price = $('.setPrice').val();	// 총 가격
 			var priceSub = $('.setPriceSub').val() // 총 원 가격
 			var size = $('.setSize').val();		// 사이즈
@@ -789,17 +801,17 @@
 			var code = $('.itemCode').val();	// 아이템 코드
 			var tag = $('.tagMain').val();		// 태그
 			
-			var o = document.order;	
-			o.price.value = price;
-			o.priceSub.value = priceSub;
-			o.size.value = size;
-			o.start.value = start;
-			o.week.value = week;
-			o.code.value = code;
-			o.tag.value = tag;
-			o.action="aaa.do"; 
-     		o.method="post";
-     		o.submit();
+// 			var o = document.order;	
+// 			o.price.value = price;
+// 			o.priceSub.value = priceSub;
+// 			o.size.value = size;
+// 			o.start.value = start;
+// 			o.week.value = week;
+// 			o.code.value = code;
+// 			o.tag.value = tag;
+// 			o.action="test.do"; 
+//      		o.method="post";
+//      		o.submit();
 	
 		})
 // 별점 찍기
@@ -851,6 +863,21 @@
      }); //function 끝
 
     </script>
+    <style>	
+a[data-v-7aa1f9b44]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+}
+
+</style>	
 
 </head>
 <body>
@@ -872,7 +899,7 @@
 					</form>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
+							<a data-v-7aa1f9b44="" href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 
 								<c:choose>
@@ -1062,6 +1089,33 @@
 											</c:if>
 										</ul>
 										<!---->
+										<section data-v-32a18372="" class="menu-promotion">
+											<div data-v-32a18372="" class="menu-promotion-wrap">
+												<section data-v-32a18372="" class="menu-promotion-left">
+													<div data-v-32a18372="" class="menu-promotion-left-img-wrap">
+														<img data-v-32a18372="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon-coupon.png" alt="쿠폰 아이콘" class="menu-promotion-left-img">
+													</div> 
+													<div data-v-32a18372="" class="menu-promotion-left-text-wrap">
+														<div data-v-32a18372="" class="menu-promotion-name">
+		                   						 			[15%] 정기구독 습관 응원 쿠폰
+		                  								</div> 
+		                  								<div data-v-32a18372="" class="menu-promotion-exp-date">
+		                    								2022-04-13까지 사용 가능
+		                  								</div>
+	                  								</div>
+	                  							</section> 
+	                  							<div data-v-32a18372="" class="menu-promotion-fragment">
+	                  							</div> 
+	                  							<section data-v-32a18372="" class="menu-promotion-right">
+	                  								<div data-v-32a18372="" class="menu-promotion-right-text">
+	                  									쿠폰 받기
+	                  								</div> 
+	                  								<div data-v-32a18372="" class="menu-promotion-right-img-wrap">
+	                  									<img data-v-32a18372="" src="https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon-download.png" alt="쿠폰 다운로드 아이콘" class="menu-promotion-right-img">
+	                  								</div>
+	                  							</section>
+                  							</div>
+                  						</section>
 										<div data-v-2706028c="" data-v-32a18372=""
 											class="menu-select-panel">
 											<div data-v-2706028c="" class="menu__select-size">
@@ -1074,7 +1128,7 @@
 																<div data-v-2706028c=""
 																	class="row--v-center radio-label m1">
 																	<label data-v-3f971378="" data-v-2706028c="" class="form-radio"> 
-																		<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth"class="form-radio-input" value="Medium"> 
+																		<input data-v-3f971378="" id="Medium" type="radio" name="menu-sizeboth size1"class="form-radio-input" value="Medium"> 
 																			<span data-v-3f971378="" class="form-radio-circle"> 
 																				<i data-v-3f971378="" class="form-radio-circle-interior"></i>
 																			</span> Medium
@@ -1089,7 +1143,7 @@
 																	class="row--v-center radio-label m1">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Medium" type="radio" name="menu-sizeboth"
+																		id="Medium" type="radio" name="menu-sizeboth size1"
 																		class="form-radio-input" value="Medium"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1101,7 +1155,7 @@
 																	class="row--v-center radio-label">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Large" type="radio" name="menu-sizeboth"
+																		id="Large" type="radio" name="menu-sizeboth size1"
 																		class="form-radio-input" value="Large"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1355,7 +1409,7 @@
 																	class="row--v-center radio-label m2">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Medium" type="radio" name="menu-sizeboth"
+																		id="Medium" type="radio" name="menu-sizeboth size2"
 																		class="form-radio-input" value="Medium"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1369,7 +1423,7 @@
 																	class="row--v-center radio-label m2">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Medium" type="radio" name="menu-sizeboth"
+																		id="Medium" type="radio" name="menu-sizeboth size2"
 																		class="form-radio-input" value="Medium"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1381,7 +1435,7 @@
 																	class="row--v-center radio-label">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Large" type="radio" name="menu-sizeboth"
+																		id="Large" type="radio" name="menu-sizeboth size2"
 																		class="form-radio-input" value="Large"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1843,7 +1897,7 @@
 																	class="row--v-center radio-label m3">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Medium" type="radio" name="menu-sizeboth"
+																		id="Medium" type="radio" name="menu-sizeboth size3"
 																		class="form-radio-input" value="Medium"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1857,7 +1911,7 @@
 																	class="row--v-center radio-label m3">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Medium" type="radio" name="menu-sizeboth"
+																		id="Medium" type="radio" name="menu-sizeboth size3"
 																		class="form-radio-input" value="Medium"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>
@@ -1869,7 +1923,7 @@
 																	class="row--v-center radio-label">
 																	<label data-v-3f971378="" data-v-2706028c=""
 																		class="form-radio"> <input data-v-3f971378=""
-																		id="Large" type="radio" name="menu-sizeboth"
+																		id="Large" type="radio" name="menu-sizeboth size3"
 																		class="form-radio-input" value="Large"> <span
 																		data-v-3f971378="" class="form-radio-circle"> <i
 																			data-v-3f971378="" class="form-radio-circle-interior"></i>

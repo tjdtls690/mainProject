@@ -76,7 +76,7 @@
    			      yAxes: [{
    			        ticks: {
    			          min: 0,
-   			          max: 800000,
+   			          max: 1500000,
    			          maxTicksLimit: 8
    			        },
    			        gridLines: {
@@ -168,7 +168,7 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 800000,
+   	        			          max: 1500000,
    	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
@@ -271,7 +271,7 @@
    	        			      yAxes: [{
    	        			        ticks: {
    	        			          min: 0,
-   	        			          max: 800000,
+   	        			          max: 1500000,
    	        			          maxTicksLimit: 8
    	        			        },
    	        			        gridLines: {
@@ -324,8 +324,8 @@
        		      yAxes: [{
        		        ticks: {
        		          min: 0,
-       		          max: 10000000,
-       		          maxTicksLimit: 5
+       		          max: 12000000,
+       		          maxTicksLimit: 12
        		        },
        		        gridLines: {
        		          display: true
@@ -412,8 +412,8 @@
        		       		      yAxes: [{
        		       		        ticks: {
        		       		          min: 0,
-       		       		          max: 10000000,
-       		       		          maxTicksLimit: 5
+       		       		          max: 12000000,
+       		       		          maxTicksLimit: 12
        		       		        },
        		       		        gridLines: {
        		       		          display: true
@@ -509,8 +509,8 @@
        		       		      yAxes: [{
        		       		        ticks: {
        		       		          min: 0,
-       		       		          max: 10000000,
-       		       		          maxTicksLimit: 5
+       		       		          max: 12000000,
+       		       		          maxTicksLimit: 12
        		       		        },
        		       		        gridLines: {
        		       		          display: true
@@ -536,19 +536,21 @@
        		
  // 금주 매출  pdf 다운로드     		
        		$(document).on('click','.btn.btn-outline-danger:eq(0)',function(){	
-       			alert("금주 pdf 다운");
-       			$.ajax({
-       				url : 'pdfDown.mdo',
-       				success : function(htmlOut){
-       					alert("pdf 다운 완료");
+       			//alert("금주 pdf 다운");
+//        			$.ajax({
+//        				url : 'pdfDown.mdo',
+//        				type : 'post',
+//        				success : function(htmlOut){
+//        					alert("pdf 다운 완료");
        					
-       				}
-       			})
+//        				}
+//        			})
+       			$(location).attr("href", "pdfDown.mdo");
        			
        		})
  // 금달 매출  pdf 다운로드     		
        		$(document).on('click','.btn.btn-outline-danger:eq(1)',function(){	
-       			alert("금달 pdf 다운");
+       			//alert("금달 pdf 다운");
        			$.ajax({
        				url : 'pdfDown2.mdo',
        				success : function(htmlOut){
@@ -858,18 +860,18 @@
                                     
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">주문 요청(결제완료)</div>
+                                    <div class="card-body">주문 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">5건</a>
+                                        <a class="small text-white stretched-link" href="orderManagement.mdo">+5 건</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">1:1 문의/상품 문의</div>
+                                    <div class="card-body">회원 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">8건</a>
+                                        <a class="small text-white stretched-link" href="memberManagement.mdo">신규회원 : 0 명</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -946,7 +948,6 @@
                                             <td><fmt:formatNumber value="${rank.sum}" pattern="#,### 원" /></td>
                                         </tr>
 									</c:forEach>
-                                     
                                     </tbody>
                                 </table>
                             </div>

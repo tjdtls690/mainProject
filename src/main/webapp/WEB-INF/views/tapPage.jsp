@@ -295,7 +295,7 @@ $(function() {
  	
  // 작은 장바구니 장바구니에 담기 처리
  	$(document).on('click','#mobCart',function(){ 
- 		alert("장바구니 담기");
+ 		//alert("장바구니 담기");
 	// 장바구니에 넒길 값
 		var itemCode = [], data = {};
 		var tagMain = [];
@@ -409,6 +409,19 @@ $(function() {
     background-size: 24px;
     background-position: 50%;
 }
+a[data-v-7aa1f9b44]{
+    position: left;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 50px;
+    opacity: .9;
+    background-image: url(https://saladits3.s3.ap-northeast-2.amazonaws.com/Logo/icon_Delivery-on-Header.gif);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 100%;
+	
+}
 
 </style>	
 </head>
@@ -423,7 +436,7 @@ $(function() {
 					</div>
 					<div data-v-7aa1f9b4="" id="header__body" class="header__body">
 						<div data-v-7aa1f9b4="" class="header__top">
-							<a data-v-7aa1f9b4="" href="#" class="header__top-left"></a>
+							<a data-v-7aa1f9b44 href="#" class="header__top-left"></a>
 							<div data-v-7aa1f9b4="" class="header__top-right">
 							
 								<c:choose>
@@ -527,9 +540,9 @@ $(function() {
 									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
 										href="javascript:page_move(1);" data-v-7aa1f9b4="" class=""> 초코베리머치 </a></li>
 									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
-										href="/info" data-v-7aa1f9b4="" class=""> 배송안내 </a></li>
+										href="javascript:page_move(200);" data-v-7aa1f9b4="" class=""> 샐러드 </a></li>
 									<li class="mobile-nav-contents-item" data-v-7aa1f9b4=""><a
-										href="/fcospot" data-v-7aa1f9b4="" class=""> 프코스팟 </a></li>
+										href="javascript:page_move(300);" data-v-7aa1f9b4="" class=""> 샌드위치·랩 </a></li>
 								</ul>
 							</div>
 							<div class="all-menus-container" style="display:;"
@@ -663,7 +676,7 @@ $(function() {
 																<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
 																	<div data-v-29c2185a="" class="move-balloon">
 																		<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
-																			20% 쿠폰
+																			구독전용 15% 쿠폰
 																		</span>
 																	</div>
 																</div>
@@ -673,7 +686,7 @@ $(function() {
 																<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
 																	<div data-v-29c2185a="" class="move-balloon">
 																		<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
-																			비건에 어그로 끌기
+																			비건 추천 상품
 																		</span>
 																	</div>
 																</div>

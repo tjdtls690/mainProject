@@ -19,6 +19,7 @@
 		<result property="itemName" column="item_name" />
 		<result property="itemSummary" column="item_summary" />
 		<result property="itemPriceM" column="item_price_m" />
+		<result property="kind" column="kind" />
 		<result property="itemPriceMSub" column="item_price_m_sub" />
 		<result property="starAvg" column="round(avg(b.star), 1)" />
 		<result property="reviewCount" column="count(b.content)" />
@@ -37,7 +38,7 @@
 	</resultMap>
 	<select id="getSearchItem" resultMap="searchresult01">
 		select a.item_code,a.item_tag_main, a.item_tag_sub, a.item_image, a.item_name,
-		a.item_summary,
+		a.item_summary, a.kind,
 		a.item_price_m, a.item_price_m_sub, round(avg(b.star), 1), count(b.content)
 		from item a left join reviewboard b
 		on a.item_code = b.item_code

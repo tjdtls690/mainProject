@@ -24,6 +24,7 @@
       </div>
    </div>
 </c:if>
+<!--  구독상품용 -->
 <c:if test="${check == 2 }">
 	<div data-v-6e61822c="" class="content-wrap">
 		<div data-v-6e61822c="" class="search-result-wrap">
@@ -46,11 +47,21 @@
 										<img data-v-15082832="" src="${item.itemImage }"
 											alt="${item.itemName }" title="${item.itemName }"
 											class="for-loop-cloned-item-601">
+											<div data-v-15082832="" class="btn-cart js-btn-cart"></div>
 										<!---->
 									</figure>
 									<div data-v-15082832=""
 										class="item__body for-loop-cloned-item-601">
 										<!---->
+										<c:if test="${item.tagMain eq 100}">
+											<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+												<div data-v-29c2185a="" class="move-balloon">
+													<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+														구독전용 15% 쿠폰
+													</span>
+												</div>
+											</div>
+										</c:if>
 										<strong data-v-15082832="" class="for-loop-cloned-item-601">${item.itemName }</strong>
 										<div data-v-15082832=""
 											class="for-loop-cloned-item-601 options">
@@ -93,6 +104,7 @@
 		</div>
 	</div>
 </c:if>
+<!--  세트상품용 -->
 <c:if test="${check == 4 }">
 	<c:forEach var="item" items="${itemInfo}">
 		<li data-v-6e61822c="" class="search-result-item"><article
@@ -116,6 +128,15 @@
 					<div data-v-15082832=""
 						class="item__body for-loop-cloned-item-601">
 						<!---->
+						<c:if test="${item.tagMain eq 100}">
+											<div data-v-29c2185a="" data-v-15082832="" style="position: relative; z-index: 1;">
+												<div data-v-29c2185a="" class="move-balloon">
+													<span data-v-29c2185a="" class="tooltip-text-orange" style="background: rgb(253, 116, 73) !important; top: -33px; left: 0px;">
+														구독전용 15% 쿠폰
+													</span>
+												</div>
+											</div>
+										</c:if>
 						<strong data-v-15082832="" class="for-loop-cloned-item-601">${item.itemName }</strong>
 						<div data-v-15082832=""
 							class="for-loop-cloned-item-601 options">

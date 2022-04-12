@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpRequest;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -24,7 +22,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 @Controller
 public class AdminReportDayController {
@@ -186,45 +192,34 @@ public class AdminReportDayController {
 		}
 		
 		@RequestMapping("/pdfDown.mdo")
-	   public String pdfDownload(Model model) {
-	      List<String> list = new ArrayList<String>();
-//		      list.add("Java");
-//		      list.add("파이썬");
-//		      list.add("R");
-//		      list.add("C++");
-//		      list.add("자바스크립트");
-//		      list.add("Ruby");
-//		      list.add("스칼라");
-//		      list.add("클로져");
-//		      list.add("자바");
-//		      
-//		      //뷰에게 전달할 데이터 저장
-//		      model.addAttribute("list",list);
-	   
+	   public String pdfDownload(Model model){
+			//날짜용 메서드
+			LocalDate now = LocalDate.now();
+			DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        // 이번 년도	--> 2022
+	        int year = now.getYear();
+	        //이번달		--> 03
+	      	String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+			// 이번달 시작일
+			String startDay = year+"-"+month+"-"+"01";
+			// 이번달 마지막일
+			int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			String endDay = year+"-"+month+"-"+str;
+			
+			AdminReportDayVO vo = new AdminReportDayVO();
+			vo.setDate(startDay);
+			vo.setImpl(endDay);
+			List<AdminReportDayVO> list2 = adminReportDayService.reportMonth(vo);
+
+		  
+//	        List<String> list = new ArrayList<String>();
+//	        list.add("회원ID : "+ "2");
+//	        list.add("예매번호 : "+ "1");
 	      
-//	      UserReserveVO reserveVo = userBoardService.userReserveFinish(merchantUid);
-//	      AdminMovieVO movieVo = userBoardService.movieList(reserveVo.getMovie_num());
-//	      reserveVo.setMovie_title(movieVo.getMovie_title());
-//	      DecimalFormat formatter = new DecimalFormat("$###,###,###");
-//	      String price = formatter.format(reserveVo.getReserve_price());
-//	      reserveVo.setFomatter_price(price);
-	      
-	      list.add("회원ID : "+ "2");
-	      list.add("예매번호 : "+ "1");
-//	      list.add("영화제목 : "+reserveVo.getMovie_title());
-//	      list.add("결제금액 : "+reserveVo.getFomatter_price());
-//	      list.add("결제수단 : "+reserveVo.getReserve_method());
-//	      if(reserveVo.getReserve_apply_num() == "" ||reserveVo.getReserve_apply_num() == null ||reserveVo.getReserve_apply_num().length()==0 ) {
-//	         reserveVo.setReserve_apply_num("카드결제 x");
-//	      }
-//	      list.add("카드 승인번호 : "+reserveVo.getReserve_apply_num());
-//	      list.add("결제일 : "+reserveVo.getReserve_date());
-	      
-	      
-	      model.addAttribute("list",list);
-	      
-	      //출력할 뷰 이름 리턴
-	      return "pdf";
+	       //출력할 뷰 이름 리턴
+	       model.addAttribute("list", list2);
+	        return "pdf";
 	   }
 	
 }

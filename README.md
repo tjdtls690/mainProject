@@ -31,7 +31,7 @@
 
 ## 3. 핵심 ERD
 
-**사진을 클릭하여 크게 보실 수 있습니다.**
+### 사진을 클릭하여 크게 보실 수 있습니다.
 
 - **첫번째 사진의 payment_item_mapping 테이블의 payment_item_mapping_item_code(결제 상품 고유 번호) 컬럼**과 
 - **두번째 사진의 item, subscribe 테이블의 각각의 Primary key인 고유번호 컬럼들**이 외래키로 묶여있지만 한 이미지에 전부 넣을 수 없어 불가피하게 두 개의 이미지로 나눠놓았습니다.
@@ -183,12 +183,3 @@
   3. 매퍼파일에서 SQL 문을 통해 상품 데이터를 반환 **(xml 매퍼 파일) :pushpin:  [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/resources/mappings/order-mapping.xml#L38)**
 
      
-
-- ##### 상품 검색 요청에 대한 응답 SQL문 :pushpin:  [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/resources/mappings/search-mapping.xml#L39)
-
-  - 두 테이블을 left join으로 합쳐서 데이터를 가공 및 리스트로 반환
-
-</div>
-</details>
-
-</br>

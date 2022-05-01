@@ -58,6 +58,42 @@
 
 ### 4.2. 사용자 요청 (JSP < - > Controller)
 
+- #### 회원가입
+
+  - ##### 이메일 정규식, 이미 존재하는지 여부 체크 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L48)
+
+    - 이미 존재한다면 카카오, 구글, 샐러딧 중 어떤 타입으로 가입되어있는지 모달창을 띄워 알려줍니다.
+
+  - **휴대폰 번호 인증** 
+
+    - ##### 휴대폰 번호 정규식 체크 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L72)
+
+    - ##### 문자 인증 과정
+
+      - ##### (1) 인증번호 문자를 보내는 과정 (네이버 SMS API) (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/naver_sms_api/NaverSensSMS.java#L68)
+
+         - 랜덤 숫자 6자리를 뽑고 세션에 들어가있는 MemberVO에 저장해줍니다.
+         - 네이버 SMS API 를 이용해 랜덤 숫자 6자리를 포함한 문자를 보냅니다.
+
+      - ##### (2) 세션에 저장된 6자리 숫자와 사용자가 적은 숫자를 비교 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L123)
+
+        <br/>
+
+- #### 로그인
+  
+  - ##### 카카오 로그인 API (화면단 : JavaScript) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/webapp/WEB-INF/views/kakaoLogin.jsp#L18)
+
+    - 카카오 로그인 팝업창을 띄워서 로그인 정보를 **로그인 타입 체크 메서드**에 전달
+  
+  - ##### 로그인 타입 체크 (Controller) - 카카오로 로그인 시 :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/login/LoginController.java#L65)
+  
+    - 이메일이 구글이거나 샐러딧 전용 이메일이라면 다시 로그인 화면으로 돌려보내며 경고창을 띄웁니다.
+  
+    - 카카오 이메일이 맞다면, 세션에 회원 정보를 DB에서 가져와서 넣고 메인페이지로 이동합니다.
+  
+      
+  <br/>
+	
 - #### 주문 페이지로 이동 (3가지 루트를 전부 감안하여 만든 메서드) (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/order/OrderController.java#L32)
 
   - ###### (1) 상품 상세페이지에서 구매 버튼 클릭
@@ -111,41 +147,6 @@
   
   <br/>
   
-- #### 회원가입
-
-  - ##### 이메일 정규식, 이미 존재하는지 여부 체크 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L48)
-
-    - 이미 존재한다면 카카오, 구글, 샐러딧 중 어떤 타입으로 가입되어있는지 모달창을 띄워 알려줍니다.
-
-  - **휴대폰 번호 인증** 
-
-    - ##### 휴대폰 번호 정규식 체크 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L72)
-
-    - ##### 문자 인증 과정
-
-      - ##### (1) 인증번호 문자를 보내는 과정 (네이버 SMS API) (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/naver_sms_api/NaverSensSMS.java#L68)
-
-         - 랜덤 숫자 6자리를 뽑고 세션에 들어가있는 MemberVO에 저장해줍니다.
-         - 네이버 SMS API 를 이용해 랜덤 숫자 6자리를 포함한 문자를 보냅니다.
-
-      - ##### (2) 세션에 저장된 6자리 숫자와 사용자가 적은 숫자를 비교 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L123)
-
-        <br/>
-
-- #### 로그인
-  
-  - ##### 카카오 로그인 API (화면단 : JavaScript) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/webapp/WEB-INF/views/kakaoLogin.jsp#L18)
-
-    - 카카오 로그인 팝업창을 띄워서 로그인 정보를 **로그인 타입 체크 메서드**에 전달
-  
-  - ##### 로그인 타입 체크 (Controller) - 카카오로 로그인 시 :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/login/LoginController.java#L65)
-  
-    - 이메일이 구글이거나 샐러딧 전용 이메일이라면 다시 로그인 화면으로 돌려보내며 경고창을 띄웁니다.
-  
-    - 카카오 이메일이 맞다면, 세션에 회원 정보를 DB에서 가져와서 넣고 메인페이지로 이동합니다.
-  
-      
-  <br/>
 
 ### 4.3. Controller < - > Service
 

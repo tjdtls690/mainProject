@@ -373,12 +373,12 @@ https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-
 
 ### 5.2. DB에서 한 컬럼에 여러개의 이미지 URL 을 한번에 처리해야 하는 문제.
 
-- #### 기존 코드의 상황
+- ### (1) 문제 : 기존 코드의 상황
 
   - ##### 한 상품 당 이미지 파일 개수만큼 컬럼을 만들어서, 컬럼의 개수가 비정상적으로 늘어난 상황
 
 
-- #### 개선된 코드의 상황
+- ### (2) 해결 : 개선된 코드의 상황
 
   - ##### 한 컬럼 안에 URL 간에 구분자(:;:)를 줘서 Controller에서 split 메서드로 나눈다음 List에 담아서 처리
   - ##### 개선된 코드 참조
@@ -414,12 +414,12 @@ https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-
 
 ### 5.3. 달력 처리 문제 (달력 알고리즘 직접 구현)
 
-- #### 기존 코드의 상황
+- ### (1) 문제 : 기존 코드의 상황
 
   - ##### 상품 선택 후, 배송 예정일을 선택할 때 달력을 띄우기 위해 DatePicker API 를 이용해 가져왔지만 해당 페이지와의 CSS 가 너무 엇나가는 느낌이 드는 문제가 발생 (CSS 의 조절이 불가능)
 
 
-- #### 개선된 코드의 상황
+- ### (2) 해결 : 개선된 코드의 상황
 
   - ##### 현재 달력 모달창의 CSS를 페이지에 맞게 수정 후 달력의 날짜가 매일 갱신되도록 달력 알고리즘을 직접 구현
   - ##### 개선된 코드 참조
@@ -565,6 +565,19 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
 </details>
 
 </br>
+	
+- ### (3) 시연 
+	
+<details>
+<summary><b>달력 모달창 시연 영상 (10초)</b></summary>
+<div markdown="1">
+	
+https://user-images.githubusercontent.com/85877080/166143499-eda5c261-bb66-4ca5-bb93-2969040bf612.mp4
+	
+</div>
+</details>
+
+<br/>
 
 ## 6. 그 외 트러블 슈팅
 <details>

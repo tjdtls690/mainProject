@@ -206,7 +206,7 @@
 
 - WAS(tomcat 서버)를 통해 war 파일로 배포 후, 관리자 통계 페이지에서 통계를 PDF 파일로 다운 실패
 
-- ##### (1) 문제 
+- ### (1) 문제 
 
   - ##### 경로가 "C:\\금주 매출.pdf" 로 잡혀있는데, war파일로 배포 후 war파일 안의 폴더로 경로가 잡히는 문제가 발생 (클라이언트로 다운이 안받아짐)
   - ##### 기존 코드 참조
@@ -247,7 +247,7 @@ public void pdfDown(HttpServletRequest request)throws Exception{
 	
 <br/>
 
-- ##### (2) 해결 
+- ### (2) 해결 
 
   - ##### 기존 코드에서 pdf 파일에 내용을 집어넣고 아예 새창으로 띄워서, 클라이언트에서 인쇄와 미리보기가 전부 가능하도록 구현하는 것으로 변경
 
@@ -370,9 +370,9 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
   - ##### 한 컬럼 안에 URL 간에 구분자(:;:)를 줘서 Controller에서 split 메서드로 나눈다음 List에 담아서 처리
   - ##### 개선된 코드 참조
 
-  <details>
-  <summary><b>개선된 코드</b></summary>
-  <div markdown="1">
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
 
   ```java
   // 현재 DB에서 이미지 URL을 담은 컬럼의 상황
@@ -634,6 +634,10 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
     - (2) AWS Management 콘솔을 확인하여 모든 사용이 승인되었는지 확인
 
     - ##### (3) 자바 파일이 아닌 DB에 엑세스 키, 시크릿 키를 저장하고, 필요 시 꺼내서 사용하도록 변경
+	
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
 
     ```java
     // 관리자의 상품 등록 코드 중...
@@ -665,7 +669,10 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
     }
     ```
 
-    
+</div>
+</details>
+
+<br/>
 
 </div>
 </details> 

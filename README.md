@@ -410,7 +410,67 @@ https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-
 
 </br>
 
-### 5.3. 달력 처리 문제 (달력 알고리즘 직접 구현)
+### 5.3. Mybatis를 통해 두 테이블에 차례대로 insert 할 때, 해당 두 데이터를 Auto increment 값(primary key)으로 연결시키는 문제.
+
+- ### (1) 문제 : Auto increment 값은 insert 시, 내가 직접 넣어주는 데이터가 아니기에 현재 데이터가 insert 될 때 어떤 값으로 저장이 되는지 알 수 없다
+  - 따라서 insert 하자마자 바로 제일 최근 저장된 데이터를 꺼내오는 식으로 구현한다 하더라도, 여러 데이터가 거의 동시에 insert 가 되는 경우엔 그 값을 놓치게 될 위험이 존재하게 된다.
+	
+- ### (2) 해결 : 1번째 테이블에 insert 함과 동시에 Auto increment 값(primary key)을 반환 받는 방법으로 해결
+
+
+  - (1) SQL 매퍼파일 중 insert문에 useGeneratedKeys="true" keyProperty="payment_code" 두 속성 추가
+  - (2) 이 insert 문을 실행 시, **자동으로 1씩 증가하며 insert 되는 payment_code 컬럼(Auto increment)의 값**을 VO객체가 반환받고 그대로 다시 나온다.
+
+- #### SQL 매퍼파일
+
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
+
+```xml
+<!-- insert 태그의 속성 중 useGeneratedKeys, keyProperty 속성 -->
+
+<insert id="paymentInfoSave" parameterType="paymentDetailSide" useGeneratedKeys="true" keyProperty="payment_code">
+    
+		insert into payment_info(payment_member_code, payment_date, payment_recipient, payment_recipient_phone, payment_delivery_type,
+		payment_zipcode, payment_address, payment_memo, payment_price, payment_delivery_price, payment_sum_price,
+		payment_coupon_price, payment_point_price, payment_sail_price, payment_final_price) 
+		values(#{payment_member_code}, #{payment_date}, #{payment_recipient}, #{payment_recipient_phone}, #{payment_delivery_type}, #{payment_zipcode}, #{payment_address}, 
+		#{payment_memo}, #{payment_price}, #{payment_delivery_price}, #{payment_sum_price}, #{payment_coupon_price}, #{payment_point_price}, #{payment_sail_price}, #{payment_final_price});
+    
+</insert>
+```
+
+</div>
+</details>
+
+- ### Controller
+
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
+
+```java
+// 결제 테이블
+vo.setPayment_member_code(vo1.getMemberCode());
+vo.setPayment_date(date);
+paymentCompleteService.paymentInfoSave(vo); // mybatis 해당 insert태그의 keyProperty 속성의 컬럼 값이 vo에 자동 저장
+
+// 결제 한 건당 매핑 된 아이템들 저장하는 테이블 (테이블 생성은 완료)
+// 위에 vo에서 payment_code 꺼내서 리스트에 있는 vo에 전부 넣어주면서 저장하면 끝
+for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
+    list.getPaymentMyDetailInfo().get(i).setPayment_code(vo.getPayment_code());
+	list.getPaymentMyDetailInfo().get(i).setPayment_member_code(vo1.getMemberCode());
+   	paymentCompleteService.paymentMappingItemInfoSave(list.getPaymentMyDetailInfo().get(i));
+}
+```
+
+</div>
+</details>
+	
+<br/>
+
+### 5.4. 달력 처리 문제 (달력 알고리즘 직접 구현)
 
 - ### (1) 문제 : 기존 코드의 상황
 
@@ -576,70 +636,6 @@ https://user-images.githubusercontent.com/85877080/166143499-eda5c261-bb66-4ca5-
 <br/>
 
 ## 6. 그 외 트러블 슈팅
-<details>
-<summary><b>Mybatis를 통해 두 테이블에 차례대로 insert 할 때, 해당 두 데이터를 Auto increment 값(primary key)으로 연결시키는 문제.</b></summary>
-<div markdown="1">
-
-
-- ##### 해결 : 1번째 테이블에 insert 함과 동시에 Auto increment 값(primary key)을 반환 받는 방법으로 해결
-
-
-  - (1) SQL 매퍼파일 중 insert문에 useGeneratedKeys="true" keyProperty="payment_code" 두 속성 추가
-  - (2) 이 insert 문을 실행 시, **자동으로 1씩 증가하며 insert 되는 payment_code 컬럼(Auto increment)의 값**을 VO객체가 반환받고 그대로 다시 나온다.
-
-- #### SQL 매퍼파일
-
-<details>
-<summary><b>개선된 코드</b></summary>
-<div markdown="1">
-
-```xml
-<!-- insert 태그의 속성 중 useGeneratedKeys, keyProperty 속성 -->
-
-<insert id="paymentInfoSave" parameterType="paymentDetailSide" useGeneratedKeys="true" keyProperty="payment_code">
-    
-		insert into payment_info(payment_member_code, payment_date, payment_recipient, payment_recipient_phone, payment_delivery_type,
-		payment_zipcode, payment_address, payment_memo, payment_price, payment_delivery_price, payment_sum_price,
-		payment_coupon_price, payment_point_price, payment_sail_price, payment_final_price) 
-		values(#{payment_member_code}, #{payment_date}, #{payment_recipient}, #{payment_recipient_phone}, #{payment_delivery_type}, #{payment_zipcode}, #{payment_address}, 
-		#{payment_memo}, #{payment_price}, #{payment_delivery_price}, #{payment_sum_price}, #{payment_coupon_price}, #{payment_point_price}, #{payment_sail_price}, #{payment_final_price});
-    
-</insert>
-```
-
-</div>
-</details>
-
-- ### Controller
-
-<details>
-<summary><b>개선된 코드</b></summary>
-<div markdown="1">
-
-```java
-// 결제 테이블
-vo.setPayment_member_code(vo1.getMemberCode());
-vo.setPayment_date(date);
-paymentCompleteService.paymentInfoSave(vo); // mybatis 해당 insert태그의 keyProperty 속성의 컬럼 값이 vo에 자동 저장
-
-// 결제 한 건당 매핑 된 아이템들 저장하는 테이블 (테이블 생성은 완료)
-// 위에 vo에서 payment_code 꺼내서 리스트에 있는 vo에 전부 넣어주면서 저장하면 끝
-for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
-    list.getPaymentMyDetailInfo().get(i).setPayment_code(vo.getPayment_code());
-	list.getPaymentMyDetailInfo().get(i).setPayment_member_code(vo1.getMemberCode());
-   	paymentCompleteService.paymentMappingItemInfoSave(list.getPaymentMyDetailInfo().get(i));
-}
-```
-
-</div>
-</details>
-	
-<br/>
-
-</div>
-</details>
-	
-<br/>
 
 <details>
 <summary><b>aws s3 엑세스 키, 시크릿 키 처리 방법</b></summary>

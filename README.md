@@ -211,6 +211,7 @@
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
+	
 ~~~java
 @RequestMapping("/pdfDown.mdo")
 public void pdfDown(HttpServletRequest request)throws Exception{
@@ -409,7 +410,8 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 ~~~java
 // 1번
 // 화면단에서 연, 월, 일을 받아서 윤년, 월을 분류해서 그에 맞는 배열 길이를 넣습니다.
-// 화면단에서 받은 getDay (현재 날짜가 일주일 중 몇번째 요일인지) 정보를 달력 모달창에 넘겨서 월마다 어떤 요일부터 시작하는지 구현하도록 합니다.
+// 화면단에서 받은 getDay (현재 날짜가 일주일 중 몇번째 요일인지) 정보를 달력 모달창에 넘겨서 
+	// 월마다 어떤 요일부터 시작하는지 구현하도록 합니다.
 
 @RequestMapping("/orderDateCalendar.do")
 public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String month, String day, String getDay) {

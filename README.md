@@ -208,7 +208,8 @@
 
 - ##### (1) 문제 
 
-  - ##### 경로가 "C:\\금주 매출.pdf" 로 잡혀있는데, war파일로 배포 후 war파일 안의 폴더로 경로가 잡히는 문제가 발생 (클라이언트로 다운이 안받아짐) - 기존 코드 참조
+  - ##### 경로가 "C:\\금주 매출.pdf" 로 잡혀있는데, war파일로 배포 후 war파일 안의 폴더로 경로가 잡히는 문제가 발생 (클라이언트로 다운이 안받아짐)
+  - ##### 기존 코드 참조
 
 
 <details>
@@ -248,7 +249,8 @@ public void pdfDown(HttpServletRequest request)throws Exception{
 
   - ##### 기존 코드에서 pdf 파일에 내용을 집어넣고 아예 새창으로 띄워서, 클라이언트에서 인쇄와 미리보기가 전부 가능하도록 구현하는 것으로 변경
 
-  - ##### 총 4가지 절차를 통해 해결 (개선된 코드 참조)
+  - ##### 총 4가지 절차를 통해 해결
+  - ##### 개선된 코드 참조
 
 
 <details>
@@ -364,6 +366,7 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 - #### 개선된 코드의 상황
 
   - ##### 한 컬럼 안에 URL 간에 구분자(:;:)를 줘서 Controller에서 split 메서드로 나눈다음 List에 담아서 처리
+  - ##### 개선된 코드 참조
 
   <details>
   <summary><b>개선된 코드</b></summary>
@@ -404,6 +407,7 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 - #### 개선된 코드의 상황
 
   - ##### 현재 달력 모달창의 CSS를 페이지에 맞게 수정 후 달력의 날짜가 매일 갱신되도록 달력 알고리즘을 직접 구현
+  - ##### 개선된 코드 참조
 
 
 <details>

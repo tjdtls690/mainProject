@@ -602,9 +602,13 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
 
 </div>
 </details>
+	
+<br/>
 
 </div>
 </details>
+	
+<br/>
 
 <details>
 <summary><b>aws s3 엑세스 키, 시크릿 키 처리 방법</b></summary>
@@ -655,7 +659,9 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
     
 
 </div>
-</details>  
+</details> 
+	
+<br/>
 
 <details>
 <summary><b>WAS(tomcat 서버)를 통해 war 파일로 배포 후 구글 로그인 API가 "popup_closed_by_user" 경고창이 뜨면서 로그인이 안되는 문제</b></summary>
@@ -666,6 +672,8 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
 
 </div>
 </details>
+	
+<br/>
 
 <details>
 <summary><b>카카오톡 로그인 API가 실행될 때 크롬 콘솔창에서 samesite 에러가 지속적으로 뜨면서 카카오톡 로그인 팝업창이 안뜨는 문제</b></summary>
@@ -680,6 +688,8 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
 
 </div>
 </details>
+	
+<br/>
 
 <details>
 <summary><b>카카오톡 로그인 API 테스트 실행 시 두번째 로그인부터 정보 제공 동의 화면이 띄워지지 않는 문제.</b></summary>
@@ -690,6 +700,8 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
 
 </div>
 </details>
+	
+<br/>
     
 <details>
 <summary><b>카카오톡 로그인 API 테스트 실행 시 두번째 로그인부터 자동로그인만 돼서 새로운 계정으로 로그인이 안되는 문제</b></summary>
@@ -698,7 +710,9 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
   - #####  해결 : https://developers.kakao.com/logout 링크를 들어가는 것만으로 로그인 되어있는 계정 로그아웃.
 
 </div>
-</details>      
+</details>  
+	
+<br/>
 
 <details>
 <summary><b>이미지 미리보기 처리 문제</b></summary>
@@ -736,6 +750,8 @@ function readURL1(input) {
 
 </div>
 </details> 
+	
+<br/>
 
 </div>
 </details> 

@@ -471,6 +471,8 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
 
 <!-- 1. 저번 달에 속한 날짜 (빈칸 비워두는 용도)-->
 <c:forEach var="remain" items="${remainCheck }" varStatus="i">
+	
+    <!-- grid-area 속성에 알고리즘 적용 -->
     <div data-v-3ca35a05="" style="grid-area: 2/${i.count}/auto/auto;">
         <div data-v-2aac4f42="" data-v-4a5f2beb="" attributes="[object Object]" data-v-3ca35a05="">
             <div data-v-2aac4f42="">
@@ -485,6 +487,8 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
 <c:forEach var="list1" items="${list }" varStatus="i">
     <c:if test="${fn:length(list) == 38}">
         <c:if test="${i.count <= 31}">
+		
+	    <!-- grid-area 속성에 알고리즘 적용 -->
             <div data-v-3ca35a05="" style="grid-area: ${(i.count + remainSu - 1) / 7 + 2}/${(i.count + remainSu - 1) % 7 + 1}/auto/auto;">
                 <div data-v-2aac4f42="" data-v-4a5f2beb="" data-v-3ca35a05="">
                     
@@ -510,6 +514,8 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
         
         <!-- 4. 달력을 5줄로 맞춰야 하기에 4줄로 끝나는 달은 공백 날짜 일주일을 더 추가 -->
         <c:if test="${i.count > 31 && remainSu < 5}">
+		
+	    <!-- grid-area 속성에 알고리즘 적용 -->
             <div data-v-3ca35a05="" style="grid-area: ${(i.count + remainSu - 1) / 7 + 2}/${(i.count + remainSu - 1) % 7 + 1}/auto/auto;">
                 <div data-v-2aac4f42="" data-v-4a5f2beb="" data-v-3ca35a05="">
                     <div data-v-2aac4f42="" >

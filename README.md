@@ -359,7 +359,7 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 <br/>
 	
 <details>
-<summary><b>PDF 파일 다운 영상 (10초)</b></summary>
+<summary><b>PDF 파일 다운 시연 영상 (10초)</b></summary>
 <div markdown="1">
 	
 https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-aeed-555b77dad81b.mp4

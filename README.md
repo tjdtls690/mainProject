@@ -355,8 +355,6 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 
 </div>
 </details>
-
-<br/>
 	
 - ### (3) 시연 
 	
@@ -563,8 +561,6 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
 
 </div>
 </details>
-
-</br>
 	
 - ### (3) 시연 
 	

@@ -68,7 +68,7 @@
 
      - ##### 3가지 루트를 커버하기 위해, 필요한 데이터들은 전부 배열 형식으로 받아서 처리.
 
-       
+       <br/>
 
 - #### 주문 페이지 (주문하기 버튼 클릭 후) -> 결제 페이지로 이동
 
@@ -78,7 +78,7 @@
 
     - 리스트 형식으로 받는 클래스 코드 (PaymentSingleListVO) **(Java) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/paymentSingle/PaymentSingleListVO.java#L5)**
 
-      
+      <br/>
 
 - #### 결제 페이지 -> 결제 완료 페이지
 
@@ -90,7 +90,7 @@
 
   - ##### (2) 결제 데이터 전달, 장바구니 목록 갱신, 쿠폰 갱신, 포인트 갱신의 역할을 담당하는 메서드 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/paymentComplete/PaymentCompleteController.java#L37)
 
-    
+    <br/>
 
 - #### 구매한 상품 리뷰 작성 (댓글) - AWS S3에 이미지 파일 업로드 포함
 
@@ -102,14 +102,14 @@
 
     - upload(InputStream is, String key, String contentType, long contentLength) 메서드로 S3 에 이미지 파일 업로드 실행 **(Service) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/s3/AwsS3.java#L94)**
 
-      
+      <br/>
 
 - #### 카카오 우편번호 (주소) 서비스 API
 
   - ##### 먼저 카카오 주소 서비스 API 의 iframe 을 담기 위한 모달창을 띄웁니다. (화면단 : JavaScript) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/webapp/WEB-INF/views/order.jsp#L2262)
   - ##### 띄워진 모달창 안에 API iframe 을 껴맞춰 넣어서 띄웁니다. (화면단 : JavaScript) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/webapp/WEB-INF/views/order.jsp#L87)
   
-  
+  <br/>
   
 - #### 회원가입
 
@@ -130,7 +130,7 @@
 
       - ##### (2) 세션에 저장된 6자리 숫자와 사용자가 적은 숫자를 비교 (Controller) :pushpin: [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/java/project/spring/web/signup/SignUpController.java#L123)
 
-        
+        <br/>
 
 - #### 로그인
   
@@ -145,7 +145,7 @@
     - 카카오 이메일이 맞다면, 세션에 회원 정보를 DB에서 가져와서 넣고 메인페이지로 이동합니다.
   
       
-  
+  <br/>
 
 ### 4.3. Controller < - > Service
 
@@ -160,7 +160,7 @@
     - Service 계층에서 Controller에서 넘어온 데이터를 통해 단품, 구독 상품간의 분류를 거치고 Repository 로 넘겨서 데이터를 받아옵니다.
 
       
-
+<br/>
 
 ### 4.4. Repository (DAO) - 4.3 과 이어진 구조로 설명
 
@@ -170,7 +170,7 @@
 
   - Mybatis에서 반환 된 상품 리스트(데이터) 를 받아서 자신을 호출한 Service로 응답합니다.
 
-    
+    <br/>
 
 ### 4.5. MyBatis (MySQL)
 
@@ -182,7 +182,7 @@
 
   - (3) 매퍼파일에서 SQL 문을 통해 상품 데이터를 반환 **(xml 매퍼 파일) :pushpin:  [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/resources/mappings/order-mapping.xml#L38)**
 
-    
+    <br/>
 
 - ##### 상품 검색 요청에 대한 응답 SQL문 :pushpin:  [코드 확인](https://github.com/tjdtls690/mainProject/blob/dev/src/main/resources/mappings/search-mapping.xml#L39)
 
@@ -193,7 +193,7 @@
 </div>
 </details>
 
-</br>
+<br/>
 
 ## 5. 핵심 트러블 슈팅
 
@@ -349,7 +349,7 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 </div>
 </details>
 
-</br>
+<br/>
 
 ### 5.2. DB에서 한 컬럼에 여러개의 이미지 URL 을 한번에 처리해야 하는 문제.
 

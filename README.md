@@ -244,6 +244,8 @@ public void pdfDown(HttpServletRequest request)throws Exception{
 
 </div>
 </details>
+	
+<br/>
 
 - ##### (2) 해결 
 

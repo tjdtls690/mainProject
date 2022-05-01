@@ -357,6 +357,17 @@ protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWrit
 </details>
 
 <br/>
+	
+<details>
+<summary><b>PDF 파일 다운 영상 (10초)</b></summary>
+<div markdown="1">
+	
+https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-aeed-555b77dad81b.mp4
+	
+</div>
+</details>
+
+<br/>
 
 ### 5.2. DB에서 한 컬럼에 여러개의 이미지 URL 을 한번에 처리해야 하는 문제.
 

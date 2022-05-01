@@ -639,11 +639,11 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
 
-    ```java
-    // 관리자의 상품 등록 코드 중...
+```java
+// 관리자의 상품 등록 코드 중...
     
-    // 메인이미지 업로드
-    try {
+// 메인이미지 업로드
+try {
         AwsS3 awsS3 = new AwsS3();
         
         // awsS3Service 서비스 클래스를 통해 DB에서 키 꺼내오기
@@ -663,11 +663,11 @@ for(int i = 0; i < list.getPaymentMyDetailInfo().size(); i++) {
     
         // DB에 S3 이미지 파일 URL 저장
         vo.setItem_image(url + key);
-        adminItemService.itemInsert(vo);
-    } catch (IOException e) {
-        System.out.println("메인이미지 업로드 실패");
-    }
-    ```
+	adminItemService.itemInsert(vo);
+} catch (IOException e) {
+	System.out.println("메인이미지 업로드 실패");
+}
+```
 
 </div>
 </details>

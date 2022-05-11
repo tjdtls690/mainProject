@@ -15,10 +15,8 @@
   - Java 8
   - Spring Framework
   - Spring MVC
-  - MySQL 5.7
   - Mybatis 
   - SQL Developer
-  - mobaxterm
 #### `Front-end`
   - HTML 
   - CSS 
@@ -26,6 +24,10 @@
   - JQuery
   - JSON
   - BootStrap
+#### `DevOps`
+  - MySQL 5.7
+  - mobaxterm
+  - AWS - EC2, S3, RDS
 
 </br>
 

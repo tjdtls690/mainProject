@@ -1,6 +1,6 @@
 # :pushpin: Saladit!
 >건강식 품목별 판매 웹 사이트 <br/>
->[demo site link](http://ec2-13-125-186-247.ap-northeast-2.compute.amazonaws.com/lastSalad/main.do)
+>[demo site link](https://bit.ly/3sCeCdd)
 
 </br>
 

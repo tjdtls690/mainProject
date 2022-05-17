@@ -16,13 +16,11 @@
   - Spring Framework
   - Spring MVC
   - Mybatis 
-  - SQL Developer
 #### `Front-end`
   - HTML 
   - CSS 
   - JS
   - JQuery
-  - JSON
   - BootStrap
 #### `DevOps`
   - MySQL 5.7

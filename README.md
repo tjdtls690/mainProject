@@ -24,7 +24,6 @@
   - BootStrap
 #### `DevOps`
   - MySQL 5.7
-  - mobaxterm
   - AWS - EC2, S3, RDS
 
 </br>

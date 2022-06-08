@@ -1,6 +1,5 @@
 # :pushpin: Saladit!
 >건강식 품목별 판매 웹 사이트 <br/>
->[demo site link](https://bit.ly/3sCeCdd)
 
 </br>
 

@@ -3,6 +3,16 @@
 
 </br>
 
+## 0. 목차
+  1. [제작 기간 & 참여 인원](https://github.com/tjdtls690/saladit#1-%EC%A0%9C%EC%9E%91-%EA%B8%B0%EA%B0%84--%EC%B0%B8%EC%97%AC-%EC%9D%B8%EC%9B%90-%EA%B0%9C%EB%B0%9C-4%EA%B0%9C%EC%9B%94%EC%B0%A8)
+  2. [사용 기술](https://github.com/tjdtls690/saladit#2-%EC%82%AC%EC%9A%A9-%EA%B8%B0%EC%88%A0)
+  3. [핵심 ERD](https://github.com/tjdtls690/saladit#3-%ED%95%B5%EC%8B%AC-erd)
+  4. [핵심 기능](https://github.com/tjdtls690/saladit#4-%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5)
+  5. [핵심 트러블 슈팅](https://github.com/tjdtls690/saladit#5-%ED%95%B5%EC%8B%AC-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)
+  6. [그 외 트러블 슈팅](https://github.com/tjdtls690/saladit#6-%EA%B7%B8-%EC%99%B8-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)
+
+</br>
+
 ## 1. 제작 기간 & 참여 인원 (개발 4개월차)
 - 2022.2.18 ~ 2022.3.30 (40일)
 - 구성 인원 : Back-end 6명

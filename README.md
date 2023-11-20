@@ -199,163 +199,27 @@
 
 ## 5. 핵심 트러블 슈팅
 
-### 5.1. 통계 데이터 PDF 파일 다운로드 처리 문제
+### 5.1. **통계 데이터 PDF 파일 다운로드 처리 문제 해결**
 
-- 저는 이 프로젝트가 상품 판매 사이트이기에 여러 종류의 매출 통계를 내는 것도 핵심 중 하나라 생각합니다.
+#### 1) 문제 상황
 
-- WAS(tomcat 서버)를 통해 war 파일로 배포 후, 관리자 통계 페이지에서 통계를 PDF 파일로 다운 실패
+- 관리자 페이지의 통계 데이터를 PDF로 다운 받으려 할 때, 클라이언트 경로로 다운로드 되지 않는 문제가 발생했습니다.
 
-- ### (1) 문제 
+#### 2) 원인 분석
 
-  - ##### 경로가 "C:\\금주 매출.pdf" 로 잡혀있는데, war파일로 배포 후 war파일 안의 폴더로 경로가 잡히는 문제가 발생 (클라이언트로 다운이 안받아짐)
-  - ##### 기존 코드 참조
+- PDF 다운로드 경로가 "C:\금주 매출.pdf" 로 잡혀있는데, war파일로 배포 후 war파일 안의 폴더로 경로가 잡혀버렸습니다. (클라이언트로 다운이 안받아짐)
+- 때문에 클라이언트 경로가 아닌 서버 경로로 다운로드가 되었습니다.
 
+#### 3) 문제 해결
 
-<details>
-<summary><b>기존 코드</b></summary>
-<div markdown="1">
-	
-~~~java
-@RequestMapping("/pdfDown.mdo")
-public void pdfDown(HttpServletRequest request)throws Exception{
-
-    try {
-        Document document = new Document(); // pdf문서를 처리하는 객체
-
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\금주 매출.pdf"));
-        // pdf파일의 저장경로를 C드라이브에 '금주 매출.pdf'로 저장한다는 뜻
-
-        document.open(); // 웹페이지에 접근하는 객체를 연다
-        String path =request.getSession().getServletContext().getRealPath("/");
-
-        /* 중간 코드 생략 */
-
-        document.add(table); // 웹접근 객체에 table를 저장한다.
-        document.close(); // 저장이 끝났으면 document객체를 닫는다.
-        System.out.println("성공");
-
-    }catch (Exception e) {
-        System.out.println("실패");
-        e.printStackTrace();
-    }
-}
-~~~
-
-</div>
-</details>
-	
-<br/>
-
-- ### (2) 해결 
-
-  - ##### 기존 코드에서 pdf 파일에 내용을 집어넣고 아예 새창으로 띄워서, 클라이언트에서 인쇄와 미리보기가 전부 가능하도록 구현하는 것으로 변경
-
-  - ##### 총 4가지 절차를 통해 해결
-  - ##### 개선된 코드 참조
-
-
-<details>
-<summary><b>개선된 코드</b></summary>
-<div markdown="1">
-
-~~~java
-// 1번
-// pom.xml 에 의존성 추가
-// PDF 출력을 위한 의존성 설정
-<dependency>
-	<groupId>com.lowagie</groupId>
-	<artifactId>itext</artifactId>
-	<version>2.1.7</version>
-</dependency>
-    
-    
-
-// 2번
-// application.xml 부모 설정파일에 pdf 출력할 클래스를 빈객체로 생성
-// 빈객체 생성
-<context:component-scan base-package="com.pdf.*" />
-    
-// Controller에서 'pdf' 로 뷰 이름 전송 시 밑의 com.pdf.web.PdfDownView 클래스가 처리 후 화면출력
-<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-    <property name="order" value="0" />
-</bean>
-    
-// pdf라는 뷰 이름이 왔을 때 출력할 뷰를 설정
-<bean id="pdf" class="com.pdf.web.PdfDownView"/>
-    
-
-    
-// 3번
-// 컨트롤러에서 리스트로 pdf에 찍을 값을 넘긴 후 pdf 란 이름으로 뷰 이름 보내기
-@RequestMapping("/pdfDown.mdo")
-public String pdfDownload(Model model){
-    //날짜용 메서드
-    LocalDate now = LocalDate.now();
-    DecimalFormat df = new DecimalFormat("00");
-    Calendar currentCalendar = Calendar.getInstance();
-    // 이번 년도	--> 2022
-    int year = now.getYear();
-    //이번달		--> 03
-    String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
-    // 이번달 시작일
-    String startDay = year+"-"+month+"-"+"01";
-    // 이번달 마지막일
-    int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-    String endDay = year+"-"+month+"-"+str;
-
-    AdminReportDayVO vo = new AdminReportDayVO();
-    vo.setDate(startDay);
-    vo.setImpl(endDay);
-    List<AdminReportDayVO> list2 = adminReportDayService.reportMonth(vo);
-
-    //출력할 뷰 이름 리턴
-    model.addAttribute("list", list2);
-    return "pdf";
-}
-
-
-
-// 4번
-// com.pdf.web.PdfDownView 클래스의 pdf를 새창으로 띄워서 출력하는 메서드
-	//첫번째 매개변수가 Controller가 넘겨준 데이터 
-    //두번째 매개변수는 출력할 문서
-@Override
-protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer, HttpServletRequest request,HttpServletResponse response) throws Exception {
-
-    List<String> list = (List<String>)model.get("list");
-    XMLWorkerHelper helper = XMLWorkerHelper.getInstance();
-    //테이블을 생성
-    //1열 list.size()+1 행으로 생성
-    Table table = new Table(1,list.size()+1);
-
-    
-    /* 중간 코드 생략 */
-
-    
-    String path =request.getSession().getServletContext().getRealPath("/");
-    BaseFont baseFont= BaseFont.createFont(path +"/resources/pdfFresh/fresh.ttf".replace('/', File.separatorChar), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-    Font font = new Font(baseFont);
-
-    Cell cell = new Cell(new Paragraph("결제 영수증",font));
-    cell.setHeader(true);
-    table.addCell(cell);
-    table.endHeaders();
-
-    //데이터를 테이블의 셀에 출력
-    for(String language : list){
-        Cell imsi = new Cell(new Paragraph(language,font));
-        table.addCell(imsi);
-    }
-    //문서에 테이블 추가
-    doc.add(table);
-
-}
-~~~
-
-</div>
-</details>
-	
-- ### (3) 시연 
+- **내용을 집어넣은 pdf 파일을 아예 새 탭으로 띄워서, 클라이언트에서 새 탭을 통해 인쇄와 미리보기가 전부 가능하도록 변경하여 문제를 해결했습니다.**
+- 문제 해결 과정
+    - pom.xml에 itext에 대한 의존성을 추가했습니다.
+    - application.xml 설정 파일에 pdf를 출력할 클래스를 빈 객체로 생성한 뒤,  해당 빈 객체를 pdf라는 뷰 이름이 왔을 때 동작 할 클래스로 설정합니다.
+    - 리스트로 pdf에 찍을 값을 정제해서 pdf 란 이름으로 뷰 이름을 보냅니다.
+    - 최종적으로 pdf 내용을 만들고 출력할 빈 객체를 통해, 자바 코드로 문서에 쓰일 표를 만들어 그 표에 데이터를 넣어서 새 탭에 PDF를 출력하도록 구현했습니다.
+ 
+#### (3) 시연 
 	
 <details>
 <summary><b>PDF 파일 다운 시연 영상 (10초)</b></summary>
@@ -368,44 +232,24 @@ https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-
 
 <br/>
 
-### 5.2. DB에서 한 컬럼에 여러개의 이미지 URL 을 한번에 처리해야 하는 문제.
+### 5.2. **DB에서 한 컬럼에 여러개의 이미지 URL을 한 번에 처리해야 하는 문제 해결**
 
-- ### (1) 문제 : 기존 코드의 상황
+#### 1) 문제 상황
 
-  - ##### 한 상품 당 이미지 파일 개수만큼 컬럼을 만들어서, 컬럼의 개수가 비정상적으로 늘어난 상황
+- 각 상품의 소개를 위한 이미지 URL  컬럼 개수가 너무 많아서 데이터 관리가 쉽지 않은 현상이 발생했습니다.
 
+#### 2) 원인 분석
 
-- ### (2) 해결 : 개선된 코드의 상황
+- 각 상품의 소개 이미지 개수가 평균적으로 10개 이상입니다.
+- 상품의 개수가 많고 각 상품의 소개에서 쓰이는 이미지의 개수가 전부 다 달라서, 공통으로 이미지 URL을 관리하기가 어렵습니다.
 
-  - ##### 한 컬럼 안에 URL 간에 구분자(:;:)를 줘서 Controller에서 split 메서드로 나눈다음 List에 담아서 처리
-  - ##### 개선된 코드 참조
+#### 3) 문제 해결 - 고유한 구분자를 사용하여 하나의 컬럼으로 이미지 URL 관리
 
-<details>
-<summary><b>개선된 코드</b></summary>
-<div markdown="1">
-
-  ```java
-  // 현재 DB에서 이미지 URL을 담은 컬럼의 상황
-  // URL:;:URL:;:URL:;:URL:;:URL ...
-  
-  
-  // Controller에서 해당 컬럼의 데이터를 다루는 코드
-  // replace 메서드로 :;: -> \\ 로 변경 후 StringTokenizer 로 \\ 를 구분자 삼아서 나눈다.
-  StringTokenizer st = new StringTokenizer(itemNut.getItem_nut().replace(":;:", "\\"), "\\");
-  List<String> nut = new ArrayList<String>();
-  
-  // 리스트에 나눠진 토큰을 하나씩 담는다.
-  while(st.hasMoreTokens()) {
-      String str1 = st.nextToken();
-      nut.add(str1);
-  }
-  mav.addObject("itemNut", nut);
-  
-  // 이후 화면단에서 c:foreach 문을 통해 전체 이미지 파일 적용
-  ```
-
-</div>
-</details>
+- URL에서 쓰이지 않을만한 고유한 구분자를 지정합니다.
+- 각 상품의 소개 이미지 URL들을 해당 구분자를 사이에 끼워 넣어서 하나의 문자열로 붙입니다.
+- 그 문자열을 하나의 컬럼에 저장합니다.
+- 각 상품 소개 페이지에서 데이터를 조회할 때, 그 문자열을 구분자를 기준으로 나누어서 List로 가져옵니다.
+- 그 리스트 안에 있는 모든 이미지 URL을 순차적으로 뽑아냅니다.
 
 </br>
 

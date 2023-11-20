@@ -210,6 +210,40 @@
 - PDF 다운로드 경로가 "C:\금주 매출.pdf" 로 잡혀있는데, war파일로 배포 후 war파일 안의 폴더로 경로가 잡혀버렸습니다. (클라이언트로 다운이 안받아짐)
 - 때문에 클라이언트 경로가 아닌 서버 경로로 다운로드가 되었습니다.
 
+<details>
+<summary><b>기존 코드(클릭)</b></summary>
+<div markdown="1">
+
+~~~java
+@RequestMapping("/pdfDown.mdo")
+public void pdfDown(HttpServletRequest request)throws Exception{
+
+    try {
+        Document document = new Document(); // pdf문서를 처리하는 객체
+
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\금주 매출.pdf"));
+        // pdf파일의 저장경로를 C드라이브에 '금주 매출.pdf'로 저장한다는 뜻
+
+        document.open(); // 웹페이지에 접근하는 객체를 연다
+        String path =request.getSession().getServletContext().getRealPath("/");
+
+        /* 중간 코드 생략 */
+
+        document.add(table); // 웹접근 객체에 table를 저장한다.
+        document.close(); // 저장이 끝났으면 document객체를 닫는다.
+        System.out.println("성공");
+
+    }catch (Exception e) {
+        System.out.println("실패");
+        e.printStackTrace();
+    }
+}
+~~~
+</div>
+</details>
+
+<br/>
+
 #### 3) 문제 해결
 
 - **내용을 집어넣은 pdf 파일을 아예 새 탭으로 띄워서, 클라이언트에서 새 탭을 통해 인쇄와 미리보기가 전부 가능하도록 변경하여 문제를 해결했습니다.**
@@ -218,6 +252,96 @@
     - application.xml 설정 파일에 pdf를 출력할 클래스를 빈 객체로 생성한 뒤,  해당 빈 객체를 pdf라는 뷰 이름이 왔을 때 동작 할 클래스로 설정합니다.
     - 리스트로 pdf에 찍을 값을 정제해서 pdf 란 이름으로 뷰 이름을 보냅니다.
     - 최종적으로 pdf 내용을 만들고 출력할 빈 객체를 통해, 자바 코드로 문서에 쓰일 표를 만들어 그 표에 데이터를 넣어서 새 탭에 PDF를 출력하도록 구현했습니다.
+  
+<details>
+<summary><b>개선된 코드 (클릭)</b></summary>
+<div markdown="1">
+	
+~~~java
+// 1번
+// pom.xml 에 의존성 추가
+// PDF 출력을 위한 의존성 설정
+<dependency>
+	<groupId>com.lowagie</groupId>
+	<artifactId>itext</artifactId>
+	<version>2.1.7</version>
+</dependency>
+    
+    
+// 2번
+// application.xml 부모 설정파일에 pdf 출력할 클래스를 빈객체로 생성
+// 빈객체 생성
+<context:component-scan base-package="com.pdf.*" />
+    
+// Controller에서 'pdf' 로 뷰 이름 전송 시 밑의 com.pdf.web.PdfDownView 클래스가 처리 후 화면출력
+<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    <property name="order" value="0" />
+</bean>
+    
+// pdf라는 뷰 이름이 왔을 때 출력할 뷰를 설정
+<bean id="pdf" class="com.pdf.web.PdfDownView"/>
+    
+    
+// 3번
+// 컨트롤러에서 리스트로 pdf에 찍을 값을 넘긴 후 pdf 란 이름으로 뷰 이름 보내기
+@RequestMapping("/pdfDown.mdo")
+public String pdfDownload(Model model){
+    //날짜용 메서드
+    LocalDate now = LocalDate.now();
+    DecimalFormat df = new DecimalFormat("00");
+    Calendar currentCalendar = Calendar.getInstance();
+    // 이번 년도	--> 2022
+    int year = now.getYear();
+    //이번달		--> 03
+    String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+    // 이번달 시작일
+    String startDay = year+"-"+month+"-"+"01";
+    // 이번달 마지막일
+    int str = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    String endDay = year+"-"+month+"-"+str;
+    AdminReportDayVO vo = new AdminReportDayVO();
+    vo.setDate(startDay);
+    vo.setImpl(endDay);
+    List<AdminReportDayVO> list2 = adminReportDayService.reportMonth(vo);
+    //출력할 뷰 이름 리턴
+    model.addAttribute("list", list2);
+    return "pdf";
+}
+// 4번
+// com.pdf.web.PdfDownView 클래스의 pdf를 새창으로 띄워서 출력하는 메서드
+	//첫번째 매개변수가 Controller가 넘겨준 데이터 
+    //두번째 매개변수는 출력할 문서
+@Override
+protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer, HttpServletRequest request,HttpServletResponse response) throws Exception {
+    List<String> list = (List<String>)model.get("list");
+    XMLWorkerHelper helper = XMLWorkerHelper.getInstance();
+    //테이블을 생성
+    //1열 list.size()+1 행으로 생성
+    Table table = new Table(1,list.size()+1);
+    
+    /* 중간 코드 생략 */
+    
+    String path =request.getSession().getServletContext().getRealPath("/");
+    BaseFont baseFont= BaseFont.createFont(path +"/resources/pdfFresh/fresh.ttf".replace('/', File.separatorChar), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+    Font font = new Font(baseFont);
+    Cell cell = new Cell(new Paragraph("결제 영수증",font));
+    cell.setHeader(true);
+    table.addCell(cell);
+    table.endHeaders();
+    //데이터를 테이블의 셀에 출력
+    for(String language : list){
+        Cell imsi = new Cell(new Paragraph(language,font));
+        table.addCell(imsi);
+    }
+    //문서에 테이블 추가
+    doc.add(table);
+}
+~~~
+
+</div>
+</details>
+
+<br/>
  
 #### (3) 시연 
 	
@@ -272,7 +396,7 @@ https://user-images.githubusercontent.com/85877080/166142993-e414ae1b-5f20-4118-
 
 
 <details>
-<summary><b>개선된 코드 1번</b></summary>
+<summary><b>개선된 코드 1번 (클릭)</b></summary>
 <div markdown="1">
 
 ~~~java
@@ -320,7 +444,7 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
 </details>
 
 <details>
-<summary><b>개선된 코드 2번</b></summary>
+<summary><b>개선된 코드 2번 (클릭)</b></summary>
 <div markdown="1">
 	
 ~~~jsp
@@ -409,6 +533,8 @@ public ModelAndView orderDateCalendarDo(ModelAndView mav, String year, String mo
 
 </div>
 </details>
+
+<br/>
 	
 - ### (3) 시연 
 	
@@ -425,13 +551,8 @@ https://user-images.githubusercontent.com/85877080/166143499-eda5c261-bb66-4ca5-
 
 ## 6. 그 외 트러블 슈팅
 
-<details>
-<summary><b>aws s3 엑세스 키, 시크릿 키 처리 방법</b></summary>
-<div markdown="1">
-
-
+### 1) aws s3 엑세스 키, 시크릿 키 처리 방법
   - #### 실수로 깃허브에 AWS S3의 엑세스, 시크릿 키를 올리게 돼서 AWS 계정 폐쇄 위기 직면
-
   - ##### 해결 
 
 
@@ -442,7 +563,7 @@ https://user-images.githubusercontent.com/85877080/166143499-eda5c261-bb66-4ca5-
     - ##### (3) 자바 파일이 아닌 DB에 엑세스 키, 시크릿 키를 저장하고, 필요 시 꺼내서 사용하도록 변경
 	
 <details>
-<summary><b>개선된 코드</b></summary>
+<summary><b>개선된 코드 (클릭)</b></summary>
 <div markdown="1">
 
 ```java
@@ -477,73 +598,24 @@ try {
 
 </div>
 </details>
-
-<br/>
-
-</div>
-</details> 
 	
 <br/>
 
-<details>
-<summary><b>WAS(tomcat 서버)를 통해 war 파일로 배포 후 구글 로그인 API가 "popup_closed_by_user" 경고창이 뜨면서 로그인이 안되는 문제</b></summary>
-<div markdown="1">
-
-
-  - ##### 해결 : 크롬 우측 상단 더보기 -> 도구 더보기 -> 인터넷 사용 기록 삭제 -> 캐시된 이미지 및 파일만 체크 -> 인터넷 사용 기록 삭제 버튼 클릭
-
-</div>
-</details>
+### 2) WAS(tomcat 서버)를 통해 war 파일로 배포 후 구글 로그인 API가 "popup_closed_by_user" 경고창이 뜨면서 로그인이 안되는 문제
+  - 해결 : 크롬 우측 상단 더보기 -> 도구 더보기 -> 인터넷 사용 기록 삭제 -> 캐시된 이미지 및 파일만 체크 -> 인터넷 사용 기록 삭제 버튼 클릭
 	
 <br/>
 
-<details>
-<summary><b>카카오 로그인 API가 실행될 때 크롬 콘솔창에서 samesite 에러가 지속적으로 뜨면서 카카오 로그인 팝업창이 안뜨는 문제</b></summary>
-<div markdown="1">
-
-
-  - #####  해결 : 개발자 모드(f12)를 끄고 실행 
-
-
-    - 해결책을 찾아보는 중에 <code><strong>쿠키 설정을 SameSite=None 로 변경</strong></code>해줘야한다고 했지만 **쿠키설정 변경 없이 개발자 모드를 꺼주고 실행해주는 것만으로 해결**이 됐다.
-
-
-</div>
-</details>
-	
-<br/>
-
-<details>
-<summary><b>카카오 로그인 API 테스트 실행 시 두번째 로그인부터 정보 제공 동의 화면이 띄워지지 않는 문제.</b></summary>
-<div markdown="1">
-
-
+### 3) 카카오 로그인 API 테스트 실행 시 두번째 로그인부터 정보 제공 동의 화면이 띄워지지 않는 문제
   -  해결 : https://accounts.kakao.com/weblogin/account/info 링크(계정관리 사이트)에 들어가서 **상단에 계정 이용 탭 -> 외부 서비스 전체보기 -> 해당 서비스(앱) 연결 끊기**
-
-</div>
-</details>
-	
-<br/>
-    
-<details>
-<summary><b>카카오 로그인 API 테스트 실행 시 두번째 로그인부터 자동로그인만 돼서 새로운 계정으로 로그인이 안되는 문제</b></summary>
-<div markdown="1">
-
-  - #####  해결 : https://developers.kakao.com/logout 링크를 들어가는 것만으로 로그인 되어있는 계정 로그아웃.
-
-</div>
-</details>  
 	
 <br/>
 
-<details>
-<summary><b>이미지 미리보기 처리 문제</b></summary>
-<div markdown="1">
-
+### 4) 이미지 미리보기 처리 문제
 - 이미지 추가 버튼 클릭 -> 이미지 파일을 선택 후, 선택한 이미지 파일을 버튼 옆에 미리보기 할 수 있도록 개선
 
 <details>
-<summary><b>개선된 코드</b></summary>
+<summary><b>개선된 코드 (클릭)</b></summary>
 <div markdown="1">
 
 ```javascript
@@ -572,10 +644,3 @@ function readURL1(input) {
 
 </div>
 </details> 
-	
-<br/>
-
-</div>
-</details> 
-
-</br>
